@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubstrateNetApi", "SubstrateNetApi\SubstrateNetApi.csproj", "{A9A29CC9-09EC-4624-8156-654A0E0936D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubstrateNetApiTest", "SubstrateNetApiTest\SubstrateNetApiTest.csproj", "{44F3AE7C-8392-4CE4-9EA6-3F3E3EF647FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9A29CC9-09EC-4624-8156-654A0E0936D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A29CC9-09EC-4624-8156-654A0E0936D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A29CC9-09EC-4624-8156-654A0E0936D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A29CC9-09EC-4624-8156-654A0E0936D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44F3AE7C-8392-4CE4-9EA6-3F3E3EF647FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F3AE7C-8392-4CE4-9EA6-3F3E3EF647FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44F3AE7C-8392-4CE4-9EA6-3F3E3EF647FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44F3AE7C-8392-4CE4-9EA6-3F3E3EF647FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1FBEB6F7-2D6B-4FEE-9A8A-A1019D944AFE}
+	EndGlobalSection
+EndGlobal
