@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace SubstrateNetApi
 {
-    public class Utilstest
+    public class UtilsTest
     {
         [SetUp]
         public void Setup()

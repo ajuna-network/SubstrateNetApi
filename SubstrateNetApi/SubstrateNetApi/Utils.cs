@@ -7,8 +7,25 @@ using System.Text;
 
 namespace SubstrateNetApi
 {
-    public static class Utils
+    public class Utils
     {
+        public enum HexStringFormat { PURE, DASH, PREFIXED }
+
+        public static string Bytes2HexString(byte[] bytes, HexStringFormat format = HexStringFormat.PREFIXED)
+        {
+            switch (format)
+            {
+                case HexStringFormat.PURE:
+                    return BitConverter.ToString(bytes).Replace("-", string.Empty);
+                case HexStringFormat.DASH:
+                    return BitConverter.ToString(bytes);
+                case HexStringFormat.PREFIXED:
+                    return $"0x{BitConverter.ToString(bytes).Replace("-", string.Empty)}";
+                default:
+                    throw new Exception($"Unimplemented hex string format '{format}'");
+            }
+        }
+
         public static byte[] HexToByteArray(string hex)
         {
             if (hex.Length % 2 == 1)

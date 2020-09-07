@@ -9,7 +9,7 @@ namespace SubstrateNetApi
 
     public class RequestGenerator
     {
-        public static string GetStorage(Module module, Item item, string parameter = null)
+        public static string GetStorage(Module module, Item item, byte[] parameter = null)
         {
             var mBytes = Encoding.ASCII.GetBytes(module.Name);
             var iBytes = Encoding.ASCII.GetBytes(item.Name);
@@ -23,6 +23,8 @@ namespace SubstrateNetApi
                     return request;
                 case Storage.Type.Map:
 
+                    //var keyType = item.Function.Key1;
+                    
                     switch (item.Function.Hasher)
                     {
                         case Storage.Hasher.Identity:

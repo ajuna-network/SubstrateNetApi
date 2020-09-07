@@ -76,7 +76,7 @@ namespace SubstrateNetApi
                                 break;
                         }
 
-                        item.FallBack = Bytes2HexString(ExtractBytes(m, ref p));
+                        item.FallBack = Utils.Bytes2HexString(ExtractBytes(m, ref p));
 
                         var docLen = DecodeCompactInteger(m, ref p);
                         item.Documentations = new string[(int)docLen.Value];
@@ -163,7 +163,7 @@ namespace SubstrateNetApi
                     {
                         Name = ExtractString(m, ref p),
                         Type = ExtractString(m, ref p),
-                        Value = Bytes2HexString(ExtractBytes(m, ref p))
+                        Value = Utils.Bytes2HexString(ExtractBytes(m, ref p))
                     };
                     ;
 
@@ -214,23 +214,7 @@ namespace SubstrateNetApi
             return _md11;
         }
 
-        public enum HexStringFormat { DASH, PREFIXED }
-
-        public string Bytes2HexString(byte[] bytes, HexStringFormat format = HexStringFormat.PREFIXED)
-        {
-            switch (format)
-            {
-                case HexStringFormat.DASH:
-                    return BitConverter.ToString(bytes);
-                case HexStringFormat.PREFIXED:
-                    return $"0x{BitConverter.ToString(bytes).Replace("-", string.Empty)}";
-                default:
-                    return BitConverter.ToString(bytes);
-            }
-        }
-
-
-        private byte[] ExtractBytes(byte[] m, ref int p, HexStringFormat format = HexStringFormat.PREFIXED)
+        private byte[] ExtractBytes(byte[] m, ref int p, Utils.HexStringFormat format = Utils.HexStringFormat.PREFIXED)
         {
             var value = DecodeCompactInteger(m, ref p).Value;
             byte[] bytes = new byte[(int)value];
