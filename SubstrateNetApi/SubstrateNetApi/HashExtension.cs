@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.HashFunction.xxHash;
+
 using System.Linq;
+using Extensions.Data;
 
 namespace SubstrateNetApi
 {
@@ -10,10 +11,7 @@ namespace SubstrateNetApi
 
         public static byte[] XXHash128(byte[] bytes)
         {
-            IxxHash xxHashSeed0 = xxHashFactory.Instance.Create(new xxHashConfig() { HashSizeInBits = 64, Seed = 0});
-            IxxHash xxHashSeed1 = xxHashFactory.Instance.Create(new xxHashConfig() { HashSizeInBits = 64, Seed = 1 });
-            return xxHashSeed0.ComputeHash(bytes).Hash.Concat(xxHashSeed1.ComputeHash(bytes).Hash).ToArray();
-
+            return BitConverter.GetBytes(XXHash.XXH64(bytes, 0)).Concat(BitConverter.GetBytes(XXHash.XXH64(bytes, 1))).ToArray();
         }
 
         public static byte[] Blake2(byte[] bytes, int size = 128, IReadOnlyList<byte> key = null)
