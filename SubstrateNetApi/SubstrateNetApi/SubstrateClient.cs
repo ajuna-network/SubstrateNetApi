@@ -44,7 +44,7 @@ namespace SubstrateNetApi
             MetaData = metaDataParser.MetaData;
         }
 
-        public async Task<object> TryRequestAsync(string moduleName, string itemName)
+        public async Task<object> TryRequestAsync(string moduleName, string itemName, string parameter = null)
         {
             if (socket.State != WebSocketState.Open)
             {
@@ -55,24 +55,51 @@ namespace SubstrateNetApi
             if (MetaData.TryGetModuleByName(moduleName, out Module module) && module.Storage.TryGetStorageItemByName(itemName, out Item item))
             {
                 string method = "state_getStorage";
-                string parameters = "0x" + RequestGenerator.GetStorage(module, item);
+
+                if (item.Function?.Key1 != null && parameter == null)
+                {
+                    throw new Exception($"{moduleName}.{itemName} needs a parameter oof type '{item.Function?.Key1}'!");
+                }
+
+                string parameters;
+                if (item.Function?.Key1 != null)
+                {
+                    byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter);
+                    parameters = "0x" + RequestGenerator.GetStorage(module, item, key1Bytes);
+                } 
+                else
+                {
+                    parameters = "0x" + RequestGenerator.GetStorage(module, item);
+                }
+
                 string value = item.Function.Value;
 
-                Console.WriteLine($"Invoking request[{method}, params: {parameters}, value: {value}");
+                Console.WriteLine($"Invoking request[{method}, params: {parameters}, value: {value}] {MetaData.Origin}");
+
                 var resultString = await jsonRpc.InvokeWithParameterObjectAsync<string>(method, new object[] { parameters }, cts.Token);
+
+                byte[] bytes = Utils.HexToByteArray(resultString);
+                Console.WriteLine($"=> {resultString} [{bytes.Length}]");
+
                 switch (value)
                 {
                     case "u16":
-                        result = BitConverter.ToUInt16(Utils.HexToByteArray(resultString), 0);
+                        result = BitConverter.ToUInt16(bytes, 0);
                         break;
                     case "u32":
-                        result = BitConverter.ToUInt32(Utils.HexToByteArray(resultString), 0);
+                        result = BitConverter.ToUInt32(bytes, 0);
                         break;
                     case "u64":
-                        result = BitConverter.ToUInt64(Utils.HexToByteArray(resultString), 0);
+                        result = BitConverter.ToUInt64(bytes, 0);
                         break;
                     case "T::AccountId":
                         result = new AccountId(resultString);
+                        break;
+                    case "T::Hash":
+                        result = new Hash(resultString);
+                        break;
+                    case "MogwaiStruct<T::Hash, BalanceOf<T>>":
+                        result = new MogwaiStruct(resultString);
                         break;
                     default:
                         throw new Exception($"Unknown type '{value}' for result '{resultString}'!");

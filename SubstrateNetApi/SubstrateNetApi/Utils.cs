@@ -85,6 +85,24 @@ namespace SubstrateNetApi
             throw new ApplicationException("Address checksum is wrong.");
         }
 
+        internal static byte[] KeyTypeToBytes(string keyType, string parameter)
+        {
+            switch (keyType)
+            {
+                case "u16":
+                    return BitConverter.GetBytes(UInt16.Parse(parameter));
+                case "u32":
+                    return BitConverter.GetBytes(UInt32.Parse(parameter));
+                case "u64":
+                    return BitConverter.GetBytes(UInt64.Parse(parameter));
+                case "T::Hash":
+                    return new Hash(parameter).Bytes;
+                default:
+                    throw new Exception("Unimplemented item function key 'item.Function.Key1'!");
+            }
+
+        }
+
         public static string GetAddressFrom(byte[] bytes)
         {
             int SR25519_PUBLIC_SIZE = 32;

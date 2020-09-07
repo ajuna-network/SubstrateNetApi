@@ -15,24 +15,23 @@ namespace SubstrateNetApi
             var iBytes = Encoding.ASCII.GetBytes(item.Name);
 
             var keybytes = HashExtension.XXHash128(mBytes).Concat(HashExtension.XXHash128(iBytes)).ToArray();
-            var request = BitConverter.ToString(keybytes).Replace("-", "");
             
             switch (item.Type)
             {
                 case Storage.Type.Plain:
-                    return request;
+                    return BitConverter.ToString(keybytes).Replace("-", "");
                 case Storage.Type.Map:
-
-                    //var keyType = item.Function.Key1;
-                    
+                   
                     switch (item.Function.Hasher)
                     {
                         case Storage.Hasher.Identity:
-                            //keybytes.Concat(Utils.HexToByteArray(parameter)).;
-                            return "";
+                            return BitConverter.ToString(keybytes.Concat(parameter).ToArray()).Replace("-", "");
+
                         case Storage.Hasher.Blake2_128:
                         case Storage.Hasher.Blake2_256:
                         case Storage.Hasher.Blake2_128Concat:
+                            return BitConverter.ToString(keybytes.Concat(HashExtension.Blake2Concat(parameter)).ToArray()).Replace("-", "");
+
                         case Storage.Hasher.Twox128:
                         case Storage.Hasher.Twox256:
                         case Storage.Hasher.Twox64Concat:
