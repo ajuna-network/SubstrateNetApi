@@ -1,9 +1,9 @@
-﻿using System;
-using NLog;
+﻿using NLog;
+using System;
 
 namespace SubstrateNetApi.TypeConverters
 {
-    public class U64TypeConverter : ITypeConverter
+    internal class U64TypeConverter : ITypeConverter
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         public string TypeName { get; } = "u64";

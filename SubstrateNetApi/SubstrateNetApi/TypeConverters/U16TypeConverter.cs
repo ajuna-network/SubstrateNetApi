@@ -3,7 +3,7 @@ using System;
 
 namespace SubstrateNetApi.TypeConverters
 {
-    public class U16TypeConverter : ITypeConverter
+    internal class U16TypeConverter : ITypeConverter
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         public string TypeName { get; } = "u16";

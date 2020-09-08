@@ -3,7 +3,7 @@ using SubstrateNetApi.MetaDataModel.Values;
 
 namespace SubstrateNetApi.TypeConverters
 {
-    public class HashTypeConverter : ITypeConverter
+    internal class HashTypeConverter : ITypeConverter
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         public string TypeName { get; } = "T::Hash";

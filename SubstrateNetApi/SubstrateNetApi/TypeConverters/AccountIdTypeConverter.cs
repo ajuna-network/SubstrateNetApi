@@ -3,7 +3,7 @@ using SubstrateNetApi.MetaDataModel.Values;
 
 namespace SubstrateNetApi.TypeConverters
 {
-    public class AccountIdTypeConverter : ITypeConverter
+    internal class AccountIdTypeConverter : ITypeConverter
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         public string TypeName { get; } = "T::AccountId";
