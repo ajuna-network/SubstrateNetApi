@@ -4,7 +4,7 @@ using SubstrateNetApi.MetaDataModel;
 
 namespace SubstrateNetApiTest
 {
-    public class RequestGeneratorTest
+    public class RequestGeneratorTests
     {
         [SetUp]
         public void Setup()

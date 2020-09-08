@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SubstrateNetApiTest
 {
-    public class HashExtensionTest
+    public class HashExtensionTests
     {
         [SetUp]
         public void Setup()

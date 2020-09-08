@@ -4,7 +4,7 @@ using SubstrateNetApi;
 
 namespace SubstrateNetApiTest
 {
-    public class UtilsTest
+    public class UtilsTests
     {
         [SetUp]
         public void Setup()

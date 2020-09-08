@@ -5,8 +5,11 @@ using SubstrateNetApi.MetaDataModel;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Net.WebSockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+
+[assembly: InternalsVisibleTo("SubstrateNetApiTest")]
 
 namespace SubstrateNetApi
 {
@@ -65,7 +68,7 @@ namespace SubstrateNetApi
 
         public async Task<object> GetStorageAsync(string moduleName, string itemName)
         {
-            return await GetStorageAsync(moduleName, itemName, null, CancellationToken.None);
+            return await GetStorageAsync(moduleName, itemName, CancellationToken.None);
         }
 
         public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token)
