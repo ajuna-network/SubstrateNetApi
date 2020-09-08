@@ -1,7 +1,6 @@
 ﻿using NLog;
 using NUnit.Framework;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ namespace SubstrateNetApiTest
         private const string WebSocketUrl = "wss://boot.worldofmogwais.com";
 
         private SubstrateClient _substrateClient;
-
+        
         [SetUp]
         public void Setup()
         {

@@ -13,7 +13,7 @@ namespace SubstrateNetApiTest
 
         private SubstrateClient _substrateClient;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             var config = new NLog.Config.LoggingConfiguration();
@@ -30,7 +30,7 @@ namespace SubstrateNetApiTest
             _substrateClient = new SubstrateClient(new Uri(WebSocketUrl));
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             _substrateClient.Dispose();
