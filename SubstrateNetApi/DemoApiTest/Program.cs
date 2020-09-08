@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.Threading;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi;
+using SubstrateNetApi.TypeConverters;
 
 namespace DemoApiTest
 {
@@ -52,6 +53,8 @@ namespace DemoApiTest
         static async Task MainAsync(CancellationToken cancellationToken)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
 
             await client.ConnectAsync(cancellationToken);
 

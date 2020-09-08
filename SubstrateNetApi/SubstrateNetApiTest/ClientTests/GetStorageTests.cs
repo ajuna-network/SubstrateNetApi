@@ -68,7 +68,7 @@ namespace SubstrateNetApiTests.ClientTests
         public async Task InvalidStorageNameTestAsync()
         {
             await _substrateClient.ConnectAsync();
-            
+
             Assert.ThrowsAsync<MissingModuleOrItemException>(async () => await _substrateClient.GetStorageAsync("Invalid", "Name"));
 
             await _substrateClient.CloseAsync();
@@ -78,6 +78,18 @@ namespace SubstrateNetApiTests.ClientTests
         public void InvalidConnectionStateTest()
         {
             Assert.ThrowsAsync<ClientNotConnectedException>(async () => await _substrateClient.GetStorageAsync("Invalid", "Name"));
+        }
+
+        [Test]
+        public async Task MissingTypeConverterTestAsync()
+        {
+            await _substrateClient.ConnectAsync();
+
+            Assert.ThrowsAsync<MissingConverterException>(async () =>
+                await _substrateClient.GetStorageAsync("Dmog", "Mogwais",
+                    "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C"));
+
+            await _substrateClient.CloseAsync();
         }
     }
 }

@@ -4,11 +4,13 @@ using StreamJsonRpc;
 using SubstrateNetApi.MetaDataModel;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
+using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using SubstrateNetApi.Exceptions;
+using SubstrateNetApi.TypeConverters;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
@@ -26,11 +28,26 @@ namespace SubstrateNetApi
         private CancellationTokenSource _connectTokenSource;
         private CancellationTokenSource _requestTokenSource;
 
+        private readonly Dictionary<string, ITypeConverter> _typeConverters = new Dictionary<string, ITypeConverter>();
+
         public MetaData MetaData { get; private set; }
 
         public SubstrateClient(Uri uri)
         {
             _uri = uri;
+            RegisterTypeConverter(new U16TypeConverter());
+            RegisterTypeConverter(new U32TypeConverter());
+            RegisterTypeConverter(new U64TypeConverter());
+            RegisterTypeConverter(new AccountIdTypeConverter());
+            RegisterTypeConverter(new HashTypeConverter());
+        }
+
+        public void RegisterTypeConverter(ITypeConverter converter)
+        {
+            if (_typeConverters.ContainsKey(converter.TypeName))
+                throw new Exception("Converter for specified type already registered.");
+
+            _typeConverters.Add(converter.TypeName, converter);
         }
 
         public bool IsConnected => _socket?.State == WebSocketState.Open;
@@ -94,74 +111,47 @@ namespace SubstrateNetApi
         public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter, CancellationToken token)
         {
             if (_socket.State != WebSocketState.Open)
-            {
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
-            }
 
-            object result;
-            if (MetaData.TryGetModuleByName(moduleName, out Module module) && module.Storage.TryGetStorageItemByName(itemName, out Item item))
+            if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.Storage.TryGetStorageItemByName(itemName, out Item item))
+                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
+
+            string method = "state_getStorage";
+
+            if (item.Function?.Key1 != null && parameter == null)
+                throw new Exception($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
+
+            string parameters;
+            if (item.Function?.Key1 != null)
             {
-                string method = "state_getStorage";
-
-                if (item.Function?.Key1 != null && parameter == null)
-                {
-                    throw new Exception($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
-                }
-
-                string parameters;
-                if (item.Function?.Key1 != null)
-                {
-                    byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter);
-                    parameters = "0x" + RequestGenerator.GetStorage(module, item, key1Bytes);
-                }
-                else
-                {
-                    parameters = "0x" + RequestGenerator.GetStorage(module, item);
-                }
-
-                string value = item?.Function?.Value;
-                Logger.Debug($"Invoking request[{method}, params: {parameters}, value: {value}] {MetaData.Origin}");
-
-                _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-                var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
-                var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, new object[] { parameters }, linkedTokenSource.Token);
-                linkedTokenSource.Dispose();
-                _requestTokenSource.Dispose();
-                _requestTokenSource = null;
-
-                byte[] bytes = Utils.HexToByteArray(resultString);
-                Logger.Debug($"=> {resultString} [{bytes.Length}]");
-
-                switch (value)
-                {
-                    case "u16":
-                        result = BitConverter.ToUInt16(bytes, 0);
-                        break;
-                    case "u32":
-                        result = BitConverter.ToUInt32(bytes, 0);
-                        break;
-                    case "u64":
-                        result = BitConverter.ToUInt64(bytes, 0);
-                        break;
-                    case "T::AccountId":
-                        result = new AccountId(resultString);
-                        break;
-                    case "T::Hash":
-                        result = new Hash(resultString);
-                        break;
-                    case "MogwaiStruct<T::Hash, BalanceOf<T>>":
-                        result = new MogwaiStruct(resultString);
-                        break;
-                    default:
-                        throw new Exception($"Unknown type '{value}' for result '{resultString}'!");
-                }
+                byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter);
+                parameters = "0x" + RequestGenerator.GetStorage(module, item, key1Bytes);
             }
             else
             {
-                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
+                parameters = "0x" + RequestGenerator.GetStorage(module, item);
             }
 
-            return result;
+            string returnType = item.Function?.Value;
+            Logger.Debug($"Invoking request[{method}, params: {parameters}, returnType: {returnType}] {MetaData.Origin}");
+
+            if (string.IsNullOrWhiteSpace(returnType))
+                throw new Exception("Invalid return type in metadata.");
+
+            _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            var linkedTokenSource =
+                CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
+            var resultString =
+                await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, new object[] { parameters },
+                    linkedTokenSource.Token);
+            linkedTokenSource.Dispose();
+            _requestTokenSource.Dispose();
+            _requestTokenSource = null;
+
+            if (!_typeConverters.ContainsKey(returnType))
+                throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
+
+            return _typeConverters[returnType].Create(resultString);
         }
 
         public async Task CloseAsync()
