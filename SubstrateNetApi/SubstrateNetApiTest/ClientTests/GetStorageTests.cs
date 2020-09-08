@@ -4,6 +4,7 @@ using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Threading.Tasks;
+using SubstrateNetApi.Exceptions;
 
 namespace SubstrateNetApiTests.ClientTests
 {
@@ -61,6 +62,22 @@ namespace SubstrateNetApiTests.ClientTests
             Assert.IsTrue(request is Hash);
 
             await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task InvalidStorageNameTestAsync()
+        {
+            await _substrateClient.ConnectAsync();
+            
+            Assert.ThrowsAsync<MissingModuleOrItemException>(async () => await _substrateClient.GetStorageAsync("Invalid", "Name"));
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public void InvalidConnectionStateTest()
+        {
+            Assert.ThrowsAsync<ClientNotConnectedException>(async () => await _substrateClient.GetStorageAsync("Invalid", "Name"));
         }
     }
 }

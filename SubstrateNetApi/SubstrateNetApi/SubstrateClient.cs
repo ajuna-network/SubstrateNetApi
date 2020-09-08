@@ -8,6 +8,7 @@ using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using SubstrateNetApi.Exceptions;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
@@ -94,7 +95,7 @@ namespace SubstrateNetApi
         {
             if (_socket.State != WebSocketState.Open)
             {
-                throw new Exception($"WebSocketState is not open! Currently {_socket.State}!");
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
             }
 
             object result;
@@ -104,7 +105,7 @@ namespace SubstrateNetApi
 
                 if (item.Function?.Key1 != null && parameter == null)
                 {
-                    throw new Exception($"{moduleName}.{itemName} needs a parameter oof type '{item.Function?.Key1}'!");
+                    throw new Exception($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
                 }
 
                 string parameters;
@@ -157,7 +158,7 @@ namespace SubstrateNetApi
             }
             else
             {
-                throw new Exception($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
+                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
             }
 
             return result;
