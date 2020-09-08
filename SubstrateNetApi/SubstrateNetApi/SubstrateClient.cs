@@ -18,7 +18,7 @@ namespace SubstrateNetApi
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private readonly Uri _uri;
 
-        private readonly ClientWebSocket _socket;
+        private ClientWebSocket _socket;
 
         private JsonRpc _jsonRpc;
 
@@ -30,7 +30,6 @@ namespace SubstrateNetApi
         public SubstrateClient(Uri uri)
         {
             _uri = uri;
-            _socket = new ClientWebSocket();
         }
 
         public bool IsConnected => _socket?.State == WebSocketState.Open;
@@ -42,6 +41,16 @@ namespace SubstrateNetApi
 
         public async Task ConnectAsync(CancellationToken token)
         {
+            if (_socket != null && _socket.State == WebSocketState.Open)
+                return;
+
+            if (_socket == null || _socket.State != WebSocketState.None)
+            {
+                _jsonRpc?.Dispose();
+                _socket?.Dispose();
+                _socket = new ClientWebSocket();
+            }
+
             _connectTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _connectTokenSource.Token);
             await _socket.ConnectAsync(_uri, linkedTokenSource.Token);

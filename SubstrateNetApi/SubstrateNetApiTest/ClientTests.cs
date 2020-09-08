@@ -1,4 +1,4 @@
-using NLog;
+﻿using NLog;
 using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Values;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SubstrateNetApiTest
 {
-    public class GetStorageTests
+    class ClientTests
     {
         private const string WebSocketUrl = "wss://boot.worldofmogwais.com";
 
@@ -37,30 +37,27 @@ namespace SubstrateNetApiTest
         }
 
         [Test]
-        public async Task BasicTestAsync()
+        public async Task MultipleConnectionsTestAsync()
         {
             await _substrateClient.ConnectAsync();
-
-            var reqResult = await _substrateClient.GetStorageAsync("Sudo", "Key");
-            Assert.AreEqual("AccountId", reqResult.GetType().Name);
-            Assert.IsTrue(reqResult is AccountId);
-
-            var accountId = (AccountId)reqResult;
-            Assert.AreEqual("5GYZnHJ4dCtTDoQj4H5H9E727Ykv8NLWKtPAupEc3uJ89BGr", accountId.Address);
-
+            Assert.IsTrue(_substrateClient.IsConnected);
+            await _substrateClient.CloseAsync();
+            Assert.IsFalse(_substrateClient.IsConnected);
+            await _substrateClient.ConnectAsync();
+            Assert.IsTrue(_substrateClient.IsConnected);
             await _substrateClient.CloseAsync();
         }
 
         [Test]
-        public async Task ParameterizedTestAsync()
+        public async Task ConnectWhileConnectedTestAsync()
         {
             await _substrateClient.ConnectAsync();
-
-            var request = await _substrateClient.GetStorageAsync("Dmog", "AllMogwaisArray", "0");
-            Assert.AreEqual("Hash", request.GetType().Name);
-            Assert.IsTrue(request is Hash);
-
+            Assert.IsTrue(_substrateClient.IsConnected);
+            await _substrateClient.ConnectAsync();
+            Assert.IsTrue(_substrateClient.IsConnected);
             await _substrateClient.CloseAsync();
+            Assert.IsFalse(_substrateClient.IsConnected);
         }
+
     }
 }
