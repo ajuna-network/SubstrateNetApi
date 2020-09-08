@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SubstrateNetApi.MetaDataModel;
+using System;
 using System.Linq;
 using System.Text;
-using StreamJsonRpc.Protocol;
 
 namespace SubstrateNetApi
 {
@@ -15,13 +14,13 @@ namespace SubstrateNetApi
             var iBytes = Encoding.ASCII.GetBytes(item.Name);
 
             var keybytes = HashExtension.XXHash128(mBytes).Concat(HashExtension.XXHash128(iBytes)).ToArray();
-            
+
             switch (item.Type)
             {
                 case Storage.Type.Plain:
                     return BitConverter.ToString(keybytes).Replace("-", "");
                 case Storage.Type.Map:
-                   
+
                     switch (item.Function.Hasher)
                     {
                         case Storage.Hasher.Identity:

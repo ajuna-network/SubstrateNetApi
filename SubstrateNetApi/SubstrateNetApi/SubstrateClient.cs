@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.Threading;
 using NLog;
 using StreamJsonRpc;
+using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Net.WebSockets;
 using System.Threading;

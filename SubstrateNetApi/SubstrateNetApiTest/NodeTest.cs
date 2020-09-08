@@ -1,8 +1,10 @@
+using NUnit.Framework;
+using SubstrateNetApi;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Threading.Tasks;
-using NUnit.Framework;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApiTest
 {
     public class Tests
     {

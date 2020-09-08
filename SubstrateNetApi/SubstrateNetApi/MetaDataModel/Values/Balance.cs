@@ -1,4 +1,4 @@
-﻿namespace SubstrateNetApi
+﻿namespace SubstrateNetApi.MetaDataModel.Values
 {
     public class Balance
     {

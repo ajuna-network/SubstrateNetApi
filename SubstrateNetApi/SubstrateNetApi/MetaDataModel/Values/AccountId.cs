@@ -1,8 +1,6 @@
-﻿using System.Net.Sockets;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApi.MetaDataModel.Values
 {
     public class AccountId
     {

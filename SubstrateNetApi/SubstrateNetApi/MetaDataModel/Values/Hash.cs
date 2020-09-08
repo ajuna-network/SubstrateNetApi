@@ -1,7 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApi.MetaDataModel.Values
 {
     internal class Hash
     {

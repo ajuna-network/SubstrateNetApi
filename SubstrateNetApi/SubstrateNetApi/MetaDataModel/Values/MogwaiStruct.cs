@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApi.MetaDataModel.Values
 {
     internal class MogwaiStruct
     {

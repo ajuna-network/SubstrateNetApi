@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubstrateNetApi.MetaDataModel;
+using System;
 using System.Text;
 
 namespace SubstrateNetApi
@@ -48,13 +49,13 @@ namespace SubstrateNetApi
                     {
                         var item = new Item();
                         item.Name = ExtractString(m, ref p);
-                        item.Modifier = (Storage.Modifier) BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0);
+                        item.Modifier = (Storage.Modifier)BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0);
 
-                        item.Type = (Storage.Type) BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0);
+                        item.Type = (Storage.Type)BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0);
 
                         item.Function = new Function
                         {
-                            Hasher = (Storage.Hasher) (item.Type != Storage.Type.Plain ? BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0) : -1),
+                            Hasher = (Storage.Hasher)(item.Type != Storage.Type.Plain ? BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0) : -1),
 
                         };
 

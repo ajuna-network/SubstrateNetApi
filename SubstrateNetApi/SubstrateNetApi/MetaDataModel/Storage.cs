@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApi.MetaDataModel
 {
     public class Storage
     {

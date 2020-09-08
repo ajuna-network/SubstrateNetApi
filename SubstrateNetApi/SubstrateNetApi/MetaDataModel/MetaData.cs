@@ -1,8 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApi.MetaDataModel
 {
     public class MetaData
     {
@@ -19,7 +19,7 @@ namespace SubstrateNetApi
         public bool TryGetModuleByName(string name, out Module result)
         {
             result = null;
-            foreach(Module module in Modules)
+            foreach (Module module in Modules)
             {
                 if (module.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
                 {

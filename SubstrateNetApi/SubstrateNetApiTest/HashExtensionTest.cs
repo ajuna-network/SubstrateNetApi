@@ -1,8 +1,9 @@
+using NUnit.Framework;
+using SubstrateNetApi;
 using System;
 using System.Text;
-using NUnit.Framework;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApiTest
 {
     public class HashExtensionTest
     {

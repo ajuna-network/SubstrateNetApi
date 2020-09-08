@@ -1,8 +1,8 @@
 using System;
-using System.Text;
 using NUnit.Framework;
+using SubstrateNetApi;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApiTest
 {
     public class UtilsTest
     {
