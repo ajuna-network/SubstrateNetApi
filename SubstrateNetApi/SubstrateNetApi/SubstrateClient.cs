@@ -30,6 +30,8 @@ namespace SubstrateNetApi
             _socket = new ClientWebSocket();
         }
 
+        public bool IsConnected => _socket?.State == WebSocketState.Open;
+
         public async Task ConnectAsync()
         {
             await ConnectAsync(CancellationToken.None);
