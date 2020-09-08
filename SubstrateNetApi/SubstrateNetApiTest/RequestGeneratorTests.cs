@@ -2,7 +2,7 @@ using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel;
 
-namespace SubstrateNetApiTest
+namespace SubstrateNetApiTests
 {
     public class RequestGeneratorTests
     {

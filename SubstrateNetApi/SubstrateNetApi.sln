@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubstrateNetApi", "SubstrateNetApi\SubstrateNetApi.csproj", "{A9A29CC9-09EC-4624-8156-654A0E0936D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetApi", "SubstrateNetApi\SubstrateNetApi.csproj", "{A9A29CC9-09EC-4624-8156-654A0E0936D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubstrateNetApiTest", "SubstrateNetApiTest\SubstrateNetApiTest.csproj", "{44F3AE7C-8392-4CE4-9EA6-3F3E3EF647FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetApiTests", "SubstrateNetApiTest\SubstrateNetApiTests.csproj", "{44F3AE7C-8392-4CE4-9EA6-3F3E3EF647FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApiTest", "DemoApiTest\DemoApiTest.csproj", "{39D8197A-AA12-4796-8B9F-39E57ADC73B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApiTest", "DemoApiTest\DemoApiTest.csproj", "{39D8197A-AA12-4796-8B9F-39E57ADC73B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

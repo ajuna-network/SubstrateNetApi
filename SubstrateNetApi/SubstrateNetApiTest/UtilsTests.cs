@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 using SubstrateNetApi;
 
-namespace SubstrateNetApiTest
+namespace SubstrateNetApiTests
 {
     public class UtilsTests
     {

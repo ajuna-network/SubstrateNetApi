@@ -3,7 +3,7 @@ using SubstrateNetApi;
 using System;
 using System.Text;
 
-namespace SubstrateNetApiTest
+namespace SubstrateNetApiTests
 {
     public class HashExtensionTests
     {
