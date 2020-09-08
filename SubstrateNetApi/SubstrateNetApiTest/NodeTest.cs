@@ -22,14 +22,14 @@ namespace SubstrateNetApi
         {
             await substrateClient.ConnectAsync();
 
-            var reqResult = await substrateClient.TryRequestAsync("Sudo", "Key");
+            var reqResult = await substrateClient.GetStorageAsync("Sudo", "Key");
             Assert.AreEqual("AccountId", reqResult.GetType().Name);
             Assert.IsTrue(reqResult is AccountId);
 
             var accountId = (AccountId) reqResult;
             Assert.AreEqual("5GYZnHJ4dCtTDoQj4H5H9E727Ykv8NLWKtPAupEc3uJ89BGr", accountId.Address);
 
-            substrateClient.Disconnect();
+            await substrateClient.CloseAsync();
         }
     }
 }

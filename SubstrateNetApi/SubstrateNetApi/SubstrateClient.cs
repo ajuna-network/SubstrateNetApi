@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.Threading;
+﻿using Microsoft.VisualStudio.Threading;
 using NLog;
 using StreamJsonRpc;
+using System;
+using System.Net.WebSockets;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SubstrateNetApi
 {
     public class SubstrateClient : IDisposable
     {
-        private static ILogger Logger = LogManager.GetCurrentClassLogger();
-        private Uri uri;
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+        private readonly Uri _uri;
 
-        private readonly ClientWebSocket socket;
+        private readonly ClientWebSocket _socket;
 
-        private JsonRpc jsonRpc;
+        private JsonRpc _jsonRpc;
 
         private CancellationTokenSource _connectTokenSource;
         private CancellationTokenSource _requestTokenSource;
@@ -26,8 +24,8 @@ namespace SubstrateNetApi
 
         public SubstrateClient(Uri uri)
         {
-            this.uri = uri;
-            this.socket = new ClientWebSocket();
+            _uri = uri;
+            _socket = new ClientWebSocket();
         }
 
         public async Task ConnectAsync()
@@ -39,48 +37,48 @@ namespace SubstrateNetApi
         {
             _connectTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _connectTokenSource.Token);
-            await socket.ConnectAsync(uri, linkedTokenSource.Token);
+            await _socket.ConnectAsync(_uri, linkedTokenSource.Token);
             linkedTokenSource.Dispose();
             _connectTokenSource.Dispose();
             _connectTokenSource = null;
             Logger.Debug("Connected to Websocket.");
-            
-            jsonRpc = new JsonRpc(new WebSocketMessageHandler(socket));
-            jsonRpc.StartListening();
+
+            _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket));
+            _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
 
             _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_requestTokenSource.Token, token);
-            var result = await jsonRpc.InvokeWithCancellationAsync<string>("state_getMetadata", null, linkedTokenSource.Token);
+            var result = await _jsonRpc.InvokeWithCancellationAsync<string>("state_getMetadata", null, linkedTokenSource.Token);
             linkedTokenSource.Dispose();
             _requestTokenSource.Dispose();
             _requestTokenSource = null;
 
-            var metaDataParser = new MetaDataParser(uri.OriginalString, result);
+            var metaDataParser = new MetaDataParser(_uri.OriginalString, result);
             MetaData = metaDataParser.MetaData;
             Logger.Debug("MetaData parsed.");
         }
 
-        public async Task<object> RequestAsync(string moduleName, string itemName)
+        public async Task<object> GetStorageAsync(string moduleName, string itemName)
         {
-            return await RequestAsync(moduleName, itemName, null, CancellationToken.None);
+            return await GetStorageAsync(moduleName, itemName, null, CancellationToken.None);
         }
 
-        public async Task<object> RequestAsync(string moduleName, string itemName, CancellationToken token)
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token)
         {
-            return await RequestAsync(moduleName, itemName, null, token);
+            return await GetStorageAsync(moduleName, itemName, null, token);
         }
 
-        public async Task<object> RequestAsync(string moduleName, string itemName, string parameter)
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter)
         {
-            return await RequestAsync(moduleName, itemName, parameter, CancellationToken.None);
+            return await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
         }
 
-        public async Task<object> RequestAsync(string moduleName, string itemName, string parameter, CancellationToken token)
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter, CancellationToken token)
         {
-            if (socket.State != WebSocketState.Open)
+            if (_socket.State != WebSocketState.Open)
             {
-                throw new Exception($"WebSocketState is not open! Currently {socket.State}!");
+                throw new Exception($"WebSocketState is not open! Currently {_socket.State}!");
             }
 
             object result;
@@ -104,12 +102,12 @@ namespace SubstrateNetApi
                     parameters = "0x" + RequestGenerator.GetStorage(module, item);
                 }
 
-                string value = item.Function.Value;
+                string value = item?.Function?.Value;
                 Logger.Debug($"Invoking request[{method}, params: {parameters}, value: {value}] {MetaData.Origin}");
 
                 _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
                 var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
-                var resultString = await jsonRpc.InvokeWithParameterObjectAsync<string>(method, new object[] { parameters }, linkedTokenSource.Token);
+                var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, new object[] { parameters }, linkedTokenSource.Token);
                 linkedTokenSource.Dispose();
                 _requestTokenSource.Dispose();
                 _requestTokenSource = null;
@@ -159,13 +157,14 @@ namespace SubstrateNetApi
             _connectTokenSource?.Cancel();
             _requestTokenSource?.Cancel();
 
-            if (socket.State == WebSocketState.Open)
+            if (_socket.State == WebSocketState.Open)
             {
                 var closeTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
                 var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(closeTokenSource.Token, token);
-                await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", linkedTokenSource.Token);
+                await _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Close requested.", linkedTokenSource.Token);
                 linkedTokenSource.Dispose();
                 closeTokenSource.Dispose();
+                Logger.Debug("Client closed.");
             }
         }
 
@@ -181,8 +180,9 @@ namespace SubstrateNetApi
                     new JoinableTaskFactory(new JoinableTaskContext()).Run(CloseAsync);
                     _connectTokenSource?.Dispose();
                     _requestTokenSource?.Dispose();
-                    jsonRpc?.Dispose();
-                    socket?.Dispose();
+                    _jsonRpc?.Dispose();
+                    _socket?.Dispose();
+                    Logger.Debug("Client disposed.");
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

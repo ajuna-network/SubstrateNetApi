@@ -51,40 +51,35 @@ namespace DemoApiTest
 
         static async Task MainAsync(CancellationToken cancellationToken)
         {
-            using (SubstrateClient client = new SubstrateClient(new Uri(WEBSOCKETURL)))
-            {
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 
-                await client.ConnectAsync(cancellationToken);
+            await client.ConnectAsync(cancellationToken);
 
-                /***
-                 * Testing storage data ...
-                 */
+            /***
+             * Testing storage data ...
+             */
 
-                //var reqResult = await client.RequestAsync("Sudo", "Key");
+            //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
-                // [Plain] Value: u64
-                //var reqResult = await client.RequestAsync("Dmog", "AllMogwaisCount");
+            // [Plain] Value: u64
+            //var reqResult = await client.GetStorageAsync("Dmog", "AllMogwaisCount", cancellationToken);
 
-                // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
-                //var reqResult = await client.RequestAsync("Dmog", "AllMogwaisArray", "0");
+            // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
+            //var reqResult = await client.GetStorageAsync("Dmog", "AllMogwaisArray", "0", cancellationToken);
 
-                // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
-                //var reqResult = await client.RequestAsync("Dmog", "MogwaiOwner", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C");
+            // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
+            //var reqResult = await client.GetStorageAsync("Dmog", "MogwaiOwner", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
 
-                // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
-                var reqResult = await client.RequestAsync("Dmog", "Mogwais",
-                    "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
+            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
+            var reqResult = await client.GetStorageAsync("Dmog", "Mogwais", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
 
+            // Print result
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
-                // Print result
-                Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+            // Serializer
+            //Console.WriteLine(client.MetaData.Serialize());
 
-                // Serializer
-                //Console.WriteLine(client.MetaData.Serialize());
-
-                await client.CloseAsync(cancellationToken);
-
-            }
+            //await client.CloseAsync(cancellationToken);
         }
     }
 }
