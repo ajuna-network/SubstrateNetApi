@@ -109,8 +109,8 @@ namespace SubstrateNetApi
 
         public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter, CancellationToken token)
         {
-            if (_socket.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
 
             if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.Storage.TryGetStorageItemByName(itemName, out Item item))
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
@@ -145,6 +145,11 @@ namespace SubstrateNetApi
             return _typeConverters[returnType].Create(resultString);
         }
 
+        public async Task<string> GetMethodAsync(string method)
+        {
+            return await GetMethodAsync(method, CancellationToken.None);
+        }
+
         public async Task<string> GetMethodAsync(string method, CancellationToken token)
         {
             return await InvokeAsync(method, null, token);
@@ -152,8 +157,8 @@ namespace SubstrateNetApi
 
         private async Task<string> InvokeAsync(string method, object parameters, CancellationToken token)
         {
-            if (_socket.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
 
             Logger.Debug($"Invoking request[{method}, params: {parameters}] {MetaData.Origin}");
 
@@ -188,11 +193,11 @@ namespace SubstrateNetApi
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -207,7 +212,7 @@ namespace SubstrateNetApi
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

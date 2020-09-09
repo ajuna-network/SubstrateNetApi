@@ -66,5 +66,23 @@ namespace SubstrateNetApiTests.ClientTests
             _substrateClient.RegisterTypeConverter(new MogwaiStructTypeConverter());
             Assert.Throws<ConverterAlreadyRegisteredException>(() => _substrateClient.RegisterTypeConverter(new MogwaiStructTypeConverter()));
         }
+
+        [Test]
+        public async Task GetMethodTestAsync()
+        {
+            await _substrateClient.ConnectAsync();
+
+            var result = await _substrateClient.GetMethodAsync("system_name");
+            Assert.AreEqual("Substrate Node", result);
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public void GetMethodNotConnectedTest()
+        {
+            Assert.ThrowsAsync<ClientNotConnectedException>(async () =>
+                await _substrateClient.GetMethodAsync("system_name"));
+        }
     }
 }
