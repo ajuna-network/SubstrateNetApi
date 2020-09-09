@@ -1,16 +1,15 @@
 ﻿using Microsoft.VisualStudio.Threading;
 using NLog;
 using StreamJsonRpc;
+using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.MetaDataModel;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.TypeConverters;
 using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using SubstrateNetApi.Exceptions;
-using SubstrateNetApi.TypeConverters;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
@@ -45,7 +44,7 @@ namespace SubstrateNetApi
         public void RegisterTypeConverter(ITypeConverter converter)
         {
             if (_typeConverters.ContainsKey(converter.TypeName))
-                throw new Exception("Converter for specified type already registered.");
+                throw new ConverterAlreadyRegisteredException("Converter for specified type already registered.");
 
             _typeConverters.Add(converter.TypeName, converter);
         }
@@ -110,8 +109,8 @@ namespace SubstrateNetApi
 
         public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter, CancellationToken token)
         {
-            if (_socket.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
 
             if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.Storage.TryGetStorageItemByName(itemName, out Item item))
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
@@ -138,39 +137,39 @@ namespace SubstrateNetApi
             if (string.IsNullOrWhiteSpace(returnType))
                 throw new Exception("Invalid return type in metadata.");
 
-            _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            var linkedTokenSource =
-                CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
-            var resultString =
-                await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, new object[] { parameters },
-                    linkedTokenSource.Token);
-            linkedTokenSource.Dispose();
-            _requestTokenSource.Dispose();
-            _requestTokenSource = null;
-
+            var resultString = await InvokeAsync(method, new object[] {parameters}, token);
+            
             if (!_typeConverters.ContainsKey(returnType))
                 throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
 
             return _typeConverters[returnType].Create(resultString);
         }
 
+        public async Task<string> GetMethodAsync(string method)
+        {
+            return await GetMethodAsync(method, CancellationToken.None);
+        }
+
         public async Task<string> GetMethodAsync(string method, CancellationToken token)
         {
-            if (_socket.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
+            return await InvokeAsync(method, null, token);
+        }
 
-            Logger.Debug($"Invoking request[{method}] {MetaData.Origin}");
+        private async Task<string> InvokeAsync(string method, object parameters, CancellationToken token)
+        {
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
+
+            Logger.Debug($"Invoking request[{method}, params: {parameters}] {MetaData.Origin}");
 
             _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
-            var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, null, linkedTokenSource.Token);
+            var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, parameters, linkedTokenSource.Token);
             linkedTokenSource.Dispose();
             _requestTokenSource.Dispose();
             _requestTokenSource = null;
-
             return resultString;
         }
-
 
         public async Task CloseAsync()
         {
@@ -182,7 +181,7 @@ namespace SubstrateNetApi
             _connectTokenSource?.Cancel();
             _requestTokenSource?.Cancel();
 
-            if (_socket.State == WebSocketState.Open)
+            if (_socket != null && _socket.State == WebSocketState.Open)
             {
                 var closeTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
                 var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(closeTokenSource.Token, token);
@@ -194,11 +193,11 @@ namespace SubstrateNetApi
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -213,7 +212,7 @@ namespace SubstrateNetApi
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 
