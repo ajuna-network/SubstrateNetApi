@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Schnorrkel\Schnorrkel.csproj" />
     <ProjectReference Include="..\SubstrateNetApi\SubstrateNetApi.csproj" />
   </ItemGroup>
 

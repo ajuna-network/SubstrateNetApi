@@ -40,27 +40,9 @@
         {
             var s = new Signature();
             s.FromBytes011(signature);
-            var pk = new PublicKey(publicKey);
             var signingContext = new SigningContext011(Encoding.UTF8.GetBytes("substrate"));
-            var st = new SigningTranscript(signingContext);
             signingContext.ts = signingContext.Bytes(message);
-
-            return Verify(st, s, pk);
-        }
-
-        public static byte[] SignSimple(string publicKey, string secretKey, string message)
-        {
-            var sk = SecretKey.FromBytes011(Encoding.UTF8.GetBytes(secretKey));
-            var pk = new PublicKey(Encoding.UTF8.GetBytes(publicKey));
-            var signingContext = new SigningContext011(Encoding.UTF8.GetBytes("substrate"));
-            var st = new SigningTranscript(signingContext);
-            signingContext.ts = signingContext.Bytes(Encoding.UTF8.GetBytes(message));
-
-            var rng = new Simple();
-
-            var sig = Sign(st, sk, pk, rng);
-
-            return sig.ToBytes011();
+            return Verify(new SigningTranscript(signingContext), s, new PublicKey(publicKey));
         }
 
         internal static bool Verify(SigningTranscript st, Signature sig, PublicKey publicKey)
