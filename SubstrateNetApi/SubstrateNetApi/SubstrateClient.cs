@@ -44,7 +44,7 @@ namespace SubstrateNetApi
         public void RegisterTypeConverter(ITypeConverter converter)
         {
             if (_typeConverters.ContainsKey(converter.TypeName))
-                throw new Exception("Converter for specified type already registered.");
+                throw new ConverterAlreadyRegisteredException("Converter for specified type already registered.");
 
             _typeConverters.Add(converter.TypeName, converter);
         }
@@ -137,16 +137,8 @@ namespace SubstrateNetApi
             if (string.IsNullOrWhiteSpace(returnType))
                 throw new Exception("Invalid return type in metadata.");
 
-            _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            var linkedTokenSource =
-                CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
-            var resultString =
-                await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, new object[] { parameters },
-                    linkedTokenSource.Token);
-            linkedTokenSource.Dispose();
-            _requestTokenSource.Dispose();
-            _requestTokenSource = null;
-
+            var resultString = await InvokeAsync(method, new object[] {parameters}, token);
+            
             if (!_typeConverters.ContainsKey(returnType))
                 throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
 
@@ -155,21 +147,24 @@ namespace SubstrateNetApi
 
         public async Task<string> GetMethodAsync(string method, CancellationToken token)
         {
+            return await InvokeAsync(method, null, token);
+        }
+
+        private async Task<string> InvokeAsync(string method, object parameters, CancellationToken token)
+        {
             if (_socket.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
 
-            Logger.Debug($"Invoking request[{method}] {MetaData.Origin}");
+            Logger.Debug($"Invoking request[{method}, params: {parameters}] {MetaData.Origin}");
 
             _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
-            var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, null, linkedTokenSource.Token);
+            var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, parameters, linkedTokenSource.Token);
             linkedTokenSource.Dispose();
             _requestTokenSource.Dispose();
             _requestTokenSource = null;
-
             return resultString;
         }
-
 
         public async Task CloseAsync()
         {
@@ -181,7 +176,7 @@ namespace SubstrateNetApi
             _connectTokenSource?.Cancel();
             _requestTokenSource?.Cancel();
 
-            if (_socket.State == WebSocketState.Open)
+            if (_socket != null && _socket.State == WebSocketState.Open)
             {
                 var closeTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
                 var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(closeTokenSource.Token, token);

@@ -1,6 +1,8 @@
 ﻿using NLog;
 using NUnit.Framework;
 using SubstrateNetApi;
+using SubstrateNetApi.Exceptions;
+using SubstrateNetApi.TypeConverters;
 using System;
 using System.Threading.Tasks;
 
@@ -58,5 +60,11 @@ namespace SubstrateNetApiTests.ClientTests
             Assert.IsFalse(_substrateClient.IsConnected);
         }
 
+        [Test]
+        public void MultipleConverterTest()
+        {
+            _substrateClient.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            Assert.Throws<ConverterAlreadyRegisteredException>(() => _substrateClient.RegisterTypeConverter(new MogwaiStructTypeConverter()));
+        }
     }
 }
