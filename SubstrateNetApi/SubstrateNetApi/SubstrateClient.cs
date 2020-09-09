@@ -1,16 +1,15 @@
 ﻿using Microsoft.VisualStudio.Threading;
 using NLog;
 using StreamJsonRpc;
+using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.MetaDataModel;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.TypeConverters;
 using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using SubstrateNetApi.Exceptions;
-using SubstrateNetApi.TypeConverters;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
