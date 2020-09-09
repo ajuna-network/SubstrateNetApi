@@ -154,6 +154,24 @@ namespace SubstrateNetApi
             return _typeConverters[returnType].Create(resultString);
         }
 
+        public async Task<string> GetMethodAsync(string method, CancellationToken token)
+        {
+            if (_socket.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket.State}!");
+
+            Logger.Debug($"Invoking request[{method}] {MetaData.Origin}");
+
+            _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
+            var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<string>(method, null, linkedTokenSource.Token);
+            linkedTokenSource.Dispose();
+            _requestTokenSource.Dispose();
+            _requestTokenSource = null;
+
+            return resultString;
+        }
+
+
         public async Task CloseAsync()
         {
             await CloseAsync(CancellationToken.None);

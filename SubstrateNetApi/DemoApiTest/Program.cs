@@ -74,7 +74,11 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("Dmog", "MogwaiOwner", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
-            var reqResult = await client.GetStorageAsync("Dmog", "Mogwais", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("Dmog", "Mogwais", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
+
+            //var reqResult = await client.GetMethodAsync("system_name", cancellationToken);
+            var reqResult = await client.GetMethodAsync("chain_getBlockHash", cancellationToken);
+            
 
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");

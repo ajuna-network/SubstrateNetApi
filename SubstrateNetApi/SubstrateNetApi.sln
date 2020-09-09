@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetApiTests", "Sub
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApiTest", "DemoApiTest\DemoApiTest.csproj", "{39D8197A-AA12-4796-8B9F-39E57ADC73B3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnorrkel", "Schnorrkel\Schnorrkel.csproj", "{3A3C5C33-26C0-400D-A2FC-420B096FD8E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{39D8197A-AA12-4796-8B9F-39E57ADC73B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39D8197A-AA12-4796-8B9F-39E57ADC73B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39D8197A-AA12-4796-8B9F-39E57ADC73B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A3C5C33-26C0-400D-A2FC-420B096FD8E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3C5C33-26C0-400D-A2FC-420B096FD8E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3C5C33-26C0-400D-A2FC-420B096FD8E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3C5C33-26C0-400D-A2FC-420B096FD8E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
