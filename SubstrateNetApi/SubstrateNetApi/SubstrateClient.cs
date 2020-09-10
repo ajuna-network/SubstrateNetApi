@@ -40,6 +40,7 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new U64TypeConverter());
             RegisterTypeConverter(new AccountIdTypeConverter());
             RegisterTypeConverter(new HashTypeConverter());
+            RegisterTypeConverter(new AccountInfoConverter());
         }
 
         public void RegisterTypeConverter(ITypeConverter converter)

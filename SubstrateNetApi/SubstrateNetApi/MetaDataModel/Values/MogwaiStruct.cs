@@ -5,8 +5,6 @@ namespace SubstrateNetApi.MetaDataModel.Values
 {
     internal class MogwaiStruct
     {
-        private string resultString;
-
         public Hash Id { get; }
 
         public Hash Dna { get; }
@@ -15,18 +13,16 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public ulong Gen { get; }
 
-        public MogwaiStruct(string resultString)
+        public MogwaiStruct(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
-            var str = resultString;
-            if (resultString.StartsWith("0x"))
-            {
-                str = resultString.Substring(2);
-            }
-
-            Id = new Hash(str.Substring(0, 64));
-            Dna = new Hash(str.Substring(64, 64));
-            Price = new Balance(str.Substring(128, 32));
-            Gen = BitConverter.ToUInt64(Utils.HexToByteArray(str.Substring(160, 16)), 0);
+        }
+         
+        internal MogwaiStruct(Memory<byte> memory)
+        {
+            Id = new Hash(memory.Slice(0, 32));
+            Dna = new Hash(memory.Slice(32, 32));
+            Price = new Balance(memory.Slice(64, 16));
+            Gen = BitConverter.ToUInt64(memory.Slice(80, 8).ToArray(), 0);
         }
 
         override

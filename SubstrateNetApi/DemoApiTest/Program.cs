@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi;
+using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 
 namespace DemoApiTest
@@ -73,13 +74,17 @@ namespace DemoApiTest
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
             //var reqResult = await client.GetStorageAsync("Dmog", "MogwaiOwner", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
-
+            
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("Dmog", "Mogwais", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
 
             //var reqResult = await client.GetMethodAsync<string>("system_name", cancellationToken);
             //var reqResult = await client.GetMethodAsync<string>("chain_getBlockHash", cancellationToken);
-            var reqResult = await client.GetMethodAsync<JObject>("rpc_methods", cancellationToken);
+            //var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
+
+            // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
+            var reqResult = await client.GetStorageAsync("System", "Account", "0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D", cancellationToken);
+
 
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");

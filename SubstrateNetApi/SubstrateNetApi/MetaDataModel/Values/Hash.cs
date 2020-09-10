@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
@@ -11,9 +12,13 @@ namespace SubstrateNetApi.MetaDataModel.Values
         [JsonIgnore]
         public byte[] Bytes { get; }
 
-        public Hash(string resultString)
+        public Hash(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
-            Bytes = Utils.HexToByteArray(resultString);
+        }
+
+        internal Hash(Memory<byte> memory)
+        {
+            Bytes = memory.ToArray();
             HexString = Utils.Bytes2HexString(Bytes, Utils.HexStringFormat.PREFIXED);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
@@ -8,9 +9,13 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public byte[] PublicKey { get; }
 
-        public AccountId(string resultString)
+        public AccountId(string str): this(Utils.HexToByteArray(str).AsMemory())
         {
-            PublicKey = Utils.HexToByteArray(resultString);
+        }
+
+        internal AccountId(Memory<byte> memory)
+        {
+            PublicKey = memory.ToArray();
             Address = Utils.GetAddressFrom(PublicKey);
         }
 
