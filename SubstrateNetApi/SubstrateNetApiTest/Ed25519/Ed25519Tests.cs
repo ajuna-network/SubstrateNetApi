@@ -1,13 +1,12 @@
 using NUnit.Framework;
 using SubstrateNetApi;
-using System;
-using Chaos.NaCl;
-using System.Linq;
 using SubstrateNetApi.MetaDataModel.Values;
+using System;
+using System.Linq;
 
-namespace SubstrateNetApiTests.ClientTests
+namespace SubstrateNetApiTests.Ed25519
 {
-    public class Ed25519Test
+    public class Ed25519Tests
     {
         private Random _random;
 
@@ -32,7 +31,7 @@ namespace SubstrateNetApiTests.ClientTests
             byte[] pubKey = Utils.HexToByteArray(pubKey0x);
             byte[] seed = priKey.Take(32).ToArray();
 
-            Ed25519.KeyPairFromSeed(out pubKey, out priKey, seed);
+            Chaos.NaCl.Ed25519.KeyPairFromSeed(out pubKey, out priKey, seed);
 
             Assert.AreEqual("0xF5E5767CF153319517630F226876B86C8160CC583BC013744C6BF255F5CC0EE5", Utils.Bytes2HexString(seed));
             Assert.AreEqual("0xF5E5767CF153319517630F226876B86C8160CC583BC013744C6BF255F5CC0EE5278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E", Utils.Bytes2HexString(priKey));

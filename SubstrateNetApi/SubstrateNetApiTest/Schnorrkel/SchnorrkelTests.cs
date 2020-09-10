@@ -1,18 +1,11 @@
-using NLog;
 using NUnit.Framework;
-using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel.Values;
-using System;
-using System.Threading.Tasks;
-using SubstrateNetApi.Exceptions;
 using Schnorrkel;
-using Schnorrkel.Merlin;
-using System.Text;
-using Schnorrkel.Signed;
+using SubstrateNetApi;
+using System;
 
-namespace SubstrateNetApiTests.ClientTests
+namespace SubstrateNetApiTests.Schnorrkel
 {
-    public class SchnorrkelTest
+    public class SchnorrkelTests
     {
         private Random _random;
 
