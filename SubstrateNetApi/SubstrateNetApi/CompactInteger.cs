@@ -59,6 +59,7 @@ namespace SubstrateNetApi
 
         public static implicit operator BigInteger(CompactInteger c) => c.Value;
         public static implicit operator CompactInteger(BigInteger b) => new CompactInteger(b);
+        public static implicit operator CompactInteger(int i) => new CompactInteger(i);
 
         public BigInteger Value { get; set; }
     }
