@@ -65,6 +65,16 @@ namespace SubstrateNetApiTests.ClientTests
         }
 
         [Test]
+        public async Task MissingParameterTestAsync()
+        {
+            await _substrateClient.ConnectAsync();
+
+            Assert.ThrowsAsync<MissingParameterException>(async () => await _substrateClient.GetStorageAsync("Dmog", "AllMogwaisArray"));
+            
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
         public async Task InvalidStorageNameTestAsync()
         {
             await _substrateClient.ConnectAsync();

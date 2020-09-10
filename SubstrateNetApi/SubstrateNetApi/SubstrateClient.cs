@@ -118,7 +118,7 @@ namespace SubstrateNetApi
             string method = "state_getStorage";
 
             if (item.Function?.Key1 != null && parameter == null)
-                throw new Exception($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
+                throw new MissingParameterException($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
 
             string parameters;
             if (item.Function?.Key1 != null)
@@ -133,9 +133,6 @@ namespace SubstrateNetApi
 
             string returnType = item.Function?.Value;
             Logger.Debug($"Invoking request[{method}, params: {parameters}, returnType: {returnType}] {MetaData.Origin}");
-
-            if (string.IsNullOrWhiteSpace(returnType))
-                throw new Exception("Invalid return type in metadata.");
 
             var resultString = await InvokeAsync(method, new object[] {parameters}, token);
             
