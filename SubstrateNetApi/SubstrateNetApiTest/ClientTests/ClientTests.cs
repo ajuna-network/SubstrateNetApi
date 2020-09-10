@@ -72,7 +72,7 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            var result = await _substrateClient.GetMethodAsync("system_name");
+            var result = await _substrateClient.GetMethodAsync<string>("system_name");
             Assert.AreEqual("Substrate Node", result);
 
             await _substrateClient.CloseAsync();
@@ -82,7 +82,7 @@ namespace SubstrateNetApiTests.ClientTests
         public void GetMethodNotConnectedTest()
         {
             Assert.ThrowsAsync<ClientNotConnectedException>(async () =>
-                await _substrateClient.GetMethodAsync("system_name"));
+                await _substrateClient.GetMethodAsync<string>("system_name"));
         }
     }
 }

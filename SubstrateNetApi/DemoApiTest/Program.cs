@@ -3,6 +3,7 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Threading;
+using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi;
@@ -76,9 +77,9 @@ namespace DemoApiTest
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("Dmog", "Mogwais", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
 
-            //var reqResult = await client.GetMethodAsync("system_name", cancellationToken);
-            var reqResult = await client.GetMethodAsync("chain_getBlockHash", cancellationToken);
-            
+            //var reqResult = await client.GetMethodAsync<string>("system_name", cancellationToken);
+            //var reqResult = await client.GetMethodAsync<string>("chain_getBlockHash", cancellationToken);
+            var reqResult = await client.GetMethodAsync<JObject>("rpc_methods", cancellationToken);
 
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
