@@ -34,10 +34,13 @@ namespace SubstrateNetApi
         public MetaData MetaData { get; private set; }
         public Modules.System System { get; }
 
+        public Modules.Chain Chain { get; }
+
         public SubstrateClient(Uri uri)
         {
             _uri = uri;
             System = new Modules.System(this);
+            Chain = new Modules.Chain(this);
             RegisterTypeConverter(new U16TypeConverter());
             RegisterTypeConverter(new U32TypeConverter());
             RegisterTypeConverter(new U64TypeConverter());
