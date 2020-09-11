@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System = SubstrateNetApi.Modules.System;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
@@ -31,10 +32,12 @@ namespace SubstrateNetApi
         private readonly Dictionary<string, ITypeConverter> _typeConverters = new Dictionary<string, ITypeConverter>();
 
         public MetaData MetaData { get; private set; }
+        public Modules.System System { get; }
 
         public SubstrateClient(Uri uri)
         {
             _uri = uri;
+            System = new Modules.System(this);
             RegisterTypeConverter(new U16TypeConverter());
             RegisterTypeConverter(new U32TypeConverter());
             RegisterTypeConverter(new U64TypeConverter());
@@ -136,8 +139,8 @@ namespace SubstrateNetApi
             string returnType = item.Function?.Value;
             Logger.Debug($"Invoking request[{method}, params: {parameters}, returnType: {returnType}] {MetaData.Origin}");
 
-            var resultString = await InvokeAsync<string>(method, new object[] {parameters}, token);
-            
+            var resultString = await InvokeAsync<string>(method, new object[] { parameters }, token);
+
             if (!_typeConverters.ContainsKey(returnType))
                 throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
 
@@ -154,7 +157,7 @@ namespace SubstrateNetApi
             return await InvokeAsync<T>(method, null, token);
         }
 
-        private async Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken token)
+        internal async Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
