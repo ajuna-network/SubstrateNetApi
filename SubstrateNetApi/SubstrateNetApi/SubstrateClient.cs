@@ -114,7 +114,7 @@ namespace SubstrateNetApi
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
 
-            if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.Storage.TryGetStorageItemByName(itemName, out Item item))
+            if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetStorageItemByName(itemName, out Item item))
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
 
             string method = "state_getStorage";
@@ -133,11 +133,10 @@ namespace SubstrateNetApi
                 parameters = "0x" + RequestGenerator.GetStorage(module, item);
             }
 
-            string returnType = item.Function?.Value;
-            Logger.Debug($"Invoking request[{method}, params: {parameters}, returnType: {returnType}] {MetaData.Origin}");
-
             var resultString = await InvokeAsync<string>(method, new object[] {parameters}, token);
-            
+
+            string returnType = item.Function?.Value;
+
             if (!_typeConverters.ContainsKey(returnType))
                 throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
 
@@ -152,6 +151,34 @@ namespace SubstrateNetApi
         public async Task<T> GetMethodAsync<T>(string method, CancellationToken token)
         {
             return await InvokeAsync<T>(method, null, token);
+        }
+
+        public async Task<T> GetMethodAsync<T>(string method, string parameter, CancellationToken token)
+        {
+            return await InvokeAsync<T>(method, new object[] { parameter }, token);
+        }
+
+        public async Task<object> SubmitExtrinsic(string moduleName, string callName, string parameter, byte[] pubKey, byte[] priKey, CancellationToken token)
+        {
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
+
+            if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetCallByName(callName, out Call call))
+                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
+
+            string method = "author_submitExtrinsic";
+
+            if (call.Arguments?.Length > 0 && parameter == null)
+                throw new MissingParameterException($"{moduleName}.{callName} needs {call.Arguments.Length} parameter(s)!");
+
+            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(module, call, parameter, pubKey, priKey);
+
+            var resultString = await InvokeAsync<string>(method, new object[] { parameters }, token);
+
+            //if (!_typeConverters.ContainsKey(returnType))
+            //    throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
+
+            return resultString; // _typeConverters[returnType].Create(resultString);
         }
 
         private async Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken token)

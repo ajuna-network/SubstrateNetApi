@@ -1,4 +1,5 @@
-﻿using SubstrateNetApi.MetaDataModel;
+﻿using Schnorrkel;
+using SubstrateNetApi.MetaDataModel;
 using System;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,43 @@ namespace SubstrateNetApi
                 default:
                     return "";
             }
+        }
+
+        internal static string SubmitExtrinsic(Module module, Call call, string parameter, byte[] pubKey, byte[] priKey)
+        {
+            var mBytes = Encoding.ASCII.GetBytes(module.Name);
+            var iBytes = Encoding.ASCII.GetBytes(call.Name);
+
+            var keybytes = HashExtension.XXHash128(mBytes).Concat(HashExtension.XXHash128(iBytes)).ToArray();
+
+            if (call.Arguments?.Length == 0)
+            {
+                return BitConverter.ToString(keybytes).Replace("-", "");
+            }
+
+            var extra = new byte[0];
+            var extraSigned = new byte[0];
+
+            var payload = SignaturePayLoad(keybytes, extra, extraSigned);
+
+            Sr25519v091.SignSimple(pubKey, priKey, payload);
+
+            throw new NotImplementedException("Arguments in call aren't implemented.");
+        }
+
+        private static byte[] SignaturePayLoad(byte[] a, byte[] b, byte[] c)
+        {
+            string[] extrinsicExtensions = new string[] {
+                "CheckSpecVersion",
+                "CheckTxVersion",
+                "CheckGenesis",
+                "CheckMortality",
+                "CheckNonce",
+                "CheckWeight",
+                "ChargeTransactionPayment"
+            };
+
+            throw new NotImplementedException();
         }
     }
 }
