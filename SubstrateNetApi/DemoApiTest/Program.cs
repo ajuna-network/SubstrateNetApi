@@ -60,6 +60,11 @@ namespace DemoApiTest
 
             await client.ConnectAsync(cancellationToken);
 
+            var systemName = await client.System.NameAsync(cancellationToken);
+            var systemVersion = await client.System.VersionAsync(cancellationToken);
+            var systemChain = await client.System.ChainAsync(cancellationToken);
+            Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
+
             /***
              * Testing storage data ...
              */

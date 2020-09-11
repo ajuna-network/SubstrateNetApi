@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System = SubstrateNetApi.Modules.System;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
@@ -31,10 +32,12 @@ namespace SubstrateNetApi
         private readonly Dictionary<string, ITypeConverter> _typeConverters = new Dictionary<string, ITypeConverter>();
 
         public MetaData MetaData { get; private set; }
+        public Modules.System System { get; }
 
         public SubstrateClient(Uri uri)
         {
             _uri = uri;
+            System = new Modules.System(this);
             RegisterTypeConverter(new U16TypeConverter());
             RegisterTypeConverter(new U32TypeConverter());
             RegisterTypeConverter(new U64TypeConverter());
@@ -156,8 +159,7 @@ namespace SubstrateNetApi
         public async Task<T> GetMethodAsync<T>(string method, string parameter, CancellationToken token)
         {
             return await InvokeAsync<T>(method, new object[] { parameter }, token);
-        }
-
+        }       
         public async Task<object> SubmitExtrinsic(string moduleName, string callName, string parameter, byte[] pubKey, byte[] priKey, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
@@ -181,7 +183,7 @@ namespace SubstrateNetApi
             return resultString; // _typeConverters[returnType].Create(resultString);
         }
 
-        private async Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken token)
+        internal async Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
