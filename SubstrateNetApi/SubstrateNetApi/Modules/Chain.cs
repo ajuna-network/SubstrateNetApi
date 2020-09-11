@@ -19,25 +19,20 @@ namespace SubstrateNetApi.Modules
             return await GetBlockHashAsync(CancellationToken.None);
         }
 
-        public async Task<string> GetBlockHashAsync(CancellationToken token)
-        {
-            return await GetBlockHashAsync(0, true, CancellationToken.None);
-        }
-
         public async Task<string> GetBlockHashAsync(uint BlockNumber)
         {
             return await GetBlockHashAsync(BlockNumber, CancellationToken.None);
         }
 
-        public async Task<string> GetBlockHashAsync(uint BlockNumber, CancellationToken token)
+        public async Task<string> GetBlockHashAsync(CancellationToken token)
         {
-            return await GetBlockHashAsync(BlockNumber, false, CancellationToken.None);
+            return await _client.InvokeAsync<string>("chain_getBlockHash", null, token);
         }
 
-        private async Task<string> GetBlockHashAsync(uint BlockNumber, bool BlockNumberNull, CancellationToken token)
+        public async Task<string> GetBlockHashAsync(uint BlockNumber, CancellationToken token)
         {
             var parameter = Utils.Bytes2HexString(BitConverter.GetBytes(BlockNumber));
-            return await _client.InvokeAsync<string>("chain_getBlockHash", BlockNumberNull ? null : new object[] { parameter }, token);
+            return await _client.InvokeAsync<string>("chain_getBlockHash", new object[] { parameter }, token);
         }
     }
 }
