@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace SubstrateNetApi
 {
@@ -126,6 +127,111 @@ namespace SubstrateNetApi
             var addrCh = SimpleBase.Base58.Bitcoin.Encode(plainAddr).ToArray();
 
             return new string(addrCh);
+        }
+
+        public static BigInteger DecodeCompactInteger(byte[] m)
+        {
+            int p = 0;
+            return DecodeCompactInteger(m, ref p);
+        }
+
+        public static BigInteger DecodeCompactInteger(byte[] m, ref int p)
+        {
+            uint first_byte = m[p++];
+            uint flag = (first_byte) & 0b00000011u;
+            uint number = 0u;
+
+            switch (flag)
+            {
+                case 0b00u:
+                    {
+                        number = first_byte >> 2;
+                        break;
+                    }
+
+                case 0b01u:
+                    {
+                        uint second_byte = m[p++];
+
+                        number = ((uint)((first_byte) & 0b11111100u) + (uint)(second_byte) * 256u) >> 2;
+                        break;
+                    }
+
+                case 0b10u:
+                    {
+                        number = first_byte;
+                        uint multiplier = 256u;
+
+                        for (var i = 0; i < 3; ++i)
+                        {
+                            number += m[p++] * multiplier;
+                            multiplier = multiplier << 8;
+                        }
+                        number = number >> 2;
+                        break;
+                    }
+
+                case 0b11:
+                    {
+                        uint bytes_count = ((first_byte) >> 2) + 4u;
+                        CompactInteger multiplier = new CompactInteger { Value = 1u };
+                        CompactInteger value = new CompactInteger { Value = 0 };
+
+                        // we assured that there are m more bytes,
+                        // no need to make checks in a loop
+                        for (var i = 0; i < bytes_count; ++i)
+                        {
+                            value += multiplier * m[p++];
+                            multiplier *= 256u;
+                        }
+
+                        return value.Value;
+                    }
+
+                default:
+                    throw new Exception("CompactInteger decode error: unknown flag");
+            }
+
+            return new BigInteger(number);
+        }
+
+        public static byte[] EncodeCompactInteger(BigInteger n)
+        {
+            if (n <= 63)
+            {
+                return new byte[] { (byte)(n << 2) };
+            }
+            else if (n <= 0x3FFF)
+            {
+                return new byte[] { (byte)(((n & 0x3F) << 2) | 0x01), (byte)((n & 0xFC0) >> 6) };
+            }
+            else if (n <= 0x3FFFFFFF)
+            {
+                var result = new byte[4];
+                result[0] = (byte)(((n & 0x3F) << 2) | 0x02);
+                n >>= 6;
+                for (int i = 1; i < 4; ++i)
+                {
+                    result[i] = (byte)(n & 0xFF);
+                    n >>= 8;
+                }
+                return result;
+            }
+            else
+            {
+                var b0 = new List<byte>();
+                while (n > 0)
+                {
+                    b0.Add((byte)(n & 0xFF));
+                    n >>= 8;
+                }
+                var result = new List<byte>
+                {
+                    (byte)(((b0.Count - 4) << 2) | 0x03)
+                };
+                result.AddRange(b0);
+                return result.ToArray();
+            }
         }
 
     }

@@ -163,7 +163,7 @@ namespace SubstrateNetApi
         {
             return await InvokeAsync<T>(method, new object[] { parameter }, token);
         }       
-        public async Task<object> SubmitExtrinsic(string moduleName, string callName, string parameter, byte[] pubKey, byte[] priKey, CancellationToken token)
+        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, string parameter, byte[] pubKey, byte[] priKey, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");

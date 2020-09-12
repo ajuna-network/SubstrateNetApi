@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,29 @@ namespace SubstrateNetApi.Modules
         internal Chain(SubstrateClient client)
         {
             _client = client;
+        }
+
+        public async Task<BlockData> GetBlockAsync()
+        {
+            return await GetBlockAsync(null, CancellationToken.None);
+        }
+
+        public async Task<BlockData> GetBlockAsync(CancellationToken token)
+        {
+            return await GetBlockAsync(null, token);
+        }
+
+        public async Task<BlockData> GetBlockAsync(byte[] hash)
+        {
+            return await GetBlockAsync(hash, CancellationToken.None);
+        }
+
+        public async Task<BlockData> GetBlockAsync(byte[] hash, CancellationToken token)
+        {
+
+            var parameter = hash != null ? Utils.Bytes2HexString(hash) : null;
+
+            return await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] { parameter }, token);
         }
 
         public async Task<string> GetBlockHashAsync()

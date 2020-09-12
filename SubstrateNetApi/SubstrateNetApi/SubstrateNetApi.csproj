@@ -12,6 +12,7 @@
     <PackageReference Include="NLog" Version="4.7.4" />
     <PackageReference Include="SimpleBase" Version="2.1.0" />
     <PackageReference Include="StreamJsonRpc" Version="2.5.46" />
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

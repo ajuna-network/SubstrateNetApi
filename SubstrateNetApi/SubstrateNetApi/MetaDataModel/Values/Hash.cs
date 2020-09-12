@@ -3,7 +3,7 @@ using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
-    internal class Hash
+    public class Hash
     {
         public const int HEXSIZE = 32;
 
