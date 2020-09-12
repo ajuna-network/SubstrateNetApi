@@ -89,13 +89,14 @@ namespace DemoApiTest
 
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
             //var reqResult = await client.GetStorageAsync("System", "Account", "0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D", cancellationToken);
+            var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.HexToByteArray("0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D")), cancellationToken);
 
-            var chainGetBlock = await client.Chain.GetBlockAsync(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
+            //var chainGetBlock = await client.Chain.GetBlockAsync(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
 
             //var systemChain = await client.System.ChainAsync(cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{chainGetBlock}' [{chainGetBlock.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
             // Serializer
             //Console.WriteLine(client.MetaData.Serialize());

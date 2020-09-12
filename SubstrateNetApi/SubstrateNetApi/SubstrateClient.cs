@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System = SubstrateNetApi.Modules.System;
+using SubstrateNetApi.MetaDataModel.Values;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
@@ -176,7 +177,11 @@ namespace SubstrateNetApi
             if (call.Arguments?.Length > 0 && parameter == null)
                 throw new MissingParameterException($"{moduleName}.{callName} needs {call.Arguments.Length} parameter(s)!");
 
-            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(module, call, parameter, pubKey, priKey);
+            var accountInfoString = await GetStorageAsync("System", "Account", Utils.Bytes2HexString(pubKey), token);
+            
+            var accountInfo = new AccountInfo((string)accountInfoString);
+
+            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(MetaData.IndexOf(module), module.IndexOf(call), parameter, accountInfo.Nonce, pubKey, priKey);
 
             var resultString = await InvokeAsync<string>(method, new object[] { parameters }, token);
 

@@ -31,10 +31,16 @@ namespace SubstrateNetApi.MetaDataModel
             return false;
         }
 
+        public int IndexOf(Module module)
+        {
+            return Array.IndexOf(Modules, module);
+        }
+
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this, new StringEnumConverter());
         }
+
 
     }
 }

@@ -50,69 +50,23 @@ namespace SubstrateNetApi
             }
         }
 
-        internal static string SubmitExtrinsic(Module module, Call call, string parameter, byte[] pubKey, byte[] priKey)
+        internal static string SubmitExtrinsic(int module, int call, string parameter, uint nonce, byte[] pubKey, byte[] priKey)
         {
-            var mBytes = Encoding.ASCII.GetBytes(module.Name);
-            var iBytes = Encoding.ASCII.GetBytes(call.Name);
+            UncheckedExtrinsic uncheckedExtrinsic = new UncheckedExtrinsic(pubKey, nonce, module, call, null);
 
-            var keybytes = HashExtension.XXHash128(mBytes).Concat(HashExtension.XXHash128(iBytes)).ToArray();
+            var hashedPayload = HashExtension.Blake2(uncheckedExtrinsic.GetPayload(), 256);
+            var signedPayload = Sr25519v091.SignSimple(pubKey, priKey, hashedPayload);
 
-            if (call.Arguments?.Length == 0)
-            {
-                return BitConverter.ToString(keybytes).Replace("-", "");
-            }
+            uncheckedExtrinsic.SignatureType = 0x01;
+            uncheckedExtrinsic.Signature = signedPayload;
 
-            var extra = new byte[0];
-            var extraSigned = new byte[0];
-
-            var payload = SignaturePayLoad(keybytes, extra, extraSigned);
-
-            Sr25519v091.SignSimple(pubKey, priKey, payload);
-
-            throw new NotImplementedException("Arguments in call aren't implemented.");
-        }
-
-        private static byte[] SignaturePayLoad(byte[] a, byte[] b, byte[] c)
-        {
-            string[] extrinsicExtensions = new string[] {
-                "CheckSpecVersion",
-                "CheckTxVersion",
-                "CheckGenesis",
-                "CheckMortality",
-                "CheckNonce",
-                "CheckWeight",
-                "ChargeTransactionPayment"
-            };
-
-            IEnumerable<object> signedExtra = extrinsicExtensions.Select(x => {
-                switch (x)
-                {
-                    case "CheckSpecVersion":
-                        return (object) 1;
-                    case "CheckTxVersion":
-                        return (object)1;
-                    case "CheckGenesis":
-                        return (object) Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
-                    case "CheckMortality":
-                        return (object)null;
-                    case "CheckNonce":
-                        return (object)null;
-                    case "CheckWeight":
-                        return (object)null;
-                    case "ChargeTransactionPayment":
-                        return (object)null;
-                    default:
-                        throw new Exception("");
-                };
-            });
-
-            throw new NotImplementedException();
+            return Utils.Bytes2HexString(uncheckedExtrinsic.GetExtrinsic());
         }
 
         public class UncheckedExtrinsic
         {
             //4 is the TRANSACTION_VERSION constant and it is 7 bits long, the highest bit 1 for signed transaction, 0 for unsigned. 
-            public byte SignatureVersion { get; set; } = (byte)(4 | (true ? 0x80 : 0));
+            public byte _signatureVersion;
 
             /// <summary>
             ///  ADDRESS  
@@ -150,35 +104,121 @@ namespace SubstrateNetApi
             ///  CALL
             ///  ----------------------------------------------------------
             /// </summary>
-            private byte _moduleIndex { get; set; }
-            private byte _callIndex { get; set; }
+            private byte[] _moduleIndex { get; set; }
+            private byte[] _callIndex { get; set; }
             private byte[] _parameters { get; set; }
 
-            public UncheckedExtrinsic(byte[] pubKey, BigInteger nonce, byte moduleIndex, byte callIndex, byte[] parameters)
+            public UncheckedExtrinsic(bool IsSigned, byte[] pubKey, uint nonce, int moduleIndex, int callIndex, byte[] parameters)
             {
+                _signatureVersion = (byte)(4 | (IsSigned ? 0x80 : 0)); ;
                 _pubKey = pubKey;
                 _era = null;
-                _nonce = nonce;
+                _nonce = new BigInteger(nonce);
                 _chargeTransactionPayment = BigInteger.Zero;
-                _moduleIndex = moduleIndex;
-                _callIndex = callIndex;
+                _moduleIndex = Utils.EncodeCompactInteger(moduleIndex);
+                _callIndex = Utils.EncodeCompactInteger(callIndex);
                 _parameters = parameters;
             }
 
             public byte[] GetPayload()
             {
-                // --- Call
                 var byteList = new List<byte>();
-                byteList.Add(_moduleIndex);
-                byteList.Add(_callIndex);
-                byteList.AddRange(_parameters);
+
+                // --- Call
+                byteList.AddRange(_moduleIndex);
+                byteList.AddRange(_callIndex);
+                if (_parameters != null)
+                {
+                    byteList.AddRange(_parameters);
+                }
 
                 // --- Extra
                 // byteList.Add(_era);
                 byteList.AddRange(Utils.EncodeCompactInteger(_nonce));
                 byteList.AddRange(Utils.EncodeCompactInteger(_chargeTransactionPayment));
 
+                // --- ExtraSigned
+                foreach (var b in ExtrinsicExtension())
+                {
+                    byteList.AddRange(b);
+                }
+
                 return byteList.ToArray();
+            }
+
+            public byte[] GetExtrinsic()
+            {
+                var byteList = new List<byte>();
+
+                // 4 is the TRANSACTION_VERSION constant and it is 7 bits long,
+                // the highest bit 1 for signed transaction, 0 for unsigned. 
+                byteList.Add(_signatureVersion); 
+
+                // --- Address
+                byteList.AddRange(_pubKey); // public key
+
+                // --- Signature
+                byteList.Add(SignatureType);  // 0x00=Ed25519, 0x01=Sr25519, 0x02=Ecdsa
+
+                // Signed Call, Extra, ExtrinsicExtensions => 
+                //     ("CheckSpecVersion", "CheckTxVersion", "CheckGenesis", 
+                //      "CheckMortality", "CheckNonce", "CheckWeight",
+                //      "ChargeTransactionPayment") ... No clue about how to get them ...
+                byteList.AddRange(Signature); // ... TODO: FixedSizeArrayConverter(64)
+
+
+                // --- Extra
+                // byteList.Add(_era); // I have no clue here ....
+                byteList.AddRange(Utils.EncodeCompactInteger(_nonce));
+                byteList.AddRange(Utils.EncodeCompactInteger(_chargeTransactionPayment));
+
+                // --- Call
+                byteList.AddRange(_moduleIndex);
+                byteList.AddRange(_callIndex);
+                if (_parameters != null)
+                {
+                    byteList.AddRange(_parameters);
+                }
+
+                return byteList.ToArray();
+            }
+
+            private IEnumerable<byte[]> ExtrinsicExtension()
+            {
+                string[] extrinsicExtensions = new string[] {
+                "CheckSpecVersion",
+                "CheckTxVersion",
+                "CheckGenesis",
+                "CheckMortality",
+                "CheckNonce",
+                "CheckWeight",
+                "ChargeTransactionPayment"
+                };
+
+                IEnumerable<byte[]> signedExtra = extrinsicExtensions.Select(x =>
+                {
+                    switch (x)
+                    {
+                        case "CheckSpecVersion":
+                            return Utils.EncodeCompactInteger(1);
+                        case "CheckTxVersion":
+                            return Utils.EncodeCompactInteger(1);
+                        case "CheckGenesis":
+                            return Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
+                        case "CheckMortality":
+                            return new byte[0];
+                        case "CheckNonce":
+                            return new byte[0];
+                        case "CheckWeight":
+                            return new byte[0];
+                        case "ChargeTransactionPayment":
+                            return new byte[0];
+                        default:
+                            throw new Exception("");
+                    };
+                });
+
+                return signedExtra;
             }
         }
     }
