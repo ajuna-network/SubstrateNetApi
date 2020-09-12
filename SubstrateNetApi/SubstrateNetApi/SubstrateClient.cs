@@ -172,18 +172,14 @@ namespace SubstrateNetApi
             if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetCallByName(callName, out Call call))
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
 
-            string method = "author_submitExtrinsic";
-
             if (call.Arguments?.Length > 0 && parameter == null)
                 throw new MissingParameterException($"{moduleName}.{callName} needs {call.Arguments.Length} parameter(s)!");
 
-            var accountInfoString = await GetStorageAsync("System", "Account", Utils.Bytes2HexString(pubKey), token);
+            var accountInfo = await GetStorageAsync("System", "Account", Utils.Bytes2HexString(pubKey), token) as AccountInfo;
             
-            var accountInfo = new AccountInfo((string)accountInfoString);
-
             var parameters = "0x" + RequestGenerator.SubmitExtrinsic(MetaData.IndexOf(module), module.IndexOf(call), parameter, accountInfo.Nonce, pubKey, priKey);
 
-            var resultString = await InvokeAsync<string>(method, new object[] { parameters }, token);
+            var resultString = await InvokeAsync<string>("author_submitExtrinsic", new object[] { parameters }, token);
 
             //if (!_typeConverters.ContainsKey(returnType))
             //    throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");

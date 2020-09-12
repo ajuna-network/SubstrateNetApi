@@ -52,7 +52,7 @@ namespace SubstrateNetApi
 
         internal static string SubmitExtrinsic(int module, int call, string parameter, uint nonce, byte[] pubKey, byte[] priKey)
         {
-            UncheckedExtrinsic uncheckedExtrinsic = new UncheckedExtrinsic(pubKey, nonce, module, call, null);
+            UncheckedExtrinsic uncheckedExtrinsic = new UncheckedExtrinsic(true, pubKey, nonce, module, call, null);
 
             var hashedPayload = HashExtension.Blake2(uncheckedExtrinsic.GetPayload(), 256);
             var signedPayload = Sr25519v091.SignSimple(pubKey, priKey, hashedPayload);
@@ -160,12 +160,12 @@ namespace SubstrateNetApi
                 // --- Signature
                 byteList.Add(SignatureType);  // 0x00=Ed25519, 0x01=Sr25519, 0x02=Ecdsa
 
-                // Signed Call, Extra, ExtrinsicExtensions => 
+                // Signed Blake2b_256 [Call, Extra, ExtrinsicExtensions]
+                // ExtrinsicExtensions => ... No clue about how to get them ...  
                 //     ("CheckSpecVersion", "CheckTxVersion", "CheckGenesis", 
                 //      "CheckMortality", "CheckNonce", "CheckWeight",
-                //      "ChargeTransactionPayment") ... No clue about how to get them ...
+                //      "ChargeTransactionPayment") 
                 byteList.AddRange(Signature); // ... TODO: FixedSizeArrayConverter(64)
-
 
                 // --- Extra
                 // byteList.Add(_era); // I have no clue here ....
