@@ -40,7 +40,7 @@ namespace TestExtrinsic
 
             // length
             bytes = Utils.HexToByteArray(byteString);
-            var length = Utils.DecodeCompactInteger(bytes, ref p);
+            var length = CompactInteger.Decode(bytes, ref p);
             Console.WriteLine($"length: {length} [{p}]");
 
             byteString = byteString.Substring(p * 2);
@@ -77,14 +77,14 @@ namespace TestExtrinsic
 
             // nonce
             p = 0;
-            var nonce = Utils.DecodeCompactInteger(bytes, ref p);
+            var nonce = CompactInteger.Decode(bytes, ref p);
             Console.WriteLine($"nonce: {nonce} [{p}]");
             byteString = byteString.Substring(p * 2);
             bytes = Utils.HexToByteArray(byteString);
 
             // tip
             p = 0;
-            var tip = Utils.DecodeCompactInteger(bytes, ref p);
+            var tip = CompactInteger.Decode(bytes, ref p);
             Console.WriteLine($"tip: {tip} [{p}]");
             byteString = byteString.Substring(p * 2);
             bytes = Utils.HexToByteArray(byteString);
@@ -105,7 +105,7 @@ namespace TestExtrinsic
 
                 // parameters
                 p = 0;
-                var amount = Utils.DecodeCompactInteger(bytes, ref p);
+                var amount = CompactInteger.Decode(bytes, ref p);
                 Console.WriteLine($"amount: {amount} [{p}]");
                 byteString = byteString.Substring(p * 2);
                 bytes = Utils.HexToByteArray(byteString);
@@ -118,7 +118,7 @@ namespace TestExtrinsic
 
         private static int GetByteArrayPiece(byte[] bytes, out byte[] sliceBytes)
         {
-            var l = Utils.DecodeCompactInteger(bytes);
+            var l = CompactInteger.Decode(bytes);
             sliceBytes = bytes.AsMemory().Slice(0, - (int) l).ToArray();
             return (int) l;
         }
