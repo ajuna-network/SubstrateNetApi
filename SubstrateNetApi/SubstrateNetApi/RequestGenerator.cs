@@ -148,6 +148,11 @@ namespace SubstrateNetApi
 
             public byte[] GetExtrinsic()
             {
+
+                // Calculate total extrinsic length
+                //Length = 134 + Utils.EncodeCompactInteger(_nonce).Length + compactNonce.Length;
+                //var compactLength = Scale.EncodeCompactInteger(Length);
+
                 var byteList = new List<byte>();
 
                 // 4 is the TRANSACTION_VERSION constant and it is 7 bits long,
@@ -180,7 +185,10 @@ namespace SubstrateNetApi
                     byteList.AddRange(_parameters);
                 }
 
-                return byteList.ToArray();
+                var bytes = byteList.ToArray();
+                
+
+                return bytes;
             }
 
             private IEnumerable<byte[]> ExtrinsicExtension()

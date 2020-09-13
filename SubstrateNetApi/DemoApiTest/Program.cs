@@ -65,6 +65,8 @@ namespace DemoApiTest
             var systemChain = await client.System.ChainAsync(cancellationToken);
             Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
 
+            //Console.WriteLine(client.MetaData.Serialize());
+
             /***
              * Testing storage data ...
              */
@@ -92,13 +94,16 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.HexToByteArray("0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D")), cancellationToken);
 
 
-            string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
-            string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
-            //var reqResult = Utils.Bytes2HexString(Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"));
-            //var reqResult = await client.GetStorageAsync("System", "Account", "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e", cancellationToken);
-            var reqResult = await client.SubmitExtrinsicAsync("Dmog", "create_mogwai", null, Utils.HexToByteArray(pubKey0x), Utils.HexToByteArray(priKey0x), cancellationToken);
+            //string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            //string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            ////var reqResult = Utils.Bytes2HexString(Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"));
+            ////var reqResult = await client.GetStorageAsync("System", "Account", "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e", cancellationToken);
+            //var reqResult = await client.SubmitExtrinsicAsync("Dmog", "create_mogwai", null, Utils.HexToByteArray(pubKey0x), Utils.HexToByteArray(priKey0x), cancellationToken);
 
-            //var chainGetBlock = await client.Chain.GetBlockAsync(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
+            var reqResult = await client.GetMethodAsync<JArray>("author_pendingExtrinsics", cancellationToken);
+
+
+            //var reqResult = await client.Chain.GetBlockHashAsync(0, cancellationToken);
 
             //var systemChain = await client.System.ChainAsync(cancellationToken);
 

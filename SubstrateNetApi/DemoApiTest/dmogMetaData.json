@@ -1,1908 +1,1908 @@
 {
-   "Origin":"wss://boot.worldofmogwais.com",
-   "Magic":"meta",
-   "Version":"v11",
-   "Modules":[
-      {
-         "Name":"System",
-         "Storage":{
-            "Prefix":"System",
-            "Items":[
-               {
-                  "Name":"Account",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"T::AccountId",
-                     "Key2":null,
-                     "Value":"AccountInfo<T::Index, T::AccountData>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     " The full account information for a particular account ID."
-                  ]
-               },
-               {
-                  "Name":"ExtrinsicCount",
-                  "Modifier":"Optional",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"u32",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Total extrinsics count for the current block."
-                  ]
-               },
-               {
-                  "Name":"BlockWeight",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"weights::ExtrinsicsWeight",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00000000000000000000000000000000",
-                  "Documentations":[
-                     " The current weight for the block."
-                  ]
-               },
-               {
-                  "Name":"AllExtrinsicsLen",
-                  "Modifier":"Optional",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"u32",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Total length (in bytes) for all extrinsics put together, for the current block."
-                  ]
-               },
-               {
-                  "Name":"BlockHash",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Twox64Concat",
-                     "Key1":"T::BlockNumber",
-                     "Key2":null,
-                     "Value":"T::Hash",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     " Map of block numbers to block hashes."
-                  ]
-               },
-               {
-                  "Name":"ExtrinsicData",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Twox64Concat",
-                     "Key1":"u32",
-                     "Key2":null,
-                     "Value":"Vec<u8>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Extrinsics data for the current block (maps an extrinsic's index to its data)."
-                  ]
-               },
-               {
-                  "Name":"Number",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"T::BlockNumber",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00000000",
-                  "Documentations":[
-                     " The current block number being processed. Set by `execute_block`."
-                  ]
-               },
-               {
-                  "Name":"ParentHash",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"T::Hash",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     " Hash of the previous block."
-                  ]
-               },
-               {
-                  "Name":"ExtrinsicsRoot",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"T::Hash",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     " Extrinsics root of the current block, also part of the block header."
-                  ]
-               },
-               {
-                  "Name":"Digest",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"DigestOf<T>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Digest of the current block, also part of the block header."
-                  ]
-               },
-               {
-                  "Name":"Events",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"Vec<EventRecord<T::Event, T::Hash>>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Events deposited for the current block."
-                  ]
-               },
-               {
-                  "Name":"EventCount",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"EventIndex",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00000000",
-                  "Documentations":[
-                     " The number of events in the `Events<T>` list."
-                  ]
-               },
-               {
-                  "Name":"EventTopics",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"T::Hash",
-                     "Key2":null,
-                     "Value":"Vec<(T::BlockNumber, EventIndex)>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Mapping between a topic (represented by T::Hash) and a vector of indexes",
-                     " of events in the `<Events<T>>` list.",
-                     "",
-                     " All topic vectors have deterministic storage locations depending on the topic. This",
-                     " allows light-clients to leverage the changes trie storage tracking mechanism and",
-                     " in case of changes fetch the list of events of interest.",
-                     "",
-                     " The value has the type `(T::BlockNumber, EventIndex)` because if we used only just",
-                     " the `EventIndex` then in case if the topic has the same contents on the next block",
-                     " no notification will be triggered thus the event might be lost."
-                  ]
-               },
-               {
-                  "Name":"LastRuntimeUpgrade",
-                  "Modifier":"Optional",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"LastRuntimeUpgradeInfo",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Stores the `spec_version` and `spec_name` of when the last runtime upgrade happened."
-                  ]
-               },
-               {
-                  "Name":"ExecutionPhase",
-                  "Modifier":"Optional",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"Phase",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " The execution phase of the block."
-                  ]
-               }
+  "Origin": "wss://boot.worldofmogwais.com",
+  "Magic": "meta",
+  "Version": "v11",
+  "Modules": [
+    {
+      "Name": "System",
+      "Storage": {
+        "Prefix": "System",
+        "Items": [
+          {
+            "Name": "Account",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "T::AccountId",
+              "Key2": null,
+              "Value": "AccountInfo<T::Index, T::AccountData>",
+              "IsLinked": false
+            },
+            "FallBack": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+              " The full account information for a particular account ID."
             ]
-         },
-         "Calls":[
-            {
-               "Name":"fill_block",
-               "Arguments":[
-                  {
-                     "Name":"_ratio",
-                     "Type":"Perbill"
-                  }
-               ],
-               "Documentations":[
-                  " A dispatch that will fill the block weight up to the given ratio."
-               ]
+          },
+          {
+            "Name": "ExtrinsicCount",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "u32",
+              "IsLinked": false
             },
-            {
-               "Name":"remark",
-               "Arguments":[
-                  {
-                     "Name":"_remark",
-                     "Type":"Vec<u8>"
-                  }
-               ],
-               "Documentations":[
-                  " Make some on-chain remark.",
-                  "",
-                  " # <weight>",
-                  " - `O(1)`",
-                  " - Base Weight: 0.665 Âµs, independent of remark length.",
-                  " - No DB operations.",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"set_heap_pages",
-               "Arguments":[
-                  {
-                     "Name":"pages",
-                     "Type":"u64"
-                  }
-               ],
-               "Documentations":[
-                  " Set the number of pages in the WebAssembly environment's heap.",
-                  "",
-                  " # <weight>",
-                  " - `O(1)`",
-                  " - 1 storage write.",
-                  " - Base Weight: 1.405 Âµs",
-                  " - 1 write to HEAP_PAGES",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"set_code",
-               "Arguments":[
-                  {
-                     "Name":"code",
-                     "Type":"Vec<u8>"
-                  }
-               ],
-               "Documentations":[
-                  " Set the new runtime code.",
-                  "",
-                  " # <weight>",
-                  " - `O(C + S)` where `C` length of `code` and `S` complexity of `can_set_code`",
-                  " - 1 storage write (codec `O(C)`).",
-                  " - 1 call to `can_set_code`: `O(S)` (calls `sp_io::misc::runtime_version` which is expensive).",
-                  " - 1 event.",
-                  " The weight of this function is dependent on the runtime, but generally this is very expensive.",
-                  " We will treat this as a full block.",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"set_code_without_checks",
-               "Arguments":[
-                  {
-                     "Name":"code",
-                     "Type":"Vec<u8>"
-                  }
-               ],
-               "Documentations":[
-                  " Set the new runtime code without doing any checks of the given `code`.",
-                  "",
-                  " # <weight>",
-                  " - `O(C)` where `C` length of `code`",
-                  " - 1 storage write (codec `O(C)`).",
-                  " - 1 event.",
-                  " The weight of this function is dependent on the runtime. We will treat this as a full block.",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"set_changes_trie_config",
-               "Arguments":[
-                  {
-                     "Name":"changes_trie_config",
-                     "Type":"Option<ChangesTrieConfiguration>"
-                  }
-               ],
-               "Documentations":[
-                  " Set the new changes trie configuration.",
-                  "",
-                  " # <weight>",
-                  " - `O(1)`",
-                  " - 1 storage write or delete (codec `O(1)`).",
-                  " - 1 call to `deposit_log`: Uses `append` API, so O(1)",
-                  " - Base Weight: 7.218 Âµs",
-                  " - DB Weight:",
-                  "     - Writes: Changes Trie, System Digest",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"set_storage",
-               "Arguments":[
-                  {
-                     "Name":"items",
-                     "Type":"Vec<KeyValue>"
-                  }
-               ],
-               "Documentations":[
-                  " Set some items of storage.",
-                  "",
-                  " # <weight>",
-                  " - `O(I)` where `I` length of `items`",
-                  " - `I` storage writes (`O(1)`).",
-                  " - Base Weight: 0.568 * i Âµs",
-                  " - Writes: Number of items",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"kill_storage",
-               "Arguments":[
-                  {
-                     "Name":"keys",
-                     "Type":"Vec<Key>"
-                  }
-               ],
-               "Documentations":[
-                  " Kill some items from storage.",
-                  "",
-                  " # <weight>",
-                  " - `O(IK)` where `I` length of `keys` and `K` length of one key",
-                  " - `I` storage deletions.",
-                  " - Base Weight: .378 * i Âµs",
-                  " - Writes: Number of items",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"kill_prefix",
-               "Arguments":[
-                  {
-                     "Name":"prefix",
-                     "Type":"Key"
-                  },
-                  {
-                     "Name":"_subkeys",
-                     "Type":"u32"
-                  }
-               ],
-               "Documentations":[
-                  " Kill all storage items with a key that starts with the given prefix.",
-                  "",
-                  " **NOTE:** We rely on the Root origin to provide us the number of subkeys under",
-                  " the prefix we are removing to accurately calculate the weight of this function.",
-                  "",
-                  " # <weight>",
-                  " - `O(P)` where `P` amount of keys with prefix `prefix`",
-                  " - `P` storage deletions.",
-                  " - Base Weight: 0.834 * P Âµs",
-                  " - Writes: Number of subkeys + 1",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"suicide",
-               "Arguments":[
-                  
-               ],
-               "Documentations":[
-                  " Kill the sending account, assuming there are no references outstanding and the composite",
-                  " data is equal to its default value.",
-                  "",
-                  " # <weight>",
-                  " - `O(1)`",
-                  " - 1 storage read and deletion.",
-                  " --------------------",
-                  " Base Weight: 8.626 Âµs",
-                  " No DB Read or Write operations because caller is already in overlay",
-                  " # </weight>"
-               ]
-            }
-         ],
-         "Events":[
-            {
-               "Documentations":[
-                  " An extrinsic completed successfully. [info]"
-               ],
-               "Name":"ExtrinsicSuccess",
-               "EventArgs":[
-                  "DispatchInfo"
-               ]
-            },
-            {
-               "Documentations":[
-                  " An extrinsic failed. [error, info]"
-               ],
-               "Name":"ExtrinsicFailed",
-               "EventArgs":[
-                  "DispatchError",
-                  "DispatchInfo"
-               ]
-            },
-            {
-               "Documentations":[
-                  " `:code` was updated."
-               ],
-               "Name":"CodeUpdated",
-               "EventArgs":[
-                  
-               ]
-            },
-            {
-               "Documentations":[
-                  " A new [account] was created."
-               ],
-               "Name":"NewAccount",
-               "EventArgs":[
-                  "AccountId"
-               ]
-            },
-            {
-               "Documentations":[
-                  " An [account] was reaped."
-               ],
-               "Name":"KilledAccount",
-               "EventArgs":[
-                  "AccountId"
-               ]
-            }
-         ],
-         "Consts":[
-            {
-               "Name":"BlockHashCount",
-               "Type":"T::BlockNumber",
-               "Value":"0x60090000",
-               "Documentations":[
-                  " The maximum number of blocks to allow in mortal eras."
-               ]
-            },
-            {
-               "Name":"MaximumBlockWeight",
-               "Type":"Weight",
-               "Value":"0x00204AA9D1010000",
-               "Documentations":[
-                  " The maximum weight of a block."
-               ]
-            },
-            {
-               "Name":"DbWeight",
-               "Type":"RuntimeDbWeight",
-               "Value":"0x40787D010000000000E1F50500000000",
-               "Documentations":[
-                  " The weight of runtime database operations the runtime can invoke."
-               ]
-            },
-            {
-               "Name":"BlockExecutionWeight",
-               "Type":"Weight",
-               "Value":"0x00F2052A01000000",
-               "Documentations":[
-                  " The base weight of executing a block, independent of the transactions in the block."
-               ]
-            },
-            {
-               "Name":"ExtrinsicBaseWeight",
-               "Type":"Weight",
-               "Value":"0x4059730700000000",
-               "Documentations":[
-                  " The base weight of an Extrinsic in the block, independent of the of extrinsic being executed."
-               ]
-            },
-            {
-               "Name":"MaximumBlockLength",
-               "Type":"u32",
-               "Value":"0x00005000",
-               "Documentations":[
-                  " The maximum length of a block (in bytes)."
-               ]
-            }
-         ],
-         "Errors":[
-            {
-               "Documentations":[
-                  " The name of specification does not match between the current runtime",
-                  " and the new runtime."
-               ],
-               "Name":"InvalidSpecName"
-            },
-            {
-               "Documentations":[
-                  " The specification version is not allowed to decrease between the current runtime",
-                  " and the new runtime."
-               ],
-               "Name":"SpecVersionNeedsToIncrease"
-            },
-            {
-               "Documentations":[
-                  " Failed to extract the runtime version from the new runtime.",
-                  "",
-                  " Either calling `Core_version` or decoding `RuntimeVersion` failed."
-               ],
-               "Name":"FailedToExtractRuntimeVersion"
-            },
-            {
-               "Documentations":[
-                  " Suicide called when the account has non-default composite data."
-               ],
-               "Name":"NonDefaultComposite"
-            },
-            {
-               "Documentations":[
-                  " There is a non-zero reference count preventing the account from being purged."
-               ],
-               "Name":"NonZeroRefCount"
-            }
-         ]
-      },
-      {
-         "Name":"RandomnessCollectiveFlip",
-         "Storage":{
-            "Prefix":"RandomnessCollectiveFlip",
-            "Items":[
-               {
-                  "Name":"RandomMaterial",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"Vec<T::Hash>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Series of block headers from the last 81 blocks that acts as random seed material. This",
-                     " is arranged as a ring buffer with `block_number % 81` being the index into the `Vec` of",
-                     " the oldest hash."
-                  ]
-               }
+            "FallBack": "0x00",
+            "Documentations": [
+              " Total extrinsics count for the current block."
             ]
-         },
-         "Calls":[
-            
-         ],
-         "Events":null,
-         "Consts":[
-            
-         ],
-         "Errors":[
-            
-         ]
-      },
-      {
-         "Name":"Timestamp",
-         "Storage":{
-            "Prefix":"Timestamp",
-            "Items":[
-               {
-                  "Name":"Now",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"T::Moment",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     " Current time for the current block."
-                  ]
-               },
-               {
-                  "Name":"DidUpdate",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"bool",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Did the timestamp get updated in this block?"
-                  ]
-               }
+          },
+          {
+            "Name": "BlockWeight",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "weights::ExtrinsicsWeight",
+              "IsLinked": false
+            },
+            "FallBack": "0x00000000000000000000000000000000",
+            "Documentations": [
+              " The current weight for the block."
             ]
-         },
-         "Calls":[
-            {
-               "Name":"set",
-               "Arguments":[
-                  {
-                     "Name":"now",
-                     "Type":"Compact<T::Moment>"
-                  }
-               ],
-               "Documentations":[
-                  " Set the current time.",
-                  "",
-                  " This call should be invoked exactly once per block. It will panic at the finalization",
-                  " phase, if this call hasn't been invoked by that time.",
-                  "",
-                  " The timestamp should be greater than the previous one by the amount specified by",
-                  " `MinimumPeriod`.",
-                  "",
-                  " The dispatch origin for this call must be `Inherent`.",
-                  "",
-                  " # <weight>",
-                  " - `O(T)` where `T` complexity of `on_timestamp_set`",
-                  " - 1 storage read and 1 storage mutation (codec `O(1)`). (because of `DidUpdate::take` in `on_finalize`)",
-                  " - 1 event handler `on_timestamp_set` `O(T)`.",
-                  " # </weight>"
-               ]
-            }
-         ],
-         "Events":null,
-         "Consts":[
-            {
-               "Name":"MinimumPeriod",
-               "Type":"T::Moment",
-               "Value":"0xB80B000000000000",
-               "Documentations":[
-                  " The minimum period between blocks. Beware that this is different to the *expected* period",
-                  " that the block production apparatus provides. Your chosen consensus system will generally",
-                  " work with this to determine a sensible block time. e.g. For Aura, it will be double this",
-                  " period on default settings."
-               ]
-            }
-         ],
-         "Errors":[
-            
-         ]
-      },
-      {
-         "Name":"Aura",
-         "Storage":null,
-         "Calls":null,
-         "Events":null,
-         "Consts":[
-            
-         ],
-         "Errors":[
-            
-         ]
-      },
-      {
-         "Name":"Grandpa",
-         "Storage":{
-            "Prefix":"GrandpaFinality",
-            "Items":[
-               {
-                  "Name":"State",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"StoredState<T::BlockNumber>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " State of the current authority set."
-                  ]
-               },
-               {
-                  "Name":"PendingChange",
-                  "Modifier":"Optional",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"StoredPendingChange<T::BlockNumber>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Pending change: (signaled at, scheduled change)."
-                  ]
-               },
-               {
-                  "Name":"NextForced",
-                  "Modifier":"Optional",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"T::BlockNumber",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " next block number where we can force a change."
-                  ]
-               },
-               {
-                  "Name":"Stalled",
-                  "Modifier":"Optional",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"(T::BlockNumber, T::BlockNumber)",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " `true` if we are currently stalled."
-                  ]
-               },
-               {
-                  "Name":"CurrentSetId",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"SetId",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     " The number of changes (both in terms of keys and underlying economic responsibilities)",
-                     " in the \"set\" of Grandpa validators from genesis."
-                  ]
-               },
-               {
-                  "Name":"SetIdSession",
-                  "Modifier":"Optional",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Twox64Concat",
-                     "Key1":"SetId",
-                     "Key2":null,
-                     "Value":"SessionIndex",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " A mapping from grandpa set ID to the index of the *most recent* session for which its",
-                     " members were responsible.",
-                     "",
-                     " TWOX-NOTE: `SetId` is not under user control."
-                  ]
-               }
+          },
+          {
+            "Name": "AllExtrinsicsLen",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "u32",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Total length (in bytes) for all extrinsics put together, for the current block."
             ]
-         },
-         "Calls":[
-            {
-               "Name":"report_equivocation",
-               "Arguments":[
-                  {
-                     "Name":"equivocation_proof",
-                     "Type":"EquivocationProof<T::Hash, T::BlockNumber>"
-                  },
-                  {
-                     "Name":"key_owner_proof",
-                     "Type":"T::KeyOwnerProof"
-                  }
-               ],
-               "Documentations":[
-                  " Report voter equivocation/misbehavior. This method will verify the",
-                  " equivocation proof and validate the given key ownership proof",
-                  " against the extracted offender. If both are valid, the offence",
-                  " will be reported."
-               ]
+          },
+          {
+            "Name": "BlockHash",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Twox64Concat",
+              "Key1": "T::BlockNumber",
+              "Key2": null,
+              "Value": "T::Hash",
+              "IsLinked": false
             },
-            {
-               "Name":"report_equivocation_unsigned",
-               "Arguments":[
-                  {
-                     "Name":"equivocation_proof",
-                     "Type":"EquivocationProof<T::Hash, T::BlockNumber>"
-                  },
-                  {
-                     "Name":"key_owner_proof",
-                     "Type":"T::KeyOwnerProof"
-                  }
-               ],
-               "Documentations":[
-                  " Report voter equivocation/misbehavior. This method will verify the",
-                  " equivocation proof and validate the given key ownership proof",
-                  " against the extracted offender. If both are valid, the offence",
-                  " will be reported.",
-                  "",
-                  " This extrinsic must be called unsigned and it is expected that only",
-                  " block authors will call it (validated in `ValidateUnsigned`), as such",
-                  " if the block author is defined it will be defined as the equivocation",
-                  " reporter."
-               ]
-            },
-            {
-               "Name":"note_stalled",
-               "Arguments":[
-                  {
-                     "Name":"delay",
-                     "Type":"T::BlockNumber"
-                  },
-                  {
-                     "Name":"best_finalized_block_number",
-                     "Type":"T::BlockNumber"
-                  }
-               ],
-               "Documentations":[
-                  " Note that the current authority set of the GRANDPA finality gadget has",
-                  " stalled. This will trigger a forced authority set change at the beginning",
-                  " of the next session, to be enacted `delay` blocks after that. The delay",
-                  " should be high enough to safely assume that the block signalling the",
-                  " forced change will not be re-orged (e.g. 1000 blocks). The GRANDPA voters",
-                  " will start the new authority set using the given finalized block as base.",
-                  " Only callable by root."
-               ]
-            }
-         ],
-         "Events":[
-            {
-               "Documentations":[
-                  " New authority set has been applied. [authority_set]"
-               ],
-               "Name":"NewAuthorities",
-               "EventArgs":[
-                  "AuthorityList"
-               ]
-            },
-            {
-               "Documentations":[
-                  " Current authority set has been paused."
-               ],
-               "Name":"Paused",
-               "EventArgs":[
-                  
-               ]
-            },
-            {
-               "Documentations":[
-                  " Current authority set has been resumed."
-               ],
-               "Name":"Resumed",
-               "EventArgs":[
-                  
-               ]
-            }
-         ],
-         "Consts":[
-            
-         ],
-         "Errors":[
-            {
-               "Documentations":[
-                  " Attempt to signal GRANDPA pause when the authority set isn't live",
-                  " (either paused or already pending pause)."
-               ],
-               "Name":"PauseFailed"
-            },
-            {
-               "Documentations":[
-                  " Attempt to signal GRANDPA resume when the authority set isn't paused",
-                  " (either live or already pending resume)."
-               ],
-               "Name":"ResumeFailed"
-            },
-            {
-               "Documentations":[
-                  " Attempt to signal GRANDPA change with one already pending."
-               ],
-               "Name":"ChangePending"
-            },
-            {
-               "Documentations":[
-                  " Cannot signal forced change so soon after last."
-               ],
-               "Name":"TooSoon"
-            },
-            {
-               "Documentations":[
-                  " A key ownership proof provided as part of an equivocation report is invalid."
-               ],
-               "Name":"InvalidKeyOwnershipProof"
-            },
-            {
-               "Documentations":[
-                  " An equivocation proof provided as part of an equivocation report is invalid."
-               ],
-               "Name":"InvalidEquivocationProof"
-            },
-            {
-               "Documentations":[
-                  " A given equivocation report is valid but already previously reported."
-               ],
-               "Name":"DuplicateOffenceReport"
-            }
-         ]
-      },
-      {
-         "Name":"Balances",
-         "Storage":{
-            "Prefix":"Balances",
-            "Items":[
-               {
-                  "Name":"TotalIssuance",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"T::Balance",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00000000000000000000000000000000",
-                  "Documentations":[
-                     " The total units issued in the system."
-                  ]
-               },
-               {
-                  "Name":"Account",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"T::AccountId",
-                     "Key2":null,
-                     "Value":"AccountData<T::Balance>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     " The balance of an account.",
-                     "",
-                     " NOTE: This is only used in the case that this module is used to store balances."
-                  ]
-               },
-               {
-                  "Name":"Locks",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"T::AccountId",
-                     "Key2":null,
-                     "Value":"Vec<BalanceLock<T::Balance>>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Any liquidity locks on some account balances.",
-                     " NOTE: Should only be accessed when setting, changing and freeing a lock."
-                  ]
-               },
-               {
-                  "Name":"StorageVersion",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"Releases",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     " Storage version of the pallet.",
-                     "",
-                     " This is set to v2.0.0 for new networks."
-                  ]
-               }
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+              " Map of block numbers to block hashes."
             ]
-         },
-         "Calls":[
-            {
-               "Name":"transfer",
-               "Arguments":[
-                  {
-                     "Name":"dest",
-                     "Type":"<T::Lookup as StaticLookup>::Source"
-                  },
-                  {
-                     "Name":"value",
-                     "Type":"Compact<T::Balance>"
-                  }
-               ],
-               "Documentations":[
-                  " Transfer some liquid free balance to another account.",
-                  "",
-                  " `transfer` will set the `FreeBalance` of the sender and receiver.",
-                  " It will decrease the total issuance of the system by the `TransferFee`.",
-                  " If the sender's account is below the existential deposit as a result",
-                  " of the transfer, the account will be reaped.",
-                  "",
-                  " The dispatch origin for this call must be `Signed` by the transactor.",
-                  "",
-                  " # <weight>",
-                  " - Dependent on arguments but not critical, given proper implementations for",
-                  "   input config types. See related functions below.",
-                  " - It contains a limited number of reads and writes internally and no complex computation.",
-                  "",
-                  " Related functions:",
-                  "",
-                  "   - `ensure_can_withdraw` is always called internally but has a bounded complexity.",
-                  "   - Transferring balances to accounts that did not exist before will cause",
-                  "      `T::OnNewAccount::on_new_account` to be called.",
-                  "   - Removing enough funds from an account will trigger `T::DustRemoval::on_unbalanced`.",
-                  "   - `transfer_keep_alive` works the same way as `transfer`, but has an additional",
-                  "     check that the transfer will not kill the origin account.",
-                  " ---------------------------------",
-                  " - Base Weight: 73.64 Âµs, worst case scenario (account created, account removed)",
-                  " - DB Weight: 1 Read and 1 Write to destination account",
-                  " - Origin account is already in memory, so no DB operations for them.",
-                  " # </weight>"
-               ]
+          },
+          {
+            "Name": "ExtrinsicData",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Twox64Concat",
+              "Key1": "u32",
+              "Key2": null,
+              "Value": "Vec<u8>",
+              "IsLinked": false
             },
-            {
-               "Name":"set_balance",
-               "Arguments":[
-                  {
-                     "Name":"who",
-                     "Type":"<T::Lookup as StaticLookup>::Source"
-                  },
-                  {
-                     "Name":"new_free",
-                     "Type":"Compact<T::Balance>"
-                  },
-                  {
-                     "Name":"new_reserved",
-                     "Type":"Compact<T::Balance>"
-                  }
-               ],
-               "Documentations":[
-                  " Set the balances of a given account.",
-                  "",
-                  " This will alter `FreeBalance` and `ReservedBalance` in storage. it will",
-                  " also decrease the total issuance of the system (`TotalIssuance`).",
-                  " If the new free or reserved balance is below the existential deposit,",
-                  " it will reset the account nonce (`frame_system::AccountNonce`).",
-                  "",
-                  " The dispatch origin for this call is `root`.",
-                  "",
-                  " # <weight>",
-                  " - Independent of the arguments.",
-                  " - Contains a limited number of reads and writes.",
-                  " ---------------------",
-                  " - Base Weight:",
-                  "     - Creating: 27.56 Âµs",
-                  "     - Killing: 35.11 Âµs",
-                  " - DB Weight: 1 Read, 1 Write to `who`",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"force_transfer",
-               "Arguments":[
-                  {
-                     "Name":"source",
-                     "Type":"<T::Lookup as StaticLookup>::Source"
-                  },
-                  {
-                     "Name":"dest",
-                     "Type":"<T::Lookup as StaticLookup>::Source"
-                  },
-                  {
-                     "Name":"value",
-                     "Type":"Compact<T::Balance>"
-                  }
-               ],
-               "Documentations":[
-                  " Exactly as `transfer`, except the origin must be root and the source account may be",
-                  " specified.",
-                  " # <weight>",
-                  " - Same as transfer, but additional read and write because the source account is",
-                  "   not assumed to be in the overlay.",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"transfer_keep_alive",
-               "Arguments":[
-                  {
-                     "Name":"dest",
-                     "Type":"<T::Lookup as StaticLookup>::Source"
-                  },
-                  {
-                     "Name":"value",
-                     "Type":"Compact<T::Balance>"
-                  }
-               ],
-               "Documentations":[
-                  " Same as the [`transfer`] call, but with a check that the transfer will not kill the",
-                  " origin account.",
-                  "",
-                  " 99% of the time you want [`transfer`] instead.",
-                  "",
-                  " [`transfer`]: struct.Module.html#method.transfer",
-                  " # <weight>",
-                  " - Cheaper than transfer because account cannot be killed.",
-                  " - Base Weight: 51.4 Âµs",
-                  " - DB Weight: 1 Read and 1 Write to dest (sender is in overlay already)",
-                  " #</weight>"
-               ]
-            }
-         ],
-         "Events":[
-            {
-               "Documentations":[
-                  " An account was created with some free balance. [account, free_balance]"
-               ],
-               "Name":"Endowed",
-               "EventArgs":[
-                  "AccountId",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  " An account was removed whose balance was non-zero but below ExistentialDeposit,",
-                  " resulting in an outright loss. [account, balance]"
-               ],
-               "Name":"DustLost",
-               "EventArgs":[
-                  "AccountId",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  " Transfer succeeded. [from, to, value]"
-               ],
-               "Name":"Transfer",
-               "EventArgs":[
-                  "AccountId",
-                  "AccountId",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  " A balance was set by root. [who, free, reserved]"
-               ],
-               "Name":"BalanceSet",
-               "EventArgs":[
-                  "AccountId",
-                  "Balance",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  " Some amount was deposited (e.g. for transaction fees). [who, deposit]"
-               ],
-               "Name":"Deposit",
-               "EventArgs":[
-                  "AccountId",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  " Some balance was reserved (moved from free to reserved). [who, value]"
-               ],
-               "Name":"Reserved",
-               "EventArgs":[
-                  "AccountId",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  " Some balance was unreserved (moved from reserved to free). [who, value]"
-               ],
-               "Name":"Unreserved",
-               "EventArgs":[
-                  "AccountId",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  " Some balance was moved from the reserve of the first account to the second account.",
-                  " Final argument indicates the destination balance type.",
-                  " [from, to, balance, destination_status]"
-               ],
-               "Name":"ReserveRepatriated",
-               "EventArgs":[
-                  "AccountId",
-                  "AccountId",
-                  "Balance",
-                  "Status"
-               ]
-            }
-         ],
-         "Consts":[
-            {
-               "Name":"ExistentialDeposit",
-               "Type":"T::Balance",
-               "Value":"0xF4010000000000000000000000000000",
-               "Documentations":[
-                  " The minimum amount required to keep an account open."
-               ]
-            }
-         ],
-         "Errors":[
-            {
-               "Documentations":[
-                  " Vesting balance too high to send value"
-               ],
-               "Name":"VestingBalance"
-            },
-            {
-               "Documentations":[
-                  " Account liquidity restrictions prevent withdrawal"
-               ],
-               "Name":"LiquidityRestrictions"
-            },
-            {
-               "Documentations":[
-                  " Got an overflow after adding"
-               ],
-               "Name":"Overflow"
-            },
-            {
-               "Documentations":[
-                  " Balance too low to send value"
-               ],
-               "Name":"InsufficientBalance"
-            },
-            {
-               "Documentations":[
-                  " Value too low to create account due to existential deposit"
-               ],
-               "Name":"ExistentialDeposit"
-            },
-            {
-               "Documentations":[
-                  " Transfer/payment would kill account"
-               ],
-               "Name":"KeepAlive"
-            },
-            {
-               "Documentations":[
-                  " A vesting schedule already exists for this account"
-               ],
-               "Name":"ExistingVestingSchedule"
-            },
-            {
-               "Documentations":[
-                  " Beneficiary account must pre-exist"
-               ],
-               "Name":"DeadAccount"
-            }
-         ]
-      },
-      {
-         "Name":"TransactionPayment",
-         "Storage":{
-            "Prefix":"TransactionPayment",
-            "Items":[
-               {
-                  "Name":"NextFeeMultiplier",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"Multiplier",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x000064A7B3B6E00D0000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"StorageVersion",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"Releases",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     
-                  ]
-               }
+            "FallBack": "0x00",
+            "Documentations": [
+              " Extrinsics data for the current block (maps an extrinsic's index to its data)."
             ]
-         },
-         "Calls":null,
-         "Events":null,
-         "Consts":[
-            {
-               "Name":"TransactionByteFee",
-               "Type":"BalanceOf<T>",
-               "Value":"0x01000000000000000000000000000000",
-               "Documentations":[
-                  " The fee to be paid for making a transaction; the per-byte portion."
-               ]
+          },
+          {
+            "Name": "Number",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::BlockNumber",
+              "IsLinked": false
             },
-            {
-               "Name":"WeightToFee",
-               "Type":"Vec<WeightToFeeCoefficient<BalanceOf<T>>>",
-               "Value":"0x0401000000000000000000000000000000000000000001",
-               "Documentations":[
-                  " The polynomial that is applied in order to derive fee from weight."
-               ]
-            }
-         ],
-         "Errors":[
-            
-         ]
-      },
-      {
-         "Name":"Sudo",
-         "Storage":{
-            "Prefix":"Sudo",
-            "Items":[
-               {
-                  "Name":"Key",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"T::AccountId",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     " The `AccountId` of the sudo key."
-                  ]
-               }
+            "FallBack": "0x00000000",
+            "Documentations": [
+              " The current block number being processed. Set by `execute_block`."
             ]
-         },
-         "Calls":[
-            {
-               "Name":"sudo",
-               "Arguments":[
-                  {
-                     "Name":"call",
-                     "Type":"Box<<T as Trait>::Call>"
-                  }
-               ],
-               "Documentations":[
-                  " Authenticates the sudo key and dispatches a function call with `Root` origin.",
-                  "",
-                  " The dispatch origin for this call must be _Signed_.",
-                  "",
-                  " # <weight>",
-                  " - O(1).",
-                  " - Limited storage reads.",
-                  " - One DB write (event).",
-                  " - Weight of derivative `call` execution + 10,000.",
-                  " # </weight>"
-               ]
+          },
+          {
+            "Name": "ParentHash",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::Hash",
+              "IsLinked": false
             },
-            {
-               "Name":"sudo_unchecked_weight",
-               "Arguments":[
-                  {
-                     "Name":"call",
-                     "Type":"Box<<T as Trait>::Call>"
-                  },
-                  {
-                     "Name":"_weight",
-                     "Type":"Weight"
-                  }
-               ],
-               "Documentations":[
-                  " Authenticates the sudo key and dispatches a function call with `Root` origin.",
-                  " This function does not check the weight of the call, and instead allows the",
-                  " Sudo user to specify the weight of the call.",
-                  "",
-                  " The dispatch origin for this call must be _Signed_.",
-                  "",
-                  " # <weight>",
-                  " - O(1).",
-                  " - The weight of this call is defined by the caller.",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"set_key",
-               "Arguments":[
-                  {
-                     "Name":"new",
-                     "Type":"<T::Lookup as StaticLookup>::Source"
-                  }
-               ],
-               "Documentations":[
-                  " Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo key.",
-                  "",
-                  " The dispatch origin for this call must be _Signed_.",
-                  "",
-                  " # <weight>",
-                  " - O(1).",
-                  " - Limited storage reads.",
-                  " - One DB change.",
-                  " # </weight>"
-               ]
-            },
-            {
-               "Name":"sudo_as",
-               "Arguments":[
-                  {
-                     "Name":"who",
-                     "Type":"<T::Lookup as StaticLookup>::Source"
-                  },
-                  {
-                     "Name":"call",
-                     "Type":"Box<<T as Trait>::Call>"
-                  }
-               ],
-               "Documentations":[
-                  " Authenticates the sudo key and dispatches a function call with `Signed` origin from",
-                  " a given account.",
-                  "",
-                  " The dispatch origin for this call must be _Signed_.",
-                  "",
-                  " # <weight>",
-                  " - O(1).",
-                  " - Limited storage reads.",
-                  " - One DB write (event).",
-                  " - Weight of derivative `call` execution + 10,000.",
-                  " # </weight>"
-               ]
-            }
-         ],
-         "Events":[
-            {
-               "Documentations":[
-                  " A sudo just took place. [result]"
-               ],
-               "Name":"Sudid",
-               "EventArgs":[
-                  "DispatchResult"
-               ]
-            },
-            {
-               "Documentations":[
-                  " The [sudoer] just switched identity; the old key is supplied."
-               ],
-               "Name":"KeyChanged",
-               "EventArgs":[
-                  "AccountId"
-               ]
-            },
-            {
-               "Documentations":[
-                  " A sudo just took place. [result]"
-               ],
-               "Name":"SudoAsDone",
-               "EventArgs":[
-                  "bool"
-               ]
-            }
-         ],
-         "Consts":[
-            
-         ],
-         "Errors":[
-            {
-               "Documentations":[
-                  " Sender must be the Sudo account"
-               ],
-               "Name":"RequireSudo"
-            }
-         ]
-      },
-      {
-         "Name":"Dmog",
-         "Storage":{
-            "Prefix":"Dmog",
-            "Items":[
-               {
-                  "Name":"Mogwais",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Identity",
-                     "Key1":"T::Hash",
-                     "Key2":null,
-                     "Value":"MogwaiStruct<T::Hash, BalanceOf<T>>",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"MogwaiOwner",
-                  "Modifier":"Optional",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Identity",
-                     "Key1":"T::Hash",
-                     "Key2":null,
-                     "Value":"T::AccountId",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x00",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"AllMogwaisArray",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"u64",
-                     "Key2":null,
-                     "Value":"T::Hash",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"AllMogwaisCount",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"u64",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"AllMogwaisIndex",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Identity",
-                     "Key1":"T::Hash",
-                     "Key2":null,
-                     "Value":"u64",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"OwnedMogwaisArray",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"(T::AccountId, u64)",
-                     "Key2":null,
-                     "Value":"T::Hash",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"OwnedMogwaisCount",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"T::AccountId",
-                     "Key2":null,
-                     "Value":"u64",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"OwnedMogwaisIndex",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Identity",
-                     "Key1":"T::Hash",
-                     "Key2":null,
-                     "Value":"u64",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"Nonce",
-                  "Modifier":"Default",
-                  "Type":"Plain",
-                  "Function":{
-                     "Hasher":"None",
-                     "Key1":null,
-                     "Key2":null,
-                     "Value":"u64",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               },
-               {
-                  "Name":"Value",
-                  "Modifier":"Default",
-                  "Type":"Map",
-                  "Function":{
-                     "Hasher":"Blake2_128Concat",
-                     "Key1":"T::AccountId",
-                     "Key2":null,
-                     "Value":"u64",
-                     "IsLinked":false
-                  },
-                  "FallBack":"0x0000000000000000",
-                  "Documentations":[
-                     
-                  ]
-               }
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+              " Hash of the previous block."
             ]
-         },
-         "Calls":[
-            {
-               "Name":"set_value",
-               "Arguments":[
-                  {
-                     "Name":"value",
-                     "Type":"u64"
-                  }
-               ],
-               "Documentations":[
-                  " An example dispatchable that takes a singles value as a parameter, writes the value to",
-                  " storage and emits an event. This function must be dispatched by a signed extrinsic."
-               ]
+          },
+          {
+            "Name": "ExtrinsicsRoot",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::Hash",
+              "IsLinked": false
             },
-            {
-               "Name":"set_price",
-               "Arguments":[
-                  {
-                     "Name":"mogwai_id",
-                     "Type":"T::Hash"
-                  },
-                  {
-                     "Name":"new_price",
-                     "Type":"BalanceOf<T>"
-                  }
-               ],
-               "Documentations":[
-                  
-               ]
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+              " Extrinsics root of the current block, also part of the block header."
+            ]
+          },
+          {
+            "Name": "Digest",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "DigestOf<T>",
+              "IsLinked": false
             },
-            {
-               "Name":"create_mogwai",
-               "Arguments":[
-                  
-               ],
-               "Documentations":[
-                  
-               ]
+            "FallBack": "0x00",
+            "Documentations": [
+              " Digest of the current block, also part of the block header."
+            ]
+          },
+          {
+            "Name": "Events",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "Vec<EventRecord<T::Event, T::Hash>>",
+              "IsLinked": false
             },
-            {
-               "Name":"transfer",
-               "Arguments":[
-                  {
-                     "Name":"to",
-                     "Type":"T::AccountId"
-                  },
-                  {
-                     "Name":"mogwai_id",
-                     "Type":"T::Hash"
-                  }
-               ],
-               "Documentations":[
-                  
-               ]
+            "FallBack": "0x00",
+            "Documentations": [
+              " Events deposited for the current block."
+            ]
+          },
+          {
+            "Name": "EventCount",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "EventIndex",
+              "IsLinked": false
             },
-            {
-               "Name":"buy_mogwai",
-               "Arguments":[
-                  {
-                     "Name":"mogwai_id",
-                     "Type":"T::Hash"
-                  },
-                  {
-                     "Name":"max_price",
-                     "Type":"BalanceOf<T>"
-                  }
-               ],
-               "Documentations":[
-                  
-               ]
+            "FallBack": "0x00000000",
+            "Documentations": [
+              " The number of events in the `Events<T>` list."
+            ]
+          },
+          {
+            "Name": "EventTopics",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "T::Hash",
+              "Key2": null,
+              "Value": "Vec<(T::BlockNumber, EventIndex)>",
+              "IsLinked": false
             },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Mapping between a topic (represented by T::Hash) and a vector of indexes",
+              " of events in the `<Events<T>>` list.",
+              "",
+              " All topic vectors have deterministic storage locations depending on the topic. This",
+              " allows light-clients to leverage the changes trie storage tracking mechanism and",
+              " in case of changes fetch the list of events of interest.",
+              "",
+              " The value has the type `(T::BlockNumber, EventIndex)` because if we used only just",
+              " the `EventIndex` then in case if the topic has the same contents on the next block",
+              " no notification will be triggered thus the event might be lost."
+            ]
+          },
+          {
+            "Name": "LastRuntimeUpgrade",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "LastRuntimeUpgradeInfo",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Stores the `spec_version` and `spec_name` of when the last runtime upgrade happened."
+            ]
+          },
+          {
+            "Name": "ExecutionPhase",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "Phase",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " The execution phase of the block."
+            ]
+          }
+        ]
+      },
+      "Calls": [
+        {
+          "Name": "fill_block",
+          "Arguments": [
             {
-               "Name":"breed_mogwai",
-               "Arguments":[
-                  {
-                     "Name":"mogwai_id_1",
-                     "Type":"T::Hash"
-                  },
-                  {
-                     "Name":"mogwai_id_2",
-                     "Type":"T::Hash"
-                  }
-               ],
-               "Documentations":[
-                  
-               ]
+              "Name": "_ratio",
+              "Type": "Perbill"
             }
-         ],
-         "Events":[
+          ],
+          "Documentations": [
+            " A dispatch that will fill the block weight up to the given ratio."
+          ]
+        },
+        {
+          "Name": "remark",
+          "Arguments": [
             {
-               "Documentations":[
-                  " Event documentation should end with an array that provides descriptive names for event",
-                  " parameters. [something, sender]"
-               ],
-               "Name":"ValueStored",
-               "EventArgs":[
-                  "u64",
-                  "AccountId"
-               ]
-            },
-            {
-               "Documentations":[
-                  
-               ],
-               "Name":"MogwaiCreated",
-               "EventArgs":[
-                  "AccountId",
-                  "Hash"
-               ]
-            },
-            {
-               "Documentations":[
-                  
-               ],
-               "Name":"PriceSet",
-               "EventArgs":[
-                  "AccountId",
-                  "Hash",
-                  "Balance"
-               ]
-            },
-            {
-               "Documentations":[
-                  
-               ],
-               "Name":"Transferred",
-               "EventArgs":[
-                  "AccountId",
-                  "AccountId",
-                  "Hash"
-               ]
-            },
-            {
-               "Documentations":[
-                  
-               ],
-               "Name":"Bought",
-               "EventArgs":[
-                  "AccountId",
-                  "AccountId",
-                  "Hash",
-                  "Balance"
-               ]
+              "Name": "_remark",
+              "Type": "Vec<u8>"
             }
-         ],
-         "Consts":[
-            
-         ],
-         "Errors":[
+          ],
+          "Documentations": [
+            " Make some on-chain remark.",
+            "",
+            " # <weight>",
+            " - `O(1)`",
+            " - Base Weight: 0.665 Âµs, independent of remark length.",
+            " - No DB operations.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "set_heap_pages",
+          "Arguments": [
             {
-               "Documentations":[
-                  " Error names should be descriptive."
-               ],
-               "Name":"NoneValue"
-            },
-            {
-               "Documentations":[
-                  " Errors should have helpful documentation associated with them."
-               ],
-               "Name":"StorageOverflow"
-            },
-            {
-               "Documentations":[
-                  ""
-               ],
-               "Name":"MogwaiAlreadyExists"
-            },
-            {
-               "Documentations":[
-                  
-               ],
-               "Name":"MogwaiDoesntExists"
+              "Name": "pages",
+              "Type": "u64"
             }
-         ]
-      }
-   ],
-   "ExtrinsicExtensions":[
-      "CheckSpecVersion",
-      "CheckTxVersion",
-      "CheckGenesis",
-      "CheckMortality",
-      "CheckNonce",
-      "CheckWeight",
-      "ChargeTransactionPayment"
-   ]
+          ],
+          "Documentations": [
+            " Set the number of pages in the WebAssembly environment's heap.",
+            "",
+            " # <weight>",
+            " - `O(1)`",
+            " - 1 storage write.",
+            " - Base Weight: 1.405 Âµs",
+            " - 1 write to HEAP_PAGES",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "set_code",
+          "Arguments": [
+            {
+              "Name": "code",
+              "Type": "Vec<u8>"
+            }
+          ],
+          "Documentations": [
+            " Set the new runtime code.",
+            "",
+            " # <weight>",
+            " - `O(C + S)` where `C` length of `code` and `S` complexity of `can_set_code`",
+            " - 1 storage write (codec `O(C)`).",
+            " - 1 call to `can_set_code`: `O(S)` (calls `sp_io::misc::runtime_version` which is expensive).",
+            " - 1 event.",
+            " The weight of this function is dependent on the runtime, but generally this is very expensive.",
+            " We will treat this as a full block.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "set_code_without_checks",
+          "Arguments": [
+            {
+              "Name": "code",
+              "Type": "Vec<u8>"
+            }
+          ],
+          "Documentations": [
+            " Set the new runtime code without doing any checks of the given `code`.",
+            "",
+            " # <weight>",
+            " - `O(C)` where `C` length of `code`",
+            " - 1 storage write (codec `O(C)`).",
+            " - 1 event.",
+            " The weight of this function is dependent on the runtime. We will treat this as a full block.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "set_changes_trie_config",
+          "Arguments": [
+            {
+              "Name": "changes_trie_config",
+              "Type": "Option<ChangesTrieConfiguration>"
+            }
+          ],
+          "Documentations": [
+            " Set the new changes trie configuration.",
+            "",
+            " # <weight>",
+            " - `O(1)`",
+            " - 1 storage write or delete (codec `O(1)`).",
+            " - 1 call to `deposit_log`: Uses `append` API, so O(1)",
+            " - Base Weight: 7.218 Âµs",
+            " - DB Weight:",
+            "     - Writes: Changes Trie, System Digest",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "set_storage",
+          "Arguments": [
+            {
+              "Name": "items",
+              "Type": "Vec<KeyValue>"
+            }
+          ],
+          "Documentations": [
+            " Set some items of storage.",
+            "",
+            " # <weight>",
+            " - `O(I)` where `I` length of `items`",
+            " - `I` storage writes (`O(1)`).",
+            " - Base Weight: 0.568 * i Âµs",
+            " - Writes: Number of items",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "kill_storage",
+          "Arguments": [
+            {
+              "Name": "keys",
+              "Type": "Vec<Key>"
+            }
+          ],
+          "Documentations": [
+            " Kill some items from storage.",
+            "",
+            " # <weight>",
+            " - `O(IK)` where `I` length of `keys` and `K` length of one key",
+            " - `I` storage deletions.",
+            " - Base Weight: .378 * i Âµs",
+            " - Writes: Number of items",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "kill_prefix",
+          "Arguments": [
+            {
+              "Name": "prefix",
+              "Type": "Key"
+            },
+            {
+              "Name": "_subkeys",
+              "Type": "u32"
+            }
+          ],
+          "Documentations": [
+            " Kill all storage items with a key that starts with the given prefix.",
+            "",
+            " **NOTE:** We rely on the Root origin to provide us the number of subkeys under",
+            " the prefix we are removing to accurately calculate the weight of this function.",
+            "",
+            " # <weight>",
+            " - `O(P)` where `P` amount of keys with prefix `prefix`",
+            " - `P` storage deletions.",
+            " - Base Weight: 0.834 * P Âµs",
+            " - Writes: Number of subkeys + 1",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "suicide",
+          "Arguments": [
+
+          ],
+          "Documentations": [
+            " Kill the sending account, assuming there are no references outstanding and the composite",
+            " data is equal to its default value.",
+            "",
+            " # <weight>",
+            " - `O(1)`",
+            " - 1 storage read and deletion.",
+            " --------------------",
+            " Base Weight: 8.626 Âµs",
+            " No DB Read or Write operations because caller is already in overlay",
+            " # </weight>"
+          ]
+        }
+      ],
+      "Events": [
+        {
+          "Documentations": [
+            " An extrinsic completed successfully. [info]"
+          ],
+          "Name": "ExtrinsicSuccess",
+          "EventArgs": [
+            "DispatchInfo"
+          ]
+        },
+        {
+          "Documentations": [
+            " An extrinsic failed. [error, info]"
+          ],
+          "Name": "ExtrinsicFailed",
+          "EventArgs": [
+            "DispatchError",
+            "DispatchInfo"
+          ]
+        },
+        {
+          "Documentations": [
+            " `:code` was updated."
+          ],
+          "Name": "CodeUpdated",
+          "EventArgs": [
+
+          ]
+        },
+        {
+          "Documentations": [
+            " A new [account] was created."
+          ],
+          "Name": "NewAccount",
+          "EventArgs": [
+            "AccountId"
+          ]
+        },
+        {
+          "Documentations": [
+            " An [account] was reaped."
+          ],
+          "Name": "KilledAccount",
+          "EventArgs": [
+            "AccountId"
+          ]
+        }
+      ],
+      "Consts": [
+        {
+          "Name": "BlockHashCount",
+          "Type": "T::BlockNumber",
+          "Value": "0x60090000",
+          "Documentations": [
+            " The maximum number of blocks to allow in mortal eras."
+          ]
+        },
+        {
+          "Name": "MaximumBlockWeight",
+          "Type": "Weight",
+          "Value": "0x00204AA9D1010000",
+          "Documentations": [
+            " The maximum weight of a block."
+          ]
+        },
+        {
+          "Name": "DbWeight",
+          "Type": "RuntimeDbWeight",
+          "Value": "0x40787D010000000000E1F50500000000",
+          "Documentations": [
+            " The weight of runtime database operations the runtime can invoke."
+          ]
+        },
+        {
+          "Name": "BlockExecutionWeight",
+          "Type": "Weight",
+          "Value": "0x00F2052A01000000",
+          "Documentations": [
+            " The base weight of executing a block, independent of the transactions in the block."
+          ]
+        },
+        {
+          "Name": "ExtrinsicBaseWeight",
+          "Type": "Weight",
+          "Value": "0x4059730700000000",
+          "Documentations": [
+            " The base weight of an Extrinsic in the block, independent of the of extrinsic being executed."
+          ]
+        },
+        {
+          "Name": "MaximumBlockLength",
+          "Type": "u32",
+          "Value": "0x00005000",
+          "Documentations": [
+            " The maximum length of a block (in bytes)."
+          ]
+        }
+      ],
+      "Errors": [
+        {
+          "Documentations": [
+            " The name of specification does not match between the current runtime",
+            " and the new runtime."
+          ],
+          "Name": "InvalidSpecName"
+        },
+        {
+          "Documentations": [
+            " The specification version is not allowed to decrease between the current runtime",
+            " and the new runtime."
+          ],
+          "Name": "SpecVersionNeedsToIncrease"
+        },
+        {
+          "Documentations": [
+            " Failed to extract the runtime version from the new runtime.",
+            "",
+            " Either calling `Core_version` or decoding `RuntimeVersion` failed."
+          ],
+          "Name": "FailedToExtractRuntimeVersion"
+        },
+        {
+          "Documentations": [
+            " Suicide called when the account has non-default composite data."
+          ],
+          "Name": "NonDefaultComposite"
+        },
+        {
+          "Documentations": [
+            " There is a non-zero reference count preventing the account from being purged."
+          ],
+          "Name": "NonZeroRefCount"
+        }
+      ]
+    },
+    {
+      "Name": "RandomnessCollectiveFlip",
+      "Storage": {
+        "Prefix": "RandomnessCollectiveFlip",
+        "Items": [
+          {
+            "Name": "RandomMaterial",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "Vec<T::Hash>",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Series of block headers from the last 81 blocks that acts as random seed material. This",
+              " is arranged as a ring buffer with `block_number % 81` being the index into the `Vec` of",
+              " the oldest hash."
+            ]
+          }
+        ]
+      },
+      "Calls": [
+
+      ],
+      "Events": null,
+      "Consts": [
+
+      ],
+      "Errors": [
+
+      ]
+    },
+    {
+      "Name": "Timestamp",
+      "Storage": {
+        "Prefix": "Timestamp",
+        "Items": [
+          {
+            "Name": "Now",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::Moment",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+              " Current time for the current block."
+            ]
+          },
+          {
+            "Name": "DidUpdate",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "bool",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Did the timestamp get updated in this block?"
+            ]
+          }
+        ]
+      },
+      "Calls": [
+        {
+          "Name": "set",
+          "Arguments": [
+            {
+              "Name": "now",
+              "Type": "Compact<T::Moment>"
+            }
+          ],
+          "Documentations": [
+            " Set the current time.",
+            "",
+            " This call should be invoked exactly once per block. It will panic at the finalization",
+            " phase, if this call hasn't been invoked by that time.",
+            "",
+            " The timestamp should be greater than the previous one by the amount specified by",
+            " `MinimumPeriod`.",
+            "",
+            " The dispatch origin for this call must be `Inherent`.",
+            "",
+            " # <weight>",
+            " - `O(T)` where `T` complexity of `on_timestamp_set`",
+            " - 1 storage read and 1 storage mutation (codec `O(1)`). (because of `DidUpdate::take` in `on_finalize`)",
+            " - 1 event handler `on_timestamp_set` `O(T)`.",
+            " # </weight>"
+          ]
+        }
+      ],
+      "Events": null,
+      "Consts": [
+        {
+          "Name": "MinimumPeriod",
+          "Type": "T::Moment",
+          "Value": "0xB80B000000000000",
+          "Documentations": [
+            " The minimum period between blocks. Beware that this is different to the *expected* period",
+            " that the block production apparatus provides. Your chosen consensus system will generally",
+            " work with this to determine a sensible block time. e.g. For Aura, it will be double this",
+            " period on default settings."
+          ]
+        }
+      ],
+      "Errors": [
+
+      ]
+    },
+    {
+      "Name": "Aura",
+      "Storage": null,
+      "Calls": null,
+      "Events": null,
+      "Consts": [
+
+      ],
+      "Errors": [
+
+      ]
+    },
+    {
+      "Name": "Grandpa",
+      "Storage": {
+        "Prefix": "GrandpaFinality",
+        "Items": [
+          {
+            "Name": "State",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "StoredState<T::BlockNumber>",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " State of the current authority set."
+            ]
+          },
+          {
+            "Name": "PendingChange",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "StoredPendingChange<T::BlockNumber>",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Pending change: (signaled at, scheduled change)."
+            ]
+          },
+          {
+            "Name": "NextForced",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::BlockNumber",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " next block number where we can force a change."
+            ]
+          },
+          {
+            "Name": "Stalled",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "(T::BlockNumber, T::BlockNumber)",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " `true` if we are currently stalled."
+            ]
+          },
+          {
+            "Name": "CurrentSetId",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "SetId",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+              " The number of changes (both in terms of keys and underlying economic responsibilities)",
+              " in the \"set\" of Grandpa validators from genesis."
+            ]
+          },
+          {
+            "Name": "SetIdSession",
+            "Modifier": "Optional",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Twox64Concat",
+              "Key1": "SetId",
+              "Key2": null,
+              "Value": "SessionIndex",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " A mapping from grandpa set ID to the index of the *most recent* session for which its",
+              " members were responsible.",
+              "",
+              " TWOX-NOTE: `SetId` is not under user control."
+            ]
+          }
+        ]
+      },
+      "Calls": [
+        {
+          "Name": "report_equivocation",
+          "Arguments": [
+            {
+              "Name": "equivocation_proof",
+              "Type": "EquivocationProof<T::Hash, T::BlockNumber>"
+            },
+            {
+              "Name": "key_owner_proof",
+              "Type": "T::KeyOwnerProof"
+            }
+          ],
+          "Documentations": [
+            " Report voter equivocation/misbehavior. This method will verify the",
+            " equivocation proof and validate the given key ownership proof",
+            " against the extracted offender. If both are valid, the offence",
+            " will be reported."
+          ]
+        },
+        {
+          "Name": "report_equivocation_unsigned",
+          "Arguments": [
+            {
+              "Name": "equivocation_proof",
+              "Type": "EquivocationProof<T::Hash, T::BlockNumber>"
+            },
+            {
+              "Name": "key_owner_proof",
+              "Type": "T::KeyOwnerProof"
+            }
+          ],
+          "Documentations": [
+            " Report voter equivocation/misbehavior. This method will verify the",
+            " equivocation proof and validate the given key ownership proof",
+            " against the extracted offender. If both are valid, the offence",
+            " will be reported.",
+            "",
+            " This extrinsic must be called unsigned and it is expected that only",
+            " block authors will call it (validated in `ValidateUnsigned`), as such",
+            " if the block author is defined it will be defined as the equivocation",
+            " reporter."
+          ]
+        },
+        {
+          "Name": "note_stalled",
+          "Arguments": [
+            {
+              "Name": "delay",
+              "Type": "T::BlockNumber"
+            },
+            {
+              "Name": "best_finalized_block_number",
+              "Type": "T::BlockNumber"
+            }
+          ],
+          "Documentations": [
+            " Note that the current authority set of the GRANDPA finality gadget has",
+            " stalled. This will trigger a forced authority set change at the beginning",
+            " of the next session, to be enacted `delay` blocks after that. The delay",
+            " should be high enough to safely assume that the block signalling the",
+            " forced change will not be re-orged (e.g. 1000 blocks). The GRANDPA voters",
+            " will start the new authority set using the given finalized block as base.",
+            " Only callable by root."
+          ]
+        }
+      ],
+      "Events": [
+        {
+          "Documentations": [
+            " New authority set has been applied. [authority_set]"
+          ],
+          "Name": "NewAuthorities",
+          "EventArgs": [
+            "AuthorityList"
+          ]
+        },
+        {
+          "Documentations": [
+            " Current authority set has been paused."
+          ],
+          "Name": "Paused",
+          "EventArgs": [
+
+          ]
+        },
+        {
+          "Documentations": [
+            " Current authority set has been resumed."
+          ],
+          "Name": "Resumed",
+          "EventArgs": [
+
+          ]
+        }
+      ],
+      "Consts": [
+
+      ],
+      "Errors": [
+        {
+          "Documentations": [
+            " Attempt to signal GRANDPA pause when the authority set isn't live",
+            " (either paused or already pending pause)."
+          ],
+          "Name": "PauseFailed"
+        },
+        {
+          "Documentations": [
+            " Attempt to signal GRANDPA resume when the authority set isn't paused",
+            " (either live or already pending resume)."
+          ],
+          "Name": "ResumeFailed"
+        },
+        {
+          "Documentations": [
+            " Attempt to signal GRANDPA change with one already pending."
+          ],
+          "Name": "ChangePending"
+        },
+        {
+          "Documentations": [
+            " Cannot signal forced change so soon after last."
+          ],
+          "Name": "TooSoon"
+        },
+        {
+          "Documentations": [
+            " A key ownership proof provided as part of an equivocation report is invalid."
+          ],
+          "Name": "InvalidKeyOwnershipProof"
+        },
+        {
+          "Documentations": [
+            " An equivocation proof provided as part of an equivocation report is invalid."
+          ],
+          "Name": "InvalidEquivocationProof"
+        },
+        {
+          "Documentations": [
+            " A given equivocation report is valid but already previously reported."
+          ],
+          "Name": "DuplicateOffenceReport"
+        }
+      ]
+    },
+    {
+      "Name": "Balances",
+      "Storage": {
+        "Prefix": "Balances",
+        "Items": [
+          {
+            "Name": "TotalIssuance",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::Balance",
+              "IsLinked": false
+            },
+            "FallBack": "0x00000000000000000000000000000000",
+            "Documentations": [
+              " The total units issued in the system."
+            ]
+          },
+          {
+            "Name": "Account",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "T::AccountId",
+              "Key2": null,
+              "Value": "AccountData<T::Balance>",
+              "IsLinked": false
+            },
+            "FallBack": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+              " The balance of an account.",
+              "",
+              " NOTE: This is only used in the case that this module is used to store balances."
+            ]
+          },
+          {
+            "Name": "Locks",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "T::AccountId",
+              "Key2": null,
+              "Value": "Vec<BalanceLock<T::Balance>>",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Any liquidity locks on some account balances.",
+              " NOTE: Should only be accessed when setting, changing and freeing a lock."
+            ]
+          },
+          {
+            "Name": "StorageVersion",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "Releases",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+              " Storage version of the pallet.",
+              "",
+              " This is set to v2.0.0 for new networks."
+            ]
+          }
+        ]
+      },
+      "Calls": [
+        {
+          "Name": "transfer",
+          "Arguments": [
+            {
+              "Name": "dest",
+              "Type": "<T::Lookup as StaticLookup>::Source"
+            },
+            {
+              "Name": "value",
+              "Type": "Compact<T::Balance>"
+            }
+          ],
+          "Documentations": [
+            " Transfer some liquid free balance to another account.",
+            "",
+            " `transfer` will set the `FreeBalance` of the sender and receiver.",
+            " It will decrease the total issuance of the system by the `TransferFee`.",
+            " If the sender's account is below the existential deposit as a result",
+            " of the transfer, the account will be reaped.",
+            "",
+            " The dispatch origin for this call must be `Signed` by the transactor.",
+            "",
+            " # <weight>",
+            " - Dependent on arguments but not critical, given proper implementations for",
+            "   input config types. See related functions below.",
+            " - It contains a limited number of reads and writes internally and no complex computation.",
+            "",
+            " Related functions:",
+            "",
+            "   - `ensure_can_withdraw` is always called internally but has a bounded complexity.",
+            "   - Transferring balances to accounts that did not exist before will cause",
+            "      `T::OnNewAccount::on_new_account` to be called.",
+            "   - Removing enough funds from an account will trigger `T::DustRemoval::on_unbalanced`.",
+            "   - `transfer_keep_alive` works the same way as `transfer`, but has an additional",
+            "     check that the transfer will not kill the origin account.",
+            " ---------------------------------",
+            " - Base Weight: 73.64 Âµs, worst case scenario (account created, account removed)",
+            " - DB Weight: 1 Read and 1 Write to destination account",
+            " - Origin account is already in memory, so no DB operations for them.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "set_balance",
+          "Arguments": [
+            {
+              "Name": "who",
+              "Type": "<T::Lookup as StaticLookup>::Source"
+            },
+            {
+              "Name": "new_free",
+              "Type": "Compact<T::Balance>"
+            },
+            {
+              "Name": "new_reserved",
+              "Type": "Compact<T::Balance>"
+            }
+          ],
+          "Documentations": [
+            " Set the balances of a given account.",
+            "",
+            " This will alter `FreeBalance` and `ReservedBalance` in storage. it will",
+            " also decrease the total issuance of the system (`TotalIssuance`).",
+            " If the new free or reserved balance is below the existential deposit,",
+            " it will reset the account nonce (`frame_system::AccountNonce`).",
+            "",
+            " The dispatch origin for this call is `root`.",
+            "",
+            " # <weight>",
+            " - Independent of the arguments.",
+            " - Contains a limited number of reads and writes.",
+            " ---------------------",
+            " - Base Weight:",
+            "     - Creating: 27.56 Âµs",
+            "     - Killing: 35.11 Âµs",
+            " - DB Weight: 1 Read, 1 Write to `who`",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "force_transfer",
+          "Arguments": [
+            {
+              "Name": "source",
+              "Type": "<T::Lookup as StaticLookup>::Source"
+            },
+            {
+              "Name": "dest",
+              "Type": "<T::Lookup as StaticLookup>::Source"
+            },
+            {
+              "Name": "value",
+              "Type": "Compact<T::Balance>"
+            }
+          ],
+          "Documentations": [
+            " Exactly as `transfer`, except the origin must be root and the source account may be",
+            " specified.",
+            " # <weight>",
+            " - Same as transfer, but additional read and write because the source account is",
+            "   not assumed to be in the overlay.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "transfer_keep_alive",
+          "Arguments": [
+            {
+              "Name": "dest",
+              "Type": "<T::Lookup as StaticLookup>::Source"
+            },
+            {
+              "Name": "value",
+              "Type": "Compact<T::Balance>"
+            }
+          ],
+          "Documentations": [
+            " Same as the [`transfer`] call, but with a check that the transfer will not kill the",
+            " origin account.",
+            "",
+            " 99% of the time you want [`transfer`] instead.",
+            "",
+            " [`transfer`]: struct.Module.html#method.transfer",
+            " # <weight>",
+            " - Cheaper than transfer because account cannot be killed.",
+            " - Base Weight: 51.4 Âµs",
+            " - DB Weight: 1 Read and 1 Write to dest (sender is in overlay already)",
+            " #</weight>"
+          ]
+        }
+      ],
+      "Events": [
+        {
+          "Documentations": [
+            " An account was created with some free balance. [account, free_balance]"
+          ],
+          "Name": "Endowed",
+          "EventArgs": [
+            "AccountId",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+            " An account was removed whose balance was non-zero but below ExistentialDeposit,",
+            " resulting in an outright loss. [account, balance]"
+          ],
+          "Name": "DustLost",
+          "EventArgs": [
+            "AccountId",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+            " Transfer succeeded. [from, to, value]"
+          ],
+          "Name": "Transfer",
+          "EventArgs": [
+            "AccountId",
+            "AccountId",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+            " A balance was set by root. [who, free, reserved]"
+          ],
+          "Name": "BalanceSet",
+          "EventArgs": [
+            "AccountId",
+            "Balance",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+            " Some amount was deposited (e.g. for transaction fees). [who, deposit]"
+          ],
+          "Name": "Deposit",
+          "EventArgs": [
+            "AccountId",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+            " Some balance was reserved (moved from free to reserved). [who, value]"
+          ],
+          "Name": "Reserved",
+          "EventArgs": [
+            "AccountId",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+            " Some balance was unreserved (moved from reserved to free). [who, value]"
+          ],
+          "Name": "Unreserved",
+          "EventArgs": [
+            "AccountId",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+            " Some balance was moved from the reserve of the first account to the second account.",
+            " Final argument indicates the destination balance type.",
+            " [from, to, balance, destination_status]"
+          ],
+          "Name": "ReserveRepatriated",
+          "EventArgs": [
+            "AccountId",
+            "AccountId",
+            "Balance",
+            "Status"
+          ]
+        }
+      ],
+      "Consts": [
+        {
+          "Name": "ExistentialDeposit",
+          "Type": "T::Balance",
+          "Value": "0xF4010000000000000000000000000000",
+          "Documentations": [
+            " The minimum amount required to keep an account open."
+          ]
+        }
+      ],
+      "Errors": [
+        {
+          "Documentations": [
+            " Vesting balance too high to send value"
+          ],
+          "Name": "VestingBalance"
+        },
+        {
+          "Documentations": [
+            " Account liquidity restrictions prevent withdrawal"
+          ],
+          "Name": "LiquidityRestrictions"
+        },
+        {
+          "Documentations": [
+            " Got an overflow after adding"
+          ],
+          "Name": "Overflow"
+        },
+        {
+          "Documentations": [
+            " Balance too low to send value"
+          ],
+          "Name": "InsufficientBalance"
+        },
+        {
+          "Documentations": [
+            " Value too low to create account due to existential deposit"
+          ],
+          "Name": "ExistentialDeposit"
+        },
+        {
+          "Documentations": [
+            " Transfer/payment would kill account"
+          ],
+          "Name": "KeepAlive"
+        },
+        {
+          "Documentations": [
+            " A vesting schedule already exists for this account"
+          ],
+          "Name": "ExistingVestingSchedule"
+        },
+        {
+          "Documentations": [
+            " Beneficiary account must pre-exist"
+          ],
+          "Name": "DeadAccount"
+        }
+      ]
+    },
+    {
+      "Name": "TransactionPayment",
+      "Storage": {
+        "Prefix": "TransactionPayment",
+        "Items": [
+          {
+            "Name": "NextFeeMultiplier",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "Multiplier",
+              "IsLinked": false
+            },
+            "FallBack": "0x000064A7B3B6E00D0000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "StorageVersion",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "Releases",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+
+            ]
+          }
+        ]
+      },
+      "Calls": null,
+      "Events": null,
+      "Consts": [
+        {
+          "Name": "TransactionByteFee",
+          "Type": "BalanceOf<T>",
+          "Value": "0x01000000000000000000000000000000",
+          "Documentations": [
+            " The fee to be paid for making a transaction; the per-byte portion."
+          ]
+        },
+        {
+          "Name": "WeightToFee",
+          "Type": "Vec<WeightToFeeCoefficient<BalanceOf<T>>>",
+          "Value": "0x0401000000000000000000000000000000000000000001",
+          "Documentations": [
+            " The polynomial that is applied in order to derive fee from weight."
+          ]
+        }
+      ],
+      "Errors": [
+
+      ]
+    },
+    {
+      "Name": "Sudo",
+      "Storage": {
+        "Prefix": "Sudo",
+        "Items": [
+          {
+            "Name": "Key",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::AccountId",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+              " The `AccountId` of the sudo key."
+            ]
+          }
+        ]
+      },
+      "Calls": [
+        {
+          "Name": "sudo",
+          "Arguments": [
+            {
+              "Name": "call",
+              "Type": "Box<<T as Trait>::Call>"
+            }
+          ],
+          "Documentations": [
+            " Authenticates the sudo key and dispatches a function call with `Root` origin.",
+            "",
+            " The dispatch origin for this call must be _Signed_.",
+            "",
+            " # <weight>",
+            " - O(1).",
+            " - Limited storage reads.",
+            " - One DB write (event).",
+            " - Weight of derivative `call` execution + 10,000.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "sudo_unchecked_weight",
+          "Arguments": [
+            {
+              "Name": "call",
+              "Type": "Box<<T as Trait>::Call>"
+            },
+            {
+              "Name": "_weight",
+              "Type": "Weight"
+            }
+          ],
+          "Documentations": [
+            " Authenticates the sudo key and dispatches a function call with `Root` origin.",
+            " This function does not check the weight of the call, and instead allows the",
+            " Sudo user to specify the weight of the call.",
+            "",
+            " The dispatch origin for this call must be _Signed_.",
+            "",
+            " # <weight>",
+            " - O(1).",
+            " - The weight of this call is defined by the caller.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "set_key",
+          "Arguments": [
+            {
+              "Name": "new",
+              "Type": "<T::Lookup as StaticLookup>::Source"
+            }
+          ],
+          "Documentations": [
+            " Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo key.",
+            "",
+            " The dispatch origin for this call must be _Signed_.",
+            "",
+            " # <weight>",
+            " - O(1).",
+            " - Limited storage reads.",
+            " - One DB change.",
+            " # </weight>"
+          ]
+        },
+        {
+          "Name": "sudo_as",
+          "Arguments": [
+            {
+              "Name": "who",
+              "Type": "<T::Lookup as StaticLookup>::Source"
+            },
+            {
+              "Name": "call",
+              "Type": "Box<<T as Trait>::Call>"
+            }
+          ],
+          "Documentations": [
+            " Authenticates the sudo key and dispatches a function call with `Signed` origin from",
+            " a given account.",
+            "",
+            " The dispatch origin for this call must be _Signed_.",
+            "",
+            " # <weight>",
+            " - O(1).",
+            " - Limited storage reads.",
+            " - One DB write (event).",
+            " - Weight of derivative `call` execution + 10,000.",
+            " # </weight>"
+          ]
+        }
+      ],
+      "Events": [
+        {
+          "Documentations": [
+            " A sudo just took place. [result]"
+          ],
+          "Name": "Sudid",
+          "EventArgs": [
+            "DispatchResult"
+          ]
+        },
+        {
+          "Documentations": [
+            " The [sudoer] just switched identity; the old key is supplied."
+          ],
+          "Name": "KeyChanged",
+          "EventArgs": [
+            "AccountId"
+          ]
+        },
+        {
+          "Documentations": [
+            " A sudo just took place. [result]"
+          ],
+          "Name": "SudoAsDone",
+          "EventArgs": [
+            "bool"
+          ]
+        }
+      ],
+      "Consts": [
+
+      ],
+      "Errors": [
+        {
+          "Documentations": [
+            " Sender must be the Sudo account"
+          ],
+          "Name": "RequireSudo"
+        }
+      ]
+    },
+    {
+      "Name": "Dmog",
+      "Storage": {
+        "Prefix": "Dmog",
+        "Items": [
+          {
+            "Name": "Mogwais",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Identity",
+              "Key1": "T::Hash",
+              "Key2": null,
+              "Value": "MogwaiStruct<T::Hash, BalanceOf<T>>",
+              "IsLinked": false
+            },
+            "FallBack": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "MogwaiOwner",
+            "Modifier": "Optional",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Identity",
+              "Key1": "T::Hash",
+              "Key2": null,
+              "Value": "T::AccountId",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "AllMogwaisArray",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "u64",
+              "Key2": null,
+              "Value": "T::Hash",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "AllMogwaisCount",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "u64",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "AllMogwaisIndex",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Identity",
+              "Key1": "T::Hash",
+              "Key2": null,
+              "Value": "u64",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "OwnedMogwaisArray",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "(T::AccountId, u64)",
+              "Key2": null,
+              "Value": "T::Hash",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "OwnedMogwaisCount",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "T::AccountId",
+              "Key2": null,
+              "Value": "u64",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "OwnedMogwaisIndex",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Identity",
+              "Key1": "T::Hash",
+              "Key2": null,
+              "Value": "u64",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "Nonce",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "u64",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "Value",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "Blake2_128Concat",
+              "Key1": "T::AccountId",
+              "Key2": null,
+              "Value": "u64",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000",
+            "Documentations": [
+
+            ]
+          }
+        ]
+      },
+      "Calls": [
+        {
+          "Name": "set_value",
+          "Arguments": [
+            {
+              "Name": "value",
+              "Type": "u64"
+            }
+          ],
+          "Documentations": [
+            " An example dispatchable that takes a singles value as a parameter, writes the value to",
+            " storage and emits an event. This function must be dispatched by a signed extrinsic."
+          ]
+        },
+        {
+          "Name": "set_price",
+          "Arguments": [
+            {
+              "Name": "mogwai_id",
+              "Type": "T::Hash"
+            },
+            {
+              "Name": "new_price",
+              "Type": "BalanceOf<T>"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
+          "Name": "create_mogwai",
+          "Arguments": [
+
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
+          "Name": "transfer",
+          "Arguments": [
+            {
+              "Name": "to",
+              "Type": "T::AccountId"
+            },
+            {
+              "Name": "mogwai_id",
+              "Type": "T::Hash"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
+          "Name": "buy_mogwai",
+          "Arguments": [
+            {
+              "Name": "mogwai_id",
+              "Type": "T::Hash"
+            },
+            {
+              "Name": "max_price",
+              "Type": "BalanceOf<T>"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
+          "Name": "breed_mogwai",
+          "Arguments": [
+            {
+              "Name": "mogwai_id_1",
+              "Type": "T::Hash"
+            },
+            {
+              "Name": "mogwai_id_2",
+              "Type": "T::Hash"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        }
+      ],
+      "Events": [
+        {
+          "Documentations": [
+            " Event documentation should end with an array that provides descriptive names for event",
+            " parameters. [something, sender]"
+          ],
+          "Name": "ValueStored",
+          "EventArgs": [
+            "u64",
+            "AccountId"
+          ]
+        },
+        {
+          "Documentations": [
+
+          ],
+          "Name": "MogwaiCreated",
+          "EventArgs": [
+            "AccountId",
+            "Hash"
+          ]
+        },
+        {
+          "Documentations": [
+
+          ],
+          "Name": "PriceSet",
+          "EventArgs": [
+            "AccountId",
+            "Hash",
+            "Balance"
+          ]
+        },
+        {
+          "Documentations": [
+
+          ],
+          "Name": "Transferred",
+          "EventArgs": [
+            "AccountId",
+            "AccountId",
+            "Hash"
+          ]
+        },
+        {
+          "Documentations": [
+
+          ],
+          "Name": "Bought",
+          "EventArgs": [
+            "AccountId",
+            "AccountId",
+            "Hash",
+            "Balance"
+          ]
+        }
+      ],
+      "Consts": [
+
+      ],
+      "Errors": [
+        {
+          "Documentations": [
+            " Error names should be descriptive."
+          ],
+          "Name": "NoneValue"
+        },
+        {
+          "Documentations": [
+            " Errors should have helpful documentation associated with them."
+          ],
+          "Name": "StorageOverflow"
+        },
+        {
+          "Documentations": [
+            ""
+          ],
+          "Name": "MogwaiAlreadyExists"
+        },
+        {
+          "Documentations": [
+
+          ],
+          "Name": "MogwaiDoesntExists"
+        }
+      ]
+    }
+  ],
+  "ExtrinsicExtensions": [
+    "CheckSpecVersion",
+    "CheckTxVersion",
+    "CheckGenesis",
+    "CheckMortality",
+    "CheckNonce",
+    "CheckWeight",
+    "ChargeTransactionPayment"
+  ]
 }
