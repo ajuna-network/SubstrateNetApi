@@ -25,7 +25,7 @@ namespace SubstrateNetApi
                 Version = "v" + BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0)
             };
 
-            var mlen = Utils.DecodeCompactInteger(m, ref p);
+            var mlen = CompactInteger.Decode(m, ref p);
 
             _md11.Modules = new Module[(int)mlen];
             for (var modIndex = 0; modIndex < mlen; modIndex++)
@@ -42,7 +42,7 @@ namespace SubstrateNetApi
                     module.Storage = new Storage();
                     module.Storage.Prefix = ExtractString(m, ref p);
 
-                    var storageLen = Utils.DecodeCompactInteger(m, ref p);
+                    var storageLen = CompactInteger.Decode(m, ref p);
                     module.Storage.Items = new Item[(int)storageLen];
 
                     for (int i = 0; i < storageLen; i++)
@@ -79,7 +79,7 @@ namespace SubstrateNetApi
 
                         item.FallBack = Utils.Bytes2HexString(ExtractBytes(m, ref p));
 
-                        var docLen = Utils.DecodeCompactInteger(m, ref p);
+                        var docLen = CompactInteger.Decode(m, ref p);
                         item.Documentations = new string[(int)docLen];
                         for (int j = 0; j < docLen; j++)
                         {
@@ -93,7 +93,7 @@ namespace SubstrateNetApi
                 var hasCalls = m[p++];
                 if (hasCalls != 0)
                 {
-                    var callsLen = Utils.DecodeCompactInteger(m, ref p);
+                    var callsLen = CompactInteger.Decode(m, ref p);
                     module.Calls = new Call[(int)callsLen];
 
                     for (int i = 0; i < callsLen; i++)
@@ -101,7 +101,7 @@ namespace SubstrateNetApi
                         var call = new Call();
                         call.Name = ExtractString(m, ref p);
 
-                        var argsLen = Utils.DecodeCompactInteger(m, ref p);
+                        var argsLen = CompactInteger.Decode(m, ref p);
                         call.Arguments = new Argument[(int)argsLen];
 
                         for (var j = 0; j < argsLen; j++)
@@ -113,7 +113,7 @@ namespace SubstrateNetApi
                             call.Arguments[j] = argument;
                         }
 
-                        var docLen = Utils.DecodeCompactInteger(m, ref p);
+                        var docLen = CompactInteger.Decode(m, ref p);
                         call.Documentations = new string[(int)docLen];
                         for (int j = 0; j < docLen; j++)
                         {
@@ -128,7 +128,7 @@ namespace SubstrateNetApi
                 var hasEvents = m[p++];
                 if (hasEvents != 0)
                 {
-                    var eventsLen = Utils.DecodeCompactInteger(m, ref p);
+                    var eventsLen = CompactInteger.Decode(m, ref p);
                     module.Events = new Event[(int)eventsLen];
                     for (int i = 0; i < eventsLen; i++)
                     {
@@ -137,7 +137,7 @@ namespace SubstrateNetApi
                             Name = ExtractString(m, ref p)
                         };
 
-                        var argsLen = Utils.DecodeCompactInteger(m, ref p);
+                        var argsLen = CompactInteger.Decode(m, ref p);
                         evnt.EventArgs = new string[(int)argsLen];
 
                         for (var j = 0; j < argsLen; j++)
@@ -145,7 +145,7 @@ namespace SubstrateNetApi
                             evnt.EventArgs[j] = ExtractString(m, ref p);
                         }
 
-                        var docLen = Utils.DecodeCompactInteger(m, ref p);
+                        var docLen = CompactInteger.Decode(m, ref p);
                         evnt.Documentations = new string[(int)docLen];
                         for (int j = 0; j < docLen; j++)
                         {
@@ -156,7 +156,7 @@ namespace SubstrateNetApi
                     }
                 }
 
-                var conLen = Utils.DecodeCompactInteger(m, ref p);
+                var conLen = CompactInteger.Decode(m, ref p);
                 module.Consts = new Const[(int)conLen];
                 for (int i = 0; i < conLen; i++)
                 {
@@ -168,7 +168,7 @@ namespace SubstrateNetApi
                     };
                     ;
 
-                    var docLen = Utils.DecodeCompactInteger(m, ref p);
+                    var docLen = CompactInteger.Decode(m, ref p);
                     cons.Documentations = new string[(int)docLen];
                     for (int j = 0; j < docLen; j++)
                     {
@@ -178,7 +178,7 @@ namespace SubstrateNetApi
                     module.Consts[i] = cons;
                 }
 
-                var errLen = Utils.DecodeCompactInteger(m, ref p);
+                var errLen = CompactInteger.Decode(m, ref p);
                 module.Errors = new Error[(int)errLen];
                 for (int i = 0; i < errLen; i++)
                 {
@@ -187,7 +187,7 @@ namespace SubstrateNetApi
                         Name = ExtractString(m, ref p)
                     };
 
-                    var docLen = Utils.DecodeCompactInteger(m, ref p);
+                    var docLen = CompactInteger.Decode(m, ref p);
                     err.Documentations = new string[(int)docLen];
                     for (int j = 0; j < docLen; j++)
                     {
@@ -200,10 +200,10 @@ namespace SubstrateNetApi
                 _md11.Modules[modIndex] = module;
             }
 
-            var eLen = Utils.DecodeCompactInteger(m, ref p);
+            var eLen = CompactInteger.Decode(m, ref p);
             for (var i = 0; i < eLen; i++)
             {
-                var itmLen = Utils.DecodeCompactInteger(m, ref p);
+                var itmLen = CompactInteger.Decode(m, ref p);
                 _md11.ExtrinsicExtensions = new string[(int)itmLen];
                 for (var j = 0; j < itmLen; j++)
                 {
@@ -217,7 +217,7 @@ namespace SubstrateNetApi
 
         private byte[] ExtractBytes(byte[] m, ref int p, Utils.HexStringFormat format = Utils.HexStringFormat.PREFIXED)
         {
-            var value = Utils.DecodeCompactInteger(m, ref p);
+            var value = CompactInteger.Decode(m, ref p);
             byte[] bytes = new byte[(int)value];
             for (int i = 0; i < value; i++)
             {
@@ -228,7 +228,7 @@ namespace SubstrateNetApi
 
         private string ExtractString(byte[] m, ref int p)
         {
-            var value = Utils.DecodeCompactInteger(m, ref p);
+            var value = CompactInteger.Decode(m, ref p);
 
             string s = string.Empty;
             for (int i = 0; i < value; i++)

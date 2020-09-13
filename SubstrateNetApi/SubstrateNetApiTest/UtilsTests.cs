@@ -28,16 +28,5 @@ namespace SubstrateNetApiTests
             var address = Utils.GetAddressFrom(publickey);
             Assert.AreEqual("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", address);
         }
-
-        [Test]
-        public void CompactIntegerEncodeDecodeTest()
-        {
-            ulong[] array = new UInt64[] { 0, 1, 255, 256 , 65535, 4294967295, 4294967296, 8000000000000000000, 18446744073709551615 };
-            foreach(var t in array)
-            {
-                BigInteger v = new BigInteger(t);
-                Assert.AreEqual(v, Utils.DecodeCompactInteger(Utils.EncodeCompactInteger(v)));
-            }
-        }
     }
 }

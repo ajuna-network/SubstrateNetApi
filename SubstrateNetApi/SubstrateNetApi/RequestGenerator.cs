@@ -95,10 +95,10 @@ namespace SubstrateNetApi
             private Era _era { get; set; }
 
             //  [CompactBigIntegerConverter]
-            private BigInteger _nonce { get; set; }
+            private CompactInteger _nonce { get; set; }
 
             // [CompactBigIntegerConverter]
-            private BigInteger _chargeTransactionPayment { get; set; }
+            private CompactInteger _chargeTransactionPayment { get; set; }
 
             /// <summary>
             ///  CALL
@@ -108,15 +108,15 @@ namespace SubstrateNetApi
             private byte[] _callIndex { get; set; }
             private byte[] _parameters { get; set; }
 
-            public UncheckedExtrinsic(bool IsSigned, byte[] pubKey, uint nonce, int moduleIndex, int callIndex, byte[] parameters)
+            public UncheckedExtrinsic(bool IsSigned, byte[] pubKey, uint nonce, CompactInteger moduleIndex, CompactInteger callIndex, byte[] parameters)
             {
                 _signatureVersion = (byte)(4 | (IsSigned ? 0x80 : 0)); ;
                 _pubKey = pubKey;
                 _era = null;
                 _nonce = new BigInteger(nonce);
                 _chargeTransactionPayment = BigInteger.Zero;
-                _moduleIndex = Utils.EncodeCompactInteger(moduleIndex);
-                _callIndex = Utils.EncodeCompactInteger(callIndex);
+                _moduleIndex = moduleIndex.Encode();
+                _callIndex = callIndex.Encode();
                 _parameters = parameters;
             }
 
@@ -134,8 +134,8 @@ namespace SubstrateNetApi
 
                 // --- Extra
                 // byteList.Add(_era);
-                byteList.AddRange(Utils.EncodeCompactInteger(_nonce));
-                byteList.AddRange(Utils.EncodeCompactInteger(_chargeTransactionPayment));
+                byteList.AddRange(_nonce.Encode());
+                byteList.AddRange(_chargeTransactionPayment.Encode());
 
                 // --- ExtraSigned
                 foreach (var b in ExtrinsicExtension())
@@ -174,8 +174,8 @@ namespace SubstrateNetApi
 
                 // --- Extra
                 // byteList.Add(_era); // I have no clue here ....
-                byteList.AddRange(Utils.EncodeCompactInteger(_nonce));
-                byteList.AddRange(Utils.EncodeCompactInteger(_chargeTransactionPayment));
+                byteList.AddRange(_nonce.Encode());
+                byteList.AddRange(_chargeTransactionPayment.Encode());
 
                 // --- Call
                 byteList.AddRange(_moduleIndex);
@@ -208,9 +208,9 @@ namespace SubstrateNetApi
                     switch (x)
                     {
                         case "CheckSpecVersion":
-                            return Utils.EncodeCompactInteger(1);
+                            return ((CompactInteger)1).Encode();
                         case "CheckTxVersion":
-                            return Utils.EncodeCompactInteger(1);
+                            return ((CompactInteger)1).Encode();
                         case "CheckGenesis":
                             return Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
                         case "CheckMortality":
