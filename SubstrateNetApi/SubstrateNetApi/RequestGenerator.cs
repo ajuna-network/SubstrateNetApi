@@ -214,15 +214,15 @@ namespace SubstrateNetApi
                         case "CheckGenesis":
                             return Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
                         case "CheckMortality":
-                            return new byte[0];
+                            return new byte[1];
                         case "CheckNonce":
-                            return new byte[0];
+                            return ((CompactInteger)3).Encode();
                         case "CheckWeight":
-                            return new byte[0];
+                            return ((CompactInteger)0).Encode();
                         case "ChargeTransactionPayment":
                             return new byte[0];
                         default:
-                            throw new Exception("");
+                            throw new Exception($"Unknown signed extension '{x}'!");
                     };
                 });
 

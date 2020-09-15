@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
+using Schnorrkel;
 using SubstrateNetApi;
+using SubstrateNetApi.MetaDataModel;
 
 namespace TestExtrinsic
 {
@@ -26,9 +29,15 @@ namespace TestExtrinsic
             //string pendingExtrinsic = balanceTransfer;
 
 
-            string dmogCreate = "0xa50184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00cbbf8076d31e163051556563a9de71816ba05fac08b905b14c2e6d266b7c621f8abadb2776c6d35f1990ed0a3fd768493ce85ac78ef654d69760e7d80273af01f5020849130602";
-            string pendingExtrinsic = dmogCreate;
+            //string dmogCreate = "0xa50184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00cbbf8076d31e163051556563a9de71816ba05fac08b905b14c2e6d266b7c621f8abadb2776c6d35f1990ed0a3fd768493ce85ac78ef654d69760e7d80273af01f5020849130602";
+            //string dmogCreate = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01bc9103c06e696c1d110380ddbf8b5b3dc990f1432ea44231e14d0f9f3824f700a067d3695f3050a8eff3d1053c56b1b36550ff93ee79c888a376b9bfa42ebc8f250308000602";
+            //string dmogCreate = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d015aeaba077ee63272f4c32d563ab72301a64e2a4d0bd02445b25cc16e6827e4317ef9304a5af9d5061581b0bf17e8a6a880465ed278251f301bbb3cd719fbf28105030c000602";
+            //string dmogCreate = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00516811e8fc5c2fe66e86b251fe96a5d3e1bef77a56da8dedac31973018ee27d4a4bd72e34b73f637213e991b35605f236f0136c53627dd620478a4091ae4bd0d001049130602";
 
+            //string dmogCreate   = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00743f9c4d923490da02db6567e3128b7af336e3c3ff586dc7c262a787912b251eadd87001192db949215a5a9fb76b7ab2dc50fc70aea3b64a99cd4bc5a423c60a250310000602";
+            // public key              0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e  824108F78CE80A3772BA19D0EA661D726C32974633058691E73ECCFA6F5E34C89278A756357063FD14942C10E79DB49F712AC5F0D160982C61023D5C19F56E01      0602
+            string dmogCreate = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00de0b65d4479f7f041b0af2a519893d9c4dd637ab3baa9e51da894663869304dd5dba12a0e1aa140cf40a07f17f690c0aede100fa083cbdd15c637bc2d044ec04450314000602";
+            string pendingExtrinsic = dmogCreate;
 
             byte[] bytes; // = Utils.HexToByteArray(pendingExtrinsic);
 
@@ -42,7 +51,6 @@ namespace TestExtrinsic
             bytes = Utils.HexToByteArray(byteString);
             var length = CompactInteger.Decode(bytes, ref p);
             Console.WriteLine($"length: {length} [{p}]");
-
             byteString = byteString.Substring(p * 2);
 
             // signature version [byte]
@@ -53,14 +61,14 @@ namespace TestExtrinsic
 
             // send public key
             byte[] sendPublicKey = Utils.HexToByteArray(byteString.Substring(0, PUBIC_KEY_SIZE * 2));
-            Console.WriteLine($"sendPublicKey: {Utils.GetAddressFrom(sendPublicKey)}");
+            Console.WriteLine($"sendPublicKey: {Utils.GetAddressFrom(sendPublicKey)} [{Utils.Bytes2HexString(sendPublicKey)}]");
             byteString = byteString.Substring(sendPublicKey.Length * 2);
             bytes = Utils.HexToByteArray(byteString);
 
             // seperator1
-            byte[] seperator1 = Utils.HexToByteArray(byteString.Substring(0, 2));
-            Console.WriteLine($"seperator1: {Utils.Bytes2HexString(seperator1)}");
-            byteString = byteString.Substring(seperator1.Length * 2);
+            byte[] sendPublicKeyType = Utils.HexToByteArray(byteString.Substring(0, 2));
+            Console.WriteLine($"sendPublicKeyType: {Utils.Bytes2HexString(sendPublicKeyType)}");
+            byteString = byteString.Substring(sendPublicKeyType.Length * 2);
             bytes = Utils.HexToByteArray(byteString);
 
             // signature
@@ -111,16 +119,67 @@ namespace TestExtrinsic
                 bytes = Utils.HexToByteArray(byteString);
             }
 
+            var uncheckedExtrinsic = new UnCheckedExtrinsic();
+            uncheckedExtrinsic.IsSigned(true);
+            uncheckedExtrinsic.SetTransactionVersion(4);
+            uncheckedExtrinsic.SetSenderPublicKey(sendPublicKey);
+            uncheckedExtrinsic.SetSenderPublicKeyType(sendPublicKeyType);
+            uncheckedExtrinsic.SetEra(era);
+            uncheckedExtrinsic.SetNonce(nonce);
+            uncheckedExtrinsic.SetTip(tip);
+            uncheckedExtrinsic.SetCall(moduleIndex);
+            Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature)).ToUpper())}");
 
+            var signedExtensionsBytes = new SignedExtensions().Serialize();
+            var methodBytes = new Method().Serialize();
+
+            Console.WriteLine($"Method - {Utils.Bytes2HexString(methodBytes)} + SignedExtensions - {Utils.Bytes2HexString(signedExtensionsBytes)}");
+            var payload = new List<byte>();
+            payload.AddRange(methodBytes);
+            payload.AddRange(signedExtensionsBytes);
+            var payloadBytes = payload.ToArray();
+            Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
+            if (payloadBytes.Length > 256)
+            {
+                Console.WriteLine("Payload is hashed with blake2b 256, as it is bigger then 256");
+                payloadBytes = HashExtension.Blake2(payloadBytes, 256);
+            }
+            Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
+
+            string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+
+            var signedPayload = Chaos.NaCl.Ed25519.Sign(payloadBytes, Utils.HexToByteArray(priKey0x));
+            Console.WriteLine($"Signed Payload [{signedPayload.Length}]: {Utils.Bytes2HexString(signedPayload)}");
             //Console.WriteLine($"0x84 = {Utils.DecodeCompactInteger(Utils.HexToByteArray("0x84"))} CompactInteger");
             //Console.WriteLine($"0x02 = {Utils.DecodeCompactInteger(Utils.HexToByteArray("0x02"))} CompactInteger");
+            //Console.WriteLine($"SignatureVersion (true): {Utils.Bytes2HexString(new byte[] {(byte)(4 | 0x80 )})}");
+            //Console.WriteLine($"SignatureVersion (false): {Utils.Bytes2HexString(new byte[] { (byte)(4 | 0x00) })}");
+
+
+            //Console.WriteLine($"0xc502  = {CompactInteger.Decode(Utils.HexToByteArray("0xc502"))} CompactInteger");
+            //Console.WriteLine($"0xf502  = {CompactInteger.Decode(Utils.HexToByteArray("0xf502"))} CompactInteger");
+            //Console.WriteLine($"0x0503  = {CompactInteger.Decode(Utils.HexToByteArray("0x0503"))} CompactInteger");
+
+            /**
+            ➜  ~subkey inspect - key //Alice --scheme=ed25519
+Secret Key URI `//Alice` is account:
+  Secret seed:      0xabf8e5bdbe30c65656c0a3cbd181ff8a56294a69dfedd27982aace4a76909115
+  Public key(hex): 0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
+  Account ID:       0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
+  SS58 Address:     5FA9nQDVg267DEd8m1ZypXLBnvN7SFxYwV7ndqSYGiN9TTpu
+➜  ~subkey inspect - key //Alice --scheme=sr25519
+Secret Key URI `//Alice` is account:
+  Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
+  Public key(hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
+  Account ID:       0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
+  SS58 Address:     5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+            */
+            //     278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
+            //0xff d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d  9101
+
+            //Console.WriteLine($"0x9101  = {CompactInteger.Decode(Utils.HexToByteArray("0x9101"))} CompactInteger");
         }
 
-        private static int GetByteArrayPiece(byte[] bytes, out byte[] sliceBytes)
-        {
-            var l = CompactInteger.Decode(bytes);
-            sliceBytes = bytes.AsMemory().Slice(0, - (int) l).ToArray();
-            return (int) l;
-        }
     }
 }

@@ -40,5 +40,25 @@ namespace SubstrateNetApiTests.Ed25519
             var account = new AccountId("0x278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E");
             Assert.AreEqual("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM", account.Address);
         }
+
+
+        [Test]
+        public void Ed25519SignatureTest()
+        {
+            string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+
+            byte[] priKey = Utils.HexToByteArray(priKey0x);
+            byte[] pubKey = Utils.HexToByteArray(pubKey0x);
+
+            int messageLength = _random.Next(10, 200);
+            var message = new byte[messageLength];
+            _random.NextBytes(message);
+
+            //var message = signaturePayloadBytes.AsMemory().Slice(0, (int)payloadLength).ToArray();
+            var simpleSign = Chaos.NaCl.Ed25519.Sign(message, priKey);
+
+            Assert.True(Chaos.NaCl.Ed25519.Verify(simpleSign, message, pubKey));
+        }
     }
 }
