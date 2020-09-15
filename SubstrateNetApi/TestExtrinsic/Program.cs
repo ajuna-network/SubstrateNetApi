@@ -131,7 +131,7 @@ namespace TestExtrinsic
             Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature)).ToUpper())}");
 
             var signedExtensionsBytes = new SignedExtensions().Serialize();
-            var methodBytes = new Method().Serialize();
+            var methodBytes = new Method(0x06, 0x02).Serialize();
 
             Console.WriteLine($"Method - {Utils.Bytes2HexString(methodBytes)} + SignedExtensions - {Utils.Bytes2HexString(signedExtensionsBytes)}");
             var payload = new List<byte>();
@@ -163,22 +163,22 @@ namespace TestExtrinsic
 
             /**
             ➜  ~subkey inspect - key //Alice --scheme=ed25519
-Secret Key URI `//Alice` is account:
-  Secret seed:      0xabf8e5bdbe30c65656c0a3cbd181ff8a56294a69dfedd27982aace4a76909115
-  Public key(hex): 0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
-  Account ID:       0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
-  SS58 Address:     5FA9nQDVg267DEd8m1ZypXLBnvN7SFxYwV7ndqSYGiN9TTpu
-➜  ~subkey inspect - key //Alice --scheme=sr25519
-Secret Key URI `//Alice` is account:
-  Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
-  Public key(hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
-  Account ID:       0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
-  SS58 Address:     5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+                    Secret Key URI `//Alice` is account:
+                      Secret seed:      0xabf8e5bdbe30c65656c0a3cbd181ff8a56294a69dfedd27982aace4a76909115
+                      Public key(hex): 0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
+                      Account ID:       0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
+                      SS58 Address:     5FA9nQDVg267DEd8m1ZypXLBnvN7SFxYwV7ndqSYGiN9TTpu
+                    ➜  ~subkey inspect - key //Alice --scheme=sr25519
+                    Secret Key URI `//Alice` is account:
+                      Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
+                      Public key(hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
+                      Account ID:       0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
+                      SS58 Address:     5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
             */
             //     278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
             //0xff d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d  9101
 
-            //Console.WriteLine($"0x9101  = {CompactInteger.Decode(Utils.HexToByteArray("0x9101"))} CompactInteger");
+            
         }
 
     }

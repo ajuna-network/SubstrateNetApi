@@ -177,7 +177,7 @@ namespace SubstrateNetApi
 
             var accountInfo = await GetStorageAsync("System", "Account", Utils.Bytes2HexString(pubKey), token) as AccountInfo;
             
-            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(MetaData.IndexOf(module), module.IndexOf(call), parameter, accountInfo.Nonce, pubKey, priKey);
+            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(MetaData.IndexOfCallModules(module), module.IndexOf(call), parameter, accountInfo.Nonce, pubKey, priKey);
 
             var resultString = await InvokeAsync<string>("author_submitExtrinsic", new object[] { parameters }, token);
 

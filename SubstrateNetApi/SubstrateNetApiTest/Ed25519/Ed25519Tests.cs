@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SubstrateNetApiTests.Ed25519
 {
-    public class Ed25519Tests
+    public class ExtrinsicTests
     {
         private Random _random;
 
@@ -41,6 +41,12 @@ namespace SubstrateNetApiTests.Ed25519
             Assert.AreEqual("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM", account.Address);
         }
 
+        [Test]
+        public void Ed25519KeyPairTest2()
+        {
+            // ZURICH
+            var seed = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5";
+        }
 
         [Test]
         public void Ed25519SignatureTest()

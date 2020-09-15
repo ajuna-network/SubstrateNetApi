@@ -31,9 +31,23 @@ namespace SubstrateNetApi.MetaDataModel
             return false;
         }
 
-        public int IndexOf(Module module)
+        public int IndexOfCallModules(Module module)
         {
-            return Array.IndexOf(Modules, module);
+            int index = 0;
+            foreach(var m in Modules)
+            {
+                if (m == module )
+                {
+                    return index;
+                }
+
+                if (m.Calls.Length > 0)
+                {
+                    index++;
+                }
+            }
+
+            return -1;
         }
 
         public string Serialize()
