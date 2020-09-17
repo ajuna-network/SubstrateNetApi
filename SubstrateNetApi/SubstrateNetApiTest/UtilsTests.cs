@@ -28,5 +28,12 @@ namespace SubstrateNetApiTests
             var address = Utils.GetAddressFrom(publickey);
             Assert.AreEqual("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", address);
         }
+
+        [Test]
+        public void LittleEndianIntegerTest()
+        {
+            Assert.AreEqual(259, Utils.Bytes2Value(Utils.HexToByteArray("0x0301")));
+            Assert.AreEqual("0x0301", Utils.Bytes2HexString(Utils.Value2Bytes((short) 259)));
+        }
     }
 }

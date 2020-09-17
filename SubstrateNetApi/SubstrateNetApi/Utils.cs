@@ -1,4 +1,5 @@
-﻿using SubstrateNetApi.MetaDataModel.Values;
+﻿using Chaos.NaCl;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,48 @@ namespace SubstrateNetApi
 
             return arr;
         }
+
+        public static object Bytes2Value(byte[] value, bool litteEndian = true)
+        {
+            if (!litteEndian)
+            {
+                Array.Reverse(value);
+            }
+
+            switch (value.Length)
+            {
+                case 2:
+                    return BitConverter.ToInt16(value, 0);
+                default:
+                    throw new Exception($"Unhandled byte size {value.Length} for this method!");
+            }
+
+        }
+
+        public static byte[] Value2Bytes(object value, bool litteEndian = true)
+        {
+            byte[] result;
+
+            var tt = value.GetType().Name;
+
+            switch (value.GetType().Name)
+            {
+                case "Int16":
+                    result = BitConverter.GetBytes((short)value);
+                    break;
+                default:
+                    throw new Exception("Unhandled byte size for this method!");
+            }
+
+            if (!litteEndian)
+            {
+                Array.Reverse(result);
+            }
+
+            return result;
+        }
+
+
 
         public static int GetHexVal(char hex)
         {
