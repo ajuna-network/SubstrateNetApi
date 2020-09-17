@@ -1,21 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SubstrateNetApi.MetaDataModel
 {
     public class SignedExtensions
     {
-        private CompactInteger _specVersion;
-        private CompactInteger _txVersion;
+        private short _specVersion;
+        private short _txVersion;
         private byte[] _genesis;
+        private byte[] _blockHash;
         private byte[] _mortality;
         private CompactInteger _nonce;
         private CompactInteger _chargeTransactionPayment;
 
-        private void SetSpecVersion(CompactInteger specVersion)
+        private void SetSpecVersion(short specVersion)
         {
             _specVersion = specVersion;
         }
-        private void SetTxVersion(CompactInteger txVersion)
+        private void SetTxVersion(short txVersion)
         {
             _txVersion = txVersion;
         }
@@ -25,9 +27,10 @@ namespace SubstrateNetApi.MetaDataModel
             _genesis = genesis;
         }
 
-        private void SetMortality(byte[] mortality)
+        private void SetMortality(byte[] mortality, byte[] blockhash)
         {
             _mortality = mortality;
+            _blockHash = blockhash;
         }
 
         private void SetNonce(CompactInteger nonce)
@@ -44,28 +47,31 @@ namespace SubstrateNetApi.MetaDataModel
         {
             var bytes = new List<byte>();
 
+            /*
+             * Extra: Era, Nonce & Tip
+             * */  
+            bytes.AddRange(_mortality); // CheckMortality
+            bytes.AddRange(_nonce.Encode()); // CheckNonce
+            bytes.AddRange(_chargeTransactionPayment.Encode()); // ChargeTransactionPayment
+
+            /*
+             * Additional Signed: SpecVersion, TxVersion, Genesis, Blockhash
+             * */
+
             // CheckSpecVersion
-            bytes.AddRange(((CompactInteger)1).Encode());
+            bytes.AddRange(Utils.Value2Bytes(_specVersion));
 
             // CheckTxVersion
-            bytes.AddRange(((CompactInteger)1).Encode());
+            bytes.AddRange(Utils.Value2Bytes(_txVersion));
 
             // CheckGenesis
-            bytes.AddRange(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"));
+            bytes.AddRange(_genesis);
 
-            // CheckMortality
-            bytes.AddRange(Utils.HexToByteArray("0x2503"));
-
-            // CheckNonce
-            bytes.AddRange(((CompactInteger)3).Encode());
-
-            // CheckWeight
-            bytes.AddRange(((CompactInteger)0).Encode());
-
-            // ChargeTransactionPayment
-            bytes.AddRange(((CompactInteger)0).Encode());
-
+            // CheckMortality, Immortal = genesis_hash, Mortal = logic
+            bytes.AddRange(_blockHash);
+            
             return bytes.ToArray();
         }
+
     }
 }
