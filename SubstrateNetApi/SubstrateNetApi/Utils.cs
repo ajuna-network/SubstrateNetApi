@@ -69,10 +69,10 @@ namespace SubstrateNetApi
 
             var tt = value.GetType().Name;
 
-            switch (value.GetType().Name)
+            switch (value)
             {
-                case "Int16":
-                    result = BitConverter.GetBytes((short)value);
+                case short s:
+                    result = BitConverter.GetBytes(s);
                     break;
                 default:
                     throw new Exception("Unhandled byte size for this method!");
