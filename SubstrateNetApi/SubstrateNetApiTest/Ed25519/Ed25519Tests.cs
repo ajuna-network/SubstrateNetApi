@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SubstrateNetApiTests.Ed25519
 {
-    public class ExtrinsicTests
+    public class Ed25519Tests
     {
         private Random _random;
 
