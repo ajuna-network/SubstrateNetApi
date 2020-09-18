@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Extrinsic;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
@@ -26,52 +27,17 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void SerializeExtraTest()
         {
-
-            SignedExtensions signedExtensions = new SignedExtensions();
+            var genesisHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            var era = new byte[] { 58, 6 };
-            signedExtensions.SetMortality(era, blockHash);
-            signedExtensions.SetNonce(new CompactInteger(0));
-            signedExtensions.SetChargeTransactionPayment(new CompactInteger(0));
 
+            var era = new Era( 2048, 99 );
 
-            byte[] bytes = Utils.StringValueArrayBytesArray("58, 6, 0, 0");
-
-
-            Assert.AreEqual(bytes, signedExtensions.GetExtra());
-        }
-
-        [Test]
-        public void SerializeAdditionalSignedTest()
-        {
-
-            SignedExtensions signedExtensions = new SignedExtensions();
-            var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            var era = new byte[] { 58, 6 };
-            signedExtensions.SetMortality(era, blockHash);
-            signedExtensions.SetGenesis(blockHash);
-            signedExtensions.SetSpecVersion(259);
-            signedExtensions.SetTxVersion(1);
-
-            byte[] bytes = Utils.StringValueArrayBytesArray("3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-            Assert.AreEqual(bytes, signedExtensions.GetAdditionalSigned());
-        }
-
-        [Test]
-        public void SerializeTest()
-        {
-
-            SignedExtensions signedExtensions = new SignedExtensions();
-            var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            var era = new byte[] { 58, 6 };
-            signedExtensions.SetMortality(era, blockHash);
-            signedExtensions.SetNonce(new CompactInteger(0));
-            signedExtensions.SetChargeTransactionPayment(new CompactInteger(0));
-            signedExtensions.SetGenesis(blockHash);
-            signedExtensions.SetSpecVersion(259);
-            signedExtensions.SetTxVersion(1);
+            SignedExtensions signedExtensions = new SignedExtensions(259, 1, genesisHash, blockHash, era, 0, 0);
 
             byte[] bytes = Utils.StringValueArrayBytesArray("58, 6, 0, 0, 3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+
+            Assert.AreEqual(bytes.AsMemory().Slice(0, 4).ToArray(), signedExtensions.GetExtra());
+            Assert.AreEqual(bytes.AsMemory().Slice(4, 72).ToArray(), signedExtensions.GetAdditionalSigned());
             Assert.AreEqual(bytes, signedExtensions.Serialize());
         }
 

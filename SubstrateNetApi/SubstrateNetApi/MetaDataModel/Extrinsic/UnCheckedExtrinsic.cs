@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SubstrateNetApi.MetaDataModel.Extrinsic;
+using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace SubstrateNetApi.MetaDataModel
@@ -14,15 +16,24 @@ namespace SubstrateNetApi.MetaDataModel
 
         private byte[] _sendPublicKeyType;
 
-        private byte[] _era;
+        private Era _era;
 
         private CompactInteger _nonce;
 
         private CompactInteger _tip;
 
-        private byte[] _call;
+        private Method _method;
 
         private byte[] _signature;
+
+        public UnCheckedExtrinsic(bool signed, byte[] publicKey, CompactInteger nonce, byte module, byte call, byte[] parameters, ulong blockNumber)
+        {
+            _signed = signed;
+            _sendPublicKey = publicKey;
+            _nonce = nonce;
+            _method = new Method(module, call, parameters);
+            _era = new Era(64, blockNumber);
+        }
 
         public void IsSigned(bool flag)
         {
@@ -44,11 +55,6 @@ namespace SubstrateNetApi.MetaDataModel
             _sendPublicKeyType = sendPublicKeyType;
         }
 
-        public void SetEra(byte[] era)
-        {
-            _era = era;
-        }
-
         public void SetNonce(CompactInteger nonce)
         {
             _nonce = nonce;
@@ -59,11 +65,6 @@ namespace SubstrateNetApi.MetaDataModel
             _tip = tip;
         }
 
-        public void SetCall(byte[] moduleIndex)
-        {
-            _call = moduleIndex;
-        }
-
         public void SetSignature(byte[] signedPayload)
         {
             _signature = signedPayload;
@@ -71,7 +72,8 @@ namespace SubstrateNetApi.MetaDataModel
 
         public Payload GetPayload()
         {
-            return new Payload(null, null);
+            //var tt = new SignedExtensions();
+            return new Payload(_method, null);
         }
 
         public byte[] Serialize(byte[] signedPayload)
@@ -89,13 +91,13 @@ namespace SubstrateNetApi.MetaDataModel
 
             list.AddRange(signedPayload);
             
-            list.AddRange(_era);
+            list.AddRange(_era.Encode());
             
             list.AddRange(_nonce.Encode());
             
             list.AddRange(_tip.Encode());
             
-            list.AddRange(_call);
+            list.AddRange(_method.Serialize());
 
             // add length
             var result = new List<byte>();

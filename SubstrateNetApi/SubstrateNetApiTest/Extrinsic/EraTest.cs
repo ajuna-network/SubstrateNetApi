@@ -30,12 +30,12 @@ namespace SubstrateNetApiTests.Extrinsic
             var era1 = Era.Deserialize(new byte[] { 58, 6});
             Assert.AreEqual(2048, era1.Period);
             Assert.AreEqual(99, era1.Phase);
-            Assert.AreEqual(new byte[] { 58, 6 }, era1.Serialize());
+            Assert.AreEqual(new byte[] { 58, 6 }, era1.Encode());
 
             var era2 = Era.Deserialize(Utils.HexToByteArray("0x4503"));
             Assert.AreEqual(64, era2.Period);
             Assert.AreEqual(52, era2.Phase);
-            Assert.AreEqual(new byte[] { 69, 3 }, era2.Serialize());
+            Assert.AreEqual(new byte[] { 69, 3 }, era2.Encode());
         }
     }
 }

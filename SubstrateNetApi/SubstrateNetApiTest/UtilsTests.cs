@@ -33,7 +33,7 @@ namespace SubstrateNetApiTests
         public void LittleEndianIntegerTest()
         {
             Assert.AreEqual(259, Utils.Bytes2Value(Utils.HexToByteArray("0x0301")));
-            Assert.AreEqual("0x0301", Utils.Bytes2HexString(Utils.Value2Bytes((short) 259)));
+            Assert.AreEqual("0x0301", Utils.Bytes2HexString(Utils.Value2Bytes((ushort) 259)));
         }
 
         [Test]

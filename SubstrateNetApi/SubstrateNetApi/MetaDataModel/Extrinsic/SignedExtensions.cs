@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubstrateNetApi.MetaDataModel.Extrinsic;
+using System;
 using System.Collections.Generic;
 
 namespace SubstrateNetApi.MetaDataModel
@@ -9,43 +10,24 @@ namespace SubstrateNetApi.MetaDataModel
 
         private uint _txVersion;
 
-        private byte[] _genesis;
+        private byte[] _genesisHash;
 
         private byte[] _blockHash;
 
-        private byte[] _mortality;
+        private Era _mortality;
 
         private CompactInteger _nonce;
 
         private CompactInteger _chargeTransactionPayment;
 
-        public void SetSpecVersion(uint specVersion)
+        public SignedExtensions(uint specVersion, uint txVersion, byte[] genesisHash, byte[] blockHash, Era mortality, CompactInteger nonce, CompactInteger chargeTransactionPayment)
         {
             _specVersion = specVersion;
-        }
-        public void SetTxVersion(uint txVersion)
-        {
             _txVersion = txVersion;
-        }
-
-        public void SetGenesis(byte[] genesis)
-        {
-            _genesis = genesis;
-        }
-
-        public void SetMortality(byte[] mortality, byte[] blockhash)
-        {
+            _genesisHash = genesisHash;
+            _blockHash = blockHash;
             _mortality = mortality;
-            _blockHash = blockhash;
-        }
-
-        public void SetNonce(CompactInteger nonce)
-        {
             _nonce = nonce;
-        }
-
-        public void SetChargeTransactionPayment(CompactInteger chargeTransactionPayment)
-        {
             _chargeTransactionPayment = chargeTransactionPayment;
         }
 
@@ -54,7 +36,7 @@ namespace SubstrateNetApi.MetaDataModel
             var bytes = new List<byte>();
             
             // CheckMortality
-            bytes.AddRange(_mortality);
+            bytes.AddRange(_mortality.Encode());
 
             // CheckNonce
             bytes.AddRange(_nonce.Encode());
@@ -76,7 +58,7 @@ namespace SubstrateNetApi.MetaDataModel
             bytes.AddRange(Utils.Value2Bytes(_txVersion));
 
             // CheckGenesis
-            bytes.AddRange(_genesis);
+            bytes.AddRange(_genesisHash);
 
             // CheckMortality, Additional Blockhash check. Immortal = genesis_hash, Mortal = logic
             bytes.AddRange(_blockHash);

@@ -50,7 +50,8 @@ namespace SubstrateNetApi
 
         internal static string SubmitExtrinsic(int module, int call, string parameter, uint nonce, byte[] pubKey, byte[] priKey)
         {
-            //UncheckedExtrinsic uncheckedExtrinsic = new UncheckedExtrinsic(true, pubKey, nonce, module, call, null);
+            ulong currentBlockNumber = 0;
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, pubKey, nonce, (byte)module, (byte)call, null, currentBlockNumber);
 
             //var hashedPayload = HashExtension.Blake2(uncheckedExtrinsic.GetPayload(), 256);
             //var signedPayload = Sr25519v091.SignSimple(pubKey, priKey, hashedPayload);

@@ -28,7 +28,7 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
             _isImmortal = isImmortal;
         }
 
-        public byte[] Serialize()
+        public byte[] Encode()
         {
             if (_isImmortal)
             {
@@ -36,6 +36,13 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
             }
             var quantizeFactor = Math.Max(1,  _period / 4096);
             var lastBit = _period & (ulong)-(long)_period;
+            //var rest = _period;
+            //var lastBit = 1;
+            //while (rest % 2 == 0 && rest != 0)
+            //{
+            //    rest /= 2;
+            //    lastBit *= 2;
+            //}
             var logOf2 = (lastBit != 0) ? Math.Log(lastBit, 2) : 64;
             var low = (ushort)Math.Min(15, Math.Max(1, logOf2 - 1));
             var high = (ushort)((_phase / quantizeFactor) << 4);

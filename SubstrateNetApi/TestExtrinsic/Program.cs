@@ -19,7 +19,16 @@ namespace TestExtrinsic
 
                 //Console.WriteLine($"{x} => {BitConverter.ToString(BitConverter.GetBytes(x))}");
                 //Console.WriteLine($"{-(long)x} => {BitConverter.ToString(BitConverter.GetBytes(-(long)x))}");
-                Console.WriteLine($" {x.ToString("0000")}: {(x & (ulong) - (long) x).ToString("0000")} [test & (ulong)-(long)test]");
+                Console.Write($" {x.ToString("0000")}: {(x & (ulong) - (long) x).ToString("0000")} [test & (ulong)-(long)test]");
+
+                ulong y = x;
+                ulong i = 1;
+                while (y % 2 == 0 && y != 0)
+                {
+                    y /= 2;
+                    i *= 2;
+                }
+                Console.WriteLine($" ----> {i}");
             }
             //Console.WriteLine($"{test}[test] => ");
             //Console.WriteLine($"{test}[test] => ");
@@ -138,16 +147,16 @@ namespace TestExtrinsic
                 bytes = Utils.HexToByteArray(byteString);
             }
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic();
-            uncheckedExtrinsic.IsSigned(true);
-            uncheckedExtrinsic.SetTransactionVersion(4);
-            uncheckedExtrinsic.SetSenderPublicKey(sendPublicKey);
-            uncheckedExtrinsic.SetSenderPublicKeyType(sendPublicKeyType);
-            uncheckedExtrinsic.SetEra(era);
-            uncheckedExtrinsic.SetNonce(nonce);
-            uncheckedExtrinsic.SetTip(tip);
-            uncheckedExtrinsic.SetCall(moduleIndex);
-            Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature)).ToUpper())}");
+            //var uncheckedExtrinsic = new UnCheckedExtrinsic();
+            //uncheckedExtrinsic.IsSigned(true);
+            //uncheckedExtrinsic.SetTransactionVersion(4);
+            //uncheckedExtrinsic.SetSenderPublicKey(sendPublicKey);
+            //uncheckedExtrinsic.SetSenderPublicKeyType(sendPublicKeyType);
+            //uncheckedExtrinsic.SetEra(era);
+            //uncheckedExtrinsic.SetNonce(nonce);
+            //uncheckedExtrinsic.SetTip(tip);
+            //uncheckedExtrinsic.SetCall(moduleIndex);
+            //Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature)).ToUpper())}");
 
             //var signedExtensionsBytes = new SignedExtensions().Serialize();
             //var methodBytes = new Method(0x06, 0x02).Serialize();
