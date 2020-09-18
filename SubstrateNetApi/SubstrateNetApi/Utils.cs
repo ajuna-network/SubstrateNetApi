@@ -70,9 +70,9 @@ namespace SubstrateNetApi
             return arr;
         }
 
-        public static object Bytes2Value(byte[] value, bool litteEndian = true)
+        public static object Bytes2Value(byte[] value, bool littleEndian = true)
         {
-            if (!litteEndian)
+            if (!littleEndian)
             {
                 Array.Reverse(value);
             }
@@ -87,7 +87,7 @@ namespace SubstrateNetApi
 
         }
 
-        public static byte[] Value2Bytes(object value, bool litteEndian = true)
+        public static byte[] Value2Bytes(object value, bool littleEndian = true)
         {
             byte[] result;
 
@@ -102,7 +102,7 @@ namespace SubstrateNetApi
                     throw new Exception("Unhandled byte size for this method!");
             }
 
-            if (!litteEndian)
+            if (!littleEndian)
             {
                 Array.Reverse(result);
             }
