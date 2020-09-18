@@ -80,6 +80,7 @@ namespace SubstrateNetApi.MetaDataModel
             // 32 bytes
             list.AddRange(_sendPublicKey);
 
+            // key type ed = 00 and sr = FF
             list.AddRange(_sendPublicKeyType);
 
             list.AddRange(signature);

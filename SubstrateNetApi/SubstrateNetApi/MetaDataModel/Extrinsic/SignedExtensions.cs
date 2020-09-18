@@ -6,39 +6,45 @@ namespace SubstrateNetApi.MetaDataModel
     public class SignedExtensions
     {
         private short _specVersion;
+
         private short _txVersion;
+
         private byte[] _genesis;
+
         private byte[] _blockHash;
+
         private byte[] _mortality;
+
         private CompactInteger _nonce;
+
         private CompactInteger _chargeTransactionPayment;
 
-        private void SetSpecVersion(short specVersion)
+        public void SetSpecVersion(short specVersion)
         {
             _specVersion = specVersion;
         }
-        private void SetTxVersion(short txVersion)
+        public void SetTxVersion(short txVersion)
         {
             _txVersion = txVersion;
         }
 
-        private void SetGenesis(byte[] genesis)
+        public void SetGenesis(byte[] genesis)
         {
             _genesis = genesis;
         }
 
-        private void SetMortality(byte[] mortality, byte[] blockhash)
+        public void SetMortality(byte[] mortality, byte[] blockhash)
         {
             _mortality = mortality;
             _blockHash = blockhash;
         }
 
-        private void SetNonce(CompactInteger nonce)
+        public void SetNonce(CompactInteger nonce)
         {
             _nonce = nonce;
         }
 
-        private void SetChargeTransactionPayment(CompactInteger chargeTransactionPayment)
+        public void SetChargeTransactionPayment(CompactInteger chargeTransactionPayment)
         {
             _chargeTransactionPayment = chargeTransactionPayment;
         }
@@ -82,14 +88,10 @@ namespace SubstrateNetApi.MetaDataModel
         {
             var bytes = new List<byte>();
 
-            /*
-             * Extra: Era, Nonce & Tip
-             * */  
+            // Extra: Era, Nonce & Tip
             bytes.AddRange(GetExtra());
 
-            /*
-             * Additional Signed: SpecVersion, TxVersion, Genesis, Blockhash
-             * */
+            // Additional Signed: SpecVersion, TxVersion, Genesis, Blockhash
             bytes.AddRange(GetAdditionalSigned());
             
             return bytes.ToArray();

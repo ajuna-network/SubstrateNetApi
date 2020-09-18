@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace SubstrateNetApiTests.Extrinsic
 {
-    public class ExtrinsicTests
+    public class MethodTest
     {
         private Random _random;
 
@@ -38,6 +38,5 @@ namespace SubstrateNetApiTests.Extrinsic
             var balanceTransfer = new Method(0x04, 0x00, parameters.ToArray());
             Assert.True("0x98040400ffd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d9101".Equals(Utils.Bytes2HexString(balanceTransfer.Serialize()), StringComparison.InvariantCultureIgnoreCase));
         }
-
     }
 }

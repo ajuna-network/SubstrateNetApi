@@ -35,5 +35,13 @@ namespace SubstrateNetApiTests
             Assert.AreEqual(259, Utils.Bytes2Value(Utils.HexToByteArray("0x0301")));
             Assert.AreEqual("0x0301", Utils.Bytes2HexString(Utils.Value2Bytes((short) 259)));
         }
+
+        [Test]
+        public void StringValueArrayBytesArrayTest()
+        {
+            Assert.AreEqual(new byte[] { 0x01, 0x02, 0x03, 0x04}, Utils.StringValueArrayBytesArray("[ 1, 2, 3, 4]"));
+            Assert.AreEqual(new byte[] { 0x0C, 0x0D, 0x0E, 0x0F }, Utils.StringValueArrayBytesArray("12, 13, 14, 15"));
+            Assert.AreEqual(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, Utils.StringValueArrayBytesArray("255,255,255,255"));
+        }
     }
 }

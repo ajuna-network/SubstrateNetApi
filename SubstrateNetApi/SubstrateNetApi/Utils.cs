@@ -26,6 +26,30 @@ namespace SubstrateNetApi
             }
         }
 
+        internal static byte[] StringValueArrayBytesArray(string valueArray)
+        {
+            var strArray = valueArray
+                .Replace("[","")
+                .Replace("]", "")
+                .Replace(" ", "")
+                .Split(',');
+
+            var result = new byte[strArray.Length];
+
+            for (int i = 0; i < strArray.Length; i++)
+            {
+                if (byte.TryParse(strArray[i], out byte parsedByte))
+                {
+                    result[i] = parsedByte;
+                } else
+                {
+                    throw new Exception("Not valid string array for byte array conversion. Format should be [ 0-255, 0-255, ...]");
+                }
+            }
+
+            return result;
+        }
+
         public static byte[] HexToByteArray(string hex)
         {
             if (hex.Length % 2 == 1)
