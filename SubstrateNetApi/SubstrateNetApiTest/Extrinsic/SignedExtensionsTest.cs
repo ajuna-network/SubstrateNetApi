@@ -41,5 +41,23 @@ namespace SubstrateNetApiTests.Extrinsic
             Assert.AreEqual(bytes, signedExtensions.GetExtra());
         }
 
+        [Test]
+        public void SerializeAdditionalSignedTest()
+        {
+
+            SignedExtensions signedExtensions = new SignedExtensions();
+            var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            var era = new byte[] { 58, 6 };
+            signedExtensions.SetMortality(era, blockHash);
+            signedExtensions.SetGenesis(blockHash);
+            signedExtensions.SetSpecVersion(259);
+            signedExtensions.SetTxVersion(1);
+
+            byte[] bytes = Utils.StringValueArrayBytesArray("3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+
+
+            Assert.AreEqual(bytes, signedExtensions.GetAdditionalSigned());
+        }
+
     }
 }

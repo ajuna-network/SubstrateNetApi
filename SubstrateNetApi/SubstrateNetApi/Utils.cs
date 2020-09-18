@@ -80,7 +80,9 @@ namespace SubstrateNetApi
             switch (value.Length)
             {
                 case 2:
-                    return BitConverter.ToInt16(value, 0);
+                    return BitConverter.ToUInt16(value, 0);
+                case 4:
+                    return BitConverter.ToUInt32(value, 0);
                 default:
                     throw new Exception($"Unhandled byte size {value.Length} for this method!");
             }
@@ -91,11 +93,12 @@ namespace SubstrateNetApi
         {
             byte[] result;
 
-            var tt = value.GetType().Name;
-
             switch (value)
             {
-                case short s:
+                case ushort s:
+                    result = BitConverter.GetBytes(s);
+                    break;
+                case uint s:
                     result = BitConverter.GetBytes(s);
                     break;
                 default:

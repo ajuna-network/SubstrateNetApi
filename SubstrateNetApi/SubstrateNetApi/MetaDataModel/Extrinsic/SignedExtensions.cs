@@ -5,9 +5,9 @@ namespace SubstrateNetApi.MetaDataModel
 {
     public class SignedExtensions
     {
-        private short _specVersion;
+        private uint _specVersion;
 
-        private short _txVersion;
+        private uint _txVersion;
 
         private byte[] _genesis;
 
@@ -19,11 +19,11 @@ namespace SubstrateNetApi.MetaDataModel
 
         private CompactInteger _chargeTransactionPayment;
 
-        public void SetSpecVersion(short specVersion)
+        public void SetSpecVersion(uint specVersion)
         {
             _specVersion = specVersion;
         }
-        public void SetTxVersion(short txVersion)
+        public void SetTxVersion(uint txVersion)
         {
             _txVersion = txVersion;
         }

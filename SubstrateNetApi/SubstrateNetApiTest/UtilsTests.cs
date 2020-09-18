@@ -43,5 +43,15 @@ namespace SubstrateNetApiTests
             Assert.AreEqual(new byte[] { 0x0C, 0x0D, 0x0E, 0x0F }, Utils.StringValueArrayBytesArray("12, 13, 14, 15"));
             Assert.AreEqual(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, Utils.StringValueArrayBytesArray("255,255,255,255"));
         }
+
+        [Test]
+        public void Byte2ValueTest()
+        {
+            var shortValue = (ushort) Utils.Bytes2Value(new byte[] { 0xFF, 0xFF });
+            Assert.AreEqual(65535, shortValue);
+
+            var intValue = (uint)Utils.Bytes2Value(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF });
+            Assert.AreEqual(4294967295, intValue);
+        }
     }
 }
