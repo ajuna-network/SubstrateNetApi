@@ -91,6 +91,14 @@ namespace SubstrateNetApi
 
         }
 
+        public static byte[] SizePrefixedByteArray(List<byte> list)
+        {
+            var result = new List<byte>();
+            result.AddRange(new CompactInteger(list.Count).Encode());
+            result.AddRange(list);
+            return result.ToArray();
+        }
+
         public static byte[] Value2Bytes(object value, bool littleEndian = true)
         {
             byte[] result;

@@ -25,19 +25,24 @@ namespace SubstrateNetApi.MetaDataModel
             _parameters = new byte[0];
         }
 
-        public byte[] Serialize()
+        public byte[] Encode()
+        {
+            var result = new List<byte>();
+            result.Add(_moduleIndex);
+            result.Add(_callIndex);
+            result.AddRange(_parameters);
+            return result.ToArray();
+        }
+
+        // TODO this needs to be changed ... 
+        public byte[] EncodeAsCall()
         {
             var bytes = new List<byte>();
             bytes.Add(0x04);
             bytes.Add(_moduleIndex);
             bytes.Add(_callIndex);
             bytes.AddRange(_parameters);
-
-            var result = new List<byte>();
-            result.AddRange(new CompactInteger(bytes.Count).Encode());
-            result.AddRange(bytes);
-
-            return result.ToArray();
+            return Utils.SizePrefixedByteArray(bytes);
         }
     }
 }

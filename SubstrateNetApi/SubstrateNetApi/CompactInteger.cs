@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace SubstrateNetApi
@@ -126,22 +127,25 @@ namespace SubstrateNetApi
         {
             if (this <= 63)
             {
-                return new byte[] { (byte)(this << 2) };
+                return new byte[] { this << 2 };
             }
 
             if (this <= 0x3FFF)
             {
-                return new byte[] { (byte)(((this & 0x3F) << 2) | 0x01), (byte)((this & 0xFC0) >> 6) };
+                return new byte[] { 
+                    ((this & 0x3F) << 2) | 0x01, 
+                    (this & 0xFFC0) >> 6 
+                };
             }
 
             if (this <= 0x3FFFFFFF)
             {
                 var result = new byte[4];
-                result[0] = (byte)(((this & 0x3F) << 2) | 0x02);
+                result[0] = ((this & 0x3F) << 2) | 0x02;
                 this >>= 6;
                 for (int i = 1; i < 4; ++i)
                 {
-                    result[i] = (byte)(this & 0xFF);
+                    result[i] = this & 0xFF;
                     this >>= 8;
                 }
                 return result;
@@ -151,7 +155,7 @@ namespace SubstrateNetApi
                 var b0 = new List<byte>();
                 while (this > 0)
                 {
-                    b0.Add((byte)(this & 0xFF));
+                    b0.Add(this & 0xFF);
                     this >>= 8;
                 }
                 var result = new List<byte>

@@ -168,5 +168,15 @@ namespace SubstrateNetApiTests
                 Assert.AreEqual(v, CompactInteger.Decode(v.Encode()));
             }
         }
+
+        [Test]
+        public void EncodeDecodeTest2()
+        {
+            for (int i = 0; i < 1000000; i++)
+            {
+                CompactInteger c = i;
+                Assert.AreEqual(c, CompactInteger.Decode(c.Encode()));
+            }
+        }
     }
 }

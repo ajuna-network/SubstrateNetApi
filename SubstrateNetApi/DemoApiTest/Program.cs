@@ -103,7 +103,9 @@ namespace DemoApiTest
             var reqResult = await client.GetMethodAsync<JArray>("author_pendingExtrinsics", cancellationToken);
 
 
-            //var reqResult = await client.Chain.GetBlockHashAsync(0, cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(cancellationToken);
 
             //var systemChain = await client.System.ChainAsync(cancellationToken);
 

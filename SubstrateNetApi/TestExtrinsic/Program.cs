@@ -11,29 +11,40 @@ namespace TestExtrinsic
     {
         static void Main(string[] args)
         {
-            //GetTesting();
+            SimpleTests();
+        }
+
+        private static void SimpleTests()
+        {
 
 
-            for (ulong x = 0; x < 1000; x++)
+            var bytes = new byte[2];
+
+
+            Console.WriteLine($"0xFC0 - {ulong.Parse(Convert.ToString(0xFFC0, 2)):0000 0000 0000 0000}");
+            for (int n = 4000; n < 4124; n++)
             {
+                Console.WriteLine($"{n:0000}: {ulong.Parse(Convert.ToString(n, 2)):0000 0000 0000 0000} " +
+                                  $"..[{uint.Parse(Convert.ToString(((n & 0x3F) << 2) | 0x01, 2)):0000 0000} " +
+                                  $"{uint.Parse(Convert.ToString((n & 0xFFC0) >> 6, 2)):0000 0000}]..");
+                
 
-                //Console.WriteLine($"{x} => {BitConverter.ToString(BitConverter.GetBytes(x))}");
-                //Console.WriteLine($"{-(long)x} => {BitConverter.ToString(BitConverter.GetBytes(-(long)x))}");
-                Console.Write($" {x.ToString("0000")}: {(x & (ulong) - (long) x).ToString("0000")} [test & (ulong)-(long)test]");
-
-                ulong y = x;
-                ulong i = 1;
-                while (y % 2 == 0 && y != 0)
-                {
-                    y /= 2;
-                    i *= 2;
-                }
-                Console.WriteLine($" ----> {i}");
             }
-            //Console.WriteLine($"{test}[test] => ");
-            //Console.WriteLine($"{test}[test] => ");
-            //Console.WriteLine($"{(ulong)-(long)test} [(ulong)-(long)test] => ");
-            //Console.WriteLine($"{test & (ulong)-(long)test} [test & (ulong)-(long)test]");
+
+            //Console.WriteLine($"      0x3F               => {uint.Parse(Convert.ToString(0x3F, 2)).ToString("0000 0000")}");
+            //Console.WriteLine($"  n & 0x3F               => {uint.Parse(Convert.ToString((n & 0x3F), 2)).ToString("0000 0000")}");
+            //Console.WriteLine($" (n & 0x3F) << 2         => {uint.Parse(Convert.ToString((n & 0x3F) << 2, 2)).ToString("0000 0000")}");
+
+            //Console.WriteLine($"((n & 0x3F) << 2) | 0x01 => {uint.Parse(Convert.ToString(((n & 0x3F) << 2) | 0x01, 2)).ToString("0000 0000")}");
+            //Console.WriteLine($" (n & 0xFC0) >> 6         => {uint.Parse(Convert.ToString((n & 0xFC0) >> 6, 2)).ToString("0000 0000")}");
+
+
+            //bytes[0] = (byte)(((n & 0x3F) << 2) | 0x01);
+            //bytes[1] = (byte)((n & 0xFC0) >> 6);
+
+            //Console.WriteLine($"{Utils.Bytes2HexString(bytes)} --> {bytes[0]} {bytes[1]}");
+            //Console.WriteLine(Utils.Bytes2HexString(bytes));
+            //Console.WriteLine(CompactInteger.Decode(bytes));
 
         }
 
@@ -53,8 +64,8 @@ namespace TestExtrinsic
             // public key                     0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
             // signature                                                                                        0x14ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305
             // dest public key                                                                                                                                                                                                                                0x9effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e
-            //string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
-            //string pendingExtrinsic = balanceTransfer;
+            string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
+            string pendingExtrinsic = balanceTransfer;
 
 
             //string dmogCreate = "0xa50184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00cbbf8076d31e163051556563a9de71816ba05fac08b905b14c2e6d266b7c621f8abadb2776c6d35f1990ed0a3fd768493ce85ac78ef654d69760e7d80273af01f5020849130602";
@@ -64,8 +75,8 @@ namespace TestExtrinsic
 
             //string dmogCreate   = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00743f9c4d923490da02db6567e3128b7af336e3c3ff586dc7c262a787912b251eadd87001192db949215a5a9fb76b7ab2dc50fc70aea3b64a99cd4bc5a423c60a250310000602";
             // public key              0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e  824108F78CE80A3772BA19D0EA661D726C32974633058691E73ECCFA6F5E34C89278A756357063FD14942C10E79DB49F712AC5F0D160982C61023D5C19F56E01      0602
-            string dmogCreate = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00de0b65d4479f7f041b0af2a519893d9c4dd637ab3baa9e51da894663869304dd5dba12a0e1aa140cf40a07f17f690c0aede100fa083cbdd15c637bc2d044ec04450314000602";
-            string pendingExtrinsic = dmogCreate;
+            //string dmogCreate = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00de0b65d4479f7f041b0af2a519893d9c4dd637ab3baa9e51da894663869304dd5dba12a0e1aa140cf40a07f17f690c0aede100fa083cbdd15c637bc2d044ec04450314000602";
+            //string pendingExtrinsic = dmogCreate;
 
             byte[] bytes; // = Utils.HexToByteArray(pendingExtrinsic);
 
@@ -131,11 +142,13 @@ namespace TestExtrinsic
             byteString = byteString.Substring(moduleIndex.Length * 2);
             bytes = Utils.HexToByteArray(byteString);
 
+            byte[] parameters = bytes;
+
             if (byteString.Length > 0)
             {
                 // dest public key
                 byte[] destPublicKey = Utils.HexToByteArray(byteString.Substring(0, PUBIC_KEY_SIZE * 2));
-                Console.WriteLine($"destPublicKey: {Utils.GetAddressFrom(destPublicKey)}");
+                Console.WriteLine($"destPublicKey: {Utils.GetAddressFrom(destPublicKey)} [{Utils.Bytes2HexString(destPublicKey)}]");
                 byteString = byteString.Substring(destPublicKey.Length * 2);
                 bytes = Utils.HexToByteArray(byteString);
 
@@ -147,15 +160,8 @@ namespace TestExtrinsic
                 bytes = Utils.HexToByteArray(byteString);
             }
 
-            //var uncheckedExtrinsic = new UnCheckedExtrinsic();
-            //uncheckedExtrinsic.IsSigned(true);
-            //uncheckedExtrinsic.SetTransactionVersion(4);
-            //uncheckedExtrinsic.SetSenderPublicKey(sendPublicKey);
-            //uncheckedExtrinsic.SetSenderPublicKeyType(sendPublicKeyType);
-            //uncheckedExtrinsic.SetEra(era);
-            //uncheckedExtrinsic.SetNonce(nonce);
-            //uncheckedExtrinsic.SetTip(tip);
-            //uncheckedExtrinsic.SetCall(moduleIndex);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, sendPublicKeyType[0], sendPublicKey, nonce, moduleIndex[0], moduleIndex[1], parameters, new byte[0], new byte[0], 47, 1234);
+            Console.WriteLine(Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature)));
             //Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature)).ToUpper())}");
 
             //var signedExtensionsBytes = new SignedExtensions().Serialize();
@@ -189,8 +195,8 @@ namespace TestExtrinsic
 
             //Console.WriteLine($"0xc502  = {CompactInteger.Decode(Utils.HexToByteArray("0xc502"))} CompactInteger");
             //Console.WriteLine($"0xf502  = {CompactInteger.Decode(Utils.HexToByteArray("0xf502"))} CompactInteger");
-            //Console.WriteLine($"0x0503  = {CompactInteger.Decode(Utils.HexToByteArray("0x0503"))} CompactInteger");
-
+            Console.WriteLine($"8503  = {CompactInteger.Decode(Utils.HexToByteArray("0x8503"))} CompactInteger");
+            Console.WriteLine($"8543  = {CompactInteger.Decode(Utils.HexToByteArray("0x8543"))} CompactInteger");
             /**
             ➜  ~subkey inspect - key //Alice --scheme=ed25519
                     Secret Key URI `//Alice` is account:

@@ -5,29 +5,29 @@ using System.Text;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
-    public class Digest
+    public class DigestStr
     {
         public IList<string> Logs { get; set; }
     }
 
-    public class Header
+    public class HeaderStr
     {
-        public Digest Digest { get; set; }
+        public DigestStr Digest { get; set; }
         public string ExtrinsicsRoot { get; set; }
         public string Number { get; set; }
         public string ParentHash { get; set; }
         public string StateRoot { get; set; }
     }
 
-    public class Block
+    public class BlockStr
     {
         public IList<string> Extrinsics { get; set; }
-        public Header Header { get; set; }
+        public HeaderStr Header { get; set; }
     }
 
-    public class BlockData
+    public class BlockDataStr
     {
-        public Block Block { get; set; }
+        public BlockStr Block { get; set; }
         public object Justification { get; set; }
 
         override
