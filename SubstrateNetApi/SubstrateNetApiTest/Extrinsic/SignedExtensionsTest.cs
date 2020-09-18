@@ -54,9 +54,25 @@ namespace SubstrateNetApiTests.Extrinsic
             signedExtensions.SetTxVersion(1);
 
             byte[] bytes = Utils.StringValueArrayBytesArray("3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-
-
             Assert.AreEqual(bytes, signedExtensions.GetAdditionalSigned());
+        }
+
+        [Test]
+        public void SerializeTest()
+        {
+
+            SignedExtensions signedExtensions = new SignedExtensions();
+            var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            var era = new byte[] { 58, 6 };
+            signedExtensions.SetMortality(era, blockHash);
+            signedExtensions.SetNonce(new CompactInteger(0));
+            signedExtensions.SetChargeTransactionPayment(new CompactInteger(0));
+            signedExtensions.SetGenesis(blockHash);
+            signedExtensions.SetSpecVersion(259);
+            signedExtensions.SetTxVersion(1);
+
+            byte[] bytes = Utils.StringValueArrayBytesArray("58, 6, 0, 0, 3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+            Assert.AreEqual(bytes, signedExtensions.Serialize());
         }
 
     }

@@ -11,6 +11,25 @@ namespace TestExtrinsic
     {
         static void Main(string[] args)
         {
+            //GetTesting();
+
+
+            for (ulong x = 0; x < 1000; x++)
+            {
+
+                //Console.WriteLine($"{x} => {BitConverter.ToString(BitConverter.GetBytes(x))}");
+                //Console.WriteLine($"{-(long)x} => {BitConverter.ToString(BitConverter.GetBytes(-(long)x))}");
+                Console.WriteLine($" {x.ToString("0000")}: {(x & (ulong) - (long) x).ToString("0000")} [test & (ulong)-(long)test]");
+            }
+            //Console.WriteLine($"{test}[test] => ");
+            //Console.WriteLine($"{test}[test] => ");
+            //Console.WriteLine($"{(ulong)-(long)test} [(ulong)-(long)test] => ");
+            //Console.WriteLine($"{test & (ulong)-(long)test} [test & (ulong)-(long)test]");
+
+        }
+
+        private static void GetTesting()
+        {
             const int PUBIC_KEY_SIZE = 32;
             const int SIGNATURE_SIZE = 64;
 
@@ -44,7 +63,7 @@ namespace TestExtrinsic
             Console.WriteLine($"author_pendingExtrinsics: {pendingExtrinsic}");
             Console.WriteLine($"********* DECODING *********");
             int p = 0;
-            
+
             string byteString = pendingExtrinsic.Substring(2);
 
             // length
@@ -130,27 +149,29 @@ namespace TestExtrinsic
             uncheckedExtrinsic.SetCall(moduleIndex);
             Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature)).ToUpper())}");
 
-            var signedExtensionsBytes = new SignedExtensions().Serialize();
-            var methodBytes = new Method(0x06, 0x02).Serialize();
+            //var signedExtensionsBytes = new SignedExtensions().Serialize();
+            //var methodBytes = new Method(0x06, 0x02).Serialize();
 
-            Console.WriteLine($"Method - {Utils.Bytes2HexString(methodBytes)} + SignedExtensions - {Utils.Bytes2HexString(signedExtensionsBytes)}");
-            var payload = new List<byte>();
-            payload.AddRange(methodBytes);
-            payload.AddRange(signedExtensionsBytes);
-            var payloadBytes = payload.ToArray();
-            Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
-            if (payloadBytes.Length > 256)
-            {
-                Console.WriteLine("Payload is hashed with blake2b 256, as it is bigger then 256");
-                payloadBytes = HashExtension.Blake2(payloadBytes, 256);
-            }
-            Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
+            //Console.WriteLine($"Method - {Utils.Bytes2HexString(methodBytes)} + SignedExtensions - {Utils.Bytes2HexString(signedExtensionsBytes)}");
+            //var payload = new List<byte>();
+            //payload.AddRange(methodBytes);
+            //payload.AddRange(signedExtensionsBytes);
+            //var payloadBytes = payload.ToArray();
+            //Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
+            //if (payloadBytes.Length > 256)
+            //{
+            //    Console.WriteLine("Payload is hashed with blake2b 256, as it is bigger then 256");
+            //    payloadBytes = HashExtension.Blake2(payloadBytes, 256);
+            //}
+            //Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
 
-            string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
-            string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            //string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            //string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
 
-            var signedPayload = Chaos.NaCl.Ed25519.Sign(payloadBytes, Utils.HexToByteArray(priKey0x));
-            Console.WriteLine($"Signed Payload [{signedPayload.Length}]: {Utils.Bytes2HexString(signedPayload)}");
+            //var signedPayload = Chaos.NaCl.Ed25519.Sign(payloadBytes, Utils.HexToByteArray(priKey0x));
+            //Console.WriteLine($"Signed Payload [{signedPayload.Length}]: {Utils.Bytes2HexString(signedPayload)}");
+
+
             //Console.WriteLine($"0x84 = {Utils.DecodeCompactInteger(Utils.HexToByteArray("0x84"))} CompactInteger");
             //Console.WriteLine($"0x02 = {Utils.DecodeCompactInteger(Utils.HexToByteArray("0x02"))} CompactInteger");
             //Console.WriteLine($"SignatureVersion (true): {Utils.Bytes2HexString(new byte[] {(byte)(4 | 0x80 )})}");
@@ -178,8 +199,6 @@ namespace TestExtrinsic
             //     278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
             //0xff d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d  9101
 
-            
         }
-
     }
 }

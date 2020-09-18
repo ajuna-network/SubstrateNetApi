@@ -83,6 +83,8 @@ namespace SubstrateNetApi
                     return BitConverter.ToUInt16(value, 0);
                 case 4:
                     return BitConverter.ToUInt32(value, 0);
+                case 8:
+                    return BitConverter.ToUInt64(value, 0);
                 default:
                     throw new Exception($"Unhandled byte size {value.Length} for this method!");
             }
@@ -99,6 +101,9 @@ namespace SubstrateNetApi
                     result = BitConverter.GetBytes(s);
                     break;
                 case uint s:
+                    result = BitConverter.GetBytes(s);
+                    break;
+                case ulong s:
                     result = BitConverter.GetBytes(s);
                     break;
                 default:

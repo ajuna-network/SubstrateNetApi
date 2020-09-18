@@ -64,13 +64,17 @@ namespace SubstrateNetApi.MetaDataModel
             _call = moduleIndex;
         }
 
-        public void SetSignature(byte[] signature)
+        public void SetSignature(byte[] signedPayload)
         {
-            _signature = signature;
+            _signature = signedPayload;
         }
 
+        public Payload GetPayload()
+        {
+            return new Payload(null, null);
+        }
 
-        public byte[] Serialize(byte[] signature)
+        public byte[] Serialize(byte[] signedPayload)
         {
             var list = new List<byte>();
             
@@ -83,7 +87,7 @@ namespace SubstrateNetApi.MetaDataModel
             // key type ed = 00 and sr = FF
             list.AddRange(_sendPublicKeyType);
 
-            list.AddRange(signature);
+            list.AddRange(signedPayload);
             
             list.AddRange(_era);
             
