@@ -4,7 +4,6 @@ using System.Text;
 
 namespace SubstrateNetApi.MetaDataModel
 {
-
     public class UnCheckedExtrinsic
     {
         private bool _signed;
@@ -74,18 +73,30 @@ namespace SubstrateNetApi.MetaDataModel
         public byte[] Serialize(byte[] signature)
         {
             var list = new List<byte>();
+            
+            //4 is the TRANSACTION_VERSION constant and it is 7 bits long, the highest bit 1 for signed transaction, 0 for unsigned.
             list.Add((byte)(_transactionVersion | (_signed ? 0x80 : 0)));
+
+            // 32 bytes
             list.AddRange(_sendPublicKey);
+
             list.AddRange(_sendPublicKeyType);
+
             list.AddRange(signature);
+            
             list.AddRange(_era);
+            
             list.AddRange(_nonce.Encode());
+            
             list.AddRange(_tip.Encode());
+            
             list.AddRange(_call);
 
+            // add length
             var result = new List<byte>();
             result.AddRange(new CompactInteger(list.Count).Encode());
             result.AddRange(list);
+            
             return result.ToArray();
         }
     }

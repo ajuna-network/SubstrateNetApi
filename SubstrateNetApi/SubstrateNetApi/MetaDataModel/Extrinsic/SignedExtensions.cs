@@ -43,20 +43,25 @@ namespace SubstrateNetApi.MetaDataModel
             _chargeTransactionPayment = chargeTransactionPayment;
         }
 
-        public byte[] Serialize()
+        public byte[] GetExtra()
         {
             var bytes = new List<byte>();
+            
+            // CheckMortality
+            bytes.AddRange(_mortality);
 
-            /*
-             * Extra: Era, Nonce & Tip
-             * */  
-            bytes.AddRange(_mortality); // CheckMortality
-            bytes.AddRange(_nonce.Encode()); // CheckNonce
-            bytes.AddRange(_chargeTransactionPayment.Encode()); // ChargeTransactionPayment
+            // CheckNonce
+            bytes.AddRange(_nonce.Encode());
 
-            /*
-             * Additional Signed: SpecVersion, TxVersion, Genesis, Blockhash
-             * */
+            // ChargeTransactionPayment
+            bytes.AddRange(_chargeTransactionPayment.Encode());
+            
+            return bytes.ToArray();
+        }
+
+        public byte[] GetAdditionalSigned()
+        {
+            var bytes = new List<byte>();
 
             // CheckSpecVersion
             bytes.AddRange(Utils.Value2Bytes(_specVersion));
@@ -67,8 +72,25 @@ namespace SubstrateNetApi.MetaDataModel
             // CheckGenesis
             bytes.AddRange(_genesis);
 
-            // CheckMortality, Immortal = genesis_hash, Mortal = logic
+            // CheckMortality, Additional Blockhash check. Immortal = genesis_hash, Mortal = logic
             bytes.AddRange(_blockHash);
+
+            return bytes.ToArray();
+        }
+
+        public byte[] Serialize()
+        {
+            var bytes = new List<byte>();
+
+            /*
+             * Extra: Era, Nonce & Tip
+             * */  
+            bytes.AddRange(GetExtra());
+
+            /*
+             * Additional Signed: SpecVersion, TxVersion, Genesis, Blockhash
+             * */
+            bytes.AddRange(GetAdditionalSigned());
             
             return bytes.ToArray();
         }

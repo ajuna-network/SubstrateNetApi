@@ -33,6 +33,7 @@ namespace SubstrateNetApiTests.Extrinsic
             var parameters = new List<byte>();
             parameters.Add(0xFF);
             parameters.AddRange(Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"));
+            Assert.AreEqual("0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d".ToUpper(), Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY")).ToUpper());
             parameters.AddRange(new CompactInteger(100).Encode());
             var balanceTransfer = new Method(0x04, 0x00, parameters.ToArray());
             Assert.True("0x98040400ffd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d9101".Equals(Utils.Bytes2HexString(balanceTransfer.Serialize()), StringComparison.InvariantCultureIgnoreCase));
