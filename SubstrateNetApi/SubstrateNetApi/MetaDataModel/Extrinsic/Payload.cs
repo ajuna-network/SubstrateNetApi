@@ -15,7 +15,12 @@ namespace SubstrateNetApi.MetaDataModel
 
         public byte[] Serialize()
         {
-            return _call.EncodeAsCall().Concat(_signedExtension.Serialize()).ToArray();
+            byte[] bytes = _call.Encode().Concat(_signedExtension.Serialize()).ToArray();
+            if (bytes.Length > 256)
+            {
+                bytes = HashExtension.Blake2(bytes, 256);
+            }
+            return bytes;
         }
     }
 }

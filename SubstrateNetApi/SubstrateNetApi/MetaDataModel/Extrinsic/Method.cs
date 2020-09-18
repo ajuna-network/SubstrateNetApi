@@ -33,16 +33,5 @@ namespace SubstrateNetApi.MetaDataModel
             result.AddRange(_parameters);
             return result.ToArray();
         }
-
-        // TODO this needs to be changed ... 
-        public byte[] EncodeAsCall()
-        {
-            var bytes = new List<byte>();
-            bytes.Add(0x04);
-            bytes.Add(_moduleIndex);
-            bytes.Add(_callIndex);
-            bytes.AddRange(_parameters);
-            return Utils.SizePrefixedByteArray(bytes);
-        }
     }
 }

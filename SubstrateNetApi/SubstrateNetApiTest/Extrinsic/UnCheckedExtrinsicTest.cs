@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Schnorrkel;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel;
 using SubstrateNetApi.MetaDataModel.Extrinsic;
@@ -129,16 +130,17 @@ namespace SubstrateNetApiTests.Extrinsic
             //  }
             //]
             // [{ "signature":{ "signer":"5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY","signature":{ "Sr25519":"0x726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82"},"era":{ "MortalEra":"0xa500"},"nonce":4,"tip":1234},"method":{ "callIndex":"0x0400","args":{ "dest":"5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM","value":4321} } }]
-            
+
+            byte[] privatKey = Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
+
             byte publicKeyType = 0x01;
-            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY");
+            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
             CompactInteger nonce = 4;
             byte moduleIndex = 0x04;
             byte callIndex = 0x00;
             byte[] destPublicKey = Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM");
             CompactInteger amount = 4321;
             byte[] parameters = destPublicKey.Concat(amount.Encode()).ToArray();
-            string bb = Utils.Bytes2HexString(amount.Encode());
             byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
             byte[] currentBlockHash = Utils.HexToByteArray("0x27bf1e86b29c84ca5830c2bfeba545a7856dd0bc107d16325acc9ad440abac0c"); ;
             ulong currentBlockNumber = 10;
@@ -149,13 +151,19 @@ namespace SubstrateNetApiTests.Extrinsic
 
             var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
 
-            string b = Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature));
-
             string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
 
             Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Serialize(signature));
 
             var payload = uncheckedExtrinsic.GetPayload().Serialize();
+
+            var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
+
+            Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
+
+            Assert.AreEqual(signature, simpleSign);
+
+
         }
     }
 }
