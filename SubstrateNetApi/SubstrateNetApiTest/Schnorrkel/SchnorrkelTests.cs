@@ -69,21 +69,29 @@ namespace SubstrateNetApiTests.Schnorrkel
         }
 
         [Test]
-        public void SignatureVerify91Test()
+        public void SignatureVerifySignedOnNodeByAlice()
         {
-            string pubKey0x = "0x586cc32614d6a3f219667db501ade545753058d43b14e6e971e9c9cc908ad843";
-            string secKey0x = "0x19D51D513E4F0FFB854CC31A6949C348FA471DBFDA89E2B3B1E7B5B8E78357082288DCFE05240D96832CB642AE8C53CC1E6A08F62D49192F0FB61AC51A7D1977";
+            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
 
-            byte[] pubKey = Utils.HexToByteArray(pubKey0x);
-            byte[] secKey = Utils.HexToByteArray(secKey0x);
+            var messag1 = Utils.HexToByteArray("0xA81056D713AF1FF17B599E60D287952E89301B5208324A0529B62DC7369C745D");
+            var signedByAlic1 = Utils.HexToByteArray("0x2afb94d9eaf26b7191790b60bbc23c6b6fdbc09991514ff6945af1e6fa972b29ef3e5d819068b266113081d78f0d6d3271a339e6c0acc409cab45f4201146180");
+            Assert.True(Sr25519v091.Verify(signedByAlic1, publicKey, messag1));
 
-            int messageLength = _random.Next(10, 200);
-            var message = new byte[messageLength];
-            _random.NextBytes(message);
+            var messag2 = Utils.HexToByteArray("0x0400FF8EAF04151687736326C9FEA17E25FC5287613693C912909CB226AA4794F26A484913DC4F62090B18B6893C1431369461069EE3E9C1DA7F9F9A8C097C0CEBBEAC2BB9");
+            var signedByAlic2 = Utils.HexToByteArray("0xa61e9de53de6e4af819e9e75a6c6495f3620fe7ffed386708584395e6787e32e7b209860a190247b64c38201a12e16c1e8cbdd2fb9b0723bd9e88e32d3763689");
+            Assert.True(Sr25519v091.Verify(signedByAlic2, publicKey, messag2));
 
-            var simpleSign = Sr25519v091.SignSimple(pubKey, secKey, message);
-
-            Assert.True(Sr25519v091.Verify(simpleSign, pubKey, message));
+            var signedByAlic3 = Utils.HexToByteArray("0xa63c26a956af0218f800f0f0cf119f56139c824967b4e9f84ee3aa1d0c206a3eff7572a036568f89d8406df259c2bb93875725d284fb76187c8bb5fe0246cb8f");
+            Assert.True(Sr25519v091.Verify(signedByAlic3, publicKey, messag2));
         }
+
+        [Test]
+        public void SignatureVerifyOnNodeSignedHereByAlice()
+        {
+            // https://polkadot.js.org/apps/#/signing/verify
+
+            Assert.True(true);
+        }
+
     }
 }

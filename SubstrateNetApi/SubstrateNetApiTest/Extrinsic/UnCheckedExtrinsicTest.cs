@@ -138,9 +138,11 @@ namespace SubstrateNetApiTests.Extrinsic
             CompactInteger nonce = 4;
             byte moduleIndex = 0x04;
             byte callIndex = 0x00;
+
             byte[] destPublicKey = Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM");
             CompactInteger amount = 4321;
             byte[] parameters = destPublicKey.Concat(amount.Encode()).ToArray();
+
             byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
             byte[] currentBlockHash = Utils.HexToByteArray("0x27bf1e86b29c84ca5830c2bfeba545a7856dd0bc107d16325acc9ad440abac0c"); ;
             ulong currentBlockNumber = 10;
@@ -161,8 +163,169 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
 
+            //Assert.AreEqual(signature, simpleSign);
+
+        }
+
+        [Test]
+        public void DmogCreateImmortalAliceTest()
+        {
+            byte[] privatKey = Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
+
+            byte publicKeyType = 0x01;
+            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
+            CompactInteger nonce = 5;
+            byte moduleIndex = 0x06;
+            byte callIndex = 0x02;
+
+            byte[] parameters = new byte[0];
+
+            byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
+            byte[] currentBlockHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"); ;
+            ulong currentBlockNumber = 0;
+            CompactInteger tip = 0;
+
+            // mocked signature
+            byte[] signature = Utils.HexToByteArray("0xB8FB3FE1B723B69ED2011E5E3B168F202DFAE3853C81D5617DD35A60C29F1C4B49B95DCF5631CCA678837BC1B347DD1C20161E12512E16CED78A9592DEECDA8C");
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+
+            string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01b8fb3fe1b723b69ed2011e5e3b168f202dfae3853c81d5617dd35a60c29f1c4b49b95dcf5631cca678837bc1b347dd1c20161e12512e16ced78a9592deecda8c0014000602";
+
+            Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Serialize(signature));
+
+            var payload = uncheckedExtrinsic.GetPayload().Serialize();
+
+            var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
+
+            Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
+
             Assert.AreEqual(signature, simpleSign);
 
+        }
+
+        [Test]
+        public void ReducedTestByHandSignedPayloadCallAndGenesis()
+        {
+            //{
+            //block:
+            //    {
+            //    header:
+            //        {
+            //        parentHash: 0x7c9966a367e8ee67049ff82957c5006d0cfbd4e497622d81e107e8e41216788d,
+            //      number: 21,
+            //      stateRoot: 0x56c02eaf00b08190c685ed01224468bd80e2a6142228c73d5d6af2f23742afd2,
+            //      extrinsicsRoot: 0x50efe682682114f076dd19c6d2da265be67e0b7f50b170722eca86b5f79d1095,
+            //      digest:
+            //            {
+            //            logs:
+            //                [
+            //              {
+            //                PreRuntime:[
+            //                 aura,
+            //                 0x8351e60f00000000
+            //                ]
+            //          },
+            //          {
+            //                Seal:[
+            //                 aura,
+            //                 0x1675a04aed7c715149212fafc1fa079e784824d93d0dd72729dc57ec36b66906944255297e508c563ea0d050bdfc52a572aed9256dd12ae1bded7c5115978f89
+            //            ]
+            //          }
+            //        ]
+            //      }
+            //        },
+            //    extrinsics:
+            //        [
+            //      {
+            //        isSigned: false,
+            //        method:
+            //            {
+            //            args:[
+            //             1,600,514,322,000
+            //          ],
+            //          method: set,
+            //          section: timestamp
+            //        }
+            //        },
+            //      {
+            //        isSigned: true,
+            //        method:
+            //            {
+            //            args:[
+            //             5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty,
+            //            1.234n Unit
+            //          ],
+            //          method: transfer,
+            //          section: balances
+            //        },
+            //        era:
+            //            {
+            //            MortalEra:
+            //                {
+            //                period: 64,
+            //            phase: 18
+            //            }
+            //            },
+            //        nonce: 0,
+            //        signature: 0x4a47136012572194d55ad4dcf4672d697b5171ff908d8113ba78b5a546a0227969e9833f3e1b164273e19359a7f275aee4d02c2240ddd21f99fbe44d8b53468b,
+            //        signer: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY,
+            //        tip: 0
+            //      }
+            //    ]
+            //  },
+            //  justification:
+            //}
+
+            //0xdc4f62090b18b6893c1431369461069ee3e9c1da7f9f9a8c097c0cebbeac2bb9
+
+            // alice private Key
+            //byte[] seed = Utils.HexToByteArray("0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a");
+            byte[] privatKey = Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
+
+            byte publicKeyType = 0xFF;
+            
+            // alice public Key
+            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
+
+            var payload = new List<byte>();
+            // add module index
+            payload.Add(0x04);
+            // add call index
+            payload.Add(0x00);
+            // add public key type
+            payload.Add(publicKeyType); // 0xFF, 0x00, 0x01
+            // add dest public key
+            payload.AddRange(Utils.GetPublicKeyFrom("5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty"));
+            // add amount 1234
+            CompactInteger amount = 1234;
+            payload.AddRange(amount.Encode());
+            // add genesis_hash
+            payload.AddRange(Utils.HexToByteArray("0xdc4f62090b18b6893c1431369461069ee3e9c1da7f9f9a8c097c0cebbeac2bb9"));
+
+            var payloadBytes = payload.ToArray();
+
+            if (payloadBytes.Length > 256)
+            {
+                payloadBytes = HashExtension.Blake2(payloadBytes, 256);
+            }
+
+            var payloadBytesStr = Utils.Bytes2HexString(payloadBytes);
+            // PAYLOAD UNSIGNED 0x0400FF8EAF04151687736326C9FEA17E25FC5287613693C912909CB226AA4794F26A484913DC4F62090B18B6893C1431369461069EE3E9C1DA7F9F9A8C097C0CEBBEAC2BB9
+
+            var signedPayload = Sr25519v091.SignSimple(publicKey, privatKey, payloadBytes);
+            var signedPayloadStr = Utils.Bytes2HexString(signedPayload);
+            // PAYLOAD SIGNATURES BY ALICE 
+            // 0x0E76DDBB6EBEB2D293E21312861DC1A287158D2A254718D479F7A394E35FB0098D047A0FD4DEEC119D9235EDEBA3A49DF4E9392FF730270522DE5DB3D2917084
+            // 0x16C60679E04F2EB6FED70B0A25F476E6F7A7C62C1C0DE839AC9785DC9E0B8E58A4D1D94B7E2BEC47CF135AD134F0F9590EEF07B309CBCF73CEE38E9CC4A80C80
+            // 0x3891D4C54E3BC12700190AEAD46FDA5ACBB73B0379E758601E944996B1F23D2D047C6AC4B27421FC7AD61EE5B92F53621B4C32FD5AB0C187F9D0F8618C59E18A
+            Assert.True(Sr25519v091.Verify(signedPayload, publicKey, payloadBytes));
+
+            //var signatureExpected = Utils.HexToByteArray("0x4a47136012572194d55ad4dcf4672d697b5171ff908d8113ba78b5a546a0227969e9833f3e1b164273e19359a7f275aee4d02c2240ddd21f99fbe44d8b53468b");
+
+            //Assert.True(Sr25519v091.Verify(signatureExpected, publicKey, payloadBytes));
+
+            //Assert.AreEqual(signatureExpected, signedPayload);
 
         }
     }

@@ -11,7 +11,21 @@ namespace TestExtrinsic
     {
         static void Main(string[] args)
         {
-            SimpleTests();
+            byte[] privatKey = Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
+            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
+
+            var payloadBytesStr = "0x0400FF8EAF04151687736326C9FEA17E25FC5287613693C912909CB226AA4794F26A484913DC4F62090B18B6893C1431369461069EE3E9C1DA7F9F9A8C097C0CEBBEAC2BB9";
+            var payloadBytes = Utils.HexToByteArray(payloadBytesStr);
+            //var signedPayload = "0x5AB20E55DCE8884CB625A9813F5DC2FAEDD2E2C2601C6D3B7574797C82CF177F7EDE6A254CADED86A7A4240A1AE0F19B606831956A6480DF6D07E1EC2915F20F";
+            //var signedPayloadBytes = Utils.HexToByteArray(signedPayload);
+            var signature = Sr25519v091.SignSimple(publicKey, privatKey, payloadBytes);
+            Console.WriteLine($"{Utils.Bytes2HexString(signature)}");
+
+            var signatureExpected = Utils.HexToByteArray("0x4a47136012572194d55ad4dcf4672d697b5171ff908d8113ba78b5a546a0227969e9833f3e1b164273e19359a7f275aee4d02c2240ddd21f99fbe44d8b53468b");
+
+
+            Console.WriteLine($"new signature test: {Sr25519v091.Verify(signature, publicKey, payloadBytes)}");
+            Console.WriteLine($"node signature test: {Sr25519v091.Verify(signatureExpected, publicKey, payloadBytes)}");
         }
 
         private static void SimpleTests()
@@ -64,8 +78,9 @@ namespace TestExtrinsic
             // public key                     0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
             // signature                                                                                        0x14ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305
             // dest public key                                                                                                                                                                                                                                0x9effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e
-            string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
-            string pendingExtrinsic = balanceTransfer;
+            //string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
+            //string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
+            //string pendingExtrinsic = balanceTransfer;
 
 
             //string dmogCreate = "0xa50184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00cbbf8076d31e163051556563a9de71816ba05fac08b905b14c2e6d266b7c621f8abadb2776c6d35f1990ed0a3fd768493ce85ac78ef654d69760e7d80273af01f5020849130602";
@@ -76,7 +91,10 @@ namespace TestExtrinsic
             //string dmogCreate   = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00743f9c4d923490da02db6567e3128b7af336e3c3ff586dc7c262a787912b251eadd87001192db949215a5a9fb76b7ab2dc50fc70aea3b64a99cd4bc5a423c60a250310000602";
             // public key              0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e  824108F78CE80A3772BA19D0EA661D726C32974633058691E73ECCFA6F5E34C89278A756357063FD14942C10E79DB49F712AC5F0D160982C61023D5C19F56E01      0602
             //string dmogCreate = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00de0b65d4479f7f041b0af2a519893d9c4dd637ab3baa9e51da894663869304dd5dba12a0e1aa140cf40a07f17f690c0aede100fa083cbdd15c637bc2d044ec04450314000602";
-            //string pendingExtrinsic = dmogCreate;
+            
+            
+            string dmogCreate = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01b8fb3fe1b723b69ed2011e5e3b168f202dfae3853c81d5617dd35a60c29f1c4b49b95dcf5631cca678837bc1b347dd1c20161e12512e16ced78a9592deecda8c0014000602";
+            string pendingExtrinsic = dmogCreate;
 
             byte[] bytes; // = Utils.HexToByteArray(pendingExtrinsic);
 
@@ -117,7 +135,8 @@ namespace TestExtrinsic
             bytes = Utils.HexToByteArray(byteString);
 
             // era
-            byte[] era = Utils.HexToByteArray(byteString.Substring(0, 4));
+            //byte[] era = Utils.HexToByteArray(byteString.Substring(0, 4));
+            byte[] era = Utils.HexToByteArray(byteString.Substring(0, 2));
             Console.WriteLine($"era: {Utils.Bytes2HexString(era)}");
             byteString = byteString.Substring(era.Length * 2);
             bytes = Utils.HexToByteArray(byteString);

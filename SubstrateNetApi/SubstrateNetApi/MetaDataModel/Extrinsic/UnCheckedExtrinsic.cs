@@ -44,7 +44,7 @@ namespace SubstrateNetApi.MetaDataModel
             _sendPublicKeyType = publicKeyType;
             _nonce = nonce;
             _method = new Method(module, call, parameters);
-            _era = new Era(EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber);
+            _era = new Era(EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber, currentBlockNumber == 0 ? true : false);
             _genesisHash = genesisHash;
             _currentBlockHash = currentBlockHash;
             _tip = tip;
