@@ -195,14 +195,65 @@ namespace SubstrateNetApiTests.Extrinsic
             Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Serialize(signature));
 
             var payload = uncheckedExtrinsic.GetPayload().Serialize();
+            var payloadStr = Utils.Bytes2HexString(payload);
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
+            var simpleSignStr = Utils.Bytes2HexString(simpleSign);
 
             Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
-
-            Assert.AreEqual(signature, simpleSign);
+            Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
 
         }
+
+        [Test]
+        public void DmogCreateImmortalAliceTest2()
+        {
+
+            //  length: 103[2]
+            //  signatureVersion: 0x84
+            //  sendPublicKey: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY[0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D]
+            //  sendPublicKeyType: 0x01
+            //  signature: 0x583313EF997E42929D889260EE8B75AE7FB5CE19B92E435CA0827A8C7B5BC44B7D1D3A8638D76C24EF47E61981B54BDDFDE64AA0C078F2B78EF915FF1B74468F
+            //  era: 0x00
+            //  nonce: 5[1]
+            //  tip: 0[1]
+            //  moduleIndex: 0x0602
+
+            byte[] privatKey = Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
+
+            byte publicKeyType = 0x01;
+            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
+            CompactInteger nonce = 5;
+            byte moduleIndex = 0x06;
+            byte callIndex = 0x02;
+
+            byte[] parameters = new byte[0];
+
+            byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
+            byte[] currentBlockHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"); ;
+            ulong currentBlockNumber = 0;
+            CompactInteger tip = 0;
+
+            // mocked signature
+            byte[] signature = Utils.HexToByteArray("0x583313EF997E42929D889260EE8B75AE7FB5CE19B92E435CA0827A8C7B5BC44B7D1D3A8638D76C24EF47E61981B54BDDFDE64AA0C078F2B78EF915FF1B74468F");
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+
+            string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01583313ef997e42929d889260ee8b75ae7fb5ce19b92e435ca0827a8c7b5bc44b7d1d3a8638d76c24ef47e61981b54bddfde64aa0c078f2b78ef915ff1b74468f0014000602";
+                                         
+            Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Serialize(signature));
+
+            var payload = uncheckedExtrinsic.GetPayload().Serialize();
+            var payloadStr = Utils.Bytes2HexString(payload);
+
+            var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
+            var simpleSignStr = Utils.Bytes2HexString(simpleSign);
+
+            Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
+            Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
+
+        }
+        
 
         [Test]
         public void ReducedTestByHandSignedPayloadCallAndGenesis()
@@ -321,9 +372,9 @@ namespace SubstrateNetApiTests.Extrinsic
             // 0x3891D4C54E3BC12700190AEAD46FDA5ACBB73B0379E758601E944996B1F23D2D047C6AC4B27421FC7AD61EE5B92F53621B4C32FD5AB0C187F9D0F8618C59E18A
             Assert.True(Sr25519v091.Verify(signedPayload, publicKey, payloadBytes));
 
-            //var signatureExpected = Utils.HexToByteArray("0x4a47136012572194d55ad4dcf4672d697b5171ff908d8113ba78b5a546a0227969e9833f3e1b164273e19359a7f275aee4d02c2240ddd21f99fbe44d8b53468b");
+            var signatureExpected = Utils.HexToByteArray("0x4a47136012572194d55ad4dcf4672d697b5171ff908d8113ba78b5a546a0227969e9833f3e1b164273e19359a7f275aee4d02c2240ddd21f99fbe44d8b53468b");
 
-            //Assert.True(Sr25519v091.Verify(signatureExpected, publicKey, payloadBytes));
+            Assert.True(Sr25519v091.Verify(signatureExpected, publicKey, payloadBytes));
 
             //Assert.AreEqual(signatureExpected, signedPayload);
 

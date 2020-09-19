@@ -11,21 +11,7 @@ namespace TestExtrinsic
     {
         static void Main(string[] args)
         {
-            byte[] privatKey = Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
-            byte[] publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
-
-            var payloadBytesStr = "0x0400FF8EAF04151687736326C9FEA17E25FC5287613693C912909CB226AA4794F26A484913DC4F62090B18B6893C1431369461069EE3E9C1DA7F9F9A8C097C0CEBBEAC2BB9";
-            var payloadBytes = Utils.HexToByteArray(payloadBytesStr);
-            //var signedPayload = "0x5AB20E55DCE8884CB625A9813F5DC2FAEDD2E2C2601C6D3B7574797C82CF177F7EDE6A254CADED86A7A4240A1AE0F19B606831956A6480DF6D07E1EC2915F20F";
-            //var signedPayloadBytes = Utils.HexToByteArray(signedPayload);
-            var signature = Sr25519v091.SignSimple(publicKey, privatKey, payloadBytes);
-            Console.WriteLine($"{Utils.Bytes2HexString(signature)}");
-
-            var signatureExpected = Utils.HexToByteArray("0x4a47136012572194d55ad4dcf4672d697b5171ff908d8113ba78b5a546a0227969e9833f3e1b164273e19359a7f275aee4d02c2240ddd21f99fbe44d8b53468b");
-
-
-            Console.WriteLine($"new signature test: {Sr25519v091.Verify(signature, publicKey, payloadBytes)}");
-            Console.WriteLine($"node signature test: {Sr25519v091.Verify(signatureExpected, publicKey, payloadBytes)}");
+            GetTesting();
         }
 
         private static void SimpleTests()
@@ -93,7 +79,7 @@ namespace TestExtrinsic
             //string dmogCreate = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00de0b65d4479f7f041b0af2a519893d9c4dd637ab3baa9e51da894663869304dd5dba12a0e1aa140cf40a07f17f690c0aede100fa083cbdd15c637bc2d044ec04450314000602";
             
             
-            string dmogCreate = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01b8fb3fe1b723b69ed2011e5e3b168f202dfae3853c81d5617dd35a60c29f1c4b49b95dcf5631cca678837bc1b347dd1c20161e12512e16ced78a9592deecda8c0014000602";
+            string dmogCreate = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01583313ef997e42929d889260ee8b75ae7fb5ce19b92e435ca0827a8c7b5bc44b7d1d3a8638d76c24ef47e61981b54bddfde64aa0c078f2b78ef915ff1b74468f0014000602";
             string pendingExtrinsic = dmogCreate;
 
             byte[] bytes; // = Utils.HexToByteArray(pendingExtrinsic);
