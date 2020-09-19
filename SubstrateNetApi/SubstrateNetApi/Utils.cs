@@ -1,16 +1,29 @@
-﻿using Chaos.NaCl;
+﻿/// <file> SubstrateNetApi\Utils.cs </file>
+/// <copyright file="Utils.cs" company="mogwaicoin.org">
+/// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
+/// </copyright>
+/// <summary> Implements the utilities class. </summary>
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 namespace SubstrateNetApi
 {
+    /// <summary> An utilities. </summary>
+    /// <remarks> 19.09.2020. </remarks>
     public class Utils
     {
+        /// <summary> Values that represent Hexadecimal string formats. </summary>
+        /// <remarks> 19.09.2020. </remarks>
         public enum HexStringFormat { PURE, DASH, PREFIXED }
 
+        /// <summary> Bytes 2 hexadecimal string. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
+        /// <param name="bytes">  The bytes. </param>
+        /// <param name="format"> (Optional) Describes the format to use. </param>
+        /// <returns> A string. </returns>
         public static string Bytes2HexString(byte[] bytes, HexStringFormat format = HexStringFormat.PREFIXED)
         {
             switch (format)
@@ -26,6 +39,11 @@ namespace SubstrateNetApi
             }
         }
 
+        /// <summary> String value array bytes array. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
+        /// <param name="valueArray"> Array of values. </param>
+        /// <returns> A byte[]. </returns>
         internal static byte[] StringValueArrayBytesArray(string valueArray)
         {
             var strArray = valueArray
@@ -50,6 +68,11 @@ namespace SubstrateNetApi
             return result;
         }
 
+        /// <summary> Hexadecimal to byte array. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
+        /// <param name="hex"> The hexadecimal. </param>
+        /// <returns> A byte[]. </returns>
         public static byte[] HexToByteArray(string hex)
         {
             if (hex.Length % 2 == 1)
@@ -70,6 +93,12 @@ namespace SubstrateNetApi
             return arr;
         }
 
+        /// <summary> Bytes 2 value. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
+        /// <param name="value">        The value. </param>
+        /// <param name="littleEndian"> (Optional) True to little endian. </param>
+        /// <returns> An object. </returns>
         public static object Bytes2Value(byte[] value, bool littleEndian = true)
         {
             if (!littleEndian)
@@ -91,6 +120,10 @@ namespace SubstrateNetApi
 
         }
 
+        /// <summary> Size prefixed byte array. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="list"> The list. </param>
+        /// <returns> A byte[]. </returns>
         public static byte[] SizePrefixedByteArray(List<byte> list)
         {
             var result = new List<byte>();
@@ -99,6 +132,12 @@ namespace SubstrateNetApi
             return result.ToArray();
         }
 
+        /// <summary> Value 2 bytes. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
+        /// <param name="value">        The value. </param>
+        /// <param name="littleEndian"> (Optional) True to little endian. </param>
+        /// <returns> A byte[]. </returns>
         public static byte[] Value2Bytes(object value, bool littleEndian = true)
         {
             byte[] result;
@@ -126,8 +165,10 @@ namespace SubstrateNetApi
             return result;
         }
 
-
-
+        /// <summary> Gets hexadecimal value. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="hex"> The hexadecimal. </param>
+        /// <returns> The hexadecimal value. </returns>
         public static int GetHexVal(char hex)
         {
             int val = (int)hex;
@@ -139,6 +180,11 @@ namespace SubstrateNetApi
             return val - (val < 58 ? 48 : (val < 97 ? 55 : 87));
         }
 
+        /// <summary> Gets public key from. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="ApplicationException"> Thrown when an Application error condition occurs. </exception>
+        /// <param name="address"> The address. </param>
+        /// <returns> An array of byte. </returns>
         public static byte[] GetPublicKeyFrom(string address)
         {
             int PUBLIC_KEY_LENGTH = 32;
@@ -167,6 +213,12 @@ namespace SubstrateNetApi
             throw new ApplicationException("Address checksum is wrong.");
         }
 
+        /// <summary> Key type to bytes. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
+        /// <param name="keyType">   Type of the key. </param>
+        /// <param name="parameter"> The parameter. </param>
+        /// <returns> A byte[]. </returns>
         internal static byte[] KeyTypeToBytes(string keyType, string parameter)
         {
             switch (keyType)
@@ -187,6 +239,10 @@ namespace SubstrateNetApi
 
         }
 
+        /// <summary> Gets address from. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="bytes"> The bytes. </param>
+        /// <returns> The address from. </returns>
         public static string GetAddressFrom(byte[] bytes)
         {
             int SR25519_PUBLIC_SIZE = 32;

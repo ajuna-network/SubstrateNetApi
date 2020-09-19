@@ -1,8 +1,14 @@
-﻿using Microsoft.VisualStudio.Threading;
+﻿/// <file> SubstrateNetApi\SubstrateClient.cs </file>
+/// <copyright file="SubstrateClient.cs" company="mogwaicoin.org">
+/// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
+/// </copyright>
+/// <summary> Implements the substrate client class. </summary>
+using Microsoft.VisualStudio.Threading;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 using System;
 using System.Collections.Generic;
@@ -10,33 +16,50 @@ using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using System = SubstrateNetApi.Modules.System;
-using SubstrateNetApi.MetaDataModel.Values;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
 namespace SubstrateNetApi
 {
+    /// <summary> A substrate client. </summary>
+    /// <remarks> 19.09.2020. </remarks>
+    /// <seealso cref="IDisposable"/>
     public class SubstrateClient : IDisposable
     {
+        /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+        /// <summary> _URI of the resource. </summary>
         private readonly Uri _uri;
 
+        /// <summary> The socket. </summary>
         private ClientWebSocket _socket;
 
+        /// <summary> The JSON RPC. </summary>
         private JsonRpc _jsonRpc;
 
+        /// <summary> The connect token source. </summary>
         private CancellationTokenSource _connectTokenSource;
+        /// <summary> The request token source. </summary>
         private CancellationTokenSource _requestTokenSource;
 
+        /// <summary> The type converters. </summary>
         private readonly Dictionary<string, ITypeConverter> _typeConverters = new Dictionary<string, ITypeConverter>();
 
+        /// <summary> Gets or sets information describing the meta. </summary>
+        /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
+
+        /// <summary> Gets the system. </summary>
+        /// <value> The system. </value>
         public Modules.System System { get; }
 
+        /// <summary> Gets the chain. </summary>
+        /// <value> The chain. </value>
         public Modules.Chain Chain { get; }
 
+        /// <summary> Constructor. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="uri"> URI of the resource. </param>
         public SubstrateClient(Uri uri)
         {
             _uri = uri;
@@ -50,6 +73,11 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new AccountInfoConverter());
         }
 
+        /// <summary> Registers the type converter described by converter. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="ConverterAlreadyRegisteredException"> Thrown when a Converter Already
+        ///                                                        Registered error condition occurs. </exception>
+        /// <param name="converter"> The converter. </param>
         public void RegisterTypeConverter(ITypeConverter converter)
         {
             if (_typeConverters.ContainsKey(converter.TypeName))
@@ -58,13 +86,22 @@ namespace SubstrateNetApi
             _typeConverters.Add(converter.TypeName, converter);
         }
 
+        /// <summary> Gets a value indicating whether this object is connected. </summary>
+        /// <value> True if this object is connected, false if not. </value>
         public bool IsConnected => _socket?.State == WebSocketState.Open;
 
+        /// <summary> Connects an asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <returns> An asynchronous result. </returns>
         public async Task ConnectAsync()
         {
             await ConnectAsync(CancellationToken.None);
         }
 
+        /// <summary> Connects an asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="token"> A token that allows processing to be cancelled. </param>
+        /// <returns> An asynchronous result. </returns>
         public async Task ConnectAsync(CancellationToken token)
         {
             if (_socket != null && _socket.State == WebSocketState.Open)
@@ -101,21 +138,53 @@ namespace SubstrateNetApi
             Logger.Debug("MetaData parsed.");
         }
 
+        /// <summary> Gets storage asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="moduleName"> Name of the module. </param>
+        /// <param name="itemName">   Name of the item. </param>
+        /// <returns> The storage. </returns>
         public async Task<object> GetStorageAsync(string moduleName, string itemName)
         {
             return await GetStorageAsync(moduleName, itemName, CancellationToken.None);
         }
 
+        /// <summary> Gets storage asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="moduleName"> Name of the module. </param>
+        /// <param name="itemName">   Name of the item. </param>
+        /// <param name="token">      A token that allows processing to be cancelled. </param>
+        /// <returns> The storage. </returns>
         public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token)
         {
             return await GetStorageAsync(moduleName, itemName, null, token);
         }
 
+        /// <summary> Gets storage asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="moduleName"> Name of the module. </param>
+        /// <param name="itemName">   Name of the item. </param>
+        /// <param name="parameter">  The parameter. </param>
+        /// <returns> The storage. </returns>
         public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter)
         {
             return await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
         }
 
+        /// <summary> Gets storage asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="ClientNotConnectedException">  Thrown when a Client Not Connected error
+        ///                                                 condition occurs. </exception>
+        /// <exception cref="MissingModuleOrItemException"> Thrown when a Missing Module Or Item error
+        ///                                                 condition occurs. </exception>
+        /// <exception cref="MissingParameterException">    Thrown when a Missing Parameter error
+        ///                                                 condition occurs. </exception>
+        /// <exception cref="MissingConverterException">    Thrown when a Missing Converter error
+        ///                                                 condition occurs. </exception>
+        /// <param name="moduleName"> Name of the module. </param>
+        /// <param name="itemName">   Name of the item. </param>
+        /// <param name="parameter">  The parameter. </param>
+        /// <param name="token">      A token that allows processing to be cancelled. </param>
+        /// <returns> The storage. </returns>
         public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
@@ -150,20 +219,54 @@ namespace SubstrateNetApi
             return _typeConverters[returnType].Create(resultString);
         }
 
+        /// <summary> Gets method asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <typeparam name="T"> Generic type parameter. </typeparam>
+        /// <param name="method"> The method. </param>
+        /// <returns> The method async&lt; t&gt; </returns>
         public async Task<T> GetMethodAsync<T>(string method)
         {
             return await GetMethodAsync<T>(method, CancellationToken.None);
         }
 
+        /// <summary> Gets method asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <typeparam name="T"> Generic type parameter. </typeparam>
+        /// <param name="method"> The method. </param>
+        /// <param name="token">  A token that allows processing to be cancelled. </param>
+        /// <returns> The method async&lt; t&gt; </returns>
         public async Task<T> GetMethodAsync<T>(string method, CancellationToken token)
         {
             return await InvokeAsync<T>(method, null, token);
         }
 
+        /// <summary> Gets method asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <typeparam name="T"> Generic type parameter. </typeparam>
+        /// <param name="method">    The method. </param>
+        /// <param name="parameter"> The parameter. </param>
+        /// <param name="token">     A token that allows processing to be cancelled. </param>
+        /// <returns> The method async&lt; t&gt; </returns>
         public async Task<T> GetMethodAsync<T>(string method, string parameter, CancellationToken token)
         {
             return await InvokeAsync<T>(method, new object[] { parameter }, token);
         }       
+
+        /// <summary> Submit extrinsic asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="ClientNotConnectedException">  Thrown when a Client Not Connected error
+        ///                                                 condition occurs. </exception>
+        /// <exception cref="MissingModuleOrItemException"> Thrown when a Missing Module Or Item error
+        ///                                                 condition occurs. </exception>
+        /// <exception cref="MissingParameterException">    Thrown when a Missing Parameter error
+        ///                                                 condition occurs. </exception>
+        /// <param name="moduleName"> Name of the module. </param>
+        /// <param name="callName">   Name of the call. </param>
+        /// <param name="parameter">  The parameter. </param>
+        /// <param name="pubKey">     The pub key. </param>
+        /// <param name="priKey">     The pri key. </param>
+        /// <param name="token">      A token that allows processing to be cancelled. </param>
+        /// <returns> The submit extrinsic. </returns>
         public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, string parameter, byte[] pubKey, byte[] priKey, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
@@ -187,6 +290,17 @@ namespace SubstrateNetApi
             return resultString; // _typeConverters[returnType].Create(resultString);
         }
 
+        /// <summary>
+        /// Executes the asynchronous on a different thread, and waits for the result.
+        /// </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <exception cref="ClientNotConnectedException"> Thrown when a Client Not Connected error
+        ///                                                condition occurs. </exception>
+        /// <typeparam name="T"> Generic type parameter. </typeparam>
+        /// <param name="method">     The method. </param>
+        /// <param name="parameters"> Options for controlling the operation. </param>
+        /// <param name="token">      A token that allows processing to be cancelled. </param>
+        /// <returns> A T. </returns>
         internal async Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
@@ -203,11 +317,18 @@ namespace SubstrateNetApi
             return resultString;
         }
 
+        /// <summary> Closes an asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <returns> An asynchronous result. </returns>
         public async Task CloseAsync()
         {
             await CloseAsync(CancellationToken.None);
         }
 
+        /// <summary> Closes an asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="token"> A token that allows processing to be cancelled. </param>
+        /// <returns> An asynchronous result. </returns>
         public async Task CloseAsync(CancellationToken token)
         {
             _connectTokenSource?.Cancel();
@@ -225,8 +346,13 @@ namespace SubstrateNetApi
         }
 
         #region IDisposable Support
-        private bool _disposedValue = false; // To detect redundant calls
+        /// <summary> To detect redundant calls. </summary>
+        private bool _disposedValue = false;
 
+        /// <summary> This code added to correctly implement the disposable pattern. </summary>
+        /// <remarks> 19.09.2020. </remarks>
+        /// <param name="disposing"> True to release both managed and unmanaged resources; false to
+        ///                          release only unmanaged resources. </param>
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposedValue)
@@ -255,7 +381,8 @@ namespace SubstrateNetApi
         //   Dispose(false);
         // }
 
-        // This code added to correctly implement the disposable pattern.
+        /// <summary> This code added to correctly implement the disposable pattern. </summary>
+        /// <remarks> 19.09.2020. </remarks>
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
