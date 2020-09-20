@@ -34,7 +34,7 @@ namespace SubstrateNetApi.MetaDataModel
         public byte[] GetExtra()
         {
             var bytes = new List<byte>();
-            
+           
             // CheckMortality
             bytes.AddRange(_mortality.Encode());
 

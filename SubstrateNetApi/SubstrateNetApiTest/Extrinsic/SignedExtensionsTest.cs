@@ -30,7 +30,7 @@ namespace SubstrateNetApiTests.Extrinsic
             var genesisHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-            var era = new Era( 2048, 99 );
+            var era = new Era( 2048, 99, false);
 
             SignedExtensions signedExtensions = new SignedExtensions(259, 1, genesisHash, blockHash, era, 0, 0);
 

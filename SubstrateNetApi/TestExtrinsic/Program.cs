@@ -4,6 +4,7 @@ using System.Numerics;
 using Schnorrkel;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Extrinsic;
 
 namespace TestExtrinsic
 {
@@ -79,7 +80,7 @@ namespace TestExtrinsic
             //string dmogCreate = "0xa10184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00de0b65d4479f7f041b0af2a519893d9c4dd637ab3baa9e51da894663869304dd5dba12a0e1aa140cf40a07f17f690c0aede100fa083cbdd15c637bc2d044ec04450314000602";
             
             
-            string dmogCreate = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01583313ef997e42929d889260ee8b75ae7fb5ce19b92e435ca0827a8c7b5bc44b7d1d3a8638d76c24ef47e61981b54bddfde64aa0c078f2b78ef915ff1b74468f0014000602";
+            string dmogCreate = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e150314000602";
             string pendingExtrinsic = dmogCreate;
 
             byte[] bytes; // = Utils.HexToByteArray(pendingExtrinsic);
@@ -121,8 +122,8 @@ namespace TestExtrinsic
             bytes = Utils.HexToByteArray(byteString);
 
             // era
-            //byte[] era = Utils.HexToByteArray(byteString.Substring(0, 4));
-            byte[] era = Utils.HexToByteArray(byteString.Substring(0, 2));
+            byte[] era = Utils.HexToByteArray(byteString.Substring(0, 4));
+            //byte[] era = Utils.HexToByteArray(byteString.Substring(0, 2));
             Console.WriteLine($"era: {Utils.Bytes2HexString(era)}");
             byteString = byteString.Substring(era.Length * 2);
             bytes = Utils.HexToByteArray(byteString);
@@ -200,8 +201,8 @@ namespace TestExtrinsic
 
             //Console.WriteLine($"0xc502  = {CompactInteger.Decode(Utils.HexToByteArray("0xc502"))} CompactInteger");
             //Console.WriteLine($"0xf502  = {CompactInteger.Decode(Utils.HexToByteArray("0xf502"))} CompactInteger");
-            Console.WriteLine($"8503  = {CompactInteger.Decode(Utils.HexToByteArray("0x8503"))} CompactInteger");
-            Console.WriteLine($"8543  = {CompactInteger.Decode(Utils.HexToByteArray("0x8543"))} CompactInteger");
+            //Console.WriteLine($"8503  = {CompactInteger.Decode(Utils.HexToByteArray("0x8503"))} CompactInteger");
+            //Console.WriteLine($"8543  = {CompactInteger.Decode(Utils.HexToByteArray("0x8543"))} CompactInteger");
             /**
             ➜  ~subkey inspect - key //Alice --scheme=ed25519
                     Secret Key URI `//Alice` is account:
@@ -219,6 +220,10 @@ namespace TestExtrinsic
             //     278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
             //0xff d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d  9101
 
+
+            var tt = Era.Decode(Utils.HexToByteArray("0x1503"));
+            Console.WriteLine(tt.Period);
+            Console.WriteLine(tt.Phase);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace SubstrateNetApiTests.Extrinsic
             var genesisHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-            var era = new Era(2048, 99);
+            var era = new Era(2048, 99, false);
 
             var paramsList = new List<byte>();
             paramsList.Add(0xFF);
