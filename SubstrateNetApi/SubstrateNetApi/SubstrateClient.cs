@@ -12,6 +12,7 @@ using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -123,6 +124,8 @@ namespace SubstrateNetApi
             Logger.Debug("Connected to Websocket.");
 
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket));
+            _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
+            _jsonRpc.TraceSource.Switch.Level = SourceLevels.All;
             _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
 
