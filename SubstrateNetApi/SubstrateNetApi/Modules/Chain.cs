@@ -28,27 +28,27 @@ namespace SubstrateNetApi.Modules
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> The block. </returns>
-        public async Task<BlockDataStr> GetBlockAsync()
+        public async Task<BlockData> BlockAsync()
         {
-            return await GetBlockAsync(null, CancellationToken.None);
+            return await BlockAsync(null, CancellationToken.None);
         }
 
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block. </returns>
-        public async Task<BlockDataStr> GetBlockAsync(CancellationToken token)
+        public async Task<BlockData> BlockAsync(CancellationToken token)
         {
-            return await GetBlockAsync(null, token);
+            return await BlockAsync(null, token);
         }
 
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="hash"> The hash. </param>
         /// <returns> The block. </returns>
-        public async Task<BlockDataStr> GetBlockAsync(byte[] hash)
+        public async Task<BlockData> BlockAsync(byte[] hash)
         {
-            return await GetBlockAsync(hash, CancellationToken.None);
+            return await BlockAsync(hash, CancellationToken.None);
         }
 
         /// <summary> Gets block asynchronous. </summary>
@@ -56,38 +56,38 @@ namespace SubstrateNetApi.Modules
         /// <param name="hash">  The hash. </param>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block. </returns>
-        public async Task<BlockDataStr> GetBlockAsync(byte[] hash, CancellationToken token)
+        public async Task<BlockData> BlockAsync(byte[] hash, CancellationToken token)
         {
 
             var parameter = hash != null ? Utils.Bytes2HexString(hash) : null;
 
-            return await _client.InvokeAsync<BlockDataStr>("chain_getBlock", new object[] { parameter }, token);
+            return await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] { parameter }, token);
         }
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> The block hash. </returns>
-        public async Task<string> GetBlockHashAsync()
+        public async Task<string> BlockHashAsync()
         {
-            return await GetBlockHashAsync(null, CancellationToken.None);
+            return await BlockHashAsync(null, CancellationToken.None);
         }
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="BlockNumber"> The block number. </param>
         /// <returns> The block hash. </returns>
-        public async Task<string> GetBlockHashAsync(uint BlockNumber)
+        public async Task<string> BlockHashAsync(uint BlockNumber)
         {
-            return await GetBlockHashAsync(BlockNumber, CancellationToken.None);
+            return await BlockHashAsync(BlockNumber, CancellationToken.None);
         }
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<string> GetBlockHashAsync(CancellationToken token)
+        public async Task<string> BlockHashAsync(CancellationToken token)
         {
-            return await GetBlockHashAsync(null, token);
+            return await BlockHashAsync(null, token);
         }
 
         /// <summary> Gets block hash asynchronous. </summary>
@@ -95,7 +95,7 @@ namespace SubstrateNetApi.Modules
         /// <param name="blockNumber"> The block number. </param>
         /// <param name="token">       A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<string> GetBlockHashAsync(uint? blockNumber, CancellationToken token)
+        public async Task<string> BlockHashAsync(uint? blockNumber, CancellationToken token)
         {
 
             var parameter = blockNumber.HasValue ? Utils.Bytes2HexString(BitConverter.GetBytes(blockNumber.Value)) : null;

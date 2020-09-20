@@ -73,5 +73,10 @@ namespace SubstrateNetApi.Modules
         {
             return await _client.InvokeAsync<string>("system_version", null, token);
         }
+
+        public async Task<uint> AccountNextIndexAsync(string address, CancellationToken token)
+        {
+            return await _client.InvokeAsync<uint>("system_accountNextIndex", new object[] { address }, token);
+        }
     }
 }

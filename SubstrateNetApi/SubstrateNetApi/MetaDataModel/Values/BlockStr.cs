@@ -25,7 +25,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
         public HeaderStr Header { get; set; }
     }
 
-    public class BlockDataStr
+    public class BlockData
     {
         public BlockStr Block { get; set; }
         public object Justification { get; set; }
