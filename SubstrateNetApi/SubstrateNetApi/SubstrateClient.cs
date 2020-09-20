@@ -344,11 +344,7 @@ namespace SubstrateNetApi
 
             if (_socket != null && _socket.State == WebSocketState.Open)
             {
-                var closeTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-                var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(closeTokenSource.Token, token);
-                await _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Close requested.", linkedTokenSource.Token);
-                linkedTokenSource.Dispose();
-                closeTokenSource.Dispose();
+                _jsonRpc?.Dispose();
                 Logger.Debug("Client closed.");
             }
         }
