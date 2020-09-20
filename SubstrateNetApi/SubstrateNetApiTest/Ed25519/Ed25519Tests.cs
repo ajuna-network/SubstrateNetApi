@@ -66,5 +66,34 @@ namespace SubstrateNetApiTests.Ed25519
 
             Assert.True(Chaos.NaCl.Ed25519.Verify(simpleSign, message, pubKey));
         }
+
+        [Test]
+        public void SignatureVerifySignedOnNodeByZurich()
+        {
+            string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
+            byte[] privateKey = Utils.HexToByteArray(priKey0x);
+            byte[] publicKey = Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"); // Zurich
+
+            var messag1 = Utils.HexToByteArray("0xA81056D713AF1FF17B599E60D287952E89301B5208324A0529B62DC7369C745D");
+            var signedByZuric1 = Utils.HexToByteArray("0x10b6aacb0beca6ca60b712fb5db54e957cec304489366544d96f3e59ac2d4328be7b6602ec98e622c0f16ab427eb497d6ef053e00ddfdb3d3f3b6496b0b17a0c");
+            Assert.True(Chaos.NaCl.Ed25519.Verify(signedByZuric1, messag1, publicKey));
+
+            var messag2 = Utils.HexToByteArray("0x0400FF8EAF04151687736326C9FEA17E25FC5287613693C912909CB226AA4794F26A484913DC4F62090B18B6893C1431369461069EE3E9C1DA7F9F9A8C097C0CEBBEAC2BB9");
+            var signedByZuric2 = Utils.HexToByteArray("0x1c7921583e992bae122ba4a754eb84071ac8a627cc4d050047e3d0dbdaa64718a3728e8f87deb2cb9249527853f85833d1b1c2e3af1c60724c060c1b78670b02");
+            Assert.True(Chaos.NaCl.Ed25519.Verify(signedByZuric2, messag2, publicKey));
+
+            var simpleSign = Chaos.NaCl.Ed25519.Sign(messag2, privateKey);
+            var simpleSignStr = Utils.Bytes2HexString(simpleSign);
+            Assert.True(Chaos.NaCl.Ed25519.Verify(simpleSign, messag2, publicKey));
+        }
+
+        [Test]
+        public void SignatureVerifyOnNodeSignedHereByZurich()
+        {
+            // https://polkadot.js.org/apps/#/signing/verify
+
+            Assert.True(true);
+        }
     }
 }
