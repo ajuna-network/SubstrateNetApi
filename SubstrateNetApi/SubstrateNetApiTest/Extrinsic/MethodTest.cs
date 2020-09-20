@@ -24,7 +24,7 @@ namespace SubstrateNetApiTests.Extrinsic
         }
 
         [Test]
-        public void MethodSerializeTest()
+        public void MethodEncodeTest()
         {
             Assert.True("0x0602".Equals(Utils.Bytes2HexString(new Method(0x06, 0x02).Encode()), StringComparison.InvariantCultureIgnoreCase));
 

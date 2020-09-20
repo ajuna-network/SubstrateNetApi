@@ -50,7 +50,7 @@ namespace SubstrateNetApiTests.Extrinsic
 
             string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
 
-            Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Serialize(signature));
+            Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Encode(signature));
         }
 
         [Test]
@@ -98,9 +98,9 @@ namespace SubstrateNetApiTests.Extrinsic
 
             string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0097176876e9cb26b2449855a332efee478768b31e215ed025ce57dd8e6bdfa63df3adfcf29091eb53c326173a5aad23661e074d132ae804bbd91126cd1909330275001849130400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27dc62ed301";
 
-            Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Serialize(signature));
+            Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Encode(signature));
 
-            var payload = uncheckedExtrinsic.GetPayload().Serialize();
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
         }
 
         [Test]
@@ -155,9 +155,9 @@ namespace SubstrateNetApiTests.Extrinsic
 
             string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
 
-            Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Serialize(signature));
+            Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Encode(signature));
 
-            var payload = uncheckedExtrinsic.GetPayload().Serialize();
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
 
@@ -192,9 +192,9 @@ namespace SubstrateNetApiTests.Extrinsic
 
             string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01b8fb3fe1b723b69ed2011e5e3b168f202dfae3853c81d5617dd35a60c29f1c4b49b95dcf5631cca678837bc1b347dd1c20161e12512e16ced78a9592deecda8c0014000602";
 
-            Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Serialize(signature));
+            Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Encode(signature));
 
-            var payload = uncheckedExtrinsic.GetPayload().Serialize();
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
             var payloadStr = Utils.Bytes2HexString(payload);
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
@@ -241,9 +241,9 @@ namespace SubstrateNetApiTests.Extrinsic
 
             string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01583313ef997e42929d889260ee8b75ae7fb5ce19b92e435ca0827a8c7b5bc44b7d1d3a8638d76c24ef47e61981b54bddfde64aa0c078f2b78ef915ff1b74468f0014000602";
 
-            Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Serialize(signature));
+            Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Encode(signature));
 
-            var payload = uncheckedExtrinsic.GetPayload().Serialize();
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
             var payloadStr = Utils.Bytes2HexString(payload);
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
@@ -322,11 +322,11 @@ namespace SubstrateNetApiTests.Extrinsic
 
             string dmogCreateMortal = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e150314000602";
 
-            var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Serialize(signature));
+            var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode(signature));
 
-            Assert.AreEqual(Utils.HexToByteArray(dmogCreateMortal), uncheckedExtrinsic.Serialize(signature));
+            Assert.AreEqual(Utils.HexToByteArray(dmogCreateMortal), uncheckedExtrinsic.Encode(signature));
 
-            var payload = uncheckedExtrinsic.GetPayload().Serialize();
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
             var payloadStr = Utils.Bytes2HexString(payload);
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);

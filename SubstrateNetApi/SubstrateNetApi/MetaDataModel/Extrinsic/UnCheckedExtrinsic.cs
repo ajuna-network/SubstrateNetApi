@@ -55,7 +55,7 @@ namespace SubstrateNetApi.MetaDataModel
             return new Payload(_method, new SignedExtensions(SPEC_VERSION, TX_VERSION, _genesisHash, _currentBlockHash, _era, _nonce, _tip));
         }
 
-        public byte[] Serialize(byte[] signedPayload)
+        public byte[] Encode(byte[] signedPayload)
         {
             var list = new List<byte>();
             

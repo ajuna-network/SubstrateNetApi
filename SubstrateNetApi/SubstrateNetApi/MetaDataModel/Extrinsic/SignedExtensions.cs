@@ -66,7 +66,7 @@ namespace SubstrateNetApi.MetaDataModel
             return bytes.ToArray();
         }
 
-        public byte[] Serialize()
+        public byte[] Encode()
         {
             var bytes = new List<byte>();
 

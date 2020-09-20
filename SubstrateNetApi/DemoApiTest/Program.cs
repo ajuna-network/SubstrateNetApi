@@ -65,7 +65,7 @@ namespace DemoApiTest
             var systemChain = await client.System.ChainAsync(cancellationToken);
             Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
 
-            //Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Encode());
 
             /***
              * Testing storage data ...
@@ -113,7 +113,7 @@ namespace DemoApiTest
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
             // Serializer
-            //Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Encode());
 
             //await client.CloseAsync(cancellationToken);
 

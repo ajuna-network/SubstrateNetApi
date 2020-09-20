@@ -25,7 +25,7 @@ namespace SubstrateNetApiTests.Extrinsic
         }
 
         [Test]
-        public void SerializeExtraTest()
+        public void EncodeExtraTest()
         {
             var genesisHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             var blockHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -38,7 +38,7 @@ namespace SubstrateNetApiTests.Extrinsic
                                                              
             Assert.AreEqual(bytes.AsMemory().Slice(0, 4).ToArray(), signedExtensions.GetExtra());
             Assert.AreEqual(bytes.AsMemory().Slice(4, 72).ToArray(), signedExtensions.GetAdditionalSigned());
-            Assert.AreEqual(bytes, signedExtensions.Serialize());
+            Assert.AreEqual(bytes, signedExtensions.Encode());
         }
 
     }
