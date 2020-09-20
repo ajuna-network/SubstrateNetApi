@@ -94,10 +94,7 @@ namespace SubstrateNetApi
         /// <summary> Connects an asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> An asynchronous result. </returns>
-        public async Task ConnectAsync()
-        {
-            await ConnectAsync(CancellationToken.None);
-        }
+        public async Task ConnectAsync() => await ConnectAsync(CancellationToken.None);
 
         /// <summary> Connects an asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -126,6 +123,7 @@ namespace SubstrateNetApi
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
             _jsonRpc.TraceSource.Switch.Level = SourceLevels.All;
+            _jsonRpc.AddLocalRpcTarget(new SubscriptionListener(), new JsonRpcTargetOptions() { AllowNonPublicInvocation = false });
             _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
 
@@ -146,10 +144,7 @@ namespace SubstrateNetApi
         /// <param name="moduleName"> Name of the module. </param>
         /// <param name="itemName">   Name of the item. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName)
-        {
-            return await GetStorageAsync(moduleName, itemName, CancellationToken.None);
-        }
+        public async Task<object> GetStorageAsync(string moduleName, string itemName) => await GetStorageAsync(moduleName, itemName, CancellationToken.None);
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -157,10 +152,7 @@ namespace SubstrateNetApi
         /// <param name="itemName">   Name of the item. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token)
-        {
-            return await GetStorageAsync(moduleName, itemName, null, token);
-        }
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token) => await GetStorageAsync(moduleName, itemName, null, token);
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -168,10 +160,7 @@ namespace SubstrateNetApi
         /// <param name="itemName">   Name of the item. </param>
         /// <param name="parameter">  The parameter. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter)
-        {
-            return await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
-        }
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter) => await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -212,7 +201,7 @@ namespace SubstrateNetApi
                 parameters = "0x" + RequestGenerator.GetStorage(module, item);
             }
 
-            var resultString = await InvokeAsync<string>(method, new object[] {parameters}, token);
+            var resultString = await InvokeAsync<string>(method, new object[] { parameters }, token);
 
             string returnType = item.Function?.Value;
 
@@ -227,10 +216,7 @@ namespace SubstrateNetApi
         /// <typeparam name="T"> Generic type parameter. </typeparam>
         /// <param name="method"> The method. </param>
         /// <returns> The method async&lt; t&gt; </returns>
-        public async Task<T> GetMethodAsync<T>(string method)
-        {
-            return await GetMethodAsync<T>(method, CancellationToken.None);
-        }
+        public async Task<T> GetMethodAsync<T>(string method) => await GetMethodAsync<T>(method, CancellationToken.None);
 
         /// <summary> Gets method asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -238,10 +224,7 @@ namespace SubstrateNetApi
         /// <param name="method"> The method. </param>
         /// <param name="token">  A token that allows processing to be cancelled. </param>
         /// <returns> The method async&lt; t&gt; </returns>
-        public async Task<T> GetMethodAsync<T>(string method, CancellationToken token)
-        {
-            return await InvokeAsync<T>(method, null, token);
-        }
+        public async Task<T> GetMethodAsync<T>(string method, CancellationToken token) => await InvokeAsync<T>(method, null, token);
 
         /// <summary> Gets method asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -250,10 +233,7 @@ namespace SubstrateNetApi
         /// <param name="parameter"> The parameter. </param>
         /// <param name="token">     A token that allows processing to be cancelled. </param>
         /// <returns> The method async&lt; t&gt; </returns>
-        public async Task<T> GetMethodAsync<T>(string method, string parameter, CancellationToken token)
-        {
-            return await InvokeAsync<T>(method, new object[] { parameter }, token);
-        }       
+        public async Task<T> GetMethodAsync<T>(string method, string parameter, CancellationToken token) => await InvokeAsync<T>(method, new object[] { parameter }, token);
 
         /// <summary> Submit extrinsic asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -282,8 +262,8 @@ namespace SubstrateNetApi
                 throw new MissingParameterException($"{moduleName}.{callName} needs {call.Arguments.Length} parameter(s)!");
 
             var accountInfo = await GetStorageAsync("System", "Account", Utils.Bytes2HexString(pubKey), token) as AccountInfo;
-            
-            if(!MetaData.TryGetIndexOfCallModules(module, out byte moduleIndex))
+
+            if (!MetaData.TryGetIndexOfCallModules(module, out byte moduleIndex))
             {
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
             }
@@ -328,10 +308,7 @@ namespace SubstrateNetApi
         /// <summary> Closes an asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> An asynchronous result. </returns>
-        public async Task CloseAsync()
-        {
-            await CloseAsync(CancellationToken.None);
-        }
+        public async Task CloseAsync() => await CloseAsync(CancellationToken.None);
 
         /// <summary> Closes an asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>

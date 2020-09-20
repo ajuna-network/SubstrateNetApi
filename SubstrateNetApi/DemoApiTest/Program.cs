@@ -113,6 +113,10 @@ namespace DemoApiTest
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
+            var subId = await client.Chain.SubscribeRuntimeVersionAsync();
+            Console.WriteLine(subId);
+            Console.ReadLine();
+
             // Serializer
             //Console.WriteLine(client.MetaData.Encode());
 
