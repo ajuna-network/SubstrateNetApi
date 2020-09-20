@@ -48,10 +48,12 @@ namespace SubstrateNetApi
             }
         }
 
-        internal static string SubmitExtrinsic(int module, int call, string parameter, uint nonce, byte[] pubKey, byte[] priKey)
+        internal static string SubmitExtrinsic(byte moduleIndex, byte callIndex, byte[] parameters, uint nonce, byte[] pubKey, byte[] priKey)
         {
             ulong currentBlockNumber = 0;
-            //var uncheckedExtrinsic = new UnCheckedExtrinsic(true, pubKey, nonce, (byte)module, (byte)call, null, currentBlockNumber);
+
+
+            //var uncheckedExtrinsic = new UnCheckedExtrinsic(true, pubKeyType, pubKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
 
             //var hashedPayload = HashExtension.Blake2(uncheckedExtrinsic.GetPayload(), 256);
             //var signedPayload = Sr25519v091.SignSimple(pubKey, priKey, hashedPayload);

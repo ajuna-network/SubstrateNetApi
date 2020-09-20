@@ -46,9 +46,9 @@ namespace SubstrateNetApi.MetaDataModel
             return false;
         }
 
-        public int IndexOf(Call call)
+        public byte IndexOf(Call call)
         {
-            return Array.IndexOf(Calls, call);
+            return (byte) Array.IndexOf(Calls, call);
         }
     }
 }

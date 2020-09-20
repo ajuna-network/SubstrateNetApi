@@ -31,14 +31,20 @@ namespace SubstrateNetApi.MetaDataModel
             return false;
         }
 
-        public int IndexOfCallModules(Module module)
+        /// <summary>
+        /// Get index of module in the modules array, currently modules with out calls don't count to the index.
+        /// </summary>
+        /// <param name="module"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool TryGetIndexOfCallModules(Module module, out byte index)
         {
-            int index = 0;
+            index = 0;
             foreach(var m in Modules)
             {
                 if (m == module )
                 {
-                    return index;
+                    return true;
                 }
 
                 if (m.Calls.Length > 0)
@@ -47,7 +53,7 @@ namespace SubstrateNetApi.MetaDataModel
                 }
             }
 
-            return -1;
+            return false;
         }
 
         public string Serialize()

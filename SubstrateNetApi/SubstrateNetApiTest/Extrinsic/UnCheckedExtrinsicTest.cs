@@ -197,6 +197,11 @@ namespace SubstrateNetApiTests.Extrinsic
             var payload = uncheckedExtrinsic.GetPayload().Encode();
             var payloadStr = Utils.Bytes2HexString(payload);
 
+            if (payload.Length > 256)
+            {
+                payload = HashExtension.Blake2(payload, 256);
+            }
+
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
             var simpleSignStr = Utils.Bytes2HexString(simpleSign);
 
@@ -245,6 +250,11 @@ namespace SubstrateNetApiTests.Extrinsic
 
             var payload = uncheckedExtrinsic.GetPayload().Encode();
             var payloadStr = Utils.Bytes2HexString(payload);
+
+            if (payload.Length > 256)
+            {
+                payload = HashExtension.Blake2(payload, 256);
+            }
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
             var simpleSignStr = Utils.Bytes2HexString(simpleSign);
@@ -328,6 +338,11 @@ namespace SubstrateNetApiTests.Extrinsic
 
             var payload = uncheckedExtrinsic.GetPayload().Encode();
             var payloadStr = Utils.Bytes2HexString(payload);
+
+            if (payload.Length > 256)
+            {
+                payload = HashExtension.Blake2(payload, 256);
+            }
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
             var simpleSignStr = Utils.Bytes2HexString(simpleSign);

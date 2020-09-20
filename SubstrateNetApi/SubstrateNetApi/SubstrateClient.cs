@@ -280,7 +280,12 @@ namespace SubstrateNetApi
 
             var accountInfo = await GetStorageAsync("System", "Account", Utils.Bytes2HexString(pubKey), token) as AccountInfo;
             
-            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(MetaData.IndexOfCallModules(module), module.IndexOf(call), parameter, accountInfo.Nonce, pubKey, priKey);
+            if(!MetaData.TryGetIndexOfCallModules(module, out byte moduleIndex))
+            {
+                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
+            }
+
+            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(moduleIndex, module.IndexOf(call), Utils.HexToByteArray(parameter), accountInfo.Nonce, pubKey, priKey);
 
             var resultString = await InvokeAsync<string>("author_submitExtrinsic", new object[] { parameters }, token);
 
