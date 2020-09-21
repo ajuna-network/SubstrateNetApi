@@ -45,7 +45,12 @@ namespace SubstrateNetApiTests.Ed25519
         public void Ed25519KeyPairTest2()
         {
             // ZURICH
-            var seed = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5";
+            byte[] seed = Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5");
+            byte[] pubKey, priKey;
+            Chaos.NaCl.Ed25519.KeyPairFromSeed(out pubKey, out priKey, seed);
+
+            Assert.AreEqual(Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"), Chaos.NaCl.Ed25519.ExpandedPrivateKeyFromSeed(seed));
+
         }
 
         [Test]

@@ -4,19 +4,6 @@ using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
-    public class HashConverter : JsonConverter<Hash>
-    {
-        public override Hash ReadJson(JsonReader reader, Type objectType, Hash existingValue, bool hasExistingValue, JsonSerializer serializer)
-        {
-            string s = (string)reader.Value;
-            return new Hash(s);
-        }
-
-        public override void WriteJson(JsonWriter writer, Hash value, JsonSerializer serializer)
-        {
-            writer.WriteValue(value.HexString);
-        }
-    }
     public class Hash
     {
         public const int HEXSIZE = 32;

@@ -9,6 +9,12 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public byte[] PublicKey { get; }
 
+        public AccountId(byte[] publicKey)
+        {
+            Address = Utils.GetAddressFrom(publicKey);
+            PublicKey = publicKey;
+        }
+
         public AccountId(string str): this(Utils.HexToByteArray(str).AsMemory())
         {
         }
