@@ -146,8 +146,7 @@ namespace SubstrateNetApi
             MetaData = metaDataParser.MetaData;
             Logger.Debug("MetaData parsed.");
 
-            var genesisHashStr = await Chain.BlockHashAsync(0, token);
-            GenesisHash = new Hash(genesisHashStr);
+            GenesisHash = await Chain.BlockHashAsync(0, token);
             Logger.Debug("Genesis hash parsed.");
         }
 
