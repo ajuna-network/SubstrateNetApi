@@ -19,7 +19,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
         public string StateRoot { get; set; }
     }
 
-    public class BlockStr
+    public class Block
     {
         public IList<string> Extrinsics { get; set; }
         public HeaderStr Header { get; set; }
@@ -27,7 +27,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
     public class BlockData
     {
-        public BlockStr Block { get; set; }
+        public Block Block { get; set; }
         public object Justification { get; set; }
 
         override
