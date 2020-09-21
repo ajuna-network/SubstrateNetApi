@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SubstrateNetApi.TypeConverters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,8 +15,12 @@ namespace SubstrateNetApi.MetaDataModel.Values
     {
         public DigestStr Digest { get; set; }
         public string ExtrinsicsRoot { get; set; }
-        public string Number { get; set; }
-        public string ParentHash { get; set; }
+
+        [JsonConverter(typeof(HexTypeConverter))]
+        public ushort Number { get; set; }
+
+        [JsonConverter(typeof(HashTypeConverter))]
+        public Hash ParentHash { get; set; }
         public string StateRoot { get; set; }
     }
 
@@ -27,6 +32,13 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
     public class BlockData
     {
+
+        public BlockData(Block block, object justification)
+        {
+            Block = block;
+            Justification = justification;
+        }
+
         public Block Block { get; set; }
         public object Justification { get; set; }
 
