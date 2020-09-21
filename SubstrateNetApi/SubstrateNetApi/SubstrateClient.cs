@@ -120,7 +120,9 @@ namespace SubstrateNetApi
             _connectTokenSource = null;
             Logger.Debug("Connected to Websocket.");
 
-            _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket));
+            var formatter = new JsonMessageFormatter();
+
+            _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
             _jsonRpc.TraceSource.Switch.Level = SourceLevels.All;
             _jsonRpc.AddLocalRpcTarget(new SubscriptionListener(), new JsonRpcTargetOptions() { AllowNonPublicInvocation = false });

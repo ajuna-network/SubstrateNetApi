@@ -3,7 +3,6 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Threading;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
@@ -103,21 +102,20 @@ namespace DemoApiTest
 
             //var reqResult = await client.GetMethodAsync<JArray>("author_pendingExtrinsics", cancellationToken);
 
-            //var reqResult = await client.System.AccountNextIndexAsync("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", cancellationToken);
+            var reqResult = await client.System.AccountNextIndexAsync("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", cancellationToken);
 
             //var reqResult = await client.Chain.GetBlockAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
-            
-            var reqResult = await client.Chain.BlockHashAsync(0, cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(cancellationToken);
 
             //var systemChain = await client.System.ChainAsync(cancellationToken);
 
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
-            //var subId = await client.Chain.SubscribeRuntimeVersionAsync();
-            //Console.WriteLine(subId);
-            //Console.ReadLine();
+            var subId = await client.Chain.SubscribeNewHeadAsync(cancellationToken);
+            Console.WriteLine(subId);
+            Console.ReadLine();
 
             // Serializer
             //Console.WriteLine(client.MetaData.Encode());
