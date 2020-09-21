@@ -50,6 +50,8 @@ namespace SubstrateNetApi
         /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
 
+        public Hash GenesisHash { get; private set; }
+
         /// <summary> Gets the system. </summary>
         /// <value> The system. </value>
         public Modules.System System { get; }
@@ -137,6 +139,10 @@ namespace SubstrateNetApi
             var metaDataParser = new MetaDataParser(_uri.OriginalString, result);
             MetaData = metaDataParser.MetaData;
             Logger.Debug("MetaData parsed.");
+
+            var genesisHashStr = await Chain.BlockHashAsync(0, token);
+            GenesisHash = new Hash(genesisHashStr);
+            Logger.Debug("Genesis hash parsed.");
         }
 
         /// <summary> Gets storage asynchronous. </summary>
