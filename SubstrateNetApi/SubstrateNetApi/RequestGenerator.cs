@@ -1,5 +1,7 @@
 ﻿using Schnorrkel;
 using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Extrinsic;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections;
 using System.Linq;
@@ -48,12 +50,9 @@ namespace SubstrateNetApi
             }
         }
 
-        internal static string SubmitExtrinsic(byte moduleIndex, byte callIndex, byte[] parameters, uint nonce, byte[] pubKey, byte[] priKey)
+        internal static string SubmitExtrinsic(Method method, Era era, uint nonce, Account account, uint tip, Hash genesis, Hash startEra)
         {
-            ulong currentBlockNumber = 0;
-
-
-            //var uncheckedExtrinsic = new UnCheckedExtrinsic(true, pubKeyType, pubKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, method, era, nonce, tip, genesis, startEra);
 
             //var hashedPayload = HashExtension.Blake2(uncheckedExtrinsic.GetPayload(), 256);
             //var signedPayload = Sr25519v091.SignSimple(pubKey, priKey, hashedPayload);

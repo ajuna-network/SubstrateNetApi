@@ -38,8 +38,8 @@ namespace SubstrateNetApiTests.Extrinsic
             byte[] destPublicKey = Utils.GetPublicKeyFrom("5FfBQ3kwXrbdyoqLPvcXRp7ikWydXawpNs2Ceu3WwFdhZ8W4");
             CompactInteger amount = 987456321;
             byte[] parameters = destPublicKey.Concat(amount.Encode()).ToArray();
-            byte[] genesisHash = null;
-            byte[] currentBlockHash = null;
+            byte[] genesisHash = new byte[] { 0x00 };
+            byte[] currentBlockHash = new byte[] { 0x00 };
             ulong currentBlockNumber = 47;
             CompactInteger tip = 1234;
 
@@ -139,19 +139,23 @@ namespace SubstrateNetApiTests.Extrinsic
             byte moduleIndex = 0x04;
             byte callIndex = 0x00;
 
-            byte[] destPublicKey = Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM");
+            var bytes = new List<byte>();
+            bytes.AddRange(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
             CompactInteger amount = 4321;
-            byte[] parameters = destPublicKey.Concat(amount.Encode()).ToArray();
+            bytes.AddRange(amount.Encode());
+            byte[] parameters = bytes.ToArray();
 
             byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
-            byte[] currentBlockHash = Utils.HexToByteArray("0x27bf1e86b29c84ca5830c2bfeba545a7856dd0bc107d16325acc9ad440abac0c"); ;
+            byte[] startEra = Utils.HexToByteArray("0xcfa2f9c52f94bc50658735d0f18f72590c981fdc15657636a99c437553c53253"); // CurrentBlock 780, startErar 778
             ulong currentBlockNumber = 10;
             CompactInteger tip = 1234;
+
+            var Era = new Era(64, 10, false);
 
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82");
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, startEra, currentBlockNumber, tip);
 
             string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
 
@@ -163,7 +167,7 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
 
-            //Assert.AreEqual(signature, simpleSign);
+            Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using SubstrateNetApi.MetaDataModel.Extrinsic;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
 
@@ -10,9 +11,9 @@ namespace SubstrateNetApi.MetaDataModel
 
         private uint _txVersion;
 
-        private byte[] _genesisHash;
+        private Hash _genesis;
 
-        private byte[] _blockHash;
+        private Hash _startEra;
 
         private Era _mortality;
 
@@ -20,12 +21,12 @@ namespace SubstrateNetApi.MetaDataModel
 
         private CompactInteger _chargeTransactionPayment;
 
-        public SignedExtensions(uint specVersion, uint txVersion, byte[] genesisHash, byte[] blockHash, Era mortality, CompactInteger nonce, CompactInteger chargeTransactionPayment)
+        public SignedExtensions(uint specVersion, uint txVersion, Hash genesis, Hash startEra, Era mortality, CompactInteger nonce, CompactInteger chargeTransactionPayment)
         {
             _specVersion = specVersion;
             _txVersion = txVersion;
-            _genesisHash = genesisHash;
-            _blockHash = blockHash;
+            _genesis = genesis;
+            _startEra = startEra;
             _mortality = mortality;
             _nonce = nonce;
             _chargeTransactionPayment = chargeTransactionPayment;
@@ -58,10 +59,10 @@ namespace SubstrateNetApi.MetaDataModel
             bytes.AddRange(Utils.Value2Bytes(_txVersion));
 
             // CheckGenesis
-            bytes.AddRange(_genesisHash);
+            bytes.AddRange(_genesis.Bytes);
 
             // CheckMortality, Additional Blockhash check. Immortal = genesis_hash, Mortal = logic
-            bytes.AddRange(_blockHash);
+            bytes.AddRange(_startEra.Bytes);
 
             return bytes.ToArray();
         }

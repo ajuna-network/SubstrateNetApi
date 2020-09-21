@@ -13,6 +13,12 @@ namespace SubstrateNetApi.MetaDataModel.Values
         [JsonIgnore]
         public byte[] Bytes { get; }
 
+        public Hash(byte[] bytes)
+        {
+            Bytes = bytes;
+            HexString = Utils.Bytes2HexString(bytes, Utils.HexStringFormat.PREFIXED);
+        }
+
         public Hash(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
         }

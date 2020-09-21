@@ -8,6 +8,7 @@ using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Extrinsic;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 using System;
@@ -261,7 +262,7 @@ namespace SubstrateNetApi
         /// <param name="priKey">     The pri key. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The submit extrinsic. </returns>
-        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, string parameter, byte[] pubKey, byte[] priKey, CancellationToken token)
+        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, string parameter, Account account, uint tip, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
@@ -272,14 +273,19 @@ namespace SubstrateNetApi
             if (call.Arguments?.Length > 0 && parameter == null)
                 throw new MissingParameterException($"{moduleName}.{callName} needs {call.Arguments.Length} parameter(s)!");
 
-            var accountInfo = await GetStorageAsync("System", "Account", Utils.Bytes2HexString(pubKey), token) as AccountInfo;
-
             if (!MetaData.TryGetIndexOfCallModules(module, out byte moduleIndex))
             {
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
             }
 
-            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(moduleIndex, module.IndexOf(call), Utils.HexToByteArray(parameter), accountInfo.Nonce, pubKey, priKey);
+            Method method = new Method(moduleIndex, module.IndexOf(call), Utils.HexToByteArray(parameter));
+            Era era = new Era(0, 0, false);
+            uint nonce = await System.AccountNextIndexAsync(account.Address, token); // TODO
+
+            var eraStartNumber = (uint)era.EraStart(0);
+            var startEra = era.IsImmortal ? GenesisHash : await Chain.BlockHashAsync(eraStartNumber, token);
+
+            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(method, era, nonce, account, tip, GenesisHash, startEra);
 
             var resultString = await InvokeAsync<string>("author_submitExtrinsic", new object[] { parameters }, token);
 

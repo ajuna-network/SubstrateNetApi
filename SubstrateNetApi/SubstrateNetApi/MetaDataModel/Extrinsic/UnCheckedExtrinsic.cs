@@ -33,9 +33,9 @@ namespace SubstrateNetApi.MetaDataModel
 
         private byte[] _signature;
 
-        private byte[] _genesisHash;
+        private Hash _genesis;
 
-        private byte[] _currentBlockHash;
+        private Hash _startEra;
 
         public UnCheckedExtrinsic(bool signed, byte publicKeyType, byte[] publicKey, CompactInteger nonce, byte module, byte call, byte[] parameters, byte[] genesisHash, byte[] currentBlockHash, ulong currentBlockNumber, CompactInteger tip)
         {
@@ -45,14 +45,25 @@ namespace SubstrateNetApi.MetaDataModel
             _nonce = nonce;
             _method = new Method(module, call, parameters);
             _era = new Era(EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber, currentBlockNumber == 0 ? true : false);
-            _genesisHash = genesisHash;
-            _currentBlockHash = currentBlockHash;
+            _genesis = new Hash(genesisHash);
+            _startEra = new Hash(currentBlockHash);
             _tip = tip;
+        }
+
+        public UnCheckedExtrinsic(bool signed, Method method, Era era, uint nonce, uint tip, Hash genesis, Hash startEra)
+        {
+            _signed = signed;
+            _method = method;
+            _era = era;
+            _nonce = nonce;
+            _tip = tip;
+            _genesis = genesis;
+            _startEra = startEra;
         }
 
         public Payload GetPayload()
         {
-            return new Payload(_method, new SignedExtensions(SPEC_VERSION, TX_VERSION, _genesisHash, _currentBlockHash, _era, _nonce, _tip));
+            return new Payload(_method, new SignedExtensions(SPEC_VERSION, TX_VERSION, _genesis, _startEra, _era, _nonce, _tip));
         }
 
         public byte[] Encode(byte[] signedPayload)

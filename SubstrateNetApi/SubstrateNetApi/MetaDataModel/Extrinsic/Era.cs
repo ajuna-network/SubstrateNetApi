@@ -4,7 +4,7 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
 {
     public class Era
     {
-        private bool IsImmortal { get; }
+        public bool IsImmortal { get; }
 
         public ulong Period { get; }
 
