@@ -3,15 +3,18 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the hash type converter class. </summary>
+
+using Newtonsoft.Json;
 using NLog;
 using SubstrateNetApi.MetaDataModel.Values;
+using System;
 
 namespace SubstrateNetApi.TypeConverters
 {
     /// <summary> A hash type converter. </summary>
     /// <remarks> 19.09.2020. </remarks>
     /// <seealso cref="ITypeConverter"/>
-    internal class HashTypeConverter : ITypeConverter
+    internal class HashTypeConverter : JsonConverter<Hash>, ITypeConverter
     {
         /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
@@ -30,6 +33,16 @@ namespace SubstrateNetApi.TypeConverters
         {
             Logger.Debug($"Converting {value} to Hash.");
             return new Hash(value);
+        }
+
+        public override Hash ReadJson(JsonReader reader, Type objectType, Hash existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            return new Hash((string)reader.Value);
+        }
+
+        public override void WriteJson(JsonWriter writer, Hash value, JsonSerializer serializer)
+        {
+            writer.WriteValue(value.HexString);
         }
     }
 }

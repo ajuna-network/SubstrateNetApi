@@ -56,29 +56,29 @@ namespace SubstrateNetApi.Modules
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> The block hash. </returns>
-        public async Task<string> BlockHashAsync() => await BlockHashAsync(null, CancellationToken.None);
+        public async Task<Hash> BlockHashAsync() => await BlockHashAsync(null, CancellationToken.None);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="BlockNumber"> The block number. </param>
         /// <returns> The block hash. </returns>
-        public async Task<string> BlockHashAsync(uint BlockNumber) => await BlockHashAsync(BlockNumber, CancellationToken.None);
+        public async Task<Hash> BlockHashAsync(uint BlockNumber) => await BlockHashAsync(BlockNumber, CancellationToken.None);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<string> BlockHashAsync(CancellationToken token) => await BlockHashAsync(null, token);
+        public async Task<Hash> BlockHashAsync(CancellationToken token) => await BlockHashAsync(null, token);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="blockNumber"> The block number. </param>
         /// <param name="token">       A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<string> BlockHashAsync(uint? blockNumber, CancellationToken token)
+        public async Task<Hash> BlockHashAsync(uint? blockNumber, CancellationToken token)
         {
             var parameter = blockNumber.HasValue ? Utils.Bytes2HexString(BitConverter.GetBytes(blockNumber.Value)) : null;
-            return await _client.InvokeAsync<string>("chain_getBlockHash", new object[] { parameter }, token);
+            return await _client.InvokeAsync<Hash>("chain_getBlockHash", new object[] { parameter }, token);
         }
 
         /// <summary> Subscribe all heads asynchronous. </summary>

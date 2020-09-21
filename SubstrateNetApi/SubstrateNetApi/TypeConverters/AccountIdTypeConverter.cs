@@ -3,15 +3,17 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the account identifier type converter class. </summary>
+using Newtonsoft.Json;
 using NLog;
 using SubstrateNetApi.MetaDataModel.Values;
+using System;
 
 namespace SubstrateNetApi.TypeConverters
 {
     /// <summary> An account identifier type converter. </summary>
     /// <remarks> 19.09.2020. </remarks>
     /// <seealso cref="ITypeConverter"/>
-    internal class AccountIdTypeConverter : ITypeConverter
+    internal class AccountIdTypeConverter : JsonConverter<AccountId>, ITypeConverter
     {
         /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
@@ -30,6 +32,16 @@ namespace SubstrateNetApi.TypeConverters
         {
             Logger.Debug($"Converting {value} to AccountId.");
             return new AccountId(value);
+        }
+
+        public override AccountId ReadJson(JsonReader reader, Type objectType, AccountId existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            return new AccountId((string)reader.Value);
+        }
+
+        public override void WriteJson(JsonWriter writer, AccountId value, JsonSerializer serializer)
+        {
+            writer.WriteValue(value.PublicKey);
         }
     }
 }

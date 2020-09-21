@@ -46,6 +46,8 @@ namespace SubstrateNetApi
         /// <summary> The type converters. </summary>
         private readonly Dictionary<string, ITypeConverter> _typeConverters = new Dictionary<string, ITypeConverter>();
 
+        private HashTypeConverter _hashTypeConverter = new HashTypeConverter();
+
         /// <summary> Gets or sets information describing the meta. </summary>
         /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
@@ -72,7 +74,7 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new U32TypeConverter());
             RegisterTypeConverter(new U64TypeConverter());
             RegisterTypeConverter(new AccountIdTypeConverter());
-            RegisterTypeConverter(new HashTypeConverter());
+            RegisterTypeConverter(_hashTypeConverter);
             RegisterTypeConverter(new AccountInfoConverter());
         }
 
@@ -123,6 +125,8 @@ namespace SubstrateNetApi
             Logger.Debug("Connected to Websocket.");
 
             var formatter = new JsonMessageFormatter();
+
+            formatter.JsonSerializer.Converters.Add(_hashTypeConverter);
 
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
