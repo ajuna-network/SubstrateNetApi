@@ -71,6 +71,7 @@ namespace SubstrateNetApi
             _uri = uri;
             System = new Modules.System(this);
             Chain = new Modules.Chain(this);
+            RegisterTypeConverter(new U8TypeConverter());
             RegisterTypeConverter(new U16TypeConverter());
             RegisterTypeConverter(new U32TypeConverter());
             RegisterTypeConverter(new U64TypeConverter());
