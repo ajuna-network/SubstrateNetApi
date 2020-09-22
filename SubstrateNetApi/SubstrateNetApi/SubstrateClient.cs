@@ -49,8 +49,6 @@ namespace SubstrateNetApi
 
         private HashTypeConverter _hashTypeConverter = new HashTypeConverter();
 
-        private HexTypeConverter _hexTypeConverter = new HexTypeConverter();
-
         /// <summary> Gets or sets information describing the meta. </summary>
         /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
@@ -78,7 +76,6 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new U64TypeConverter());
             RegisterTypeConverter(new AccountIdTypeConverter());
             RegisterTypeConverter(_hashTypeConverter);
-            RegisterTypeConverter(_hexTypeConverter);
             RegisterTypeConverter(new AccountInfoConverter());
         }
 
@@ -131,7 +128,6 @@ namespace SubstrateNetApi
             var formatter = new JsonMessageFormatter();
 
             formatter.JsonSerializer.Converters.Add(_hashTypeConverter);
-            formatter.JsonSerializer.Converters.Add(_hexTypeConverter);
 
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
