@@ -38,7 +38,6 @@ namespace SubstrateNetApi.TypeConverters
         {
             var value = (string)reader.Value;
             byte[] bytes = Utils.HexToByteArray(value);
-            Logger.Debug($"Converting {value} [{bytes.Length}] to UInt32.");
             byte[] result = new byte[4];
             Array.Copy(bytes, 0, result, 0, bytes.Length);
             return BitConverter.ToUInt32(result, 0);
