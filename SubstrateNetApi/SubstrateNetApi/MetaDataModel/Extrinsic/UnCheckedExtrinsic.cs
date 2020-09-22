@@ -11,13 +11,9 @@ namespace SubstrateNetApi.MetaDataModel
 
     public class UnCheckedExtrinsic
     {
-
-
         private readonly bool _signed;
 
-        private readonly byte[] _sendPublicKey;
-
-        private readonly byte _sendPublicKeyType;
+        private readonly Account _account;
 
         private readonly Era _era;
 
@@ -33,11 +29,12 @@ namespace SubstrateNetApi.MetaDataModel
 
         private byte[] _signature;
 
-        public UnCheckedExtrinsic(bool signed, byte publicKeyType, byte[] publicKey, CompactInteger nonce, byte module, byte call, byte[] parameters, byte[] genesisHash, byte[] currentBlockHash, ulong currentBlockNumber, CompactInteger tip)
+        public byte[] PayloadSignature => _signature;
+
+        public UnCheckedExtrinsic(bool signed, Account account, CompactInteger nonce, byte module, byte call, byte[] parameters, byte[] genesisHash, byte[] currentBlockHash, ulong currentBlockNumber, CompactInteger tip)
         {
             _signed = signed;
-            _sendPublicKey = publicKey;
-            _sendPublicKeyType = publicKeyType;
+            _account = account;
             _nonce = nonce;
             _method = new Method(module, call, parameters);
             _era = new Era(Constants.EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber, currentBlockNumber == 0 ? true : false);
@@ -46,9 +43,10 @@ namespace SubstrateNetApi.MetaDataModel
             _tip = tip;
         }
 
-        public UnCheckedExtrinsic(bool signed, Method method, Era era, uint nonce, uint tip, Hash genesis, Hash startEra)
+        public UnCheckedExtrinsic(bool signed, Account account, Method method, Era era, uint nonce, uint tip, Hash genesis, Hash startEra)
         {
             _signed = signed;
+            _account = account;
             _method = method;
             _era = era;
             _nonce = nonce;
@@ -80,10 +78,10 @@ namespace SubstrateNetApi.MetaDataModel
             list.Add((byte)(4 | (_signed ? 0x80 : 0)));
 
             // 32 bytes
-            list.AddRange(_sendPublicKey);
+            list.AddRange(_account.PublicKey);
 
             // key type ed = 00 and sr = FF
-            list.Add(_sendPublicKeyType);
+            list.Add(_account.KeyTypeByte);
 
             list.AddRange(_signature);
             

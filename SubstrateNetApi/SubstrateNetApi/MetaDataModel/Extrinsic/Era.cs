@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace SubstrateNetApi.MetaDataModel.Extrinsic
 {
@@ -20,12 +21,21 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
 
         }
 
+        override
+        public string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
         public static Era Create(uint lifeTime, uint finalizedHeaderBlockNumber)
         {
             if (lifeTime == 0)
             {
                 return new Era(0, 0, true);
             }
+
+            // NODE: { "IsImmortal":false,"Period":64,"Phase":49}
+            // API: { "IsImmortal":false,"Period":64,"Phase":61}
 
             // RUST Implementation
             //let period = period.checked_next_power_of_two()

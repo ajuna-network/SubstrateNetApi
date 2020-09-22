@@ -17,7 +17,15 @@ namespace SubstrateNetApi.MetaDataModel
             _callIndex = callIndex;
             _parameters = parameters;
         }
+
+        public Method(byte moduleIndex, byte callIndex, string parameters)
+        {
+            _moduleIndex = moduleIndex;
+            _callIndex = callIndex;
+            _parameters = parameters != null ? Utils.HexToByteArray(parameters) : new byte[0];
+        }
         
+
         public Method(byte moduleIndex, byte callIndex)
         {
             _moduleIndex = moduleIndex;

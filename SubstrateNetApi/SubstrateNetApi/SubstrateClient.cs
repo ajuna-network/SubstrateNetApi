@@ -279,7 +279,7 @@ namespace SubstrateNetApi
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
             }
 
-            Method method = new Method(moduleIndex, module.IndexOf(call), Utils.HexToByteArray(parameter));
+            Method method = new Method(moduleIndex, module.IndexOf(call), parameter);
 
             uint nonce = await System.AccountNextIndexAsync(account.Address, token);
 
@@ -290,10 +290,10 @@ namespace SubstrateNetApi
             var era = Era.Create(lifeTime, finalizedHeaderNumber);
             var startEra = era.IsImmortal ? GenesisHash : finalizedHead;
 
-            var parameters = "0x" + RequestGenerator.SubmitExtrinsic(method, era, nonce, account, tip, GenesisHash, startEra);
-
+            var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra);
+            var parameters = Utils.Bytes2HexString(uncheckedExtrinsic.Encode(), Utils.HexStringFormat.PREFIXED);
             var resultString = await InvokeAsync<string>("author_submitExtrinsic", new object[] { parameters }, token);
-
+            //var resultString = "";
             //if (!_typeConverters.ContainsKey(returnType))
             //    throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
 

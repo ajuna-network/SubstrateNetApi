@@ -46,7 +46,7 @@ namespace SubstrateNetApiTests.Extrinsic
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x14AE74DD7964365038EBA44F51C347B9C7070231D56E38EF1024457EBDC6DC03D20226243B1B2731DF6FD80F7170643221BD8BF8D06215D4BFEAC68A2C9D2305");
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.ED25519, new byte[0], publicKey), nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
 
             string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
 
@@ -96,7 +96,7 @@ namespace SubstrateNetApiTests.Extrinsic
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x97176876e9cb26b2449855a332efee478768b31e215ed025ce57dd8e6bdfa63df3adfcf29091eb53c326173a5aad23661e074d132ae804bbd91126cd19093302");
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.ED25519, new byte[0], publicKey), nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
 
             string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0097176876e9cb26b2449855a332efee478768b31e215ed025ce57dd8e6bdfa63df3adfcf29091eb53c326173a5aad23661e074d132ae804bbd91126cd1909330275001849130400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27dc62ed301";
 
@@ -159,7 +159,7 @@ namespace SubstrateNetApiTests.Extrinsic
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82");
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, startEra, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0],  publicKey), nonce, moduleIndex, callIndex, parameters, genesisHash, startEra, currentBlockNumber, tip);
 
             string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
 
@@ -198,7 +198,7 @@ namespace SubstrateNetApiTests.Extrinsic
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0xB8FB3FE1B723B69ED2011E5E3B168F202DFAE3853C81D5617DD35A60C29F1C4B49B95DCF5631CCA678837BC1B347DD1C20161E12512E16CED78A9592DEECDA8C");
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
 
             string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01b8fb3fe1b723b69ed2011e5e3b168f202dfae3853c81d5617dd35a60c29f1c4b49b95dcf5631cca678837bc1b347dd1c20161e12512e16ced78a9592deecda8c0014000602";
 
@@ -254,7 +254,7 @@ namespace SubstrateNetApiTests.Extrinsic
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x583313EF997E42929D889260EE8B75AE7FB5CE19B92E435CA0827A8C7B5BC44B7D1D3A8638D76C24EF47E61981B54BDDFDE64AA0C078F2B78EF915FF1B74468F");
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
 
             string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01583313ef997e42929d889260ee8b75ae7fb5ce19b92e435ca0827a8c7b5bc44b7d1d3a8638d76c24ef47e61981b54bddfde64aa0c078f2b78ef915ff1b74468f0014000602";
 
@@ -281,7 +281,6 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void DmogCreateMortalAliceTest1()
         {
-
             //length: 104[2]
             //signatureVersion: 0x84
             //sendPublicKey: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY[0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D]
@@ -342,7 +341,7 @@ namespace SubstrateNetApiTests.Extrinsic
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e");
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
 
             string dmogCreateMortal = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e150314000602";
 
@@ -396,64 +395,53 @@ namespace SubstrateNetApiTests.Extrinsic
             byte[] publicKey = Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
             var account = new Account(KeyType.ED25519, privatKey, publicKey);
 
-            CompactInteger nonce = 7;
-
-            byte moduleIndex = 0x04;
-            
-            byte callIndex = 0x00;
-
             var bytes = new List<byte>();
-            bytes.AddRange(account.PublicKey);
+            bytes.AddRange(Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"));
             CompactInteger amount = 123456;
             bytes.AddRange(amount.Encode());
-            byte[] parameters = bytes.ToArray();
+            var method = new Method(0x04, 0x00, bytes.ToArray());
 
-            byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
-            //byte[] startEra = Utils.HexToByteArray("0xcfa2f9c52f94bc50658735d0f18f72590c981fdc15657636a99c437553c53253"); // CurrentBlock 780, startErar 778
+            var era = Era.Create(12, 15686);
+            
+            CompactInteger nonce = 7;
 
             CompactInteger tip = 0;
 
-            //var Era = new Era(12, ??, false);
+            var genesis = new Hash(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"));
+            var startEra = new Hash(Utils.HexToByteArray("0x4c4e0d1594e526c2392e7b6306f890fd0705085a5f83f9114caebb369bc1511f")); // FinalizedHead 15686
+         
 
-            //byte[] parameters = new byte[0];
+            // mocked signature
+            byte[] signature = Utils.HexToByteArray("0x7C9777CF14FE0E14E8AEF019695043BE2FD153A75FF3381F4CC4850755D537B1A9D7920E509EE2E4E1F244DAD670DC44EC3FC24388181E6465FDDA13D59AE700");
 
-            //byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
-            //byte[] currentBlockHash = Utils.HexToByteArray("0xdce5a3ddc16196c00041d716e0cca8a8bf88b8aeebdb2714778fcdc0fe20079f"); ;
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, account, method, era, nonce, tip, genesis, startEra);
 
-            //Era era = new Era(64, 49, false);
-            //var blockHash = era.EraStart(1587);
+            uncheckedExtrinsic.AddPayloadSignature(signature);
 
-            //ulong currentBlockNumber = 49;
-            //CompactInteger tip = 0;
+            var balanceTransferNode = "0x310284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e007c9777cf14fe0e14e8aef019695043be2fd153a75ff3381f4cc4850755d537b1a9d7920e509ee2e4e1f244dad670dc44ec3fc24388181e6465fdda13d59ae70063001c000400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d02890700";
 
-            //// mocked signature
-            //byte[] signature = Utils.HexToByteArray("0x448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e");
+            var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
 
-            //var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+            Assert.AreEqual(Utils.HexToByteArray(balanceTransferNode), uncheckedExtrinsic.Encode());
 
-            //string dmogCreateMortal = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e150314000602";
 
-            //uncheckedExtrinsic.AddPayloadSignature(signature);
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
+            var payloadStr = Utils.Bytes2HexString(payload);
 
-            //var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
+            if (payload.Length > 256)
+            {
+                payload = HashExtension.Blake2(payload, 256);
+            }
 
-            //Assert.AreEqual(Utils.HexToByteArray(dmogCreateMortal), uncheckedExtrinsic.Encode());
+            var simpleSign = Chaos.NaCl.Ed25519.Sign(payload, account.PrivateKey);
+            var simpleSignStr = Utils.Bytes2HexString(simpleSign);
 
-            //var payload = uncheckedExtrinsic.GetPayload().Encode();
-            //var payloadStr = Utils.Bytes2HexString(payload);
+            Assert.True(Chaos.NaCl.Ed25519.Verify(simpleSign, payload, publicKey));
+            Assert.True(Chaos.NaCl.Ed25519.Verify(signature, payload, publicKey));
 
-            //if (payload.Length > 256)
-            //{
-            //    payload = HashExtension.Blake2(payload, 256);
-            //}
-
-            //var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
-            //var simpleSignStr = Utils.Bytes2HexString(simpleSign);
-
-            //Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
-            //Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
-
-            
+            var extrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, genesis, startEra);
+            Assert.True(Chaos.NaCl.Ed25519.Verify(extrinsic.PayloadSignature, extrinsic.GetPayload().Encode(), publicKey));
+            Assert.True(Chaos.NaCl.Ed25519.Verify(signature, extrinsic.GetPayload().Encode(), publicKey));
         }
     }
 }

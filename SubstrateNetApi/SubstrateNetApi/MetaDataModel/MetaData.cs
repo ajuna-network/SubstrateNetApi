@@ -47,7 +47,7 @@ namespace SubstrateNetApi.MetaDataModel
                     return true;
                 }
 
-                if (m.Calls.Length > 0)
+                if (m.Calls != null)
                 {
                     index++;
                 }

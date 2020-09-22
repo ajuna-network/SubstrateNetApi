@@ -54,6 +54,16 @@ namespace DemoApiTest
 
         static async Task MainAsync(CancellationToken cancellationToken)
         {
+            Account accountAlice = new Account(
+                KeyType.SR25519, 
+                Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011"), 
+                Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"));
+
+            Account accountZurich = new Account(
+                KeyType.ED25519,
+                Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
+                Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 
             client.RegisterTypeConverter(new MogwaiStructTypeConverter());
@@ -111,7 +121,13 @@ namespace DemoApiTest
 
             //var systemChain = await client.System.ChainAsync(cancellationToken);
 
-            var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
+            //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
+
+            // *************************** Final Test
+            var reqResult = await client.SubmitExtrinsicAsync("Dmog", "create_mogwai", null, accountZurich, 0, 64, cancellationToken);
+
+            //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");

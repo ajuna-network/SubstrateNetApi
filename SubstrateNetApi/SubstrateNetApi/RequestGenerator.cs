@@ -1,4 +1,5 @@
-﻿using Schnorrkel;
+﻿using Chaos.NaCl;
+using Schnorrkel;
 using SubstrateNetApi.MetaDataModel;
 using SubstrateNetApi.MetaDataModel.Extrinsic;
 using SubstrateNetApi.MetaDataModel.Values;
@@ -50,17 +51,38 @@ namespace SubstrateNetApi
             }
         }
 
-        internal static string SubmitExtrinsic(Method method, Era era, uint nonce, Account account, uint tip, Hash genesis, Hash startEra)
+        internal static UnCheckedExtrinsic SubmitExtrinsic(bool signed, Account account, Method method, Era era, uint nonce, uint tip, Hash genesis, Hash startEra)
         {
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, method, era, nonce, tip, genesis, startEra);
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(signed, account, method, era, nonce, tip, genesis, startEra);
 
-            //var hashedPayload = HashExtension.Blake2(uncheckedExtrinsic.GetPayload(), 256);
-            //var signedPayload = Sr25519v091.SignSimple(pubKey, priKey, hashedPayload);
+            if (!signed)
+            {
+                return uncheckedExtrinsic;
+            }
 
-            //uncheckedExtrinsic.SignatureType = 0x01;
-            //uncheckedExtrinsic.Signature = signedPayload;
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
 
-            return null; //Utils.Bytes2HexString(uncheckedExtrinsic.GetExtrinsic());
+            /// Payloads longer than 256 bytes are going to be `blake2_256`-hashed.
+            if (payload.Length > 256)
+            {
+                payload = HashExtension.Blake2(payload, 256);
+            }
+
+            byte[] signature;
+            switch (account.KeyType)
+            {
+                case KeyType.SR25519:
+                    signature = Sr25519v091.SignSimple(account.PublicKey, account.PrivateKey, payload);
+                    break;
+                case KeyType.ED25519:
+                    signature = Ed25519.Sign(payload, account.PrivateKey);
+                    break;
+                default:
+                    throw new Exception($"Unknown key type found '{account.KeyType}'.");
+            }
+
+            uncheckedExtrinsic.AddPayloadSignature(signature);
+            return uncheckedExtrinsic;
         }
     }
 }
