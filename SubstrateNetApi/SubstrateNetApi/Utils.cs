@@ -75,7 +75,12 @@ namespace SubstrateNetApi
         /// <returns> A byte[]. </returns>
         public static byte[] HexToByteArray(string hex)
         {
-            if (hex.Length % 2 == 1)
+            if (hex.Equals("0x0"))
+            {
+                return new byte[] { 0x00 };
+            }
+
+            if (hex.Length % 2 == 1 )
                 throw new Exception("The binary key cannot have an odd number of digits");
 
             if (hex.StartsWith("0x"))

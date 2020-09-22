@@ -148,7 +148,7 @@ namespace SubstrateNetApi
             MetaData = metaDataParser.MetaData;
             Logger.Debug("MetaData parsed.");
 
-            GenesisHash = await Chain.BlockHashAsync(0, token);
+            GenesisHash = await Chain.GetBlockHashAsync(0, token);
             Logger.Debug("Genesis hash parsed.");
         }
 
@@ -284,7 +284,7 @@ namespace SubstrateNetApi
             uint nonce = await System.AccountNextIndexAsync(account.Address, token); // TODO
 
             var eraStartNumber = (uint)era.EraStart(0);
-            var startEra = era.IsImmortal ? GenesisHash : await Chain.BlockHashAsync(eraStartNumber, token);
+            var startEra = era.IsImmortal ? GenesisHash : await Chain.GetBlockHashAsync(eraStartNumber, token);
 
             var parameters = "0x" + RequestGenerator.SubmitExtrinsic(method, era, nonce, account, tip, GenesisHash, startEra);
 

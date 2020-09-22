@@ -28,26 +28,26 @@ namespace SubstrateNetApi.Modules
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> The block. </returns>
-        public async Task<BlockData> BlockAsync() => await BlockAsync(null, CancellationToken.None);
+        public async Task<BlockData> GetBlockAsync() => await GetBlockAsync(null, CancellationToken.None);
 
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block. </returns>
-        public async Task<BlockData> BlockAsync(CancellationToken token) => await BlockAsync(null, token);
+        public async Task<BlockData> GetBlockAsync(CancellationToken token) => await GetBlockAsync(null, token);
 
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="hash"> The hash. </param>
         /// <returns> The block. </returns>
-        public async Task<BlockData> BlockAsync(byte[] hash) => await BlockAsync(hash, CancellationToken.None);
+        public async Task<BlockData> GetBlockAsync(byte[] hash) => await GetBlockAsync(hash, CancellationToken.None);
 
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="hash">  The hash. </param>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block. </returns>
-        public async Task<BlockData> BlockAsync(byte[] hash, CancellationToken token)
+        public async Task<BlockData> GetBlockAsync(byte[] hash, CancellationToken token)
         {
             var parameter = hash != null ? Utils.Bytes2HexString(hash) : null;
             return await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] { parameter }, token);
@@ -56,29 +56,51 @@ namespace SubstrateNetApi.Modules
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> BlockHashAsync() => await BlockHashAsync(null, CancellationToken.None);
+        public async Task<Hash> GetBlockHashAsync() => await GetBlockHashAsync(null, CancellationToken.None);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="BlockNumber"> The block number. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> BlockHashAsync(uint BlockNumber) => await BlockHashAsync(BlockNumber, CancellationToken.None);
+        public async Task<Hash> GetBlockHashAsync(uint blockNumber) => await GetBlockHashAsync(blockNumber, CancellationToken.None);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> BlockHashAsync(CancellationToken token) => await BlockHashAsync(null, token);
+        public async Task<Hash> GetBlockHashAsync(CancellationToken token) => await GetBlockHashAsync(null, token);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="blockNumber"> The block number. </param>
         /// <param name="token">       A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> BlockHashAsync(uint? blockNumber, CancellationToken token)
+        public async Task<Hash> GetBlockHashAsync(uint? blockNumber, CancellationToken token)
         {
             var parameter = blockNumber.HasValue ? Utils.Bytes2HexString(BitConverter.GetBytes(blockNumber.Value)) : null;
             return await _client.InvokeAsync<Hash>("chain_getBlockHash", new object[] { parameter }, token);
+        }
+
+        /// Get hash of the last finalized block in the canon chain.
+        public async Task<Hash> GetFinalizedHeadAsync() => await GetFinalizedHeadAsync(CancellationToken.None);
+
+        /// Get hash of the last finalized block in the canon chain.
+        public async Task<Hash> GetFinalizedHeadAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<Hash>("chain_getFinalizedHead", null, token);
+        }
+
+        /// Get header of a relay chain block.
+        public async Task<Header> GetHeaderAsync(CancellationToken token) => await GetHeaderAsync(null, token);
+
+        /// Get header of a relay chain block.
+        public async Task<Header> GetHeaderAsync(Hash hash = null) => await GetHeaderAsync(hash, CancellationToken.None);
+
+        /// Get header of a relay chain block.
+        public async Task<Header> GetHeaderAsync(Hash hash, CancellationToken token)
+        {
+            var parameter = hash != null ? hash.HexString : null;
+            return await _client.InvokeAsync<Header>("chain_getHeader", new object[] { parameter }, token);
         }
 
         /// <summary> Subscribe all heads asynchronous. </summary>
