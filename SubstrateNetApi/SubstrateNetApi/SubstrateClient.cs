@@ -263,7 +263,7 @@ namespace SubstrateNetApi
         /// <param name="priKey">     The pri key. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The submit extrinsic. </returns>
-        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, string parameter, Account account, uint tip, CancellationToken token)
+        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, string parameter, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
@@ -280,11 +280,15 @@ namespace SubstrateNetApi
             }
 
             Method method = new Method(moduleIndex, module.IndexOf(call), Utils.HexToByteArray(parameter));
-            Era era = new Era(0, 0, false);
-            uint nonce = await System.AccountNextIndexAsync(account.Address, token); // TODO
 
-            var eraStartNumber = (uint)era.EraStart(0);
-            var startEra = era.IsImmortal ? GenesisHash : await Chain.GetBlockHashAsync(eraStartNumber, token);
+            uint nonce = await System.AccountNextIndexAsync(account.Address, token);
+
+            /// Era calculation
+            Hash finalizedHead = await Chain.GetFinalizedHeadAsync(token);
+            Header finalizedHeader = await Chain.GetHeaderAsync(finalizedHead, token);
+            var finalizedHeaderNumber = finalizedHeader.Number;
+            var era = Era.Create(lifeTime, finalizedHeaderNumber);
+            var startEra = era.IsImmortal ? GenesisHash : finalizedHead;
 
             var parameters = "0x" + RequestGenerator.SubmitExtrinsic(method, era, nonce, account, tip, GenesisHash, startEra);
 
