@@ -97,7 +97,7 @@ namespace DemoApiTest
             //string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
             //string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
             ////var reqResult = Utils.Bytes2HexString(Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"));
-            ////var reqResult = await client.GetStorageAsync("System", "Account", "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("System", "Account", "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e", cancellationToken);
             //var reqResult = await client.SubmitExtrinsicAsync("Dmog", "create_mogwai", null, Utils.HexToByteArray(pubKey0x), Utils.HexToByteArray(priKey0x), cancellationToken);
 
             //var reqResult = await client.GetMethodAsync<JArray>("author_pendingExtrinsics", cancellationToken);
@@ -110,8 +110,6 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(cancellationToken);
 
             //var systemChain = await client.System.ChainAsync(cancellationToken);
-
-            Console.WriteLine($"Am I a number? {reqResult.Block.Header.Number}");
 
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");

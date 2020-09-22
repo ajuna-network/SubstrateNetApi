@@ -14,14 +14,18 @@ namespace SubstrateNetApi.MetaDataModel.Values
     public class HeaderStr
     {
         public DigestStr Digest { get; set; }
-        public string ExtrinsicsRoot { get; set; }
+
+        [JsonConverter(typeof(HashTypeConverter))]
+        public Hash ExtrinsicsRoot { get; set; }
 
         [JsonConverter(typeof(U32TypeConverter))]
         public uint Number { get; set; }
 
         [JsonConverter(typeof(HashTypeConverter))]
         public Hash ParentHash { get; set; }
-        public string StateRoot { get; set; }
+
+        [JsonConverter(typeof(HashTypeConverter))]
+        public Hash StateRoot { get; set; }
     }
 
     public class Block

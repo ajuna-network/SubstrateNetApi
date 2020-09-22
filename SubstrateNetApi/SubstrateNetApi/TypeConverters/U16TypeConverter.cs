@@ -44,7 +44,7 @@ namespace SubstrateNetApi.TypeConverters
 
         public override void WriteJson(JsonWriter writer, ushort value, JsonSerializer serializer)
         {
-            writer.WriteValue(Utils.Bytes2HexString(BitConverter.GetBytes(value), Utils.HexStringFormat.PREFIXED));
+            writer.WriteValue($"{value}");
         }
     }
 }
