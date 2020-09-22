@@ -8,31 +8,28 @@ using System.Text;
 
 namespace SubstrateNetApi.MetaDataModel
 {
+
     public class UnCheckedExtrinsic
     {
-        const uint SPEC_VERSION = 1;
 
-        const uint TX_VERSION = 1;
 
-        const ulong EXTRINSIC_ERA_PERIOD_DEFAULT = 64;
+        private readonly bool _signed;
 
-        private bool _signed;
+        private readonly byte[] _sendPublicKey;
 
-        private byte[] _sendPublicKey;
+        private readonly byte _sendPublicKeyType;
 
-        private byte _sendPublicKeyType;
+        private readonly Era _era;
 
-        private Era _era;
+        private readonly CompactInteger _nonce;
 
-        private CompactInteger _nonce;
+        private readonly CompactInteger _tip;
 
-        private CompactInteger _tip;
+        private readonly Method _method;
 
-        private Method _method;
+        private readonly Hash _genesis;
 
-        private Hash _genesis;
-
-        private Hash _startEra;
+        private readonly Hash _startEra;
 
         private byte[] _signature;
 
@@ -43,7 +40,7 @@ namespace SubstrateNetApi.MetaDataModel
             _sendPublicKeyType = publicKeyType;
             _nonce = nonce;
             _method = new Method(module, call, parameters);
-            _era = new Era(EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber, currentBlockNumber == 0 ? true : false);
+            _era = new Era(Constants.EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber, currentBlockNumber == 0 ? true : false);
             _genesis = new Hash(genesisHash);
             _startEra = new Hash(currentBlockHash);
             _tip = tip;
@@ -62,7 +59,7 @@ namespace SubstrateNetApi.MetaDataModel
 
         public Payload GetPayload()
         {
-            return new Payload(_method, new SignedExtensions(SPEC_VERSION, TX_VERSION, _genesis, _startEra, _era, _nonce, _tip));
+            return new Payload(_method, new SignedExtensions(Constants.SPEC_VERSION, Constants.TX_VERSION, _genesis, _startEra, _era, _nonce, _tip));
         }
 
         public void AddPayloadSignature(byte[] signature)
