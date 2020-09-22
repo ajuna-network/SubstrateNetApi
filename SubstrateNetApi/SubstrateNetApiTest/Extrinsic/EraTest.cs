@@ -49,5 +49,13 @@ namespace SubstrateNetApiTests.Extrinsic
             var era = new Era(64, 49, false);
             Assert.AreEqual(1585, era.EraStart(1587));
         }
+
+        [Test]
+        public void EraCreateTest()
+        {
+            var era = Era.Create(12, 15686);
+            Assert.AreEqual(16, era.Period);
+            Assert.AreEqual(6, era.Phase);
+        }
     }
 }

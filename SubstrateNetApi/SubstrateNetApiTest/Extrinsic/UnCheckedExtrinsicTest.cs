@@ -367,5 +367,93 @@ namespace SubstrateNetApiTests.Extrinsic
             Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
 
         }
+
+        [Test]
+        public void BalanceTransferCreateMortalZurichToAliceTest1()
+        {
+
+            // 0x310284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e007c9777cf14fe0e14e8aef019695043be2fd153a75ff3381f4cc4850755d537b1a9d7920e509ee2e4e1f244dad670dc44ec3fc24388181e6465fdda13d59ae70063001c000400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d02890700
+            // sender 5FfBQ3kwXrbdyoqLPvcXRp7ikWydXawpNs2Ceu3WwFdhZ8W4
+            // recent blocks 15,689 0xf8438a058c66ab33628249459d1f0bc8114c6550d3ddea45351a96cbf2999813
+            // nonce 7
+            // receiver 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+            // Lifetime 12
+
+            //length: 140[2]
+            //signatureVersion: 0x84
+            //sendPublicKey: 5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM[0x278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E]
+            //sendPublicKeyType: 0x00
+            //signature: 0x7C9777CF14FE0E14E8AEF019695043BE2FD153A75FF3381F4CC4850755D537B1A9D7920E509EE2E4E1F244DAD670DC44EC3FC24388181E6465FDDA13D59AE700
+            //era: 0x6300
+            //nonce: 7[1]
+            //tip: 0[1]
+            //moduleIndex: 0x0400
+            //destPublicKey: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY[0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D]
+            //amount: 123456[4]
+
+
+            byte[] privatKey = Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
+            byte[] publicKey = Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
+            var account = new Account(KeyType.ED25519, privatKey, publicKey);
+
+            CompactInteger nonce = 7;
+
+            byte moduleIndex = 0x04;
+            
+            byte callIndex = 0x00;
+
+            var bytes = new List<byte>();
+            bytes.AddRange(account.PublicKey);
+            CompactInteger amount = 123456;
+            bytes.AddRange(amount.Encode());
+            byte[] parameters = bytes.ToArray();
+
+            byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
+            //byte[] startEra = Utils.HexToByteArray("0xcfa2f9c52f94bc50658735d0f18f72590c981fdc15657636a99c437553c53253"); // CurrentBlock 780, startErar 778
+
+            CompactInteger tip = 0;
+
+            //var Era = new Era(12, ??, false);
+
+            //byte[] parameters = new byte[0];
+
+            //byte[] genesisHash = Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
+            //byte[] currentBlockHash = Utils.HexToByteArray("0xdce5a3ddc16196c00041d716e0cca8a8bf88b8aeebdb2714778fcdc0fe20079f"); ;
+
+            //Era era = new Era(64, 49, false);
+            //var blockHash = era.EraStart(1587);
+
+            //ulong currentBlockNumber = 49;
+            //CompactInteger tip = 0;
+
+            //// mocked signature
+            //byte[] signature = Utils.HexToByteArray("0x448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e");
+
+            //var uncheckedExtrinsic = new UnCheckedExtrinsic(true, publicKeyType, publicKey, nonce, moduleIndex, callIndex, parameters, genesisHash, currentBlockHash, currentBlockNumber, tip);
+
+            //string dmogCreateMortal = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e150314000602";
+
+            //uncheckedExtrinsic.AddPayloadSignature(signature);
+
+            //var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
+
+            //Assert.AreEqual(Utils.HexToByteArray(dmogCreateMortal), uncheckedExtrinsic.Encode());
+
+            //var payload = uncheckedExtrinsic.GetPayload().Encode();
+            //var payloadStr = Utils.Bytes2HexString(payload);
+
+            //if (payload.Length > 256)
+            //{
+            //    payload = HashExtension.Blake2(payload, 256);
+            //}
+
+            //var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
+            //var simpleSignStr = Utils.Bytes2HexString(simpleSign);
+
+            //Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
+            //Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
+
+            
+        }
     }
 }

@@ -20,6 +20,33 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
 
         }
 
+        public static Era Create(uint lifeTime, uint finalizedHeaderBlockNumber)
+        {
+            if (lifeTime == 0)
+            {
+                return new Era(0, 0, true);
+            }
+
+            // RUST Implementation
+            //let period = period.checked_next_power_of_two()
+            //    .unwrap_or(1 << 16)
+            //    .max(4)
+            //    .min(1 << 16);
+            //let phase = current % period;
+            //let quantize_factor = (period >> 12).max(1);
+            //let quantized_phase = phase / quantize_factor * quantize_factor;
+            //Era::Mortal(period, quantized_phase)
+
+            ulong period = (ulong)Math.Pow(2, Math.Round(Math.Log(lifeTime, 2)));
+            period = Math.Max(period, 4);
+            period = Math.Min(period, 65536);
+            ulong phase = finalizedHeaderBlockNumber % period;
+            var quantize_factor = Math.Max(period >> 12, 1);
+            var quantized_phase = phase / quantize_factor * quantize_factor;
+
+            return new Era(period, quantized_phase, false);
+        }
+
         public byte[] Encode()
         {
             if (IsImmortal)

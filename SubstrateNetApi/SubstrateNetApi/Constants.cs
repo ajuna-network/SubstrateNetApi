@@ -2,6 +2,7 @@
 {
     public class Constants
     {
+
         public const uint SPEC_VERSION = 1;
 
         public const uint TX_VERSION = 1;
