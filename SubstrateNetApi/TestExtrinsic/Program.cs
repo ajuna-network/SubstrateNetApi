@@ -167,7 +167,11 @@ namespace TestExtrinsic
             }
 
             var uncheckedExtrinsic = new UnCheckedExtrinsic(true, sendPublicKeyType[0], sendPublicKey, nonce, moduleIndex[0], moduleIndex[1], parameters, new byte[0], new byte[0], 47, 1234);
-            Console.WriteLine(Utils.Bytes2HexString(uncheckedExtrinsic.Encode(signature)));
+
+            uncheckedExtrinsic.AddPayloadSignature(signature);
+
+            Console.WriteLine(Utils.Bytes2HexString(uncheckedExtrinsic.Encode()));
+
             //Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Encode(signature)).ToUpper())}");
 
             //var signedExtensionsBytes = new SignedExtensions().Encode();

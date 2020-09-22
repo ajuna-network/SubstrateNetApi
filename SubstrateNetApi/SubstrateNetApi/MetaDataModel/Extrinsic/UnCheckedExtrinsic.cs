@@ -1,4 +1,5 @@
-﻿using SubstrateNetApi.MetaDataModel.Extrinsic;
+﻿using Schnorrkel.Signed;
+using SubstrateNetApi.MetaDataModel.Extrinsic;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,6 @@ namespace SubstrateNetApi.MetaDataModel
 
         private bool _signed;
 
-        private int _transactionVersion;
-
         private byte[] _sendPublicKey;
 
         private byte _sendPublicKeyType;
@@ -31,11 +30,11 @@ namespace SubstrateNetApi.MetaDataModel
 
         private Method _method;
 
-        private byte[] _signature;
-
         private Hash _genesis;
 
         private Hash _startEra;
+
+        private byte[] _signature;
 
         public UnCheckedExtrinsic(bool signed, byte publicKeyType, byte[] publicKey, CompactInteger nonce, byte module, byte call, byte[] parameters, byte[] genesisHash, byte[] currentBlockHash, ulong currentBlockNumber, CompactInteger tip)
         {
@@ -66,8 +65,18 @@ namespace SubstrateNetApi.MetaDataModel
             return new Payload(_method, new SignedExtensions(SPEC_VERSION, TX_VERSION, _genesis, _startEra, _era, _nonce, _tip));
         }
 
-        public byte[] Encode(byte[] signedPayload)
+        public void AddPayloadSignature(byte[] signature)
         {
+            _signature = signature;
+        }
+
+        public byte[] Encode()
+        {
+            if (_signed && _signature == null)
+            {
+                throw new Exception("Missing payload signature for signed transaction.");
+            }
+
             var list = new List<byte>();
             
             // 4 is the TRANSACTION_VERSION constant and it is 7 bits long, the highest bit 1 for signed transaction, 0 for unsigned.
@@ -79,7 +88,7 @@ namespace SubstrateNetApi.MetaDataModel
             // key type ed = 00 and sr = FF
             list.Add(_sendPublicKeyType);
 
-            list.AddRange(signedPayload);
+            list.AddRange(_signature);
             
             list.AddRange(_era.Encode());
             
