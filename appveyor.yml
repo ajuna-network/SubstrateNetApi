@@ -14,15 +14,11 @@ build_script:
 - cmd: >-
     dotnet build -p:Version=%APPVEYOR_BUILD_VERSION% --configuration %TARGET_CONFIGURATION%
     
-    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/WoMFramework/bin/Release/WoMFramework.%APPVEYOR_BUILD_VERSION%.nupkg -FileName WoMFramework.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName WoMFramework
-    
-    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/WoMWallet/bin/Release/WoMWallet.%APPVEYOR_BUILD_VERSION%.nupkg -FileName WoMWallet.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName WoMWallet
+    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/SubstrateNetApi/bin/Release/SubstrateNetApi.%APPVEYOR_BUILD_VERSION%.nupkg -FileName SubstrateNetApi.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName SubstrateNetApi
     
 test_script:
 - cmd: >-
-    dotnet test --configuration Release ./WoMFrameworkTest
-
-    dotnet test --configuration Release ./WoMWalletTest
+    dotnet test --configuration Release ./SubstrateNetApiTest
     
 deploy:
 - provider: NuGet
