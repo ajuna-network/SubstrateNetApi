@@ -13,15 +13,32 @@ namespace TestExtrinsic
     {
         static void Main(string[] args)
         {
-            GetTesting();
+            DecodeExtrinsicString();
+            //EraTesting();
+            //CompactIntegerDecodingTest()
         }
 
-        private static void SimpleTests()
+        private static void EraTesting()
+        {
+            var t1 = Era.Decode(Utils.HexToByteArray("0x1503"));
+            Console.WriteLine($"NODE: {t1}");
+
+            var t2 = Era.Decode(Utils.HexToByteArray("0xD503"));
+            Console.WriteLine($" API: {t2}");
+
+            var t3 = Era.Create(64, 15793);
+            Console.WriteLine($" API: {t3}");
+
+            ulong currentBlockNumber = (ulong)15689;
+            var lastBit = currentBlockNumber & (ulong)-(long)currentBlockNumber;
+            var nextPowerOf2 = Math.Pow(2, Math.Round(Math.Log(15689, 2)));
+            Console.WriteLine($"currentBlockNumber[{currentBlockNumber}]: {Math.Round(Math.Log(15689, 2))} {nextPowerOf2}");
+        }
+
+        private static void CompactIntegerDecodingTest()
         {
 
-
             var bytes = new byte[2];
-
 
             Console.WriteLine($"0xFC0 - {ulong.Parse(Convert.ToString(0xFFC0, 2)):0000 0000 0000 0000}");
             for (int n = 4000; n < 4124; n++)
@@ -29,7 +46,7 @@ namespace TestExtrinsic
                 Console.WriteLine($"{n:0000}: {ulong.Parse(Convert.ToString(n, 2)):0000 0000 0000 0000} " +
                                   $"..[{uint.Parse(Convert.ToString(((n & 0x3F) << 2) | 0x01, 2)):0000 0000} " +
                                   $"{uint.Parse(Convert.ToString((n & 0xFFC0) >> 6, 2)):0000 0000}]..");
-                
+
 
             }
 
@@ -50,7 +67,7 @@ namespace TestExtrinsic
 
         }
 
-        private static void GetTesting()
+        private static void DecodeExtrinsicString()
         {
             const int PUBIC_KEY_SIZE = 32;
             const int SIGNATURE_SIZE = 64;
@@ -173,73 +190,7 @@ namespace TestExtrinsic
 
             uncheckedExtrinsic.AddPayloadSignature(signature);
 
-            Console.WriteLine(Utils.Bytes2HexString(uncheckedExtrinsic.Encode()));
-
-            //Console.WriteLine($"UncheckedExtrinsic: {dmogCreate.ToUpper().Equals(Utils.Bytes2HexString(uncheckedExtrinsic.Encode(signature)).ToUpper())}");
-
-            //var signedExtensionsBytes = new SignedExtensions().Encode();
-            //var methodBytes = new Method(0x06, 0x02).Encode();
-
-            //Console.WriteLine($"Method - {Utils.Bytes2HexString(methodBytes)} + SignedExtensions - {Utils.Bytes2HexString(signedExtensionsBytes)}");
-            //var payload = new List<byte>();
-            //payload.AddRange(methodBytes);
-            //payload.AddRange(signedExtensionsBytes);
-            //var payloadBytes = payload.ToArray();
-            //Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
-            //if (payloadBytes.Length > 256)
-            //{
-            //    Console.WriteLine("Payload is hashed with blake2b 256, as it is bigger then 256");
-            //    payloadBytes = HashExtension.Blake2(payloadBytes, 256);
-            //}
-            //Console.WriteLine($"Payload: {Utils.Bytes2HexString(payloadBytes)}");
-
-            //string priKey0x = "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
-            //string pubKey0x = "0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e";
-
-            //var signedPayload = Chaos.NaCl.Ed25519.Sign(payloadBytes, Utils.HexToByteArray(priKey0x));
-            //Console.WriteLine($"Signed Payload [{signedPayload.Length}]: {Utils.Bytes2HexString(signedPayload)}");
-
-
-            //Console.WriteLine($"0x84 = {Utils.DecodeCompactInteger(Utils.HexToByteArray("0x84"))} CompactInteger");
-            //Console.WriteLine($"0x02 = {Utils.DecodeCompactInteger(Utils.HexToByteArray("0x02"))} CompactInteger");
-            //Console.WriteLine($"SignatureVersion (true): {Utils.Bytes2HexString(new byte[] {(byte)(4 | 0x80 )})}");
-            //Console.WriteLine($"SignatureVersion (false): {Utils.Bytes2HexString(new byte[] { (byte)(4 | 0x00) })}");
-
-
-            //Console.WriteLine($"0xc502  = {CompactInteger.Decode(Utils.HexToByteArray("0xc502"))} CompactInteger");
-            //Console.WriteLine($"0xf502  = {CompactInteger.Decode(Utils.HexToByteArray("0xf502"))} CompactInteger");
-            //Console.WriteLine($"8503  = {CompactInteger.Decode(Utils.HexToByteArray("0x8503"))} CompactInteger");
-            //Console.WriteLine($"8543  = {CompactInteger.Decode(Utils.HexToByteArray("0x8543"))} CompactInteger");
-            /**
-            ➜  ~subkey inspect - key //Alice --scheme=ed25519
-                    Secret Key URI `//Alice` is account:
-                      Secret seed:      0xabf8e5bdbe30c65656c0a3cbd181ff8a56294a69dfedd27982aace4a76909115
-                      Public key(hex): 0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
-                      Account ID:       0x88dc3417d5058ec4b4503e0c12ea1a0a89be200fe98922423d4334014fa6b0ee
-                      SS58 Address:     5FA9nQDVg267DEd8m1ZypXLBnvN7SFxYwV7ndqSYGiN9TTpu
-                    ➜  ~subkey inspect - key //Alice --scheme=sr25519
-                    Secret Key URI `//Alice` is account:
-                      Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
-                      Public key(hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
-                      Account ID:       0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
-                      SS58 Address:     5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-            */
-            //     278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
-            //0xff d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d  9101
-
-
-            var t1 = Era.Decode(Utils.HexToByteArray("0x1503"));
-            Console.WriteLine($"NODE: {t1}");
-
-            var t2 = Era.Decode(Utils.HexToByteArray("0xD503"));
-            Console.WriteLine($" API: {t2}");
-
-            var t3 = Era.Create(64, 15793);
-            Console.WriteLine($" API: {t3}");
-            //ulong currentBlockNumber = (ulong)15689;
-            //var lastBit = currentBlockNumber & (ulong)-(long)currentBlockNumber;
-            //var nextPowerOf2 = Math.Pow(2, Math.Round(Math.Log(15689, 2)));
-            //Console.WriteLine($"currentBlockNumber[{currentBlockNumber}]: {Math.Round(Math.Log(15689, 2))} {nextPowerOf2}");
+            //Console.WriteLine(Utils.Bytes2HexString(uncheckedExtrinsic.Encode()));
         }
     }
 }
