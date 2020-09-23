@@ -1,1 +1,31 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+environment:
+  TARGET_CONFIGURATION: Release
+build_script:
+- cmd: >-
+    dotnet build -p:Version=%APPVEYOR_BUILD_VERSION% --configuration %TARGET_CONFIGURATION%
+    
+    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/WoMFramework/bin/Release/WoMFramework.%APPVEYOR_BUILD_VERSION%.nupkg -FileName WoMFramework.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName WoMFramework
+    
+    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/WoMWallet/bin/Release/WoMWallet.%APPVEYOR_BUILD_VERSION%.nupkg -FileName WoMWallet.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName WoMWallet
+    
+test_script:
+- cmd: >-
+    dotnet test --configuration Release ./WoMFrameworkTest
 
+    dotnet test --configuration Release ./WoMWalletTest
+    
+deploy:
+- provider: NuGet
+  api_key:
+    secure: qR9SWQUPkiYwFQKvljIajuoDvjS4rDAHkYVY1QaFP3yRqRoEp+LF/Um2v2Y4LqcN
+  artifact: /.*.nupkg/
