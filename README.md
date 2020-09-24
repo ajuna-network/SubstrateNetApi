@@ -8,8 +8,13 @@
 
 # SubstrateNetApi (NETStandard2.0)
 
+## Installation
 
-# Substrate in Unity3D (How-to)
+### Substrate in .NET
+
+### Substrate in Unity3D
+
+## Requirements
 
 
 # Special Thanks
