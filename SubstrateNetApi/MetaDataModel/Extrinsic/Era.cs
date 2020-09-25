@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 
 namespace SubstrateNetApi.MetaDataModel.Extrinsic
 {
-    public class Era
+    public class Era : IEncodable
     {
         public bool IsImmortal { get; }
 

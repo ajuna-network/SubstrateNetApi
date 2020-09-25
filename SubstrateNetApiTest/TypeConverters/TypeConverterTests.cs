@@ -40,5 +40,6 @@ namespace SubstrateNetApiTests
             Assert.IsTrue(actual is MogwaiStruct);
             Assert.AreEqual(new Hash("0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C").HexString, (actual as MogwaiStruct).Id.HexString);
         }
+
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
-    public class AccountId
+    public class AccountId : IEncodable
     {
         public string Address { get; }
 
@@ -15,7 +15,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             PublicKey = publicKey;
         }
 
-        public AccountId(string str): this(Utils.HexToByteArray(str).AsMemory())
+        public AccountId(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
         }
 
@@ -29,6 +29,11 @@ namespace SubstrateNetApi.MetaDataModel.Values
         public string ToString()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        public byte[] Encode()
+        {
+            return PublicKey;
         }
     }
 }

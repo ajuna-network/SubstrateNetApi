@@ -40,7 +40,5 @@ namespace SubstrateNetApi.MetaDataModel.Values
             PrivateKey = privateKey;
 
         }
-
-
     }
 }
