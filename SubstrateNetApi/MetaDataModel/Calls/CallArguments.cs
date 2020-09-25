@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
+using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Calls
 {
     public class CallArguments : IEncodable
     {
@@ -27,6 +28,16 @@ namespace SubstrateNetApi.MetaDataModel.Values
                 byteList.AddRange(callArgument.Encode());
             }
             return byteList.ToArray();
+        }
+    }
+
+    public class CallArgs
+    {
+        public static Func<AccountId, Balance, CallArguments> BalanceTransfer = CallArgumentsMethode;
+
+        private static CallArguments CallArgumentsMethode(IEncodable a, IEncodable b)
+        {
+            return new CallArguments(a, b);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SubstrateNetApi;
+using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 

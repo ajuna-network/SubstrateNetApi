@@ -9,6 +9,8 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public byte[] PublicKey { get; }
 
+        public static AccountId CreateFromAddress(string address) => new AccountId(Utils.GetPublicKeyFrom(address));
+
         public AccountId(byte[] publicKey)
         {
             Address = Utils.GetAddressFrom(publicKey);

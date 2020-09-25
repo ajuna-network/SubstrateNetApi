@@ -15,7 +15,7 @@ namespace SubstrateNetApi.MetaDataModel
         {
             _moduleIndex = moduleIndex;
             _callIndex = callIndex;
-            _parameters = parameters;
+            _parameters = parameters ?? new byte[0];
         }
 
         public Method(byte moduleIndex, byte callIndex, string parameters)

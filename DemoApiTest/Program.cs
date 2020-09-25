@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi;
+using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 
@@ -126,7 +127,8 @@ namespace DemoApiTest
             // *************************** Final Test
             //var reqResult = await client.SubmitExtrinsicAsync("Dmog", "create_mogwai", null, accountZurich, 0, 64, cancellationToken);
 
-            var reqResult = await client.SubmitExtrinsicAsync("Balances", "transfer", null, accountZurich, 0, 64, cancellationToken);
+            var balanceTransferArguments = CallArgs.BalanceTransfer(AccountId.CreateFromAddress("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"), new Balance(100));
+            var reqResult = await client.SubmitExtrinsicAsync("Balances", "transfer", balanceTransferArguments, accountZurich, 0, 64, cancellationToken);
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);

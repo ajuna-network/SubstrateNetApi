@@ -8,6 +8,7 @@ using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsic;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
@@ -263,7 +264,7 @@ namespace SubstrateNetApi
         /// <param name="priKey">     The pri key. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The submit extrinsic. </returns>
-        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, string parameter, Account account, uint tip, uint lifeTime, CancellationToken token)
+        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, CallArguments callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
@@ -271,7 +272,7 @@ namespace SubstrateNetApi
             if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetCallByName(callName, out Call call))
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
 
-            if (call.Arguments?.Length > 0 && parameter == null)
+            if (call.Arguments?.Length > 0 && callArguments == null)
                 throw new MissingParameterException($"{moduleName}.{callName} needs {call.Arguments.Length} parameter(s)!");
 
             if (!MetaData.TryGetIndexOfCallModules(module, out byte moduleIndex))
@@ -279,7 +280,7 @@ namespace SubstrateNetApi
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
             }
 
-            Method method = new Method(moduleIndex, module.IndexOf(call), parameter);
+            Method method = new Method(moduleIndex, module.IndexOf(call), callArguments?.Encode());
 
             uint nonce = await System.AccountNextIndexAsync(account.Address, token);
 
