@@ -5,6 +5,8 @@ namespace SubstrateNetApi.MetaDataModel
     public class Module
     {
         public string Name { get; set; }
+
+        public byte Index { get; set; }
         public Storage Storage { get; set; }
         public Call[] Calls { get; set; }
         public Event[] Events { get; set; }

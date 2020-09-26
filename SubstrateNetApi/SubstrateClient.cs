@@ -275,12 +275,7 @@ namespace SubstrateNetApi
             if (call.Arguments?.Length > 0 && callArguments == null)
                 throw new MissingParameterException($"{callArguments.ModuleName}.{callArguments.CallName} needs {call.Arguments.Length} parameter(s)!");
 
-            if (!MetaData.TryGetIndexOfCallModules(module, out byte moduleIndex))
-            {
-                throw new MissingModuleOrItemException($"Module '{callArguments.ModuleName}' or Item '{callArguments.CallName}' missing in metadata of '{MetaData.Origin}'!");
-            }
-
-            Method method = new Method(moduleIndex, module.IndexOf(call), callArguments?.Encode());
+            Method method = new Method(module.Index, module.IndexOf(call), callArguments?.Encode());
 
             uint nonce = await System.AccountNextIndexAsync(account.Address, token);
 

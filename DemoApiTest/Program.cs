@@ -65,6 +65,11 @@ namespace DemoApiTest
                 Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
 
+            Account accountDMOG_GALxeh = new Account(
+                KeyType.ED25519,
+                Utils.HexToByteArray("0x3f997449154f8aaa134341b07c3710f63d57e73025105ca7e65a151d7fc3e2bf4b94e38b0c2ee21c367d4c9584204ce62edf5b4a6f675f10678cc56b6ea86e71"),
+                Utils.GetPublicKeyFrom("5DmogGALxehCbUmm45XJoADcf9BU71ZK2zmqHDPFJD3VxknC"));
+
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 
             client.RegisterTypeConverter(new MogwaiStructTypeConverter());
@@ -76,7 +81,7 @@ namespace DemoApiTest
             var systemChain = await client.System.ChainAsync(cancellationToken);
             Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
 
-            //Console.WriteLine(client.MetaData.Encode());
+            Console.WriteLine(client.MetaData.Serialize());
 
             /***
              * Testing storage data ...
@@ -125,7 +130,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
 
             // *************************** Final Test
-            var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.DmogCreateMogwai(), accountZurich, 0, 64, cancellationToken);
+            //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.DmogCreateMogwai(), accountDMOG_GALxeh, 0, 64, cancellationToken);
 
             //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100), accountZurich, 0, 64, cancellationToken);
 
@@ -133,7 +138,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
             //var subId = await client.Chain.SubscribeNewHeadAsync(cancellationToken);
             //Console.WriteLine(subId);

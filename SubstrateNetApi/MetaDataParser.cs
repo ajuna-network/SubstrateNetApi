@@ -33,6 +33,7 @@ namespace SubstrateNetApi
                 var module = new Module
                 {
                     Name = ExtractString(m, ref p)
+                    
                 };
 
                 var hasStorage = m[p++];
@@ -196,6 +197,8 @@ namespace SubstrateNetApi
 
                     module.Errors[i] = err;
                 }
+
+                module.Index = m[p++];
 
                 _md11.Modules[modIndex] = module;
             }
