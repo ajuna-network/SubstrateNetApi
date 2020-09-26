@@ -132,7 +132,7 @@ namespace DemoApiTest
             // *************************** Final Test
             //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.DmogCreateMogwai(), accountAlice, 0, 64, cancellationToken);
 
-            var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100), accountDMOG_GALxeh, 0, 64, cancellationToken);
+            var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);

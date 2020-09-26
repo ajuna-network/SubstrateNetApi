@@ -7,8 +7,6 @@ namespace SubstrateNetApi.MetaDataModel.Values
 {
     public class Balance : IEncodable
     {
-        private int v;
-
         public CompactInteger Value { get; }
 
         public Balance(string str) : this(Utils.HexToByteArray(str).AsMemory())
