@@ -264,20 +264,20 @@ namespace SubstrateNetApi
         /// <param name="priKey">     The pri key. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The submit extrinsic. </returns>
-        public async Task<object> SubmitExtrinsicAsync(string moduleName, string callName, CallArguments callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
+        public async Task<object> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
 
-            if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetCallByName(callName, out Call call))
-                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
+            if (!MetaData.TryGetModuleByName(callArguments.ModuleName, out Module module) || !module.TryGetCallByName(callArguments.CallName, out Call call))
+                throw new MissingModuleOrItemException($"Module '{callArguments.ModuleName}' or Item '{callArguments.CallName}' missing in metadata of '{MetaData.Origin}'!");
 
             if (call.Arguments?.Length > 0 && callArguments == null)
-                throw new MissingParameterException($"{moduleName}.{callName} needs {call.Arguments.Length} parameter(s)!");
+                throw new MissingParameterException($"{callArguments.ModuleName}.{callArguments.CallName} needs {call.Arguments.Length} parameter(s)!");
 
             if (!MetaData.TryGetIndexOfCallModules(module, out byte moduleIndex))
             {
-                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{callName}' missing in metadata of '{MetaData.Origin}'!");
+                throw new MissingModuleOrItemException($"Module '{callArguments.ModuleName}' or Item '{callArguments.CallName}' missing in metadata of '{MetaData.Origin}'!");
             }
 
             Method method = new Method(moduleIndex, module.IndexOf(call), callArguments?.Encode());
