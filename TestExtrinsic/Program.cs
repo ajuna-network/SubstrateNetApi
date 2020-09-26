@@ -13,9 +13,11 @@ namespace TestExtrinsic
     {
         static void Main(string[] args)
         {
-            DecodeExtrinsicString();
+            //DecodeExtrinsicString();
             //EraTesting();
             //CompactIntegerDecodingTest()
+
+            Console.WriteLine(CompactInteger.Decode(Utils.HexToByteArray("0x76d")));
         }
 
         private static void EraTesting()

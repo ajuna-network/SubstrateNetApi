@@ -6,6 +6,7 @@
 using Newtonsoft.Json;
 using NLog;
 using System;
+using static SubstrateNetApi.Utils;
 
 namespace SubstrateNetApi.TypeConverters
 {
@@ -36,7 +37,7 @@ namespace SubstrateNetApi.TypeConverters
         public override byte ReadJson(JsonReader reader, Type objectType, byte existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var value = (string)reader.Value;
-            byte[] bytes = Utils.HexToByteArray(value);
+            byte[] bytes = Utils.HexToByteArray(value, true);
             if (bytes.Length != 1)
             {
                 throw new Exception($"Can't deserialize '{value}' as byte!");

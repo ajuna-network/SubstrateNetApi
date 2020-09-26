@@ -264,7 +264,7 @@ namespace SubstrateNetApi
         /// <param name="priKey">     The pri key. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The submit extrinsic. </returns>
-        public async Task<object> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
+        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
@@ -288,12 +288,9 @@ namespace SubstrateNetApi
 
             var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra);
             var parameters = Utils.Bytes2HexString(uncheckedExtrinsic.Encode(), Utils.HexStringFormat.PREFIXED);
-            var resultString = await InvokeAsync<string>("author_submitExtrinsic", new object[] { parameters }, token);
-            //var resultString = "";
-            //if (!_typeConverters.ContainsKey(returnType))
-            //    throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
-
-            return resultString; // _typeConverters[returnType].Create(resultString);
+            var resultString = await InvokeAsync<Hash>("author_submitExtrinsic", new object[] { parameters }, token);
+            
+            return resultString;
         }
 
         /// <summary>

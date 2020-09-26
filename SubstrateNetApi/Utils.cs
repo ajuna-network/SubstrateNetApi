@@ -73,19 +73,24 @@ namespace SubstrateNetApi
         /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
         /// <param name="hex"> The hexadecimal. </param>
         /// <returns> A byte[]. </returns>
-        public static byte[] HexToByteArray(string hex)
+        public static byte[] HexToByteArray(string hex, bool evenLeftZeroPad = false)
         {
             if (hex.Equals("0x0"))
             {
                 return new byte[] { 0x00 };
             }
 
-            if (hex.Length % 2 == 1 )
+            if (hex.Length % 2 == 1 && !evenLeftZeroPad)
                 throw new Exception("The binary key cannot have an odd number of digits");
 
             if (hex.StartsWith("0x"))
             {
                 hex = hex.Substring(2);
+            }
+
+            if (hex.Length % 2 != 0)
+            {
+                hex = hex.PadLeft(hex.Length + 1, '0');
             }
 
             byte[] arr = new byte[hex.Length >> 1];

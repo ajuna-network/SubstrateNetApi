@@ -6,6 +6,7 @@
 using Newtonsoft.Json;
 using NLog;
 using System;
+using static SubstrateNetApi.Utils;
 
 namespace SubstrateNetApi.TypeConverters
 {
@@ -37,7 +38,7 @@ namespace SubstrateNetApi.TypeConverters
         public override ulong ReadJson(JsonReader reader, Type objectType, ulong existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var value = (string)reader.Value;
-            byte[] bytes = Utils.HexToByteArray(value);
+            byte[] bytes = Utils.HexToByteArray(value, true);
             Array.Reverse(bytes);
             byte[] result = new byte[8];
             Array.Copy(bytes, 0, result, 0, bytes.Length);
