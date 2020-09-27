@@ -125,14 +125,14 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockHashAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x6702B69D6BBED6ED05492CFE83FBADF70038F9BBB39AF2A26A21CF78B2C12F11"), cancellationToken);
 
-            //var systemChain = await client.System.ChainAsync(cancellationToken);
+            var reqResult = await client.State.GetMetaDataAsync(cancellationToken);
 
             //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"), cancellationToken);
 
             // *************************** Final Test
-            //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.DmogCreateMogwai(), accountAlice, 0, 64, cancellationToken);
+            //var reqResult = await client.SubmitExtrinsicAsync(DmogCall.CreateMogwai(), accountAlice, 0, 64, cancellationToken);
 
-            var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
+            //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);

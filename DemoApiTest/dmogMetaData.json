@@ -20,13 +20,13 @@
               "Value": "AccountInfo<T::Index, T::AccountData>",
               "IsLinked": false
             },
-            "FallBack": "0x00000                                                                                                    000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                                                                                                    0000000000000000000",
+            "FallBack": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
               " The full account information for a particular account ID."
             ]
           },
           {
-            "Name": "Extrinsic                                                                                                    Count",
+            "Name": "ExtrinsicCount",
             "Modifier": "Optional",
             "Type": "Plain",
             "Function": {
@@ -43,7 +43,7 @@
           },
           {
             "Name": "BlockWeight",
-            "Mo                                                                                                    difier": "Default",
+            "Modifier": "Default",
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
@@ -54,7 +54,7 @@
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
-              " The current weight for the block.                                                                                                    "
+              " The current weight for the block."
             ]
           },
           {
@@ -70,7 +70,7 @@
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Total length (in bytes) for all extrinsics put tog                                                                                                    ether, for the current block."
+              " Total length (in bytes) for all extrinsics put together, for the current block."
             ]
           },
           {
@@ -78,13 +78,13 @@
             "Modifier": "Default",
             "Type": "Map",
             "Function": {
-              "Hasher": "Twox64Conca                                                                                                    t",
+              "Hasher": "Twox64Concat",
               "Key1": "T::BlockNumber",
               "Key2": null,
               "Value": "T::Hash",
               "IsLinked": false
             },
-            "FallBack": "0x0000000000000000000000000000000                                                                                                    000000000000000000000000000000000",
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
               " Map of block numbers to block hashes."
             ]
@@ -98,11 +98,11 @@
               "Key1": "u32",
               "Key2": null,
               "Value": "Vec<u8>",
-              "IsLink                                                                                                    ed": false
+              "IsLinked": false
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Extrinsics data for the current block (maps an extrinsic's index to its                                                                                                     data)."
+              " Extrinsics data for the current block (maps an extrinsic's index to its data)."
             ]
           },
           {
@@ -113,12 +113,12 @@
               "Hasher": "None",
               "Key1": null,
               "Key2": null,
-              "Val                                                                                                    ue": "T::BlockNumber",
+              "Value": "T::BlockNumber",
               "IsLinked": false
             },
             "FallBack": "0x00000000",
             "Documentations": [
-              " The current block number being proces                                                                                                    sed. Set by `execute_block`."
+              " The current block number being processed. Set by `execute_block`."
             ]
           },
           {
@@ -127,12 +127,12 @@
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
-              "Ke                                                                                                    y1": null,
+              "Key1": null,
               "Key2": null,
               "Value": "T::Hash",
               "IsLinked": false
             },
-            "FallBack": "0x0000000000000000000000000000000000000000000000000                                                                                                    000000000000000",
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
               " Hash of the previous block."
             ]
@@ -148,9 +148,9 @@
               "Value": "T::Hash",
               "IsLinked": false
             },
-            "FallBack": "0x000000000                                                                                                    0000000000000000000000000000000000000000000000000000000",
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
-              " Extrinsics root of the current block, also                                                                                                     part of the block header."
+              " Extrinsics root of the current block, also part of the block header."
             ]
           },
           {
@@ -159,14 +159,14 @@
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
-              "Key1": "nul                                                                                                    l",
+              "Key1": "null",
               "Key2": null,
               "Value": "DigestOf<T>",
               "IsLinked": false
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Digest of the current block,                                                                                                     also part of the block header."
+              " Digest of the current block, also part of the block header."
             ]
           },
           {
@@ -175,7 +175,7 @@
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
-              "Key                                                                                                    1": null,
+              "Key1": null,
               "Key2": null,
               "Value": "Vec<EventRecord<T::Event, T::Hash>>",
               "IsLinked": false
@@ -190,7 +190,7 @@
             "Modifier": "Default",
             "Type": "Plain",
             "Function": {
-              "Hashe                                                                                                    r": "None",
+              "Hasher": "None",
               "Key1": null,
               "Key2": null,
               "Value": "EventIndex",
@@ -198,7 +198,7 @@
             },
             "FallBack": "0x00000000",
             "Documentations": [
-              " The                                                                                                     number of events in the `Events<T>` list."
+              " The number of events in the `Events<T>` list."
             ]
           },
           {
@@ -206,24 +206,24 @@
             "Modifier": "Default",
             "Type": "Map",
             "Function": {
-              "Hashe                                                                                                    r": "Blake2_128Concat",
+              "Hasher": "Blake2_128Concat",
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Vec<(T::BlockNumber, EventIndex)>",
               "IsLinked": false
             },
-            "FallBa                                                                                                    ck": "0x00",
+            "FallBack": "0x00",
             "Documentations": [
               " Mapping between a topic (represented by T::Hash) and a vector of indexes",
-              " of events in                                                                                                     the `<Events<T>>` list.",
+              " of events in the `<Events<T>>` list.",
               "",
               " All topic vectors have deterministic storage locations depending on the topic. This",
-              " all                                                                                                    ows light-clients to leverage the changes trie storage tracking mechanism and",
-              " in case of changes fetch the list of ev                                                                                                    ents of interest.",
+              " allows light-clients to leverage the changes trie storage tracking mechanism and",
+              " in case of changes fetch the list of events of interest.",
               "",
               " The value has the type `(T::BlockNumber, EventIndex)` because if we used only just",
-              " the `Event                                                                                                    Index` then in case if the topic has the same contents on the next block",
-              " no notification will be triggered thus the e                                                                                                    vent might be lost."
+              " the `EventIndex` then in case if the topic has the same contents on the next block",
+              " no notification will be triggered thus the event might be lost."
             ]
           },
           {
@@ -232,14 +232,14 @@
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
-              "Ke                                                                                                    y1": null,
+              "Key1": null,
               "Key2": null,
               "Value": "LastRuntimeUpgradeInfo",
               "IsLinked": false
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Stores the                                                                                                     `spec_version` and `spec_name` of when the last runtime upgrade happened."
+              " Stores the `spec_version` and `spec_name` of when the last runtime upgrade happened."
             ]
           },
           {
@@ -253,20 +253,20 @@
               "Value": "bool",
               "IsLinked": false
             },
-            "FallBack                                                                                                    ": "0x00",
+            "FallBack": "0x00",
             "Documentations": [
               " True if we have upgraded so that `type RefCount` is `u32`. False (default) if not."
             ]
           },
           {
-            "Nam                                                                                                    e": "ExecutionPhase",
+            "Name": "ExecutionPhase",
             "Modifier": "Optional",
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
               "Key1": null,
               "Key2": null,
-              "Value": "Ph                                                                                                    ase",
+              "Value": "Phase",
               "IsLinked": false
             },
             "FallBack": "0x00",
@@ -278,7 +278,7 @@
       },
       "Calls": [
         {
-          "Name": "fi                                                                                                    ll_block",
+          "Name": "fill_block",
           "Arguments": [
             {
               "Name": "_ratio",
@@ -286,7 +286,7 @@
             }
           ],
           "Documentations": [
-            " A dispatch that will fill the block weigh                                                                                                    t up to the given ratio."
+            " A dispatch that will fill the block weight up to the given ratio."
           ]
         },
         {
@@ -298,12 +298,12 @@
             }
           ],
           "Documentations": [
-            " Make                                                                                                     some on-chain remark.",
+            " Make some on-chain remark.",
             "",
             " # <weight>",
             " - `O(1)`",
             " - Base Weight: 0.665 Âµs, independent of remark length.",
-            " - No DB                                                                                                     operations.",
+            " - No DB operations.",
             " # </weight>"
           ]
         },
@@ -316,12 +316,12 @@
             }
           ],
           "Documentations": [
-            "                                                                                                     Set the number of pages in the WebAssembly environment's heap.",
+            " Set the number of pages in the WebAssembly environment's heap.",
             "",
             " # <weight>",
             " - `O(1)`",
             " - 1 storage write.",
-            " - B                                                                                                    ase Weight: 1.405 Âµs",
+            " - Base Weight: 1.405 Âµs",
             " - 1 write to HEAP_PAGES",
             " # </weight>"
           ]
@@ -338,17 +338,17 @@
             " Set the new runtime code.",
             "",
             " # <weight>",
-            " - `O(C + S)` where `C` length of `code` a                                                                                                    nd `S` complexity of `can_set_code`",
+            " - `O(C + S)` where `C` length of `code` and `S` complexity of `can_set_code`",
             " - 1 storage write (codec `O(C)`).",
-            " - 1 call to `can_set_code`: `O(S)` (calls `s                                                                                                    p_io::misc::runtime_version` which is expensive).",
+            " - 1 call to `can_set_code`: `O(S)` (calls `sp_io::misc::runtime_version` which is expensive).",
             " - 1 event.",
-            " The weight of this function is dependent on the runti                                                                                                    me, but generally this is very expensive.",
+            " The weight of this function is dependent on the runtime, but generally this is very expensive.",
             " We will treat this as a full block.",
             " # </weight>"
           ]
         },
         {
-          "Name": "set_code_wit                                                                                                    hout_checks",
+          "Name": "set_code_without_checks",
           "Arguments": [
             {
               "Name": "code",
@@ -356,14 +356,14 @@
             }
           ],
           "Documentations": [
-            " Set the new runtime code without doing a                                                                                                    ny checks of the given `code`.",
+            " Set the new runtime code without doing any checks of the given `code`.",
             "",
             " # <weight>",
             " - `O(C)` where `C` length of `code`",
-            " - 1 storage write (codec `O(C)                                                                                                    `).",
+            " - 1 storage write (codec `O(C)`).",
             " - 1 event.",
             " The weight of this function is dependent on the runtime. We will treat this as a full block.",
-            " # <                                                                                                    /weight>"
+            " # </weight>"
           ]
         },
         {
@@ -371,7 +371,7 @@
           "Arguments": [
             {
               "Name": "changes_trie_config",
-              "Type": "Option<ChangesTrieConfi                                                                                                    guration>"
+              "Type": "Option<ChangesTrieConfiguration>"
             }
           ],
           "Documentations": [
@@ -379,10 +379,10 @@
             "",
             " # <weight>",
             " - `O(1)`",
-            " - 1 storage wri                                                                                                    te or delete (codec `O(1)`).",
+            " - 1 storage write or delete (codec `O(1)`).",
             " - 1 call to `deposit_log`: Uses `append` API, so O(1)",
             " - Base Weight: 7.218 Âµs",
-            " - D                                                                                                    B Weight:",
+            " - DB Weight:",
             "     - Writes: Changes Trie, System Digest",
             " # </weight>"
           ]
@@ -391,7 +391,7 @@
           "Name": "set_storage",
           "Arguments": [
             {
-              "Name": "ite                                                                                                    ms",
+              "Name": "items",
               "Type": "Vec<KeyValue>"
             }
           ],
@@ -399,11 +399,11 @@
             " Set some items of storage.",
             "",
             " # <weight>",
-            " - `O(I)` where `I` lengt                                                                                                    h of `items`",
+            " - `O(I)` where `I` length of `items`",
             " - `I` storage writes (`O(1)`).",
             " - Base Weight: 0.568 * i Âµs",
             " - Writes: Number of items",
-            " # </weigh                                                                                                    t>"
+            " # </weight>"
           ]
         },
         {
@@ -415,12 +415,12 @@
             }
           ],
           "Documentations": [
-            " Kill some items from st                                                                                                    orage.",
+            " Kill some items from storage.",
             "",
             " # <weight>",
             " - `O(IK)` where `I` length of `keys` and `K` length of one key",
             " - `I` storage deletions.",
-            "                                                                                                     - Base Weight: .378 * i Âµs",
+            " - Base Weight: .378 * i Âµs",
             " - Writes: Number of items",
             " # </weight>"
           ]
@@ -429,7 +429,7 @@
           "Name": "kill_prefix",
           "Arguments": [
             {
-              "Name": "                                                                                                    prefix",
+              "Name": "prefix",
               "Type": "Key"
             },
             {
@@ -438,16 +438,16 @@
             }
           ],
           "Documentations": [
-            " Kill all storage items with a key that start                                                                                                    s with the given prefix.",
+            " Kill all storage items with a key that starts with the given prefix.",
             "",
             " **NOTE:** We rely on the Root origin to provide us the number of subkeys under",
-            " the pre                                                                                                    fix we are removing to accurately calculate the weight of this function.",
+            " the prefix we are removing to accurately calculate the weight of this function.",
             "",
             " # <weight>",
-            " - `O(P)` where `P` amount o                                                                                                    f keys with prefix `prefix`",
+            " - `O(P)` where `P` amount of keys with prefix `prefix`",
             " - `P` storage deletions.",
             " - Base Weight: 0.834 * P Âµs",
-            " - Writes: Number of subkeys +                                                                                                     1",
+            " - Writes: Number of subkeys + 1",
             " # </weight>"
           ]
         },
@@ -457,15 +457,15 @@
 
           ],
           "Documentations": [
-            " Kill the sending account, assuming there are n                                                                                                    o references outstanding and the composite",
+            " Kill the sending account, assuming there are no references outstanding and the composite",
             " data is equal to its default value.",
             "",
             " # <weight>",
             " - `O(1)`",
-            " - 1 st                                                                                                    orage read and deletion.",
+            " - 1 storage read and deletion.",
             " --------------------",
             " Base Weight: 8.626 Âµs",
-            " No DB Read or Write operations because cal                                                                                                    ler is already in overlay",
+            " No DB Read or Write operations because caller is already in overlay",
             " # </weight>"
           ]
         }
@@ -473,7 +473,7 @@
       "Events": [
         {
           "Documentations": [
-            " An extrinsic completed successfully. \\[info                                                                                                    \\]"
+            " An extrinsic completed successfully. \\[info\\]"
           ],
           "Name": "ExtrinsicSuccess",
           "EventArgs": [
@@ -482,7 +482,7 @@
         },
         {
           "Documentations": [
-            " An extrinsic failed. \\[error, info\\                                                                                                    ]"
+            " An extrinsic failed. \\[error, info\\]"
           ],
           "Name": "ExtrinsicFailed",
           "EventArgs": [
@@ -494,7 +494,7 @@
           "Documentations": [
             " `:code` was updated."
           ],
-          "                                                                                                    Name": "CodeUpdated",
+          "Name": "CodeUpdated",
           "EventArgs": [
 
           ]
@@ -504,7 +504,7 @@
             " A new \\[account\\] was created."
           ],
           "Name": "NewAccount",
-          "EventAr                                                                                                    gs": [
+          "EventArgs": [
             "AccountId"
           ]
         },
@@ -524,37 +524,37 @@
           "Type": "T::BlockNumber",
           "Value": "0x60090000",
           "Documentations": [
-            " The maximum number                                                                                                     of blocks to allow in mortal eras."
+            " The maximum number of blocks to allow in mortal eras."
           ]
         },
         {
           "Name": "MaximumBlockWeight",
           "Type": "Weight",
           "Value": "0x00204AA9D1010000",
-          "Docume                                                                                                    ntations": [
+          "Documentations": [
             " The maximum weight of a block."
           ]
         },
         {
           "Name": "DbWeight",
           "Type": "RuntimeDbWeight",
-          "Value": "0x40787D010000000000                                                                                                    E1F50500000000",
+          "Value": "0x40787D010000000000E1F50500000000",
           "Documentations": [
             " The weight of runtime database operations the runtime can invoke."
           ]
         },
         {
-          "Name": "BlockE                                                                                                    xecutionWeight",
+          "Name": "BlockExecutionWeight",
           "Type": "Weight",
           "Value": "0x00F2052A01000000",
           "Documentations": [
-            " The base weight of executing a block, i                                                                                                    ndependent of the transactions in the block."
+            " The base weight of executing a block, independent of the transactions in the block."
           ]
         },
         {
           "Name": "ExtrinsicBaseWeight",
           "Type": "Weight",
-          "Value": "0x405973070000000                                                                                                    0",
+          "Value": "0x4059730700000000",
           "Documentations": [
             " The base weight of an Extrinsic in the block, independent of the of extrinsic being executed."
           ]
@@ -564,7 +564,7 @@
           "Type": "u32",
           "Value": "0x00005000",
           "Documentations": [
-            " The maximum length of a block (in byt                                                                                                    es)."
+            " The maximum length of a block (in bytes)."
           ]
         }
       ],
@@ -572,20 +572,20 @@
         {
           "Documentations": [
             " The name of specification does not match between the current runtime",
-            " and the                                                                                                     new runtime."
+            " and the new runtime."
           ],
           "Name": "InvalidSpecName"
         },
         {
           "Documentations": [
-            " The specification version is not allowed to decrease betwe                                                                                                    en the current runtime",
+            " The specification version is not allowed to decrease between the current runtime",
             " and the new runtime."
           ],
           "Name": "SpecVersionNeedsToIncrease"
         },
         {
           "Documentations": [
-            " Failed to ext                                                                                                    ract the runtime version from the new runtime.",
+            " Failed to extract the runtime version from the new runtime.",
             "",
             " Either calling `Core_version` or decoding `RuntimeVersion` failed."
           ],
@@ -593,13 +593,13 @@
         },
         {
           "Documentations": [
-            " Suicide called when the account has non-default composite                                                                                                     data."
+            " Suicide called when the account has non-default composite data."
           ],
           "Name": "NonDefaultComposite"
         },
         {
           "Documentations": [
-            " There is a non-zero reference count preventing the account f                                                                                                    rom being purged."
+            " There is a non-zero reference count preventing the account from being purged."
           ],
           "Name": "NonZeroRefCount"
         }
@@ -609,7 +609,7 @@
       "Name": "RandomnessCollectiveFlip",
       "Index": 1,
       "Storage": {
-        "Prefix": "Random                                                                                                    nessCollectiveFlip",
+        "Prefix": "RandomnessCollectiveFlip",
         "Items": [
           {
             "Name": "RandomMaterial",
@@ -617,15 +617,15 @@
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
-              "K                                                                                                    ey1": null,
+              "Key1": null,
               "Key2": null,
               "Value": "Vec<T::Hash>",
               "IsLinked": false
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Series of block hea                                                                                                    ders from the last 81 blocks that acts as random seed material. This",
-              " is arranged as a ring buffer with `block_number                                                                                                     % 81` being the index into the `Vec` of",
+              " Series of block headers from the last 81 blocks that acts as random seed material. This",
+              " is arranged as a ring buffer with `block_number % 81` being the index into the `Vec` of",
               " the oldest hash."
             ]
           }
@@ -643,7 +643,7 @@
       ]
     },
     {
-      "Nam                                                                                                    e": "Timestamp",
+      "Name": "Timestamp",
       "Index": 2,
       "Storage": {
         "Prefix": "Timestamp",
@@ -652,7 +652,7 @@
             "Name": "Now",
             "Modifier": "Default",
             "Type": "Plain",
-            "Fun                                                                                                    ction": {
+            "Function": {
               "Hasher": "None",
               "Key1": null,
               "Key2": null,
@@ -660,7 +660,7 @@
               "IsLinked": false
             },
             "FallBack": "0x0000000000000000",
-            "D                                                                                                    ocumentations": [
+            "Documentations": [
               " Current time for the current block."
             ]
           },
@@ -668,7 +668,7 @@
             "Name": "DidUpdate",
             "Modifier": "Default",
             "Type": "Plain",
-            "Functi                                                                                                    on": {
+            "Function": {
               "Hasher": "None",
               "Key1": null,
               "Key2": null,
@@ -677,7 +677,7 @@
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Did                                                                                                     the timestamp get updated in this block?"
+              " Did the timestamp get updated in this block?"
             ]
           }
         ]
@@ -688,25 +688,25 @@
           "Arguments": [
             {
               "Name": "now",
-              "Type": "Compact<T::Momen                                                                                                    t>"
+              "Type": "Compact<T::Moment>"
             }
           ],
           "Documentations": [
             " Set the current time.",
             "",
-            " This call should be invoked exactly once per block. It will panic                                                                                                     at the finalization",
+            " This call should be invoked exactly once per block. It will panic at the finalization",
             " phase, if this call hasn't been invoked by that time.",
             "",
-            " The timestamp should be greater than                                                                                                     the previous one by the amount specified by",
+            " The timestamp should be greater than the previous one by the amount specified by",
             " `MinimumPeriod`.",
             "",
-            " The dispatch origin for this call must be `Inheren                                                                                                    t`.",
+            " The dispatch origin for this call must be `Inherent`.",
             "",
             " # <weight>",
             " - `O(T)` where `T` complexity of `on_timestamp_set`",
-            " - 1 storage read and 1 storage mutation (                                                                                                    codec `O(1)`). (because of `DidUpdate::take` in `on_finalize`)",
+            " - 1 storage read and 1 storage mutation (codec `O(1)`). (because of `DidUpdate::take` in `on_finalize`)",
             " - 1 event handler `on_timestamp_set` `O(T)`.",
-            " # </we                                                                                                    ight>"
+            " # </weight>"
           ]
         }
       ],
@@ -716,10 +716,10 @@
           "Name": "MinimumPeriod",
           "Type": "T::Moment",
           "Value": "0xB80B000000000000",
-          "Documentation                                                                                                    s": [
+          "Documentations": [
             " The minimum period between blocks. Beware that this is different to the *expected* period",
-            " that the block produc                                                                                                    tion apparatus provides. Your chosen consensus system will generally",
-            " work with this to determine a sensible block tim                                                                                                    e. e.g. For Aura, it will be double this",
+            " that the block production apparatus provides. Your chosen consensus system will generally",
+            " work with this to determine a sensible block time. e.g. For Aura, it will be double this",
             " period on default settings."
           ]
         }
@@ -731,7 +731,7 @@
     {
       "Name": "Aura",
       "Index": 3,
-      "Stora                                                                                                    ge": null,
+      "Storage": null,
       "Calls": null,
       "Events": null,
       "Consts": [
@@ -745,7 +745,7 @@
       "Name": "Grandpa",
       "Index": 4,
       "Storage": {
-        "Prefix": "GrandpaFin                                                                                                    ality",
+        "Prefix": "GrandpaFinality",
         "Items": [
           {
             "Name": "State",
@@ -760,7 +760,7 @@
             },
             "FallBack": "0x00",
             "Documentations": [
-              " State of the current autho                                                                                                    rity set."
+              " State of the current authority set."
             ]
           },
           {
@@ -776,7 +776,7 @@
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Pending chan                                                                                                    ge: (signaled at, scheduled change)."
+              " Pending change: (signaled at, scheduled change)."
             ]
           },
           {
@@ -784,7 +784,7 @@
             "Modifier": "Optional",
             "Type": "Plain",
             "Function": {
-              "Hasher": "                                                                                                    None",
+              "Hasher": "None",
               "Key1": null,
               "Key2": null,
               "Value": "T::BlockNumber",
@@ -792,7 +792,7 @@
             },
             "FallBack": "0x00",
             "Documentations": [
-              " next bloc                                                                                                    k number where we can force a change."
+              " next block number where we can force a change."
             ]
           },
           {
@@ -800,14 +800,14 @@
             "Modifier": "Optional",
             "Type": "Plain",
             "Function": {
-              "Hasher": "No                                                                                                    ne",
+              "Hasher": "None",
               "Key1": null,
               "Key2": null,
               "Value": "(T::BlockNumber, T::BlockNumber)",
               "IsLinked": false
             },
             "FallBack": "0x00",
-            "Documentatio                                                                                                    ns": [
+            "Documentations": [
               " `true` if we are currently stalled."
             ]
           },
@@ -816,7 +816,7 @@
             "Modifier": "Default",
             "Type": "Plain",
             "Function": {
-              "Ha                                                                                                    sher": "None",
+              "Hasher": "None",
               "Key1": null,
               "Key2": null,
               "Value": "SetId",
@@ -825,7 +825,7 @@
             "FallBack": "0x0000000000000000",
             "Documentations": [
               " The number of changes (both in terms of keys and underlying economic responsibilities)",
-              " in the \"set\" of Grandpa v                                                                                                    alidators from genesis."
+              " in the \"set\" of Grandpa validators from genesis."
             ]
           },
           {
@@ -841,10 +841,10 @@
             },
             "FallBack": "0x00",
             "Documentations": [
-              " A mapping fro                                                                                                    m grandpa set ID to the index of the *most recent* session for which its",
+              " A mapping from grandpa set ID to the index of the *most recent* session for which its",
               " members were responsible.",
               "",
-              " TWOX-NOTE: `                                                                                                    SetId` is not under user control."
+              " TWOX-NOTE: `SetId` is not under user control."
             ]
           }
         ]
@@ -862,19 +862,19 @@
               "Type": "T::KeyOwnerProof"
             }
           ],
-          "Documentatio                                                                                                    ns": [
+          "Documentations": [
             " Report voter equivocation/misbehavior. This method will verify the",
-            " equivocation proof and validate the given k                                                                                                    ey ownership proof",
+            " equivocation proof and validate the given key ownership proof",
             " against the extracted offender. If both are valid, the offence",
             " will be reported."
           ]
         },
         {
-          "Name": "re                                                                                                    port_equivocation_unsigned",
+          "Name": "report_equivocation_unsigned",
           "Arguments": [
             {
               "Name": "equivocation_proof",
-              "Type": "EquivocationProof<T::Hash, T::BlockNumber>                                                                                                    "
+              "Type": "EquivocationProof<T::Hash, T::BlockNumber>"
             },
             {
               "Name": "key_owner_proof",
@@ -882,14 +882,14 @@
             }
           ],
           "Documentations": [
-            " Report voter equivocation/misbehavior. This                                                                                                     method will verify the",
+            " Report voter equivocation/misbehavior. This method will verify the",
             " equivocation proof and validate the given key ownership proof",
-            " against the extracted offend                                                                                                    er. If both are valid, the offence",
+            " against the extracted offender. If both are valid, the offence",
             " will be reported.",
             "",
-            " This extrinsic must be called unsigned and it is expected                                                                                                     that only",
+            " This extrinsic must be called unsigned and it is expected that only",
             " block authors will call it (validated in `ValidateUnsigned`), as such",
-            " if the block author is defined it                                                                                                     will be defined as the equivocation",
+            " if the block author is defined it will be defined as the equivocation",
             " reporter."
           ]
         },
@@ -898,7 +898,7 @@
           "Arguments": [
             {
               "Name": "delay",
-              "Type": "T::Block                                                                                                    Number"
+              "Type": "T::BlockNumber"
             },
             {
               "Name": "best_finalized_block_number",
@@ -906,12 +906,12 @@
             }
           ],
           "Documentations": [
-            " Note that the current autho                                                                                                    rity set of the GRANDPA finality gadget has",
-            " stalled. This will trigger a forced authority set change at the beginning                                                                                                    ",
+            " Note that the current authority set of the GRANDPA finality gadget has",
+            " stalled. This will trigger a forced authority set change at the beginning",
             " of the next session, to be enacted `delay` blocks after that. The delay",
-            " should be high enough to safely assume th                                                                                                    at the block signalling the",
+            " should be high enough to safely assume that the block signalling the",
             " forced change will not be re-orged (e.g. 1000 blocks). The GRANDPA voters",
-            " will start t                                                                                                    he new authority set using the given finalized block as base.",
+            " will start the new authority set using the given finalized block as base.",
             " Only callable by root."
           ]
         }
@@ -927,7 +927,7 @@
           ]
         },
         {
-          "Do                                                                                                    cumentations": [
+          "Documentations": [
             " Current authority set has been paused."
           ],
           "Name": "Paused",
@@ -937,7 +937,7 @@
         },
         {
           "Documentations": [
-            " Current a                                                                                                    uthority set has been resumed."
+            " Current authority set has been resumed."
           ],
           "Name": "Resumed",
           "EventArgs": [
@@ -951,21 +951,21 @@
       "Errors": [
         {
           "Documentations": [
-            " Attempt to                                                                                                     signal GRANDPA pause when the authority set isn't live",
+            " Attempt to signal GRANDPA pause when the authority set isn't live",
             " (either paused or already pending pause)."
           ],
-          "Name": "PauseFail                                                                                                    ed"
+          "Name": "PauseFailed"
         },
         {
           "Documentations": [
             " Attempt to signal GRANDPA resume when the authority set isn't paused",
-            " (either live or alread                                                                                                    y pending resume)."
+            " (either live or already pending resume)."
           ],
           "Name": "ResumeFailed"
         },
         {
           "Documentations": [
-            " Attempt to signal GRANDPA change with one already pendi                                                                                                    ng."
+            " Attempt to signal GRANDPA change with one already pending."
           ],
           "Name": "ChangePending"
         },
@@ -979,7 +979,7 @@
           "Documentations": [
             " A key ownership proof provided as part of an equivocation report is invalid."
           ],
-          "Name": "InvalidKeyOwn                                                                                                    ershipProof"
+          "Name": "InvalidKeyOwnershipProof"
         },
         {
           "Documentations": [
@@ -1002,7 +1002,7 @@
         "Prefix": "Balances",
         "Items": [
           {
-            "Name": "Total                                                                                                    Issuance",
+            "Name": "TotalIssuance",
             "Modifier": "Default",
             "Type": "Plain",
             "Function": {
@@ -1010,11 +1010,11 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::Balance",
-              "                                                                                                    IsLinked": false
+              "IsLinked": false
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
-              " The total units issued in the syste                                                                                                    m."
+              " The total units issued in the system."
             ]
           },
           {
@@ -1028,9 +1028,9 @@
               "Value": "AccountData<T::Balance>",
               "IsLinked": false
             },
-            "FallBack": "0x000000000000000000000000000000000000000000                                                                                                    00000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "FallBack": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
-              " The balance                                                                                                     of an account.",
+              " The balance of an account.",
               "",
               " NOTE: This is only used in the case that this module is used to store balances."
             ]
@@ -1043,18 +1043,18 @@
               "Hasher": "Blake2_128Concat",
               "Key1": "T::AccountId",
               "Key2": null,
-              "Value": "Vec                                                                                                    <BalanceLock<T::Balance>>",
+              "Value": "Vec<BalanceLock<T::Balance>>",
               "IsLinked": false
             },
             "FallBack": "0x00",
             "Documentations": [
-              " Any liquidity locks on some account b                                                                                                    alances.",
+              " Any liquidity locks on some account balances.",
               " NOTE: Should only be accessed when setting, changing and freeing a lock."
             ]
           },
           {
             "Name": "StorageVersion",
-            "Modifi                                                                                                    er": "Default",
+            "Modifier": "Default",
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
@@ -1063,7 +1063,7 @@
               "Value": "Releases",
               "IsLinked": false
             },
-            "F                                                                                                    allBack": "0x00",
+            "FallBack": "0x00",
             "Documentations": [
               " Storage version of the pallet.",
               "",
@@ -1072,7 +1072,7 @@
           }
         ]
       },
-      "C                                                                                                    alls": [
+      "Calls": [
         {
           "Name": "transfer",
           "Arguments": [
@@ -1082,37 +1082,37 @@
             },
             {
               "Name": "value",
-              "Typ                                                                                                    e": "Compact<T::Balance>"
+              "Type": "Compact<T::Balance>"
             }
           ],
           "Documentations": [
             " Transfer some liquid free balance to another account.",
             "",
-            " `transfer` wi                                                                                                    ll set the `FreeBalance` of the sender and receiver.",
-            " It will decrease the total issuance of the system by the `Transf                                                                                                    erFee`.",
+            " `transfer` will set the `FreeBalance` of the sender and receiver.",
+            " It will decrease the total issuance of the system by the `TransferFee`.",
             " If the sender's account is below the existential deposit as a result",
-            " of the transfer, the account will be                                                                                                     reaped.",
+            " of the transfer, the account will be reaped.",
             "",
             " The dispatch origin for this call must be `Signed` by the transactor.",
             "",
             " # <weight>",
-            " - Dependent on a                                                                                                    rguments but not critical, given proper implementations for",
+            " - Dependent on arguments but not critical, given proper implementations for",
             "   input config types. See related functions below.",
-            " - I                                                                                                    t contains a limited number of reads and writes internally and no complex computation.",
+            " - It contains a limited number of reads and writes internally and no complex computation.",
             "",
             " Related functions:",
             "",
-            "                                                                                                       - `ensure_can_withdraw` is always called internally but has a bounded complexity.",
-            "   - Transferring balances to accoun                                                                                                    ts that did not exist before will cause",
+            "   - `ensure_can_withdraw` is always called internally but has a bounded complexity.",
+            "   - Transferring balances to accounts that did not exist before will cause",
             "      `T::OnNewAccount::on_new_account` to be called.",
-            "   - Removing enough f                                                                                                    unds from an account will trigger `T::DustRemoval::on_unbalanced`.",
-            "   - `transfer_keep_alive` works the same way as `t                                                                                                    ransfer`, but has an additional",
+            "   - Removing enough funds from an account will trigger `T::DustRemoval::on_unbalanced`.",
+            "   - `transfer_keep_alive` works the same way as `transfer`, but has an additional",
             "     check that the transfer will not kill the origin account.",
-            " --------------------                                                                                                    -------------",
+            " ---------------------------------",
             " - Base Weight: 73.64 Âµs, worst case scenario (account created, account removed)",
-            " - DB Weight: 1 Read                                                                                                     and 1 Write to destination account",
+            " - DB Weight: 1 Read and 1 Write to destination account",
             " - Origin account is already in memory, so no DB operations for them.",
-            " # </weigh                                                                                                    t>"
+            " # </weight>"
           ]
         },
         {
@@ -1132,11 +1132,11 @@
             }
           ],
           "Documentations": [
-            " Set the balances                                                                                                     of a given account.",
+            " Set the balances of a given account.",
             "",
             " This will alter `FreeBalance` and `ReservedBalance` in storage. it will",
-            " also decrease the                                                                                                     total issuance of the system (`TotalIssuance`).",
-            " If the new free or reserved balance is below the existential deposit,                                                                                                    ",
+            " also decrease the total issuance of the system (`TotalIssuance`).",
+            " If the new free or reserved balance is below the existential deposit,",
             " it will reset the account nonce (`frame_system::AccountNonce`).",
             "",
             " The dispatch origin for this call is `root`.",
@@ -1144,11 +1144,11 @@
             " # <weight>",
             " - Independent of the arguments.",
             " - Contains a limited number of reads and writes.",
-            " --------------                                                                                                    -------",
+            " ---------------------",
             " - Base Weight:",
             "     - Creating: 27.56 Âµs",
             "     - Killing: 35.11 Âµs",
-            " - DB Weight: 1 Read, 1 Write to `w                                                                                                    ho`",
+            " - DB Weight: 1 Read, 1 Write to `who`",
             " # </weight>"
           ]
         },
@@ -1157,7 +1157,7 @@
           "Arguments": [
             {
               "Name": "source",
-              "Type": "<T::Lookup as StaticLookup>::Source                                                                                                    "
+              "Type": "<T::Lookup as StaticLookup>::Source"
             },
             {
               "Name": "dest",
@@ -1168,12 +1168,12 @@
               "Type": "Compact<T::Balance>"
             }
           ],
-          "Document                                                                                                    ations": [
+          "Documentations": [
             " Exactly as `transfer`, except the origin must be root and the source account may be",
             " specified.",
-            " # <weigh                                                                                                    t>",
+            " # <weight>",
             " - Same as transfer, but additional read and write because the source account is",
-            "   not assumed to be in the over                                                                                                    lay.",
+            "   not assumed to be in the overlay.",
             " # </weight>"
           ]
         },
@@ -1182,7 +1182,7 @@
           "Arguments": [
             {
               "Name": "dest",
-              "Type": "<T::Lookup as StaticLookup>::So                                                                                                    urce"
+              "Type": "<T::Lookup as StaticLookup>::Source"
             },
             {
               "Name": "value",
@@ -1190,12 +1190,12 @@
             }
           ],
           "Documentations": [
-            " Same as the [`transfer`] call, but with a chec                                                                                                    k that the transfer will not kill the",
+            " Same as the [`transfer`] call, but with a check that the transfer will not kill the",
             " origin account.",
             "",
             " 99% of the time you want [`transfer`] instead.",
             "",
-            " [`tr                                                                                                    ansfer`]: struct.Module.html#method.transfer",
+            " [`transfer`]: struct.Module.html#method.transfer",
             " # <weight>",
             " - Cheaper than transfer because account cannot be killed.",
             " - Base Weight: 51.4 Âµs",
@@ -1204,12 +1204,12 @@
           ]
         }
       ],
-      "                                                                                                    Events": [
+      "Events": [
         {
           "Documentations": [
             " An account was created with some free balance. \\[account, free_balance\\]"
           ],
-          "Name": "Endow                                                                                                    ed",
+          "Name": "Endowed",
           "EventArgs": [
             "AccountId",
             "Balance"
@@ -1217,12 +1217,12 @@
         },
         {
           "Documentations": [
-            " An account was removed whose balance was non-zero but belo                                                                                                    w ExistentialDeposit,",
+            " An account was removed whose balance was non-zero but below ExistentialDeposit,",
             " resulting in an outright loss. \\[account, balance\\]"
           ],
           "Name": "DustLost",
           "EventArgs": [
-            "Account                                                                                                    Id",
+            "AccountId",
             "Balance"
           ]
         },
@@ -1232,7 +1232,7 @@
           ],
           "Name": "Transfer",
           "EventArgs": [
-            "Account                                                                                                    Id",
+            "AccountId",
             "AccountId",
             "Balance"
           ]
@@ -1241,7 +1241,7 @@
           "Documentations": [
             " A balance was set by root. \\[who, free, reserved\\]"
           ],
-          "Name": "BalanceS                                                                                                    et",
+          "Name": "BalanceSet",
           "EventArgs": [
             "AccountId",
             "Balance",
@@ -1250,7 +1250,7 @@
         },
         {
           "Documentations": [
-            " Some amount was deposited (e.g. for transaction                                                                                                     fees). \\[who, deposit\\]"
+            " Some amount was deposited (e.g. for transaction fees). \\[who, deposit\\]"
           ],
           "Name": "Deposit",
           "EventArgs": [
@@ -1260,7 +1260,7 @@
         },
         {
           "Documentations": [
-            " Some balance was                                                                                                     reserved (moved from free to reserved). \\[who, value\\]"
+            " Some balance was reserved (moved from free to reserved). \\[who, value\\]"
           ],
           "Name": "Reserved",
           "EventArgs": [
@@ -1269,18 +1269,18 @@
           ]
         },
         {
-          "Docu                                                                                                    mentations": [
+          "Documentations": [
             " Some balance was unreserved (moved from reserved to free). \\[who, value\\]"
           ],
           "Name": "Unreserved",
-          "EventA                                                                                                    rgs": [
+          "EventArgs": [
             "AccountId",
             "Balance"
           ]
         },
         {
           "Documentations": [
-            " Some balance was moved from the reserve of the first account to the s                                                                                                    econd account.",
+            " Some balance was moved from the reserve of the first account to the second account.",
             " Final argument indicates the destination balance type.",
             " \\[from, to, balance, destination_status\\]"
           ],
@@ -1295,11 +1295,11 @@
       ],
       "Consts": [
         {
-          "Name": "ExistentialD                                                                                                    eposit",
+          "Name": "ExistentialDeposit",
           "Type": "T::Balance",
           "Value": "0xF4010000000000000000000000000000",
           "Documentations": [
-            " The minimum amount required                                                                                                     to keep an account open."
+            " The minimum amount required to keep an account open."
           ]
         }
       ],
@@ -1308,7 +1308,7 @@
           "Documentations": [
             " Vesting balance too high to send value"
           ],
-          "Name": "VestingBal                                                                                                    ance"
+          "Name": "VestingBalance"
         },
         {
           "Documentations": [
@@ -1317,7 +1317,7 @@
           "Name": "LiquidityRestrictions"
         },
         {
-          "Docume                                                                                                    ntations": [
+          "Documentations": [
             " Got an overflow after adding"
           ],
           "Name": "Overflow"
@@ -1326,13 +1326,13 @@
           "Documentations": [
             " Balance too low to send value"
           ],
-          "Nam                                                                                                    e": "InsufficientBalance"
+          "Name": "InsufficientBalance"
         },
         {
           "Documentations": [
             " Value too low to create account due to existential deposit"
           ],
-          "Name": "Exis                                                                                                    tentialDeposit"
+          "Name": "ExistentialDeposit"
         },
         {
           "Documentations": [
@@ -1342,13 +1342,13 @@
         },
         {
           "Documentations": [
-            " A v                                                                                                    esting schedule already exists for this account"
+            " A vesting schedule already exists for this account"
           ],
           "Name": "ExistingVestingSchedule"
         },
         {
           "Documentations": [
-            " Beneficiary acc                                                                                                    ount must pre-exist"
+            " Beneficiary account must pre-exist"
           ],
           "Name": "DeadAccount"
         }
@@ -1358,7 +1358,7 @@
       "Name": "TransactionPayment",
       "Index": 6,
       "Storage": {
-        "Prefix": "TransactionPay                                                                                                    ment",
+        "Prefix": "TransactionPayment",
         "Items": [
           {
             "Name": "NextFeeMultiplier",
@@ -1367,7 +1367,7 @@
             "Function": {
               "Hasher": "None",
               "Key1": null,
-              "                                                                                                    Key2": null,
+              "Key2": null,
               "Value": "Multiplier",
               "IsLinked": false
             },
@@ -1398,19 +1398,19 @@
       "Events": null,
       "Consts": [
         {
-          "Name": "Tran                                                                                                    sactionByteFee",
+          "Name": "TransactionByteFee",
           "Type": "BalanceOf<T>",
           "Value": "0x01000000000000000000000000000000",
           "Documentations": [
-            " The fee to be pai                                                                                                    d for making a transaction; the per-byte portion."
+            " The fee to be paid for making a transaction; the per-byte portion."
           ]
         },
         {
           "Name": "WeightToFee",
-          "Type": "Vec<WeightToFeeCoefficient<BalanceOf<                                                                                                    T>>>",
+          "Type": "Vec<WeightToFeeCoefficient<BalanceOf<T>>>",
           "Value": "0x0401000000000000000000000000000000000000000001",
           "Documentations": [
-            " The polynomial that is applied in o                                                                                                    rder to derive fee from weight."
+            " The polynomial that is applied in order to derive fee from weight."
           ]
         }
       ],
@@ -1425,7 +1425,7 @@
         "Prefix": "Sudo",
         "Items": [
           {
-            "Name": "K                                                                                                    ey",
+            "Name": "Key",
             "Modifier": "Default",
             "Type": "Plain",
             "Function": {
@@ -1433,11 +1433,11 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLi                                                                                                    nked": false
+              "IsLinked": false
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
-              " The `Ac                                                                                                    countId` of the sudo key."
+              " The `AccountId` of the sudo key."
             ]
           }
         ]
@@ -1451,16 +1451,16 @@
               "Type": "Box<<T as Trait>::Call>"
             }
           ],
-          "D                                                                                                    ocumentations": [
+          "Documentations": [
             " Authenticates the sudo key and dispatches a function call with `Root` origin.",
             "",
-            " The dispatch origi                                                                                                    n for this call must be _Signed_.",
+            " The dispatch origin for this call must be _Signed_.",
             "",
             " # <weight>",
             " - O(1).",
             " - Limited storage reads.",
             " - One DB write (event).",
-            "                                                                                                     - Weight of derivative `call` execution + 10,000.",
+            " - Weight of derivative `call` execution + 10,000.",
             " # </weight>"
           ]
         },
@@ -1477,11 +1477,11 @@
             }
           ],
           "Documentations": [
-            " Authenticates the sudo                                                                                                     key and dispatches a function call with `Root` origin.",
-            " This function does not check the weight of the call, and inst                                                                                                    ead allows the",
+            " Authenticates the sudo key and dispatches a function call with `Root` origin.",
+            " This function does not check the weight of the call, and instead allows the",
             " Sudo user to specify the weight of the call.",
             "",
-            " The dispatch origin for this call must be _Signed_.                                                                                                    ",
+            " The dispatch origin for this call must be _Signed_.",
             "",
             " # <weight>",
             " - O(1).",
@@ -1498,9 +1498,9 @@
             }
           ],
           "Documentations": [
-            " Authenticates the current                                                                                                     sudo key and sets the given AccountId (`new`) as the new sudo key.",
+            " Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo key.",
             "",
-            " The dispatch origin for this call must be _Sign                                                                                                    ed_.",
+            " The dispatch origin for this call must be _Signed_.",
             "",
             " # <weight>",
             " - O(1).",
@@ -1511,7 +1511,7 @@
         },
         {
           "Name": "sudo_as",
-          "Ar                                                                                                    guments": [
+          "Arguments": [
             {
               "Name": "who",
               "Type": "<T::Lookup as StaticLookup>::Source"
@@ -1523,14 +1523,14 @@
           ],
           "Documentations": [
             " Authenticates the sudo key and dispatches a function call with `Signed` origin from",
-            " a given accou                                                                                                    nt.",
+            " a given account.",
             "",
             " The dispatch origin for this call must be _Signed_.",
             "",
             " # <weight>",
             " - O(1).",
             " - Limited storage reads.",
-            "                                                                                                     - One DB write (event).",
+            " - One DB write (event).",
             " - Weight of derivative `call` execution + 10,000.",
             " # </weight>"
           ]
@@ -1538,7 +1538,7 @@
       ],
       "Events": [
         {
-          "Documentati                                                                                                    ons": [
+          "Documentations": [
             " A sudo just took place. \\[result\\]"
           ],
           "Name": "Sudid",
@@ -1548,7 +1548,7 @@
         },
         {
           "Documentations": [
-            " The \\                                                                                                    \\[sudoer\\] just switched identity; the old key is supplied."
+            " The \\\\[sudoer\\] just switched identity; the old key is supplied."
           ],
           "Name": "KeyChanged",
           "EventArgs": [
@@ -1556,7 +1556,7 @@
           ]
         },
         {
-          "Document                                                                                                    ations": [
+          "Documentations": [
             " A sudo just took place. \\[result\\]"
           ],
           "Name": "SudoAsDone",
@@ -1570,7 +1570,7 @@
       ],
       "Errors": [
         {
-          "Doc                                                                                                    umentations": [
+          "Documentations": [
             " Sender must be the Sudo account"
           ],
           "Name": "RequireSudo"
@@ -1581,7 +1581,7 @@
       "Name": "Dmog",
       "Index": 8,
       "Storage": {
-        "Prefix": "                                                                                                    Dmog",
+        "Prefix": "Dmog",
         "Items": [
           {
             "Name": "Mogwais",
@@ -1590,25 +1590,25 @@
             "Function": {
               "Hasher": "Identity",
               "Key1": "T::Hash",
-              "Key                                                                                                    2": null,
+              "Key2": null,
               "Value": "MogwaiStruct<T::Hash, BalanceOf<T>>",
               "IsLinked": false
             },
-            "FallBack": "0x0000000000000000000000000000000000                                                                                                    000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                                                                                                    0000000000000000000000",
+            "FallBack": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
               " A map of mogwais accessible by the mogwai hash."
             ]
           },
           {
             "Name": "MogwaiOwner",
-            "Mo                                                                                                    difier": "Optional",
+            "Modifier": "Optional",
             "Type": "Map",
             "Function": {
               "Hasher": "Identity",
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "T::AccountId",
-              "IsL                                                                                                    inked": false
+              "IsLinked": false
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1616,25 +1616,25 @@
             ]
           },
           {
-            "Name": "Al                                                                                                    lMogwaisArray",
+            "Name": "AllMogwaisArray",
             "Modifier": "Default",
             "Type": "Map",
             "Function": {
               "Hasher": "Blake2_128Concat",
               "Key1": "u64",
               "Key2": null,
-              "Value                                                                                                    ": "T::Hash",
+              "Value": "T::Hash",
               "IsLinked": false
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "Documenta                                                                                                    tions": [
+            "Documentations": [
               " A map of all existing mogwais accessible by the index. "
             ]
           },
           {
             "Name": "AllMogwaisCount",
             "Modifier": "Default",
-            "Typ                                                                                                    e": "Plain",
+            "Type": "Plain",
             "Function": {
               "Hasher": "None",
               "Key1": null,
@@ -1642,14 +1642,14 @@
               "Value": "u64",
               "IsLinked": false
             },
-            "FallBack": "0x00000000000                                                                                                    00000",
+            "FallBack": "0x0000000000000000",
             "Documentations": [
               " A count over all existing mogwais in the system."
             ]
           },
           {
             "Name": "AllMogwaisIndex",
-            "Modifier": "Def                                                                                                    ault",
+            "Modifier": "Default",
             "Type": "Map",
             "Function": {
               "Hasher": "Identity",
@@ -1658,41 +1658,41 @@
               "Value": "u64",
               "IsLinked": false
             },
-            "FallBac                                                                                                    k": "0x0000000000000000",
+            "FallBack": "0x0000000000000000",
             "Documentations": [
               " A map of the index of the mogwai accessible by the mogwai hash."
             ]
           },
           {
-            "Name": "                                                                                                    OwnedMogwaisArray",
+            "Name": "OwnedMogwaisArray",
             "Modifier": "Default",
             "Type": "Map",
             "Function": {
               "Hasher": "Blake2_128Concat",
-              "Key1": "(T::AccountId, u64)                                                                                                    ",
+              "Key1": "(T::AccountId, u64)",
               "Key2": null,
               "Value": "T::Hash",
               "IsLinked": false
             },
-            "FallBack": "0x00000000000000000000000000000000000000000000000000000000                                                                                                    00000000",
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
               " A map of all mogwai hashes associated with an account."
             ]
           },
           {
             "Name": "OwnedMogwaisCount",
-            "Mod                                                                                                    ifier": "Default",
+            "Modifier": "Default",
             "Type": "Map",
             "Function": {
               "Hasher": "Blake2_128Concat",
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "u64",
-              "I                                                                                                    sLinked": false
+              "IsLinked": false
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
-              " A count over all existing mogwais owned by one accou                                                                                                    nt."
+              " A count over all existing mogwais owned by one account."
             ]
           },
           {
@@ -1702,13 +1702,13 @@
             "Function": {
               "Hasher": "Identity",
               "Key1": "T::Hash",
-              "K                                                                                                    ey2": null,
+              "Key2": null,
               "Value": "u64",
               "IsLinked": false
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
-              " A map of the owned mogwais                                                                                                     index accessible by the mogwai hash."
+              " A map of the owned mogwais index accessible by the mogwai hash."
             ]
           },
           {
@@ -1728,31 +1728,31 @@
             ]
           },
           {
-            "Nam                                                                                                    e": "Auctions",
+            "Name": "Auctions",
             "Modifier": "Default",
             "Type": "Map",
             "Function": {
               "Hasher": "Blake2_128Concat",
               "Key1": "T::BlockNumber",
-              "Key2": "n                                                                                                    ull",
+              "Key2": "null",
               "Value": "Vec<Auction<T::Hash, BalanceOf<T>, T::BlockNumber, T::AccountId>\n>",
               "IsLinked": false
             },
             "FallBack": "0x00",
-            "D                                                                                                    ocumentations": [
+            "Documentations": [
               " A vec of mogwai auctions accessible by the expiry block number. "
             ]
           },
           {
             "Name": "AuctionPeriodLimit",
-            "Modi                                                                                                    fier": "Default",
+            "Modifier": "Default",
             "Type": "Plain",
             "Function": {
               "Hasher": "None",
               "Key1": null,
               "Key2": null,
               "Value": "T::BlockNumber",
-              "IsLinked": "f                                                                                                    alse"
+              "IsLinked": "false"
             },
             "FallBack": "0xE8030000",
             "Documentations": [
@@ -1767,12 +1767,12 @@
               "Hasher": "Blake2_128Concat",
               "Key1": "(T::Hash, T::AccountId)",
               "Key2": null,
-              "Value": "Bal                                                                                                    anceOf<T>",
+              "Value": "BalanceOf<T>",
               "IsLinked": false
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
-              " A map of bids accessibl                                                                                                    e by account id and mogwai hash."
+              " A map of bids accessible by account id and mogwai hash."
             ]
           },
           {
@@ -1780,14 +1780,14 @@
             "Modifier": "Default",
             "Type": "Map",
             "Function": {
-              "Hasher": "Blake2                                                                                                    _128Concat",
+              "Hasher": "Blake2_128Concat",
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Vec<T::AccountId>",
               "IsLinked": false
             },
             "FallBack": "0x00",
-            "Documentations                                                                                                    ": [
+            "Documentations": [
               " A vec of accounts accessible by mogwai hash."
             ]
           },
@@ -1796,7 +1796,7 @@
             "Modifier": "Default",
             "Type": "Plain",
             "Function": {
-              "Ha                                                                                                    sher": "None",
+              "Hasher": "None",
               "Key1": null,
               "Key2": null,
               "Value": "u64",
@@ -1804,7 +1804,7 @@
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
-              "                                                                                                     The nonce used for randomness."
+              " The nonce used for randomness."
             ]
           }
         ]
@@ -1818,7 +1818,7 @@
               "Type": "T::Hash"
             },
             {
-              "N                                                                                                    ame": "new_price",
+              "Name": "new_price",
               "Type": "BalanceOf<T>"
             }
           ],
@@ -1847,7 +1847,7 @@
               "Type": "T::Hash"
             }
           ],
-          "Documentat                                                                                                    ions": [
+          "Documentations": [
 
           ]
         },
@@ -1860,7 +1860,7 @@
             },
             {
               "Name": "max_price",
-              "Type": "BalanceOf<                                                                                                    T>"
+              "Type": "BalanceOf<T>"
             }
           ],
           "Documentations": [
@@ -1875,7 +1875,7 @@
               "Type": "T::Hash"
             },
             {
-              "Name": "mogwai_i                                                                                                    d_2",
+              "Name": "mogwai_id_2",
               "Type": "T::Hash"
             }
           ],
@@ -1904,7 +1904,7 @@
           ]
         },
         {
-          "Name": "bid_a                                                                                                    uction",
+          "Name": "bid_auction",
           "Arguments": [
             {
               "Name": "mogwai_id",
@@ -1920,7 +1920,7 @@
           ]
         }
       ],
-      "                                                                                                    Events": [
+      "Events": [
         {
           "Documentations": [
             " A mogwai has been created."
@@ -1932,7 +1932,7 @@
           ]
         },
         {
-          "Do                                                                                                    cumentations": [
+          "Documentations": [
             " A price has been set for a mogwai."
           ],
           "Name": "PriceSet",
@@ -1943,7 +1943,7 @@
           ]
         },
         {
-          "Do                                                                                                    cumentations": [
+          "Documentations": [
             " A mogwai changed his owner."
           ],
           "Name": "Transferred",
@@ -1954,7 +1954,7 @@
           ]
         },
         {
-          "Docu                                                                                                    mentations": [
+          "Documentations": [
             " A mogwai has been was bought."
           ],
           "Name": "Bought",
@@ -1991,7 +1991,7 @@
       "Consts": [
 
       ],
-      "Erro                                                                                                    rs": [
+      "Errors": [
         {
           "Documentations": [
             " A Storage overflow, has occured make sure to validate first."
@@ -1999,14 +1999,14 @@
           "Name": "StorageOverflow"
         },
         {
-          "Doc                                                                                                    umentations": [
+          "Documentations": [
             " The mogwai hash already exists."
           ],
           "Name": "MogwaiAlreadyExists"
         },
         {
           "Documentations": [
-            " The mogwais hash do                                                                                                    esn't exist."
+            " The mogwais hash doesn't exist."
           ],
           "Name": "MogwaiDoesntExists"
         }

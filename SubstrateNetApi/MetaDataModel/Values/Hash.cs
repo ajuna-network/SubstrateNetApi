@@ -4,7 +4,7 @@ using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
-    public class Hash
+    public class Hash : IEncodable
     {
         public const int HEXSIZE = 32;
 
@@ -33,6 +33,11 @@ namespace SubstrateNetApi.MetaDataModel.Values
         public string ToString()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        public byte[] Encode()
+        {
+            return Bytes;
         }
     }
 }

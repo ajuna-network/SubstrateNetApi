@@ -64,14 +64,21 @@ namespace SubstrateNetApi
         /// <value> The chain. </value>
         public Modules.Chain Chain { get; }
 
+        /// <summary> Gets the state. </summary>
+        /// <value> The state. </value>
+        public Modules.State State { get; }
+
         /// <summary> Constructor. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="uri"> URI of the resource. </param>
         public SubstrateClient(Uri uri)
         {
             _uri = uri;
+
             System = new Modules.System(this);
             Chain = new Modules.Chain(this);
+            State = new Modules.State(this);
+
             RegisterTypeConverter(new U8TypeConverter());
             RegisterTypeConverter(new U16TypeConverter());
             RegisterTypeConverter(new U32TypeConverter());
