@@ -3,6 +3,8 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the system class. </summary>
+using Newtonsoft.Json.Linq;
+using SubstrateNetApi.MetaDataModel.Values;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -77,6 +79,16 @@ namespace SubstrateNetApi.Modules
         public async Task<uint> AccountNextIndexAsync(string address, CancellationToken token)
         {
             return await _client.InvokeAsync<uint>("system_accountNextIndex", new object[] { address }, token);
+        }
+
+        public async Task<Health> HealthAsync()
+        {
+            return await HealthAsync(CancellationToken.None);
+        }
+
+        public async Task<Health> HealthAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<Health>("system_health", null, token);
         }
     }
 }

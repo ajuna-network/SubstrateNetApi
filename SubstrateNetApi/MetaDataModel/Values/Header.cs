@@ -19,8 +19,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
         [JsonConverter(typeof(HashTypeConverter))]
         public Hash StateRoot { get; set; }
 
-        override
-        public string ToString()
+        public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }

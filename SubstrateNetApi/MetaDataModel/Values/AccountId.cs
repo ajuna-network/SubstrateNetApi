@@ -27,8 +27,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             Address = Utils.GetAddressFrom(PublicKey);
         }
 
-        override
-        public string ToString()
+        public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }

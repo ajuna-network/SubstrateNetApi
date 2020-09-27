@@ -16,8 +16,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
         public Block Block { get; set; }
         public object Justification { get; set; }
 
-        override
-        public string ToString()
+        public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }

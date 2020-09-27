@@ -22,8 +22,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             AccountData = new AccountData(memory.Slice(5));
         }
 
-        override
-        public string ToString()
+        public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }

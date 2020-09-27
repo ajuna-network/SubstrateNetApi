@@ -29,8 +29,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             HexString = Utils.Bytes2HexString(Bytes, Utils.HexStringFormat.PREFIXED);
         }
 
-        override
-        public string ToString()
+        public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }

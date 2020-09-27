@@ -26,8 +26,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             FeeFrozen = new Balance(memory.Slice(48, 16).ToArray());
         }
 
-        override
-        public string ToString()
+        public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }

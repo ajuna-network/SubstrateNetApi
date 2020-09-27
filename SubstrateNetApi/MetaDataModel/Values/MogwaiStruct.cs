@@ -25,8 +25,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             Gen = BitConverter.ToUInt64(memory.Slice(80, 8).ToArray(), 0);
         }
 
-        override
-        public string ToString()
+        public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }
