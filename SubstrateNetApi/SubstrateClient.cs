@@ -145,13 +145,7 @@ namespace SubstrateNetApi
             _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
 
-            _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_requestTokenSource.Token, token);
-            var result = await _jsonRpc.InvokeWithCancellationAsync<string>("state_getMetadata", null, linkedTokenSource.Token);
-            linkedTokenSource.Dispose();
-            _requestTokenSource.Dispose();
-            _requestTokenSource = null;
-
+            var result = await State.GetMetaDataAsync(token);
             var metaDataParser = new MetaDataParser(_uri.OriginalString, result);
             MetaData = metaDataParser.MetaData;
             Logger.Debug("MetaData parsed.");
@@ -316,7 +310,7 @@ namespace SubstrateNetApi
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
 
-            Logger.Debug($"Invoking request[{method}, params: {parameters}] {MetaData.Origin}");
+            Logger.Debug($"Invoking request[{method}, params: {parameters}] {MetaData?.Origin}");
 
             _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
