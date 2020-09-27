@@ -4,6 +4,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/darkfriend77/SubstrateNetApi.svg)
 [![license](https://img.shields.io/github/license/darkfriend77/SubstrateNetApi)](https://img.shields.io/github/license/darkfriend77/SubstrateNetApi)
 [![contributors](https://img.shields.io/github/contributors/darkfriend77/SubstrateNetApi)](https://img.shields.io/github/contributors/darkfriend77/SubstrateNetApi)
+Just another Substrate .NET API
 
 ## Table of Content
 
