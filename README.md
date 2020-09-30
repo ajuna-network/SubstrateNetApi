@@ -14,6 +14,13 @@
 
 ### Substrate in Unity3D
 
+#### Method A:
+Added the dependency needed, there is an example project, which already importet the necessary dependencies.
+https://github.com/darkfriend77/Unity3DExample
+
+
+#### Method B:
+*Currently there is an issue where NuGetForUnity, will pull to many dependency and break the project.*
 - Download *NuGetForUnity.x.y.z.unitypackage* Link https://github.com/GlitchEnzo/NuGetForUnity/releases
 - Open our unity project
 - *Asset > Import package > Custom package*
