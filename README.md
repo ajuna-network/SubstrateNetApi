@@ -15,9 +15,8 @@
 ### Substrate in Unity3D
 
 #### Method A:
-Added the dependency needed, there is an example project, which already importet the necessary dependencies.
-https://github.com/darkfriend77/Unity3DExample
-
+Added the dependency needed, there is an example project (https://github.com/darkfriend77/Unity3DExample), which already importet the necessary dependencies.
+![NuGet Dependencies](https://github.com/darkfriend77/SubstrateNetApi/raw/origin/images/dependencies.png)
 
 #### Method B:
 *Currently there is an issue where NuGetForUnity, will pull to many dependency and break the project.*
