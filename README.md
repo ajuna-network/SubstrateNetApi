@@ -14,6 +14,14 @@
 
 ### Substrate in Unity3D
 
+- Download *NuGetForUnity.x.y.z.unitypackage* Link https://github.com/GlitchEnzo/NuGetForUnity/releases
+- Open our unity project
+- *Asset > Import package > Custom package*
+- Choose downloaded NuGetForUnity.x.y.z.unitypackage
+- Installation for **NuGetForUnity** https://github.com/GlitchEnzo/NuGetForUnity
+- *NuGet > ManageNuGet Packages*
+- *Search* **SubstrateNetApi** install
+
 ## Requirements
 
 
