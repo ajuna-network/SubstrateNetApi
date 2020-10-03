@@ -26,14 +26,14 @@ namespace SubstrateNetApi.Modules
             _client = client;
         }
 
-        public async Task<Extrinsic[]> PendingExtrinsicAsync()
+        public async Task<ExtrinsicModel[]> PendingExtrinsicAsync()
         {
             return await PendingExtrinsicAsync(CancellationToken.None);
         }
 
-        public async Task<Extrinsic[]> PendingExtrinsicAsync(CancellationToken token)
+        public async Task<ExtrinsicModel[]> PendingExtrinsicAsync(CancellationToken token)
         {
-            return await _client.InvokeAsync<Extrinsic[]>("author_pendingExtrinsics", null, token);
+            return await _client.InvokeAsync<ExtrinsicModel[]>("author_pendingExtrinsics", null, token);
         }
 
     }

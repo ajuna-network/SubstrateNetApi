@@ -6,17 +6,13 @@ using System.Text;
 
 namespace SubstrateNetApi.MetaDataModel.Extrinsic
 {
-    public class Extrinsic
+    public class ExtrinsicModel
     {
-        public byte[] Bytes;
+        public bool Signed;
 
-        public CompactInteger Length;
+        public byte TransactionVersion;
 
-        public byte SignatureVersion;
-
-        public Account Sender;
-
-        public byte[] Signature;
+        public Account Account;
 
         public Era Era;
 
@@ -26,23 +22,25 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
 
         public Method Method;
 
-        public Extrinsic(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public byte[] Signature;
+
+        public ExtrinsicModel(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
         }
 
-        internal Extrinsic(Memory<byte> memory)
+        internal ExtrinsicModel(Memory<byte> memory)
         {
-            Bytes = memory.ToArray();
-
             int p = 0;
             int m;
 
             // length
-            Length = CompactInteger.Decode(memory.ToArray(), ref p);
+            var length = CompactInteger.Decode(memory.ToArray(), ref p);
 
             // signature version
             m = 1;
-            SignatureVersion = memory.Slice(p, m).ToArray()[0];
+            var _signatureVersion = memory.Slice(p, m).ToArray()[0];
+            Signed = _signatureVersion >= 0x80;
+            TransactionVersion = (byte)(_signatureVersion - (Signed ? 0x80 : 0x00));
             p += m;
 
             // sender public key
@@ -55,7 +53,7 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
             var _senderPublicKeyType = memory.Slice(p, m).ToArray()[0];
             p += m;
 
-            Sender = new Account((KeyType)_senderPublicKeyType, _senderPublicKey);
+            Account = new Account((KeyType)_senderPublicKeyType, _senderPublicKey);
 
             // signature
             m = 64;
@@ -88,6 +86,17 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
             var parameter = memory.Slice(p).ToArray();
 
             Method = new Method(method[0], method[1], parameter);
+        }
+
+        public ExtrinsicModel(bool signed, Account account, CompactInteger nonce, Method method, Era era, CompactInteger tip)
+        {
+            Signed = signed;
+            TransactionVersion = 4;
+            Account = account;
+            Era = era;
+            Nonce = nonce;
+            Tip = tip;
+            Method = method;
         }
 
         public override string ToString()

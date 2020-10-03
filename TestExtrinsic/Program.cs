@@ -190,7 +190,9 @@ namespace TestExtrinsic
 
             Method method = new Method(moduleIndex[0], moduleIndex[1], parameters);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(sendPublicKeyType[0] == 0 ? KeyType.ED25519 : KeyType.SR25519, new byte[0], sendPublicKey), nonce, method, new byte[0], new byte[0], 47, 1234);
+            Era eraObject = new Era(Constants.EXTRINSIC_ERA_PERIOD_DEFAULT, 47, 47 == 0 ? true : false);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(sendPublicKeyType[0] == 0 ? KeyType.ED25519 : KeyType.SR25519, new byte[0], sendPublicKey), method, eraObject, nonce, 1234, new Hash(new byte[0]), new Hash(new byte[0]));
 
             uncheckedExtrinsic.AddPayloadSignature(signature);
 
