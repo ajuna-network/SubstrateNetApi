@@ -31,12 +31,12 @@ namespace SubstrateNetApi.MetaDataModel
 
         public byte[] PayloadSignature => _signature;
 
-        public UnCheckedExtrinsic(bool signed, Account account, CompactInteger nonce, byte module, byte call, byte[] parameters, byte[] genesisHash, byte[] currentBlockHash, ulong currentBlockNumber, CompactInteger tip)
+        public UnCheckedExtrinsic(bool signed, Account account, CompactInteger nonce, Method method, byte[] genesisHash, byte[] currentBlockHash, ulong currentBlockNumber, CompactInteger tip)
         {
             _signed = signed;
             _account = account;
             _nonce = nonce;
-            _method = new Method(module, call, parameters);
+            _method = method;
             _era = new Era(Constants.EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber, currentBlockNumber == 0 ? true : false);
             _genesis = new Hash(genesisHash);
             _startEra = new Hash(currentBlockHash);

@@ -3,15 +3,17 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the account information converter class. </summary>
+using Newtonsoft.Json;
 using NLog;
 using SubstrateNetApi.MetaDataModel.Values;
+using System;
 
 namespace SubstrateNetApi.TypeConverters
 {
     /// <summary> An account information converter. </summary>
     /// <remarks> 19.09.2020. </remarks>
     /// <seealso cref="ITypeConverter"/>
-    internal class AccountInfoConverter : ITypeConverter
+    internal class AccountInfoTypeConverter : JsonConverter<AccountInfo>, ITypeConverter
     {
         /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
@@ -29,6 +31,16 @@ namespace SubstrateNetApi.TypeConverters
         {
             Logger.Debug($"Converting {value} to AccountInfo.");
             return new AccountInfo(value);
+        }
+
+        public override AccountInfo ReadJson(JsonReader reader, Type objectType, AccountInfo existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteJson(JsonWriter writer, AccountInfo value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

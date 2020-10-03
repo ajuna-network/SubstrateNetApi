@@ -8,23 +8,24 @@ namespace SubstrateNetApi.MetaDataModel.Values
 {
     public enum KeyType
     {
-        SR25519, ED25519
+        ED25519, SR25519
     }
 
     public class Account : AccountId
     {
         public KeyType KeyType;
 
+        [JsonIgnore]
         public byte KeyTypeByte
         {
             get
             {
                 switch (KeyType)
                 {
-                    case KeyType.SR25519:
-                        return (byte)1;
                     case KeyType.ED25519:
-                        return (byte) 0;
+                        return 0;
+                    case KeyType.SR25519:
+                        return 1;
                     default:
                         throw new Exception($"Unknown key type found '{KeyType}'.");
                 }
@@ -38,6 +39,13 @@ namespace SubstrateNetApi.MetaDataModel.Values
         {
             KeyType = keyType;
             PrivateKey = privateKey;
+
+        }
+
+        public Account(KeyType keyType, byte[] publicKey) : base(publicKey)
+        {
+            KeyType = keyType;
+            PrivateKey = null;
 
         }
     }

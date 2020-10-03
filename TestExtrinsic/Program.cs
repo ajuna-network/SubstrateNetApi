@@ -13,11 +13,11 @@ namespace TestExtrinsic
     {
         static void Main(string[] args)
         {
-            //DecodeExtrinsicString();
+            DecodeExtrinsicString();
             //EraTesting();
             //CompactIntegerDecodingTest()
 
-            Console.WriteLine(CompactInteger.Decode(Utils.HexToByteArray("0x76d")));
+            //Console.WriteLine(CompactInteger.Decode(Utils.HexToByteArray("0x76d")));
         }
 
         private static void EraTesting()
@@ -87,8 +87,8 @@ namespace TestExtrinsic
             // dest public key                                                                                                                                                                                                                                0x9effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e
             //string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
             //string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
-            //string balanceTransfer = "0x310284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e007c9777cf14fe0e14e8aef019695043be2fd153a75ff3381f4cc4850755d537b1a9d7920e509ee2e4e1f244dad670dc44ec3fc24388181e6465fdda13d59ae70063001c000400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d02890700";
-            //string pendingExtrinsic = balanceTransfer;
+            string balanceTransfer = "0x3102844b94e38b0c2ee21c367d4c9584204ce62edf5b4a6f675f10678cc56b6ea86e71000b893ef2bbed9be566d61d14eba57b454118328929944d71db86b4c7989570be959597948561639da02eadd516f830ff5ba7aab938b87e63bc9d61d1c178e80cb50020000500d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d0284d717";
+            string pendingExtrinsic = balanceTransfer;
 
 
             //string dmogCreate = "0xa50184278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00cbbf8076d31e163051556563a9de71816ba05fac08b905b14c2e6d266b7c621f8abadb2776c6d35f1990ed0a3fd768493ce85ac78ef654d69760e7d80273af01f5020849130602";
@@ -102,8 +102,8 @@ namespace TestExtrinsic
 
 
             //string dmogCreate = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e150314000602";
-            string dmogCreate = "0xA10184278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E008C8C7DC53DE26E417D2D1BC0295399D2670361A84D267BD60DE92C2FD7C4C9E515833EEF4107ED71EAC395D4BDAC79C81B144538DFC55090506DC4758D5A3109D50320000602";
-            string pendingExtrinsic = dmogCreate;
+            //string dmogCreate = "0xA10184278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E008C8C7DC53DE26E417D2D1BC0295399D2670361A84D267BD60DE92C2FD7C4C9E515833EEF4107ED71EAC395D4BDAC79C81B144538DFC55090506DC4758D5A3109D50320000602";
+            //string pendingExtrinsic = dmogCreate;
 
             byte[] bytes; // = Utils.HexToByteArray(pendingExtrinsic);
 
@@ -188,7 +188,9 @@ namespace TestExtrinsic
                 bytes = Utils.HexToByteArray(byteString);
             }
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(sendPublicKeyType[0] == 0 ? KeyType.ED25519 : KeyType.SR25519, new byte[0], sendPublicKey), nonce, moduleIndex[0], moduleIndex[1], parameters, new byte[0], new byte[0], 47, 1234);
+            Method method = new Method(moduleIndex[0], moduleIndex[1], parameters);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(sendPublicKeyType[0] == 0 ? KeyType.ED25519 : KeyType.SR25519, new byte[0], sendPublicKey), nonce, method, new byte[0], new byte[0], 47, 1234);
 
             uncheckedExtrinsic.AddPayloadSignature(signature);
 

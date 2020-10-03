@@ -50,6 +50,8 @@ namespace SubstrateNetApi
 
         private HashTypeConverter _hashTypeConverter = new HashTypeConverter();
 
+        private ExtrinsicJsonConverter _extrinsicJsonConverter = new ExtrinsicJsonConverter();
+
         /// <summary> Gets or sets information describing the meta. </summary>
         /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
@@ -68,6 +70,10 @@ namespace SubstrateNetApi
         /// <value> The state. </value>
         public Modules.State State { get; }
 
+        /// <summary> Gets the author. </summary>
+        /// <value> The author. </value>
+        public Modules.Author Author { get; }
+
         /// <summary> Constructor. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="uri"> URI of the resource. </param>
@@ -78,6 +84,7 @@ namespace SubstrateNetApi
             System = new Modules.System(this);
             Chain = new Modules.Chain(this);
             State = new Modules.State(this);
+            Author = new Modules.Author(this);
 
             RegisterTypeConverter(new U8TypeConverter());
             RegisterTypeConverter(new U16TypeConverter());
@@ -85,7 +92,7 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new U64TypeConverter());
             RegisterTypeConverter(new AccountIdTypeConverter());
             RegisterTypeConverter(_hashTypeConverter);
-            RegisterTypeConverter(new AccountInfoConverter());
+            RegisterTypeConverter(new AccountInfoTypeConverter());
         }
 
         /// <summary> Registers the type converter described by converter. </summary>
@@ -137,6 +144,7 @@ namespace SubstrateNetApi
             var formatter = new JsonMessageFormatter();
 
             formatter.JsonSerializer.Converters.Add(_hashTypeConverter);
+            formatter.JsonSerializer.Converters.Add(_extrinsicJsonConverter);
 
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
@@ -276,7 +284,7 @@ namespace SubstrateNetApi
             if (call.Arguments?.Length > 0 && callArguments == null)
                 throw new MissingParameterException($"{callArguments.ModuleName}.{callArguments.CallName} needs {call.Arguments.Length} parameter(s)!");
 
-            Method method = new Method(module.Index, module.IndexOf(call), callArguments?.Encode());
+            Method method = new Method(module, call, callArguments?.Encode());
 
             uint nonce = await System.AccountNextIndexAsync(account.Address, token);
 

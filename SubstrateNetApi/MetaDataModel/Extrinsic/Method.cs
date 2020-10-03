@@ -1,45 +1,56 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace SubstrateNetApi.MetaDataModel
 {
     public class Method
     {
-        private byte _moduleIndex;
+        public string ModuleName;
 
-        private byte _callIndex;
+        public byte ModuleIndex;
 
-        private byte[] _parameters;
+        public string CallName;
 
+        public byte CallIndex;
+
+        public byte[] Parameters;
+        
         public Method(byte moduleIndex, byte callIndex, byte[] parameters)
         {
-            _moduleIndex = moduleIndex;
-            _callIndex = callIndex;
-            _parameters = parameters ?? new byte[0];
-        }
-
-        public Method(byte moduleIndex, byte callIndex, string parameters)
-        {
-            _moduleIndex = moduleIndex;
-            _callIndex = callIndex;
-            _parameters = parameters != null ? Utils.HexToByteArray(parameters) : new byte[0];
-        }
-        
+            ModuleIndex = moduleIndex;
+            CallIndex = callIndex;
+            Parameters = parameters ?? new byte[0];
+        }     
 
         public Method(byte moduleIndex, byte callIndex)
         {
-            _moduleIndex = moduleIndex;
-            _callIndex = callIndex;
-            _parameters = new byte[0];
+            ModuleIndex = moduleIndex;
+            CallIndex = callIndex;
+            Parameters = new byte[0];
+        }
+
+        public Method(Module module, Call call, byte[] parameters)
+        {
+            ModuleName = module.Name;
+            ModuleIndex = module.Index;
+            CallName = call.Name;
+            CallIndex = module.IndexOf(call);
+            Parameters = parameters;
         }
 
         public byte[] Encode()
         {
             var result = new List<byte>();
-            result.Add(_moduleIndex);
-            result.Add(_callIndex);
-            result.AddRange(_parameters);
+            result.Add(ModuleIndex);
+            result.Add(CallIndex);
+            result.AddRange(Parameters);
             return result.ToArray();
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
