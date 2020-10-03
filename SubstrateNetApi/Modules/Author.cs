@@ -4,6 +4,7 @@
 /// </copyright>
 /// <summary> Implements the author class. </summary>
 using SubstrateNetApi.MetaDataModel.Extrinsics;
+using SubstrateNetApi.MetaDataModel.Values;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,6 +33,16 @@ namespace SubstrateNetApi.Modules
         public async Task<Extrinsic[]> PendingExtrinsicAsync(CancellationToken token)
         {
             return await _client.InvokeAsync<Extrinsic[]>("author_pendingExtrinsics", null, token);
+        }
+
+        public async Task<Hash> SubmitExtrinsicAsync(string parameters)
+        {
+            return await SubmitExtrinsicAsync(parameters, CancellationToken.None);
+        }
+
+        public async Task<Hash> SubmitExtrinsicAsync(string parameters, CancellationToken token)
+        {
+            return await _client.InvokeAsync<Hash>("author_submitExtrinsic", new object[] { parameters }, token);
         }
 
     }

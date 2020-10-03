@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.Threading;
 using Newtonsoft.Json.Linq;
 using NLog;
+using NLog.Config;
+using NLog.Targets;
 using StreamJsonRpc;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Calls;
@@ -20,11 +22,15 @@ namespace DemoApiTest
 
         private static async Task Main(string[] args)
         {
-            var config = new NLog.Config.LoggingConfiguration();
+            var config = new LoggingConfiguration();
 
             // Targets where to log to: File and Console
-            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "log.txt", DeleteOldFileOnStartup = true };
-            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+            var logfile = new FileTarget("logfile") { 
+                FileName = "log.txt", 
+                DeleteOldFileOnStartup = true 
+            };
+
+            var logconsole = new ConsoleTarget("logconsole");
 
             // Rules for mapping loggers to targets            
             config.AddRule(LogLevel.Trace, LogLevel.Fatal, logconsole);
@@ -107,24 +113,18 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.HexToByteArray("0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D")), cancellationToken);
 
             //var reqResult = await client.GetMethodAsync<JArray>("author_pendingExtrinsics", cancellationToken);
-            var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
-
 
             // *************************** Final Test
             //var reqResult = await client.SubmitExtrinsicAsync(DmogCall.CreateMogwai(), accountAlice, 0, 64, cancellationToken);
-
-            //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
+            //var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
+            var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
 
-
-
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
-
-            Console.WriteLine($"RESPONSE: '{reqResult[0]}'");
 
             // Close connection
             await client.CloseAsync(cancellationToken);

@@ -297,7 +297,7 @@ namespace SubstrateNetApi
 
             var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra);
             var parameters = Utils.Bytes2HexString(uncheckedExtrinsic.Encode(), Utils.HexStringFormat.PREFIXED);
-            var resultString = await InvokeAsync<Hash>("author_submitExtrinsic", new object[] { parameters }, token);
+            var resultString = await Author.SubmitExtrinsicAsync(parameters, token);
             
             return resultString;
         }
