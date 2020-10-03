@@ -1,14 +1,10 @@
-﻿using Schnorrkel.Signed;
-using SubstrateNetApi.MetaDataModel.Extrinsic;
-using SubstrateNetApi.MetaDataModel.Values;
+﻿using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Text;
 
-namespace SubstrateNetApi.MetaDataModel
+namespace SubstrateNetApi.MetaDataModel.Extrinsics
 {
-    public class UnCheckedExtrinsic : ExtrinsicModel
+    public class UnCheckedExtrinsic : Extrinsic
     {
         private readonly Hash _genesis;
 
@@ -41,7 +37,7 @@ namespace SubstrateNetApi.MetaDataModel
             var list = new List<byte>();
 
             // 4 is the TRANSACTION_VERSION constant and it is 7 bits long, the highest bit 1 for signed transaction, 0 for unsigned.
-            list.Add((byte)(4 | (Signed ? 0x80 : 0)));
+            list.Add((byte)(Constants.EXTRINSIC_VERSION | (Signed ? 0x80 : 0)));
 
             // 32 bytes
             list.AddRange(Account.PublicKey);

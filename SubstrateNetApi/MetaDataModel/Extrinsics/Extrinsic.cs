@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SubstrateNetApi.MetaDataModel.Extrinsic
+namespace SubstrateNetApi.MetaDataModel.Extrinsics
 {
-    public class ExtrinsicModel
+    public class Extrinsic
     {
         public bool Signed;
 
@@ -24,11 +22,11 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
 
         public byte[] Signature;
 
-        public ExtrinsicModel(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public Extrinsic(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
         }
 
-        internal ExtrinsicModel(Memory<byte> memory)
+        internal Extrinsic(Memory<byte> memory)
         {
             int p = 0;
             int m;
@@ -88,10 +86,10 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsic
             Method = new Method(method[0], method[1], parameter);
         }
 
-        public ExtrinsicModel(bool signed, Account account, CompactInteger nonce, Method method, Era era, CompactInteger tip)
+        public Extrinsic(bool signed, Account account, CompactInteger nonce, Method method, Era era, CompactInteger tip)
         {
             Signed = signed;
-            TransactionVersion = 4;
+            TransactionVersion = Constants.EXTRINSIC_VERSION;
             Account = account;
             Era = era;
             Nonce = nonce;

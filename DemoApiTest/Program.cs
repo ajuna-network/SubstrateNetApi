@@ -8,7 +8,7 @@ using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Calls;
-using SubstrateNetApi.MetaDataModel.Extrinsic;
+using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 

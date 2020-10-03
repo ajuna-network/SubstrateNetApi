@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;

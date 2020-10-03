@@ -2,7 +2,7 @@
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 
-namespace SubstrateNetApi.MetaDataModel.Extrinsic
+namespace SubstrateNetApi.MetaDataModel.Extrinsics
 {
     public class Era : IEncodable
     {

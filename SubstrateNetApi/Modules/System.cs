@@ -3,7 +3,6 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the system class. </summary>
-using Newtonsoft.Json.Linq;
 using SubstrateNetApi.MetaDataModel.Values;
 using System.Threading;
 using System.Threading.Tasks;

@@ -9,7 +9,7 @@ using StreamJsonRpc;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.MetaDataModel;
 using SubstrateNetApi.MetaDataModel.Calls;
-using SubstrateNetApi.MetaDataModel.Extrinsic;
+using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 using System;

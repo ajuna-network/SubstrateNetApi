@@ -1,9 +1,7 @@
-﻿using SubstrateNetApi.MetaDataModel.Extrinsic;
-using SubstrateNetApi.MetaDataModel.Values;
-using System;
+﻿using SubstrateNetApi.MetaDataModel.Values;
 using System.Collections.Generic;
 
-namespace SubstrateNetApi.MetaDataModel
+namespace SubstrateNetApi.MetaDataModel.Extrinsics
 {
     public class SignedExtensions
     {
@@ -35,7 +33,7 @@ namespace SubstrateNetApi.MetaDataModel
         public byte[] GetExtra()
         {
             var bytes = new List<byte>();
-           
+
             // CheckMortality
             bytes.AddRange(_mortality.Encode());
 
@@ -44,7 +42,7 @@ namespace SubstrateNetApi.MetaDataModel
 
             // ChargeTransactionPayment
             bytes.AddRange(_chargeTransactionPayment.Encode());
-            
+
             return bytes.ToArray();
         }
 
@@ -76,7 +74,7 @@ namespace SubstrateNetApi.MetaDataModel
 
             // Additional Signed: SpecVersion, TxVersion, Genesis, Blockhash
             bytes.AddRange(GetAdditionalSigned());
-            
+
             return bytes.ToArray();
         }
 

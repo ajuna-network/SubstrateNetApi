@@ -3,9 +3,7 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the author class. </summary>
-using Newtonsoft.Json.Linq;
-using SubstrateNetApi.MetaDataModel.Extrinsic;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Extrinsics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,14 +24,14 @@ namespace SubstrateNetApi.Modules
             _client = client;
         }
 
-        public async Task<ExtrinsicModel[]> PendingExtrinsicAsync()
+        public async Task<Extrinsic[]> PendingExtrinsicAsync()
         {
             return await PendingExtrinsicAsync(CancellationToken.None);
         }
 
-        public async Task<ExtrinsicModel[]> PendingExtrinsicAsync(CancellationToken token)
+        public async Task<Extrinsic[]> PendingExtrinsicAsync(CancellationToken token)
         {
-            return await _client.InvokeAsync<ExtrinsicModel[]>("author_pendingExtrinsics", null, token);
+            return await _client.InvokeAsync<Extrinsic[]>("author_pendingExtrinsics", null, token);
         }
 
     }

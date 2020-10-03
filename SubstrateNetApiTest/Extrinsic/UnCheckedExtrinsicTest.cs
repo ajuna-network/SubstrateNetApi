@@ -1,8 +1,7 @@
 using NUnit.Framework;
 using Schnorrkel;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel;
-using SubstrateNetApi.MetaDataModel.Extrinsic;
+using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;

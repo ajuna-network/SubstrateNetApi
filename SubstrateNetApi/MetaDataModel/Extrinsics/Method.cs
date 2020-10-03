@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 
-namespace SubstrateNetApi.MetaDataModel
+namespace SubstrateNetApi.MetaDataModel.Extrinsics
 {
     public class Method
     {
@@ -15,13 +14,13 @@ namespace SubstrateNetApi.MetaDataModel
         public byte CallIndex;
 
         public byte[] Parameters;
-        
+
         public Method(byte moduleIndex, byte callIndex, byte[] parameters)
         {
             ModuleIndex = moduleIndex;
             CallIndex = callIndex;
             Parameters = parameters ?? new byte[0];
-        }     
+        }
 
         public Method(byte moduleIndex, byte callIndex)
         {

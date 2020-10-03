@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SubstrateNetApi.MetaDataModel
+namespace SubstrateNetApi.MetaDataModel.Extrinsics
 {
     public class Payload
     {

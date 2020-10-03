@@ -1,22 +1,21 @@
 ﻿using Newtonsoft.Json;
 using NLog;
-using SubstrateNetApi.MetaDataModel.Extrinsic;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Extrinsics;
 using System;
 
 namespace SubstrateNetApi.TypeConverters
 {
-    internal class ExtrinsicJsonConverter : JsonConverter<ExtrinsicModel>
+    internal class ExtrinsicJsonConverter : JsonConverter<Extrinsic>
     {
         /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-        public override ExtrinsicModel ReadJson(JsonReader reader, Type objectType, ExtrinsicModel existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override Extrinsic ReadJson(JsonReader reader, Type objectType, Extrinsic existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            return new ExtrinsicModel((string)reader.Value);
+            return new Extrinsic((string)reader.Value);
         }
 
-        public override void WriteJson(JsonWriter writer, ExtrinsicModel value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Extrinsic value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }

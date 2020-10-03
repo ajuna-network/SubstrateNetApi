@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Text;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
