@@ -3,6 +3,7 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the author class. </summary>
+using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using System.Threading;
@@ -35,15 +36,26 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<Extrinsic[]>("author_pendingExtrinsics", null, token);
         }
 
-        public async Task<Hash> SubmitExtrinsicAsync(string parameters)
-        {
-            return await SubmitExtrinsicAsync(parameters, CancellationToken.None);
-        }
-
+        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime) => await SubmitExtrinsicAsync(await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, CancellationToken.None));
+        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token) => await SubmitExtrinsicAsync(await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, token), token);
+        public async Task<Hash> SubmitExtrinsicAsync(string parameters) => await SubmitExtrinsicAsync(parameters, CancellationToken.None);
         public async Task<Hash> SubmitExtrinsicAsync(string parameters, CancellationToken token)
         {
             return await _client.InvokeAsync<Hash>("author_submitExtrinsic", new object[] { parameters }, token);
         }
 
+        public async Task<string> SubmitAndWatchExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime) => await SubmitAndWatchExtrinsicAsync(await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, CancellationToken.None));
+        public async Task<string> SubmitAndWatchExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token) => await SubmitAndWatchExtrinsicAsync(await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, token), token);
+        public async Task<string> SubmitAndWatchExtrinsicAsync(string parameters) => await SubmitAndWatchExtrinsicAsync(parameters, CancellationToken.None);
+        public async Task<string> SubmitAndWatchExtrinsicAsync(string parameters, CancellationToken token)
+        {
+            return await _client.InvokeAsync<string>("author_submitAndWatchExtrinsic", new object[] { parameters }, token);
+        }
+
+        public async Task<bool> UnwatchExtrinsicAsync(string subscriptionId) => await UnwatchExtrinsicAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnwatchExtrinsicAsync(string subscriptionId, CancellationToken token)
+        {
+            return await _client.InvokeAsync<bool>("author_unwatchExtrinsic", new object[] { subscriptionId }, token);
+        }
     }
 }

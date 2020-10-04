@@ -25,6 +25,19 @@ namespace SubstrateNetApi.Modules
             _client = client;
         }
 
+        /// Get header of a relay chain block.
+        public async Task<Header> GetHeaderAsync(CancellationToken token) => await GetHeaderAsync(null, token);
+
+        /// Get header of a relay chain block.
+        public async Task<Header> GetHeaderAsync(Hash hash = null) => await GetHeaderAsync(hash, CancellationToken.None);
+
+        /// Get header of a relay chain block.
+        public async Task<Header> GetHeaderAsync(Hash hash, CancellationToken token)
+        {
+            var parameter = hash != null ? hash.HexString : null;
+            return await _client.InvokeAsync<Header>("chain_getHeader", new object[] { parameter }, token);
+        }
+
         /// <summary> Gets block asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> The block. </returns>
@@ -90,83 +103,41 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<Hash>("chain_getFinalizedHead", null, token);
         }
 
-        /// Get header of a relay chain block.
-        public async Task<Header> GetHeaderAsync(CancellationToken token) => await GetHeaderAsync(null, token);
-
-        /// Get header of a relay chain block.
-        public async Task<Header> GetHeaderAsync(Hash hash = null) => await GetHeaderAsync(hash, CancellationToken.None);
-
-        /// Get header of a relay chain block.
-        public async Task<Header> GetHeaderAsync(Hash hash, CancellationToken token)
+        public async Task<string> SubscribeAllHeadsAsync() => await SubscribeAllHeadsAsync(CancellationToken.None);
+        public async Task<string> SubscribeAllHeadsAsync(CancellationToken token)
         {
-            var parameter = hash != null ? hash.HexString : null;
-            return await _client.InvokeAsync<Header>("chain_getHeader", new object[] { parameter }, token);
+            return await _client.InvokeAsync<string>("chain_subscribeAllHeads", null, token);
         }
 
-        /// <summary> Subscribe all heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <returns> The subscribe all heads. </returns>
-        public async Task<string> SubscribeAllHeadsAsync() => await SubscribeAllHeadsAsync(CancellationToken.None);
+        public async Task<bool> UnsubscribeAllHeadsAsync(string subscriptionId) => await UnsubscribeAllHeadsAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnsubscribeAllHeadsAsync(string subscriptionId, CancellationToken token)
+        {
+            return await _client.InvokeAsync<bool>("chain_unsubscribeAllHeads", new object[] { subscriptionId }, token);
+        }
 
-        /// <summary> Subscribe all heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <param name="token"> A token that allows processing to be cancelled. </param>
-        /// <returns> The subscribe all heads. </returns>
-        public async Task<string> SubscribeAllHeadsAsync(CancellationToken token) => await _client.InvokeAsync<string>("chain_subscribeAllHeads", null, token);
-
-        /// <summary> Subscribe new head asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <returns> The subscribe new head. </returns>
         public async Task<string> SubscribeNewHeadAsync() => await SubscribeNewHeadAsync(CancellationToken.None);
+        public async Task<string> SubscribeNewHeadAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<string>("chain_subscribeNewHeads", null, token);
+        }
 
-        /// <summary> Subscribe new head asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <param name="token"> A token that allows processing to be cancelled. </param>
-        /// <returns> The subscribe new head. </returns>
-        public async Task<string> SubscribeNewHeadAsync(CancellationToken token) => await _client.InvokeAsync<string>("chain_subscribeNewHead", null, token);
+        public async Task<bool> UnubscribeNewHeadAsync(string subscriptionId) => await UnubscribeNewHeadAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnubscribeNewHeadAsync(string subscriptionId, CancellationToken token)
+        {
+            return await _client.InvokeAsync<bool>("chain_unsubscribeNewHeads", new object[] { subscriptionId }, token);
+        }
 
-        /// <summary> Subscribe finalised heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <returns> The subscribe finalised heads. </returns>
-        public async Task<string> SubscribeFinalisedHeadsAsync() => await SubscribeFinalisedHeadsAsync(CancellationToken.None);
-
-        /// <summary> Subscribe finalised heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <param name="token"> A token that allows processing to be cancelled. </param>
-        /// <returns> The subscribe finalised heads. </returns>
-        public async Task<string> SubscribeFinalisedHeadsAsync(CancellationToken token) => await _client.InvokeAsync<string>("chain_subscribeFinalisedHeads", null, token);
-
-        /// <summary> Subscribe finalized heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <returns> The subscribe finalized heads. </returns>
         public async Task<string> SubscribeFinalizedHeadsAsync() => await SubscribeFinalizedHeadsAsync(CancellationToken.None);
+        public async Task<string> SubscribeFinalizedHeadsAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<string>("chain_subscribeFinalizedHeads", null, token);
+        }
 
-        /// <summary> Subscribe finalized heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <param name="token"> A token that allows processing to be cancelled. </param>
-        /// <returns> The subscribe finalized heads. </returns>
-        public async Task<string> SubscribeFinalizedHeadsAsync(CancellationToken token) => await _client.InvokeAsync<string>("chain_subscribeFinalizedHeads", null, token);
+        public async Task<bool> UnsubscribeFinalizedHeadsAsync(string subscriptionId) => await UnsubscribeFinalizedHeadsAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnsubscribeFinalizedHeadsAsync(string subscriptionId, CancellationToken token)
+        {
+            return await _client.InvokeAsync<bool>("chain_unsubscribeFinalizedHeads", new object[] { subscriptionId }, token);
+        }
 
-        /// <summary> Subscribe new heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <returns> The subscribe new heads. </returns>
-        public async Task<string> SubscribeNewHeadsAsync() => await SubscribeNewHeadsAsync(CancellationToken.None);
-
-        /// <summary> Subscribe new heads asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <param name="token"> A token that allows processing to be cancelled. </param>
-        /// <returns> The subscribe new heads. </returns>
-        public async Task<string> SubscribeNewHeadsAsync(CancellationToken token) => await _client.InvokeAsync<string>("chain_subscribeNewHeads", null, token);
-
-        /// <summary> Subscribe runtime version asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <returns> The subscribe runtime version. </returns>
-        public async Task<string> SubscribeRuntimeVersionAsync() => await SubscribeRuntimeVersionAsync(CancellationToken.None);
-
-        /// <summary> Subscribe runtime version asynchronous. </summary>
-        /// <remarks> 20.09.2020. </remarks>
-        /// <param name="token"> A token that allows processing to be cancelled. </param>
-        /// <returns> The subscribe runtime version. </returns>
-        public async Task<string> SubscribeRuntimeVersionAsync(CancellationToken token) => await _client.InvokeAsync<string>("chain_subscribeRuntimeVersion", null, token);
     }
 }

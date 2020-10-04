@@ -258,48 +258,40 @@ namespace SubstrateNetApi
         /// <returns> The method async&lt; t&gt; </returns>
         public async Task<T> GetMethodAsync<T>(string method, string parameter, CancellationToken token) => await InvokeAsync<T>(method, new object[] { parameter }, token);
 
-        /// <summary> Submit extrinsic asynchronous. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="ClientNotConnectedException">  Thrown when a Client Not Connected error
-        ///                                                 condition occurs. </exception>
-        /// <exception cref="MissingModuleOrItemException"> Thrown when a Missing Module Or Item error
-        ///                                                 condition occurs. </exception>
-        /// <exception cref="MissingParameterException">    Thrown when a Missing Parameter error
-        ///                                                 condition occurs. </exception>
-        /// <param name="moduleName"> Name of the module. </param>
-        /// <param name="callName">   Name of the call. </param>
-        /// <param name="parameter">  The parameter. </param>
-        /// <param name="pubKey">     The pub key. </param>
-        /// <param name="priKey">     The pri key. </param>
-        /// <param name="token">      A token that allows processing to be cancelled. </param>
-        /// <returns> The submit extrinsic. </returns>
-        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
+        internal async Task<string> GetExtrinsicParametersAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
-            if (_socket?.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
+            Method method = GetMethod(callArguments);
 
+            uint nonce = await System.AccountNextIndexAsync(account.Address, token);
+
+            Era era;
+            Hash startEra;
+
+            if (lifeTime == 0)
+            {
+                era = Era.Create(0, 0);
+                startEra = GenesisHash;
+            }
+            else
+            {
+                startEra = await Chain.GetFinalizedHeadAsync(token);
+                Header finalizedHeader = await Chain.GetHeaderAsync(startEra, token);
+                era = Era.Create(lifeTime, finalizedHeader.Number);
+            }
+
+            var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra);
+            return Utils.Bytes2HexString(uncheckedExtrinsic.Encode(), Utils.HexStringFormat.PREFIXED);
+        }
+
+        public Method GetMethod(GenericExtrinsicCall callArguments)
+        {
             if (!MetaData.TryGetModuleByName(callArguments.ModuleName, out Module module) || !module.TryGetCallByName(callArguments.CallName, out Call call))
                 throw new MissingModuleOrItemException($"Module '{callArguments.ModuleName}' or Item '{callArguments.CallName}' missing in metadata of '{MetaData.Origin}'!");
 
             if (call.Arguments?.Length > 0 && callArguments == null)
                 throw new MissingParameterException($"{callArguments.ModuleName}.{callArguments.CallName} needs {call.Arguments.Length} parameter(s)!");
 
-            Method method = new Method(module, call, callArguments?.Encode());
-
-            uint nonce = await System.AccountNextIndexAsync(account.Address, token);
-
-            /// Era calculation
-            Hash finalizedHead = await Chain.GetFinalizedHeadAsync(token);
-            Header finalizedHeader = await Chain.GetHeaderAsync(finalizedHead, token);
-            var finalizedHeaderNumber = finalizedHeader.Number;
-            var era = Era.Create(lifeTime, finalizedHeaderNumber);
-            var startEra = era.IsImmortal ? GenesisHash : finalizedHead;
-
-            var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra);
-            var parameters = Utils.Bytes2HexString(uncheckedExtrinsic.Encode(), Utils.HexStringFormat.PREFIXED);
-            var resultString = await Author.SubmitExtrinsicAsync(parameters, token);
-            
-            return resultString;
+            return new Method(module, call, callArguments?.Encode());
         }
 
         /// <summary>

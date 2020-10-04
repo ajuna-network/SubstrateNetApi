@@ -23,15 +23,22 @@ namespace SubstrateNetApi.Modules
             _client = client;
         }
 
-        public async Task<string> GetMetaDataAsync()
-        {
-            return await GetMetaDataAsync(CancellationToken.None);
-        }
-
+        public async Task<string> GetMetaDataAsync() => await GetMetaDataAsync(CancellationToken.None);
         public async Task<string> GetMetaDataAsync(CancellationToken token)
         {
             return await _client.InvokeAsync<string>("state_getMetadata", null, token);
         }
 
+        public async Task<string> SubscribeRuntimeVersionAsync() => await SubscribeRuntimeVersionAsync(CancellationToken.None);
+        public async Task<string> SubscribeRuntimeVersionAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<string>("state_subscribeRuntimeVersion", null, token);
+        }
+
+        public async Task<bool> UnsubscribeRuntimeVersionAsync(string subscriptionId) => await UnsubscribeRuntimeVersionAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnsubscribeRuntimeVersionAsync(string subscriptionId, CancellationToken token)
+        {
+            return await _client.InvokeAsync<bool>("state_unsubscribeRuntimeVersion", new object[] { subscriptionId }, token);
+        }
     }
 }

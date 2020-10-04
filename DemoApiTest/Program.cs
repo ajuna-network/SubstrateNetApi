@@ -116,15 +116,26 @@ namespace DemoApiTest
 
             // *************************** Final Test
             //var reqResult = await client.SubmitExtrinsicAsync(DmogCall.CreateMogwai(), accountAlice, 0, 64, cancellationToken);
-            var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
+            //var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
             //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
+
+            // *** subscription test 1
+            //var subscriptionId = await client.Chain.SubscribeAllHeadsAsync(cancellationToken);
+            //Thread.Sleep(12000);
+            //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
+
+            // *** subscription test 2
+            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
+            Thread.Sleep(60000);
+            var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
-
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+
+            Console.ReadKey();
 
             // Close connection
             await client.CloseAsync(cancellationToken);
