@@ -56,6 +56,8 @@ namespace SubstrateNetApi
         /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
 
+        /// <summary> Gets or sets the genesis hash. </summary>
+        /// <value> The genesis hash. </value>
         public Hash GenesisHash { get; private set; }
 
         /// <summary> Gets the system. </summary>
@@ -73,6 +75,8 @@ namespace SubstrateNetApi
         /// <summary> Gets the author. </summary>
         /// <value> The author. </value>
         public Modules.Author Author { get; }
+
+        public SubscriptionListener Listener { get; } = new SubscriptionListener();
 
         /// <summary> Constructor. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -150,7 +154,7 @@ namespace SubstrateNetApi
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
             _jsonRpc.TraceSource.Switch.Level = SourceLevels.All;
-            _jsonRpc.AddLocalRpcTarget(new SubscriptionListener(), new JsonRpcTargetOptions() { AllowNonPublicInvocation = false });
+            _jsonRpc.AddLocalRpcTarget(Listener, new JsonRpcTargetOptions() { AllowNonPublicInvocation = false });
             _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
 
