@@ -145,6 +145,7 @@ namespace SubstrateNetApi
 
             formatter.JsonSerializer.Converters.Add(_hashTypeConverter);
             formatter.JsonSerializer.Converters.Add(_extrinsicJsonConverter);
+            formatter.JsonSerializer.Converters.Add(new ExtrinsicStatusJsonConverter());
 
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());

@@ -125,7 +125,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 2
-            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
+            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 1000), accountDMOG_GALxeh, 0, 64, cancellationToken);
             Thread.Sleep(60000);
             var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
