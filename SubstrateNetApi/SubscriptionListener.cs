@@ -17,33 +17,37 @@ namespace SubstrateNetApi
 
         private readonly Dictionary<string, List<object>> _pendingHeaders = new Dictionary<string, List<object>>();
 
-        public void RegisterHeaderHandler<T>(string subscription, Action<T> callback)
+        public void RegisterCallBackHandler<T>(string subscriptionId, Action<T> callback)
         {
-            if (!_headerCallbacks.ContainsKey(subscription))
+            if (!_headerCallbacks.ContainsKey(subscriptionId))
             {
-                _headerCallbacks.Add(subscription, callback);
+                Logger.Debug($"Register {callback} for subscription '{subscriptionId}'");
+                _headerCallbacks.Add(subscriptionId, callback);
             }
-            if (_pendingHeaders.ContainsKey(subscription))
+
+            if (_pendingHeaders.ContainsKey(subscriptionId))
             {
-                foreach (var h in _pendingHeaders[subscription])
+                foreach (var h in _pendingHeaders[subscriptionId])
                 {
                     callback((T)h);
                 }
-                _pendingHeaders.Remove(subscription);
+                _pendingHeaders.Remove(subscriptionId);
             }
         }
 
-        public void UnregisterHeaderHandler(string subscription)
+        public void UnregisterHeaderHandler(string subscriptionId)
         {
-            if (_headerCallbacks.ContainsKey(subscription))
+            if (_headerCallbacks.ContainsKey(subscriptionId))
             {
-                _headerCallbacks.Remove(subscription);
+                Logger.Debug($"Unregister subscription '{subscriptionId}'");
+                _headerCallbacks.Remove(subscriptionId);
             }
         }
 
         private void GenericCallBack<T>(string subscription, T result)
         {
             Logger.Debug($"{subscription}: {result}");
+
             if (_headerCallbacks.ContainsKey(subscription))
             {
                 ((Action<T>)_headerCallbacks[subscription])(result);
