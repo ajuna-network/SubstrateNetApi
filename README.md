@@ -48,7 +48,7 @@ Added the dependency needed, there is an example project (https://github.com/dar
 
 ## 3. Usage
 
-* connecting
+### Create a connection
 ```csharp
 var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
 
@@ -56,23 +56,31 @@ using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 client.RegisterTypeConverter(new MogwaiStructTypeConverter());
 await client.ConnectAsync(cancellationToken);
 ```
-* pallet storage data
+
+### Access a pallet storage data
+
+#### Example 1: Sudo Key (no parameter)
+
 ```csharp
 // [Plain] Value: T::AccountId (from metaData)
 var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 ```
-Output: ```RESPONSE: '{"Address":"5GYZnHJ4dCtTDoQj4H5H9E727Ykv8NLWKtPAupEc3uJ89BGr","PublicKey":"xjCev8DKRhmK9W9PWJt82svJRhLQnZ5xsp5Z0cHy3mg="}' [AccountId]``` 
+**OUTPUT 
+```RESPONSE: '{"Address":"5GYZnHJ4dCtTDoQj4H5H9E727Ykv8NLWKtPAupEc3uJ89BGr","PublicKey":"xjCev8DKRhmK9W9PWJt82svJRhLQnZ5xsp5Z0cHy3mg="}' [AccountId]``` 
+
+#### Example 2: System Account (Key: AccountId (public key))
 
 ```csharp
 // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData> (from metaData)
 var reqResult = await client.GetStorageAsync("System", "Account", "0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D", cancellationToken);
 ```
-Output: ```RESPONSE: '{"Nonce":4,"RefCount":0,"AccountData":{"Free":{"Value":{"Value":17665108313441014531489792}},"Reserved":{"Value":{"Value":0}},"MiscFrozen":{"Value":{"Value":0}},"FeeFrozen":{"Value":{"Value":0}}}}' [AccountInfo]```
+**OUTPUT  
+```RESPONSE: '{"Nonce":4,"RefCount":0,"AccountData":{"Free":{"Value":{"Value":17665108313441014531489792}},"Reserved":{"Value":{"Value":0}},"MiscFrozen":{"Value":{"Value":0}},"FeeFrozen":{"Value":{"Value":0}}}}' [AccountInfo]```
 
-* pallet call
+### Access a pallet call
 
-* pextrinsic (pallet author)
+### Submit extrinsic (from pallet author)
 
 ## Special Thanks
 - https://github.com/gautamdhameja/sr25519-dotnet
