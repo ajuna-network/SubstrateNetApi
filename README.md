@@ -73,12 +73,37 @@ Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 ```csharp
 // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData> (from metaData)
 var reqResult = await client.GetStorageAsync("System", "Account", "0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D", cancellationToken);
+Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 ```
 ```RESPONSE: '{"Nonce":4,"RefCount":0,"AccountData":{"Free":{"Value":{"Value":17665108313441014531489792}},"Reserved":{"Value":{"Value":0}},"MiscFrozen":{"Value":{"Value":0}},"FeeFrozen":{"Value":{"Value":0}}}}' [AccountInfo]```
 
 ### Access a pallet call
 
+```csharp
+var systemName = await client.System.NameAsync(cancellationToken);
+```
+
 ### Submit extrinsic (from pallet author)
+
+```csharp
+var balanceTransfer = ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 1000);
+var reqResult = await client.SubmitExtrinsicAsync(balanceTransfer, accountDMOG_GALxeh, 0, 64, cancellationToken);
+```
+
+### Subscribe and unsubscribe with registering a call back
+
+```csharp
+// create a call back action with the expected type
+Action<ExtrinsicStatus> actionExtrinsicUpdate = (extrinsicUpdate) => Console.WriteLine($"CallBack: {extrinsicUpdate}");
+// create the extrinsic parameters
+var balanceTransfer = ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 1000);
+// submit and subscribe to the extrinsic
+var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, balanceTransfer, accountDMOG_GALxeh, 0, 64, cancellationToken);
+// wait for extrinsic pass into a finalized block
+Thread.Sleep(60000);
+// unsubscribe
+var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+```
 
 ## Special Thanks
 - https://github.com/gautamdhameja/sr25519-dotnet
