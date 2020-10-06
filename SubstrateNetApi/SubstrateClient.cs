@@ -52,6 +52,8 @@ namespace SubstrateNetApi
 
         private ExtrinsicJsonConverter _extrinsicJsonConverter = new ExtrinsicJsonConverter();
 
+        private ExtrinsicStatusJsonConverter _extrinsicStatusJsonConverter = new ExtrinsicStatusJsonConverter();
+
         /// <summary> Gets or sets information describing the meta. </summary>
         /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
@@ -149,7 +151,7 @@ namespace SubstrateNetApi
 
             formatter.JsonSerializer.Converters.Add(_hashTypeConverter);
             formatter.JsonSerializer.Converters.Add(_extrinsicJsonConverter);
-            formatter.JsonSerializer.Converters.Add(new ExtrinsicStatusJsonConverter());
+            formatter.JsonSerializer.Converters.Add(_extrinsicStatusJsonConverter);
 
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
