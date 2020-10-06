@@ -12,10 +12,12 @@ namespace SubstrateNetApi
     public class SubscriptionListener
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
-        private readonly Dictionary<string, Action<Header>> _headerCallbacks = new Dictionary<string, Action<Header>>();
-        private readonly Dictionary<string, List<Header>> _pendingHeaders = new Dictionary<string, List<Header>>();
 
-        public void RegisterHeaderHandler(string subscription, Action<Header> callback)
+        private readonly Dictionary<string, object> _headerCallbacks = new Dictionary<string, object>();
+
+        private readonly Dictionary<string, List<object>> _pendingHeaders = new Dictionary<string, List<object>>();
+
+        public void RegisterHeaderHandler<T>(string subscription, Action<T> callback)
         {
             if (!_headerCallbacks.ContainsKey(subscription))
             {
@@ -25,7 +27,7 @@ namespace SubstrateNetApi
             {
                 foreach (var h in _pendingHeaders[subscription])
                 {
-                    callback(h);
+                    callback((T)h);
                 }
                 _pendingHeaders.Remove(subscription);
             }
@@ -39,70 +41,51 @@ namespace SubstrateNetApi
             }
         }
 
-        [JsonRpcMethod("chain_allHead")]
-        public void ChainAllHead(string subscription, Header result)
+        private void GenericCallBack<T>(string subscription, T result)
         {
             Logger.Debug($"{subscription}: {result}");
             if (_headerCallbacks.ContainsKey(subscription))
             {
-                _headerCallbacks[subscription](result);
+                ((Action<T>)_headerCallbacks[subscription])(result);
             }
             else
             {
                 if (!_pendingHeaders.ContainsKey(subscription))
                 {
-                    _pendingHeaders.Add(subscription, new List<Header>());
+                    _pendingHeaders.Add(subscription, new List<object>());
                 }
                 _pendingHeaders[subscription].Add(result);
             }
+        }
+
+        [JsonRpcMethod("chain_allHead")]
+        public void ChainAllHead(string subscription, Header result)
+        {
+            GenericCallBack(subscription, result);
         }
 
         [JsonRpcMethod("chain_newHead")]
         public void ChainNewHead(string subscription, Header result)
         {
-            Logger.Debug(result);
-            if (_headerCallbacks.ContainsKey(subscription))
-            {
-                _headerCallbacks[subscription](result);
-            }
-            else
-            {
-                if (!_pendingHeaders.ContainsKey(subscription))
-                {
-                    _pendingHeaders.Add(subscription, new List<Header>());
-                }
-                _pendingHeaders[subscription].Add(result);
-            }
+            GenericCallBack(subscription, result);
         }
 
         [JsonRpcMethod("chain_finalizedHead")]
         public void ChainFinalizedHead(string subscription, Header result)
         {
-            Logger.Debug(result);
-            if (_headerCallbacks.ContainsKey(subscription))
-            {
-                _headerCallbacks[subscription](result);
-            }
-            else
-            {
-                if (!_pendingHeaders.ContainsKey(subscription))
-                {
-                    _pendingHeaders.Add(subscription, new List<Header>());
-                }
-                _pendingHeaders[subscription].Add(result);
-            }
+            GenericCallBack(subscription, result);
         }
 
         [JsonRpcMethod("state_runtimeVersion")]
         public void StateRuntimeVersion(string subscription, JObject result)
         {
-            Logger.Debug(result);
+            GenericCallBack(subscription, result);
         }
 
         [JsonRpcMethod("author_extrinsicUpdate")]
         public void AuthorSubmitAndWatchExtrinsic(string subscription, ExtrinsicStatus result)
         {
-            Logger.Debug(result);
+            GenericCallBack(subscription, result);
         }
     }
 
