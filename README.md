@@ -66,7 +66,6 @@ await client.ConnectAsync(cancellationToken);
 var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 ```
-**OUTPUT 
 ```RESPONSE: '{"Address":"5GYZnHJ4dCtTDoQj4H5H9E727Ykv8NLWKtPAupEc3uJ89BGr","PublicKey":"xjCev8DKRhmK9W9PWJt82svJRhLQnZ5xsp5Z0cHy3mg="}' [AccountId]``` 
 
 #### Example 2: System Account (Key: AccountId (public key))
@@ -75,7 +74,6 @@ Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData> (from metaData)
 var reqResult = await client.GetStorageAsync("System", "Account", "0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D", cancellationToken);
 ```
-**OUTPUT  
 ```RESPONSE: '{"Nonce":4,"RefCount":0,"AccountData":{"Free":{"Value":{"Value":17665108313441014531489792}},"Reserved":{"Value":{"Value":0}},"MiscFrozen":{"Value":{"Value":0}},"FeeFrozen":{"Value":{"Value":0}}}}' [AccountInfo]```
 
 ### Access a pallet call
