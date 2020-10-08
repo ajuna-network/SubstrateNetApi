@@ -6,7 +6,7 @@
 [![license](https://img.shields.io/github/license/darkfriend77/SubstrateNetApi)](https://img.shields.io/github/license/darkfriend77/SubstrateNetApi)
 [![contributors](https://img.shields.io/github/contributors/darkfriend77/SubstrateNetApi)](https://img.shields.io/github/contributors/darkfriend77/SubstrateNetApi)
 
-SubstrateNetApi is written in [NETStandard2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) to provide maximum compatibility for [Unity3D](https://docs.unity3d.com/2020.2/Documentation/Manual/dotnetProfileSupport.html).
+SubstrateNetApi is written in [NETStandard2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) to provide maximum compatibility for [Unity3D](https://docs.unity3d.com/2020.2/Documentation/Manual/dotnetProfileSupport.html). Feedback, constructive critisme and disscussions are welcome and will help us to improve the API!
 
 ## Table of Content
 
@@ -17,6 +17,7 @@ SubstrateNetApi is written in [NETStandard2.0](https://docs.microsoft.com/en-us/
   - pallet storage data
   - pallet call
   - extrinsic (pallet author)
+* Wallet
 
 ## Requirements
 
@@ -46,7 +47,7 @@ Added the dependency needed, there is an example project (https://github.com/dar
 - *NuGet > ManageNuGet Packages*
 - *Search* **SubstrateNetApi** install
 
-## 3. Usage
+## Usage
 
 ### Create a connection
 ```csharp
@@ -104,6 +105,18 @@ Thread.Sleep(60000);
 // unsubscribe
 var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 ```
+
+## Wallet
+SubstrateNetWallet is a Wallet buit on top of the SubstrateNetApi, it offers common functionalities. 
+**This is an implementation in progress, feedback is welcome!**
+
+- Key derivation, currently only for ED25519
+- Private keystore with AES encryption (please verify code before using in a productive environment)
+- Sign message & verify message
+- Transfer balance
+- realtime (subscription) updated newHeads and finalizedHeads
+- realtime (subscription) updated extrinsicUpdate
+
 
 ## Special Thanks
 - https://github.com/gautamdhameja/sr25519-dotnet
