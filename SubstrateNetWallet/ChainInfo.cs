@@ -1,4 +1,6 @@
-﻿namespace SubstrateNetWallet
+﻿using Newtonsoft.Json;
+
+namespace SubstrateNetWallet
 {
     public class ChainInfo
     {
@@ -11,6 +13,11 @@
             Name = name;
             Version = version;
             Chain = chain;
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

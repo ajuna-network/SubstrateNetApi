@@ -43,13 +43,12 @@ namespace SubstrateNetWallet
 
         public bool IsConnected => _client.IsConnected;
 
+        public bool IsOnline => IsConnected && _subscriptionIdNewHead != string.Empty && _subscriptionIdFinalizedHeads != string.Empty;
+
+        private string _subscriptionIdNewHead, _subscriptionIdFinalizedHeads;
+
         public Wallet(string path = DefaultWalletFile) : this(null, path)
         {
-        }
-
-        public void AddService()
-        {
-
         }
 
         /// <summary>
@@ -71,6 +70,80 @@ namespace SubstrateNetWallet
             }
 
             _connectTokenSource = new CancellationTokenSource();
+        }
+
+        public async Task StartAsync(string webSocketUrl = WEBSOCKETURL)
+        {
+            // disconnect from node if we are already connected to one.
+            if (IsConnected)
+            {
+                Logger.Warn($"Wallet already connected, disconnecting from {ChainInfo} now");
+                await StopAsync();
+            }
+
+            // connect wallet
+            await ConnectAsync(webSocketUrl);
+
+            if (IsConnected)
+            {
+                await RefreshSubscriptionsAsync();
+            }
+        }
+
+        private async Task RefreshSubscriptionsAsync()
+        {
+            Logger.Info($"Refreshing all subscriptions");
+
+            // unsubscribe all subscriptions
+            await UnsubscribeAllAsync();
+
+            // subscribe to new heads
+            _subscriptionIdNewHead = await _client.Chain.SubscribeNewHeadsAsync((header) => CallBackNewHeads(header), _connectTokenSource.Token);
+
+            // subscribe to finalized heads
+            _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((header) => CallBackFinalizedHeads(header), _connectTokenSource.Token);
+        }
+
+        private async Task UnsubscribeAllAsync()
+        {
+            if (_subscriptionIdNewHead != string.Empty)
+            {
+                // unsubscribe from new heads
+                if (!await _client.Chain.UnsubscribeNewHeadsAsync(_subscriptionIdNewHead, _connectTokenSource.Token))
+                {
+                    Logger.Warn($"Couldn't unsubscribe new heads {_subscriptionIdNewHead} id.");
+                }
+                _subscriptionIdNewHead = string.Empty;
+            }
+
+            if (_subscriptionIdFinalizedHeads != string.Empty)
+            {
+                // unsubscribe from finalized heads
+                if (!await _client.Chain.UnsubscribeFinalizedHeadsAsync(_subscriptionIdFinalizedHeads, _connectTokenSource.Token))
+                {
+                    Logger.Warn($"Couldn't unsubscribe finalized heads {_subscriptionIdFinalizedHeads} id.");
+                }
+                _subscriptionIdFinalizedHeads = string.Empty;
+            }
+        }
+
+        public async Task StopAsync()
+        {
+            // unsubscribe all subscriptions
+            await UnsubscribeAllAsync();
+
+            // disconnect wallet
+            await DisconnectAsync();
+        }
+
+        public virtual void CallBackNewHeads(Header header)
+        {
+
+        }
+
+        public virtual void CallBackFinalizedHeads(Header header)
+        {
+
         }
 
         /// <summary>
@@ -203,13 +276,21 @@ namespace SubstrateNetWallet
             throw new NotImplementedException();
         }
 
-        public async Task ConnectAsync(string webSocketUrl = WEBSOCKETURL)
+        public async Task ConnectAsync(string webSocketUrl)
         {
+            Logger.Info($"Connecting to {webSocketUrl}");
+
             _client = new SubstrateClient(new Uri(webSocketUrl));
 
             _client.RegisterTypeConverter(new MogwaiStructTypeConverter());
 
             await _client.ConnectAsync(_connectTokenSource.Token);
+
+            if (!IsConnected)
+            {
+                Logger.Error($"Connection couldn't be established!");
+                return;
+            }
 
             var systemName = await _client.System.NameAsync(_connectTokenSource.Token);
 
@@ -218,6 +299,8 @@ namespace SubstrateNetWallet
             var systemChain = await _client.System.ChainAsync(_connectTokenSource.Token);
 
             ChainInfo = new ChainInfo(systemName, systemVersion, systemChain);
+
+            Logger.Info($"Connection established to {ChainInfo}");
         }
 
         public async Task DisconnectAsync()

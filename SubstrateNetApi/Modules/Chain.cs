@@ -122,16 +122,16 @@ namespace SubstrateNetApi.Modules
             return result;
         }
 
-        public async Task<string> SubscribeNewHeadAsync(Action<Header> callback) => await SubscribeNewHeadAsync(callback, CancellationToken.None);
-        public async Task<string> SubscribeNewHeadAsync(Action<Header> callback, CancellationToken token)
+        public async Task<string> SubscribeNewHeadsAsync(Action<Header> callback) => await SubscribeNewHeadsAsync(callback, CancellationToken.None);
+        public async Task<string> SubscribeNewHeadsAsync(Action<Header> callback, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("chain_subscribeNewHeads", null, token);
             _client.Listener.RegisterCallBackHandler(subscriptionId, callback);
             return subscriptionId;
         }
 
-        public async Task<bool> UnubscribeNewHeadAsync(string subscriptionId) => await UnubscribeNewHeadAsync(subscriptionId, CancellationToken.None);
-        public async Task<bool> UnubscribeNewHeadAsync(string subscriptionId, CancellationToken token)
+        public async Task<bool> UnubscribeNewHeadsAsync(string subscriptionId) => await UnsubscribeNewHeadsAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnsubscribeNewHeadsAsync(string subscriptionId, CancellationToken token)
         {
             var result = await _client.InvokeAsync<bool>("chain_unsubscribeNewHeads", new object[] { subscriptionId }, token);
             if (result)

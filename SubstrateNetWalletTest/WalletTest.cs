@@ -46,7 +46,7 @@ namespace SubstrateNetWalletTest
         {
             // create new wallet with password and persist
             var wallet = new Wallet("1234", "wallet.dat");
-            await wallet.ConnectAsync();
+            await wallet.ConnectAsync("wss://boot.worldofmogwais.com");
 
             Assert.True(wallet.IsConnected);
 

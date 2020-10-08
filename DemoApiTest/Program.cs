@@ -121,15 +121,19 @@ namespace DemoApiTest
             //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
 
             // *** subscription test 1
-            //var subscriptionId = await client.Chain.SubscribeAllHeadsAsync(cancellationToken);
-            //Thread.Sleep(12000);
-            //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
+            var subscriptionId = await client.Chain
+                .SubscribeAllHeadsAsync(
+                (header) => Console.WriteLine($"CallBack: {header}"), 
+                cancellationToken
+            );
+            Thread.Sleep(30000);
+            var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 2
-            Action<ExtrinsicStatus> actionExtrinsicUpdate = (extrinsicUpdate) => Console.WriteLine($"CallBack: {extrinsicUpdate}");
-            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 1000), accountDMOG_GALxeh, 0, 64, cancellationToken);
-            Thread.Sleep(60000);
-            var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+            //Action<ExtrinsicStatus> actionExtrinsicUpdate = (extrinsicUpdate) => Console.WriteLine($"CallBack: {extrinsicUpdate}");
+            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 1000), accountDMOG_GALxeh, 0, 64, cancellationToken);
+            //Thread.Sleep(60000);
+            //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
