@@ -46,13 +46,13 @@ namespace SubstrateNetWalletTest
         {
             // create new wallet with password and persist
             var wallet = new Wallet("1234", "wallet.dat");
-            await wallet.ConnectAsync("wss://boot.worldofmogwais.com");
+            await wallet.ConnectAsync("wss://node01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
 
             Assert.AreEqual("Substrate Node", wallet.ChainInfo.Name);
-            Assert.AreEqual("2.0.0-394ff02-x86_64-linux-gnu", wallet.ChainInfo.Version);
-            Assert.AreEqual("DOT Mogwai Testnet", wallet.ChainInfo.Chain);
+            Assert.AreEqual("2.0.0-37f7720d9-x86_64-linux-gnu", wallet.ChainInfo.Version);
+            Assert.AreEqual("DOT Mog Testnet", wallet.ChainInfo.Chain);
 
             await wallet.DisconnectAsync();
 

@@ -10,7 +10,7 @@ namespace SubstrateNetApiTests.ClientTests
 {
     class ClientTests
     {
-        private const string WebSocketUrl = "wss://boot.worldofmogwais.com";
+        private const string WebSocketUrl = "wss://node01.dotmog.com";
 
         private SubstrateClient _substrateClient;
 

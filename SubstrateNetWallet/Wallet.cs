@@ -19,7 +19,7 @@ namespace SubstrateNetWallet
         /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-        private const string WEBSOCKETURL = "wss://boot.worldofmogwais.com";
+        private const string WEBSOCKETURL = "wss://node01.dotmog.com";
 
         private const string DefaultWalletFile = "wallet.dat";
 

@@ -10,7 +10,7 @@ namespace SubstrateNetApiTests.ClientTests
 {
     public class GetStorageTests
     {
-        private const string WebSocketUrl = "wss://boot.worldofmogwais.com";
+        private const string WebSocketUrl = "wss://node01.dotmog.com";
 
         private SubstrateClient _substrateClient;
 
@@ -47,7 +47,7 @@ namespace SubstrateNetApiTests.ClientTests
             Assert.IsTrue(reqResult is AccountId);
 
             var accountId = (AccountId)reqResult;
-            Assert.AreEqual("5GYZnHJ4dCtTDoQj4H5H9E727Ykv8NLWKtPAupEc3uJ89BGr", accountId.Address);
+            Assert.AreEqual("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", accountId.Address);
 
             await _substrateClient.CloseAsync();
         }
@@ -57,7 +57,7 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            var request = await _substrateClient.GetStorageAsync("Dmog", "AllMogwaisArray", "0");
+            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0");
             Assert.AreEqual("Hash", request.GetType().Name);
             Assert.IsTrue(request is Hash);
 
@@ -69,7 +69,7 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            Assert.ThrowsAsync<MissingParameterException>(async () => await _substrateClient.GetStorageAsync("Dmog", "AllMogwaisArray"));
+            Assert.ThrowsAsync<MissingParameterException>(async () => await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray"));
             
             await _substrateClient.CloseAsync();
         }
@@ -96,7 +96,7 @@ namespace SubstrateNetApiTests.ClientTests
             await _substrateClient.ConnectAsync();
 
             Assert.ThrowsAsync<MissingConverterException>(async () =>
-                await _substrateClient.GetStorageAsync("Dmog", "Mogwais",
+                await _substrateClient.GetStorageAsync("DotMogModule", "Mogwais",
                     "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C"));
 
             await _substrateClient.CloseAsync();
