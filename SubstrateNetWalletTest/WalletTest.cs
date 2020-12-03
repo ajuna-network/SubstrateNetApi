@@ -39,6 +39,18 @@ namespace SubstrateNetWalletTest
             Assert.True(wallet2.IsUnlocked);
 
             Assert.AreEqual(wallet1.Account.Address, wallet2.Account.Address);
+
+
+            var wallet3 = new Wallet("wallet.dat");
+
+            Assert.True(wallet3.IsCreated);
+            Assert.False(wallet3.IsUnlocked);
+
+            // unlock wallet with password
+            wallet3.Unlock("4321");
+
+            Assert.False(wallet3.IsUnlocked);
+
         }
 
         [Test]

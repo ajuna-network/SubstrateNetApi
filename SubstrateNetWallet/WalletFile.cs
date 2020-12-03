@@ -2,14 +2,17 @@
 {
     public class WalletFile
     {
-        public byte[] encryptedSeed;
+        public byte[] PublicKey { get; }
 
-        public byte[] salt;
+        public byte[] EncryptedSeed { get; }
 
-        public WalletFile(byte[] encryptedSeed, byte[] salt)
+        public byte[] Salt { get; }
+
+        public WalletFile(byte[] publicKey, byte[] encryptedSeed, byte[] salt)
         {
-            this.encryptedSeed = encryptedSeed;
-            this.salt = salt;
+            PublicKey = publicKey;
+            EncryptedSeed = encryptedSeed;
+            Salt = salt;
         }
     }
 }

@@ -5,6 +5,7 @@ using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 using System;
+using System.Linq;
 using System.Net.Sockets;
 using System.Security;
 using System.Security.Cryptography;
@@ -170,18 +171,18 @@ namespace SubstrateNetWallet
             var pswBytes = Encoding.UTF8.GetBytes(password);
 
             var salt = memoryBytes.Slice(0, 16).ToArray();
-            
+
             var seed = memoryBytes.Slice(16, 32).ToArray();
 
             pswBytes = SHA256.Create().ComputeHash(pswBytes);
 
             var encryptedSeed = ManagedAes.EncryptStringToBytes_Aes(Utils.Bytes2HexString(seed, Utils.HexStringFormat.PURE), pswBytes, salt);
 
-            _walletFile = new WalletFile(encryptedSeed, salt);
-           
-            Caching.Persist(_path, _walletFile);
-
             Chaos.NaCl.Ed25519.KeyPairFromSeed(out byte[] publicKey, out byte[] privateKey, seed);
+
+            _walletFile = new WalletFile(publicKey, encryptedSeed, salt);
+
+            Caching.Persist(_path, _walletFile);
 
             Account = new Account(KeyType.ED25519, privateKey, publicKey);
 
@@ -193,7 +194,7 @@ namespace SubstrateNetWallet
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool Unlock(string password)
+        public bool Unlock(string password, bool noCheck = false)
         {
             if (IsUnlocked || !IsCreated)
             {
@@ -203,19 +204,34 @@ namespace SubstrateNetWallet
 
             Logger.Info($"Unlock new wallet.");
 
-            var pswBytes = Encoding.UTF8.GetBytes(password);
+            try
+            {
+                var pswBytes = Encoding.UTF8.GetBytes(password);
 
-            pswBytes = SHA256.Create().ComputeHash(pswBytes);
+                pswBytes = SHA256.Create().ComputeHash(pswBytes);
 
-            var seed = ManagedAes.DecryptStringFromBytes_Aes(_walletFile.encryptedSeed, pswBytes, _walletFile.salt);
+                var seed = ManagedAes.DecryptStringFromBytes_Aes(_walletFile.EncryptedSeed, pswBytes, _walletFile.Salt);
 
-            Chaos.NaCl.Ed25519.KeyPairFromSeed(out byte[] publicKey, out byte[] privateKey, Utils.HexToByteArray(seed));
+                Chaos.NaCl.Ed25519.KeyPairFromSeed(out byte[] publicKey, out byte[] privateKey, Utils.HexToByteArray(seed));
 
-            Account = new Account(KeyType.ED25519, privateKey, publicKey);
+                if (noCheck || !publicKey.SequenceEqual(_walletFile.PublicKey))
+                {
+                    throw new Exception("Public key check failed!");
+                }
+
+                Account = new Account(KeyType.ED25519, privateKey, publicKey);
+            }
+            catch (Exception exception)
+            {
+                Logger.Warn($"Couldn't unlock the wallet with this password. {exception}");
+                return false;
+            }
+            
+
 
             return true;
         }
-    
+
         /// <summary>
         /// Try signing a message
         /// </summary>
@@ -242,7 +258,7 @@ namespace SubstrateNetWallet
                     throw new NotImplementedException($"Keytype {signer.KeyType} is currently not implemented for signing.");
             }
 
-            
+
             return true;
         }
 
