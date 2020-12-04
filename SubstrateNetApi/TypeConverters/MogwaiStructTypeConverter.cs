@@ -19,7 +19,7 @@ namespace SubstrateNetApi.TypeConverters
         /// <summary> Gets the name of the type. </summary>
         /// <value> The name of the type. </value>
         /// <seealso cref="SubstrateNetApi.ITypeConverter.TypeName"/>
-        public string TypeName { get; } = "MogwaiStruct<T::Hash, BalanceOf<T>>";
+        public string TypeName { get; } = "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>";
 
         /// <summary> Creates a new object. </summary>
         /// <remarks> 19.09.2020. </remarks>

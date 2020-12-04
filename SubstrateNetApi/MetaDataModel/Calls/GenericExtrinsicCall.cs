@@ -76,26 +76,41 @@ namespace SubstrateNetApi.MetaDataModel.Calls
 
     }
 
-    public class DmogCall
+    public class DotMogCall
     {
-        public static GenericExtrinsicCall CreateMogwai()
+        public static GenericExtrinsicCall BidAuction(Hash mogwai_id, Balance bid)
         {
-            return new GenericExtrinsicCall("Dmog", "create_mogwai");
+            return new GenericExtrinsicCall("DotMogModule", "bid_auction", mogwai_id, bid);
         }
 
-        public static GenericExtrinsicCall SetPrice(Hash mogwai_id, Balance new_price)
+        public static GenericExtrinsicCall BreedMogwai(Hash mogwai_id_1, Hash mogwai_id_2)
         {
-            return new GenericExtrinsicCall("Dmog", "set_price", mogwai_id, new_price);
-        }
-
-        public static GenericExtrinsicCall Transfer(AccountId to, Hash mogwai_id)
-        {
-            return new GenericExtrinsicCall("Dmog", "transfer", to, mogwai_id);
+            return new GenericExtrinsicCall("DotMogModule", "breed_mogwai", mogwai_id_1, mogwai_id_2);
         }
 
         public static GenericExtrinsicCall BuyMogwai(Hash mogwai_id, Balance max_price)
         {
-            return new GenericExtrinsicCall("Dmog", "buy_mogwai", mogwai_id, max_price);
+            return new GenericExtrinsicCall("DotMogModule", "buy_mogwai", mogwai_id, max_price);
+        }
+
+        public static GenericExtrinsicCall CreateAuction(Hash mogwai_id, Balance min_bid, BlockNumber expiry)
+        {
+            return new GenericExtrinsicCall("DotMogModule", "create_auction", mogwai_id, min_bid, expiry);
+        }
+
+        public static GenericExtrinsicCall CreateMogwai()
+        {
+            return new GenericExtrinsicCall("DotMogModule", "create_mogwai");
+        }
+
+        public static GenericExtrinsicCall SetPrice(Hash mogwai_id, Balance new_price)
+        {
+            return new GenericExtrinsicCall("DotMogModule", "set_price", mogwai_id, new_price);
+        }
+
+        public static GenericExtrinsicCall Transfer(AccountId to, Hash mogwai_id)
+        {
+            return new GenericExtrinsicCall("DotMogModule", "transfer", to, mogwai_id);
         }
     }
 }

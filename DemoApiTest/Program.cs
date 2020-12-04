@@ -19,7 +19,7 @@ namespace DemoApiTest
 {
     class Program
     {
-        private const string WEBSOCKETURL = "wss://boot.worldofmogwais.com";
+        private const string WEBSOCKETURL = "wss://node01.dotmog.com";
 
         private static async Task Main(string[] args)
         {
@@ -105,7 +105,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("Dmog", "MogwaiOwner", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
-            //var reqResult = await client.GetStorageAsync("Dmog", "Mogwais", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
+            var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", "0x17E26CA749780270EEC18507AB3C03854E75E264DB13EC1F90314C3AF02CCDF8", cancellationToken);
 
             //var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
 
@@ -121,13 +121,13 @@ namespace DemoApiTest
             //var reqResult = await client.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 100000000), accountDMOG_GALxeh, 0, 64, cancellationToken);
 
             // *** subscription test 1
-            var subscriptionId = await client.Chain
-                .SubscribeAllHeadsAsync(
-                (header) => Console.WriteLine($"CallBack: {header}"), 
-                cancellationToken
-            );
-            Thread.Sleep(30000);
-            var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
+            //var subscriptionId = await client.Chain
+            //    .SubscribeAllHeadsAsync(
+            //    (header) => Console.WriteLine($"CallBack: {header}"), 
+            //    cancellationToken
+            //);
+            //Thread.Sleep(30000);
+            //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 2
             //Action<ExtrinsicStatus> actionExtrinsicUpdate = (extrinsicUpdate) => Console.WriteLine($"CallBack: {extrinsicUpdate}");

@@ -9,6 +9,8 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public Hash Dna { get; }
 
+        public BlockNumber Genesis { get; }
+
         public Balance Price { get; }
 
         public ulong Gen { get; }
@@ -21,8 +23,9 @@ namespace SubstrateNetApi.MetaDataModel.Values
         {
             Id = new Hash(memory.Slice(0, 32));
             Dna = new Hash(memory.Slice(32, 32));
-            Price = new Balance(memory.Slice(64, 16));
-            Gen = BitConverter.ToUInt64(memory.Slice(80, 8).ToArray(), 0);
+            Genesis = new BlockNumber(memory.Slice(64, 4).ToArray());
+            Price = new Balance(memory.Slice(68, 16));
+            Gen = BitConverter.ToUInt64(memory.Slice(84, 8).ToArray(), 0);
         }
 
         public override string ToString()
