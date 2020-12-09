@@ -17,37 +17,73 @@ namespace SubstrateNetWalletTest
             SystemInteraction.PersistentExists = f => File.Exists(Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), f));
             SystemInteraction.Persist = (f, c) => File.WriteAllText(Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), f), c);
         }
+        [Test]
+        public void IsValidPasswordTest()
+        {
+            var wallet = new Wallet();
+
+            Assert.False(wallet.IsValidPassword("12345678"));
+            Assert.False(wallet.IsValidPassword("ABCDEFGH"));
+            Assert.False(wallet.IsValidPassword("abcdefgh"));
+            Assert.False(wallet.IsValidPassword("ABCDefgh"));
+            Assert.False(wallet.IsValidPassword("1BCDefg"));
+
+            Assert.True(wallet.IsValidPassword("ABCDefg1"));
+        }
+
+        [Test]
+        public void IsValidWalletNameTest()
+        {
+            var wallet = new Wallet();
+
+            Assert.False(wallet.IsValidWalletName("1234"));
+            Assert.False(wallet.IsValidWalletName("ABC_/"));
+
+            Assert.True(wallet.IsValidWalletName("wal_let"));
+            Assert.True(wallet.IsValidWalletName("1111111"));
+        }
 
         [Test]
         public void CreateWalletTest()
         {
             // create new wallet with password and persist
-            var wallet1 = new Wallet("1234", "wallet.dat");
-            
+            var wallet1 = new Wallet();
+
+            wallet1.Create("aA1234dd");
+
             Assert.True(wallet1.IsCreated);
+            
             Assert.True(wallet1.IsUnlocked);
 
             // read wallet
-            var wallet2 = new Wallet("wallet.dat");
+            var wallet2 = new Wallet();
+
+            wallet2.Load("wallet");
 
             Assert.True(wallet2.IsCreated);
+
             Assert.False(wallet2.IsUnlocked);
 
             // unlock wallet with password
-            wallet2.Unlock("1234");
+            wallet2.Unlock("aA1234dd");
 
             Assert.True(wallet2.IsUnlocked);
 
             Assert.AreEqual(wallet1.Account.Address, wallet2.Account.Address);
 
 
-            var wallet3 = new Wallet("wallet.dat");
+            var wallet3 = new Wallet();
+
+            Assert.False(wallet3.IsCreated);
+
+            wallet3.Load("wallet");
 
             Assert.True(wallet3.IsCreated);
+
             Assert.False(wallet3.IsUnlocked);
 
             // unlock wallet with password
-            wallet3.Unlock("4321");
+            wallet3.Unlock("aA4321dd");
 
             Assert.False(wallet3.IsUnlocked);
 
@@ -57,8 +93,8 @@ namespace SubstrateNetWalletTest
         public async Task ConnectionTestAsync()
         {
             // create new wallet with password and persist
-            var wallet = new Wallet("1234", "wallet.dat");
-            await wallet.ConnectAsync("wss://node01.dotmog.com");
+            var wallet = new Wallet();
+            await wallet.StartAsync("wss://node01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
 
@@ -66,7 +102,7 @@ namespace SubstrateNetWalletTest
             Assert.AreEqual("2.0.0-37f7720d9-x86_64-linux-gnu", wallet.ChainInfo.Version);
             Assert.AreEqual("DOT Mog Testnet", wallet.ChainInfo.Chain);
 
-            await wallet.DisconnectAsync();
+            await wallet.StopAsync();
 
             Assert.False(wallet.IsConnected);
         }

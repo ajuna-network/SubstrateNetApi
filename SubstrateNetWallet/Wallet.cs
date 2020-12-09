@@ -22,9 +22,9 @@ namespace SubstrateNetWallet
 
         private const string WEBSOCKETURL = "wss://node01.dotmog.com";
 
-        private const string DefaultWalletFile = "wallet.dat";
+        private const string _fileType = "dat";
 
-        private readonly string _path;
+        private const string _defaultWalletName = "wallet";
 
         private WalletFile _walletFile;
 
@@ -34,6 +34,12 @@ namespace SubstrateNetWallet
 
         private CancellationTokenSource _connectTokenSource;
 
+        private string _subscriptionIdNewHead, _subscriptionIdFinalizedHeads;
+
+        private Header Head { get; set; }
+
+        public Header FinalizedHead { get; set; }
+
         public bool IsUnlocked => Account != null;
 
         public bool IsCreated => _walletFile != null;
@@ -42,122 +48,66 @@ namespace SubstrateNetWallet
 
         public ChainInfo ChainInfo { get; private set; }
 
-        public bool IsConnected => _client.IsConnected;
+        public bool IsConnected => _client != null && _client.IsConnected;
 
         public bool IsOnline => IsConnected && _subscriptionIdNewHead != string.Empty && _subscriptionIdFinalizedHeads != string.Empty;
 
-        private string _subscriptionIdNewHead, _subscriptionIdFinalizedHeads;
-
-        public Wallet(string path = DefaultWalletFile) : this(null, path)
-        {
-        }
+        public bool IsValidWalletName(string walletName) => walletName.Length > 4 && walletName.Length < 25 && walletName.All(c => Char.IsLetterOrDigit(c) || c.Equals('_'));
+        
+        public bool IsValidPassword(string password) => password.Length > 7 && password.Length < 25 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
+        
+        public string AddWalletFileType(string walletName) => $"{walletName}.{_fileType}";
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="password"></param>
-        /// <param name="path"></param>
-        public Wallet(string password, string path)
+        /// <param name="walletName"></param>
+        public Wallet()
         {
-            _path = path;
-
-            if (!Caching.TryReadFile(path, out _walletFile) && password != null)
-            {
-                Create(password);
-            }
-            else if (password != null)
-            {
-                Unlock(password);
-            }
-
             _connectTokenSource = new CancellationTokenSource();
         }
 
-        public async Task StartAsync(string webSocketUrl = WEBSOCKETURL)
+        /// <summary>
+        /// Load an existing wallet
+        /// </summary>
+        /// <param name="walletName"></param>
+        /// <returns></returns>
+        public bool Load(string walletName)
         {
-            // disconnect from node if we are already connected to one.
-            if (IsConnected)
+            if (!IsValidWalletName(walletName))
             {
-                Logger.Warn($"Wallet already connected, disconnecting from {ChainInfo} now");
-                await StopAsync();
+                Logger.Warn("Wallet name is invalid, please provide a proper wallet name. [A-Za-Z_]{20}.");
+                return false;
+            }
+            
+            var walletFileName = AddWalletFileType(walletName);
+            if (!Caching.TryReadFile(walletFileName, out _walletFile))
+            {
+                Logger.Warn($"Failed to load wallet file '{walletFileName}'!");
+                return false;
             }
 
-            // connect wallet
-            await ConnectAsync(webSocketUrl);
-
-            if (IsConnected)
-            {
-                await RefreshSubscriptionsAsync();
-            }
-        }
-
-        private async Task RefreshSubscriptionsAsync()
-        {
-            Logger.Info($"Refreshing all subscriptions");
-
-            // unsubscribe all subscriptions
-            await UnsubscribeAllAsync();
-
-            // subscribe to new heads
-            _subscriptionIdNewHead = await _client.Chain.SubscribeNewHeadsAsync((header) => CallBackNewHeads(header), _connectTokenSource.Token);
-
-            // subscribe to finalized heads
-            _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((header) => CallBackFinalizedHeads(header), _connectTokenSource.Token);
-        }
-
-        private async Task UnsubscribeAllAsync()
-        {
-            if (_subscriptionIdNewHead != string.Empty)
-            {
-                // unsubscribe from new heads
-                if (!await _client.Chain.UnsubscribeNewHeadsAsync(_subscriptionIdNewHead, _connectTokenSource.Token))
-                {
-                    Logger.Warn($"Couldn't unsubscribe new heads {_subscriptionIdNewHead} id.");
-                }
-                _subscriptionIdNewHead = string.Empty;
-            }
-
-            if (_subscriptionIdFinalizedHeads != string.Empty)
-            {
-                // unsubscribe from finalized heads
-                if (!await _client.Chain.UnsubscribeFinalizedHeadsAsync(_subscriptionIdFinalizedHeads, _connectTokenSource.Token))
-                {
-                    Logger.Warn($"Couldn't unsubscribe finalized heads {_subscriptionIdFinalizedHeads} id.");
-                }
-                _subscriptionIdFinalizedHeads = string.Empty;
-            }
-        }
-
-        public async Task StopAsync()
-        {
-            // unsubscribe all subscriptions
-            await UnsubscribeAllAsync();
-
-            // disconnect wallet
-            await DisconnectAsync();
-        }
-
-        public virtual void CallBackNewHeads(Header header)
-        {
-
-        }
-
-        public virtual void CallBackFinalizedHeads(Header header)
-        {
-
+            return true;
         }
 
         /// <summary>
-        /// Create a new wallet with mnemonic
+        /// Create a new wallet which is encrypted with a password
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool Create(string password)
+        public bool Create(string password, string walletName = _defaultWalletName)
         {
             if (IsCreated)
             {
                 Logger.Warn($"Wallet already created.");
                 return true;
+            }
+
+            if (!IsValidPassword(password))
+            {
+                Logger.Warn("Password isn't is invalid, please provide a proper password. Minmimu eight size and must have upper, lower and digits.");
+                return false;
             }
 
             Logger.Info($"Creating new wallet.");
@@ -182,7 +132,7 @@ namespace SubstrateNetWallet
 
             _walletFile = new WalletFile(publicKey, encryptedSeed, salt);
 
-            Caching.Persist(_path, _walletFile);
+            Caching.Persist(AddWalletFileType(walletName), _walletFile);
 
             Account = new Account(KeyType.ED25519, privateKey, publicKey);
 
@@ -292,7 +242,7 @@ namespace SubstrateNetWallet
             throw new NotImplementedException();
         }
 
-        public async Task ConnectAsync(string webSocketUrl)
+        private async Task ConnectAsync(string webSocketUrl)
         {
             Logger.Info($"Connecting to {webSocketUrl}");
 
@@ -319,9 +269,91 @@ namespace SubstrateNetWallet
             Logger.Info($"Connection established to {ChainInfo}");
         }
 
-        public async Task DisconnectAsync()
+        /// <summary>
+        /// Start connection and refresh subscriptions.
+        /// </summary>
+        /// <param name="webSocketUrl"></param>
+        /// <returns></returns>
+        public async Task StartAsync(string webSocketUrl = WEBSOCKETURL)
         {
+            // disconnect from node if we are already connected to one.
+            if (IsConnected)
+            {
+                Logger.Warn($"Wallet already connected, disconnecting from {ChainInfo} now");
+                await StopAsync();
+            }
+
+            // connect wallet
+            await ConnectAsync(webSocketUrl);
+
+            if (IsConnected)
+            {
+                await RefreshSubscriptionsAsync();
+            }
+        }
+
+        private async Task RefreshSubscriptionsAsync()
+        {
+            Logger.Info($"Refreshing all subscriptions");
+
+            // unsubscribe all subscriptions
+            await UnsubscribeAllAsync();
+
+            // subscribe to new heads
+            _subscriptionIdNewHead = await _client.Chain.SubscribeNewHeadsAsync((header) => CallBackNewHeads(header), _connectTokenSource.Token);
+
+            // subscribe to finalized heads
+            _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((header) => CallBackFinalizedHeads(header), _connectTokenSource.Token);
+        }
+
+        private async Task UnsubscribeAllAsync()
+        {
+            if (_subscriptionIdNewHead != null 
+             && _subscriptionIdNewHead != string.Empty)
+            {
+                // unsubscribe from new heads
+                if (!await _client.Chain.UnsubscribeNewHeadsAsync(_subscriptionIdNewHead, _connectTokenSource.Token))
+                {
+                    Logger.Warn($"Couldn't unsubscribe new heads {_subscriptionIdNewHead} id.");
+                }
+                _subscriptionIdNewHead = string.Empty;
+            }
+
+            if (_subscriptionIdNewHead != null 
+             && _subscriptionIdNewHead != string.Empty)
+            {
+                // unsubscribe from finalized heads
+                if (!await _client.Chain.UnsubscribeFinalizedHeadsAsync(_subscriptionIdFinalizedHeads, _connectTokenSource.Token))
+                {
+                    Logger.Warn($"Couldn't unsubscribe finalized heads {_subscriptionIdFinalizedHeads} id.");
+                }
+                _subscriptionIdFinalizedHeads = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Stop the current connection and unsubscribe all.
+        /// </summary>
+        /// <returns></returns>
+        public async Task StopAsync()
+        {
+            // unsubscribe all subscriptions
+            await UnsubscribeAllAsync();
+
+            // disconnect wallet
             await _client.CloseAsync(_connectTokenSource.Token);
+        }
+
+
+
+        public virtual void CallBackNewHeads(Header header)
+        {
+            Head = header;
+        }
+
+        public virtual void CallBackFinalizedHeads(Header header)
+        {
+            FinalizedHead = header;
         }
     }
 }
