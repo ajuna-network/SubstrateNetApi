@@ -52,9 +52,9 @@ namespace SubstrateNetWallet
 
         public bool IsOnline => IsConnected && _subscriptionIdNewHead != string.Empty && _subscriptionIdFinalizedHeads != string.Empty;
 
-        public bool IsValidWalletName(string walletName) => walletName.Length > 4 && walletName.Length < 25 && walletName.All(c => Char.IsLetterOrDigit(c) || c.Equals('_'));
+        public bool IsValidWalletName(string walletName) => walletName.Length > 4 && walletName.Length < 21 && walletName.All(c => Char.IsLetterOrDigit(c) || c.Equals('_'));
         
-        public bool IsValidPassword(string password) => password.Length > 7 && password.Length < 25 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
+        public bool IsValidPassword(string password) => password.Length > 7 && password.Length < 21 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
         
         public string AddWalletFileType(string walletName) => $"{walletName}.{_fileType}";
 
