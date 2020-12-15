@@ -17,6 +17,7 @@ namespace SubstrateNetWalletTest
             SystemInteraction.PersistentExists = f => File.Exists(Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), f));
             SystemInteraction.Persist = (f, c) => File.WriteAllText(Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), f), c);
         }
+
         [Test]
         public void IsValidPasswordTest()
         {
@@ -87,6 +88,10 @@ namespace SubstrateNetWalletTest
 
             Assert.False(wallet3.IsUnlocked);
 
+            var wallet4 = new Wallet();
+            wallet4.Load("dev_wallet");
+
+            Assert.True(wallet4.IsCreated);
         }
 
         [Test]
@@ -107,6 +112,20 @@ namespace SubstrateNetWalletTest
             Assert.False(wallet.IsConnected);
         }
 
+
+        [Test]
+        public void CheckAccount()
+        {
+            var wallet = new Wallet();
+            wallet.Load("dev_wallet");
+
+            Assert.True(wallet.IsCreated);
+            
+            wallet.Unlock("aA1234dd");
+            Assert.True(wallet.IsUnlocked);
+
+            Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Address);
+        }
 
     }
 }

@@ -40,5 +40,16 @@ namespace SubstrateNetApi.Modules
         {
             return await _client.InvokeAsync<bool>("state_unsubscribeRuntimeVersion", new object[] { subscriptionId }, token);
         }
+        public async Task<string> SubscribeStorageAsync() => await SubscribeStorageAsync(CancellationToken.None);
+        public async Task<string> SubscribeStorageAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<string>("state_subscribeStorage", null, token);
+        }
+
+        public async Task<bool> UnsubscribeStorageAsync(string subscriptionId) => await UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnsubscribeStorageAsync(string subscriptionId, CancellationToken token)
+        {
+            return await _client.InvokeAsync<bool>("state_unsubscribeStorage", new object[] { subscriptionId }, token);
+        }
     }
 }

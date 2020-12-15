@@ -86,6 +86,12 @@ namespace SubstrateNetApi
             GenericCallBack(subscription, result);
         }
 
+        [JsonRpcMethod("state_storage")]
+        public void StateStorageVersion(string subscription, JObject result)
+        {
+            GenericCallBack(subscription, result);
+        }
+
         [JsonRpcMethod("author_extrinsicUpdate")]
         public void AuthorSubmitAndWatchExtrinsic(string subscription, ExtrinsicStatus result)
         {

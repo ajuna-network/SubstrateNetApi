@@ -16,4 +16,10 @@
     <ProjectReference Include="..\SubstrateNetWallet\SubstrateNetWallet.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="dev_wallet.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
