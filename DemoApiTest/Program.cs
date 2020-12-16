@@ -99,7 +99,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("Dmog", "AllMogwaisCount", cancellationToken);
 
             // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
-            var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0", cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
             //var reqResult = await client.GetStorageAsync("Dmog", "MogwaiOwner", "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C", cancellationToken);
@@ -110,7 +110,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
-            //var reqResult = await client.GetStorageAsync("System", "Account", "0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D", cancellationToken);
+            var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")), cancellationToken);
             //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.HexToByteArray("0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D")), cancellationToken);
 
             //var reqResult = await client.GetMethodAsync<JArray>("author_pendingExtrinsics", cancellationToken);
@@ -144,7 +144,7 @@ namespace DemoApiTest
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
-            Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Serialize());
 
             Console.ReadKey();
 

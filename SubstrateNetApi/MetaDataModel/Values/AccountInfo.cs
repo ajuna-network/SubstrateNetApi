@@ -7,7 +7,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
     {
         public uint Nonce { get; }
 
-        public byte RefCount {get;}
+        public uint RefCount {get;}
 
         public AccountData AccountData { get; }
 
@@ -18,8 +18,8 @@ namespace SubstrateNetApi.MetaDataModel.Values
         internal AccountInfo(Memory<byte> memory)
         {
             Nonce = BitConverter.ToUInt32(memory.Slice(0, 4).ToArray(), 0);
-            RefCount = memory.Slice(4, 1).ToArray()[0];
-            AccountData = new AccountData(memory.Slice(5));
+            RefCount = BitConverter.ToUInt32(memory.Slice(4, 4).ToArray(), 0);
+            AccountData = new AccountData(memory.Slice(8));
         }
 
         public override string ToString()

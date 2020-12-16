@@ -5,7 +5,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
 {
     public class Balance : IEncodable
     {
-        public CompactInteger Value { get; }
+        public BigInteger Value { get; }
 
         public Balance(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
@@ -23,7 +23,13 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public byte[] Encode()
         {
-            return Value.Encode();
+            return new CompactInteger(Value).Encode();
+        }
+
+        override
+        public string ToString()
+        {
+            return Value.ToString();
         }
     }
 }
