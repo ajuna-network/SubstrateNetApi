@@ -13,6 +13,8 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsics
 
         public byte CallIndex;
 
+        public Argument[] Arguments;
+
         public byte[] Parameters;
 
         public Method(byte moduleIndex, byte callIndex, byte[] parameters)

@@ -349,6 +349,8 @@ namespace SubstrateNetWallet
         public virtual void CallBackNewHeads(Header header)
         {
             Head = header;
+
+
         }
 
         public virtual void CallBackFinalizedHeads(Header header)

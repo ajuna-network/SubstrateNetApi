@@ -5,6 +5,7 @@
 /// <summary> Implements the chain class. </summary>
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -63,7 +64,22 @@ namespace SubstrateNetApi.Modules
         public async Task<BlockData> GetBlockAsync(Hash hash, CancellationToken token)
         {
             var parameter = hash != null ? hash.HexString : null;
-            return await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] { parameter }, token);
+            var result = await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] { parameter }, token);
+
+            var modules = _client.MetaData.Modules.ToList();
+
+            foreach (var extrinsic in result.Block.Extrinsics)
+            {
+                var module = modules.Where(p => p.Index == extrinsic.Method.ModuleIndex).FirstOrDefault();
+                extrinsic.Method.ModuleName = module?.Name;
+
+                var call = module.Calls[extrinsic.Method.CallIndex];
+                extrinsic.Method.CallName = call?.Name;
+
+                extrinsic.Method.Arguments = call.Arguments;
+            }
+
+            return result;
         }
 
         /// <summary> Gets block hash asynchronous. </summary>
