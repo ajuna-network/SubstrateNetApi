@@ -3,9 +3,11 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the chain class. </summary>
+using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Linq;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -66,17 +68,9 @@ namespace SubstrateNetApi.Modules
             var parameter = hash != null ? hash.HexString : null;
             var result = await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] { parameter }, token);
 
-            var modules = _client.MetaData.Modules.ToList();
-
-            foreach (var extrinsic in result.Block.Extrinsics)
+            for (int i = 0; i < result.Block.Extrinsics.Length; i++)
             {
-                var module = modules.Where(p => p.Index == extrinsic.Method.ModuleIndex).FirstOrDefault();
-                extrinsic.Method.ModuleName = module?.Name;
-
-                var call = module.Calls[extrinsic.Method.CallIndex];
-                extrinsic.Method.CallName = call?.Name;
-
-                extrinsic.Method.Arguments = call.Arguments;
+                result.Block.Extrinsics[i] = Extrinsic.GetTypedExtrinsic(result.Block.Extrinsics[i], _client.MetaData);
             }
 
             return result;
@@ -91,7 +85,7 @@ namespace SubstrateNetApi.Modules
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="BlockNumber"> The block number. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> GetBlockHashAsync(uint blockNumber) => await GetBlockHashAsync(blockNumber, CancellationToken.None);
+        public async Task<Hash> GetBlockHashAsync(BigInteger blockNumber) => await GetBlockHashAsync(blockNumber, CancellationToken.None);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -104,9 +98,9 @@ namespace SubstrateNetApi.Modules
         /// <param name="blockNumber"> The block number. </param>
         /// <param name="token">       A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> GetBlockHashAsync(uint? blockNumber, CancellationToken token)
+        public async Task<Hash> GetBlockHashAsync(BigInteger? blockNumber, CancellationToken token)
         {
-            var parameter = blockNumber.HasValue ? Utils.Bytes2HexString(BitConverter.GetBytes(blockNumber.Value)) : null;
+            var parameter = blockNumber != null ? Utils.Bytes2HexString(((BigInteger)blockNumber).ToByteArray()) : null;
             return await _client.InvokeAsync<Hash>("chain_getBlockHash", new object[] { parameter }, token);
         }
 

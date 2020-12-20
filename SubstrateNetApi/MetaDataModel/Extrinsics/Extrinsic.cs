@@ -1,11 +1,16 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
+using System.Linq;
 
 namespace SubstrateNetApi.MetaDataModel.Extrinsics
 {
     public class Extrinsic
     {
+        /// <summary> The logger. </summary>
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
         public bool Signed;
 
         public byte TransactionVersion;
@@ -25,6 +30,7 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsics
 
         public Extrinsic(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
+
         }
 
         internal Extrinsic(Memory<byte> memory)
@@ -45,6 +51,11 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsics
             // this part is for signed extrinsics
             if (Signed)
             {
+
+                // start bytes
+                m = 1;
+                var _startBytes = memory.Slice(p, m).ToArray()[0];
+                p += m;
 
                 // sender public key
                 m = 32;
@@ -106,6 +117,72 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsics
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        internal static Extrinsic GetTypedExtrinsic(Extrinsic extrinsic, MetaData metaData)
+        {
+            var modules = metaData.Modules.ToList();
+            var module = modules.Where(t => t.Index == extrinsic.Method.ModuleIndex).FirstOrDefault();
+            extrinsic.Method.ModuleName = module?.Name;
+
+            var call = module.Calls[extrinsic.Method.CallIndex];
+            extrinsic.Method.CallName = call?.Name;
+            extrinsic.Method.Arguments = call.Arguments;
+
+            extrinsic.EvaluateTypedArguments();
+
+            // need to change to the typed extrinsic
+            return extrinsic;
+        }
+
+        private void EvaluateTypedArguments()
+        {
+            if (Method.Arguments == null || Method.Arguments.Length == 0 || Method.Parameters == null || Method.Parameters.Length == 0)
+            {
+                Logger.Warn("Can't evaluate typed arguments extrinsic isn't properly enriched.");
+            }
+
+            var arguments = Method.Arguments;
+            var memory = Method.Parameters.AsMemory();
+
+            int p = 0;
+            int m;
+
+            for (int i = 0; i < arguments.Length; i++)
+            {
+                Argument argument = arguments[i];
+                switch (argument.Type)
+                {
+                    case "Compact<T::BlockNumber>":
+                        argument.Value = CompactInteger.Decode(memory.ToArray(), ref p);
+                        break;
+
+                    case "Compact<T::Balance>":
+                        argument.Value = CompactInteger.Decode(memory.ToArray(), ref p);
+                        break;
+
+                    case "Compact<T::Moment>":
+                        argument.Value = CompactInteger.Decode(memory.ToArray(), ref p);
+                        break;
+
+                    case "<T::Lookup as StaticLookup>::Source":
+                        m = 1;
+                        var _ = memory.Slice(p, m).ToArray()[0]; // public key type
+                        p += m;
+
+                        m = 32;
+                        argument.Value = Utils.GetAddressFrom(memory.Slice(p, m).ToArray()); // public key
+                        p += m;
+                        break;
+
+                    case "Vec<T::Header>":
+                        
+                        break;
+
+                    default:
+                        throw new Exception($"Argument is currently unhandled in GetTypedArguments, '{argument.Type}', please add!");
+                }
+            }
         }
     }
 }
