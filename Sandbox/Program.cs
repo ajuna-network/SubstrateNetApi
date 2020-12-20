@@ -102,15 +102,15 @@ namespace Sandbox
             var systemVersion = await client.System.VersionAsync(cancellationToken);
             var systemChain = await client.System.ChainAsync(cancellationToken);
             Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
-
-            for (int i = 0; i < 500; i++)
+            // 544133 CreateMogwai();
+            for (int i = 520000; i < 521000; i++)
             {
                 var blockHash = await client.Chain.GetBlockHashAsync(new BigInteger(i), cancellationToken);
 
                 var block = await client.Chain.GetBlockAsync(blockHash, cancellationToken);
 
                 // Print result
-                Console.WriteLine($"{i} --> {block}");
+                Console.WriteLine($"{i} --> {block.Block.Extrinsics.Length}");
             }
             //Console.WriteLine(client.MetaData.Serialize());
 

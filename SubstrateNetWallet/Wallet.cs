@@ -36,10 +36,6 @@ namespace SubstrateNetWallet
 
         private string _subscriptionIdNewHead, _subscriptionIdFinalizedHeads;
 
-        private Header Head { get; set; }
-
-        public Header FinalizedHead { get; set; }
-
         public bool IsUnlocked => Account != null;
 
         public bool IsCreated => _walletFile != null;
@@ -57,6 +53,8 @@ namespace SubstrateNetWallet
         public bool IsValidPassword(string password) => password.Length > 7 && password.Length < 21 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
         
         public string AddWalletFileType(string walletName) => $"{walletName}.{_fileType}";
+
+        public event EventHandler<ChainInfo> ChainInfoUpdated;
 
         /// <summary>
         /// Constructor
@@ -348,14 +346,14 @@ namespace SubstrateNetWallet
 
         public virtual void CallBackNewHeads(Header header)
         {
-            Head = header;
-
 
         }
 
         public virtual void CallBackFinalizedHeads(Header header)
         {
-            FinalizedHead = header;
+            ChainInfo.UpdateFinalizedHeader(header);
+
+            ChainInfoUpdated?.Invoke(this, ChainInfo);
         }
     }
 }
