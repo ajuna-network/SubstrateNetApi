@@ -42,6 +42,8 @@ namespace SubstrateNetWallet
 
         public Account Account { get; private set; }
 
+        public AccountInfo AccountInfo { get; private set; }
+
         public ChainInfo ChainInfo { get; private set; }
 
         public bool IsConnected => _client != null && _client.IsConnected;
@@ -71,7 +73,7 @@ namespace SubstrateNetWallet
         /// </summary>
         /// <param name="walletName"></param>
         /// <returns></returns>
-        public bool Load(string walletName)
+        public bool Load(string walletName = _defaultWalletName)
         {
             if (!IsValidWalletName(walletName))
             {
@@ -134,6 +136,9 @@ namespace SubstrateNetWallet
 
             Account = new Account(KeyType.ED25519, privateKey, publicKey);
 
+            Logger.Warn($"Listning on call back event of chain info update.");
+            ChainInfoUpdated += Wallet_ChainInfoUpdated;
+
             return true;
         }
 
@@ -174,8 +179,9 @@ namespace SubstrateNetWallet
                 Logger.Warn($"Couldn't unlock the wallet with this password. {exception}");
                 return false;
             }
-            
 
+            Logger.Warn($"Listning on call back event of chain info update.");
+            ChainInfoUpdated += Wallet_ChainInfoUpdated;
 
             return true;
         }
@@ -286,7 +292,16 @@ namespace SubstrateNetWallet
 
             if (IsConnected)
             {
+                Logger.Warn($"Starting subscriptions now.");
                 await RefreshSubscriptionsAsync();
+            }
+        }
+
+        private void Wallet_ChainInfoUpdated(object sender, ChainInfo e)
+        {
+            if (IsCreated && IsUnlocked && Account != null)
+            {
+                _ = UpdateAccountInfoAsync(Account);
             }
         }
 
@@ -338,10 +353,26 @@ namespace SubstrateNetWallet
             // unsubscribe all subscriptions
             await UnsubscribeAllAsync();
 
+            ChainInfoUpdated -= Wallet_ChainInfoUpdated;
+
             // disconnect wallet
             await _client.CloseAsync(_connectTokenSource.Token);
         }
 
+
+        public async Task UpdateAccountInfoAsync(Account account)
+        {
+            var reqResult = await _client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)), _connectTokenSource.Token);
+
+            if (!(reqResult is AccountInfo))
+            {
+                Logger.Warn($"Couldn't update account informations. Please check '{reqResult}'");
+                return;
+            }
+
+            Logger.Debug($"Updated account successfully.");
+            AccountInfo = reqResult as AccountInfo;
+        }
 
 
         public virtual void CallBackNewHeads(Header header)
@@ -355,5 +386,6 @@ namespace SubstrateNetWallet
 
             ChainInfoUpdated?.Invoke(this, ChainInfo);
         }
+
     }
 }

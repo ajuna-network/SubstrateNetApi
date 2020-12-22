@@ -3,7 +3,7 @@ using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
-    internal class AccountInfo
+    public class AccountInfo
     {
         public uint Nonce { get; }
 

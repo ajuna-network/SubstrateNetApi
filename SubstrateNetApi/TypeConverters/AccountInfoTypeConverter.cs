@@ -29,8 +29,8 @@ namespace SubstrateNetApi.TypeConverters
         /// <returns> An object. </returns>
         public object Create(string value)
         {
-            Logger.Debug($"Converting {value} to AccountInfo.");
-            return new AccountInfo(value);
+            Logger.Debug($"Converting '{value}' to AccountInfo.");
+            return value != null ? new AccountInfo(value) : null;
         }
 
         public override AccountInfo ReadJson(JsonReader reader, Type objectType, AccountInfo existingValue, bool hasExistingValue, JsonSerializer serializer)

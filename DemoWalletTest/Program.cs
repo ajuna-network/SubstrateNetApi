@@ -19,7 +19,7 @@ namespace DemoWalletTest
             var wallet = new Wallet();
 
             wallet.ChainInfoUpdated += Wallet_ChainInfoUpdated;
-            
+
             await wallet.StartAsync("wss://node01.dotmog.com");
 
             if (!wallet.IsConnected)
@@ -27,7 +27,22 @@ namespace DemoWalletTest
                 return;
             }
 
+            if (wallet.Load())
+            {
+                Console.WriteLine("wallet unlocked");
+                wallet.Unlock("Aa123456");
+            }
+            else if (!wallet.IsCreated)
+            {
+                Console.WriteLine("wallet created");
+                wallet.Create("Aa123456");
+            }
+
+            Console.WriteLine(wallet.Account.Address); 
+            
             Console.ReadKey();
+
+            Console.WriteLine(wallet.AccountInfo);
 
             await wallet.StopAsync();
 
