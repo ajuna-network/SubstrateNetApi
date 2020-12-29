@@ -16,10 +16,6 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsics
         public byte[] Encode()
         {
             byte[] bytes = _call.Encode().Concat(_signedExtension.Encode()).ToArray();
-            if (bytes.Length > 256)
-            {
-                bytes = HashExtension.Blake2(bytes, 256);
-            }
             return bytes;
         }
     }

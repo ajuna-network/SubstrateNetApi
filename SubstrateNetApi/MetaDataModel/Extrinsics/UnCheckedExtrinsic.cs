@@ -39,8 +39,8 @@ namespace SubstrateNetApi.MetaDataModel.Extrinsics
             // 4 is the TRANSACTION_VERSION constant and it is 7 bits long, the highest bit 1 for signed transaction, 0 for unsigned.
             list.Add((byte)(Constants.EXTRINSIC_VERSION | (Signed ? 0x80 : 0)));
 
-            // 32 bytes
-            list.AddRange(Account.PublicKey);
+            // 32 bytes + prefix depending on address encoding in chain, see Constants.Address_version
+            list.AddRange(Account.Encode());
 
             // key type ed = 00 and sr = FF
             list.Add(Account.KeyTypeByte);

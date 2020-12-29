@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
@@ -34,7 +35,18 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public byte[] Encode()
         {
-            return PublicKey;
+            switch(Constants.ADDRESS_VERSION)
+            {
+                case 0:
+                    return PublicKey;
+                case 1:
+                    var bytes = new List<byte>();
+                    bytes.Add(0xFF);
+                    bytes.AddRange(PublicKey);
+                    return bytes.ToArray();
+                default:
+                    throw new NotImplementedException("Unknown address version please refere to Constants.cs");
+            }
         }
     }
 }

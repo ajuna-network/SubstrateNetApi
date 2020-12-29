@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using Schnorrkel;
 using SubstrateNetApi;
+using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
@@ -27,6 +28,9 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void BalanceTransferMockedTest1()
         {
+            Constants.SPEC_VERSION = 1;
+            Constants.ADDRESS_VERSION = 0;
+
             byte publicKeyType = 0x00;
             // Utils.HexToByteArray("0x9EFFC1668CA381C242885516EC9FA2B19C67B6684C02A8A3237B6862E5C8CD7E");
             byte[] publicKey = Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM");
@@ -61,6 +65,9 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void BalanceTransferMockedTest2()
         {
+            Constants.SPEC_VERSION = 1;
+            Constants.ADDRESS_VERSION = 0;
+
             //[
             //  {
             //    "signature": {
@@ -117,6 +124,9 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void BalanceTransferAliceTest()
         {
+            Constants.SPEC_VERSION = 1;
+            Constants.ADDRESS_VERSION = 0;
+
             //[
             //  {
             //    isSigned: true,
@@ -170,7 +180,7 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Era era = new Era(Constants.EXTRINSIC_ERA_PERIOD_DEFAULT, currentBlockNumber, currentBlockNumber == 0 ? true : false);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0],  publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(startEra));
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(startEra));
 
             string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
 
@@ -191,6 +201,9 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void DmogCreateImmortalAliceTest()
         {
+            Constants.SPEC_VERSION = 1;
+            Constants.ADDRESS_VERSION = 0;
+
             byte[] privatKey = Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
 
             byte publicKeyType = 0x01;
@@ -240,6 +253,8 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void DmogCreateImmortalAliceTest2()
         {
+            Constants.SPEC_VERSION = 1;
+            Constants.ADDRESS_VERSION = 0;
 
             //  length: 103[2]
             //  signatureVersion: 0x84
@@ -300,6 +315,9 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void DmogCreateMortalAliceTest1()
         {
+            Constants.SPEC_VERSION = 1;
+            Constants.ADDRESS_VERSION = 0;
+
             //length: 104[2]
             //signatureVersion: 0x84
             //sendPublicKey: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY[0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D]
@@ -390,6 +408,8 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void BalanceTransferCreateMortalZurichToAliceTest1()
         {
+            Constants.SPEC_VERSION = 1;
+            Constants.ADDRESS_VERSION = 0;
 
             // 0x310284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e007c9777cf14fe0e14e8aef019695043be2fd153a75ff3381f4cc4850755d537b1a9d7920e509ee2e4e1f244dad670dc44ec3fc24388181e6465fdda13d59ae70063001c000400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d02890700
             // sender 5FfBQ3kwXrbdyoqLPvcXRp7ikWydXawpNs2Ceu3WwFdhZ8W4
@@ -422,14 +442,14 @@ namespace SubstrateNetApiTests.Extrinsic
             var method = new Method(0x04, 0x00, bytes.ToArray());
 
             var era = Era.Create(12, 15686);
-            
+
             CompactInteger nonce = 7;
 
             CompactInteger tip = 0;
 
             var genesis = new Hash(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"));
             var startEra = new Hash(Utils.HexToByteArray("0x4c4e0d1594e526c2392e7b6306f890fd0705085a5f83f9114caebb369bc1511f")); // FinalizedHead 15686
-         
+
 
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x7C9777CF14FE0E14E8AEF019695043BE2FD153A75FF3381F4CC4850755D537B1A9D7920E509EE2E4E1F244DAD670DC44EC3FC24388181E6465FDDA13D59AE700");
@@ -463,5 +483,266 @@ namespace SubstrateNetApiTests.Extrinsic
             Assert.True(Chaos.NaCl.Ed25519.Verify(extrinsic.Signature, extrinsic.GetPayload().Encode(), publicKey));
             Assert.True(Chaos.NaCl.Ed25519.Verify(signature, extrinsic.GetPayload().Encode(), publicKey));
         }
+
+        [Test]
+        public void CreateMogwaiTestZurich()
+        {
+            // 792,193 ---> 0x0cf64c1e0e45b2fba6fd524e180737f5e1bb46e0691783d6963b2e26253f8592
+
+            Constants.SPEC_VERSION = 259;
+            Constants.ADDRESS_VERSION = 1;
+
+            Account accountZurich = new Account(
+                KeyType.ED25519,
+                Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
+                Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+
+            byte[] privatKey = Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
+            byte[] publicKey = Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
+
+            //                                     278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
+            //                                                                                                       029d6a4d204108ecc3d27ccfb5163c85582f946282ba7625c0c9da2595ba89856df529efea6fdc36426a6be89bddefed52d23fc1ccf66dd9483b542ed96e0b08
+            string referenceExtrinsic = "0xa50184ff278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00029d6a4d204108ecc3d27ccfb5163c85582f946282ba7625c0c9da2595ba89856df529efea6fdc36426a6be89bddefed52d23fc1ccf66dd9483b542ed96e0b08750304002003";
+            //                          "0xA50184FF278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E00029D6A4D204108ECC3D27CCFB5163C85582F946282BA7625C0C9DA2595BA89856DF529EFEA6FDC36426A6BE89BDDEFED52D23FC1CCF66DD9483B542ED96E0B08750304003203"
+            var method = new Method(0x20, 0x03);
+
+            var era = Era.Create(64, 792183);
+
+            CompactInteger nonce = 7;
+
+            CompactInteger tip = 0;
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true
+                , new Account(KeyType.ED25519, privatKey, publicKey)
+                , method
+                , era
+                , 1
+                , 0
+                , new Hash("0x778c4bb53621114939206c9c9874c5fa1da38d2e14293d053a0b8dd6125b4042")
+                , new Hash("0x1a62fe1013aab94901e7dd80051f8e2b6b3c44bd0f0c934ff665768d459b3aa5") // currentblock
+            );
+
+
+            uncheckedExtrinsic.AddPayloadSignature(Utils.HexToByteArray("0x029d6a4d204108ecc3d27ccfb5163c85582f946282ba7625c0c9da2595ba89856df529efea6fdc36426a6be89bddefed52d23fc1ccf66dd9483b542ed96e0b08"));
+
+            var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
+
+
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
+
+            /// Payloads longer than 256 bytes are going to be `blake2_256`-hashed.
+            if (payload.Length > 256)
+            {
+                payload = HashExtension.Blake2(payload, 256);
+            }
+
+            byte[] signature;
+            signature = Chaos.NaCl.Ed25519.Sign(payload, privatKey);
+            var signatureStr = Utils.Bytes2HexString(signature);
+
+            uncheckedExtrinsic.AddPayloadSignature(signature);
+
+            Assert.AreEqual(referenceExtrinsic, uncheckedExtrinsicStr.ToLower());
+
+            /**
+             *       
+             * {
+                isSigned: true,
+                method: {
+                  args: [],
+                  method: createMogwai,
+                  section: dotMogModule
+                },
+                era: {
+                  MortalEra: {
+                    period: 64,
+                    phase: 55
+                  }
+                },
+                nonce: 1,
+                signature: 0x029d6a4d204108ecc3d27ccfb5163c85582f946282ba7625c0c9da2595ba89856df529efea6fdc36426a6be89bddefed52d23fc1ccf66dd9483b542ed96e0b08,
+                signer: 5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM,
+                tip: 0
+              }
+             * 
+             */
+
+            //{
+            //    "Signed": true,
+            //    "TransactionVersion": 4,
+            //    "Account": {
+            //                "KeyType": 0,
+            //      "Address": "5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM",
+            //      "PublicKey": "J4EX/BRMcjQPZ9DyMW6Dhs7/vyskKMnFH+98WX8dQm4="
+            //    },
+            //    "Era": {
+            //      "IsImmortal": false,
+            //      "Period": 64,
+            //      "Phase": 55
+            //    },
+            //    "Nonce": {
+            //                "Value": 1
+            //    },
+            //    "Tip": {
+            //                "Value": 0
+            //    },
+            //    "Method": {
+            //      "ModuleName": "DotMogModule",
+            //      "ModuleIndex": 32,
+            //      "CallName": "create_mogwai",
+            //      "CallIndex": 3,
+            //      "Arguments": [
+            //      ],
+            //      "Parameters": ""
+            //    },
+            //    "Signature": "Ap1qTSBBCOzD0nzPtRY8hVgvlGKCunYlwMnaJZW6iYVt9Snv6m/cNkJqa+ib3e/tUtI/wcz2bdlIO1Qu2W4LCA=="
+            //  }
+
+        }
+
+        [Test]
+        public void BalanceTransferZurichTest()
+        {
+            Constants.SPEC_VERSION = 259;
+            Constants.ADDRESS_VERSION = 1;
+
+            // 797447 --> 0xe7b99ee484e6369dd3c2a66d6306bffde5048ddf2090e990faae83e66f5275f4
+
+            Account accountZurich = new Account(
+                KeyType.ED25519,
+                Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
+                Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+
+            byte[] privatKey = Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
+            byte[] publicKey = Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
+
+            var receiverPublicKey = Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"));
+
+            string referenceExtrinsic = "0x450284ff278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00d6a14aac2c0da8330f67a04f9ff4154b3c31d02529eaf112a23d59f5a5e1d1766efbb7f4dd56e6ed84a543de94342bdec8c80bdac62373d22387ea980a42270f36000c000600ff4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e0b00b04e2bde6f";
+            //                          "0x450284FF278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E00D6A14AAC2C0DA8330F67A04F9FF4154B3C31D02529EAF112A23D59F5A5E1D1766EFBB7F4DD56E6ED84A543DE94342BDEC8C80BDAC62373D22387EA980A42270F35000C000600FF4D2B23D27E1F6E3733D7EBF3DC04F3D5D0010CD18038055F9BBBAB48F460B61E0B00B04E2BDE6F"
+            //                          "0x450284FF278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E00D6A14AAC2C0DA8330F67A04F9FF4154B3C31D02529EAF112A23D59F5A5E1D1766EFBB7F4DD56E6ED84A543DE94342BDEC8C80BDAC62373D22387EA980A42270F36000C000600FF4D2B23D27E1F6E3733D7EBF3DC04F3D5D0010CD18038055F9BBBAB48F460B61E0B00B04E2BDE6F"
+            
+            //var bytes = new List<byte>();
+            //bytes.Add(0xFF);
+            //bytes.AddRange(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"));
+            //CompactInteger amount = 123000000000000;
+            //bytes.AddRange(amount.Encode());
+            //byte[] parameters = bytes.ToArray();
+            ////var method = new Method(0x06, 0x00, parameters);
+
+            var extrinsic = ExtrinsicCall.BalanceTransfer(new AccountId(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")), new Balance(123000000000000));
+
+            var method = new Method(0x06, 0x00, extrinsic.Encode());
+
+            //var era = Era.Create(64, 797443);
+
+            var era = new Era(128, 3, false);
+                
+            CompactInteger nonce = 3;
+
+            CompactInteger tip = 0;
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true
+                , new Account(KeyType.ED25519, privatKey, publicKey)
+                , method
+                , era
+                , nonce
+                , tip
+                , new Hash("0x778c4bb53621114939206c9c9874c5fa1da38d2e14293d053a0b8dd6125b4042")
+                , new Hash("0xd5a0f4467c6c8885b531f12028789e83c2e473b8d2d44edbc09811fd2f903f1f") // currentblock
+            );
+
+            //uncheckedExtrinsic.AddPayloadSignature(Utils.HexToByteArray("0xd6a14aac2c0da8330f67a04f9ff4154b3c31d02529eaf112a23d59f5a5e1d1766efbb7f4dd56e6ed84a543de94342bdec8c80bdac62373d22387ea980a42270f"));
+
+            var payload = uncheckedExtrinsic.GetPayload().Encode();
+
+            /// Payloads longer than 256 bytes are going to be `blake2_256`-hashed.
+            if (payload.Length > 256)
+            {
+                payload = HashExtension.Blake2(payload, 256);
+            }
+
+            byte[] signature;
+            signature = Chaos.NaCl.Ed25519.Sign(payload, privatKey);
+            var signatureStr = Utils.Bytes2HexString(signature);
+
+            uncheckedExtrinsic.AddPayloadSignature(signature);
+
+            var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
+
+            Assert.AreEqual(referenceExtrinsic, uncheckedExtrinsicStr.ToLower());
+
+            //{
+            //    isSigned: true,
+            //    method:
+            //            {
+            //            args:[
+            //             5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH,
+            //             123.0000 mUnit
+            //      ],
+            //      method: transfer,
+            //      section: balances
+            //    },
+            //    era:
+            //            {
+            //            MortalEra:
+            //                {
+            //                period: 128,
+            //        phase: 3
+            //            }
+            //            },
+            //    nonce: 3,
+            //    signature: 0xd6a14aac2c0da8330f67a04f9ff4154b3c31d02529eaf112a23d59f5a5e1d1766efbb7f4dd56e6ed84a543de94342bdec8c80bdac62373d22387ea980a42270f,
+            //    signer: 5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM,
+            //    tip: 0
+            //}
+
+
+            //{
+            //    "Signed": true,
+            //    "TransactionVersion": 4,
+            //    "Account": {
+            //                "KeyType": 0,
+            //      "Address": "5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM",
+            //      "PublicKey": "J4EX/BRMcjQPZ9DyMW6Dhs7/vyskKMnFH+98WX8dQm4="
+            //    },
+            //    "Era": {
+            //                "IsImmortal": false,
+            //      "Period": 128,
+            //      "Phase": 3
+            //    },
+            //    "Nonce": {
+            //                "Value": 3
+            //    },
+            //    "Tip": {
+            //                "Value": 0
+            //    },
+            //    "Method": {
+            //                "ModuleName": "Balances",
+            //      "ModuleIndex": 6,
+            //      "CallName": "transfer",
+            //      "CallIndex": 0,
+            //      "Arguments": [
+            //        {
+            //                    "Name": "dest",
+            //          "Type": "<T::Lookup as StaticLookup>::Source",
+            //          "Value": "5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"
+            //        },
+            //        {
+            //                    "Name": "value",
+            //          "Type": "Compact<T::Balance>",
+            //          "Value": {
+            //                        "Value": 123000000000000
+            //          }
+            //                }
+            //      ],
+            //      "Parameters": "/00rI9J+H243M9fr89wE89XQAQzRgDgFX5u7q0j0YLYeCwCwTivebw=="
+            //    },
+            //    "Signature": "1qFKrCwNqDMPZ6BPn/QVSzwx0CUp6vESoj1Z9aXh0XZu+7f03Vbm7YSlQ96UNCveyMgL2sYjc9Ijh+qYCkInDw=="
+            //}
+
+        }
+
+
     }
 }
