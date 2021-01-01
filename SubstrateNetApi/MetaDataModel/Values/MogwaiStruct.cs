@@ -3,7 +3,7 @@ using System;
 
 namespace SubstrateNetApi.MetaDataModel.Values
 {
-    internal class MogwaiStruct
+    public class MogwaiStruct
     {
         public Hash Id { get; }
 

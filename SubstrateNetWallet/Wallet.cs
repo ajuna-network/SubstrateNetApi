@@ -51,9 +51,9 @@ namespace SubstrateNetWallet
         public bool IsOnline => IsConnected && _subscriptionIdNewHead != string.Empty && _subscriptionIdFinalizedHeads != string.Empty;
 
         public bool IsValidWalletName(string walletName) => walletName.Length > 4 && walletName.Length < 21 && walletName.All(c => Char.IsLetterOrDigit(c) || c.Equals('_'));
-        
+
         public bool IsValidPassword(string password) => password.Length > 7 && password.Length < 21 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
-        
+
         public string AddWalletFileType(string walletName) => $"{walletName}.{_fileType}";
 
         public event EventHandler<ChainInfo> ChainInfoUpdated;
@@ -80,7 +80,7 @@ namespace SubstrateNetWallet
                 Logger.Warn("Wallet name is invalid, please provide a proper wallet name. [A-Za-Z_]{20}.");
                 return false;
             }
-            
+
             var walletFileName = AddWalletFileType(walletName);
             if (!Caching.TryReadFile(walletFileName, out _walletFile))
             {
@@ -236,11 +236,22 @@ namespace SubstrateNetWallet
             }
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool HashData(string data)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="recipient"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public bool TryTransfer(Account recipient, int amount)
         {
             throw new NotImplementedException();
@@ -321,7 +332,7 @@ namespace SubstrateNetWallet
 
         private async Task UnsubscribeAllAsync()
         {
-            if (_subscriptionIdNewHead != null 
+            if (_subscriptionIdNewHead != null
              && _subscriptionIdNewHead != string.Empty)
             {
                 // unsubscribe from new heads
@@ -332,7 +343,7 @@ namespace SubstrateNetWallet
                 _subscriptionIdNewHead = string.Empty;
             }
 
-            if (_subscriptionIdNewHead != null 
+            if (_subscriptionIdNewHead != null
              && _subscriptionIdNewHead != string.Empty)
             {
                 // unsubscribe from finalized heads
@@ -359,7 +370,11 @@ namespace SubstrateNetWallet
             await _client.CloseAsync(_connectTokenSource.Token);
         }
 
-
+        /// <summary>
+        /// Update account info for the current wallet.
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public async Task UpdateAccountInfoAsync(Account account)
         {
             var reqResult = await _client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)), _connectTokenSource.Token);
@@ -374,12 +389,19 @@ namespace SubstrateNetWallet
             AccountInfo = reqResult as AccountInfo;
         }
 
-
+        /// <summary>
+        /// Call back for new heads.
+        /// </summary>
+        /// <param name="header"></param>
         public virtual void CallBackNewHeads(Header header)
         {
 
         }
 
+        /// <summary>
+        /// Call back for finalized heads.
+        /// </summary>
+        /// <param name="header"></param>
         public virtual void CallBackFinalizedHeads(Header header)
         {
             ChainInfo.UpdateFinalizedHeader(header);

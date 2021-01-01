@@ -126,7 +126,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x0cf64c1e0e45b2fba6fd524e180737f5e1bb46e0691783d6963b2e26253f8592"), cancellationToken);
 
             // 797,188 --> 0x7c0c2cb4f04487f9914e0d910c3a0f3bf1292a39f131ddb44947b3dd04b8c154 Balances Transfer
-            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x7c0c2cb4f04487f9914e0d910c3a0f3bf1292a39f131ddb44947b3dd04b8c154"), cancellationToken);
+            var reqResult = await client.Chain.GetBlockAsync(new Hash("0x7c0c2cb4f04487f9914e0d910c3a0f3bf1292a39f131ddb44947b3dd04b8c154"), cancellationToken);
             
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0xe7b99ee484e6369dd3c2a66d6306bffde5048ddf2090e990faae83e66f5275f4"), cancellationToken);
 
@@ -143,7 +143,7 @@ namespace DemoApiTest
             // *************************** Final Test
             //var reqResult = await client.Author.SubmitExtrinsicAsync(DotMogCall.CreateMogwai(), accountZurich, 0, 64, cancellationToken);
             //var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
-            var reqResult = await client.Author.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 9999), accountZurich, 0, 64, cancellationToken);
+            //var reqResult = await client.Author.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 9999), accountZurich, 0, 64, cancellationToken);
 
             // *** subscription test 1
             //var subscriptionId = await client.Chain
