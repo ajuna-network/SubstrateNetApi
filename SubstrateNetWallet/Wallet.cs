@@ -377,7 +377,7 @@ namespace SubstrateNetWallet
         /// <returns></returns>
         public async Task UpdateAccountInfoAsync(Account account)
         {
-            var reqResult = await _client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)), _connectTokenSource.Token);
+            var reqResult = await AccessStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)));
 
             if (!(reqResult is AccountInfo))
             {
@@ -387,6 +387,20 @@ namespace SubstrateNetWallet
 
             Logger.Debug($"Updated account successfully.");
             AccountInfo = reqResult as AccountInfo;
+        }
+
+        /// <summary>
+        /// Access a storage item from the chain.
+        /// </summary>
+        /// <param name="moduleName"></param>
+        /// <param name="itemName"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public async Task<object> AccessStorageAsync(string moduleName, string itemName, string parameter)
+        {
+            var reqResult = await _client.GetStorageAsync(moduleName, itemName, parameter, _connectTokenSource.Token);
+
+            return reqResult;
         }
 
         /// <summary>
