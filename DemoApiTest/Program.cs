@@ -98,6 +98,10 @@ namespace DemoApiTest
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("Dmog", "AllMogwaisCount", cancellationToken);
 
+            // [Plain] Value: u64
+            var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")), cancellationToken);
+
+
             // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0", cancellationToken);
 
@@ -126,7 +130,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x0cf64c1e0e45b2fba6fd524e180737f5e1bb46e0691783d6963b2e26253f8592"), cancellationToken);
 
             // 797,188 --> 0x7c0c2cb4f04487f9914e0d910c3a0f3bf1292a39f131ddb44947b3dd04b8c154 Balances Transfer
-            var reqResult = await client.Chain.GetBlockAsync(new Hash("0x7c0c2cb4f04487f9914e0d910c3a0f3bf1292a39f131ddb44947b3dd04b8c154"), cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x7c0c2cb4f04487f9914e0d910c3a0f3bf1292a39f131ddb44947b3dd04b8c154"), cancellationToken);
             
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0xe7b99ee484e6369dd3c2a66d6306bffde5048ddf2090e990faae83e66f5275f4"), cancellationToken);
 

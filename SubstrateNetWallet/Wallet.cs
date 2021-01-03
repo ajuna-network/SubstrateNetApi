@@ -46,6 +46,8 @@ namespace SubstrateNetWallet
 
         public ChainInfo ChainInfo { get; private set; }
 
+        public SubstrateClient Client => _client;
+
         public bool IsConnected => _client != null && _client.IsConnected;
 
         public bool IsOnline => IsConnected && _subscriptionIdNewHead != string.Empty && _subscriptionIdFinalizedHeads != string.Empty;
@@ -377,7 +379,7 @@ namespace SubstrateNetWallet
         /// <returns></returns>
         public async Task UpdateAccountInfoAsync(Account account)
         {
-            var reqResult = await AccessStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)));
+            var reqResult = await _client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)), _connectTokenSource.Token);
 
             if (!(reqResult is AccountInfo))
             {
@@ -387,20 +389,6 @@ namespace SubstrateNetWallet
 
             Logger.Debug($"Updated account successfully.");
             AccountInfo = reqResult as AccountInfo;
-        }
-
-        /// <summary>
-        /// Access a storage item from the chain.
-        /// </summary>
-        /// <param name="moduleName"></param>
-        /// <param name="itemName"></param>
-        /// <param name="parameter"></param>
-        /// <returns></returns>
-        public async Task<object> AccessStorageAsync(string moduleName, string itemName, string parameter)
-        {
-            var reqResult = await _client.GetStorageAsync(moduleName, itemName, parameter, _connectTokenSource.Token);
-
-            return reqResult;
         }
 
         /// <summary>
