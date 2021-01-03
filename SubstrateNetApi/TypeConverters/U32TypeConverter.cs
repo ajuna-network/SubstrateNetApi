@@ -29,6 +29,11 @@ namespace SubstrateNetApi.TypeConverters
         /// <seealso cref="ITypeConverter.Create(string)"/>
         public object Create(string value)
         {
+            if (value == null)
+            {
+                return null;
+            }
+
             byte[] bytes = Utils.HexToByteArray(value);
             Logger.Debug($"Converting {value} [{bytes.Length}] to UInt32.");
             return BitConverter.ToUInt32(bytes, 0);

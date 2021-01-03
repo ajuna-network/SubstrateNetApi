@@ -223,8 +223,29 @@ namespace SubstrateNetApi
             string parameters;
             if (item.Function?.Key1 != null)
             {
-                byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter);
-                parameters = "0x" + RequestGenerator.GetStorage(module, item, key1Bytes);
+                // multi keys support
+                if (item.Function.Key1.StartsWith("("))
+                {
+                    var keysDelimited = item.Function.Key1.Replace("(", "").Replace(")", "");
+                    var keys = keysDelimited.Split(',');
+                    var parameterKeys = parameter.Split(',');
+                    if (keys.Length != parameterKeys.Length)
+                    {
+                        throw new MissingParameterException($"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameterKeys.Length} keys!");
+                    }
+                    List<byte> byteList = new List<byte>();
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameterKeys[i].Trim()));
+                    }
+                    parameters = "0x" + RequestGenerator.GetStorage(module, item, byteList.ToArray());
+                }
+                // single key support
+                else
+                {
+                    byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter);
+                    parameters = "0x" + RequestGenerator.GetStorage(module, item, key1Bytes);
+                }
             }
             else
             {

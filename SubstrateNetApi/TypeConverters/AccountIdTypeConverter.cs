@@ -31,6 +31,12 @@ namespace SubstrateNetApi.TypeConverters
         public object Create(string value)
         {
             Logger.Debug($"Converting {value} to AccountId.");
+
+            if (value == null)
+            {
+                return null;
+            }
+
             return new AccountId(value);
         }
 

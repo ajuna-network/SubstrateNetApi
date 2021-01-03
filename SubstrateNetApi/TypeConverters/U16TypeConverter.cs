@@ -29,8 +29,14 @@ namespace SubstrateNetApi.TypeConverters
         /// <seealso cref="ITypeConverter.Create(string)"/>
         public object Create(string value)
         {
+            if (value == null)
+            {
+                return null;
+            }
+
             byte[] bytes = Utils.HexToByteArray(value);
             Logger.Debug($"Converting {value} [{bytes.Length}] to UInt16.");
+
             return BitConverter.ToUInt16(bytes, 0);
         }
         public override ushort ReadJson(JsonReader reader, Type objectType, ushort existingValue, bool hasExistingValue, JsonSerializer serializer)

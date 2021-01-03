@@ -32,6 +32,12 @@ namespace SubstrateNetApi.TypeConverters
         public object Create(string value)
         {
             Logger.Debug($"Converting {value} to Hash.");
+
+            if (value == null)
+            {
+                return null;
+            }
+
             return new Hash(value);
         }
 

@@ -29,6 +29,12 @@ namespace SubstrateNetApi.TypeConverters
         public object Create(string value)
         {
             Logger.Debug($"Converting {value} to MogwaiStruct.");
+
+            if (value == null)
+            {
+                return null;
+            }
+
             return new MogwaiStruct(value);
         }
     }
