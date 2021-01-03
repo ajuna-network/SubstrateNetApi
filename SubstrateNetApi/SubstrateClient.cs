@@ -190,7 +190,7 @@ namespace SubstrateNetApi
         /// <param name="itemName">   Name of the item. </param>
         /// <param name="parameter">  The parameter. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter) => await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] parameter) => await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -207,7 +207,7 @@ namespace SubstrateNetApi
         /// <param name="parameter">  The parameter. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string parameter, CancellationToken token)
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] parameter, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
@@ -217,7 +217,7 @@ namespace SubstrateNetApi
 
             string method = "state_getStorage";
 
-            if (item.Function?.Key1 != null && parameter == null)
+            if (item.Function?.Key1 != null && (parameter == null || parameter.Length == 0))
                 throw new MissingParameterException($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
 
             string parameters;
@@ -228,22 +228,21 @@ namespace SubstrateNetApi
                 {
                     var keysDelimited = item.Function.Key1.Replace("(", "").Replace(")", "");
                     var keys = keysDelimited.Split(',');
-                    var parameterKeys = parameter.Split(',');
-                    if (keys.Length != parameterKeys.Length)
+                    if (keys.Length != parameter.Length)
                     {
-                        throw new MissingParameterException($"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameterKeys.Length} keys!");
+                        throw new MissingParameterException($"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");
                     }
                     List<byte> byteList = new List<byte>();
                     for (int i = 0; i < keys.Length; i++)
                     {
-                        byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameterKeys[i].Trim()));
+                        byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameter[i]));
                     }
                     parameters = "0x" + RequestGenerator.GetStorage(module, item, byteList.ToArray());
                 }
                 // single key support
                 else
                 {
-                    byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter);
+                    byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter[0]);
                     parameters = "0x" + RequestGenerator.GetStorage(module, item, key1Bytes);
                 }
             }

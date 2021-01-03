@@ -379,7 +379,7 @@ namespace SubstrateNetWallet
         /// <returns></returns>
         public async Task UpdateAccountInfoAsync(Account account)
         {
-            var reqResult = await _client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)), _connectTokenSource.Token);
+            var reqResult = await _client.GetStorageAsync("System", "Account", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)) }, _connectTokenSource.Token);
 
             if (!(reqResult is AccountInfo))
             {

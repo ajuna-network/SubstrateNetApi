@@ -57,7 +57,7 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0");
+            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", new string [] {"0"});
             Assert.AreEqual("Hash", request.GetType().Name);
             Assert.IsTrue(request is Hash);
 
@@ -96,8 +96,8 @@ namespace SubstrateNetApiTests.ClientTests
             await _substrateClient.ConnectAsync();
 
             Assert.ThrowsAsync<MissingConverterException>(async () =>
-                await _substrateClient.GetStorageAsync("DotMogModule", "Mogwais",
-                    "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C"));
+                await _substrateClient.GetStorageAsync("DotMogModule", "Mogwais", new string[] {
+                    "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C" }));
 
             await _substrateClient.CloseAsync();
         }

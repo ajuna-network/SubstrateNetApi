@@ -100,7 +100,7 @@ namespace DemoApiTest
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")), cancellationToken);
-            var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisArray", $"{Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"))},2" , cancellationToken);
+            var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisArray", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")), "2" } , cancellationToken);
 
             // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0", cancellationToken);
