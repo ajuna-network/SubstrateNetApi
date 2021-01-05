@@ -13,6 +13,7 @@ using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.WebSockets;
@@ -42,8 +43,9 @@ namespace SubstrateNetApi
 
         /// <summary> The connect token source. </summary>
         private CancellationTokenSource _connectTokenSource;
-        /// <summary> The request token source. </summary>
-        private CancellationTokenSource _requestTokenSource;
+
+        /// <summary> The request token sources. </summary>
+        private ConcurrentDictionary<CancellationTokenSource, string> _requestTokenSourceDict;
 
         /// <summary> The type converters. </summary>
         private readonly Dictionary<string, ITypeConverter> _typeConverters = new Dictionary<string, ITypeConverter>();
@@ -99,6 +101,8 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new AccountIdTypeConverter());
             RegisterTypeConverter(_hashTypeConverter);
             RegisterTypeConverter(new AccountInfoTypeConverter());
+
+            _requestTokenSourceDict = new ConcurrentDictionary<CancellationTokenSource, string>();
         }
 
         /// <summary> Registers the type converter described by converter. </summary>
@@ -339,12 +343,17 @@ namespace SubstrateNetApi
 
             Logger.Debug($"Invoking request[{method}, params: {parameters}] {MetaData?.Origin}");
 
-            _requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _requestTokenSource.Token);
+            var requestTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            _requestTokenSourceDict.TryAdd(requestTokenSource, string.Empty);
+
+            var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, requestTokenSource.Token);
             var resultString = await _jsonRpc.InvokeWithParameterObjectAsync<T>(method, parameters, linkedTokenSource.Token);
+
             linkedTokenSource.Dispose();
-            _requestTokenSource.Dispose();
-            _requestTokenSource = null;
+            requestTokenSource.Dispose();
+
+            _requestTokenSourceDict.TryRemove(requestTokenSource, out string _);
+
             return resultString;
         }
 
@@ -360,7 +369,13 @@ namespace SubstrateNetApi
         public async Task CloseAsync(CancellationToken token)
         {
             _connectTokenSource?.Cancel();
-            _requestTokenSource?.Cancel();
+
+            // cancel remaining request tokens
+            foreach (var key in _requestTokenSourceDict.Keys)
+            {
+                key?.Cancel();
+            }
+            _requestTokenSourceDict.Clear();
 
             if (_socket != null && _socket.State == WebSocketState.Open)
             {
@@ -385,7 +400,14 @@ namespace SubstrateNetApi
                 {
                     new JoinableTaskFactory(new JoinableTaskContext()).Run(CloseAsync);
                     _connectTokenSource?.Dispose();
-                    _requestTokenSource?.Dispose();
+
+                    // dispose remaining request tokens
+                    foreach (var key in _requestTokenSourceDict.Keys)
+                    {
+                        key?.Dispose();
+                    }
+                    _requestTokenSourceDict.Clear();
+
                     _jsonRpc?.Dispose();
                     _socket?.Dispose();
                     Logger.Debug("Client disposed.");
