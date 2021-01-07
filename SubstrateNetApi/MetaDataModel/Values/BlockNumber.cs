@@ -23,13 +23,15 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public BlockNumber(uint value)
         {
-            Bytes = BitConverter.GetBytes(Value);
+            Bytes = BitConverter.GetBytes(value);
             Value = value;
         }
 
         public byte[] Encode()
         {
-            return Bytes;
+            byte[] reversed = Bytes;
+            Array.Reverse(reversed);
+            return reversed;
         }
     }
 }

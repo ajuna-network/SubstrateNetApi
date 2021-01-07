@@ -85,23 +85,25 @@ namespace SubstrateNetApi.Modules
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="BlockNumber"> The block number. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> GetBlockHashAsync(BigInteger blockNumber) => await GetBlockHashAsync(blockNumber, CancellationToken.None);
+        public async Task<Hash> GetBlockHashAsync(BlockNumber blockNumber) => await GetBlockHashAsync(blockNumber, CancellationToken.None);
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> GetBlockHashAsync(CancellationToken token) => await GetBlockHashAsync(null, token);
+        public async Task<Hash> GetBlockHashAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<Hash>("chain_getBlockHash", new object[] { null }, token);
+        }
 
         /// <summary> Gets block hash asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="blockNumber"> The block number. </param>
         /// <param name="token">       A token that allows processing to be cancelled. </param>
         /// <returns> The block hash. </returns>
-        public async Task<Hash> GetBlockHashAsync(BigInteger? blockNumber, CancellationToken token)
+        public async Task<Hash> GetBlockHashAsync(BlockNumber blockNumber, CancellationToken token)
         {
-            var parameter = blockNumber != null ? Utils.Bytes2HexString(((BigInteger)blockNumber).ToByteArray()) : null;
-            return await _client.InvokeAsync<Hash>("chain_getBlockHash", new object[] { parameter }, token);
+            return await _client.InvokeAsync<Hash>("chain_getBlockHash", new object[] { Utils.Bytes2HexString(blockNumber.Encode()) }, token);
         }
 
         /// Get hash of the last finalized block in the canon chain.
