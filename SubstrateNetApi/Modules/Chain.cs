@@ -115,8 +115,8 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<Hash>("chain_getFinalizedHead", null, token);
         }
 
-        public async Task<string> SubscribeAllHeadsAsync(Action<Header> callback) => await SubscribeAllHeadsAsync(callback, CancellationToken.None);
-        public async Task<string> SubscribeAllHeadsAsync(Action<Header> callback, CancellationToken token)
+        public async Task<string> SubscribeAllHeadsAsync(Action<string, Header> callback) => await SubscribeAllHeadsAsync(callback, CancellationToken.None);
+        public async Task<string> SubscribeAllHeadsAsync(Action<string, Header> callback, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("chain_subscribeAllHeads", null, token);
             _client.Listener.RegisterCallBackHandler(subscriptionId, callback);
@@ -134,8 +134,8 @@ namespace SubstrateNetApi.Modules
             return result;
         }
 
-        public async Task<string> SubscribeNewHeadsAsync(Action<Header> callback) => await SubscribeNewHeadsAsync(callback, CancellationToken.None);
-        public async Task<string> SubscribeNewHeadsAsync(Action<Header> callback, CancellationToken token)
+        public async Task<string> SubscribeNewHeadsAsync(Action<string, Header> callback) => await SubscribeNewHeadsAsync(callback, CancellationToken.None);
+        public async Task<string> SubscribeNewHeadsAsync(Action<string, Header> callback, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("chain_subscribeNewHeads", null, token);
             _client.Listener.RegisterCallBackHandler(subscriptionId, callback);
@@ -153,8 +153,8 @@ namespace SubstrateNetApi.Modules
             return result;
         }
 
-        public async Task<string> SubscribeFinalizedHeadsAsync(Action<Header> callback) => await SubscribeFinalizedHeadsAsync(callback, CancellationToken.None);
-        public async Task<string> SubscribeFinalizedHeadsAsync(Action<Header> callback, CancellationToken token)
+        public async Task<string> SubscribeFinalizedHeadsAsync(Action<string, Header> callback) => await SubscribeFinalizedHeadsAsync(callback, CancellationToken.None);
+        public async Task<string> SubscribeFinalizedHeadsAsync(Action<string, Header> callback, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("chain_subscribeFinalizedHeads", null, token);
             _client.Listener.RegisterCallBackHandler(subscriptionId, callback);

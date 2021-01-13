@@ -326,10 +326,10 @@ namespace SubstrateNetWallet
             await UnsubscribeAllAsync();
 
             // subscribe to new heads
-            _subscriptionIdNewHead = await _client.Chain.SubscribeNewHeadsAsync((header) => CallBackNewHeads(header), _connectTokenSource.Token);
+            _subscriptionIdNewHead = await _client.Chain.SubscribeNewHeadsAsync((subscriptionId, header) => CallBackNewHeads(subscriptionId, header), _connectTokenSource.Token);
 
             // subscribe to finalized heads
-            _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((header) => CallBackFinalizedHeads(header), _connectTokenSource.Token);
+            _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((subscriptionId, header) => CallBackFinalizedHeads(subscriptionId, header), _connectTokenSource.Token);
         }
 
         private async Task UnsubscribeAllAsync()
@@ -395,7 +395,7 @@ namespace SubstrateNetWallet
         /// Call back for new heads.
         /// </summary>
         /// <param name="header"></param>
-        public virtual void CallBackNewHeads(Header header)
+        public virtual void CallBackNewHeads(string subscriptionId, Header header)
         {
 
         }
@@ -404,7 +404,7 @@ namespace SubstrateNetWallet
         /// Call back for finalized heads.
         /// </summary>
         /// <param name="header"></param>
-        public virtual void CallBackFinalizedHeads(Header header)
+        public virtual void CallBackFinalizedHeads(string subscriptionId, Header header)
         {
             ChainInfo.UpdateFinalizedHeader(header);
 

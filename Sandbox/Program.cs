@@ -1,4 +1,5 @@
 ﻿using SubstrateNetApi;
+using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
@@ -15,10 +16,31 @@ namespace Sandbox
 
         private static async Task Main(string[] args)
         {
-            var cts = new CancellationTokenSource();
-            await RunBlockCalls(cts.Token);
+            ParseExtrinsic(args);
         }
         
+        private static void ParseExtrinsic(string[] args)
+        {
+            Account accountZurich = new Account(
+                KeyType.ED25519,
+                Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
+                Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+
+            var extrinsic = ExtrinsicCall.BalanceTransfer(new AccountId(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")), new Balance(123000000000000));
+
+
+            Console.WriteLine(CompactInteger.Decode(Utils.HexToByteArray("0x490284")).ToString());
+            Console.WriteLine(Utils.Bytes2HexString(new CompactInteger(146).Encode()));
+
+            // 0x4902 Length 146
+            // 84
+            // 00
+            // 278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e --> 5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM
+            // 00fb6ec6a0e127329b564367527b3d6c4f28c197d2e205a4d37270e7fe5eee764e1d678e46e2c2d55a1d2cfd7869d24e40ba5f6bd9827c0b95d3db51bc633d050445032400060000
+            // 4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e --> 5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH
+            // 0f00806d8176de18
+        }
+
         private static void ParseExtrinsicVecHeader(string[] args)
         {
             //Console.WriteLine(Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ")));

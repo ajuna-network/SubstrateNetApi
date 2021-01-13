@@ -17,7 +17,7 @@ namespace SubstrateNetApi
 
         private readonly Dictionary<string, List<object>> _pendingHeaders = new Dictionary<string, List<object>>();
 
-        public void RegisterCallBackHandler<T>(string subscriptionId, Action<T> callback)
+        public void RegisterCallBackHandler<T>(string subscriptionId, Action<string, T> callback)
         {
             if (!_headerCallbacks.ContainsKey(subscriptionId))
             {
@@ -29,7 +29,7 @@ namespace SubstrateNetApi
             {
                 foreach (var h in _pendingHeaders[subscriptionId])
                 {
-                    callback((T)h);
+                    callback(subscriptionId, (T)h);
                 }
                 _pendingHeaders.Remove(subscriptionId);
             }
@@ -50,7 +50,7 @@ namespace SubstrateNetApi
 
             if (_headerCallbacks.ContainsKey(subscription))
             {
-                ((Action<T>)_headerCallbacks[subscription])(result);
+                ((Action<string, T>)_headerCallbacks[subscription])(subscription, result);
             }
             else
             {
