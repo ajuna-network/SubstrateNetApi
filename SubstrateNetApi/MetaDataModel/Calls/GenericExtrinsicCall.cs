@@ -103,6 +103,11 @@ namespace SubstrateNetApi.MetaDataModel.Calls
             return new GenericExtrinsicCall("DotMogModule", "create_mogwai");
         }
 
+        public static GenericExtrinsicCall RemoveMogwai(Hash mogwai_id)
+        {
+            return new GenericExtrinsicCall("DotMogModule", "remove_mogwai", mogwai_id);
+        }
+
         public static GenericExtrinsicCall SetPrice(Hash mogwai_id, Balance new_price)
         {
             return new GenericExtrinsicCall("DotMogModule", "set_price", mogwai_id, new_price);
@@ -111,6 +116,16 @@ namespace SubstrateNetApi.MetaDataModel.Calls
         public static GenericExtrinsicCall Transfer(AccountId to, Hash mogwai_id)
         {
             return new GenericExtrinsicCall("DotMogModule", "transfer", to, mogwai_id);
+        }
+
+        public static GenericExtrinsicCall UpdateConfig(UInt8 index, UInt8 valueOpt)
+        {
+            return new GenericExtrinsicCall("DotMogModule", "update_config", index, valueOpt);
+        }
+
+        public static GenericExtrinsicCall UpdateConfig(UInt8 index)
+        {
+            return new GenericExtrinsicCall("DotMogModule", "update_config", index);
         }
     }
 }

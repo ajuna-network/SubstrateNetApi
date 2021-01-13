@@ -152,13 +152,13 @@ namespace DemoApiTest
             //var reqResult = await client.Author.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 9999), accountZurich, 0, 64, cancellationToken);
 
             // *** subscription test 1
-            var subscriptionId = await client.Chain
-                .SubscribeAllHeadsAsync(
-                (subscriptionId, header) => Console.WriteLine($"CallBack[{subscriptionId}]: {header}"), 
-                cancellationToken
-            );
-            Thread.Sleep(30000);
-            var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
+            //var subscriptionId = await client.Chain
+            //    .SubscribeAllHeadsAsync(
+            //    (subscriptionId, header) => Console.WriteLine($"CallBack[{subscriptionId}]: {header}"), 
+            //    cancellationToken
+            //);
+            //Thread.Sleep(30000);
+            //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 2
             //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
@@ -173,9 +173,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
-            //Console.WriteLine(client.MetaData.Serialize());
+            Console.WriteLine(client.MetaData.Serialize());
 
             Console.ReadKey();
 
