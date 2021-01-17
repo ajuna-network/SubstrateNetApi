@@ -8,6 +8,8 @@
 
 SubstrateNetApi is written in [NETStandard2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) to provide maximum compatibility for [Unity3D](https://docs.unity3d.com/2020.2/Documentation/Manual/dotnetProfileSupport.html). Feedback, constructive critisme and disscussions are welcome and will help us to improve the API!
 
+If you enjoy using SubstrateNetApi consider supporting me at [buymeacoffee.com/darkfriend77](https://www.buymeacoffee.com/darkfriend77)
+
 ## Table of Content
 
 * Requirements
