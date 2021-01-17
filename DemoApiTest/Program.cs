@@ -138,7 +138,7 @@ namespace DemoApiTest
 
             // 489070
             // 0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d
-            var reqResult = await client.Chain.GetBlockAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
 
             //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
 
@@ -161,10 +161,10 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 2
-            //Func<string, ExtrinsicStatus, Task> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Task.Run(() => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}"));
-            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 1234), accountZurich, 0, 64, cancellationToken);
-            //Thread.Sleep(60000);
-            //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+            Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
+            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 1234), accountZurich, 0, 64, cancellationToken);
+            Thread.Sleep(60000);
+            var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 3
 

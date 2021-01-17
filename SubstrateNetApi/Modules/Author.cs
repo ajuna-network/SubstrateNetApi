@@ -46,10 +46,10 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<Hash>("author_submitExtrinsic", new object[] { parameters }, token);
         }
 
-        public async Task<string> SubmitAndWatchExtrinsicAsync(Func<string, ExtrinsicStatus, Task> callback, GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime) => await SubmitAndWatchExtrinsicAsync(callback, await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, CancellationToken.None));
-        public async Task<string> SubmitAndWatchExtrinsicAsync(Func<string, ExtrinsicStatus, Task> callback, GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token) => await SubmitAndWatchExtrinsicAsync(callback, await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, token), token);
-        public async Task<string> SubmitAndWatchExtrinsicAsync(Func<string, ExtrinsicStatus, Task> callback, string parameters) => await SubmitAndWatchExtrinsicAsync(callback, parameters, CancellationToken.None);
-        public async Task<string> SubmitAndWatchExtrinsicAsync(Func<string, ExtrinsicStatus, Task> callback, string parameters, CancellationToken token)
+        public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback, GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime) => await SubmitAndWatchExtrinsicAsync(callback, await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, CancellationToken.None));
+        public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback, GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token) => await SubmitAndWatchExtrinsicAsync(callback, await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, token), token);
+        public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback, string parameters) => await SubmitAndWatchExtrinsicAsync(callback, parameters, CancellationToken.None);
+        public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback, string parameters, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("author_submitAndWatchExtrinsic", new object[] { parameters }, token);
             _client.Listener.RegisterCallBackHandler(subscriptionId, callback);
