@@ -6,6 +6,7 @@ using SubstrateNetApi.MetaDataModel.Rpc;
 using SubstrateNetApi.MetaDataModel.Values;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SubstrateNetApi
 {
@@ -17,7 +18,7 @@ namespace SubstrateNetApi
 
         private readonly Dictionary<string, List<object>> _pendingHeaders = new Dictionary<string, List<object>>();
 
-        public void RegisterCallBackHandler<T>(string subscriptionId, Action<string, T> callback)
+        public void RegisterCallBackHandler<T>(string subscriptionId, Func<string, T, Task> callback)
         {
             if (!_headerCallbacks.ContainsKey(subscriptionId))
             {
@@ -29,7 +30,8 @@ namespace SubstrateNetApi
             {
                 foreach (var h in _pendingHeaders[subscriptionId])
                 {
-                    callback(subscriptionId, (T)h);
+                    // we don't wait on the tasks to finish
+                    _ = callback(subscriptionId, (T)h);
                 }
                 _pendingHeaders.Remove(subscriptionId);
             }
@@ -50,7 +52,7 @@ namespace SubstrateNetApi
 
             if (_headerCallbacks.ContainsKey(subscription))
             {
-                ((Action<string, T>)_headerCallbacks[subscription])(subscription, result);
+                _ = ((Func<string, T, Task>)_headerCallbacks[subscription])(subscription, result);
             }
             else
             {

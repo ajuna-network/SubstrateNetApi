@@ -123,7 +123,7 @@ namespace DemoApiTest
             // 0x98d7f5fe3efd88cd28d928c418c9ddc8dee254a2e11925a1a78b2ca6c2aac6d5
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x98d7f5fe3efd88cd28d928c418c9ddc8dee254a2e11925a1a78b2ca6c2aac6d5"), cancellationToken);
             //var reqResult = await client.Chain.GetBlockHashAsync(new BlockNumber(455455), cancellationToken);
-            
+
             // 486587
             // 0x387b43b09e88adc971bfc64fdd8e84dcfd0c4dcfe5f30c6b7444bf3ad3717445
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x387b43b09e88adc971bfc64fdd8e84dcfd0c4dcfe5f30c6b7444bf3ad3717445"), cancellationToken);
@@ -138,7 +138,7 @@ namespace DemoApiTest
 
             // 489070
             // 0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d
-            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
+            var reqResult = await client.Chain.GetBlockAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
 
             //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
 
@@ -161,7 +161,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 2
-            //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
+            //Func<string, ExtrinsicStatus, Task> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Task.Run(() => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}"));
             //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 1234), accountZurich, 0, 64, cancellationToken);
             //Thread.Sleep(60000);
             //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
@@ -173,9 +173,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
-            Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Serialize());
 
             Console.ReadKey();
 
