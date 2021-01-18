@@ -161,19 +161,38 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 2
-            Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 1234), accountZurich, 0, 64, cancellationToken);
-            Thread.Sleep(60000);
-            var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+            //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
+            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 1234), accountZurich, 0, 64, cancellationToken);
+            //Thread.Sleep(60000);
+            //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 3
+            //var subscriptionId = await client.State.SubscribeStorageAsync(
+            //    (subscriptionId, anything) => Console.WriteLine($"CallBack[{subscriptionId}]: {anything}"), 
+            //    cancellationToken
+            //);
+            //Thread.Sleep(60000);
+            //var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, cancellationToken);
+
+            // *** subscription test 4 event subscription
+            Action<string, object> callBackSubscribeStorage = (subscriptionId, eventObject) => Console.WriteLine($"CallBack[{subscriptionId}]: {eventObject}");
+            //var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
+            var subscriptionId = await client.State.SubscribeStorageAsync("0x26AA394EEA5630E07C48AE0C9558CEF780D41E5E16056765BC8461851072C9D7",
+               callBackSubscribeStorage
+            );
+
+            Thread.Sleep(60000);
+
+            var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, cancellationToken);
+
+
 
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
             //Console.WriteLine(client.MetaData.Serialize());
 

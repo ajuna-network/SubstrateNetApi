@@ -103,6 +103,7 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new AccountInfoTypeConverter());
 
             _requestTokenSourceDict = new ConcurrentDictionary<CancellationTokenSource, string>();
+
         }
 
         /// <summary> Registers the type converter described by converter. </summary>
@@ -263,6 +264,23 @@ namespace SubstrateNetApi
                 throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
 
             return _typeConverters[returnType].Create(resultString);
+        }
+
+        public async Task<string> GetStorageKeysAsync(string moduleName, string itemName) => await GetStorageKeysAsync(moduleName, itemName, CancellationToken.None);
+
+        public async Task<string> GetStorageKeysAsync(string moduleName, string itemName, CancellationToken token)
+        {
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
+
+            if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetStorageItemByName(itemName, out Item item))
+                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
+
+            string method = "state_getKeys";
+
+            var parameters = "0x" + RequestGenerator.GetStorage(module, item);
+
+            return await InvokeAsync<string>(method, new object[] { parameters }, token);
         }
 
         /// <summary> Gets method asynchronous. </summary>

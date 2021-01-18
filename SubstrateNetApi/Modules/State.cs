@@ -3,6 +3,7 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the state class. </summary>
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,10 +41,12 @@ namespace SubstrateNetApi.Modules
         {
             return await _client.InvokeAsync<bool>("state_unsubscribeRuntimeVersion", new object[] { subscriptionId }, token);
         }
-        public async Task<string> SubscribeStorageAsync() => await SubscribeStorageAsync(CancellationToken.None);
-        public async Task<string> SubscribeStorageAsync(CancellationToken token)
+        public async Task<string> SubscribeStorageAsync(string keys, Action<string, object> callback) => await SubscribeStorageAsync(keys, callback, CancellationToken.None);
+        public async Task<string> SubscribeStorageAsync(string keys, Action<string, object> callback, CancellationToken token)
         {
-            return await _client.InvokeAsync<string>("state_subscribeStorage", null, token);
+            var subscriptionId = await _client.InvokeAsync<string>("state_subscribeStorage", new object[] { new object[] { keys } }, token);
+            _client.Listener.RegisterCallBackHandler(subscriptionId, callback);
+            return subscriptionId;
         }
 
         public async Task<bool> UnsubscribeStorageAsync(string subscriptionId) => await UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
