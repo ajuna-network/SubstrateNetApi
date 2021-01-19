@@ -1,4 +1,5 @@
-﻿using SubstrateNetApi;
+﻿using Newtonsoft.Json.Linq;
+using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
@@ -16,9 +17,86 @@ namespace Sandbox
 
         private static async Task Main(string[] args)
         {
-            ParseExtrinsic(args);
+            await EventhandlingTest(args);
         }
-        
+
+        private static async Task EventhandlingTest(string[] args)
+        {
+            Console.WriteLine(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM").Length);
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            Action<string, JObject> callBackSubscribeStorage = (subscriptionId, eventObject) =>
+            {
+                if (eventObject.TryGetValue("changes", out JToken value))
+                {
+                    var strArray = value.ToObject<JArray>();
+                    var eventRecord = EventRecords.Decode(strArray[0][1].ToString(), client.MetaData);
+                    Console.WriteLine(eventRecord.ToString());
+                }
+
+                
+            };
+
+            var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
+
+            var subscriptionId = await client.State.SubscribeStorageAsync(systemEventsKeys,
+               callBackSubscribeStorage
+            );
+
+            Thread.Sleep(60000);
+
+            var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
+        }
+
+        private static async Task TestAsync(string[] args)
+        {
+            Console.WriteLine(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM").Length);
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var eventStr = "0x14" +
+                "00" + // ******************* EVENT 1 begin
+                "00000000" + // phase {ApplyExtrinsic: 0 u32}
+                "0000" + // event { index: 0x0000
+                "482d7c0900000000" + // weight: 159,133,000
+                "02" + // class: Mandatory
+                "00" + // paysFee: Yes
+                "00" + // ******************* EVENT 1 end
+                "00" + // ******************* EVENT 2 begin
+                "01000000" + // phase {ApplyExtrinsic: 1 u32}
+                "0000" + // event { index: 0x0000
+                "0000000000000000" + // weight: 0,
+                "02" + // class: Mandatory,
+                "00" + // paysFee: Yes
+                "00" + // ******************* EVENT 2 end
+                "00" + // ******************* EVENT 3 begin
+                "02000000" + // phase {ApplyExtrinsic: 1 u32}
+                "2002" + // event { index: 0x2002
+                "4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e" + // public-key
+                "87a1395e8b61d529e7684d80373d52a23dd5de84061ab0a980ecbbcb3364457b" + // mogwai-id
+                "00" + // ******************* EVENT 3 end
+                "00" + // ******************* EVENT 4 begin
+                "02000000" + // phase {ApplyExtrinsic
+                "1106" + // event { index:
+                "2e6bb353c70000000000000000000000" +
+                "00" + // ******************* EVENT 4 end
+                "00" + // ******************* EVENT 5 begin
+                "02000000" + // phase {ApplyExtrinsic
+                "0000" + // event { index:
+                "1008f60500000000" +
+                "00" + // class: Mandatory,
+                "00" + // paysFee: Yes
+                "00"; // ******************* EVENT 4 begin
+            ;
+
+            var eventRecords = EventRecords.Decode(eventStr, client.MetaData);
+            
+            Console.WriteLine(eventRecords);
+        }
+
         private static void ParseExtrinsic(string[] args)
         {
             Account accountZurich = new Account(

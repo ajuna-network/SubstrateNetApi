@@ -37,5 +37,12 @@ namespace SubstrateNetApi.MetaDataModel.Values
         {
             return Bytes;
         }
+
+        internal static Hash Decode(Memory<byte> byteArray, ref int p)
+        {
+            var hash = new Hash(byteArray.Span.Slice(p, 32).ToArray());
+            p += 32;
+            return hash;
+        }
     }
 }

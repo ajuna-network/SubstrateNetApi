@@ -4,6 +4,7 @@
 /// </copyright>
 /// <summary> Implements the substrate client class. </summary>
 using Microsoft.VisualStudio.Threading;
+using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi.Exceptions;
@@ -266,9 +267,9 @@ namespace SubstrateNetApi
             return _typeConverters[returnType].Create(resultString);
         }
 
-        public async Task<string> GetStorageKeysAsync(string moduleName, string itemName) => await GetStorageKeysAsync(moduleName, itemName, CancellationToken.None);
+        public async Task<JArray> GetStorageKeysAsync(string moduleName, string itemName) => await GetStorageKeysAsync(moduleName, itemName, CancellationToken.None);
 
-        public async Task<string> GetStorageKeysAsync(string moduleName, string itemName, CancellationToken token)
+        public async Task<JArray> GetStorageKeysAsync(string moduleName, string itemName, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
                 throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
@@ -280,7 +281,7 @@ namespace SubstrateNetApi
 
             var parameters = "0x" + RequestGenerator.GetStorage(module, item);
 
-            return await InvokeAsync<string>(method, new object[] { parameters }, token);
+            return await InvokeAsync<JArray>(method, new object[] { parameters }, token);
         }
 
         /// <summary> Gets method asynchronous. </summary>

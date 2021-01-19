@@ -31,5 +31,12 @@ namespace SubstrateNetApi.MetaDataModel.Values
         {
             return Value.ToString();
         }
+
+        internal static Balance Decode(Memory<byte> byteArray, ref int p)
+        {
+            var balance = new Balance(byteArray.Span.Slice(p, 16).ToArray());
+            p += 16;
+            return balance;
+        }
     }
 }

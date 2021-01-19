@@ -175,9 +175,11 @@ namespace DemoApiTest
             //var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 4 event subscription
-            Action<string, object> callBackSubscribeStorage = (subscriptionId, eventObject) => Console.WriteLine($"CallBack[{subscriptionId}]: {eventObject}");
-            //var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
-            var subscriptionId = await client.State.SubscribeStorageAsync("0x26AA394EEA5630E07C48AE0C9558CEF780D41E5E16056765BC8461851072C9D7",
+            Action<string, JObject> callBackSubscribeStorage = (subscriptionId, eventObject) => Console.WriteLine($"CallBack[{subscriptionId}]: {eventObject}");
+            
+            var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
+
+            var subscriptionId = await client.State.SubscribeStorageAsync(systemEventsKeys,
                callBackSubscribeStorage
             );
 
@@ -192,7 +194,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
             //Console.WriteLine(client.MetaData.Serialize());
 

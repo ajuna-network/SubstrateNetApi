@@ -48,5 +48,12 @@ namespace SubstrateNetApi.MetaDataModel.Values
                     throw new NotImplementedException("Unknown address version please refere to Constants.cs");
             }
         }
+
+        internal static AccountId Decode(Memory<byte> byteArray, ref int p)
+        {
+            var accountId = new AccountId(byteArray.Span.Slice(p, 32).ToArray());
+            p += 32;
+            return accountId;
+        }
     }
 }
