@@ -33,5 +33,10 @@ namespace SubstrateNetApi.MetaDataModel.Values
             Array.Reverse(reversed);
             return reversed;
         }
+
+        public static BlockNumber Decode(Memory<byte> byteArray, ref int p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

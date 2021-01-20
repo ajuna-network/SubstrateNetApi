@@ -89,7 +89,7 @@ namespace SubstrateNetApi
         }
 
         [JsonRpcMethod("state_storage")]
-        public void StateStorageVersion(string subscription, JObject result)
+        public void StateStorage(string subscription, StorageChangeSet result)
         {
             GenericCallBack(subscription, result);
         }

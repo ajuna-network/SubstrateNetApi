@@ -31,7 +31,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             Pays = pays;
         }
 
-        internal static DispatchInfo Decode(Memory<byte> byteArray, ref int p)
+        public static DispatchInfo Decode(Memory<byte> byteArray, ref int p)
         {
             var weight = BitConverter
                 .ToUInt64(byteArray.Span.Slice(p, 8).ToArray(), 0);

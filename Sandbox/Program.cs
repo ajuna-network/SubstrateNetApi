@@ -5,6 +5,7 @@ using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Values;
 using SubstrateNetApi.TypeConverters;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,23 +18,65 @@ namespace Sandbox
 
         private static async Task Main(string[] args)
         {
+            //await ParseEvents(args);
             await EventhandlingTest(args);
         }
 
-        private static async Task EventhandlingTest(string[] args)
+        private static async Task ParseEvents(string[] args)
         {
-            Console.WriteLine(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM").Length);
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
             client.RegisterTypeConverter(new MogwaiStructTypeConverter());
             await client.ConnectAsync(CancellationToken.None);
 
-            Action<string, JObject> callBackSubscribeStorage = (subscriptionId, eventObject) =>
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+
+            foreach (var module in client.MetaData.Modules)
             {
-                if (eventObject.TryGetValue("changes", out JToken value))
+                if (module.Events == null)
                 {
-                    var strArray = value.ToObject<JArray>();
-                    var eventRecord = EventRecords.Decode(strArray[0][1].ToString(), client.MetaData);
-                    Console.WriteLine(eventRecord.ToString());
+                    continue;
+                }
+
+                foreach (var singleEvent in module.Events) {
+
+                    if (singleEvent.EventArgs == null)
+                    {
+                        continue;
+                    }
+
+                    foreach (var eventArg in singleEvent.EventArgs)
+                    {
+                        if (!dict.ContainsKey(eventArg))
+                        {
+                            dict.Add(eventArg, $"{module.Name}.{singleEvent.Name}");
+                        }
+                    }
+                }
+            }
+
+            foreach(var keyValue in dict)
+            {
+                Console.WriteLine($"case \"{keyValue.Key}\":\ndata.Add(({keyValue.Key}){keyValue.Key}.Decode(byteArray, ref p));\nbreak;");
+            }
+        }
+
+        private static async Task EventhandlingTest(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            Action<string, StorageChangeSet> callBackSubscribeStorage = (subscriptionId, eventObject) =>
+            {
+                if (eventObject.Changes != null)
+                {
+                    try {
+                        var eventRecord = EventRecords.Decode(eventObject.Changes[0][1].ToString(), client.MetaData);
+                        Console.WriteLine(eventRecord.ToString());
+                    } catch(NotImplementedException e)
+                    {
+                        Console.WriteLine($"##### {e}");
+                    }
                 }
 
                 
@@ -45,14 +88,14 @@ namespace Sandbox
                callBackSubscribeStorage
             );
 
-            Thread.Sleep(60000);
+            Thread.Sleep(1200000);
 
             var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
         }
 
         private static async Task TestAsync(string[] args)
         {
-            Console.WriteLine(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM").Length);
+            //Console.WriteLine(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM").Length);
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
             client.RegisterTypeConverter(new MogwaiStructTypeConverter());
             await client.ConnectAsync(CancellationToken.None);
@@ -188,7 +231,6 @@ namespace Sandbox
             Console.WriteLine($"p = {p}");
 
         }
-    
     
         private async static Task RunBlockCalls(CancellationToken cancellationToken)
         {

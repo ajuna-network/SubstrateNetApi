@@ -175,7 +175,7 @@ namespace DemoApiTest
             //var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, cancellationToken);
 
             // *** subscription test 4 event subscription
-            Action<string, JObject> callBackSubscribeStorage = (subscriptionId, eventObject) => Console.WriteLine($"CallBack[{subscriptionId}]: {eventObject}");
+            Action<string, StorageChangeSet> callBackSubscribeStorage = (subscriptionId, eventObject) => Console.WriteLine($"CallBack[{subscriptionId}]: {eventObject}");
             
             var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
 

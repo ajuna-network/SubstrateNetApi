@@ -49,7 +49,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
             }
         }
 
-        internal static AccountId Decode(Memory<byte> byteArray, ref int p)
+        public static AccountId Decode(Memory<byte> byteArray, ref int p)
         {
             var accountId = new AccountId(byteArray.Span.Slice(p, 32).ToArray());
             p += 32;
