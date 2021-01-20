@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
-using SubstrateNetApi.MetaDataModel.Extrinsics;
+using SubstrateNetApi.Model.Extrinsics;
 using System;
 
 namespace SubstrateNetApi.TypeConverters

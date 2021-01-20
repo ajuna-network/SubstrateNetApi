@@ -2,7 +2,7 @@
 using NLog;
 using Schnorrkel;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.TypeConverters;
 using System;
 using System.Linq;

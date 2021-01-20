@@ -5,7 +5,7 @@
 /// <summary> Implements the account identifier type converter class. </summary>
 using Newtonsoft.Json;
 using NLog;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 using System;
 
 namespace SubstrateNetApi.TypeConverters

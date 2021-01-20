@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel;
+using SubstrateNetApi.Model.Meta;
 
 namespace SubstrateNetApiTests
 {

@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SubstrateNetApi.MetaDataModel.Rpc;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.Types;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SubstrateNetApi.TypeConverters
 {

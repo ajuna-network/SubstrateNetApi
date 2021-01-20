@@ -1,10 +1,8 @@
 using NUnit.Framework;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel.Extrinsics;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Extrinsics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SubstrateNetApiTests.Extrinsic
 {

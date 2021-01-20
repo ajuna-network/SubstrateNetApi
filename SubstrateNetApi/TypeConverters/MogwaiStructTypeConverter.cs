@@ -4,7 +4,7 @@
 /// </copyright>
 /// <summary> Implements the mogwai structure type converter class. </summary>
 using NLog;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 
 namespace SubstrateNetApi.TypeConverters
 {

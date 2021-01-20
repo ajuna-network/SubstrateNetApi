@@ -3,11 +3,9 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the chain class. </summary>
-using SubstrateNetApi.MetaDataModel.Extrinsics;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Extrinsics;
+using SubstrateNetApi.Model.Types;
 using System;
-using System.Linq;
-using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 

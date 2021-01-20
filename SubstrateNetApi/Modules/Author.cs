@@ -3,10 +3,10 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the author class. </summary>
-using SubstrateNetApi.MetaDataModel.Calls;
-using SubstrateNetApi.MetaDataModel.Extrinsics;
-using SubstrateNetApi.MetaDataModel.Rpc;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Extrinsics;
+using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.Types;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

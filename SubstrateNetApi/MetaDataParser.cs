@@ -1,4 +1,4 @@
-﻿using SubstrateNetApi.MetaDataModel;
+﻿using SubstrateNetApi.Model.Meta;
 using System;
 using System.Text;
 

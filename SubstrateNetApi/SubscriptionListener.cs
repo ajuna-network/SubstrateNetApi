@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
-using SubstrateNetApi.MetaDataModel.Rpc;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.Types;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SubstrateNetApi
 {

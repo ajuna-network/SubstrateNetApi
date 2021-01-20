@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Net.WebSockets;
-using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Threading;
-using Newtonsoft.Json.Linq;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
-using StreamJsonRpc;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel.Calls;
-using SubstrateNetApi.MetaDataModel.Extrinsics;
-using SubstrateNetApi.MetaDataModel.Rpc;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.TypeConverters;
 
 namespace DemoApiTest

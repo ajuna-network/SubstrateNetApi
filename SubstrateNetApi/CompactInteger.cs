@@ -3,7 +3,7 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the compact integer class. </summary>
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 using System.Collections.Generic;
 using System.Numerics;
 

@@ -1,8 +1,8 @@
 ﻿using Chaos.NaCl;
 using Schnorrkel;
-using SubstrateNetApi.MetaDataModel;
-using SubstrateNetApi.MetaDataModel.Extrinsics;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Extrinsics;
+using SubstrateNetApi.Model.Meta;
+using SubstrateNetApi.Model.Types;
 using System;
 using System.Linq;
 using System.Text;

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.TypeConverters;
 
 namespace SubstrateNetApiTests

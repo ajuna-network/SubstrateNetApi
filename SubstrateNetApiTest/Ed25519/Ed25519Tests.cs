@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using SubstrateNetApi;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 using System;
 using System.Linq;
 

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SubstrateNetApi.MetaDataModel.Types;
+using SubstrateNetApi.Model.Types;
 using System;
 
 namespace SubstrateNetWallet
