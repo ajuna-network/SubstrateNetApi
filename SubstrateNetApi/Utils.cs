@@ -3,7 +3,7 @@
 /// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
 /// </copyright>
 /// <summary> Implements the utilities class. </summary>
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;

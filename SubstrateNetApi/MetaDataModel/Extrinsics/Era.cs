@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using System;
 
 namespace SubstrateNetApi.MetaDataModel.Extrinsics

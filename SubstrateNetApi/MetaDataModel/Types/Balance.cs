@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Numerics;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
-    public class Balance : IEncodable
+    public partial class Balance : IEncodable
     {
         public BigInteger Value { get; }
 
@@ -30,13 +30,6 @@ namespace SubstrateNetApi.MetaDataModel.Values
         public string ToString()
         {
             return Value.ToString();
-        }
-
-        public static Balance Decode(Memory<byte> byteArray, ref int p)
-        {
-            var balance = new Balance(byteArray.Span.Slice(p, 16).ToArray());
-            p += 16;
-            return balance;
         }
     }
 }

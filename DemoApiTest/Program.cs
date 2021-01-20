@@ -13,7 +13,7 @@ using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Rpc;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using SubstrateNetApi.TypeConverters;
 
 namespace DemoApiTest
@@ -176,19 +176,12 @@ namespace DemoApiTest
 
             // *** subscription test 4 event subscription
             Action<string, StorageChangeSet> callBackSubscribeStorage = (subscriptionId, eventObject) => Console.WriteLine($"CallBack[{subscriptionId}]: {eventObject}");
-            
             var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
-
             var subscriptionId = await client.State.SubscribeStorageAsync(systemEventsKeys,
                callBackSubscribeStorage
             );
-
             Thread.Sleep(60000);
-
             var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, cancellationToken);
-
-
-
 
             //Hash finalizedHead = await client.Chain.GetFinalizedHeadAsync(cancellationToken);
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);

@@ -1,7 +1,7 @@
 ﻿using SubstrateNetApi.MetaDataModel.Extrinsics;
 using System.Collections.Generic;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
     public class Block
     {

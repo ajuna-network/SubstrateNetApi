@@ -6,7 +6,7 @@
 using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsics;
 using SubstrateNetApi.MetaDataModel.Rpc;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

@@ -2,29 +2,35 @@
 using System;
 using System.Numerics;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
-    public class UInt8 : IEncodable
+    public partial class U8 : IEncodable
     {
         public byte Value { get; }
 
         [JsonIgnore]
         public byte[] Bytes { get; }
 
-        public UInt8(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public U8(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
         }
 
-        internal UInt8(Memory<byte> memory)
+        internal U8(Memory<byte> memory)
         {
             Bytes = memory.ToArray();
             Value = memory.ToArray()[0];
         }
 
-        public UInt8(byte value)
+        public U8(byte value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;
+        }
+
+        override
+        public string ToString()
+        {
+            return Value.ToString();
         }
 
         public byte[] Encode()
@@ -32,12 +38,6 @@ namespace SubstrateNetApi.MetaDataModel.Values
             byte[] reversed = Bytes;
             Array.Reverse(reversed);
             return reversed;
-        }
-
-        override
-        public string ToString()
-        {
-            return Value.ToString();
         }
     }
 }

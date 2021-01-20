@@ -3,7 +3,7 @@ using Schnorrkel;
 using SubstrateNetApi;
 using SubstrateNetApi.MetaDataModel.Calls;
 using SubstrateNetApi.MetaDataModel.Extrinsics;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;

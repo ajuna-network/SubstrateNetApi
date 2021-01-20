@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
     public class AccountInfo
     {

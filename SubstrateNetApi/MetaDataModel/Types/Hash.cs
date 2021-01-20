@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
-    public class Hash : IEncodable
+    public partial class Hash : IEncodable
     {
         public const int HEXSIZE = 32;
 
@@ -28,21 +28,14 @@ namespace SubstrateNetApi.MetaDataModel.Values
             HexString = Utils.Bytes2HexString(Bytes, Utils.HexStringFormat.PREFIXED);
         }
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
-
         public byte[] Encode()
         {
             return Bytes;
         }
 
-        public static Hash Decode(Memory<byte> byteArray, ref int p)
+        public override string ToString()
         {
-            var hash = new Hash(byteArray.Span.Slice(p, 32).ToArray());
-            p += 32;
-            return hash;
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

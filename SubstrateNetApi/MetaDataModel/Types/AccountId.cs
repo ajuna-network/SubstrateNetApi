@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
-    public class AccountId : IEncodable
+    public partial class AccountId : IEncodable
     {
         public string Address { get; }
 
@@ -35,7 +35,7 @@ namespace SubstrateNetApi.MetaDataModel.Values
 
         public byte[] Encode()
         {
-            switch(Constants.ADDRESS_VERSION)
+            switch (Constants.ADDRESS_VERSION)
             {
                 case 0:
                     return PublicKey;
@@ -47,13 +47,6 @@ namespace SubstrateNetApi.MetaDataModel.Values
                 default:
                     throw new NotImplementedException("Unknown address version please refere to Constants.cs");
             }
-        }
-
-        public static AccountId Decode(Memory<byte> byteArray, ref int p)
-        {
-            var accountId = new AccountId(byteArray.Span.Slice(p, 32).ToArray());
-            p += 32;
-            return accountId;
         }
     }
 }

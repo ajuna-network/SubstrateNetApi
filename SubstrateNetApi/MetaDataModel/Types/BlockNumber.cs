@@ -2,9 +2,9 @@
 using System;
 using System.Numerics;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
-    public class BlockNumber : IEncodable
+    public partial class BlockNumber : IEncodable
     {
         public uint Value { get; }
 
@@ -32,11 +32,6 @@ namespace SubstrateNetApi.MetaDataModel.Values
             byte[] reversed = Bytes;
             Array.Reverse(reversed);
             return reversed;
-        }
-
-        public static BlockNumber Decode(Memory<byte> byteArray, ref int p)
-        {
-            throw new NotImplementedException();
         }
     }
 }

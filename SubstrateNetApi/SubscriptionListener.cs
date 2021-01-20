@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi.MetaDataModel.Rpc;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

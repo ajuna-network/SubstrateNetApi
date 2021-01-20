@@ -1,4 +1,4 @@
-﻿using SubstrateNetApi.MetaDataModel.Values;
+﻿using SubstrateNetApi.MetaDataModel.Types;
 using System.Collections.Generic;
 
 namespace SubstrateNetApi.MetaDataModel.Extrinsics

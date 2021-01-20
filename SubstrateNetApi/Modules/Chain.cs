@@ -4,7 +4,7 @@
 /// </copyright>
 /// <summary> Implements the chain class. </summary>
 using SubstrateNetApi.MetaDataModel.Extrinsics;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using System;
 using System.Linq;
 using System.Numerics;

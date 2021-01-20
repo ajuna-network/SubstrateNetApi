@@ -1,4 +1,4 @@
-﻿namespace SubstrateNetApi.MetaDataModel.Values
+﻿namespace SubstrateNetApi.MetaDataModel.Types
 {
     public interface IEncodable
     {

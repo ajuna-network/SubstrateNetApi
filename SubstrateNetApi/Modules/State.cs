@@ -4,7 +4,7 @@
 /// </copyright>
 /// <summary> Implements the state class. </summary>
 using Newtonsoft.Json.Linq;
-using SubstrateNetApi.MetaDataModel.Values;
+using SubstrateNetApi.MetaDataModel.Types;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿using SubstrateNetApi.MetaDataModel.Values;
+﻿using SubstrateNetApi.MetaDataModel.Types;
 using System.Collections.Generic;
 
 namespace SubstrateNetApi.MetaDataModel.Calls
@@ -118,12 +118,12 @@ namespace SubstrateNetApi.MetaDataModel.Calls
             return new GenericExtrinsicCall("DotMogModule", "transfer", to, mogwai_id);
         }
 
-        public static GenericExtrinsicCall UpdateConfig(UInt8 index, UInt8 valueOpt)
+        public static GenericExtrinsicCall UpdateConfig(U8 index, U8 valueOpt)
         {
             return new GenericExtrinsicCall("DotMogModule", "update_config", index, valueOpt);
         }
 
-        public static GenericExtrinsicCall UpdateConfig(UInt8 index)
+        public static GenericExtrinsicCall UpdateConfig(U8 index)
         {
             return new GenericExtrinsicCall("DotMogModule", "update_config", index);
         }

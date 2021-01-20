@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace SubstrateNetApi.MetaDataModel.Values
+namespace SubstrateNetApi.MetaDataModel.Types
 {
     public class EventRecords
     {
@@ -187,6 +187,19 @@ namespace SubstrateNetApi.MetaDataModel.Values
         }
     }
 
+    public class Phase
+    {
+        public uint ApplyExtrinsic { get; set; }
+
+        public PhaseState PhaseState { get; set; }
+
+        public Phase(uint applyExtrinisc)
+        {
+            ApplyExtrinsic = applyExtrinisc;
+            PhaseState = PhaseState.None;
+        }
+    }
+
     public class BaseEvent
     {
         public string ModuleName;
@@ -200,5 +213,9 @@ namespace SubstrateNetApi.MetaDataModel.Values
             EventName = eventName;
             EventData = eventData;
         }
+    }
+
+    public class Topics
+    {
     }
 }
