@@ -180,7 +180,8 @@ namespace SubstrateNetApi
         /// <param name="moduleName"> Name of the module. </param>
         /// <param name="itemName">   Name of the item. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName) => await GetStorageAsync(moduleName, itemName, CancellationToken.None);
+        public async Task<object> GetStorageAsync(string moduleName, string itemName)
+            => await GetStorageAsync(moduleName, itemName, CancellationToken.None);
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -188,7 +189,8 @@ namespace SubstrateNetApi
         /// <param name="itemName">   Name of the item. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token) => await GetStorageAsync(moduleName, itemName, null, token);
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token)
+            => await GetStorageAsync(moduleName, itemName, null, token);
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -196,7 +198,8 @@ namespace SubstrateNetApi
         /// <param name="itemName">   Name of the item. </param>
         /// <param name="parameter">  The parameter. </param>
         /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] parameter) => await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] parameter)
+            => await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -221,43 +224,12 @@ namespace SubstrateNetApi
             if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetStorageItemByName(itemName, out Item item))
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
 
-            string method = "state_getStorage";
-
             if (item.Function?.Key1 != null && (parameter == null || parameter.Length == 0))
                 throw new MissingParameterException($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
 
-            string parameters;
-            if (item.Function?.Key1 != null)
-            {
-                // multi keys support
-                if (item.Function.Key1.StartsWith("("))
-                {
-                    var keysDelimited = item.Function.Key1.Replace("(", "").Replace(")", "");
-                    var keys = keysDelimited.Split(',');
-                    if (keys.Length != parameter.Length)
-                    {
-                        throw new MissingParameterException($"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");
-                    }
-                    List<byte> byteList = new List<byte>();
-                    for (int i = 0; i < keys.Length; i++)
-                    {
-                        byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameter[i]));
-                    }
-                    parameters = "0x" + RequestGenerator.GetStorage(module, item, byteList.ToArray());
-                }
-                // single key support
-                else
-                {
-                    byte[] key1Bytes = Utils.KeyTypeToBytes(item.Function.Key1, parameter[0]);
-                    parameters = "0x" + RequestGenerator.GetStorage(module, item, key1Bytes);
-                }
-            }
-            else
-            {
-                parameters = "0x" + RequestGenerator.GetStorage(module, item);
-            }
+            string parameters = RequestGenerator.GetStorage(module, item, parameter);
 
-            var resultString = await InvokeAsync<string>(method, new object[] { parameters }, token);
+            var resultString = await InvokeAsync<string>("state_getStorage", new object[] { parameters }, token);
 
             string returnType = item.Function?.Value;
 
@@ -267,8 +239,59 @@ namespace SubstrateNetApi
             return _typeConverters[returnType].Create(resultString);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="moduleName"></param>
+        /// <param name="itemName"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public async Task<string> SubscribeStorageKeyAsync(string moduleName, string itemName, string[] parameter, Action<string, StorageChangeSet> callback)
+        => await SubscribeStorageKeyAsync(moduleName, itemName, parameter, callback, CancellationToken.None);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="moduleName"></param>
+        /// <param name="itemName"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task<string> SubscribeStorageKeyAsync(string moduleName, string itemName, string[] parameter, Action<string, StorageChangeSet> callback, CancellationToken token)
+        {
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
+
+            if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetStorageItemByName(itemName, out Item item))
+                throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
+
+            if (item.Function?.Key1 != null && (parameter == null || parameter.Length == 0))
+                throw new MissingParameterException($"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
+
+            string parameters = RequestGenerator.GetStorage(module, item, parameter);
+
+            var subscriptionId = await InvokeAsync<string>("state_subscribeStorage", new object[] { new JArray() { parameters } }, token);
+            Listener.RegisterCallBackHandler(subscriptionId, callback);
+            return subscriptionId;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="moduleName"></param>
+        /// <param name="itemName"></param>
+        /// <returns></returns>
         public async Task<JArray> GetStorageKeysAsync(string moduleName, string itemName) => await GetStorageKeysAsync(moduleName, itemName, CancellationToken.None);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="moduleName"></param>
+        /// <param name="itemName"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task<JArray> GetStorageKeysAsync(string moduleName, string itemName, CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
@@ -279,9 +302,34 @@ namespace SubstrateNetApi
 
             string method = "state_getKeys";
 
-            var parameters = "0x" + RequestGenerator.GetStorage(module, item);
+            string parameters = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash(module, item));
 
             return await InvokeAsync<JArray>(method, new object[] { parameters }, token);
+        }
+
+        private byte[] GetParameterBytes(string key, string[] parameter, string moduleName = "", string itemName = "")
+        {
+            // multi keys support
+            if (key.StartsWith("("))
+            {
+                var keysDelimited = key.Replace("(", "").Replace(")", "");
+                var keys = keysDelimited.Split(',');
+                if (keys.Length != parameter.Length)
+                {
+                    throw new MissingParameterException($"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");
+                }
+                List<byte> byteList = new List<byte>();
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameter[i]));
+                }
+                return byteList.ToArray();
+            }
+            // single key support
+            else
+            {
+                return Utils.KeyTypeToBytes(key, parameter[0]);
+            }
         }
 
         /// <summary> Gets method asynchronous. </summary>

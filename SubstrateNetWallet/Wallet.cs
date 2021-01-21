@@ -2,6 +2,8 @@
 using NLog;
 using Schnorrkel;
 using SubstrateNetApi;
+using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.TypeConverters;
 using System;
@@ -34,7 +36,7 @@ namespace SubstrateNetWallet
 
         private CancellationTokenSource _connectTokenSource;
 
-        private string _subscriptionIdNewHead, _subscriptionIdFinalizedHeads;
+        private string _subscriptionIdNewHead, _subscriptionIdFinalizedHeads, _subscriptionAccountInfo;
 
         public bool IsUnlocked => Account != null;
 
@@ -59,6 +61,8 @@ namespace SubstrateNetWallet
         public string AddWalletFileType(string walletName) => $"{walletName}.{_fileType}";
 
         public event EventHandler<ChainInfo> ChainInfoUpdated;
+
+        public event EventHandler<AccountInfo> AccountInfoUpdated;
 
         /// <summary>
         /// Constructor
@@ -98,7 +102,7 @@ namespace SubstrateNetWallet
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool Create(string password, string walletName = _defaultWalletName)
+        public async Task<bool> CreateAsync(string password, string walletName = _defaultWalletName)
         {
             if (IsCreated)
             {
@@ -138,8 +142,7 @@ namespace SubstrateNetWallet
 
             Account = new Account(KeyType.ED25519, privateKey, publicKey);
 
-            Logger.Warn($"Listning on call back event of chain info update.");
-            ChainInfoUpdated += Wallet_ChainInfoUpdated;
+            _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
 
             return true;
         }
@@ -149,7 +152,7 @@ namespace SubstrateNetWallet
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool Unlock(string password, bool noCheck = false)
+        public async Task<bool> UnlockAsync(string password, bool noCheck = false)
         {
             if (IsUnlocked || !IsCreated)
             {
@@ -182,8 +185,7 @@ namespace SubstrateNetWallet
                 return false;
             }
 
-            Logger.Warn($"Listning on call back event of chain info update.");
-            ChainInfoUpdated += Wallet_ChainInfoUpdated;
+            _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
 
             return true;
         }
@@ -214,7 +216,6 @@ namespace SubstrateNetWallet
                     throw new NotImplementedException($"Keytype {signer.KeyType} is currently not implemented for signing.");
             }
 
-
             return true;
         }
 
@@ -239,24 +240,26 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// TODO
+        /// 
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="genericExtrinsicCall"></param>
         /// <returns></returns>
-        public bool HashData(string data)
+        public async Task<string> SubscribeAccountInfoAsync()
         {
-            throw new NotImplementedException();
+            return await _client.SubscribeStorageKeyAsync("System", "Account", 
+                new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(Account.Address)) }, 
+                CallBackAccountChange, _connectTokenSource.Token);
         }
 
         /// <summary>
-        /// TODO
+        /// 
         /// </summary>
-        /// <param name="recipient"></param>
-        /// <param name="amount"></param>
+        /// <param name="genericExtrinsicCall"></param>
         /// <returns></returns>
-        public bool TryTransfer(Account recipient, int amount)
+        public async Task<string> SubmitGenericExtrinsicAsync(GenericExtrinsicCall genericExtrinsicCall)
         {
-            throw new NotImplementedException();
+           return  await _client.Author
+                .SubmitAndWatchExtrinsicAsync(CallBackExtrinsic, genericExtrinsicCall, Account, 0, 64, _connectTokenSource.Token);
         }
 
         private async Task ConnectAsync(string webSocketUrl)
@@ -310,14 +313,6 @@ namespace SubstrateNetWallet
             }
         }
 
-        private void Wallet_ChainInfoUpdated(object sender, ChainInfo e)
-        {
-            if (IsCreated && IsUnlocked && Account != null)
-            {
-                _ = UpdateAccountInfoAsync(Account);
-            }
-        }
-
         private async Task RefreshSubscriptionsAsync()
         {
             Logger.Info($"Refreshing all subscriptions");
@@ -330,6 +325,13 @@ namespace SubstrateNetWallet
 
             // subscribe to finalized heads
             _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((subscriptionId, header) => CallBackFinalizedHeads(subscriptionId, header), _connectTokenSource.Token);
+        
+            if (IsUnlocked)
+            {
+                // subscribe to account info
+                _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
+            }
+        
         }
 
         private async Task UnsubscribeAllAsync()
@@ -355,6 +357,17 @@ namespace SubstrateNetWallet
                 }
                 _subscriptionIdFinalizedHeads = string.Empty;
             }
+
+            if (_subscriptionAccountInfo != null
+             && _subscriptionAccountInfo != string.Empty)
+            {
+                // unsubscribe from finalized heads
+                if (!await _client.State.UnsubscribeStorageAsync(_subscriptionAccountInfo, _connectTokenSource.Token))
+                {
+                    Logger.Warn($"Couldn't unsubscribe finalized heads {_subscriptionAccountInfo} id.");
+                }
+                _subscriptionAccountInfo = string.Empty;
+            }
         }
 
         /// <summary>
@@ -366,29 +379,10 @@ namespace SubstrateNetWallet
             // unsubscribe all subscriptions
             await UnsubscribeAllAsync();
 
-            ChainInfoUpdated -= Wallet_ChainInfoUpdated;
+            //ChainInfoUpdated -= Wallet_ChainInfoUpdated;
 
             // disconnect wallet
             await _client.CloseAsync(_connectTokenSource.Token);
-        }
-
-        /// <summary>
-        /// Update account info for the current wallet.
-        /// </summary>
-        /// <param name="account"></param>
-        /// <returns></returns>
-        public async Task UpdateAccountInfoAsync(Account account)
-        {
-            var reqResult = await _client.GetStorageAsync("System", "Account", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(account.Address)) }, _connectTokenSource.Token);
-
-            if (!(reqResult is AccountInfo))
-            {
-                Logger.Warn($"Couldn't update account informations. Please check '{reqResult}'");
-                return;
-            }
-
-            Logger.Debug($"Updated account successfully.");
-            AccountInfo = reqResult as AccountInfo;
         }
 
         /// <summary>
@@ -409,6 +403,34 @@ namespace SubstrateNetWallet
             ChainInfo.UpdateFinalizedHeader(header);
 
             ChainInfoUpdated?.Invoke(this, ChainInfo);
+        }
+
+        /// <summary>
+        /// Call back for extrinsics.
+        /// </summary>
+        /// <param name="header"></param>
+        public virtual void CallBackExtrinsic(string subscriptionId, ExtrinsicStatus extrinsicStatus)
+        {
+
+        }
+
+        /// <summary>
+        /// Call back account change.
+        /// </summary>
+        /// <param name="subscriptionId"></param>
+        /// <param name="storageChangeSet"></param>
+        public virtual void CallBackAccountChange(string subscriptionId, StorageChangeSet storageChangeSet)
+        {
+            if (storageChangeSet.Changes == null || storageChangeSet.Changes.Length == 0 || storageChangeSet.Changes[0].Length < 2)
+            {
+                Logger.Warn($"Couldn't update account informations. Please check 'CallBackAccountChange'");
+                return;
+            }
+            Logger.Debug($"Updated account successfully.");
+            AccountInfo = new AccountInfo(storageChangeSet.Changes[0][1].ToString());
+
+            AccountInfoUpdated?.Invoke(this, AccountInfo);
+
         }
     }
 }

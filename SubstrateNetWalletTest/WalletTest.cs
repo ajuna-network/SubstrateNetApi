@@ -53,7 +53,7 @@ namespace SubstrateNetWalletTest
             // create new wallet with password and persist
             var wallet1 = new Wallet();
 
-            wallet1.Create("aA1234dd");
+            wallet1.CreateAsync("aA1234dd");
 
             Assert.True(wallet1.IsCreated);
             
@@ -69,7 +69,7 @@ namespace SubstrateNetWalletTest
             Assert.False(wallet2.IsUnlocked);
 
             // unlock wallet with password
-            wallet2.Unlock("aA1234dd");
+            wallet2.UnlockAsync("aA1234dd");
 
             Assert.True(wallet2.IsUnlocked);
 
@@ -87,7 +87,7 @@ namespace SubstrateNetWalletTest
             Assert.False(wallet3.IsUnlocked);
 
             // unlock wallet with password
-            wallet3.Unlock("aA4321dd");
+            wallet3.UnlockAsync("aA4321dd");
 
             Assert.False(wallet3.IsUnlocked);
 
@@ -124,7 +124,7 @@ namespace SubstrateNetWalletTest
 
             Assert.True(wallet.IsCreated);
             
-            wallet.Unlock("aA1234dd");
+            wallet.UnlockAsync("aA1234dd");
             Assert.True(wallet.IsUnlocked);
 
             Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Address);
@@ -141,7 +141,7 @@ namespace SubstrateNetWalletTest
 
             wallet.Load("dev_wallet");
 
-            wallet.Unlock("aA1234dd");
+            await wallet.UnlockAsync("aA1234dd");
             Assert.True(wallet.IsUnlocked);
 
             Assert.AreEqual("Substrate Node", wallet.ChainInfo.Name);
@@ -150,7 +150,7 @@ namespace SubstrateNetWalletTest
 
             Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Address);
 
-            await wallet.UpdateAccountInfoAsync(wallet.Account);
+            Thread.Sleep(1000);
 
             Assert.AreEqual("1124998929864629549", wallet.AccountInfo.AccountData.Free.Value.ToString());
 

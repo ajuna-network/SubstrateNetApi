@@ -1,4 +1,5 @@
-﻿using SubstrateNetWallet;
+﻿using SubstrateNetApi.Model.Types;
+using SubstrateNetWallet;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace DemoWalletTest
 
             wallet.ChainInfoUpdated += Wallet_ChainInfoUpdated;
 
+            wallet.AccountInfoUpdated += Wallet_AccountInfoUpdated;
+
             await wallet.StartAsync("wss://node01.dotmog.com");
 
             if (!wallet.IsConnected)
@@ -30,27 +33,30 @@ namespace DemoWalletTest
             if (wallet.Load())
             {
                 Console.WriteLine("wallet unlocked");
-                wallet.Unlock("Aa123456");
+                await wallet.UnlockAsync("Aa123456");
             }
             else if (!wallet.IsCreated)
             {
                 Console.WriteLine("wallet created");
-                wallet.Create("Aa123456");
+                await wallet.CreateAsync("Aa123456");
             }
 
-            Console.WriteLine(wallet.Account.Address); 
-            
-            Console.ReadKey();
+            Console.WriteLine(wallet.Account.Address);
 
-            Console.WriteLine(wallet.AccountInfo);
+            Console.ReadKey();
 
             await wallet.StopAsync();
 
         }
 
+        private static void Wallet_AccountInfoUpdated(object sender, AccountInfo accountInfo)
+        {
+            Console.WriteLine($"CallBack[AccountInfo]: {accountInfo}");
+        }
+
         private static void Wallet_ChainInfoUpdated(object sender, ChainInfo chainInfo)
         {
-            Console.WriteLine(chainInfo);
+            Console.WriteLine($"CallBack[ChainInfo]: {chainInfo}");
         }
     }
 }
