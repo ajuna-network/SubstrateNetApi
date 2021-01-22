@@ -142,7 +142,10 @@ namespace SubstrateNetWallet
 
             Account = new Account(KeyType.ED25519, privateKey, publicKey);
 
-            _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
+            if (IsOnline)
+            {
+                _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
+            }
 
             return true;
         }
@@ -185,7 +188,11 @@ namespace SubstrateNetWallet
                 return false;
             }
 
-            _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
+
+            if (IsOnline)
+            {
+                _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
+            }
 
             return true;
         }
@@ -313,7 +320,7 @@ namespace SubstrateNetWallet
             }
         }
 
-        private async Task RefreshSubscriptionsAsync()
+        public async Task RefreshSubscriptionsAsync()
         {
             Logger.Info($"Refreshing all subscriptions");
 
@@ -334,7 +341,7 @@ namespace SubstrateNetWallet
         
         }
 
-        private async Task UnsubscribeAllAsync()
+        public async Task UnsubscribeAllAsync()
         {
             if (_subscriptionIdNewHead != null
              && _subscriptionIdNewHead != string.Empty)
@@ -364,7 +371,7 @@ namespace SubstrateNetWallet
                 // unsubscribe from finalized heads
                 if (!await _client.State.UnsubscribeStorageAsync(_subscriptionAccountInfo, _connectTokenSource.Token))
                 {
-                    Logger.Warn($"Couldn't unsubscribe finalized heads {_subscriptionAccountInfo} id.");
+                    Logger.Warn($"Couldn't unsubscribe storage subscription {_subscriptionAccountInfo} id.");
                 }
                 _subscriptionAccountInfo = string.Empty;
             }

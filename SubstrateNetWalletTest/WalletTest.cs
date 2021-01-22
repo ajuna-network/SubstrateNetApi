@@ -117,14 +117,15 @@ namespace SubstrateNetWalletTest
 
 
         [Test]
-        public void CheckAccount()
+        public async Task CheckAccountAsync()
         {
             var wallet = new Wallet();
             wallet.Load("dev_wallet");
 
             Assert.True(wallet.IsCreated);
-            
-            wallet.UnlockAsync("aA1234dd");
+
+            await wallet.UnlockAsync("aA1234dd");
+
             Assert.True(wallet.IsUnlocked);
 
             Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Address);
