@@ -1,9 +1,9 @@
 using NUnit.Framework;
 using SubstrateNetApi;
+using SubstrateNetApi.Model.Types;
 using SubstrateNetWallet;
 using System;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -48,7 +48,7 @@ namespace SubstrateNetWalletTest
         }
 
         [Test]
-        public void CreateWalletTest()
+        public async Task CreateWalletTestAsync()
         {
             // create new wallet with password and persist
             var wallet1 = new Wallet();
@@ -56,7 +56,7 @@ namespace SubstrateNetWalletTest
             wallet1.CreateAsync("aA1234dd");
 
             Assert.True(wallet1.IsCreated);
-            
+
             Assert.True(wallet1.IsUnlocked);
 
             // read wallet
@@ -69,7 +69,7 @@ namespace SubstrateNetWalletTest
             Assert.False(wallet2.IsUnlocked);
 
             // unlock wallet with password
-            wallet2.UnlockAsync("aA1234dd");
+            await wallet2.UnlockAsync("aA1234dd");
 
             Assert.True(wallet2.IsUnlocked);
 
@@ -87,7 +87,7 @@ namespace SubstrateNetWalletTest
             Assert.False(wallet3.IsUnlocked);
 
             // unlock wallet with password
-            wallet3.UnlockAsync("aA4321dd");
+            await wallet3.UnlockAsync("aA4321dd");
 
             Assert.False(wallet3.IsUnlocked);
 
@@ -164,5 +164,62 @@ namespace SubstrateNetWalletTest
             Assert.False(wallet.IsConnected);
         }
 
+        [Test]
+        public async Task CheckRaisedChainInfoUpdatedAsync()
+        {
+            // create new wallet with password and persist
+            var wallet = new Wallet();
+            await wallet.StartAsync("wss://node01.dotmog.com");
+
+            Assert.True(wallet.IsConnected);
+
+            wallet.Load("dev_wallet");
+
+            ChainInfo test = null; 
+
+            wallet.ChainInfoUpdated += delegate (object sender, ChainInfo chainInfo)
+            {
+                test = chainInfo;
+            };
+
+            Thread.Sleep(6000);
+
+            Assert.IsNotNull(test);
+
+            Assert.AreEqual("Substrate Node", test.Name);
+        }
+
+        [Test]
+        public async Task CheckRaisedAccountInfoUpdatedAsync()
+        {
+            // create new wallet with password and persist
+            var wallet = new Wallet();
+            await wallet.StartAsync("wss://node01.dotmog.com");
+
+            Assert.True(wallet.IsConnected);
+
+            wallet.Load("dev_wallet");
+
+            Assert.True(wallet.IsCreated);
+
+            await wallet.UnlockAsync("aA1234dd");
+
+            Assert.True(wallet.IsUnlocked);
+
+            AccountInfo test = null;
+
+            wallet.AccountInfoUpdated += delegate (object sender, AccountInfo accountInfo)
+            {
+                test = accountInfo;
+            };
+
+            Thread.Sleep(1000);
+
+            Assert.IsNotNull(test);
+
+            Assert.AreEqual(1, test.Nonce);
+
+            Assert.AreEqual("1124998929864629549", test.AccountData.Free.ToString());
+        }
     }
 }

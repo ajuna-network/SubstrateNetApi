@@ -17,7 +17,7 @@ namespace Sandbox
         {
             //await ParseEventStringAsync(args);
             await AccountSubscriptionAsync(args);
-            
+
         }
 
         private static async Task AccountSubscriptionAsync(string[] args)
@@ -58,8 +58,8 @@ namespace Sandbox
             client.RegisterTypeConverter(new MogwaiStructTypeConverter());
             await client.ConnectAsync(CancellationToken.None);
 
-            var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", 
-                new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")) }, 
+            var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
+                new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")) },
                 CancellationToken.None);
 
             Console.WriteLine($"DotMogModule.OwnedMogwaisCount = {reqResult}");
@@ -71,7 +71,7 @@ namespace Sandbox
             //var keys = await client.GetStorageKeysAsync("DotMogModule", "OwnedMogwaisCount", Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"), CancellationToken.None);
             //var keys = await client.GetStorageKeysAsync("DotMogModule", "OwnedMogwaisCount", Utils.HexToByteArray("001a9764e170aae830c02cc9f6219ddb278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"), CancellationToken.None);
             var keys = await client.GetStorageKeysAsync("DotMogModule", "OwnedMogwaisCount", CancellationToken.None);
-            
+
             //var subscriptionId = await client.SubscribeStorageKeyAsync("DotMogModule", "OwnedMogwaisCount", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")) },
             var subscriptionId = await client.State.SubscribeStorageAsync(keys,
                callBackSubscribeStorage,
@@ -98,7 +98,8 @@ namespace Sandbox
                     continue;
                 }
 
-                foreach (var singleEvent in module.Events) {
+                foreach (var singleEvent in module.Events)
+                {
 
                     if (singleEvent.EventArgs == null)
                     {
@@ -115,7 +116,7 @@ namespace Sandbox
                 }
             }
 
-            foreach(var keyValue in dict)
+            foreach (var keyValue in dict)
             {
                 Console.WriteLine($"case \"{keyValue.Key}\":\ndata.Add(({keyValue.Key}){keyValue.Key}.Decode(byteArray, ref p));\nbreak;");
             }
@@ -131,16 +132,18 @@ namespace Sandbox
             {
                 if (eventObject.Changes != null)
                 {
-                    try {
+                    try
+                    {
                         var eventRecord = EventRecords.Decode(eventObject.Changes[0][1].ToString(), client.MetaData);
                         Console.WriteLine(eventRecord.ToString());
-                    } catch(NotImplementedException e)
+                    }
+                    catch (NotImplementedException e)
                     {
                         Console.WriteLine($"##### {e}");
                     }
                 }
 
-                
+
             };
 
             var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
@@ -197,7 +200,7 @@ namespace Sandbox
             ;
 
             var eventRecords = EventRecords.Decode(eventStr, client.MetaData);
-            
+
             Console.WriteLine(eventRecords);
         }
 
@@ -229,13 +232,13 @@ namespace Sandbox
 
             var hexString = "0x" +
                 "0d03" + // length
-                "04" + 
+                "04" +
                 "040004" +
                 "2ad9b32392b71a2e5fdd210d0be84c152a3bc2571b6223e9100c64bfdd7878b1" + // parentHash
                 "b6d91d00" + // number
                 "9eee9fd4cf123d08a4fe2f17a1b38ce1a0ded9083c840f3124c567943da29232" + // stateRoot
                 "4054e5b8541167df941d22e69bd16ad3bb8e7307830b7bc8f74954388281f095" + // extrinsicsRoot
-                // digest
+                                                                                     // digest
                 "08064241424534" +
                 "02060000002f6af41f00000000" +
                 "05424142450101" +
@@ -243,40 +246,40 @@ namespace Sandbox
 
 
 
-        //        method:
-        //    {
-        //    args:
-        //        [
-        //      [
-        //        {
-        //        parentHash: 0x2ad9b32392b71a2e5fdd210d0be84c152a3bc2571b6223e9100c64bfdd7878b1,
-        //        number: 489,069,
-        //        stateRoot: 0x9eee9fd4cf123d08a4fe2f17a1b38ce1a0ded9083c840f3124c567943da29232,
-        //        extrinsicsRoot: 0x4054e5b8541167df941d22e69bd16ad3bb8e7307830b7bc8f74954388281f095,
-        //        digest:
-        //            {
-        //            logs:
-        //                [
-        //              {
-        //                PreRuntime:[
-        //                 BABE,
-        //                 0x02060000002f6af41f00000000
-        //                ]
-        //            },
-        //            {
-        //                Seal:[
-        //                 BABE,
-        //                 0x2899b12dbf3b94d2fa11bc739a49d485d1528b573497749b72e36a3aaf191e61089289ae084fbbd417435e43d30bcdc3854c3b6fc1965a809f5f34e7682c9c8f
-        //              ]
-        //            }
-        //          ]
-        //        }
-        //        }
-        //    ]
-        //  ],
-        //  method: setUncles,
-        //  section: authorship
-        //}
+            //        method:
+            //    {
+            //    args:
+            //        [
+            //      [
+            //        {
+            //        parentHash: 0x2ad9b32392b71a2e5fdd210d0be84c152a3bc2571b6223e9100c64bfdd7878b1,
+            //        number: 489,069,
+            //        stateRoot: 0x9eee9fd4cf123d08a4fe2f17a1b38ce1a0ded9083c840f3124c567943da29232,
+            //        extrinsicsRoot: 0x4054e5b8541167df941d22e69bd16ad3bb8e7307830b7bc8f74954388281f095,
+            //        digest:
+            //            {
+            //            logs:
+            //                [
+            //              {
+            //                PreRuntime:[
+            //                 BABE,
+            //                 0x02060000002f6af41f00000000
+            //                ]
+            //            },
+            //            {
+            //                Seal:[
+            //                 BABE,
+            //                 0x2899b12dbf3b94d2fa11bc739a49d485d1528b573497749b72e36a3aaf191e61089289ae084fbbd417435e43d30bcdc3854c3b6fc1965a809f5f34e7682c9c8f
+            //              ]
+            //            }
+            //          ]
+            //        }
+            //        }
+            //    ]
+            //  ],
+            //  method: setUncles,
+            //  section: authorship
+            //}
 
 
             var memory = Utils.HexToByteArray(hexString).AsMemory();
@@ -292,7 +295,7 @@ namespace Sandbox
             Console.WriteLine($"p = {p}");
 
         }
-    
+
         private static async Task RunBlockCallsAsync(CancellationToken cancellationToken)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));

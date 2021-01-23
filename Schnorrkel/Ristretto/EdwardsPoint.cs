@@ -1,13 +1,13 @@
 ﻿namespace Schnorrkel.Ristretto
 {
-    using System;
     using Schnorrkel.Scalars;
+    using System;
 
     public class EdwardsPoint
     {
         public FieldElement51 X, Y, Z, T;
 
-        public EdwardsPoint() {}
+        public EdwardsPoint() { }
 
         public EdwardsPoint(FieldElement51 x, FieldElement51 y, FieldElement51 z, FieldElement51 t)
         {
@@ -45,7 +45,8 @@
         internal static EdwardsPoint Decompress(byte[] bytes)
         {
             var invsqrt =
-            new Func<FieldElement51, (bool, FieldElement51)>((el) => {
+            new Func<FieldElement51, (bool, FieldElement51)>((el) =>
+            {
                 return FieldElement51.SqrtRatioI(FieldElement51.One(), el);
             });
 

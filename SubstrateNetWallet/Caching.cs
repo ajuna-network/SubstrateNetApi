@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
 using System;
-using System.Reflection;
 
 namespace SubstrateNetWallet
 {

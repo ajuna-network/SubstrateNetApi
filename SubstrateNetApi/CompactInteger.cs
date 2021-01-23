@@ -102,7 +102,7 @@ namespace SubstrateNetApi
         /// <param name="value"> The second instance to compare. </param>
         /// <returns> The result of the operation. </returns>
         public static bool operator >=(CompactInteger self, CompactInteger value) => self.Value >= value.Value;
-        
+
         /// <summary> . </summary>
         public static CompactInteger operator <<(CompactInteger self, int value) => self.Value << value;
 
@@ -337,9 +337,9 @@ namespace SubstrateNetApi
 
             if (this <= 0x3FFF)
             {
-                return new byte[] { 
-                    ((this & 0x3F) << 2) | 0x01, 
-                    (this & 0xFFC0) >> 6 
+                return new byte[] {
+                    ((this & 0x3F) << 2) | 0x01,
+                    (this & 0xFFC0) >> 6
                 };
             }
 

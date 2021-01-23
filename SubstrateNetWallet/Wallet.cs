@@ -8,8 +8,6 @@ using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.TypeConverters;
 using System;
 using System.Linq;
-using System.Net.Sockets;
-using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -253,8 +251,8 @@ namespace SubstrateNetWallet
         /// <returns></returns>
         public async Task<string> SubscribeAccountInfoAsync()
         {
-            return await _client.SubscribeStorageKeyAsync("System", "Account", 
-                new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(Account.Address)) }, 
+            return await _client.SubscribeStorageKeyAsync("System", "Account",
+                new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(Account.Address)) },
                 CallBackAccountChange, _connectTokenSource.Token);
         }
 
@@ -265,8 +263,8 @@ namespace SubstrateNetWallet
         /// <returns></returns>
         public async Task<string> SubmitGenericExtrinsicAsync(GenericExtrinsicCall genericExtrinsicCall)
         {
-           return  await _client.Author
-                .SubmitAndWatchExtrinsicAsync(CallBackExtrinsic, genericExtrinsicCall, Account, 0, 64, _connectTokenSource.Token);
+            return await _client.Author
+                 .SubmitAndWatchExtrinsicAsync(CallBackExtrinsic, genericExtrinsicCall, Account, 0, 64, _connectTokenSource.Token);
         }
 
         private async Task ConnectAsync(string webSocketUrl)
@@ -332,13 +330,13 @@ namespace SubstrateNetWallet
 
             // subscribe to finalized heads
             _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((subscriptionId, header) => CallBackFinalizedHeads(subscriptionId, header), _connectTokenSource.Token);
-        
+
             if (IsUnlocked)
             {
                 // subscribe to account info
                 _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
             }
-        
+
         }
 
         public async Task UnsubscribeAllAsync()
@@ -396,9 +394,9 @@ namespace SubstrateNetWallet
         /// Call back for new heads.
         /// </summary>
         /// <param name="header"></param>
-        public virtual void CallBackNewHeads(string subscriptionId, Header header) 
+        public virtual void CallBackNewHeads(string subscriptionId, Header header)
         {
- 
+
         }
 
         /// <summary>
@@ -433,11 +431,11 @@ namespace SubstrateNetWallet
                 Logger.Warn($"Couldn't update account informations. Please check 'CallBackAccountChange'");
                 return;
             }
+
             Logger.Debug($"Updated account successfully.");
             AccountInfo = new AccountInfo(storageChangeSet.Changes[0][1].ToString());
 
             AccountInfoUpdated?.Invoke(this, AccountInfo);
-
         }
     }
 }

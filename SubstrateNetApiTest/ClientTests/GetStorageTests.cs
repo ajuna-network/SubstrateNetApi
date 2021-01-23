@@ -1,10 +1,10 @@
 using NLog;
 using NUnit.Framework;
 using SubstrateNetApi;
-using System;
-using System.Threading.Tasks;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.Model.Types;
+using System;
+using System.Threading.Tasks;
 
 namespace SubstrateNetApiTests.ClientTests
 {
@@ -57,7 +57,7 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", new string [] {"0"});
+            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", new string[] { "0" });
             Assert.AreEqual("Hash", request.GetType().Name);
             Assert.IsTrue(request is Hash);
 
@@ -70,7 +70,7 @@ namespace SubstrateNetApiTests.ClientTests
             await _substrateClient.ConnectAsync();
 
             Assert.ThrowsAsync<MissingParameterException>(async () => await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray"));
-            
+
             await _substrateClient.CloseAsync();
         }
 

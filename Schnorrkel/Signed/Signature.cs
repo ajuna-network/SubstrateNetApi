@@ -31,7 +31,8 @@
 
         public void FromBytes(byte[] signatureBytes)
         {
-            if ((signatureBytes[63] & 128) == 0) {
+            if ((signatureBytes[63] & 128) == 0)
+            {
                 throw new Exception("Signature bytes not marked as a schnorrkel signature");
             }
 

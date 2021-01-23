@@ -4,7 +4,6 @@
     using Schnorrkel.Ristretto;
     using Schnorrkel.Scalars;
     using Schnorrkel.Signed;
-    using System;
     using System.Text;
 
     public class Sr25519v011 : Sr25519Base
@@ -80,7 +79,7 @@
             var t1 = k.ScalarInner * secretKey.key.ScalarInner;
             var t2 = t1 + r.ScalarInner;
 
-            var scalar = k.ScalarInner * secretKey.key.ScalarInner +  r.ScalarInner;
+            var scalar = k.ScalarInner * secretKey.key.ScalarInner + r.ScalarInner;
 
             var s = new Scalar { ScalarBytes = scalar.ToBytes() };
             s.Recalc();

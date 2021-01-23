@@ -50,7 +50,8 @@
 
         public static FieldElement51 FromBytes(byte[] bytes)
         {
-            var load8 = new Func<byte[], ulong>((input) => {
+            var load8 = new Func<byte[], ulong>((input) =>
+            {
                 return ((ulong)input[0])
                     | (((ulong)input[1]) << 8)
                     | (((ulong)input[2]) << 16)
@@ -276,7 +277,7 @@
                 // which doesn't seem any better or worse than doing them as precomputations
                 // on the 64-bit inputs.
                 BigInteger t1 = (m(a[1], a4_19) + m(a[2], a3_19));
-                BigInteger t2 = 2 * t1 ;
+                BigInteger t2 = 2 * t1;
                 BigInteger t3 = m(a[0], a[0]) + t2;
                 BigInteger c0 = m(a[0], a[0]) + 2 * (m(a[1], a4_19) + m(a[2], a3_19));
                 BigInteger c1 = m(a[3], a3_19) + 2 * (m(a[0], a[1]) + m(a[2], a4_19));

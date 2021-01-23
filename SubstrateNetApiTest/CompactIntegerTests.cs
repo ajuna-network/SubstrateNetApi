@@ -1,6 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SubstrateNetApi;
+using System;
 using System.Numerics;
 
 namespace SubstrateNetApiTests

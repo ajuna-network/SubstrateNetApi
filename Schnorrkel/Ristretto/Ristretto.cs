@@ -24,7 +24,7 @@
 
         public bool Equals(CompressedRistretto other)
         {
-            for(var i = 0; i < 32; i++)
+            for (var i = 0; i < 32; i++)
             {
                 if (!(_compressedRistrettoBytes[i] == other._compressedRistrettoBytes[i]))
                 {
@@ -84,7 +84,7 @@
 
             var r = ProjectivePoint.Identity();
 
-            while(i >= 0)
+            while (i >= 0)
             {
                 var t = r.Double();
 
@@ -129,8 +129,9 @@
         /// Compress this point using the Ristretto encoding.
         public CompressedRistretto Compress()
         {
-            var invsqrt = 
-            new Func<FieldElement51, (bool, FieldElement51)>((el) => {
+            var invsqrt =
+            new Func<FieldElement51, (bool, FieldElement51)>((el) =>
+            {
                 return FieldElement51.SqrtRatioI(FieldElement51.One(), el);
             });
 

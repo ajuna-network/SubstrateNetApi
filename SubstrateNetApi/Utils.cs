@@ -47,7 +47,7 @@ namespace SubstrateNetApi
         internal static byte[] StringValueArrayBytesArray(string valueArray)
         {
             var strArray = valueArray
-                .Replace("[","")
+                .Replace("[", "")
                 .Replace("]", "")
                 .Replace(" ", "")
                 .Split(',');
@@ -59,7 +59,8 @@ namespace SubstrateNetApi
                 if (byte.TryParse(strArray[i], out byte parsedByte))
                 {
                     result[i] = parsedByte;
-                } else
+                }
+                else
                 {
                     throw new Exception("Not valid string array for byte array conversion. Format should be [ 0-255, 0-255, ...]");
                 }

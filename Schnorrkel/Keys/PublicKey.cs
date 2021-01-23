@@ -1,5 +1,4 @@
-﻿using System;
-using Schnorrkel.Ristretto;
+﻿using Schnorrkel.Ristretto;
 
 namespace Schnorrkel
 {

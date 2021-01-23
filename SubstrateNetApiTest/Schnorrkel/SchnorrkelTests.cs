@@ -54,7 +54,7 @@ namespace SubstrateNetApiTests.Schnorrkel
         {
             string pubKey0x = "0xd678b3e00c4238888bbf08dbbe1d7de77c3f1ca1fc71a5a283770f06f7cd1205";
             string secKey0x = "0xa81056d713af1ff17b599e60d287952e89301b5208324a0529b62dc7369c745defc9c8dd67b7c59b201bc164163a8978d40010c22743db142a47f2e064480d4b";
-            
+
             byte[] pubKey = Utils.HexToByteArray(pubKey0x);
             byte[] secKey = Utils.HexToByteArray(secKey0x);
 

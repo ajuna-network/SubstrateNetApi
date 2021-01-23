@@ -1,6 +1,5 @@
 ﻿namespace Schnorrkel
 {
-    using System;
     using Schnorrkel.Ristretto;
     using Schnorrkel.Scalars;
     using static Schnorrkel.Ristretto.EdwardsBasepointTable;
@@ -76,7 +75,7 @@
         public const int SIGNATURE_LENGTH = 64;
 
 
-        public static LookupTable AFFINE_ODD_MULTIPLES_OF_BASEPOINT =       
+        public static LookupTable AFFINE_ODD_MULTIPLES_OF_BASEPOINT =
             new LookupTable
             {
                 affineNielsPoints = new AffineNielsPoint[] {

@@ -1,10 +1,10 @@
 ﻿namespace Schnorrkel.Merlin
 {
+    using StrobeNet;
     using System;
     using System.IO;
     using System.Linq;
     using System.Text;
-    using StrobeNet;
 
     internal class Transcript
     {
@@ -182,7 +182,7 @@
         public void WitnessBytesRng(byte[] label, ref byte[] dest, byte[][] nonce_seeds, RandomGenerator rng)
         {
             var br = BuildRng();
-            foreach(var ns in nonce_seeds)
+            foreach (var ns in nonce_seeds)
             {
                 br = br.RekeyWithWitnessBytes(label, ns);
             }
@@ -268,7 +268,7 @@
 
         public override void FillBytes(ref byte[] dst)
         {
-           _strobe.MetaAd(BitConverter.GetBytes(dst.Length), false);
+            _strobe.MetaAd(BitConverter.GetBytes(dst.Length), false);
             dst = _strobe.Prf(dst.Length, false);
         }
     }

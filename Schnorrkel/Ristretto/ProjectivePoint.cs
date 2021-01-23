@@ -1,6 +1,5 @@
 ﻿namespace Schnorrkel.Ristretto
 {
-    using System;
     using Schnorrkel.Scalars;
 
     public class ProjectivePoint

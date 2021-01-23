@@ -1,10 +1,6 @@
 ﻿namespace Schnorrkel
 {
     using Schnorrkel.Merlin;
-    using Schnorrkel.Ristretto;
-    using Schnorrkel.Scalars;
-    using Schnorrkel.Signed;
-    using System;
     using System.Text;
 
     public abstract class Sr25519Base

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.Threading;
+﻿using Microsoft.VisualStudio.Threading;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.TypeConverters;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DemoApiTest
 {
@@ -20,9 +20,10 @@ namespace DemoApiTest
             var config = new LoggingConfiguration();
 
             // Targets where to log to: File and Console
-            var logfile = new FileTarget("logfile") { 
-                FileName = "log.txt", 
-                DeleteOldFileOnStartup = true 
+            var logfile = new FileTarget("logfile")
+            {
+                FileName = "log.txt",
+                DeleteOldFileOnStartup = true
             };
 
             var logconsole = new ConsoleTarget("logconsole");
@@ -58,8 +59,8 @@ namespace DemoApiTest
         static async Task MainAsync(CancellationToken cancellationToken)
         {
             Account accountAlice = new Account(
-                KeyType.SR25519, 
-                Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011"), 
+                KeyType.SR25519,
+                Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011"),
                 Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"));
 
             Account accountZurich = new Account(

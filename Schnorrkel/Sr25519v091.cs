@@ -4,12 +4,11 @@
     using Schnorrkel.Ristretto;
     using Schnorrkel.Scalars;
     using Schnorrkel.Signed;
-    using System;
     using System.Text;
 
     public class Sr25519v091 : Sr25519Base
     {
-        public Sr25519v091(SchnorrkelSettings settings) : base(settings) 
+        public Sr25519v091(SchnorrkelSettings settings) : base(settings)
         {
         }
 

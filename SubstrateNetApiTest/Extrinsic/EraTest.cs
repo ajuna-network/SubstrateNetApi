@@ -23,7 +23,7 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void EraEncodeDecodeTest()
         {
-            var era1 = Era.Decode(new byte[] { 58, 6});
+            var era1 = Era.Decode(new byte[] { 58, 6 });
             Assert.AreEqual(2048, era1.Period);
             Assert.AreEqual(99, era1.Phase);
             Assert.AreEqual(new byte[] { 58, 6 }, era1.Encode());

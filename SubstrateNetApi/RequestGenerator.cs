@@ -17,7 +17,7 @@ namespace SubstrateNetApi
         public static string GetStorage(Module module, Item item, string[] parameter = null)
         {
             var keybytes = GetStorageKeyBytesHash(module, item);
-            
+
             byte[] parameterBytes = null;
             if (item.Function?.Key1 != null)
             {

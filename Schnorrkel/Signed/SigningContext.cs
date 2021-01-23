@@ -1,7 +1,7 @@
 ﻿namespace Schnorrkel.Signed
 {
-    using System;
     using Schnorrkel.Merlin;
+    using System;
 
     internal interface ISigningContext
     {
@@ -19,7 +19,7 @@
         public SigningContext011(byte[] context)
         {
             ts = new Transcript(context);
-         //   ts.AppendMessage(string.Empty, context);
+            //   ts.AppendMessage(string.Empty, context);
         }
 
         //public SigningContext011(byte[] context)

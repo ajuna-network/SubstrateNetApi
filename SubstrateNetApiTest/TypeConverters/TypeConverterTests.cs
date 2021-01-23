@@ -11,7 +11,7 @@ namespace SubstrateNetApiTests
         {
             var tc = new U16TypeConverter();
             var actual = tc.Create("0xf142");
-            Assert.AreEqual((short) 0x42f1, actual);
+            Assert.AreEqual((short)0x42f1, actual);
         }
 
         [Test]

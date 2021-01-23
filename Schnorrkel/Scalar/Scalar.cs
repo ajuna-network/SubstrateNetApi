@@ -1,7 +1,6 @@
 ﻿namespace Schnorrkel.Scalars
 {
     using System;
-    using System.Linq;
 
     public class Scalar
     {
@@ -58,7 +57,7 @@
         {
             byte low = 0;
             // for i in scalar.iter_mut().rev() {
-            for (var i = bytes.Length - 1; i >= 0; i-- )
+            for (var i = bytes.Length - 1; i >= 0; i--)
             {
                 var r = bytes[i] & 0b00000111; // save remainder
                 bytes[i] >>= 3; // divide by 8
@@ -84,7 +83,8 @@
                 var u64_idx = pos / 64;
                 var bit_idx = pos % 64;
                 ulong bit_buf;
-                if (bit_idx < 64 - size) {
+                if (bit_idx < 64 - size)
+                {
                     // This window's bits are contained in a single u64
                     bit_buf = xU64[u64_idx] >> bit_idx;
                 }

@@ -15,20 +15,20 @@ namespace SubstrateNetApi.TypeConverters
             if (reader.TokenType == JsonToken.String && Enum.TryParse((string)reader.Value, true, out ExtrinsicState extrinsicState))
             {
                 extrinsicStatus.ExtrinsicState = extrinsicState;
-            } 
+            }
             else if (reader.TokenType == JsonToken.StartObject)
             {
                 reader.Read();
 
                 while (reader.TokenType != JsonToken.EndObject)
                 {
-                    switch(reader.TokenType)
+                    switch (reader.TokenType)
                     {
                         case JsonToken.PropertyName:
 
                             if (reader.ValueType == typeof(string))
                             {
-                                switch(reader.Value)
+                                switch (reader.Value)
                                 {
                                     case "broadcast":
                                         reader.Read();
