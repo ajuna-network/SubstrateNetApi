@@ -437,18 +437,21 @@ namespace SubstrateNetApi
         {
             _connectTokenSource?.Cancel();
 
-            // cancel remaining request tokens
-            foreach (var key in _requestTokenSourceDict.Keys)
+            await Task.Run(() =>
             {
-                key?.Cancel();
-            }
-            _requestTokenSourceDict.Clear();
+                // cancel remaining request tokens
+                foreach (var key in _requestTokenSourceDict.Keys)
+                {
+                    key?.Cancel();
+                }
+                _requestTokenSourceDict.Clear();
 
-            if (_socket != null && _socket.State == WebSocketState.Open)
-            {
-                _jsonRpc?.Dispose();
-                Logger.Debug("Client closed.");
-            }
+                if (_socket != null && _socket.State == WebSocketState.Open)
+                {
+                    _jsonRpc?.Dispose();
+                    Logger.Debug("Client closed.");
+                }
+            });
         }
 
         #region IDisposable Support

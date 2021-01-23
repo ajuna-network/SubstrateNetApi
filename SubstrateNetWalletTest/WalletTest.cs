@@ -53,7 +53,7 @@ namespace SubstrateNetWalletTest
             // create new wallet with password and persist
             var wallet1 = new Wallet();
 
-            wallet1.CreateAsync("aA1234dd");
+            await wallet1.CreateAsync("aA1234dd");
 
             Assert.True(wallet1.IsCreated);
 
@@ -136,6 +136,7 @@ namespace SubstrateNetWalletTest
         {
             // create new wallet with password and persist
             var wallet = new Wallet();
+
             await wallet.StartAsync("wss://node01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
@@ -167,8 +168,8 @@ namespace SubstrateNetWalletTest
         [Test]
         public async Task CheckRaisedChainInfoUpdatedAsync()
         {
-            // create new wallet with password and persist
             var wallet = new Wallet();
+
             await wallet.StartAsync("wss://node01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
@@ -194,6 +195,7 @@ namespace SubstrateNetWalletTest
         {
             // create new wallet with password and persist
             var wallet = new Wallet();
+
             await wallet.StartAsync("wss://node01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
@@ -221,5 +223,44 @@ namespace SubstrateNetWalletTest
 
             Assert.AreEqual("1124998929864629549", test.AccountData.Free.ToString());
         }
+
+        [Test]
+        public async Task CheckRaisedOwnedMogwaisCountAsync()
+        {
+            var wallet = new Wallet();
+
+            await wallet.StartAsync("wss://node01.dotmog.com");
+
+            Assert.True(wallet.IsConnected);
+
+            wallet.Load("dev_wallet");
+
+            Assert.True(wallet.IsCreated);
+
+            await wallet.UnlockAsync("aA1234dd");
+
+            Assert.True(wallet.IsUnlocked);
+
+            ulong test = 0;
+
+            Action<string, StorageChangeSet> callOwnedMogwaisCount = (subscriptionId, eventObject) =>
+            {
+                Console.WriteLine($"Subscription[{subscriptionId}]: {eventObject}");
+                if (eventObject.Changes != null)
+                {
+                    int p = 0;
+                    test = U64.Decode(Utils.HexToByteArray(eventObject.Changes[0][1]), ref p).Value;
+                }
+            };
+
+            await wallet.Client.SubscribeStorageKeyAsync("DotMogModule", "OwnedMogwaisCount",
+                    new string[] { Utils.Bytes2HexString(wallet.Account.PublicKey)},
+                    callOwnedMogwaisCount);
+
+            Thread.Sleep(1000);
+
+            Assert.AreEqual(1, test);
+        }
     }
+
 }

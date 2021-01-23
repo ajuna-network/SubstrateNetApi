@@ -285,7 +285,7 @@ namespace Sandbox
             var memory = Utils.HexToByteArray(hexString).AsMemory();
 
             int p = 0;
-            int m;
+            //int m;
 
             // length
             Console.WriteLine($"length = {CompactInteger.Decode(memory.ToArray(), ref p)}");

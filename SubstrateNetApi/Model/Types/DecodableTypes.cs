@@ -222,9 +222,22 @@ namespace SubstrateNetApi.Model.Types
     {
         public static U8 Decode(Memory<byte> byteArray, ref int p)
         {
-            var u8 = byteArray.Span.Slice(p, 1)[0];
-            p += 1;
-            return new U8(u8);
+            var size = 1;
+            var result = byteArray.Span.Slice(p, size)[0];
+            p += size;
+            return new U8(result);
+        }
+    }
+
+    public partial class U16
+    {
+        public static U16 Decode(Memory<byte> byteArray, ref int p)
+        {
+            var size = 2;
+            var result = BitConverter
+                .ToUInt16(byteArray.Span.Slice(p, size).ToArray(), 0);
+            p += size;
+            return new U16(result);
         }
     }
 
@@ -232,10 +245,23 @@ namespace SubstrateNetApi.Model.Types
     {
         public static U32 Decode(Memory<byte> byteArray, ref int p)
         {
-            var u32 = BitConverter
-                .ToUInt32(byteArray.Span.Slice(p, 4).ToArray(), 0);
-            p += 4;
-            return new U32(u32);
+            var size = 4;
+            var result = BitConverter
+                .ToUInt32(byteArray.Span.Slice(p, size).ToArray(), 0);
+            p += size;
+            return new U32(result);
+        }
+    }
+
+    public partial class U64
+    {
+        public static U64 Decode(Memory<byte> byteArray, ref int p)
+        {
+            var size = 8;
+            var result = BitConverter
+                .ToUInt64(byteArray.Span.Slice(p, size).ToArray(), 0);
+            p += size;
+            return new U64(result);
         }
     }
 }
