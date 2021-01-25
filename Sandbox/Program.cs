@@ -16,8 +16,20 @@ namespace Sandbox
         private static async Task Main(string[] args)
         {
             //await ParseEventStringAsync(args);
-            await GetPairsAsync(args);
+            await GetKeysPagedAsync(args);
 
+        }
+
+        private static async Task GetKeysPagedAsync(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var keys = await client.State.GetKeysPagedAsync(Utils.HexToByteArray("0x0c97543ac4e96dcb4706b30bdf6e92168b0d930c4954153694987c34a9823bbd"), 3,
+                Utils.HexToByteArray("0x0c97543ac4e96dcb4706b30bdf6e92168b0d930c4954153694987c34a9823bbd048abc25e90483f36fa94d713b9bf2ea2aff9a42ef458696d3f8e340de66def4692856a8f51e1435f5d5df755a138c51"), CancellationToken.None);
+
+            Console.WriteLine($"Key: {keys}");
         }
 
         private static async Task GetPairsAsync(string[] args)

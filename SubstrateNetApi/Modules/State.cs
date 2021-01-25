@@ -38,6 +38,14 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<JArray>("state_getPairs", new object[] { Utils.Bytes2HexString(keyPrefix, Utils.HexStringFormat.PREFIXED) }, token);
         }
 
+        public async Task<JArray> GetKeysPagedAsync(byte[] keyPrefix, uint pageCount, byte[] startKey) => await GetKeysPagedAsync(keyPrefix, pageCount, startKey, CancellationToken.None);
+        public async Task<JArray> GetKeysPagedAsync(byte[] keyPrefix, uint pageCount, byte[] startKey, CancellationToken token)
+        {
+            return startKey.Length == 0 ? 
+                await _client.InvokeAsync<JArray>("state_getKeysPaged", new object[] { Utils.Bytes2HexString(keyPrefix), pageCount }, token) :
+                await _client.InvokeAsync<JArray>("state_getKeysPaged", new object[] { Utils.Bytes2HexString(keyPrefix), pageCount, Utils.Bytes2HexString(startKey) }, token);
+        }
+
         public async Task<string> SubscribeRuntimeVersionAsync() => await SubscribeRuntimeVersionAsync(CancellationToken.None);
         public async Task<string> SubscribeRuntimeVersionAsync(CancellationToken token)
         {
