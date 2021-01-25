@@ -16,8 +16,34 @@ namespace Sandbox
         private static async Task Main(string[] args)
         {
             //await ParseEventStringAsync(args);
-            await AccountSubscriptionAsync(args);
+            await GetPairsAsync(args);
 
+        }
+
+        private static async Task GetPairsAsync(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var keys = await client.State.GetPairsAsync(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "OwnedMogwaisCount"), CancellationToken.None);
+
+            Console.WriteLine($"Key: {keys}");
+        }
+
+        private static async Task GetAllMogwaiHashs(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var keys = await client.GetStorageKeysAsync("DotMogModule", "Mogwais", CancellationToken.None);
+            var keyString = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "Mogwais")).ToLower();
+            Console.WriteLine($"Key: {keyString}");
+            foreach (var key in keys)
+            {
+                Console.WriteLine(key.ToString().Replace(keyString, ""));
+            }
         }
 
         private static async Task AccountSubscriptionAsync(string[] args)
@@ -52,7 +78,28 @@ namespace Sandbox
             var reqResultUnsubscribe = await client.State.UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
         }
 
-        private static async Task SpecificSubscriptionAsync(string[] args)
+        private static async Task AllMogwaisCountSubscriptionAsync(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var subscriptionId = await client.SubscribeStorageKeyAsync("DotMogModule", "AllMogwaisCount", null,
+                (id, storageChangeSet) => {
+                    foreach (var change in storageChangeSet.Changes)
+                    {
+                        int p = 0;
+                        var result = U64.Decode(Utils.HexToByteArray(change[1]), ref p).Value;
+                        Console.WriteLine($"AllMogwaisCount = {result}");
+                    }
+                }, CancellationToken.None);
+
+            Thread.Sleep(60000);
+
+            var reqResultUnsubscribe = await client.State.UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
+        }
+
+        private static async Task OwnedMogwaisCountSubscriptionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
             client.RegisterTypeConverter(new MogwaiStructTypeConverter());
@@ -68,8 +115,7 @@ namespace Sandbox
             {
                 Console.WriteLine($"Subscription[{subscriptionId}]: {eventObject}");
             };
-            //var keys = await client.GetStorageKeysAsync("DotMogModule", "OwnedMogwaisCount", Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"), CancellationToken.None);
-            //var keys = await client.GetStorageKeysAsync("DotMogModule", "OwnedMogwaisCount", Utils.HexToByteArray("001a9764e170aae830c02cc9f6219ddb278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"), CancellationToken.None);
+            
             var keys = await client.GetStorageKeysAsync("DotMogModule", "OwnedMogwaisCount", CancellationToken.None);
 
             //var subscriptionId = await client.SubscribeStorageKeyAsync("DotMogModule", "OwnedMogwaisCount", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")) },

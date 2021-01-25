@@ -83,8 +83,13 @@ namespace SubstrateNetApi
 
         public static byte[] GetStorageKeyBytesHash(Module module, Item item)
         {
-            var mBytes = Encoding.ASCII.GetBytes(module.Name);
-            var iBytes = Encoding.ASCII.GetBytes(item.Name);
+            return GetStorageKeyBytesHash(module.Name, item.Name);
+        }
+
+        public static byte[] GetStorageKeyBytesHash(string module, string item)
+        {
+            var mBytes = Encoding.ASCII.GetBytes(module);
+            var iBytes = Encoding.ASCII.GetBytes(item);
             return HashExtension.XXHash128(mBytes).Concat(HashExtension.XXHash128(iBytes)).ToArray();
         }
 

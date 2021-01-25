@@ -300,11 +300,9 @@ namespace SubstrateNetApi
             if (!MetaData.TryGetModuleByName(moduleName, out Module module) || !module.TryGetStorageItemByName(itemName, out Item item))
                 throw new MissingModuleOrItemException($"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
 
-            string method = "state_getKeys";
-
             string parameters = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash(module, item));
 
-            return await InvokeAsync<JArray>(method, new object[] { parameters }, token);
+            return await InvokeAsync<JArray>("state_getKeys", new object[] { parameters }, token);
         }
 
         private byte[] GetParameterBytes(string key, string[] parameter, string moduleName = "", string itemName = "")

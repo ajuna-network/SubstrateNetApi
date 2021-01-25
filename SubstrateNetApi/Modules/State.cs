@@ -32,6 +32,12 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<string>("state_getMetadata", null, token);
         }
 
+        public async Task<JArray> GetPairsAsync(byte[] keyPrefix) => await GetPairsAsync(keyPrefix, CancellationToken.None);
+        public async Task<JArray> GetPairsAsync(byte[] keyPrefix, CancellationToken token)
+        {
+            return await _client.InvokeAsync<JArray>("state_getPairs", new object[] { Utils.Bytes2HexString(keyPrefix, Utils.HexStringFormat.PREFIXED) }, token);
+        }
+
         public async Task<string> SubscribeRuntimeVersionAsync() => await SubscribeRuntimeVersionAsync(CancellationToken.None);
         public async Task<string> SubscribeRuntimeVersionAsync(CancellationToken token)
         {
