@@ -179,7 +179,7 @@ namespace DemoApiTest
             // Print result
             //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
-            //Console.WriteLine(client.MetaData.Serialize());
+            Console.WriteLine(client.MetaData.Serialize());
 
             Console.ReadKey();
 
