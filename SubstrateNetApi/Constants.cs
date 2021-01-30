@@ -3,7 +3,7 @@
     public class Constants
     {
 
-        public static uint SPEC_VERSION = 260;
+        public static uint SPEC_VERSION = 261;
 
         public const uint TX_VERSION = 1;
 

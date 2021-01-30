@@ -154,7 +154,7 @@ namespace SubstrateNetWalletTest
 
             Thread.Sleep(1000);
 
-            Assert.AreEqual("1124998929864629549", wallet.AccountInfo.AccountData.Free.Value.ToString());
+            Assert.AreEqual("1124896799732526898", wallet.AccountInfo.AccountData.Free.Value.ToString());
 
             var countMogwais = (ulong)await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new string[] { Utils.Bytes2HexString(wallet.Account.PublicKey) });
 
@@ -215,13 +215,13 @@ namespace SubstrateNetWalletTest
                 test = accountInfo;
             };
 
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
 
             Assert.IsNotNull(test);
 
-            Assert.AreEqual(1, test.Nonce);
+            Assert.AreEqual(2, test.Nonce);
 
-            Assert.AreEqual("1124998929864629549", test.AccountData.Free.ToString());
+            Assert.AreEqual("1124896799732526898", test.AccountData.Free.ToString());
         }
 
         [Test]
