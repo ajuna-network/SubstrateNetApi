@@ -91,11 +91,13 @@ namespace DemoApiTest
             //var systemChain = await client.System.ChainAsync(cancellationToken);
             //var systemRuntimeVersion = await client.State.GetRuntimeVersionAsync(cancellationToken);
             //Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
-            //Console.WriteLine($"Running: {systemRuntimeVersion.SpecName}[{systemRuntimeVersion.SpecVersion}] transaction_version: {systemRuntimeVersion.TransactionVersion}.");
+            Console.WriteLine($"Running: {client.RuntimeVersion.SpecName}[{client.RuntimeVersion.SpecVersion}] transaction_version: {client.RuntimeVersion.TransactionVersion}.");
 
             /***
              * Testing storage data ...
              */
+            var address = "5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH";
+            var mogwaiId = "0xc6e023f423709bc1a955f2913ad71333e0563453ad0347d09c012bcd6590c8b5";
 
             //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
@@ -103,23 +105,23 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
 
             // [Plain] Value: u64
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")), cancellationToken);
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisArray", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")), "2" } , cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisArray", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address)), "1" } , cancellationToken);
 
             // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", new[]{"0"}, cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaiOwner", new string[] { "0x2486341751d3da79e30624fcaa9ddcdc963d8554eadb5ed730f398f7450a5e6f" }, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaiOwner", new string[] { mogwaiId }, cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", "0x17E26CA749780270EEC18507AB3C03854E75E264DB13EC1F90314C3AF02CCDF8", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
-            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
+            // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: Vec<u8>
+            var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
 
 
-            var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
+            //var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
             //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ")), cancellationToken);
@@ -189,7 +191,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
             //Console.WriteLine(client.MetaData.Serialize());
 
