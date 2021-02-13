@@ -138,7 +138,7 @@ namespace SubstrateNetWallet
 
             Caching.Persist(AddWalletFileType(walletName), _walletFile);
 
-            Account = new Account(KeyType.ED25519, privateKey, publicKey);
+            Account = Account.Build(KeyType.ED25519, privateKey, publicKey);
 
             if (IsOnline)
             {
@@ -178,7 +178,7 @@ namespace SubstrateNetWallet
                     throw new Exception("Public key check failed!");
                 }
 
-                Account = new Account(KeyType.ED25519, privateKey, publicKey);
+                Account = Account.Build(KeyType.ED25519, privateKey, publicKey);
             }
             catch (Exception exception)
             {
@@ -236,9 +236,9 @@ namespace SubstrateNetWallet
             switch (signer.KeyType)
             {
                 case KeyType.ED25519:
-                    return Ed25519.Verify(signature, data, signer.PublicKey);
+                    return Ed25519.Verify(signature, data, signer.Bytes);
                 case KeyType.SR25519:
-                    return Sr25519v091.Verify(signature, signer.PublicKey, data);
+                    return Sr25519v091.Verify(signature, signer.Bytes, data);
                 default:
                     throw new NotImplementedException($"Keytype {signer.KeyType} is currently not implemented for verifying signatures.");
             }
@@ -252,7 +252,7 @@ namespace SubstrateNetWallet
         public async Task<string> SubscribeAccountInfoAsync()
         {
             return await _client.SubscribeStorageKeyAsync("System", "Account",
-                new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(Account.Address)) },
+                new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(Account.Value)) },
                 CallBackAccountChange, _connectTokenSource.Token);
         }
 
@@ -289,7 +289,7 @@ namespace SubstrateNetWallet
 
             var systemChain = await _client.System.ChainAsync(_connectTokenSource.Token);
 
-            ChainInfo = new ChainInfo(systemName, systemVersion, systemChain);
+            ChainInfo = new ChainInfo(systemName, systemVersion, systemChain, _client.RuntimeVersion);
 
             Logger.Info($"Connection established to {ChainInfo}");
         }
@@ -326,10 +326,10 @@ namespace SubstrateNetWallet
             await UnsubscribeAllAsync();
 
             // subscribe to new heads
-            _subscriptionIdNewHead = await _client.Chain.SubscribeNewHeadsAsync((subscriptionId, header) => CallBackNewHeads(subscriptionId, header), _connectTokenSource.Token);
+            _subscriptionIdNewHead = await _client.Chain.SubscribeNewHeadsAsync(CallBackNewHeads, _connectTokenSource.Token);
 
             // subscribe to finalized heads
-            _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync((subscriptionId, header) => CallBackFinalizedHeads(subscriptionId, header), _connectTokenSource.Token);
+            _subscriptionIdFinalizedHeads = await _client.Chain.SubscribeFinalizedHeadsAsync(CallBackFinalizedHeads, _connectTokenSource.Token);
 
             if (IsUnlocked)
             {
@@ -341,8 +341,7 @@ namespace SubstrateNetWallet
 
         public async Task UnsubscribeAllAsync()
         {
-            if (_subscriptionIdNewHead != null
-             && _subscriptionIdNewHead != string.Empty)
+            if (!string.IsNullOrEmpty(_subscriptionIdNewHead))
             {
                 // unsubscribe from new heads
                 if (!await _client.Chain.UnsubscribeNewHeadsAsync(_subscriptionIdNewHead, _connectTokenSource.Token))
@@ -352,8 +351,7 @@ namespace SubstrateNetWallet
                 _subscriptionIdNewHead = string.Empty;
             }
 
-            if (_subscriptionIdNewHead != null
-             && _subscriptionIdNewHead != string.Empty)
+            if (!string.IsNullOrEmpty(_subscriptionIdNewHead))
             {
                 // unsubscribe from finalized heads
                 if (!await _client.Chain.UnsubscribeFinalizedHeadsAsync(_subscriptionIdFinalizedHeads, _connectTokenSource.Token))
@@ -363,8 +361,7 @@ namespace SubstrateNetWallet
                 _subscriptionIdFinalizedHeads = string.Empty;
             }
 
-            if (_subscriptionAccountInfo != null
-             && _subscriptionAccountInfo != string.Empty)
+            if (!string.IsNullOrEmpty(_subscriptionAccountInfo))
             {
                 // unsubscribe from finalized heads
                 if (!await _client.State.UnsubscribeStorageAsync(_subscriptionAccountInfo, _connectTokenSource.Token))
@@ -393,6 +390,7 @@ namespace SubstrateNetWallet
         /// <summary>
         /// Call back for new heads.
         /// </summary>
+        /// <param name="subscriptionId"></param>
         /// <param name="header"></param>
         public virtual void CallBackNewHeads(string subscriptionId, Header header)
         {
@@ -402,6 +400,7 @@ namespace SubstrateNetWallet
         /// <summary>
         /// Call back for finalized heads.
         /// </summary>
+        /// <param name="subscriptionId"></param>
         /// <param name="header"></param>
         public virtual void CallBackFinalizedHeads(string subscriptionId, Header header)
         {

@@ -3,39 +3,24 @@ using System;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public partial class Hash : IEncodable
+    public class Hash : BaseType
     {
-        public const int HEXSIZE = 32;
+        public override string Name() => "T::Hash";
 
-        public string HexString { get; }
+        public override int Size() => 32;
 
-        [JsonIgnore]
-        public byte[] Bytes { get; }
+        public string Value { get; internal set; }
 
-        public Hash(byte[] bytes)
-        {
-            Bytes = bytes;
-            HexString = Utils.Bytes2HexString(bytes, Utils.HexStringFormat.PREFIXED);
-        }
-
-        public Hash(string str) : this(Utils.HexToByteArray(str).AsMemory())
-        {
-        }
-
-        internal Hash(Memory<byte> memory)
-        {
-            Bytes = memory.ToArray();
-            HexString = Utils.Bytes2HexString(Bytes, Utils.HexStringFormat.PREFIXED);
-        }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public override string ToString()
+        public override void Create(byte[] byteArray)
         {
-            return JsonConvert.SerializeObject(this);
+            Bytes = byteArray;
+            Value = Utils.Bytes2HexString(Bytes, Utils.HexStringFormat.PREFIXED);
         }
+
     }
 }

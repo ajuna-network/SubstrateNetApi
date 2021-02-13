@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.TypeConverters;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Rpc
 {
     public class StorageChangeSet
     {
-        [JsonConverter(typeof(HashTypeConverter))]
+        [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash Block { get; set; }
 
         public string[][] Changes { get; set; }

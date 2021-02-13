@@ -47,7 +47,7 @@ namespace SubstrateNetApiTests.ClientTests
             Assert.IsTrue(reqResult is AccountId);
 
             var accountId = (AccountId)reqResult;
-            Assert.AreEqual("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", accountId.Address);
+            Assert.AreEqual("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", accountId.Value);
 
             await _substrateClient.CloseAsync();
         }

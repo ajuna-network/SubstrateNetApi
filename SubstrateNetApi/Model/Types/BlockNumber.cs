@@ -3,34 +3,31 @@ using System;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public partial class BlockNumber : IEncodable
+    public class BlockNumber : BaseType
     {
-        public uint Value { get; }
+        public override string Name() => "T::BlockNumber";
 
-        [JsonIgnore]
-        public byte[] Bytes { get; }
+        public override int Size() => 1;
 
-        public BlockNumber(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public uint Value { get; internal set; }
+
+        public override byte[] Encode()
         {
+            var reversed = Bytes;
+            Array.Reverse(reversed);
+            return reversed;
         }
 
-        internal BlockNumber(Memory<byte> memory)
+        public override void Create(byte[] byteArray)
         {
-            Bytes = memory.ToArray();
-            Value = BitConverter.ToUInt32(memory.ToArray(), 0);
+            Bytes = byteArray;
+            Value = BitConverter.ToUInt32(byteArray, 0);
         }
 
-        public BlockNumber(uint value)
+        public void Create(uint value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;
-        }
-
-        public byte[] Encode()
-        {
-            byte[] reversed = Bytes;
-            Array.Reverse(reversed);
-            return reversed;
         }
     }
 }

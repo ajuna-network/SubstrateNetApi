@@ -29,7 +29,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             var era = new Era(2048, 99, false);
 
-            SignedExtensions signedExtensions = new SignedExtensions(259, 1, new Hash(genesisHash), new Hash(blockHash), era, 0, 0);
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var startEra = new Hash();
+            startEra.Create(blockHash);
+
+            SignedExtensions signedExtensions = new SignedExtensions(259, 1, genesis, startEra, era, 0, 0);
 
             byte[] bytes = Utils.StringValueArrayBytesArray("58, 6, 0, 0, 3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
 

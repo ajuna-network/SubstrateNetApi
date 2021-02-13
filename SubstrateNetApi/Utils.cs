@@ -241,9 +241,13 @@ namespace SubstrateNetApi
                 case "u64":
                     return BitConverter.GetBytes(UInt64.Parse(parameter));
                 case "T::Hash":
-                    return new Hash(parameter).Bytes;
+                    var hash = new Hash();
+                    hash.Create(parameter);
+                    return hash.Bytes;
                 case "T::AccountId":
-                    return new AccountId(parameter).PublicKey;
+                    var accountId = new AccountId();
+                    accountId.Create(parameter);
+                    return accountId.Bytes;
                 default:
                     throw new Exception("Unimplemented item function key 'item.Function.Key1'!");
             }

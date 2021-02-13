@@ -3,33 +3,28 @@ using System.Numerics;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public partial class Balance : IEncodable
+    public class Balance : BaseType
     {
-        public BigInteger Value { get; }
+        public override string Name() => "T::Balance";
 
-        public Balance(string str) : this(Utils.HexToByteArray(str).AsMemory())
-        {
-        }
+        public override int Size() => 16;
 
-        internal Balance(Memory<byte> memory)
-        {
-            Value = new BigInteger(memory.ToArray());
-        }
+        public BigInteger Value { get; internal set; }
 
-        public Balance(BigInteger value)
-        {
-            Value = value;
-        }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return new CompactInteger(Value).Encode();
         }
 
-        override
-        public string ToString()
+        public override void Create(byte[] byteArray)
         {
-            return Value.ToString();
+            Bytes = byteArray;
+            Value = new BigInteger(byteArray);
+        }
+
+        public void Create(BigInteger value)
+        {
+            Value = value;
         }
     }
 }

@@ -8,16 +8,16 @@ namespace SubstrateNetApi.Model.Rpc
     {
         public Digest Digest { get; set; }
 
-        [JsonConverter(typeof(HashTypeConverter))]
+        [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash ExtrinsicsRoot { get; set; }
 
-        [JsonConverter(typeof(U32TypeConverter))]
+        [JsonConverter(typeof(GenericTypeConverter<U32>))]
         public uint Number { get; set; }
 
-        [JsonConverter(typeof(HashTypeConverter))]
+        [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash ParentHash { get; set; }
 
-        [JsonConverter(typeof(HashTypeConverter))]
+        [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash StateRoot { get; set; }
 
         public override string ToString()

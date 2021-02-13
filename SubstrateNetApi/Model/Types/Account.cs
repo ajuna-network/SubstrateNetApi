@@ -32,18 +32,23 @@ namespace SubstrateNetApi.Model.Types
         [JsonIgnore]
         public byte[] PrivateKey { get; private set; }
 
-        public Account(KeyType keyType, byte[] privateKey, byte[] publicKey) : base(publicKey)
+        public void Create(KeyType keyType, byte[] privateKey, byte[] publicKey)
         {
             KeyType = keyType;
             PrivateKey = privateKey;
-
+            base.Create(publicKey);
         }
 
-        public Account(KeyType keyType, byte[] publicKey) : base(publicKey)
+        public void Create(KeyType keyType, byte[] publicKey)
         {
-            KeyType = keyType;
-            PrivateKey = null;
+            Create(keyType, null, publicKey);
+        }
 
+        public static Account Build(KeyType keyType, byte[] privateKey, byte[] publicKey)
+        {
+            var account = new Account();
+            account.Create(keyType, privateKey, publicKey);
+            return account;
         }
     }
 }

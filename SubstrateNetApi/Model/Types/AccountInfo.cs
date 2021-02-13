@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace SubstrateNetApi.Model.Rpc
+namespace SubstrateNetApi.Model.Types
 {
     public class AccountInfo
     {

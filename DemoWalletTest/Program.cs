@@ -42,7 +42,7 @@ namespace DemoWalletTest
                 await wallet.CreateAsync("Aa123456");
             }
 
-            Console.WriteLine(wallet.Account.Address);
+            Console.WriteLine(wallet.Account.Value);
 
             Console.ReadKey();
 

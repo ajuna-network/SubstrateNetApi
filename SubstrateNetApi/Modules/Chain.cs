@@ -36,7 +36,7 @@ namespace SubstrateNetApi.Modules
         /// Get header of a relay chain block.
         public async Task<Header> GetHeaderAsync(Hash hash, CancellationToken token)
         {
-            var parameter = hash != null ? hash.HexString : null;
+            var parameter = hash != null ? hash.Value : null;
             return await _client.InvokeAsync<Header>("chain_getHeader", new object[] { parameter }, token);
         }
 
@@ -64,7 +64,7 @@ namespace SubstrateNetApi.Modules
         /// <returns> The block. </returns>
         public async Task<BlockData> GetBlockAsync(Hash hash, CancellationToken token)
         {
-            var parameter = hash != null ? hash.HexString : null;
+            var parameter = hash != null ? hash.Value : null;
             var result = await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] { parameter }, token);
 
             for (int i = 0; i < result.Block.Extrinsics.Length; i++)

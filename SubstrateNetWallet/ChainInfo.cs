@@ -11,13 +11,16 @@ namespace SubstrateNetWallet
         public string Version { get; private set; }
         public string Chain { get; private set; }
 
+        public RuntimeVersion RuntimeVersion { get; private set; }
+
         public uint BlockNumber { get; private set; }
 
-        public ChainInfo(string name, string version, string chain)
+        public ChainInfo(string name, string version, string chain, RuntimeVersion runtime)
         {
             Name = name;
             Version = version;
             Chain = chain;
+            RuntimeVersion = runtime;
         }
 
         internal void UpdateFinalizedHeader(Header header)

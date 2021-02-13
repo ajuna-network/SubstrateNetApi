@@ -115,7 +115,7 @@ namespace SubstrateNetApi
             switch (account.KeyType)
             {
                 case KeyType.SR25519:
-                    signature = Sr25519v091.SignSimple(account.PublicKey, account.PrivateKey, payload);
+                    signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
                     break;
                 case KeyType.ED25519:
                     signature = Ed25519.Sign(payload, account.PrivateKey);

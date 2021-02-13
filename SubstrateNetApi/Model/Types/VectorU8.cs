@@ -1,47 +1,44 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using StreamJsonRpc;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public partial class VectorU8 : IEncodable
+    /// <summary>
+    /// TODO, finish implementing this ...
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Vector<T> : BaseType where T: BaseType, new()
     {
-        public List<U8> Value { get; }
+        public override string Name() => "";
 
-        [JsonIgnore]
-        public byte[] Bytes { get; }
-
-        public VectorU8(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public override int Size()
         {
+            throw new NotImplementedException();
         }
 
-        internal VectorU8(Memory<byte> memory)
-        {
-            var byteArray = memory.ToArray();
+        public List<BaseType> Value { get; internal set; }
 
-            var list = new List<U8>();
+        public override byte[] Encode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Create(byte[] byteArray)
+        {
+            var list = new List<BaseType>();
 
             var p = 0;
             var length = CompactInteger.Decode(byteArray, ref p);
             for (var i = 0; i < length; i++)
             {
-                list.Add(U8.Decode(byteArray, ref p));
+                var t = new T();
+                t.Decode(byteArray, ref p);
+                list.Add(t);
             }
 
-            Bytes = memory.ToArray();
+            Bytes = byteArray;
             Value = list;
-        }
-
-        override
-        public string ToString()
-        {
-            return JsonConvert.SerializeObject(Value.ToString());
-        }
-
-        public byte[] Encode()
-        {
-            throw new NotImplementedException();
         }
     }
 }
