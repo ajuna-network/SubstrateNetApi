@@ -8,6 +8,7 @@ using SubstrateNetApi.Model.Types;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetApi.Modules
 {

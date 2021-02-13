@@ -8,6 +8,7 @@ using SubstrateNetApi.Model.Types;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetApi.Modules
 {
@@ -44,6 +45,12 @@ namespace SubstrateNetApi.Modules
             return startKey.Length == 0 ? 
                 await _client.InvokeAsync<JArray>("state_getKeysPaged", new object[] { Utils.Bytes2HexString(keyPrefix), pageCount }, token) :
                 await _client.InvokeAsync<JArray>("state_getKeysPaged", new object[] { Utils.Bytes2HexString(keyPrefix), pageCount, Utils.Bytes2HexString(startKey) }, token);
+        }
+
+        public async Task<RuntimeVersion> GetRuntimeVersionAsync() => await GetRuntimeVersionAsync(CancellationToken.None);
+        public async Task<RuntimeVersion> GetRuntimeVersionAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<RuntimeVersion>("state_getRuntimeVersion", null, token);
         }
 
         public async Task<string> SubscribeRuntimeVersionAsync() => await SubscribeRuntimeVersionAsync(CancellationToken.None);

@@ -1,6 +1,7 @@
 ﻿using SubstrateNetApi.Model.Types;
 using System;
 using System.Collections.Generic;
+using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetApi.Model.Extrinsics
 {
@@ -17,9 +18,9 @@ namespace SubstrateNetApi.Model.Extrinsics
             _startEra = startEra;
         }
 
-        public Payload GetPayload()
+        public Payload GetPayload(RuntimeVersion runtime)
         {
-            return new Payload(Method, new SignedExtensions(Constants.SPEC_VERSION, Constants.TX_VERSION, _genesis, _startEra, Era, Nonce, Tip));
+            return new Payload(Method, new SignedExtensions(runtime.SpecVersion, runtime.TransactionVersion, _genesis, _startEra, Era, Nonce, Tip));
         }
 
         public void AddPayloadSignature(byte[] signature)
@@ -37,7 +38,7 @@ namespace SubstrateNetApi.Model.Extrinsics
             var list = new List<byte>();
 
             // 4 is the TRANSACTION_VERSION constant and it is 7 bits long, the highest bit 1 for signed transaction, 0 for unsigned.
-            list.Add((byte)(Constants.EXTRINSIC_VERSION | (Signed ? 0x80 : 0)));
+            list.Add((byte)(Constants.ExtrinsicVersion | (Signed ? 0x80 : 0)));
 
             // 32 bytes + prefix depending on address encoding in chain, see Constants.Address_version
             list.AddRange(Account.Encode());

@@ -9,12 +9,14 @@ using SubstrateNetApi.TypeConverters;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Rpc;
 
 namespace DemoApiTest
 {
     class Program
     {
-        private const string WEBSOCKETURL = "wss://node01.dotmog.com";
+        private const string WEBSOCKETURL = "wss://mogiway-01.dotmog.com";
 
         private static async Task Main(string[] args)
         {
@@ -80,10 +82,16 @@ namespace DemoApiTest
 
             await client.ConnectAsync(cancellationToken);
 
-            var systemName = await client.System.NameAsync(cancellationToken);
-            var systemVersion = await client.System.VersionAsync(cancellationToken);
-            var systemChain = await client.System.ChainAsync(cancellationToken);
-            Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
+            /***
+             * Basic ...
+             */
+
+            //var systemName = await client.System.NameAsync(cancellationToken);
+            //var systemVersion = await client.System.VersionAsync(cancellationToken);
+            //var systemChain = await client.System.ChainAsync(cancellationToken);
+            //var systemRuntimeVersion = await client.State.GetRuntimeVersionAsync(cancellationToken);
+            //Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
+            //Console.WriteLine($"Running: {systemRuntimeVersion.SpecName}[{systemRuntimeVersion.SpecVersion}] transaction_version: {systemRuntimeVersion.TransactionVersion}.");
 
             /***
              * Testing storage data ...
@@ -107,7 +115,11 @@ namespace DemoApiTest
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", "0x17E26CA749780270EEC18507AB3C03854E75E264DB13EC1F90314C3AF02CCDF8", cancellationToken);
 
-            //var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
+            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
+
+
+            var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
             //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ")), cancellationToken);
@@ -121,7 +133,7 @@ namespace DemoApiTest
 
             // 486587
             // 0x387b43b09e88adc971bfc64fdd8e84dcfd0c4dcfe5f30c6b7444bf3ad3717445
-            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x387b43b09e88adc971bfc64fdd8e84dcfd0c4dcfe5f30c6b7444bf3ad3717445"), cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x9b1c6c66107ced561edff29ec83d530ffbfb2d21ec326fef0fc8ffe60ee685f9"), cancellationToken);
 
             // 792,193 ---> 0x0cf64c1e0e45b2fba6fd524e180737f5e1bb46e0691783d6963b2e26253f8592 Create Mogwai
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x0cf64c1e0e45b2fba6fd524e180737f5e1bb46e0691783d6963b2e26253f8592"), cancellationToken);
@@ -133,7 +145,7 @@ namespace DemoApiTest
 
             // 489070
             // 0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d
-            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
+            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x2a6fa42837069b0b41613855c667daf2fb5418dcdd915db6a0cac68810083296"), cancellationToken);
 
             //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
 
@@ -157,7 +169,7 @@ namespace DemoApiTest
 
             // *** test 2 submit extrinsic
             //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 1234), accountZurich, 0, 64, cancellationToken);
+            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 1000000000), accountZurich, 0, 64, cancellationToken);
             //Thread.Sleep(60000);
             //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
@@ -177,9 +189,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Serialize());
 
             Console.ReadKey();
 

@@ -4,13 +4,15 @@ using SubstrateNetApi;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.TypeConverters;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace SubstrateNetApiTests.ClientTests
 {
     class ClientTests
     {
-        private const string WebSocketUrl = "wss://node01.dotmog.com";
+        private const string WebSocketUrl = "wss://mogiway-01.dotmog.com";
 
         private SubstrateClient _substrateClient;
 
@@ -20,10 +22,10 @@ namespace SubstrateNetApiTests.ClientTests
             var config = new NLog.Config.LoggingConfiguration();
 
             // Targets where to log to: File and Console
-            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+            var console = new NLog.Targets.ConsoleTarget("logconsole");
 
             // Rules for mapping loggers to targets            
-            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logconsole);
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, console);
 
             // Apply config           
             LogManager.Configuration = config;
@@ -68,12 +70,23 @@ namespace SubstrateNetApiTests.ClientTests
         }
 
         [Test]
-        public async Task GetMethodTestAsync()
+        public async Task GetMethodSystemNameTestAsync()
         {
             await _substrateClient.ConnectAsync();
 
             var result = await _substrateClient.GetMethodAsync<string>("system_name");
-            Assert.AreEqual("Substrate Node", result);
+            Assert.AreEqual("DOTMog Node", result);
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task GetMethodChainNameTestAsync()
+        {
+            await _substrateClient.ConnectAsync();
+
+            var result = await _substrateClient.GetMethodAsync<string>("system_chain");
+            Assert.AreEqual("DOTMog.com NET", result);
 
             await _substrateClient.CloseAsync();
         }

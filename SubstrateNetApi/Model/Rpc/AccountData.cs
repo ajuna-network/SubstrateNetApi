@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Rpc
 {
     public class AccountData
     {

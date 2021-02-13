@@ -5,7 +5,7 @@ namespace SubstrateNetApi.Model.Rpc
 {
     public enum ExtrinsicState
     {
-        NONE, FUTURE, READY, DROPPED, INVALID
+        None, Future, Ready, Dropped, Invalid
     }
 
     public class ExtrinsicStatus

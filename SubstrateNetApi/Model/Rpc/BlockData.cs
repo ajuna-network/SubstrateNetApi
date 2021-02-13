@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Rpc
 {
     public class BlockData
     {

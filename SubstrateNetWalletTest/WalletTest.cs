@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetWalletTest
 {
@@ -102,13 +103,11 @@ namespace SubstrateNetWalletTest
         {
             // create new wallet with password and persist
             var wallet = new Wallet();
-            await wallet.StartAsync("wss://node01.dotmog.com");
+            await wallet.StartAsync("wss://mogiway-01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
 
-            Assert.AreEqual("Substrate Node", wallet.ChainInfo.Name);
-            Assert.AreEqual("2.0.0-37f7720d9-x86_64-linux-gnu", wallet.ChainInfo.Version);
-            Assert.AreEqual("DOT Mog Testnet", wallet.ChainInfo.Chain);
+            Assert.AreEqual("DOTMog.com NET", wallet.ChainInfo.Chain);
 
             await wallet.StopAsync();
 
@@ -137,7 +136,7 @@ namespace SubstrateNetWalletTest
             // create new wallet with password and persist
             var wallet = new Wallet();
 
-            await wallet.StartAsync("wss://node01.dotmog.com");
+            await wallet.StartAsync("wss://mogiway-01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
 
@@ -146,15 +145,11 @@ namespace SubstrateNetWalletTest
             await wallet.UnlockAsync("aA1234dd");
             Assert.True(wallet.IsUnlocked);
 
-            Assert.AreEqual("Substrate Node", wallet.ChainInfo.Name);
-            Assert.AreEqual("2.0.0-37f7720d9-x86_64-linux-gnu", wallet.ChainInfo.Version);
-            Assert.AreEqual("DOT Mog Testnet", wallet.ChainInfo.Chain);
-
             Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Address);
 
             Thread.Sleep(1000);
 
-            Assert.AreEqual("1124896799732526898", wallet.AccountInfo.AccountData.Free.Value.ToString());
+            Assert.AreEqual("5737774696440783305703425", wallet.AccountInfo.AccountData.Free.Value.ToString());
 
             var countMogwais = (ulong)await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new string[] { Utils.Bytes2HexString(wallet.Account.PublicKey) });
 
@@ -170,7 +165,7 @@ namespace SubstrateNetWalletTest
         {
             var wallet = new Wallet();
 
-            await wallet.StartAsync("wss://node01.dotmog.com");
+            await wallet.StartAsync("wss://mogiway-01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
 
@@ -187,7 +182,7 @@ namespace SubstrateNetWalletTest
 
             Assert.IsNotNull(test);
 
-            Assert.AreEqual("Substrate Node", test.Name);
+            Assert.AreEqual("DOTMog Node", test.Name);
         }
 
         [Test]
@@ -196,7 +191,7 @@ namespace SubstrateNetWalletTest
             // create new wallet with password and persist
             var wallet = new Wallet();
 
-            await wallet.StartAsync("wss://node01.dotmog.com");
+            await wallet.StartAsync("wss://mogiway-01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
 
@@ -219,9 +214,9 @@ namespace SubstrateNetWalletTest
 
             Assert.IsNotNull(test);
 
-            Assert.AreEqual(2, test.Nonce);
+            Assert.AreEqual(1, test.Nonce);
 
-            Assert.AreEqual("1124896799732526898", test.AccountData.Free.ToString());
+            Assert.AreEqual("5737774696440783305703425", test.AccountData.Free.ToString());
         }
 
         [Test]
@@ -229,7 +224,7 @@ namespace SubstrateNetWalletTest
         {
             var wallet = new Wallet();
 
-            await wallet.StartAsync("wss://node01.dotmog.com");
+            await wallet.StartAsync("wss://mogiway-01.dotmog.com");
 
             Assert.True(wallet.IsConnected);
 

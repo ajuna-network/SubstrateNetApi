@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 
 namespace SubstrateNetApiTests

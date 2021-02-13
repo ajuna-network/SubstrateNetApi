@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi.Model.Types;
 using System;
+using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetWallet
 {

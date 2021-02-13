@@ -1,6 +1,6 @@
 ﻿using SubstrateNetApi.Model.Extrinsics;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Rpc
 {
     public class Block
     {

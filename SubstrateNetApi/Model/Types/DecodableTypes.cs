@@ -4,10 +4,11 @@ namespace SubstrateNetApi.Model.Types
 {
     public partial class AccountId
     {
+        public static int Size => 32;
         public static AccountId Decode(Memory<byte> byteArray, ref int p)
         {
-            var accountId = new AccountId(byteArray.Span.Slice(p, 32).ToArray());
-            p += 32;
+            var accountId = new AccountId(byteArray.Span.Slice(p, Size).ToArray());
+            p += Size;
             return accountId;
         }
     }
@@ -38,10 +39,11 @@ namespace SubstrateNetApi.Model.Types
 
     public partial class Balance
     {
+        public static int Size => 16;
         public static Balance Decode(Memory<byte> byteArray, ref int p)
         {
-            var balance = new Balance(byteArray.Span.Slice(p, 16).ToArray());
-            p += 16;
+            var balance = new Balance(byteArray.Span.Slice(p, Size).ToArray());
+            p += Size;
             return balance;
         }
     }
@@ -122,10 +124,11 @@ namespace SubstrateNetApi.Model.Types
 
     public partial class Hash
     {
+        public static int Size => 32;
         public static Hash Decode(Memory<byte> byteArray, ref int p)
         {
-            var hash = new Hash(byteArray.Span.Slice(p, 32).ToArray());
-            p += 32;
+            var hash = new Hash(byteArray.Span.Slice(p, Size).ToArray());
+            p += Size;
             return hash;
         }
     }
@@ -220,47 +223,47 @@ namespace SubstrateNetApi.Model.Types
 
     public partial class U8
     {
+        public static int Size => 1;
         public static U8 Decode(Memory<byte> byteArray, ref int p)
         {
-            var size = 1;
-            var result = byteArray.Span.Slice(p, size)[0];
-            p += size;
+            var result = byteArray.Span.Slice(p, Size)[0];
+            p += Size;
             return new U8(result);
         }
     }
 
     public partial class U16
     {
+        public static int Size => 2;
         public static U16 Decode(Memory<byte> byteArray, ref int p)
         {
-            var size = 2;
             var result = BitConverter
-                .ToUInt16(byteArray.Span.Slice(p, size).ToArray(), 0);
-            p += size;
+                .ToUInt16(byteArray.Span.Slice(p, Size).ToArray(), 0);
+            p += Size;
             return new U16(result);
         }
     }
 
     public partial class U32
     {
+        public static int Size => 4;
         public static U32 Decode(Memory<byte> byteArray, ref int p)
         {
-            var size = 4;
             var result = BitConverter
-                .ToUInt32(byteArray.Span.Slice(p, size).ToArray(), 0);
-            p += size;
+                .ToUInt32(byteArray.Span.Slice(p, Size).ToArray(), 0);
+            p += Size;
             return new U32(result);
         }
     }
 
     public partial class U64
     {
+        public static int Size => 8;
         public static U64 Decode(Memory<byte> byteArray, ref int p)
         {
-            var size = 8;
             var result = BitConverter
-                .ToUInt64(byteArray.Span.Slice(p, size).ToArray(), 0);
-            p += size;
+                .ToUInt64(byteArray.Span.Slice(p, Size).ToArray(), 0);
+            p += Size;
             return new U64(result);
         }
     }

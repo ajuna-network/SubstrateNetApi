@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Rpc
 {
     public class Digest
     {

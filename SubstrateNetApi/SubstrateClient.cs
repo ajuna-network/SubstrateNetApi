@@ -21,6 +21,7 @@ using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using SubstrateNetApi.Model.Rpc;
 
 [assembly: InternalsVisibleTo("SubstrateNetApiTests")]
 
@@ -60,6 +61,10 @@ namespace SubstrateNetApi
         /// <summary> Gets or sets information describing the meta. </summary>
         /// <value> Information describing the meta. </value>
         public MetaData MetaData { get; private set; }
+
+        /// <summary> Gets or sets information describing the runtime version. </summary>
+        /// <value> Information describing the runtime version. </value>
+        public RuntimeVersion RuntimeVersion { get; private set; }
 
         /// <summary> Gets or sets the genesis hash. </summary>
         /// <value> The genesis hash. </value>
@@ -161,7 +166,7 @@ namespace SubstrateNetApi
 
             _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
             _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
-            _jsonRpc.TraceSource.Switch.Level = SourceLevels.All;
+            _jsonRpc.TraceSource.Switch.Level = SourceLevels.Warning;
             _jsonRpc.AddLocalRpcTarget(Listener, new JsonRpcTargetOptions() { AllowNonPublicInvocation = false });
             _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
@@ -173,6 +178,11 @@ namespace SubstrateNetApi
 
             GenesisHash = await Chain.GetBlockHashAsync(new BlockNumber(0), token);
             Logger.Debug("Genesis hash parsed.");
+
+            RuntimeVersion = await State.GetRuntimeVersionAsync(token);
+            Logger.Debug("Runtime version parsed.");
+
+            _jsonRpc.TraceSource.Switch.Level = SourceLevels.All;
         }
 
         /// <summary> Gets storage asynchronous. </summary>
@@ -375,7 +385,7 @@ namespace SubstrateNetApi
                 era = Era.Create(lifeTime, finalizedHeader.Number);
             }
 
-            var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra);
+            var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);
             return Utils.Bytes2HexString(uncheckedExtrinsic.Encode(), Utils.HexStringFormat.PREFIXED);
         }
 

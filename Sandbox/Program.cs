@@ -6,18 +6,59 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SubstrateNetApi.Model.Rpc;
 
 namespace Sandbox
 {
     class Program
     {
-        private const string WEBSOCKETURL = "wss://node01.dotmog.com";
+        private const string WEBSOCKETURL = "wss://mogiway-02.dotmog.com";
 
         private static async Task Main(string[] args)
         {
             //await ParseEventStringAsync(args);
-            await GetKeysPagedAsync(args);
+            //await GetKeysPagedAsync(args);
+            //TestKey(args);
+            await StorageRuntimeVersion(args);
 
+        }
+
+        //
+
+        private static async Task StorageRuntimeVersion(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var reqResult = await client.State.GetRuntimeVersionAsync();
+
+            Console.WriteLine(reqResult);
+        }
+
+        private static void TestKey(string[] args)
+        {
+            AccountId accountId =
+                new AccountId(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+            Console.WriteLine($"AccountId: {accountId}");
+            Console.WriteLine($"Public Key: {Utils.Bytes2HexString(accountId.PublicKey).ToLower()}");
+
+            var str = "0x200101020304050607";
+
+            var memory = Utils.HexToByteArray(str).AsMemory();
+            List<U8> vecU8 = new List<U8>();
+            var byteArray = memory.ToArray();
+            var p = 0;
+            var length = CompactInteger.Decode(byteArray, ref p);
+            Console.WriteLine($"Length: {length}, p = {p}");
+            for (var i = 0; i < length; i++)
+            {
+                vecU8.Add(U8.Decode(byteArray, ref p));
+            }
+
+            Console.WriteLine(JsonConvert.SerializeObject(vecU8));
         }
 
         private static async Task GetKeysPagedAsync(string[] args)
@@ -264,12 +305,68 @@ namespace Sandbox
 
         private static void ParseExtrinsic(string[] args)
         {
+            // Reference Substrate 3.0.0
+            // Zurich to DotMog, 0.123 DMOG's
+            // Nonce 0, Lifetime 64
+            // 0x4502
+            // 8400
+            // 278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e --> 5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM
+            // 00a1486b48665121686eddf7029d4f3b2ccf9335824d91df1ff11ffa739756717fe5570f204596fbd27c893981883b25ac797d3935405580d6144b356b469d6709f5020000060000
+            // 4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e --> 5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH
+            // 0b00b04e2bde6f
+
+
+
+
+            //    {
+            //        isSigned: true,
+            //        method:
+            //        {
+            //            args:
+            //            [
+            //            {
+            //                Id: 5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH
+            //            },
+            //            1.0000 DMOG
+            //                ],
+            //            method: transfer,
+            //            section: balances
+            //        },
+            //        era:
+            //        {
+            //            MortalEra:
+            //            {
+            //                period: 128,
+            //                phase: 50
+            //            }
+            //        },
+            //        nonce: 2,
+            //        signature: 0x351b31c6ad373f176a020acf168ca0412a3f410ef6d9936f46f4ce7bc893f76fcf3ff4389de0f86ad6b55df9af0d8ae3b868a544df107698056b7a93202faf00,
+            //        signer:
+            //        {
+            //            Id: 5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM
+            //        },
+            //        tip: 0
+            //    }
+            //    ]
+            //},
+            //0x4902
+            //8400
+            //278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e
+            //00
+            //351b31c6ad373f176a020acf168ca0412a3f410ef6d9936f46f4ce7bc893f76fcf3ff4389de0f86ad6b55df9af0d8ae3b868a544df107698056b7a93202faf00 --> signature
+            //26030800060000
+            //4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e
+            //0f0080c6a47e8d03
+
+
+
             Account accountZurich = new Account(
                 KeyType.ED25519,
                 Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
 
-            var extrinsic = ExtrinsicCall.BalanceTransfer(new AccountId(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")), new Balance(123000000000000));
+            var extrinsic = ExtrinsicCall.BalanceTransfer(new AccountId(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")), new Balance(2000000000000));
 
 
             Console.WriteLine(CompactInteger.Decode(Utils.HexToByteArray("0x490284")).ToString());

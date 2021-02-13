@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Rpc
 {
     public class Health
     {
-        public bool isSyncing { get; set; }
-        public int peers { get; set; }
-        public bool shouldHavePeers { get; set; }
+        public bool IsSyncing { get; set; }
+        public int Peers { get; set; }
+        public bool ShouldHavePeers { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);

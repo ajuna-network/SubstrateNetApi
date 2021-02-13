@@ -107,7 +107,7 @@ namespace SubstrateNetApi.Model.Extrinsics
         public Extrinsic(bool signed, Account account, CompactInteger nonce, Method method, Era era, CompactInteger tip)
         {
             Signed = signed;
-            TransactionVersion = Constants.EXTRINSIC_VERSION;
+            TransactionVersion = Constants.ExtrinsicVersion;
             Account = account;
             Era = era;
             Nonce = nonce;
@@ -123,12 +123,12 @@ namespace SubstrateNetApi.Model.Extrinsics
         internal static Extrinsic GetTypedExtrinsic(Extrinsic extrinsic, MetaData metaData)
         {
             var modules = metaData.Modules.ToList();
-            var module = modules.Where(t => t.Index == extrinsic.Method.ModuleIndex).FirstOrDefault();
+            var module = modules.FirstOrDefault(t => t.Index == extrinsic.Method.ModuleIndex);
             extrinsic.Method.ModuleName = module?.Name;
 
-            var call = module.Calls[extrinsic.Method.CallIndex];
+            var call = module?.Calls[extrinsic.Method.CallIndex];
             extrinsic.Method.CallName = call?.Name;
-            extrinsic.Method.Arguments = call.Arguments;
+            extrinsic.Method.Arguments = call?.Arguments;
 
             extrinsic.EvaluateTypedArguments();
 
@@ -146,12 +146,12 @@ namespace SubstrateNetApi.Model.Extrinsics
             var arguments = Method.Arguments;
             var memory = Method.Parameters.AsMemory();
 
-            int p = 0;
+            var p = 0;
             int m;
 
-            for (int i = 0; i < arguments.Length; i++)
+            for (var i = 0; i < arguments.Length; i++)
             {
-                Argument argument = arguments[i];
+                var argument = arguments[i];
                 switch (argument.Type)
                 {
                     case "Compact<T::BlockNumber>":

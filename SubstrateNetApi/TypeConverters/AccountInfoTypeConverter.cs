@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using NLog;
 using SubstrateNetApi.Model.Types;
 using System;
+using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetApi.TypeConverters
 {

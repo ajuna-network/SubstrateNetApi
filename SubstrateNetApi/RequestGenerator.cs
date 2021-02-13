@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetApi
 {
@@ -93,7 +94,7 @@ namespace SubstrateNetApi
             return HashExtension.XXHash128(mBytes).Concat(HashExtension.XXHash128(iBytes)).ToArray();
         }
 
-        internal static UnCheckedExtrinsic SubmitExtrinsic(bool signed, Account account, Method method, Era era, uint nonce, uint tip, Hash genesis, Hash startEra)
+        internal static UnCheckedExtrinsic SubmitExtrinsic(bool signed, Account account, Method method, Era era, uint nonce, uint tip, Hash genesis, Hash startEra, RuntimeVersion runtime)
         {
             var uncheckedExtrinsic = new UnCheckedExtrinsic(signed, account, method, era, nonce, tip, genesis, startEra);
 
@@ -102,7 +103,7 @@ namespace SubstrateNetApi
                 return uncheckedExtrinsic;
             }
 
-            var payload = uncheckedExtrinsic.GetPayload().Encode();
+            var payload = uncheckedExtrinsic.GetPayload(runtime).Encode();
 
             /// Payloads longer than 256 bytes are going to be `blake2_256`-hashed.
             if (payload.Length > 256)

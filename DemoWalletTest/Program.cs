@@ -3,6 +3,7 @@ using SubstrateNetWallet;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using SubstrateNetApi.Model.Rpc;
 
 namespace DemoWalletTest
 {
@@ -23,7 +24,7 @@ namespace DemoWalletTest
 
             wallet.AccountInfoUpdated += Wallet_AccountInfoUpdated;
 
-            await wallet.StartAsync("wss://node01.dotmog.com");
+            await wallet.StartAsync("wss://mogiway-01.dotmog.com");
 
             if (!wallet.IsConnected)
             {
