@@ -13,7 +13,7 @@ namespace SubstrateNetWallet
 
         public RuntimeVersion RuntimeVersion { get; private set; }
 
-        public uint BlockNumber { get; private set; }
+        public ulong BlockNumber { get; private set; }
 
         public ChainInfo(string name, string version, string chain, RuntimeVersion runtime)
         {
@@ -25,7 +25,7 @@ namespace SubstrateNetWallet
 
         internal void UpdateFinalizedHeader(Header header)
         {
-            BlockNumber = header.Number;
+            BlockNumber = header.Number.Value;
         }
 
         public override string ToString()

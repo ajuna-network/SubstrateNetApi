@@ -11,8 +11,8 @@ namespace SubstrateNetApi.Model.Rpc
         [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash ExtrinsicsRoot { get; set; }
 
-        [JsonConverter(typeof(GenericTypeConverter<U32>))]
-        public uint Number { get; set; }
+        [JsonConverter(typeof(GenericTypeConverter<U64>))]
+        public U64 Number { get; set; }
 
         [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash ParentHash { get; set; }

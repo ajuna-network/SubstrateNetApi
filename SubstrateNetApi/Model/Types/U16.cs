@@ -19,6 +19,13 @@ namespace SubstrateNetApi.Model.Types
 
         public override void Create(byte[] byteArray)
         {
+            if (byteArray.Length < Size())
+            {
+                var newByteArray = new byte[Size()];
+                byteArray.CopyTo(newByteArray, 0);
+                byteArray = newByteArray;
+            }
+
             Bytes = byteArray;
             Value = BitConverter.ToUInt16(byteArray, 0);
         }

@@ -159,6 +159,11 @@ namespace SubstrateNetApi
 
             var formatter = new JsonMessageFormatter();
 
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U8>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U16>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U32>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U64>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<AccountId>());
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<Hash>());
             formatter.JsonSerializer.Converters.Add(_extrinsicJsonConverter);
             formatter.JsonSerializer.Converters.Add(_extrinsicStatusJsonConverter);
@@ -383,7 +388,7 @@ namespace SubstrateNetApi
             {
                 startEra = await Chain.GetFinalizedHeadAsync(token);
                 Header finalizedHeader = await Chain.GetHeaderAsync(startEra, token);
-                era = Era.Create(lifeTime, finalizedHeader.Number);
+                era = Era.Create(lifeTime, finalizedHeader.Number.Value);
             }
 
             var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);

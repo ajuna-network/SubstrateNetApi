@@ -363,8 +363,6 @@ namespace Sandbox
             //4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e
             //0f0080c6a47e8d03
 
-
-
             Account accountZurich = Account.Build(
                 KeyType.ED25519,
                 Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
