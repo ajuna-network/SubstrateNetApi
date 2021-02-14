@@ -78,7 +78,8 @@ namespace DemoApiTest
 
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            // add chain specific types here
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
 
             await client.ConnectAsync(cancellationToken);
 
@@ -118,14 +119,14 @@ namespace DemoApiTest
             // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaiOwner", new string[] { mogwaiId }, cancellationToken);
 
-            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
+            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
             // TODO: [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: Vec<u8>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
+            var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
-            var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
 
             //var hash = new Hash();
             //hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
@@ -201,10 +202,10 @@ namespace DemoApiTest
 
             //Console.WriteLine(client.MetaData.Serialize());
 
-            Console.ReadKey();
-
-            // Close connection
+           // Close connection
             await client.CloseAsync(cancellationToken);
+
+            Console.ReadKey();
 
         }
 

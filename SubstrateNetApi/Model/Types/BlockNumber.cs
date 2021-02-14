@@ -7,7 +7,7 @@ namespace SubstrateNetApi.Model.Types
     {
         public override string Name() => "T::BlockNumber";
 
-        public override int Size() => 1;
+        public override int Size() => 4;
 
         public override byte[] Encode()
         {

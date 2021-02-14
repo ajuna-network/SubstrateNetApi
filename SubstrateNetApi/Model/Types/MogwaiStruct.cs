@@ -3,48 +3,49 @@ using System;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class MogwaiStruct
+    public class MogwaiStruct : StructType
     {
-        public Hash Id { get; }
+        private int _size = 0;
 
-        public Hash Dna { get; }
+        public override string Name() => "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>";
 
-        public BlockNumber Genesis { get; }
-
-        public Balance Price { get; }
-
-        public U64 Gen { get; }
-
-        public MogwaiStruct(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public override int Size()
         {
+            return _size;
         }
 
-        internal MogwaiStruct(Memory<byte> memory)
+        public override byte[] Encode()
         {
-            var id = new Hash();
-            id.Create(memory.Slice(0, 32).ToArray());
-            Id = id;
-
-            var dna = new Hash();
-            dna.Create(memory.Slice(32, 32).ToArray());
-            Dna = dna;
-
-            var genesis = new BlockNumber();
-            genesis.Create(memory.Slice(64, 4).ToArray());
-            Genesis = genesis;
-
-            var price = new Balance();
-            price.Create(memory.Slice(68, 16).ToArray());
-            Price = price;
-
-            var gen = new U64();
-            gen.Create(memory.Slice(84, 8).ToArray());
-            Gen = gen;
+            throw new NotImplementedException();
         }
 
-        public override string ToString()
+        public override void Decode(byte[] byteArray, ref int p)
         {
-            return JsonConvert.SerializeObject(this);
+            var start = p;
+
+            Id = new Hash();
+            Id.Decode(byteArray, ref p);
+
+            Dna = new Hash();
+            Dna.Decode(byteArray, ref p);
+
+            Genesis = new BlockNumber();
+            Genesis.Decode(byteArray, ref p);
+
+            Price = new Balance();
+            Price.Decode(byteArray, ref p);
+
+            Gen = new U64();
+            Gen.Decode(byteArray, ref p);
+
+            _size = p - start;
         }
+
+        public Hash Id { get; private set; }
+        public Hash Dna { get; private set; }
+        public BlockNumber Genesis { get; private set; }
+        public Balance Price { get; private set; }
+        public U64 Gen { get; private set; }
+
     }
 }

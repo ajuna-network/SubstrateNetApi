@@ -30,7 +30,7 @@ namespace Sandbox
         private static async Task StorageRuntimeVersion(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var reqResult = await client.State.GetRuntimeVersionAsync();
@@ -66,7 +66,7 @@ namespace Sandbox
         private static async Task GetKeysPagedAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var keys = await client.State.GetKeysPagedAsync(Utils.HexToByteArray("0x0c97543ac4e96dcb4706b30bdf6e92168b0d930c4954153694987c34a9823bbd"), 3,
@@ -78,7 +78,7 @@ namespace Sandbox
         private static async Task GetPairsAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var keys = await client.State.GetPairsAsync(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "OwnedMogwaisCount"), CancellationToken.None);
@@ -89,7 +89,7 @@ namespace Sandbox
         private static async Task GetAllMogwaiHashs(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var keys = await client.GetStorageKeysAsync("DotMogModule", "Mogwais", CancellationToken.None);
@@ -104,7 +104,7 @@ namespace Sandbox
         private static async Task AccountSubscriptionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             Action<string, StorageChangeSet> callBackAccountChange = (subscriptionId, eventObject) =>
@@ -138,7 +138,7 @@ namespace Sandbox
         private static async Task AllMogwaisCountSubscriptionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var subscriptionId = await client.SubscribeStorageKeyAsync("DotMogModule", "AllMogwaisCount", null,
@@ -161,7 +161,7 @@ namespace Sandbox
         private static async Task OwnedMogwaisCountSubscriptionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
@@ -191,7 +191,7 @@ namespace Sandbox
         private static async Task ParseEventsAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -230,7 +230,7 @@ namespace Sandbox
         private static async Task EventhandlingTestAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             Action<string, StorageChangeSet> callBackSubscribeStorage = (subscriptionId, eventObject) =>
@@ -266,7 +266,7 @@ namespace Sandbox
         {
             //Console.WriteLine(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM").Length);
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var eventStr = "0x14" +
@@ -465,7 +465,7 @@ namespace Sandbox
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
 
             await client.ConnectAsync(cancellationToken);
 

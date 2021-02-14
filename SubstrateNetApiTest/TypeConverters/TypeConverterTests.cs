@@ -31,9 +31,24 @@ namespace SubstrateNetApiTests
         }
 
         [Test]
+        public void VecU8TypeConverterTest()
+        {
+            var tc = new GenericTypeConverter<Vec<U8>>();
+            var actual = (Vec<U8>)tc.Create("0x200101020304050607");
+            Assert.AreEqual(1, actual.Value[0].Value);
+            Assert.AreEqual(1, actual.Value[1].Value);
+            Assert.AreEqual(2, actual.Value[2].Value);
+            Assert.AreEqual(3, actual.Value[3].Value);
+            Assert.AreEqual(4, actual.Value[4].Value);
+            Assert.AreEqual(5, actual.Value[5].Value);
+            Assert.AreEqual(6, actual.Value[6].Value);
+            Assert.AreEqual(7, actual.Value[7].Value);
+        }
+
+        [Test]
         public void MogwaiStructTypeConverterTest()
         {
-            var tc = new MogwaiStructTypeConverter();
+            var tc = new GenericTypeConverter<MogwaiStruct>();
             var actual =
                 tc.Create(
                     "0x17E26CA749780270EEC18507AB3C03854E75E264DB13EC1F90314C3AF02CCDF817E26CA749780270EEC18507AB3C03854E75E264DB13EC1F90314C3AF02CCDF87D320000000000000000000000000000000000000000000000000000");

@@ -273,7 +273,7 @@ namespace SubstrateNetWallet
 
             _client = new SubstrateClient(new Uri(webSocketUrl));
 
-            _client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            _client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
 
             await _client.ConnectAsync(_connectTokenSource.Token);
 

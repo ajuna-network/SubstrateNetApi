@@ -6,7 +6,7 @@ using SubstrateNetApi.Model.Types;
 
 namespace SubstrateNetApi.TypeConverters
 {
-    internal class GenericTypeConverter<T> : JsonConverter<T>, ITypeConverter where T: IType, new() 
+    public class GenericTypeConverter<T> : JsonConverter<T>, ITypeConverter where T: IType, new() 
     {
         public string TypeName { get; } = (new T()).Name();
 
