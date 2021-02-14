@@ -4,40 +4,44 @@ using Newtonsoft.Json;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class AccountInfo
+    public class AccountInfo : StructType
     {
-        public U32 Nonce { get; }
+        private int _size = 0;
 
-        public RefCount Consumers { get; }
+        public override string Name() => "AccountInfo<T::Index, T::AccountData>";
 
-        public RefCount Providers { get; }
-
-        public AccountData AccountData { get; }
-
-        public AccountInfo(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public override int Size()
         {
+            return _size;
         }
 
-        internal AccountInfo(Memory<byte> memory)
+        public override byte[] Encode()
         {
-            var u32 = new U32();
-            u32.Create(memory.Slice(0, 4).ToArray());
-            Nonce = u32;
-
-            var consumers = new RefCount();
-            consumers.Create(memory.Slice(4, 4).ToArray());
-            Consumers = consumers;
-
-            var providers = new RefCount();
-            providers.Create(memory.Slice(8, 4).ToArray());
-            Providers = providers;
-
-            AccountData = new AccountData(memory.Slice(12));
+            throw new NotImplementedException();
         }
 
-        public override string ToString()
+        public override void Decode(byte[] byteArray, ref int p)
         {
-            return JsonConvert.SerializeObject(this);
+            var start = p;
+
+            Nonce = new U32();
+            Nonce.Decode(byteArray, ref p);
+
+            Consumers = new RefCount();
+            Consumers.Decode(byteArray, ref p);
+
+            Providers = new RefCount();
+            Providers.Decode(byteArray, ref p);
+
+            AccountData = new AccountData();
+            AccountData.Decode(byteArray, ref p);
+
+            _size = p - start;
         }
+
+        public U32 Nonce { get; private set; }
+        public RefCount Consumers { get; private set; }
+        public RefCount Providers { get; private set; }
+        public AccountData AccountData { get; private set; }
     }
 }

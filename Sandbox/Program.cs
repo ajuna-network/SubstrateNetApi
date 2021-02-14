@@ -114,7 +114,9 @@ namespace Sandbox
                 {
                     try
                     {
-                        var accountInfo = new AccountInfo(eventObject.Changes[0][1].ToString());
+                        var accountInfo = new AccountInfo();
+                        accountInfo.Create(eventObject.Changes[0][1]);
+
                         Console.WriteLine(accountInfo);
                     }
                     catch (NotImplementedException e)

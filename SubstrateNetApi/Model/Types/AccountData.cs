@@ -3,42 +3,44 @@ using Newtonsoft.Json;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class AccountData
+    public class AccountData : StructType
     {
-        public Balance Free { get; }
+        private int _size = 0;
 
-        public Balance Reserved { get; }
+        public override string Name() => "AccountData<T::Balance>";
 
-        public Balance MiscFrozen { get; }
-
-        public Balance FeeFrozen { get; }
-
-        public AccountData(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public override int Size()
         {
+            return _size;
         }
 
-        internal AccountData(Memory<byte> memory)
+        public override byte[] Encode()
         {
-            var free = new Balance();
-            free.Create(memory.Slice(0, 16).ToArray());
-            Free = free;
-
-            var reserved = new Balance();
-            reserved.Create(memory.Slice(16, 16).ToArray());
-            Reserved = reserved;
-
-            var miscFrozen = new Balance();
-            miscFrozen.Create(memory.Slice(32, 16).ToArray());
-            MiscFrozen = miscFrozen;
-
-            var feeFrozen = new Balance();
-            feeFrozen.Create(memory.Slice(48, 16).ToArray());
-            FeeFrozen = feeFrozen;
+            throw new NotImplementedException();
         }
 
-        public override string ToString()
+        public override void Decode(byte[] byteArray, ref int p)
         {
-            return JsonConvert.SerializeObject(this);
+            var start = p;
+
+            Free = new Balance();
+            Free.Decode(byteArray, ref p);
+
+            Reserved = new Balance();
+            Reserved.Decode(byteArray, ref p);
+
+            MiscFrozen = new Balance();
+            MiscFrozen.Decode(byteArray, ref p);
+
+            FeeFrozen = new Balance();
+            FeeFrozen.Decode(byteArray, ref p);
+
+            _size = p - start;
         }
+
+        public Balance Free { get; private set; }
+        public Balance Reserved { get; private set; }
+        public Balance MiscFrozen { get; private set; }
+        public Balance FeeFrozen { get; private set; }
     }
 }

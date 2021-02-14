@@ -8,10 +8,7 @@ namespace SubstrateNetApi.Model.Types
     {
         public override string Name() => "T::AccountId";
 
-        /// <summary>
-        ///  TODO: might have to change this based on the address type.
-        /// </summary>
-        /// <returns></returns>
+        // TODO: might have to change this based on the address type.
         public override int Size() => 32;
 
         public override byte[] Encode()
@@ -30,7 +27,7 @@ namespace SubstrateNetApi.Model.Types
                     bytes.AddRange(Bytes);
                     return bytes.ToArray();
                 default:
-                    throw new NotImplementedException("Unknown address version please refere to Constants.cs");
+                    throw new NotImplementedException("Unknown address version please refer to Constants.cs");
             }
         }
 

@@ -103,9 +103,11 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new GenericTypeConverter<U32>());
             RegisterTypeConverter(new GenericTypeConverter<U64>());
             RegisterTypeConverter(new GenericTypeConverter<AccountId>());
+            RegisterTypeConverter(new GenericTypeConverter<AccountInfo>());
+            RegisterTypeConverter(new GenericTypeConverter<AccountData>());
             RegisterTypeConverter(new GenericTypeConverter<Hash>());
 
-            RegisterTypeConverter(new AccountInfoTypeConverter());
+            //RegisterTypeConverter(new AccountInfoTypeConverter());
 
             _requestTokenSourceDict = new ConcurrentDictionary<CancellationTokenSource, string>();
 
@@ -163,7 +165,6 @@ namespace SubstrateNetApi
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U16>());
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U32>());
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U64>());
-            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<AccountId>());
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<Hash>());
             formatter.JsonSerializer.Converters.Add(_extrinsicJsonConverter);
             formatter.JsonSerializer.Converters.Add(_extrinsicStatusJsonConverter);

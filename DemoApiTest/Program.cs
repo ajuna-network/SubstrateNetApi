@@ -125,7 +125,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
-            //var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
+            var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
 
             //var hash = new Hash();
             //hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
@@ -176,10 +176,10 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** test 2 submit extrinsic
-            Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 1000000000), accountZurich, 0, 64, cancellationToken);
-            Thread.Sleep(60000);
-            var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+            //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
+            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 1000000000), accountZurich, 0, 64, cancellationToken);
+            //Thread.Sleep(60000);
+            //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             // *** test 3  full stoarge test
             // ???
@@ -197,7 +197,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
             //Console.WriteLine(client.MetaData.Serialize());
 

@@ -432,7 +432,10 @@ namespace SubstrateNetWallet
             }
 
             Logger.Debug($"Updated account successfully.");
-            AccountInfo = new AccountInfo(storageChangeSet.Changes[0][1].ToString());
+
+            var accountInfo = new AccountInfo();
+            accountInfo.Create(storageChangeSet.Changes[0][1]);
+            AccountInfo = accountInfo;
 
             AccountInfoUpdated?.Invoke(this, AccountInfo);
         }

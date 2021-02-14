@@ -3,23 +3,6 @@ using Newtonsoft.Json;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public interface IType
-    {
-        string Name();
-
-        int Size();
-
-        byte[] Encode();
-
-        void Decode(byte[] byteArray, ref int p);
-
-        void Create(string str);
-
-        void CreateFromJson(string str);
-
-        void Create(byte[] byteArray);
-    }
-
     public abstract class BaseType<T> : IType
     {
         public abstract string Name();
