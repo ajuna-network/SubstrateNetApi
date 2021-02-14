@@ -17,6 +17,15 @@ namespace SubstrateNetApi.Model.Types
             return reversed;
         }
 
+        public override void Create(string str)
+        {
+            byte[] bytes = Utils.HexToByteArray(str, true);
+            Array.Reverse(bytes);
+            byte[] result = new byte[Size()];
+            bytes.CopyTo(result, 0);
+            Create(result);
+        }
+        
         public override void Create(byte[] byteArray)
         {
             if (byteArray.Length < Size())

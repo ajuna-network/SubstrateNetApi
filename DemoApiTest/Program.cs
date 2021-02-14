@@ -124,8 +124,6 @@ namespace DemoApiTest
             // TODO: [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: Vec<u8>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
 
-
-            // TODO: Check Balance seems to be not correct.
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
             //var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
 
@@ -133,11 +131,14 @@ namespace DemoApiTest
             //hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
             //var reqResult = await client.Chain.GetHeaderAsync(hash, cancellationToken);
 
+            //var hash = new Hash();
+            //hash.Create("0xf7ed3ff62195438d16616cae55cb450e1fdb6e8602190a335b0684fc50f33311");
+            //var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
+
             // ****************************************************************************************************************************************
 
             // 455455
             // 0x98d7f5fe3efd88cd28d928c418c9ddc8dee254a2e11925a1a78b2ca6c2aac6d5
-            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x98d7f5fe3efd88cd28d928c418c9ddc8dee254a2e11925a1a78b2ca6c2aac6d5"), cancellationToken);
             //var reqResult = await client.Chain.GetBlockHashAsync(new BlockNumber(455455), cancellationToken);
 
             // 486587

@@ -37,7 +37,7 @@ namespace SubstrateNetApi.Model.Types
             Create(result);
         }
 
-        public void Create(string str) => Create(Utils.HexToByteArray(str));
+        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
 
         public abstract void Create(byte[] byteArray);
 
