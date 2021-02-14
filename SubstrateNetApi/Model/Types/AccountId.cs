@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class AccountId : BaseType
+    public class AccountId : BaseType<string>
     {
         public override string Name() => "T::AccountId";
 
@@ -13,8 +13,6 @@ namespace SubstrateNetApi.Model.Types
         /// </summary>
         /// <returns></returns>
         public override int Size() => 32;
-
-        public string Value { get; internal set; }
 
         public override byte[] Encode()
         {

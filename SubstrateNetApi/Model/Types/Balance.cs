@@ -3,13 +3,11 @@ using System.Numerics;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class Balance : BaseType
+    public class Balance : BaseType<BigInteger>
     {
         public override string Name() => "T::Balance";
 
         public override int Size() => 16;
-
-        public BigInteger Value { get; internal set; }
 
         public override byte[] Encode()
         {
@@ -24,6 +22,7 @@ namespace SubstrateNetApi.Model.Types
 
         public void Create(BigInteger value)
         {
+            Bytes = value.ToByteArray();
             Value = value;
         }
     }

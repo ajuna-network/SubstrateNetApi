@@ -3,13 +3,11 @@ using System;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class Hash : BaseType
+    public class Hash : BaseType<string>
     {
         public override string Name() => "T::Hash";
 
         public override int Size() => 32;
-
-        public string Value { get; internal set; }
 
         public override byte[] Encode()
         {

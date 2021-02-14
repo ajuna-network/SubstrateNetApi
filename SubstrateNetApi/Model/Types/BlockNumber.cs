@@ -3,13 +3,11 @@ using System;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class BlockNumber : BaseType
+    public class BlockNumber : BaseType<uint>
     {
         public override string Name() => "T::BlockNumber";
 
         public override int Size() => 1;
-
-        public uint Value { get; internal set; }
 
         public override byte[] Encode()
         {

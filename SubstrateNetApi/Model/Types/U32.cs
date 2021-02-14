@@ -2,13 +2,11 @@
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class U32 : BaseType
+    public class U32 : BaseType<uint>
     {
         public override string Name() => "u32";
 
         public override int Size() => 4;
-
-        public uint Value { get; internal set; }
 
         public override byte[] Encode()
         {
@@ -17,7 +15,7 @@ namespace SubstrateNetApi.Model.Types
             return reversed;
         }
 
-        public override void Create(string str)
+        public override void CreateFromJson(string str)
         {
             byte[] bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);

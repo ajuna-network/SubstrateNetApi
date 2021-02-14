@@ -8,25 +8,40 @@ namespace SubstrateNetApi.Model.Types
     /// TODO, finish implementing this ...
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Vector<T> : BaseType where T: BaseType, new()
+    public class Vector<T> : IType where T: IType, new()
     {
-        public override string Name() => "";
+        public string Name() => "";
 
-        public override int Size()
+        public int Size()
         {
             throw new NotImplementedException();
         }
 
-        public List<BaseType> Value { get; internal set; }
+        public List<IType> Value { get; internal set; }
 
-        public override byte[] Encode()
+        public byte[] Encode()
         {
             throw new NotImplementedException();
         }
 
-        public override void Create(byte[] byteArray)
+        public void Decode(byte[] byteArray, ref int p)
         {
-            var list = new List<BaseType>();
+            throw new NotImplementedException();
+        }
+
+        public void Create(string str)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateFromJson(string str)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(byte[] byteArray)
+        {
+            var list = new List<IType>();
 
             var p = 0;
             var length = CompactInteger.Decode(byteArray, ref p);
@@ -37,8 +52,7 @@ namespace SubstrateNetApi.Model.Types
                 list.Add(t);
             }
 
-            Bytes = byteArray;
-            Value = list;
+            // TODO: persist somewhere
         }
     }
 }

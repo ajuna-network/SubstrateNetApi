@@ -58,13 +58,14 @@ namespace SubstrateNetApiTests
         [Test]
         public void AccountInfoTest()
         {
-            var accountInfo = new AccountInfo(Utils.HexToByteArray("2200000001000000518fd3f9a8503a4f7e0000000000000000c040b571e8030000000000000000000000c16ff2862300000000000000000000000000000000000000000000000000"));
-            Assert.AreEqual(34, accountInfo.Nonce);
-            Assert.AreEqual(1, accountInfo.RefCount);
-            Assert.AreEqual("2329998717451725147985", accountInfo.AccountData.Free.Value.ToString());
-            Assert.AreEqual("1100000000000000", accountInfo.AccountData.Reserved.Value.ToString());
+            var accountInfo = new AccountInfo(Utils.HexToByteArray("0500000000000000010000001d58857016a4755a6c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"));
+            Assert.AreEqual(5, accountInfo.Nonce.Value);
+            Assert.AreEqual(0, accountInfo.Consumers.Value);
+            Assert.AreEqual(1, accountInfo.Providers.Value);
+            Assert.AreEqual("1998766656412604258333", accountInfo.AccountData.Free.Value.ToString());
+            Assert.AreEqual("0", accountInfo.AccountData.Reserved.Value.ToString());
             Assert.AreEqual("0", accountInfo.AccountData.FeeFrozen.Value.ToString());
-            Assert.AreEqual("10000000000000000", accountInfo.AccountData.MiscFrozen.Value.ToString());
+            Assert.AreEqual("0", accountInfo.AccountData.MiscFrozen.Value.ToString());
         }
     }
 }

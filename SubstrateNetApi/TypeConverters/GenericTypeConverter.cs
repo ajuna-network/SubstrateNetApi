@@ -25,7 +25,7 @@ namespace SubstrateNetApi.TypeConverters
         public override T ReadJson(JsonReader reader, Type objectType, T existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var baseType = new T();
-            baseType.Create((string)reader.Value);
+            baseType.CreateFromJson((string)reader.Value);
             return baseType;
         }
 

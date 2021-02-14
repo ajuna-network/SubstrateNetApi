@@ -2,13 +2,11 @@
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class U16 : BaseType
+    public class U16 : BaseType<ushort>
     {
         public override string Name() => "u16";
 
         public override int Size() => 2;
-
-        public ushort Value { get; internal set; }
 
         public override byte[] Encode()
         {
@@ -17,7 +15,7 @@ namespace SubstrateNetApi.Model.Types
             return reversed;
         }
 
-        public override void Create(string str)
+        public override void CreateFromJson(string str)
         {
             byte[] bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);

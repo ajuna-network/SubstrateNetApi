@@ -15,10 +15,12 @@ namespace SubstrateNetApi.Model.Types
 
         void Create(string str);
 
+        void CreateFromJson(string str);
+
         void Create(byte[] byteArray);
     }
 
-    public abstract class BaseType : IType
+    public abstract class BaseType<T> : IType
     {
         public abstract string Name();
 
@@ -26,6 +28,8 @@ namespace SubstrateNetApi.Model.Types
         public byte[] Bytes { get; internal set; }
 
         public abstract int Size();
+
+        public T Value { get; internal set; }
 
         public abstract byte[] Encode();
 
@@ -38,6 +42,8 @@ namespace SubstrateNetApi.Model.Types
         }
 
         public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
+
+        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
 
         public abstract void Create(byte[] byteArray);
 

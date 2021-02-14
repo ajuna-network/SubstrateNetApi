@@ -6,7 +6,7 @@ namespace SubstrateNetApi.Model.Types
 {
     public class AccountInfo
     {
-        public uint Nonce { get; }
+        public U32 Nonce { get; }
 
         public RefCount Consumers { get; }
 
@@ -20,7 +20,9 @@ namespace SubstrateNetApi.Model.Types
 
         internal AccountInfo(Memory<byte> memory)
         {
-            Nonce = BitConverter.ToUInt32(memory.Slice(0, 4).ToArray(), 0);
+            var u32 = new U32();
+            u32.Create(memory.Slice(0, 4).ToArray());
+            Nonce = u32;
 
             var consumers = new RefCount();
             consumers.Create(memory.Slice(4, 4).ToArray());

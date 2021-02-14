@@ -2,13 +2,11 @@
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class U64 : BaseType
+    public class U64 : BaseType<ulong>
     {
         public override string Name() => "u64";
 
         public override int Size() => 8;
-
-        public ulong Value { get; internal set; }
 
         public override byte[] Encode()
         {
@@ -17,13 +15,11 @@ namespace SubstrateNetApi.Model.Types
             return reversed;
         }
 
-        public override void Create(string str)
+        public override void CreateFromJson(string str)
         {
             byte[] bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            byte[] result = new byte[Size()];
-            bytes.CopyTo(result, 0);
-            Create(result);
+            Create(bytes);
         }
         
         public override void Create(byte[] byteArray)
