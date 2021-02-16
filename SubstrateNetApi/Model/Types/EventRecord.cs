@@ -77,13 +77,17 @@ namespace SubstrateNetApi.Model.Types
                         data.Add(DispatchError.Decode(byteArray, ref p));
                         break;
                     case "AccountId":
-                        data.Add(AccountId.Decode(byteArray, ref p));
+                        var accountId = new AccountId();
+                        accountId.Decode(byteArray.ToArray(), ref p);
+                        data.Add(accountId);
                         break;
                     case "AccountIndex":
                         data.Add(AccountIndex.Decode(byteArray, ref p));
                         break;
                     case "Balance":
-                        data.Add(Balance.Decode(byteArray, ref p));
+                        var balance = new Balance();
+                        balance.Decode(byteArray.ToArray(), ref p);
+                        data.Add(balance);
                         break;
                     case "Status":
                         data.Add(Status.Decode(byteArray, ref p));
@@ -92,7 +96,9 @@ namespace SubstrateNetApi.Model.Types
                         data.Add(EraIndex.Decode(byteArray, ref p));
                         break;
                     case "SessionIndex":
-                        data.Add(SessionIndex.Decode(byteArray, ref p));
+                        var sessionIndex = new SessionIndex();
+                        sessionIndex.Decode(byteArray.ToArray(), ref p);
+                        data.Add(sessionIndex);
                         break;
                     case "ElectionCompute":
                         data.Add(ElectionCompute.Decode(byteArray, ref p));
@@ -107,10 +113,14 @@ namespace SubstrateNetApi.Model.Types
                         data.Add(VoteThreshold.Decode(byteArray, ref p));
                         break;
                     case "Hash":
-                        data.Add(Hash.Decode(byteArray, ref p));
+                        var hash = new Hash();
+                        hash.Decode(byteArray.ToArray(), ref p);
+                        data.Add(hash);
                         break;
                     case "BlockNumber":
-                        data.Add(BlockNumber.Decode(byteArray, ref p));
+                        var blockNumber = new BlockNumber();
+                        blockNumber.Decode(byteArray.ToArray(), ref p);
+                        data.Add(blockNumber);
                         break;
                     case "ProposalIndex":
                         data.Add(ProposalIndex.Decode(byteArray, ref p));

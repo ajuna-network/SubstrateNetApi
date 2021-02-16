@@ -2,16 +2,6 @@
 
 namespace SubstrateNetApi.Model.Types
 {
-    public partial class AccountId
-    {
-        public static int Size => 32;
-        public static AccountId Decode(Memory<byte> byteArray, ref int p)
-        {
-            var accountId = new AccountId(byteArray.Span.Slice(p, Size).ToArray());
-            p += Size;
-            return accountId;
-        }
-    }
 
     public partial class AccountIndex
     {
@@ -37,28 +27,9 @@ namespace SubstrateNetApi.Model.Types
         }
     }
 
-    public partial class Balance
-    {
-        public static int Size => 16;
-        public static Balance Decode(Memory<byte> byteArray, ref int p)
-        {
-            var balance = new Balance(byteArray.Span.Slice(p, Size).ToArray());
-            p += Size;
-            return balance;
-        }
-    }
-
     public partial class BountyIndex
     {
         public static BountyIndex Decode(Memory<byte> byteArray, ref int p)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public partial class BlockNumber
-    {
-        public static BlockNumber Decode(Memory<byte> byteArray, ref int p)
         {
             throw new NotImplementedException();
         }
@@ -119,17 +90,6 @@ namespace SubstrateNetApi.Model.Types
         public static EraIndex Decode(Memory<byte> byteArray, ref int p)
         {
             throw new NotImplementedException();
-        }
-    }
-
-    public partial class Hash
-    {
-        public static int Size => 32;
-        public static Hash Decode(Memory<byte> byteArray, ref int p)
-        {
-            var hash = new Hash(byteArray.Span.Slice(p, Size).ToArray());
-            p += Size;
-            return hash;
         }
     }
 
@@ -221,50 +181,4 @@ namespace SubstrateNetApi.Model.Types
         }
     }
 
-    public partial class U8
-    {
-        public static int Size => 1;
-        public static U8 Decode(Memory<byte> byteArray, ref int p)
-        {
-            var result = byteArray.Span.Slice(p, Size)[0];
-            p += Size;
-            return new U8(result);
-        }
-    }
-
-    public partial class U16
-    {
-        public static int Size => 2;
-        public static U16 Decode(Memory<byte> byteArray, ref int p)
-        {
-            var result = BitConverter
-                .ToUInt16(byteArray.Span.Slice(p, Size).ToArray(), 0);
-            p += Size;
-            return new U16(result);
-        }
-    }
-
-    public partial class U32
-    {
-        public static int Size => 4;
-        public static U32 Decode(Memory<byte> byteArray, ref int p)
-        {
-            var result = BitConverter
-                .ToUInt32(byteArray.Span.Slice(p, Size).ToArray(), 0);
-            p += Size;
-            return new U32(result);
-        }
-    }
-
-    public partial class U64
-    {
-        public static int Size => 8;
-        public static U64 Decode(Memory<byte> byteArray, ref int p)
-        {
-            var result = BitConverter
-                .ToUInt64(byteArray.Span.Slice(p, Size).ToArray(), 0);
-            p += Size;
-            return new U64(result);
-        }
-    }
 }

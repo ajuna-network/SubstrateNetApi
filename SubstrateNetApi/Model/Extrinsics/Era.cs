@@ -28,7 +28,7 @@ namespace SubstrateNetApi.Model.Extrinsics
             return JsonConvert.SerializeObject(this);
         }
 
-        public static Era Create(uint lifeTime, uint finalizedHeaderBlockNumber)
+        public static Era Create(uint lifeTime, ulong finalizedHeaderBlockNumber)
         {
             if (lifeTime == 0)
             {

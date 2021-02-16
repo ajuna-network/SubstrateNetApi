@@ -42,7 +42,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Assert.AreEqual(methodBytes, method.Encode());
 
-            SignedExtensions signedExtensions = new SignedExtensions(259, 1, new Hash(genesisHash), new Hash(blockHash), era, 0, 0);
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var startEra = new Hash();
+            startEra.Create(blockHash);
+
+            SignedExtensions signedExtensions = new SignedExtensions(259, 1, genesis, startEra, era, 0, 0);
 
             var payload = new Payload(method, signedExtensions);
 

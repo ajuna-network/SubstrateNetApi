@@ -9,15 +9,15 @@ namespace SubstrateNetApi.Model.Calls
 
         public string CallName { get; }
 
-        public List<IEncodable> _callArguments;
+        public List<IType> _callArguments;
 
-        public GenericExtrinsicCall(string moduleName, string callName, params IEncodable[] list)
+        public GenericExtrinsicCall(string moduleName, string callName, params IType[] list)
         {
             ModuleName = moduleName;
 
             CallName = callName;
 
-            _callArguments = new List<IEncodable>();
+            _callArguments = new List<IType>();
 
             foreach (var element in list)
             {
@@ -38,9 +38,15 @@ namespace SubstrateNetApi.Model.Calls
 
     public class ExtrinsicCall
     {
-        public static GenericExtrinsicCall BalanceTransfer(string address, int balance)
+        public static GenericExtrinsicCall BalanceTransfer(string address, int balanceAmount)
         {
-            return BalanceTransfer(AccountId.CreateFromAddress(address), new Balance(balance));
+            var accountId = new AccountId();
+            accountId.Create(Utils.GetPublicKeyFrom(address));
+
+            var balance = new Balance();
+            balance.Create(balanceAmount);
+            
+            return BalanceTransfer(accountId, balance);
         }
 
         public static GenericExtrinsicCall BalanceTransfer(AccountId dest, Balance value)

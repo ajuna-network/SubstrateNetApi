@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using SubstrateNetApi.Model.Types;
 
 namespace SubstrateNetApiTests.ClientTests
 {
@@ -65,8 +66,8 @@ namespace SubstrateNetApiTests.ClientTests
         [Test]
         public void MultipleConverterTest()
         {
-            _substrateClient.RegisterTypeConverter(new MogwaiStructTypeConverter());
-            Assert.Throws<ConverterAlreadyRegisteredException>(() => _substrateClient.RegisterTypeConverter(new MogwaiStructTypeConverter()));
+            _substrateClient.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            Assert.Throws<ConverterAlreadyRegisteredException>(() => _substrateClient.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>()));
         }
 
         [Test]

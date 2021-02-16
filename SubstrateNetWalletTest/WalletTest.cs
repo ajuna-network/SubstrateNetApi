@@ -74,7 +74,7 @@ namespace SubstrateNetWalletTest
 
             Assert.True(wallet2.IsUnlocked);
 
-            Assert.AreEqual(wallet1.Account.Address, wallet2.Account.Address);
+            Assert.AreEqual(wallet1.Account.Value, wallet2.Account.Value);
 
 
             var wallet3 = new Wallet();
@@ -127,7 +127,7 @@ namespace SubstrateNetWalletTest
 
             Assert.True(wallet.IsUnlocked);
 
-            Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Address);
+            Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Value);
         }
 
         [Test]
@@ -145,15 +145,22 @@ namespace SubstrateNetWalletTest
             await wallet.UnlockAsync("aA1234dd");
             Assert.True(wallet.IsUnlocked);
 
-            Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Address);
+            Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Value);
 
             Thread.Sleep(1000);
 
-            Assert.AreEqual("5737774696440783305703425", wallet.AccountInfo.AccountData.Free.Value.ToString());
+            Assert.AreEqual("1335929775713194", wallet.AccountInfo.AccountData.Free.Value.ToString());
 
-            var countMogwais = (ulong)await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new string[] { Utils.Bytes2HexString(wallet.Account.PublicKey) });
+            var hash = new Hash();
+            hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
+            
+            var header = (Header)await wallet.Client.Chain.GetHeaderAsync(hash);
+            Assert.AreEqual(33335, header.Number.Value);
 
-            Assert.AreEqual(1, countMogwais);
+            var countMogwais = (U64)await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new string[] { Utils.Bytes2HexString(wallet.Account.Bytes) });
+            Assert.AreEqual(1, ((U64) countMogwais).Value);
+
+
 
             await wallet.StopAsync();
 
@@ -214,9 +221,9 @@ namespace SubstrateNetWalletTest
 
             Assert.IsNotNull(test);
 
-            Assert.AreEqual(1, test.Nonce);
+            Assert.AreEqual(1, test.Nonce.Value);
 
-            Assert.AreEqual("5737774696440783305703425", test.AccountData.Free.ToString());
+            Assert.AreEqual("1335929775713194", test.AccountData.Free.Value.ToString());
         }
 
         [Test]
@@ -244,12 +251,14 @@ namespace SubstrateNetWalletTest
                 if (eventObject.Changes != null)
                 {
                     int p = 0;
-                    test = U64.Decode(Utils.HexToByteArray(eventObject.Changes[0][1]), ref p).Value;
+                    var u64 = new U64();
+                    u64.Decode(Utils.HexToByteArray(eventObject.Changes[0][1]), ref p);
+                    test = u64.Value;
                 }
             };
 
             await wallet.Client.SubscribeStorageKeyAsync("DotMogModule", "OwnedMogwaisCount",
-                    new string[] { Utils.Bytes2HexString(wallet.Account.PublicKey)},
+                    new string[] { Utils.Bytes2HexString(wallet.Account.Bytes)},
                     callOwnedMogwaisCount);
 
             Thread.Sleep(1000);

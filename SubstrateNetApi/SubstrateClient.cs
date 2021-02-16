@@ -52,8 +52,6 @@ namespace SubstrateNetApi
         /// <summary> The type converters. </summary>
         private readonly Dictionary<string, ITypeConverter> _typeConverters = new Dictionary<string, ITypeConverter>();
 
-        private HashTypeConverter _hashTypeConverter = new HashTypeConverter();
-
         private ExtrinsicJsonConverter _extrinsicJsonConverter = new ExtrinsicJsonConverter();
 
         private ExtrinsicStatusJsonConverter _extrinsicStatusJsonConverter = new ExtrinsicStatusJsonConverter();
@@ -100,13 +98,17 @@ namespace SubstrateNetApi
             State = new Modules.State(this);
             Author = new Modules.Author(this);
 
-            RegisterTypeConverter(new U8TypeConverter());
-            RegisterTypeConverter(new U16TypeConverter());
-            RegisterTypeConverter(new U32TypeConverter());
-            RegisterTypeConverter(new U64TypeConverter());
-            RegisterTypeConverter(new AccountIdTypeConverter());
-            RegisterTypeConverter(_hashTypeConverter);
-            RegisterTypeConverter(new AccountInfoTypeConverter());
+            RegisterTypeConverter(new GenericTypeConverter<U8>());
+            RegisterTypeConverter(new GenericTypeConverter<U16>());
+            RegisterTypeConverter(new GenericTypeConverter<U32>());
+            RegisterTypeConverter(new GenericTypeConverter<U64>());
+            RegisterTypeConverter(new GenericTypeConverter<AccountId>());
+            RegisterTypeConverter(new GenericTypeConverter<AccountInfo>());
+            RegisterTypeConverter(new GenericTypeConverter<AccountData>());
+            RegisterTypeConverter(new GenericTypeConverter<Hash>());
+            RegisterTypeConverter(new GenericTypeConverter<Vec<U8>>());
+
+            //RegisterTypeConverter(new AccountInfoTypeConverter());
 
             _requestTokenSourceDict = new ConcurrentDictionary<CancellationTokenSource, string>();
 
@@ -160,7 +162,11 @@ namespace SubstrateNetApi
 
             var formatter = new JsonMessageFormatter();
 
-            formatter.JsonSerializer.Converters.Add(_hashTypeConverter);
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U8>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U16>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U32>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U64>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<Hash>());
             formatter.JsonSerializer.Converters.Add(_extrinsicJsonConverter);
             formatter.JsonSerializer.Converters.Add(_extrinsicStatusJsonConverter);
 
@@ -176,7 +182,9 @@ namespace SubstrateNetApi
             MetaData = metaDataParser.MetaData;
             Logger.Debug("MetaData parsed.");
 
-            GenesisHash = await Chain.GetBlockHashAsync(new BlockNumber(0), token);
+            var genesis = new BlockNumber();
+            genesis.Create(0);
+            GenesisHash = await Chain.GetBlockHashAsync(genesis, token);
             Logger.Debug("Genesis hash parsed.");
 
             RuntimeVersion = await State.GetRuntimeVersionAsync(token);
@@ -368,7 +376,7 @@ namespace SubstrateNetApi
         {
             Method method = GetMethod(callArguments);
 
-            uint nonce = await System.AccountNextIndexAsync(account.Address, token);
+            uint nonce = await System.AccountNextIndexAsync(account.Value, token);
 
             Era era;
             Hash startEra;
@@ -382,7 +390,7 @@ namespace SubstrateNetApi
             {
                 startEra = await Chain.GetFinalizedHeadAsync(token);
                 Header finalizedHeader = await Chain.GetHeaderAsync(startEra, token);
-                era = Era.Create(lifeTime, finalizedHeader.Number);
+                era = Era.Create(lifeTime, finalizedHeader.Number.Value);
             }
 
             var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);

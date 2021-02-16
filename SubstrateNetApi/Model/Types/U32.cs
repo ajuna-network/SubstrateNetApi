@@ -1,12 +1,40 @@
-﻿namespace SubstrateNetApi.Model.Types
-{
-    public partial class U32
-    {
-        public uint Value;
+﻿using System;
 
-        public U32(uint value)
+namespace SubstrateNetApi.Model.Types
+{
+    public class U32 : BaseType<uint>
+    {
+        public override string Name() => "u32";
+
+        public override int Size() => 4;
+
+        public override byte[] Encode()
         {
-            Value = value;
+            var reversed = Bytes;
+            Array.Reverse(reversed);
+            return reversed;
+        }
+
+        public override void CreateFromJson(string str)
+        {
+            byte[] bytes = Utils.HexToByteArray(str, true);
+            Array.Reverse(bytes);
+            byte[] result = new byte[Size()];
+            bytes.CopyTo(result, 0);
+            Create(result);
+        }
+
+        public override void Create(byte[] byteArray)
+        {
+            if (byteArray.Length < Size())
+            {
+                var newByteArray = new byte[Size()];
+                byteArray.CopyTo(newByteArray, 0);
+                byteArray = newByteArray;
+            }
+
+            Bytes = byteArray;
+            Value = BitConverter.ToUInt32(byteArray, 0);
         }
     }
 }

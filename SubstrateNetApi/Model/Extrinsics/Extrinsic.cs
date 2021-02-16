@@ -68,7 +68,9 @@ namespace SubstrateNetApi.Model.Extrinsics
                 var _senderPublicKeyType = memory.Slice(p, m).ToArray()[0];
                 p += m;
 
-                Account = new Account((KeyType)_senderPublicKeyType, _senderPublicKey);
+                var account = new Account();
+                account.Create((KeyType)_senderPublicKeyType, _senderPublicKey);
+                Account = account;
 
                 // signature
                 m = 64;

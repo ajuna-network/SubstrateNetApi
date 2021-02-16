@@ -1,42 +1,24 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public partial class U8 : IEncodable
+    public class U8 : BaseType<byte>
     {
-        public byte Value { get; }
+        public override string Name() => "u8";
 
-        [JsonIgnore]
-        public byte[] Bytes { get; }
+        public override int Size() => 1;
 
-        public U8(string str) : this(Utils.HexToByteArray(str).AsMemory())
+        public override byte[] Encode()
         {
-        }
-
-        internal U8(Memory<byte> memory)
-        {
-            Bytes = memory.ToArray();
-            Value = memory.ToArray()[0];
-        }
-
-        public U8(byte value)
-        {
-            Bytes = BitConverter.GetBytes(value);
-            Value = value;
-        }
-
-        override
-        public string ToString()
-        {
-            return Value.ToString();
-        }
-
-        public byte[] Encode()
-        {
-            byte[] reversed = Bytes;
+            var reversed = Bytes;
             Array.Reverse(reversed);
             return reversed;
+        }
+
+        public override void Create(byte[] byteArray)
+        {
+            Bytes = byteArray;
+            Value = byteArray[0];
         }
     }
 }

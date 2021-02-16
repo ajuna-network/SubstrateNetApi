@@ -37,8 +37,9 @@ namespace SubstrateNetApiTests.Ed25519
             Assert.AreEqual("0xF5E5767CF153319517630F226876B86C8160CC583BC013744C6BF255F5CC0EE5278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E", Utils.Bytes2HexString(priKey));
             Assert.AreEqual("0x278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E", Utils.Bytes2HexString(pubKey));
 
-            var account = new AccountId("0x278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E");
-            Assert.AreEqual("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM", account.Address);
+            var accountId = new AccountId();
+            accountId.Create("0x278117FC144C72340F67D0F2316E8386CEFFBF2B2428C9C51FEF7C597F1D426E");
+            Assert.AreEqual("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM", accountId.Value);
         }
 
         [Test]

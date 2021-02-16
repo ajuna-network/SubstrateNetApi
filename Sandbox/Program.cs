@@ -30,7 +30,7 @@ namespace Sandbox
         private static async Task StorageRuntimeVersion(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var reqResult = await client.State.GetRuntimeVersionAsync();
@@ -40,10 +40,10 @@ namespace Sandbox
 
         private static void TestKey(string[] args)
         {
-            AccountId accountId =
-                new AccountId(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+            var accountId = new AccountId();
+            accountId.Create(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
             Console.WriteLine($"AccountId: {accountId}");
-            Console.WriteLine($"Public Key: {Utils.Bytes2HexString(accountId.PublicKey).ToLower()}");
+            Console.WriteLine($"Public Key: {Utils.Bytes2HexString(accountId.Bytes).ToLower()}");
 
             var str = "0x200101020304050607";
 
@@ -55,7 +55,9 @@ namespace Sandbox
             Console.WriteLine($"Length: {length}, p = {p}");
             for (var i = 0; i < length; i++)
             {
-                vecU8.Add(U8.Decode(byteArray, ref p));
+                var u8 = new U8();
+                u8.Decode(byteArray, ref p);
+                vecU8.Add(u8);
             }
 
             Console.WriteLine(JsonConvert.SerializeObject(vecU8));
@@ -64,7 +66,7 @@ namespace Sandbox
         private static async Task GetKeysPagedAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var keys = await client.State.GetKeysPagedAsync(Utils.HexToByteArray("0x0c97543ac4e96dcb4706b30bdf6e92168b0d930c4954153694987c34a9823bbd"), 3,
@@ -76,7 +78,7 @@ namespace Sandbox
         private static async Task GetPairsAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var keys = await client.State.GetPairsAsync(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "OwnedMogwaisCount"), CancellationToken.None);
@@ -87,7 +89,7 @@ namespace Sandbox
         private static async Task GetAllMogwaiHashs(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var keys = await client.GetStorageKeysAsync("DotMogModule", "Mogwais", CancellationToken.None);
@@ -102,7 +104,7 @@ namespace Sandbox
         private static async Task AccountSubscriptionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             Action<string, StorageChangeSet> callBackAccountChange = (subscriptionId, eventObject) =>
@@ -112,7 +114,9 @@ namespace Sandbox
                 {
                     try
                     {
-                        var accountInfo = new AccountInfo(eventObject.Changes[0][1].ToString());
+                        var accountInfo = new AccountInfo();
+                        accountInfo.Create(eventObject.Changes[0][1]);
+
                         Console.WriteLine(accountInfo);
                     }
                     catch (NotImplementedException e)
@@ -134,7 +138,7 @@ namespace Sandbox
         private static async Task AllMogwaisCountSubscriptionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var subscriptionId = await client.SubscribeStorageKeyAsync("DotMogModule", "AllMogwaisCount", null,
@@ -142,7 +146,9 @@ namespace Sandbox
                     foreach (var change in storageChangeSet.Changes)
                     {
                         int p = 0;
-                        var result = U64.Decode(Utils.HexToByteArray(change[1]), ref p).Value;
+                        var u64 = new U64();
+                        u64.Decode(Utils.HexToByteArray(change[1]), ref p);
+                        var result = u64.Value;
                         Console.WriteLine($"AllMogwaisCount = {result}");
                     }
                 }, CancellationToken.None);
@@ -155,7 +161,7 @@ namespace Sandbox
         private static async Task OwnedMogwaisCountSubscriptionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
@@ -185,7 +191,7 @@ namespace Sandbox
         private static async Task ParseEventsAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -224,7 +230,7 @@ namespace Sandbox
         private static async Task EventhandlingTestAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             Action<string, StorageChangeSet> callBackSubscribeStorage = (subscriptionId, eventObject) =>
@@ -260,7 +266,7 @@ namespace Sandbox
         {
             //Console.WriteLine(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM").Length);
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
             var eventStr = "0x14" +
@@ -359,14 +365,18 @@ namespace Sandbox
             //4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e
             //0f0080c6a47e8d03
 
-
-
-            Account accountZurich = new Account(
+            Account accountZurich = Account.Build(
                 KeyType.ED25519,
                 Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
 
-            var extrinsic = ExtrinsicCall.BalanceTransfer(new AccountId(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")), new Balance(2000000000000));
+            var accountId = new AccountId();
+            accountId.Create(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"));
+
+            var balance = new Balance();
+            balance.Create(2000000000000);
+
+            var extrinsic = ExtrinsicCall.BalanceTransfer(accountId, balance);
 
 
             Console.WriteLine(CompactInteger.Decode(Utils.HexToByteArray("0x490284")).ToString());
@@ -455,7 +465,7 @@ namespace Sandbox
         {
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
 
             await client.ConnectAsync(cancellationToken);
 
@@ -466,18 +476,19 @@ namespace Sandbox
             // 544133 CreateMogwai();
             for (uint i = 0; i < 10; i++)
             {
-                var blockNumber = new BlockNumber(i);
+                var blockNumber = new BlockNumber();
+                blockNumber.Create(i);
                 Console.WriteLine(blockNumber.Encode());
 
                 Console.WriteLine(Utils.Bytes2HexString(blockNumber.Encode()));
 
-                var blockHash = await client.Chain.GetBlockHashAsync(new BlockNumber(i), cancellationToken);
+                var blockHash = await client.Chain.GetBlockHashAsync(blockNumber, cancellationToken);
 
                 //var block = await client.Chain.GetBlockAsync(blockHash, cancellationToken);
 
                 // Print result
                 //Console.WriteLine($"{i} --> {block.Block.Extrinsics.Length}");
-                Console.WriteLine($"{i} --> {blockHash.HexString}");
+                Console.WriteLine($"{i} --> {blockHash.Value}");
             }
             //Console.WriteLine(client.MetaData.Serialize());
 

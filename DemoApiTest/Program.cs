@@ -61,24 +61,25 @@ namespace DemoApiTest
 
         static async Task MainAsync(CancellationToken cancellationToken)
         {
-            Account accountAlice = new Account(
+            Account accountAlice = Account.Build(
                 KeyType.SR25519,
                 Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011"),
                 Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"));
 
-            Account accountZurich = new Account(
+            Account accountZurich = Account.Build(
                 KeyType.ED25519,
                 Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
 
-            Account accountDMOG_GALxeh = new Account(
+            Account accountDMOG_GALxeh = Account.Build(
                 KeyType.ED25519,
                 Utils.HexToByteArray("0x3f997449154f8aaa134341b07c3710f63d57e73025105ca7e65a151d7fc3e2bf4b94e38b0c2ee21c367d4c9584204ce62edf5b4a6f675f10678cc56b6ea86e71"),
                 Utils.GetPublicKeyFrom("5DmogGALxehCbUmm45XJoADcf9BU71ZK2zmqHDPFJD3VxknC"));
 
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 
-            client.RegisterTypeConverter(new MogwaiStructTypeConverter());
+            // add chain specific types here
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
 
             await client.ConnectAsync(cancellationToken);
 
@@ -91,11 +92,17 @@ namespace DemoApiTest
             //var systemChain = await client.System.ChainAsync(cancellationToken);
             //var systemRuntimeVersion = await client.State.GetRuntimeVersionAsync(cancellationToken);
             //Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
-            //Console.WriteLine($"Running: {systemRuntimeVersion.SpecName}[{systemRuntimeVersion.SpecVersion}] transaction_version: {systemRuntimeVersion.TransactionVersion}.");
+            Console.WriteLine($"Running: {client.RuntimeVersion.SpecName}[{client.RuntimeVersion.SpecVersion}] transaction_version: {client.RuntimeVersion.TransactionVersion}.");
+
+
+            // TODO: Implement all rpc standard functions from substrate node
+            //var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
 
             /***
              * Testing storage data ...
              */
+            var address = "5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH";
+            var mogwaiId = "0xc6e023f423709bc1a955f2913ad71333e0563453ad0347d09c012bcd6590c8b5";
 
             //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
@@ -103,32 +110,36 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
 
             // [Plain] Value: u64
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")), cancellationToken);
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisArray", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")), "2" } , cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisArray", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address)), "1" } , cancellationToken);
 
             // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", "0", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", new[]{"0"}, cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaiOwner", new string[] { "0x2486341751d3da79e30624fcaa9ddcdc963d8554eadb5ed730f398f7450a5e6f" }, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaiOwner", new string[] { mogwaiId }, cancellationToken);
 
-            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", "0x17E26CA749780270EEC18507AB3C03854E75E264DB13EC1F90314C3AF02CCDF8", cancellationToken);
+            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
-            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, BalanceOf<T>>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
-
-
-            var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
+            // TODO: [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: Vec<u8>
+            var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
-            //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ")), cancellationToken);
-            //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(Utils.HexToByteArray("0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D")), cancellationToken);
-            //var reqResult = await client.GetStorageAsync("System", "Account", Utils.Bytes2HexString(accountZurich.PublicKey), cancellationToken);
+            //var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
+
+            //var hash = new Hash();
+            //hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
+            //var reqResult = await client.Chain.GetHeaderAsync(hash, cancellationToken);
+
+            //var hash = new Hash();
+            //hash.Create("0xf7ed3ff62195438d16616cae55cb450e1fdb6e8602190a335b0684fc50f33311");
+            //var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
+
+            // ****************************************************************************************************************************************
 
             // 455455
             // 0x98d7f5fe3efd88cd28d928c418c9ddc8dee254a2e11925a1a78b2ca6c2aac6d5
-            //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x98d7f5fe3efd88cd28d928c418c9ddc8dee254a2e11925a1a78b2ca6c2aac6d5"), cancellationToken);
             //var reqResult = await client.Chain.GetBlockHashAsync(new BlockNumber(455455), cancellationToken);
 
             // 486587
@@ -148,8 +159,6 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(new Hash("0x2a6fa42837069b0b41613855c667daf2fb5418dcdd915db6a0cac68810083296"), cancellationToken);
 
             //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x76d50aa9a8cf86f7c1e5b40c2a02607dc63e3a3fc1077f7172280b443b16252d"), cancellationToken);
-
-            //var reqResult = await client.Chain.GetHeaderAsync(new Hash("0x0cf64c1e0e45b2fba6fd524e180737f5e1bb46e0691783d6963b2e26253f8592"), cancellationToken);
 
             //var reqResult = await client.GetMethodAsync<JArray>("author_pendingExtrinsics", cancellationToken);
 
@@ -189,14 +198,14 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
             //Console.WriteLine(client.MetaData.Serialize());
 
-            Console.ReadKey();
-
-            // Close connection
+           // Close connection
             await client.CloseAsync(cancellationToken);
+
+            Console.ReadKey();
 
         }
 

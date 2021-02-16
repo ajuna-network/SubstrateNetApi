@@ -48,32 +48,42 @@ namespace SubstrateNetApi.TypeConverters
                                         break;
                                     case "inBlock":
                                         reader.Read();
-                                        extrinsicStatus.InBlock = new Hash((string)reader.Value);
+                                        var inBlock = new Hash();
+                                        inBlock.Create((string)reader.Value);
+                                        extrinsicStatus.InBlock = inBlock;
                                         break;
                                     case "finalized":
                                         reader.Read();
-                                        extrinsicStatus.Finalized = new Hash((string)reader.Value);
+                                        var finalized = new Hash();
+                                        finalized.Create((string)reader.Value);
+                                        extrinsicStatus.Finalized = finalized;
                                         break;
                                     case "finalityTimeout":
                                         reader.Read();
-                                        extrinsicStatus.FinalityTimeout = new Hash((string)reader.Value);
+                                        var finalityTimeout = new Hash();
+                                        finalityTimeout.Create((string)reader.Value);
+                                        extrinsicStatus.FinalityTimeout = finalityTimeout;
                                         break;
                                     case "retracted":
                                         reader.Read();
-                                        extrinsicStatus.Retracted = new Hash((string)reader.Value);
+                                        var retracted = new Hash();
+                                        retracted.Create((string)reader.Value);
+                                        extrinsicStatus.Retracted = retracted;
                                         break;
                                     case "usurped":
                                         reader.Read();
-                                        extrinsicStatus.Usurped = new Hash((string)reader.Value);
+                                        var usurped = new Hash();
+                                        usurped.Create((string)reader.Value);
+                                        extrinsicStatus.Usurped = usurped;
                                         break;
                                     default:
-                                        throw new NotImplementedException($"Unimplemneted { reader.TokenType } of type '{reader.ValueType}' and value '{reader.Value}'.");
+                                        throw new NotImplementedException($"Unimplemented { reader.TokenType } of type '{reader.ValueType}' and value '{reader.Value}'.");
                                 }
                             }
 
                             break;
                         default:
-                            throw new NotImplementedException($"Unimplemneted { reader.TokenType } of type '{reader.ValueType}' and value '{reader.Value}'.");
+                            throw new NotImplementedException($"Unimplemented { reader.TokenType } of type '{reader.ValueType}' and value '{reader.Value}'.");
                     }
                     reader.Read();
                 }

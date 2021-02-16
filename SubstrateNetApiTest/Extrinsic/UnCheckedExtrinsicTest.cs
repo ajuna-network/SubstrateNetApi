@@ -59,7 +59,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Era era = new Era(Constants.ExtrinsicEraPeriodDefault, currentBlockNumber, currentBlockNumber == 0 ? true : false);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.ED25519, new byte[0], publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(currentBlockHash));
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var currentBlock = new Hash();
+            currentBlock.Create(currentBlockHash);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, Account.Build(KeyType.ED25519, new byte[0], publicKey), method, era, nonce, tip, genesis, currentBlock);
 
             string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0014ae74dd7964365038eba44f51c347b9c7070231d56e38ef1024457ebdc6dc03d20226243b1b2731df6fd80f7170643221bd8bf8d06215d4bfeac68a2c9d2305f50204491304009effc1668ca381c242885516ec9fa2b19c67b6684c02a8a3237b6862e5c8cd7e068d6deb";
 
@@ -120,7 +126,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Era era = new Era(Constants.ExtrinsicEraPeriodDefault, currentBlockNumber, currentBlockNumber == 0 ? true : false);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.ED25519, new byte[0], publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(currentBlockHash));
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var currentBlock = new Hash();
+            currentBlock.Create(currentBlockHash);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, Account.Build(KeyType.ED25519, new byte[0], publicKey), method, era, nonce, tip, genesis, currentBlock);
 
             string balanceTransfer = "0x350284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e0097176876e9cb26b2449855a332efee478768b31e215ed025ce57dd8e6bdfa63df3adfcf29091eb53c326173a5aad23661e074d132ae804bbd91126cd1909330275001849130400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27dc62ed301";
 
@@ -194,7 +206,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Era era = new Era(Constants.ExtrinsicEraPeriodDefault, currentBlockNumber, currentBlockNumber == 0 ? true : false);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(startEra));
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var startEraHash = new Hash();
+            startEraHash.Create(startEra);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, Account.Build(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, genesis, startEraHash);
 
             string balanceTransfer = "0x2d0284d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01726ba1fab06d3e1bf6abfa0d5af85e25f2a970e11384162b7caf83935c58f769b6fef3b83a29ffd8d813a037d01cd6bcb21beaa88e9a18b3abe366b0458a8a82a5001049130400278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e8543";
 
@@ -244,7 +262,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Era era = new Era(Constants.ExtrinsicEraPeriodDefault, currentBlockNumber, currentBlockNumber == 0 ? true : false);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(currentBlockHash));
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var currentBlock = new Hash();
+            currentBlock.Create(currentBlockHash);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, Account.Build(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, genesis, currentBlock);
 
             string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01b8fb3fe1b723b69ed2011e5e3b168f202dfae3853c81d5617dd35a60c29f1c4b49b95dcf5631cca678837bc1b347dd1c20161e12512e16ced78a9592deecda8c0014000602";
 
@@ -310,7 +334,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Era era = new Era(Constants.ExtrinsicEraPeriodDefault, currentBlockNumber, currentBlockNumber == 0 ? true : false);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(currentBlockHash));
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var currentBlock = new Hash();
+            currentBlock.Create(currentBlockHash);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, Account.Build(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, genesis, currentBlock);
 
             string dmogCreateImmortal = "0x9d0184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01583313ef997e42929d889260ee8b75ae7fb5ce19b92e435ca0827a8c7b5bc44b7d1d3a8638d76c24ef47e61981b54bddfde64aa0c078f2b78ef915ff1b74468f0014000602";
 
@@ -405,7 +435,13 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Method method = new Method(moduleIndex, callIndex, parameters);
 
-            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, new Account(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, new Hash(genesisHash), new Hash(currentBlockHash));
+            var genesis = new Hash();
+            genesis.Create(genesisHash);
+
+            var currentBlock = new Hash();
+            currentBlock.Create(currentBlockHash);
+
+            var uncheckedExtrinsic = new UnCheckedExtrinsic(true, Account.Build(KeyType.SR25519, new byte[0], publicKey), method, era, nonce, tip, genesis, currentBlock);
 
             string dmogCreateMortal = "0xa10184d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d01448082984004e4dc7cb964eba2eb7201c5686d80e666944e2aa01c2be95eaa5be9d547da63616a82631e87e4078a647fbd07920f97c8ea0993207c0fbdd2a98e150314000602";
 
@@ -463,7 +499,7 @@ namespace SubstrateNetApiTests.Extrinsic
 
             byte[] privatKey = Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
             byte[] publicKey = Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
-            var account = new Account(KeyType.ED25519, privatKey, publicKey);
+            var account = Account.Build(KeyType.ED25519, privatKey, publicKey);
 
             var bytes = new List<byte>();
             bytes.AddRange(Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"));
@@ -477,9 +513,11 @@ namespace SubstrateNetApiTests.Extrinsic
 
             CompactInteger tip = 0;
 
-            var genesis = new Hash(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"));
-            var startEra = new Hash(Utils.HexToByteArray("0x4c4e0d1594e526c2392e7b6306f890fd0705085a5f83f9114caebb369bc1511f")); // FinalizedHead 15686
+            var genesis = new Hash();
+            genesis.Create(Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9"));
 
+            var startEra = new Hash();
+            startEra.Create(Utils.HexToByteArray("0x4c4e0d1594e526c2392e7b6306f890fd0705085a5f83f9114caebb369bc1511f")); // FinalizedHead 15686
 
             // mocked signature
             byte[] signature = Utils.HexToByteArray("0x7C9777CF14FE0E14E8AEF019695043BE2FD153A75FF3381F4CC4850755D537B1A9D7920E509EE2E4E1F244DAD670DC44EC3FC24388181E6465FDDA13D59AE700");
@@ -526,7 +564,7 @@ namespace SubstrateNetApiTests.Extrinsic
             };
             Constants.AddressVersion = 1;
 
-            Account accountZurich = new Account(
+            Account accountZurich = Account.Build(
                 KeyType.ED25519,
                 Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
@@ -546,14 +584,20 @@ namespace SubstrateNetApiTests.Extrinsic
 
             CompactInteger tip = 0;
 
+            var genesis = new Hash();
+            genesis.Create(Utils.HexToByteArray("0x778c4bb53621114939206c9c9874c5fa1da38d2e14293d053a0b8dd6125b4042"));
+
+            var startEra = new Hash();
+            startEra.Create(Utils.HexToByteArray("0x1a62fe1013aab94901e7dd80051f8e2b6b3c44bd0f0c934ff665768d459b3aa5"));
+
             var uncheckedExtrinsic = new UnCheckedExtrinsic(true
-                , new Account(KeyType.ED25519, privatKey, publicKey)
+                , Account.Build(KeyType.ED25519, privatKey, publicKey)
                 , method
                 , era
                 , 1
                 , 0
-                , new Hash("0x778c4bb53621114939206c9c9874c5fa1da38d2e14293d053a0b8dd6125b4042")
-                , new Hash("0x1a62fe1013aab94901e7dd80051f8e2b6b3c44bd0f0c934ff665768d459b3aa5") // currentblock
+                , genesis
+                , startEra // currentblock
             );
 
 
@@ -646,7 +690,7 @@ namespace SubstrateNetApiTests.Extrinsic
 
             // 797447 --> 0xe7b99ee484e6369dd3c2a66d6306bffde5048ddf2090e990faae83e66f5275f4
 
-            Account accountZurich = new Account(
+            Account accountZurich = Account.Build(
                 KeyType.ED25519,
                 Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
@@ -667,8 +711,13 @@ namespace SubstrateNetApiTests.Extrinsic
             //bytes.AddRange(amount.Encode());
             //byte[] parameters = bytes.ToArray();
             ////var method = new Method(0x06, 0x00, parameters);
+            var accountId = new AccountId();
+            accountId.Create(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"));
 
-            var extrinsic = ExtrinsicCall.BalanceTransfer(new AccountId(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")), new Balance(123000000000000));
+            var balance = new Balance();
+            balance.Create(123000000000000);
+
+            var extrinsic = ExtrinsicCall.BalanceTransfer(accountId, balance);
 
             var method = new Method(0x06, 0x00, extrinsic.Encode());
 
@@ -680,14 +729,20 @@ namespace SubstrateNetApiTests.Extrinsic
 
             CompactInteger tip = 0;
 
+            var genesis = new Hash();
+            genesis.Create(Utils.HexToByteArray("0x778c4bb53621114939206c9c9874c5fa1da38d2e14293d053a0b8dd6125b4042"));
+
+            var startEra = new Hash();
+            startEra.Create(Utils.HexToByteArray("0xd5a0f4467c6c8885b531f12028789e83c2e473b8d2d44edbc09811fd2f903f1f"));
+
             var uncheckedExtrinsic = new UnCheckedExtrinsic(true
-                , new Account(KeyType.ED25519, privatKey, publicKey)
+                , Account.Build(KeyType.ED25519, privatKey, publicKey)
                 , method
                 , era
                 , nonce
                 , tip
-                , new Hash("0x778c4bb53621114939206c9c9874c5fa1da38d2e14293d053a0b8dd6125b4042")
-                , new Hash("0xd5a0f4467c6c8885b531f12028789e83c2e473b8d2d44edbc09811fd2f903f1f") // currentblock
+                , genesis
+                , startEra // currentblock
             );
 
             //uncheckedExtrinsic.AddPayloadSignature(Utils.HexToByteArray("0xd6a14aac2c0da8330f67a04f9ff4154b3c31d02529eaf112a23d59f5a5e1d1766efbb7f4dd56e6ed84a543de94342bdec8c80bdac62373d22387ea980a42270f"));
