@@ -5,23 +5,10 @@ namespace SubstrateNetApi.Model.Types.Struct
 {
     public class MogwaiStruct : StructType
     {
+        public override string Name() => "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>";
+
         private int _size;
-
-        public Hash Id { get; private set; }
-        public Hash Dna { get; private set; }
-        public BlockNumber Genesis { get; private set; }
-        public Balance Price { get; private set; }
-        public U64 Gen { get; private set; }
-
-        public override string Name()
-        {
-            return "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>";
-        }
-
-        public override int Size()
-        {
-            return _size;
-        }
+        public override int Size() => _size;
 
         public override byte[] Encode()
         {
@@ -49,5 +36,11 @@ namespace SubstrateNetApi.Model.Types.Struct
 
             _size = p - start;
         }
+
+        public Hash Id { get; private set; }
+        public Hash Dna { get; private set; }
+        public BlockNumber Genesis { get; private set; }
+        public Balance Price { get; private set; }
+        public U64 Gen { get; private set; }
     }
 }

@@ -6,21 +6,10 @@ namespace SubstrateNetApi.Model.Types.Struct
 {
     public class DispatchInfo : StructType
     {
+        public override string Name() => "DispatchInfo";
+
         private int _size;
-
-        public U64 Weight { get; set; }
-        public EnumType<DispatchClass> DispatchClass { get; set; }
-        public EnumType<Pays> Pays { get; set; }
-
-        public override string Name()
-        {
-            return "DispatchInfo";
-        }
-
-        public override int Size()
-        {
-            return _size;
-        }
+        public override int Size() => _size;
 
         public override byte[] Encode()
         {
@@ -43,5 +32,9 @@ namespace SubstrateNetApi.Model.Types.Struct
 
             _size = p - start;
         }
+
+        public U64 Weight { get; set; }
+        public EnumType<DispatchClass> DispatchClass { get; set; }
+        public EnumType<Pays> Pays { get; set; }
     }
 }

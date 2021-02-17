@@ -5,12 +5,11 @@ namespace SubstrateNetApi.Model.Types
 {
     public abstract class BaseType<T> : IType
     {
-        [JsonIgnore] public byte[] Bytes { get; internal set; }
-
-        public T Value { get; internal set; }
         public abstract string Name();
-
         public abstract int Size();
+
+        [JsonIgnore] 
+        public byte[] Bytes { get; internal set; }
 
         public abstract byte[] Encode();
 
@@ -22,26 +21,17 @@ namespace SubstrateNetApi.Model.Types
             Create(result);
         }
 
-        public virtual void Create(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
+        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
 
-        public virtual void CreateFromJson(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
+        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
 
         public abstract void Create(byte[] byteArray);
 
-        public IType New()
-        {
-            return this;
-        }
+        public IType New() => this;
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(Value);
-        }
+        public override string ToString() => JsonConvert.SerializeObject(Value);
+
+        public T Value { get; internal set; }
+
     }
 }

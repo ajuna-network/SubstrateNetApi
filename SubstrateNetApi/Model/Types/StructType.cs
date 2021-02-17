@@ -4,26 +4,20 @@ namespace SubstrateNetApi.Model.Types
 {
     public abstract class StructType : IType
     {
-        [JsonIgnore] public byte[] Bytes { get; internal set; }
-
         public abstract string Name();
 
         public abstract int Size();
+
+        [JsonIgnore] 
+        public byte[] Bytes { get; internal set; }
 
         public abstract byte[] Encode();
 
         public abstract void Decode(byte[] byteArray, ref int p);
 
+        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
 
-        public virtual void Create(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
-
-        public virtual void CreateFromJson(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
+        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
 
         public void Create(byte[] byteArray)
         {
@@ -31,14 +25,8 @@ namespace SubstrateNetApi.Model.Types
             Decode(byteArray, ref p);
         }
 
-        public IType New()
-        {
-            return this;
-        }
+        public IType New() => this;
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

@@ -4,15 +4,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class U32 : BaseType<uint>
     {
-        public override string Name()
-        {
-            return "u32";
-        }
+        public override string Name() => "u32";
 
-        public override int Size()
-        {
-            return 4;
-        }
+        public override int Size() => 4;
 
         public override byte[] Encode()
         {

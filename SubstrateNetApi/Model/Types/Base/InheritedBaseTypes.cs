@@ -4,81 +4,51 @@ namespace SubstrateNetApi.Model.Types
 {
     public class BountyIndex : U32
     {
-        public override string Name()
-        {
-            return "BountyIndex";
-        }
+        public override string Name() => "BountyIndex";
     }
 
     public class CallHash : Hash
     {
-        public override string Name()
-        {
-            return "CallHash";
-        }
+        public override string Name() => "CallHash";
     }
 
     public class EraIndex : U32
     {
-        public override string Name()
-        {
-            return "EraIndex";
-        }
+        public override string Name() => "EraIndex";
     }
 
     public class MemberCount : U32
     {
-        public override string Name()
-        {
-            return "MemberCount";
-        }
+        public override string Name() => "MemberCount";
     }
 
     public class PropIndex : U32
     {
-        public override string Name()
-        {
-            return "PropIndex";
-        }
+        public override string Name() => "PropIndex";
     }
 
     public class SessionIndex : U32
     {
-        public override string Name()
-        {
-            return "SessionIndex";
-        }
+        public override string Name() => "SessionIndex";
     }
 
     public class ProposalIndex : U32
     {
-        public override string Name()
-        {
-            return "ProposalIndex";
-        }
+        public override string Name() => "ProposalIndex";
     }
 
     public class ReferendumIndex : U32
     {
-        public override string Name()
-        {
-            return "ReferendumIndex";
-        }
+        public override string Name() => "ReferendumIndex";
     }
 
     public class RefCount : U32
     {
-        public override string Name()
-        {
-            return "RefCount";
-        }
+        public override string Name() => "RefCount";
     }
 
     public class RegistrarIndex : U32
     {
-        public override string Name()
-        {
-            return "RegistrarIndex";
-        }
+        public override string Name() => "RegistrarIndex";
     }
 }

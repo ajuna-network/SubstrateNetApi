@@ -5,22 +5,10 @@ namespace SubstrateNetApi.Model.Types.Struct
 {
     public class AccountInfo : StructType
     {
+        public override string Name() => "AccountInfo<T::Index, T::AccountData>";
+
         private int _size;
-
-        public U32 Nonce { get; private set; }
-        public RefCount Consumers { get; private set; }
-        public RefCount Providers { get; private set; }
-        public AccountData AccountData { get; private set; }
-
-        public override string Name()
-        {
-            return "AccountInfo<T::Index, T::AccountData>";
-        }
-
-        public override int Size()
-        {
-            return _size;
-        }
+        public override int Size() => _size;
 
         public override byte[] Encode()
         {
@@ -45,5 +33,10 @@ namespace SubstrateNetApi.Model.Types.Struct
 
             _size = p - start;
         }
+
+        public U32 Nonce { get; private set; }
+        public RefCount Consumers { get; private set; }
+        public RefCount Providers { get; private set; }
+        public AccountData AccountData { get; private set; }
     }
 }

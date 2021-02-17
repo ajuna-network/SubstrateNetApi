@@ -6,20 +6,12 @@ namespace SubstrateNetApi.Model.Types
 {
     public class EnumType<T> : IType where T : System.Enum
     {
-        [JsonIgnore] public byte[] Bytes { get; internal set; }
+        public string Name() => typeof(T).Name;
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public T Value { get; internal set; }
+        public int Size() => 1;
 
-        public string Name()
-        {
-            return typeof(T).Name;
-        }
-
-        public int Size()
-        {
-            return 1;
-        }
+        [JsonIgnore] 
+        public byte[] Bytes { get; internal set; }
 
         public byte[] Encode()
         {
@@ -34,15 +26,9 @@ namespace SubstrateNetApi.Model.Types
             Create(result);
         }
 
-        public virtual void Create(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
+        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
 
-        public virtual void CreateFromJson(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
+        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
 
         public void Create(byte[] byteArray)
         {
@@ -50,14 +36,12 @@ namespace SubstrateNetApi.Model.Types
             Value = (T) System.Enum.Parse(typeof(T), byteArray[0].ToString(), true);
         }
 
-        public IType New()
-        {
-            return this;
-        }
+        public IType New() => this;
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(Value);
-        }
+        public override string ToString() => JsonConvert.SerializeObject(Value);
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public T Value { get; internal set; }
+
     }
 }

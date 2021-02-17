@@ -4,15 +4,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class U16 : BaseType<ushort>
     {
-        public override string Name()
-        {
-            return "u16";
-        }
+        public override string Name() => "u16";
 
-        public override int Size()
-        {
-            return 2;
-        }
+        public override int Size() => 2;
 
         public override byte[] Encode()
         {

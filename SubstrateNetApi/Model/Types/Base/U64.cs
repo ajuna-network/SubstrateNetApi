@@ -4,15 +4,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class U64 : BaseType<ulong>
     {
-        public override string Name()
-        {
-            return "u64";
-        }
+        public override string Name() => "u64";
 
-        public override int Size()
-        {
-            return 8;
-        }
+        public override int Size() => 8;
 
         public override byte[] Encode()
         {

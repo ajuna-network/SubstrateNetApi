@@ -5,16 +5,10 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class AccountId : BaseType<string>
     {
-        public override string Name()
-        {
-            return "T::AccountId";
-        }
+        public override string Name() => "T::AccountId";
 
         // TODO: might have to change this based on the address type.
-        public override int Size()
-        {
-            return 32;
-        }
+        public override int Size() => 32;
 
         public override byte[] Encode()
         {

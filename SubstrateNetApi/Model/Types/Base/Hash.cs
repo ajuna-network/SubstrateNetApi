@@ -2,15 +2,9 @@
 {
     public class Hash : BaseType<string>
     {
-        public override string Name()
-        {
-            return "T::Hash";
-        }
+        public override string Name() => "T::Hash";
 
-        public override int Size()
-        {
-            return 32;
-        }
+        public override int Size() => 32;
 
         public override byte[] Encode()
         {

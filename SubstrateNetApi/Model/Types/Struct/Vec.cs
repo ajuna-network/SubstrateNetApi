@@ -5,19 +5,10 @@ namespace SubstrateNetApi.Model.Types.Struct
 {
     public class Vec<T> : StructType where T : IType, new()
     {
+        public override string Name() => $"Vec<{new T().Name()}>";
+
         private int _size;
-
-        public List<T> Value { get; internal set; }
-
-        public override string Name()
-        {
-            return $"Vec<{new T().Name()}>";
-        }
-
-        public override int Size()
-        {
-            return _size;
-        }
+        public override int Size() => _size;
 
         public override byte[] Encode()
         {
@@ -43,5 +34,7 @@ namespace SubstrateNetApi.Model.Types.Struct
 
             _size = p - start;
         }
+
+        public List<T> Value { get; internal set; }
     }
 }
