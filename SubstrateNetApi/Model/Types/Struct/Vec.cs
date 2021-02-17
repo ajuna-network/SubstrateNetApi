@@ -1,22 +1,23 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using MessagePack.Formatters;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Vec<T> : StructType where T: IType, new()
+    public class Vec<T> : StructType where T : IType, new()
     {
-        private int _size = 0;
+        private int _size;
 
-        public override string Name() => $"Vec<{new T().Name()}>";
+        public List<T> Value { get; internal set; }
+
+        public override string Name()
+        {
+            return $"Vec<{new T().Name()}>";
+        }
 
         public override int Size()
         {
             return _size;
         }
-
-        public List<T> Value { get; internal set; }
 
         public override byte[] Encode()
         {

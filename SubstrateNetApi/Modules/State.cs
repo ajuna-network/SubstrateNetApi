@@ -1,13 +1,7 @@
-﻿/// <file> SubstrateNetApi\Modules\System.cs </file>
-/// <copyright file="System.cs" company="mogwaicoin.org">
-/// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
-/// </copyright>
-/// <summary> Implements the state class. </summary>
-using Newtonsoft.Json.Linq;
-using SubstrateNetApi.Model.Types;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetApi.Modules
@@ -27,55 +21,95 @@ namespace SubstrateNetApi.Modules
             _client = client;
         }
 
-        public async Task<string> GetMetaDataAsync() => await GetMetaDataAsync(CancellationToken.None);
+        public async Task<string> GetMetaDataAsync()
+        {
+            return await GetMetaDataAsync(CancellationToken.None);
+        }
+
         public async Task<string> GetMetaDataAsync(CancellationToken token)
         {
             return await _client.InvokeAsync<string>("state_getMetadata", null, token);
         }
 
-        public async Task<JArray> GetPairsAsync(byte[] keyPrefix) => await GetPairsAsync(keyPrefix, CancellationToken.None);
+        public async Task<JArray> GetPairsAsync(byte[] keyPrefix)
+        {
+            return await GetPairsAsync(keyPrefix, CancellationToken.None);
+        }
+
         public async Task<JArray> GetPairsAsync(byte[] keyPrefix, CancellationToken token)
         {
-            return await _client.InvokeAsync<JArray>("state_getPairs", new object[] { Utils.Bytes2HexString(keyPrefix, Utils.HexStringFormat.PREFIXED) }, token);
+            return await _client.InvokeAsync<JArray>("state_getPairs", new object[] {Utils.Bytes2HexString(keyPrefix)},
+                token);
         }
 
-        public async Task<JArray> GetKeysPagedAsync(byte[] keyPrefix, uint pageCount, byte[] startKey) => await GetKeysPagedAsync(keyPrefix, pageCount, startKey, CancellationToken.None);
-        public async Task<JArray> GetKeysPagedAsync(byte[] keyPrefix, uint pageCount, byte[] startKey, CancellationToken token)
+        public async Task<JArray> GetKeysPagedAsync(byte[] keyPrefix, uint pageCount, byte[] startKey)
         {
-            return startKey.Length == 0 ? 
-                await _client.InvokeAsync<JArray>("state_getKeysPaged", new object[] { Utils.Bytes2HexString(keyPrefix), pageCount }, token) :
-                await _client.InvokeAsync<JArray>("state_getKeysPaged", new object[] { Utils.Bytes2HexString(keyPrefix), pageCount, Utils.Bytes2HexString(startKey) }, token);
+            return await GetKeysPagedAsync(keyPrefix, pageCount, startKey, CancellationToken.None);
         }
 
-        public async Task<RuntimeVersion> GetRuntimeVersionAsync() => await GetRuntimeVersionAsync(CancellationToken.None);
+        public async Task<JArray> GetKeysPagedAsync(byte[] keyPrefix, uint pageCount, byte[] startKey,
+            CancellationToken token)
+        {
+            return startKey.Length == 0
+                ? await _client.InvokeAsync<JArray>("state_getKeysPaged",
+                    new object[] {Utils.Bytes2HexString(keyPrefix), pageCount}, token)
+                : await _client.InvokeAsync<JArray>("state_getKeysPaged",
+                    new object[] {Utils.Bytes2HexString(keyPrefix), pageCount, Utils.Bytes2HexString(startKey)}, token);
+        }
+
+        public async Task<RuntimeVersion> GetRuntimeVersionAsync()
+        {
+            return await GetRuntimeVersionAsync(CancellationToken.None);
+        }
+
         public async Task<RuntimeVersion> GetRuntimeVersionAsync(CancellationToken token)
         {
             return await _client.InvokeAsync<RuntimeVersion>("state_getRuntimeVersion", null, token);
         }
 
-        public async Task<string> SubscribeRuntimeVersionAsync() => await SubscribeRuntimeVersionAsync(CancellationToken.None);
+        public async Task<string> SubscribeRuntimeVersionAsync()
+        {
+            return await SubscribeRuntimeVersionAsync(CancellationToken.None);
+        }
+
         public async Task<string> SubscribeRuntimeVersionAsync(CancellationToken token)
         {
             return await _client.InvokeAsync<string>("state_subscribeRuntimeVersion", null, token);
         }
 
-        public async Task<bool> UnsubscribeRuntimeVersionAsync(string subscriptionId) => await UnsubscribeRuntimeVersionAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnsubscribeRuntimeVersionAsync(string subscriptionId)
+        {
+            return await UnsubscribeRuntimeVersionAsync(subscriptionId, CancellationToken.None);
+        }
+
         public async Task<bool> UnsubscribeRuntimeVersionAsync(string subscriptionId, CancellationToken token)
         {
-            return await _client.InvokeAsync<bool>("state_unsubscribeRuntimeVersion", new object[] { subscriptionId }, token);
+            return await _client.InvokeAsync<bool>("state_unsubscribeRuntimeVersion", new object[] {subscriptionId},
+                token);
         }
-        public async Task<string> SubscribeStorageAsync(JArray keys, Action<string, StorageChangeSet> callback) => await SubscribeStorageAsync(keys, callback, CancellationToken.None);
-        public async Task<string> SubscribeStorageAsync(JArray keys, Action<string, StorageChangeSet> callback, CancellationToken token)
+
+        public async Task<string> SubscribeStorageAsync(JArray keys, Action<string, StorageChangeSet> callback)
         {
-            var subscriptionId = await _client.InvokeAsync<string>("state_subscribeStorage", new object[] { keys }, token);
+            return await SubscribeStorageAsync(keys, callback, CancellationToken.None);
+        }
+
+        public async Task<string> SubscribeStorageAsync(JArray keys, Action<string, StorageChangeSet> callback,
+            CancellationToken token)
+        {
+            var subscriptionId =
+                await _client.InvokeAsync<string>("state_subscribeStorage", new object[] {keys}, token);
             _client.Listener.RegisterCallBackHandler(subscriptionId, callback);
             return subscriptionId;
         }
 
-        public async Task<bool> UnsubscribeStorageAsync(string subscriptionId) => await UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
+        public async Task<bool> UnsubscribeStorageAsync(string subscriptionId)
+        {
+            return await UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
+        }
+
         public async Task<bool> UnsubscribeStorageAsync(string subscriptionId, CancellationToken token)
         {
-            return await _client.InvokeAsync<bool>("state_unsubscribeStorage", new object[] { subscriptionId }, token);
+            return await _client.InvokeAsync<bool>("state_unsubscribeStorage", new object[] {subscriptionId}, token);
         }
     }
 }

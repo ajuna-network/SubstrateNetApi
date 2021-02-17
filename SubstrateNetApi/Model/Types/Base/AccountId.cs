@@ -1,15 +1,20 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class AccountId : BaseType<string>
     {
-        public override string Name() => "T::AccountId";
+        public override string Name()
+        {
+            return "T::AccountId";
+        }
 
         // TODO: might have to change this based on the address type.
-        public override int Size() => 32;
+        public override int Size()
+        {
+            return 32;
+        }
 
         public override byte[] Encode()
         {

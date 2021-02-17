@@ -1,13 +1,21 @@
 ﻿using System;
-using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types.Base;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Struct
 {
     public class AccountData : StructType
     {
-        private int _size = 0;
+        private int _size;
 
-        public override string Name() => "AccountData<T::Balance>";
+        public Balance Free { get; private set; }
+        public Balance Reserved { get; private set; }
+        public Balance MiscFrozen { get; private set; }
+        public Balance FeeFrozen { get; private set; }
+
+        public override string Name()
+        {
+            return "AccountData<T::Balance>";
+        }
 
         public override int Size()
         {
@@ -37,10 +45,5 @@ namespace SubstrateNetApi.Model.Types
 
             _size = p - start;
         }
-
-        public Balance Free { get; private set; }
-        public Balance Reserved { get; private set; }
-        public Balance MiscFrozen { get; private set; }
-        public Balance FeeFrozen { get; private set; }
     }
 }

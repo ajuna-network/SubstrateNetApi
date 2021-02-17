@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types
 {
     public enum KeyType
     {
-        ED25519, SR25519
+        Ed25519,
+        Sr25519
     }
 
     public class Account : AccountId
@@ -19,9 +21,9 @@ namespace SubstrateNetApi.Model.Types
             {
                 switch (KeyType)
                 {
-                    case KeyType.ED25519:
+                    case KeyType.Ed25519:
                         return 0;
-                    case KeyType.SR25519:
+                    case KeyType.Sr25519:
                         return 1;
                     default:
                         throw new Exception($"Unknown key type found '{KeyType}'.");
@@ -29,8 +31,7 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        [JsonIgnore]
-        public byte[] PrivateKey { get; private set; }
+        [JsonIgnore] public byte[] PrivateKey { get; private set; }
 
         public void Create(KeyType keyType, byte[] privateKey, byte[] publicKey)
         {

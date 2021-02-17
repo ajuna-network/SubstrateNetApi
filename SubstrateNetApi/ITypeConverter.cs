@@ -1,9 +1,4 @@
-﻿/// <file> SubstrateNetApi\ITypeConverter.cs </file>
-/// <copyright file="ITypeConverter.cs" company="mogwaicoin.org">
-/// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
-/// </copyright>
-/// <summary> Declares the ITypeConverter interface. </summary>
-namespace SubstrateNetApi
+﻿namespace SubstrateNetApi
 {
     /// <summary> Interface for type converter. </summary>
     /// <remarks> 19.09.2020. </remarks>

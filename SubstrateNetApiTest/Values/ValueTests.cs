@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
-using SubstrateNetApi.Model.Rpc;
-using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Struct;
 
 namespace SubstrateNetApiTests
 {
@@ -21,16 +21,18 @@ namespace SubstrateNetApiTests
             switch (Constants.AddressVersion)
             {
                 case 0:
-                    Assert.AreEqual("D43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D9101", Utils.Bytes2HexString(callArguments.Encode(), Utils.HexStringFormat.PURE));
+                    Assert.AreEqual("D43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D9101",
+                        Utils.Bytes2HexString(callArguments.Encode(), Utils.HexStringFormat.Pure));
                     break;
                 case 1:
-                    Assert.AreEqual("FFD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D9101", Utils.Bytes2HexString(callArguments.Encode(), Utils.HexStringFormat.PURE));
+                    Assert.AreEqual("FFD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D9101",
+                        Utils.Bytes2HexString(callArguments.Encode(), Utils.HexStringFormat.Pure));
                     break;
                 case 2:
-                    Assert.AreEqual("00D43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D9101", Utils.Bytes2HexString(callArguments.Encode(), Utils.HexStringFormat.PURE));
+                    Assert.AreEqual("00D43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D9101",
+                        Utils.Bytes2HexString(callArguments.Encode(), Utils.HexStringFormat.Pure));
                     break;
             }
-            
         }
 
         [Test]
@@ -49,7 +51,8 @@ namespace SubstrateNetApiTests
         public void AccountDataTest()
         {
             var accountData = new AccountData();
-            accountData.Create(Utils.HexToByteArray("518fd3f9a8503a4f7e0000000000000000c040b571e8030000000000000000000000c16ff2862300000000000000000000000000000000000000000000000000"));
+            accountData.Create(Utils.HexToByteArray(
+                "518fd3f9a8503a4f7e0000000000000000c040b571e8030000000000000000000000c16ff2862300000000000000000000000000000000000000000000000000"));
             Assert.AreEqual("2329998717451725147985", accountData.Free.Value.ToString());
             Assert.AreEqual("1100000000000000", accountData.Reserved.Value.ToString());
             Assert.AreEqual("0", accountData.FeeFrozen.Value.ToString());

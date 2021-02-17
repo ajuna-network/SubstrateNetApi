@@ -1,12 +1,18 @@
 ﻿using System;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Base
 {
-    public class U64 : BaseType<ulong>
+    public class U32 : BaseType<uint>
     {
-        public override string Name() => "u64";
+        public override string Name()
+        {
+            return "u32";
+        }
 
-        public override int Size() => 8;
+        public override int Size()
+        {
+            return 4;
+        }
 
         public override byte[] Encode()
         {
@@ -17,11 +23,13 @@ namespace SubstrateNetApi.Model.Types
 
         public override void CreateFromJson(string str)
         {
-            byte[] bytes = Utils.HexToByteArray(str, true);
+            var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            Create(bytes);
+            var result = new byte[Size()];
+            bytes.CopyTo(result, 0);
+            Create(result);
         }
-        
+
         public override void Create(byte[] byteArray)
         {
             if (byteArray.Length < Size())
@@ -32,7 +40,7 @@ namespace SubstrateNetApi.Model.Types
             }
 
             Bytes = byteArray;
-            Value = BitConverter.ToUInt64(byteArray, 0);
+            Value = BitConverter.ToUInt32(byteArray, 0);
         }
     }
 }

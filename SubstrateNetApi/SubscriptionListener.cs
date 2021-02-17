@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using NLog;
 using StreamJsonRpc;
 using SubstrateNetApi.Model.Rpc;
-using SubstrateNetApi.Model.Types;
-using System;
-using System.Collections.Generic;
 
 namespace SubstrateNetApi
 {
@@ -27,10 +26,8 @@ namespace SubstrateNetApi
             if (_pendingHeaders.ContainsKey(subscriptionId))
             {
                 foreach (var h in _pendingHeaders[subscriptionId])
-                {
                     // we don't wait on the tasks to finish
-                    callback(subscriptionId, (T)h);
-                }
+                    callback(subscriptionId, (T) h);
                 _pendingHeaders.Remove(subscriptionId);
             }
         }
@@ -50,14 +47,11 @@ namespace SubstrateNetApi
 
             if (_headerCallbacks.ContainsKey(subscription))
             {
-                ((Action<string, T>)_headerCallbacks[subscription])(subscription, result);
+                ((Action<string, T>) _headerCallbacks[subscription])(subscription, result);
             }
             else
             {
-                if (!_pendingHeaders.ContainsKey(subscription))
-                {
-                    _pendingHeaders.Add(subscription, new List<object>());
-                }
+                if (!_pendingHeaders.ContainsKey(subscription)) _pendingHeaders.Add(subscription, new List<object>());
                 _pendingHeaders[subscription].Add(result);
             }
         }
@@ -98,5 +92,4 @@ namespace SubstrateNetApi
             GenericCallBack(subscription, result);
         }
     }
-
 }

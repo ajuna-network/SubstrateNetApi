@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using NLog;
-using System;
 
 namespace SubstrateNetWallet
 {
@@ -10,7 +10,7 @@ namespace SubstrateNetWallet
 
         public static bool TryReadFile<T>(string path, out T obj)
         {
-            obj = default(T);
+            obj = default;
 
             try
             {

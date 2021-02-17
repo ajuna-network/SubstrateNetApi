@@ -1,5 +1,6 @@
 ﻿using SubstrateNetApi.Model.Types;
 using System.Collections.Generic;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Extrinsics
 {

@@ -1,18 +1,30 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public abstract class BaseType<T> : IType
+    public class EnumType<T> : IType where T : System.Enum
     {
         [JsonIgnore] public byte[] Bytes { get; internal set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public T Value { get; internal set; }
-        public abstract string Name();
 
-        public abstract int Size();
+        public string Name()
+        {
+            return typeof(T).Name;
+        }
 
-        public abstract byte[] Encode();
+        public int Size()
+        {
+            return 1;
+        }
+
+        public byte[] Encode()
+        {
+            throw new NotImplementedException();
+        }
 
         public void Decode(byte[] byteArray, ref int p)
         {
@@ -32,7 +44,11 @@ namespace SubstrateNetApi.Model.Types
             Create(Utils.HexToByteArray(str));
         }
 
-        public abstract void Create(byte[] byteArray);
+        public void Create(byte[] byteArray)
+        {
+            Bytes = byteArray;
+            Value = (T) System.Enum.Parse(typeof(T), byteArray[0].ToString(), true);
+        }
 
         public IType New()
         {

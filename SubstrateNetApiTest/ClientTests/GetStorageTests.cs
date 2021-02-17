@@ -1,10 +1,12 @@
+using System;
+using System.Threading.Tasks;
 using NLog;
+using NLog.Config;
+using NLog.Targets;
 using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Exceptions;
-using SubstrateNetApi.Model.Types;
-using System;
-using System.Threading.Tasks;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApiTests.ClientTests
 {
@@ -17,10 +19,10 @@ namespace SubstrateNetApiTests.ClientTests
         [OneTimeSetUp]
         public void Setup()
         {
-            var config = new NLog.Config.LoggingConfiguration();
+            var config = new LoggingConfiguration();
 
             // Targets where to log to: File and Console
-            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+            var logconsole = new ConsoleTarget("logconsole");
 
             // Rules for mapping loggers to targets            
             config.AddRule(LogLevel.Debug, LogLevel.Fatal, logconsole);
@@ -46,7 +48,7 @@ namespace SubstrateNetApiTests.ClientTests
             Assert.AreEqual("AccountId", reqResult.GetType().Name);
             Assert.IsTrue(reqResult is AccountId);
 
-            var accountId = (AccountId)reqResult;
+            var accountId = (AccountId) reqResult;
             Assert.AreEqual("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", accountId.Value);
 
             await _substrateClient.CloseAsync();
@@ -57,7 +59,7 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", new string[] { "0" });
+            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", new[] {"0"});
             Assert.AreEqual("Hash", request.GetType().Name);
             Assert.IsTrue(request is Hash);
 
@@ -69,7 +71,8 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            Assert.ThrowsAsync<MissingParameterException>(async () => await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray"));
+            Assert.ThrowsAsync<MissingParameterException>(async () =>
+                await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray"));
 
             await _substrateClient.CloseAsync();
         }
@@ -79,7 +82,8 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
-            Assert.ThrowsAsync<MissingModuleOrItemException>(async () => await _substrateClient.GetStorageAsync("Invalid", "Name"));
+            Assert.ThrowsAsync<MissingModuleOrItemException>(async () =>
+                await _substrateClient.GetStorageAsync("Invalid", "Name"));
 
             await _substrateClient.CloseAsync();
         }
@@ -87,7 +91,8 @@ namespace SubstrateNetApiTests.ClientTests
         [Test]
         public void InvalidConnectionStateTest()
         {
-            Assert.ThrowsAsync<ClientNotConnectedException>(async () => await _substrateClient.GetStorageAsync("Invalid", "Name"));
+            Assert.ThrowsAsync<ClientNotConnectedException>(async () =>
+                await _substrateClient.GetStorageAsync("Invalid", "Name"));
         }
 
         [Test]
@@ -96,8 +101,10 @@ namespace SubstrateNetApiTests.ClientTests
             await _substrateClient.ConnectAsync();
 
             Assert.ThrowsAsync<MissingConverterException>(async () =>
-                await _substrateClient.GetStorageAsync("DotMogModule", "Mogwais", new string[] {
-                    "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C" }));
+                await _substrateClient.GetStorageAsync("DotMogModule", "Mogwais", new[]
+                {
+                    "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C"
+                }));
 
             await _substrateClient.CloseAsync();
         }

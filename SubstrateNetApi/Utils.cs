@@ -1,12 +1,8 @@
-﻿/// <file> SubstrateNetApi\Utils.cs </file>
-/// <copyright file="Utils.cs" company="mogwaicoin.org">
-/// Copyright (c) 2020 mogwaicoin.org. All rights reserved.
-/// </copyright>
-/// <summary> Implements the utilities class. </summary>
-using SubstrateNetApi.Model.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimpleBase;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi
 {
@@ -16,7 +12,12 @@ namespace SubstrateNetApi
     {
         /// <summary> Values that represent Hexadecimal string formats. </summary>
         /// <remarks> 19.09.2020. </remarks>
-        public enum HexStringFormat { PURE, DASH, PREFIXED }
+        public enum HexStringFormat
+        {
+            Pure,
+            Dash,
+            Prefixed
+        }
 
         /// <summary> Bytes 2 hexadecimal string. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -24,15 +25,15 @@ namespace SubstrateNetApi
         /// <param name="bytes">  The bytes. </param>
         /// <param name="format"> (Optional) Describes the format to use. </param>
         /// <returns> A string. </returns>
-        public static string Bytes2HexString(byte[] bytes, HexStringFormat format = HexStringFormat.PREFIXED)
+        public static string Bytes2HexString(byte[] bytes, HexStringFormat format = HexStringFormat.Prefixed)
         {
             switch (format)
             {
-                case HexStringFormat.PURE:
+                case HexStringFormat.Pure:
                     return BitConverter.ToString(bytes).Replace("-", string.Empty);
-                case HexStringFormat.DASH:
+                case HexStringFormat.Dash:
                     return BitConverter.ToString(bytes);
-                case HexStringFormat.PREFIXED:
+                case HexStringFormat.Prefixed:
                     return $"0x{BitConverter.ToString(bytes).Replace("-", string.Empty)}";
                 default:
                     throw new Exception($"Unimplemented hex string format '{format}'");
@@ -54,17 +55,12 @@ namespace SubstrateNetApi
 
             var result = new byte[strArray.Length];
 
-            for (int i = 0; i < strArray.Length; i++)
-            {
-                if (byte.TryParse(strArray[i], out byte parsedByte))
-                {
+            for (var i = 0; i < strArray.Length; i++)
+                if (byte.TryParse(strArray[i], out var parsedByte))
                     result[i] = parsedByte;
-                }
                 else
-                {
-                    throw new Exception("Not valid string array for byte array conversion. Format should be [ 0-255, 0-255, ...]");
-                }
-            }
+                    throw new Exception(
+                        "Not valid string array for byte array conversion. Format should be [ 0-255, 0-255, ...]");
 
             return result;
         }
@@ -76,30 +72,19 @@ namespace SubstrateNetApi
         /// <returns> A byte[]. </returns>
         public static byte[] HexToByteArray(string hex, bool evenLeftZeroPad = false)
         {
-            if (hex.Equals("0x0"))
-            {
-                return new byte[] { 0x00 };
-            }
+            if (hex.Equals("0x0")) return new byte[] {0x00};
 
             if (hex.Length % 2 == 1 && !evenLeftZeroPad)
                 throw new Exception("The binary key cannot have an odd number of digits");
 
-            if (hex.StartsWith("0x"))
-            {
-                hex = hex.Substring(2);
-            }
+            if (hex.StartsWith("0x")) hex = hex.Substring(2);
 
-            if (hex.Length % 2 != 0)
-            {
-                hex = hex.PadLeft(hex.Length + 1, '0');
-            }
+            if (hex.Length % 2 != 0) hex = hex.PadLeft(hex.Length + 1, '0');
 
-            byte[] arr = new byte[hex.Length >> 1];
+            var arr = new byte[hex.Length >> 1];
 
-            for (int i = 0; i < hex.Length >> 1; ++i)
-            {
-                arr[i] = (byte)((GetHexVal(hex[i << 1]) << 4) + (GetHexVal(hex[(i << 1) + 1])));
-            }
+            for (var i = 0; i < hex.Length >> 1; ++i)
+                arr[i] = (byte) ((GetHexVal(hex[i << 1]) << 4) + GetHexVal(hex[(i << 1) + 1]));
 
             return arr;
         }
@@ -112,10 +97,7 @@ namespace SubstrateNetApi
         /// <returns> An object. </returns>
         public static object Bytes2Value(byte[] value, bool littleEndian = true)
         {
-            if (!littleEndian)
-            {
-                Array.Reverse(value);
-            }
+            if (!littleEndian) Array.Reverse(value);
 
             switch (value.Length)
             {
@@ -128,7 +110,6 @@ namespace SubstrateNetApi
                 default:
                     throw new Exception($"Unhandled byte size {value.Length} for this method!");
             }
-
         }
 
         /// <summary> Size prefixed byte array. </summary>
@@ -168,10 +149,7 @@ namespace SubstrateNetApi
                     throw new Exception("Unhandled byte size for this method!");
             }
 
-            if (!littleEndian)
-            {
-                Array.Reverse(result);
-            }
+            if (!littleEndian) Array.Reverse(result);
 
             return result;
         }
@@ -182,13 +160,13 @@ namespace SubstrateNetApi
         /// <returns> The hexadecimal value. </returns>
         public static int GetHexVal(char hex)
         {
-            int val = (int)hex;
+            int val = hex;
             //For uppercase A-F letters:
             //return val - (val < 58 ? 48 : 55);
             //For lowercase a-f letters:
             //return val - (val < 58 ? 48 : 87);
             //Or the two combined, but a bit slower:
-            return val - (val < 58 ? 48 : (val < 97 ? 55 : 87));
+            return val - (val < 58 ? 48 : val < 97 ? 55 : 87);
         }
 
         /// <summary> Gets public key from. </summary>
@@ -198,25 +176,23 @@ namespace SubstrateNetApi
         /// <returns> An array of byte. </returns>
         public static byte[] GetPublicKeyFrom(string address)
         {
-            int PUBLIC_KEY_LENGTH = 32;
+            var PUBLIC_KEY_LENGTH = 32;
 
             var pubkByteList = new List<byte>();
 
-            var bs58decoded = SimpleBase.Base58.Bitcoin.Decode(address).ToArray();
-            int len = bs58decoded.Length;
+            var bs58decoded = Base58.Bitcoin.Decode(address).ToArray();
+            var len = bs58decoded.Length;
 
             if (len == 35)
             {
-                byte[] ssPrefixed = { 0x53, 0x53, 0x35, 0x38, 0x50, 0x52, 0x45 };
+                byte[] ssPrefixed = {0x53, 0x53, 0x35, 0x38, 0x50, 0x52, 0x45};
                 pubkByteList.AddRange(ssPrefixed);
                 pubkByteList.AddRange(bs58decoded.Take(PUBLIC_KEY_LENGTH + 1));
 
                 var blake2bHashed = HashExtension.Blake2(pubkByteList.ToArray(), 512);
                 if (bs58decoded[PUBLIC_KEY_LENGTH + 1] != blake2bHashed[0] ||
                     bs58decoded[PUBLIC_KEY_LENGTH + 2] != blake2bHashed[1])
-                {
                     throw new ApplicationException("Address checksum is wrong.");
-                }
 
                 return bs58decoded.Skip(1).Take(PUBLIC_KEY_LENGTH).ToArray();
             }
@@ -235,11 +211,11 @@ namespace SubstrateNetApi
             switch (keyType)
             {
                 case "u16":
-                    return BitConverter.GetBytes(UInt16.Parse(parameter));
+                    return BitConverter.GetBytes(ushort.Parse(parameter));
                 case "u32":
-                    return BitConverter.GetBytes(UInt32.Parse(parameter));
+                    return BitConverter.GetBytes(uint.Parse(parameter));
                 case "u64":
-                    return BitConverter.GetBytes(UInt64.Parse(parameter));
+                    return BitConverter.GetBytes(ulong.Parse(parameter));
                 case "T::Hash":
                     var hash = new Hash();
                     hash.Create(parameter);
@@ -251,7 +227,6 @@ namespace SubstrateNetApi
                 default:
                     throw new Exception("Unimplemented item function key 'item.Function.Key1'!");
             }
-
         }
 
         /// <summary> Gets address from. </summary>
@@ -260,17 +235,17 @@ namespace SubstrateNetApi
         /// <returns> The address from. </returns>
         public static string GetAddressFrom(byte[] bytes)
         {
-            int SR25519_PUBLIC_SIZE = 32;
-            int PUBLIC_KEY_LENGTH = 32;
+            var SR25519_PUBLIC_SIZE = 32;
+            var PUBLIC_KEY_LENGTH = 32;
 
             var plainAddr = Enumerable
-                .Repeat((byte)0x2A, 35)
+                .Repeat((byte) 0x2A, 35)
                 .ToArray();
 
             bytes.CopyTo(plainAddr.AsMemory(1));
 
             var ssPrefixed = new byte[SR25519_PUBLIC_SIZE + 8];
-            var ssPrefixed1 = new byte[] { 0x53, 0x53, 0x35, 0x38, 0x50, 0x52, 0x45 };
+            var ssPrefixed1 = new byte[] {0x53, 0x53, 0x35, 0x38, 0x50, 0x52, 0x45};
             ssPrefixed1.CopyTo(ssPrefixed, 0);
             plainAddr.AsSpan(0, SR25519_PUBLIC_SIZE + 1).CopyTo(ssPrefixed.AsSpan(7));
 
@@ -278,7 +253,7 @@ namespace SubstrateNetApi
             plainAddr[1 + PUBLIC_KEY_LENGTH] = blake2bHashed[0];
             plainAddr[2 + PUBLIC_KEY_LENGTH] = blake2bHashed[1];
 
-            var addrCh = SimpleBase.Base58.Bitcoin.Encode(plainAddr).ToArray();
+            var addrCh = Base58.Bitcoin.Encode(plainAddr).ToArray();
 
             return new string(addrCh);
         }

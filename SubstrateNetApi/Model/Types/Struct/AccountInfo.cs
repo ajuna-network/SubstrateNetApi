@@ -1,14 +1,21 @@
 ﻿using System;
-using System.Xml.Xsl;
-using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types.Base;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Struct
 {
     public class AccountInfo : StructType
     {
-        private int _size = 0;
+        private int _size;
 
-        public override string Name() => "AccountInfo<T::Index, T::AccountData>";
+        public U32 Nonce { get; private set; }
+        public RefCount Consumers { get; private set; }
+        public RefCount Providers { get; private set; }
+        public AccountData AccountData { get; private set; }
+
+        public override string Name()
+        {
+            return "AccountInfo<T::Index, T::AccountData>";
+        }
 
         public override int Size()
         {
@@ -38,10 +45,5 @@ namespace SubstrateNetApi.Model.Types
 
             _size = p - start;
         }
-
-        public U32 Nonce { get; private set; }
-        public RefCount Consumers { get; private set; }
-        public RefCount Providers { get; private set; }
-        public AccountData AccountData { get; private set; }
     }
 }

@@ -1,18 +1,20 @@
-﻿using Newtonsoft.Json;
-using SubstrateNetApi.Model.Rpc;
-using SubstrateNetApi.Model.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.TypeConverters
 {
     public class ExtrinsicStatusJsonConverter : JsonConverter<ExtrinsicStatus>
     {
-        public override ExtrinsicStatus ReadJson(JsonReader reader, Type objectType, ExtrinsicStatus existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override ExtrinsicStatus ReadJson(JsonReader reader, Type objectType, ExtrinsicStatus existingValue,
+            bool hasExistingValue, JsonSerializer serializer)
         {
             var extrinsicStatus = new ExtrinsicStatus();
 
-            if (reader.TokenType == JsonToken.String && Enum.TryParse((string)reader.Value, true, out ExtrinsicState extrinsicState))
+            if (reader.TokenType == JsonToken.String &&
+                Enum.TryParse((string) reader.Value, true, out ExtrinsicState extrinsicState))
             {
                 extrinsicStatus.ExtrinsicState = extrinsicState;
             }
@@ -27,7 +29,6 @@ namespace SubstrateNetApi.TypeConverters
                         case JsonToken.PropertyName:
 
                             if (reader.ValueType == typeof(string))
-                            {
                                 switch (reader.Value)
                                 {
                                     case "broadcast":
@@ -38,56 +39,59 @@ namespace SubstrateNetApi.TypeConverters
                                             while (reader.TokenType != JsonToken.EndArray)
                                             {
                                                 if (reader.ValueType == typeof(string))
-                                                {
-                                                    broadcastList.Add((string)reader.Value);
-                                                }
+                                                    broadcastList.Add((string) reader.Value);
                                                 reader.Read();
                                             }
+
                                             extrinsicStatus.Broadcast = broadcastList.ToArray();
                                         }
+
                                         break;
                                     case "inBlock":
                                         reader.Read();
                                         var inBlock = new Hash();
-                                        inBlock.Create((string)reader.Value);
+                                        inBlock.Create((string) reader.Value);
                                         extrinsicStatus.InBlock = inBlock;
                                         break;
                                     case "finalized":
                                         reader.Read();
                                         var finalized = new Hash();
-                                        finalized.Create((string)reader.Value);
+                                        finalized.Create((string) reader.Value);
                                         extrinsicStatus.Finalized = finalized;
                                         break;
                                     case "finalityTimeout":
                                         reader.Read();
                                         var finalityTimeout = new Hash();
-                                        finalityTimeout.Create((string)reader.Value);
+                                        finalityTimeout.Create((string) reader.Value);
                                         extrinsicStatus.FinalityTimeout = finalityTimeout;
                                         break;
                                     case "retracted":
                                         reader.Read();
                                         var retracted = new Hash();
-                                        retracted.Create((string)reader.Value);
+                                        retracted.Create((string) reader.Value);
                                         extrinsicStatus.Retracted = retracted;
                                         break;
                                     case "usurped":
                                         reader.Read();
                                         var usurped = new Hash();
-                                        usurped.Create((string)reader.Value);
+                                        usurped.Create((string) reader.Value);
                                         extrinsicStatus.Usurped = usurped;
                                         break;
                                     default:
-                                        throw new NotImplementedException($"Unimplemented { reader.TokenType } of type '{reader.ValueType}' and value '{reader.Value}'.");
+                                        throw new NotImplementedException(
+                                            $"Unimplemented {reader.TokenType} of type '{reader.ValueType}' and value '{reader.Value}'.");
                                 }
-                            }
 
                             break;
                         default:
-                            throw new NotImplementedException($"Unimplemented { reader.TokenType } of type '{reader.ValueType}' and value '{reader.Value}'.");
+                            throw new NotImplementedException(
+                                $"Unimplemented {reader.TokenType} of type '{reader.ValueType}' and value '{reader.Value}'.");
                     }
+
                     reader.Read();
                 }
             }
+
             return extrinsicStatus;
         }
 

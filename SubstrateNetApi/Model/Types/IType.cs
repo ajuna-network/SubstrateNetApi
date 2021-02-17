@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace SubstrateNetApi.Model.Types
+﻿namespace SubstrateNetApi.Model.Types
 {
     /// <summary>
-    /// Reference to the polkadot js types implementation
-    /// https://github.com/polkadot-js/api/tree/master/packages/types/src
+    ///     Reference to the polkadot js types implementation
+    ///     https://github.com/polkadot-js/api/tree/master/packages/types/src
     /// </summary>
     public interface IType
     {
@@ -21,5 +19,7 @@ namespace SubstrateNetApi.Model.Types
         void CreateFromJson(string str);
 
         void Create(byte[] byteArray);
+
+        IType New();
     }
 }

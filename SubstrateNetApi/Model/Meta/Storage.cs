@@ -16,9 +16,9 @@
         public enum Hasher
         {
             None = -1,
-            Blake2_128,
-            Blake2_256,
-            Blake2_128Concat,
+            BlakeTwo128,
+            BlakeTwo256,
+            BlakeTwo128Concat,
             Twox128,
             Twox256,
             Twox64Concat,

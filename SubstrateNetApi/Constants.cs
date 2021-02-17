@@ -2,7 +2,6 @@
 {
     public class Constants
     {
-
         //public static uint SPEC_VERSION = 1;
 
         //public const uint TX_VERSION = 2;
@@ -14,6 +13,6 @@
 
         // https://polkadot.js.org/docs/api/FAQ/
         // 0 = AccountId (no prefix), 1 = IndicesLookup (0xFF), 2 = MutiAddress (https://github.com/paritytech/substrate/pull/7380)
-        public static uint AddressVersion = 2; 
+        public static uint AddressVersion = 2;
     }
 }

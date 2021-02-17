@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.TypeConverters;
 
 namespace SubstrateNetApi.Model.Rpc

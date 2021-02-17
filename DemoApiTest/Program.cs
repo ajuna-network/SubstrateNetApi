@@ -1,20 +1,17 @@
-﻿using Microsoft.VisualStudio.Threading;
-using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using SubstrateNetApi.Model.Calls;
-using SubstrateNetApi.Model.Rpc;
 
 namespace DemoApiTest
 {
-    class Program
+    internal class Program
     {
         private const string WEBSOCKETURL = "wss://mogiway-01.dotmog.com";
 
@@ -59,21 +56,24 @@ namespace DemoApiTest
             }
         }
 
-        static async Task MainAsync(CancellationToken cancellationToken)
+        private static async Task MainAsync(CancellationToken cancellationToken)
         {
-            Account accountAlice = Account.Build(
-                KeyType.SR25519,
-                Utils.HexToByteArray("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011"),
+            var accountAlice = Account.Build(
+                KeyType.Sr25519,
+                Utils.HexToByteArray(
+                    "0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011"),
                 Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"));
 
-            Account accountZurich = Account.Build(
-                KeyType.ED25519,
-                Utils.HexToByteArray("0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
+            var accountZurich = Account.Build(
+                KeyType.Ed25519,
+                Utils.HexToByteArray(
+                    "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
 
-            Account accountDMOG_GALxeh = Account.Build(
-                KeyType.ED25519,
-                Utils.HexToByteArray("0x3f997449154f8aaa134341b07c3710f63d57e73025105ca7e65a151d7fc3e2bf4b94e38b0c2ee21c367d4c9584204ce62edf5b4a6f675f10678cc56b6ea86e71"),
+            var accountDMOG_GALxeh = Account.Build(
+                KeyType.Ed25519,
+                Utils.HexToByteArray(
+                    "0x3f997449154f8aaa134341b07c3710f63d57e73025105ca7e65a151d7fc3e2bf4b94e38b0c2ee21c367d4c9584204ce62edf5b4a6f675f10678cc56b6ea86e71"),
                 Utils.GetPublicKeyFrom("5DmogGALxehCbUmm45XJoADcf9BU71ZK2zmqHDPFJD3VxknC"));
 
             using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
@@ -92,7 +92,8 @@ namespace DemoApiTest
             //var systemChain = await client.System.ChainAsync(cancellationToken);
             //var systemRuntimeVersion = await client.State.GetRuntimeVersionAsync(cancellationToken);
             //Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
-            Console.WriteLine($"Running: {client.RuntimeVersion.SpecName}[{client.RuntimeVersion.SpecVersion}] transaction_version: {client.RuntimeVersion.TransactionVersion}.");
+            Console.WriteLine(
+                $"Running: {client.RuntimeVersion.SpecName}[{client.RuntimeVersion.SpecVersion}] transaction_version: {client.RuntimeVersion.TransactionVersion}.");
 
 
             // TODO: Implement all rpc standard functions from substrate node
@@ -113,7 +114,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
             //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisArray", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address)), "1" } , cancellationToken);
 
-            // [Map] Key: u64, Hasher: Blake2_128Concat, Value: T::Hash
+            // [Map] Key: u64, Hasher: BlakeTwo128Concat, Value: T::Hash
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisArray", new[]{"0"}, cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: Optional<T::AccountId>
@@ -122,10 +123,14 @@ namespace DemoApiTest
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
-            // TODO: [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: Vec<u8>
-            var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", new [] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
+            // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: Vec<u8>
+            var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig",
+                new[]
+                {
+                    Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"))
+                }, cancellationToken);
 
-            // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData>
+            // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: AccountInfo<T::Index, T::AccountData>
             //var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
 
             //var hash = new Hash();
@@ -202,12 +207,10 @@ namespace DemoApiTest
 
             //Console.WriteLine(client.MetaData.Serialize());
 
-           // Close connection
+            // Close connection
             await client.CloseAsync(cancellationToken);
 
             Console.ReadKey();
-
         }
-
     }
 }

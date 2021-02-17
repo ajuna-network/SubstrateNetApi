@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Extrinsics
 {

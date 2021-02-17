@@ -1,20 +1,11 @@
-﻿using Newtonsoft.Json;
-using SubstrateNetApi.Model.Types;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using SubstrateNetApi.Model.Rpc;
 
 namespace SubstrateNetWallet
 {
     public class ChainInfo : EventArgs
     {
-        public string Name { get; private set; }
-        public string Version { get; private set; }
-        public string Chain { get; private set; }
-
-        public RuntimeVersion RuntimeVersion { get; private set; }
-
-        public ulong BlockNumber { get; private set; }
-
         public ChainInfo(string name, string version, string chain, RuntimeVersion runtime)
         {
             Name = name;
@@ -22,6 +13,14 @@ namespace SubstrateNetWallet
             Chain = chain;
             RuntimeVersion = runtime;
         }
+
+        public string Name { get; }
+        public string Version { get; }
+        public string Chain { get; }
+
+        public RuntimeVersion RuntimeVersion { get; }
+
+        public ulong BlockNumber { get; private set; }
 
         internal void UpdateFinalizedHeader(Header header)
         {
@@ -32,6 +31,5 @@ namespace SubstrateNetWallet
         {
             return JsonConvert.SerializeObject(this);
         }
-
     }
 }

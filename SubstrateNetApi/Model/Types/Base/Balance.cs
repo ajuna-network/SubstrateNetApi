@@ -1,13 +1,18 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class Balance : BaseType<BigInteger>
     {
-        public override string Name() => "T::Balance";
+        public override string Name()
+        {
+            return "T::Balance";
+        }
 
-        public override int Size() => 16;
+        public override int Size()
+        {
+            return 16;
+        }
 
         public override byte[] Encode()
         {

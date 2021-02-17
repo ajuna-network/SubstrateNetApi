@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using NLog;
 using SubstrateNetApi.Model.Extrinsics;
-using System;
 
 namespace SubstrateNetApi.TypeConverters
 {
@@ -10,9 +10,10 @@ namespace SubstrateNetApi.TypeConverters
         /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-        public override Extrinsic ReadJson(JsonReader reader, Type objectType, Extrinsic existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override Extrinsic ReadJson(JsonReader reader, Type objectType, Extrinsic existingValue,
+            bool hasExistingValue, JsonSerializer serializer)
         {
-            return new Extrinsic((string)reader.Value);
+            return new Extrinsic((string) reader.Value);
         }
 
         public override void WriteJson(JsonWriter writer, Extrinsic value, JsonSerializer serializer)

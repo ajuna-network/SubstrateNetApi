@@ -1,13 +1,22 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using SubstrateNetApi.Model.Types.Base;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Struct
 {
     public class MogwaiStruct : StructType
     {
-        private int _size = 0;
+        private int _size;
 
-        public override string Name() => "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>";
+        public Hash Id { get; private set; }
+        public Hash Dna { get; private set; }
+        public BlockNumber Genesis { get; private set; }
+        public Balance Price { get; private set; }
+        public U64 Gen { get; private set; }
+
+        public override string Name()
+        {
+            return "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>";
+        }
 
         public override int Size()
         {
@@ -40,12 +49,5 @@ namespace SubstrateNetApi.Model.Types
 
             _size = p - start;
         }
-
-        public Hash Id { get; private set; }
-        public Hash Dna { get; private set; }
-        public BlockNumber Genesis { get; private set; }
-        public Balance Price { get; private set; }
-        public U64 Gen { get; private set; }
-
     }
 }

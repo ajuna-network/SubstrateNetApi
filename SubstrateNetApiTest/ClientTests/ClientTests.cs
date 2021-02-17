@@ -1,17 +1,17 @@
-﻿using NLog;
+﻿using System;
+using System.Threading.Tasks;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Exceptions;
+using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using SubstrateNetApi.Model.Types;
 
 namespace SubstrateNetApiTests.ClientTests
 {
-    class ClientTests
+    internal class ClientTests
     {
         private const string WebSocketUrl = "wss://mogiway-01.dotmog.com";
 
@@ -20,10 +20,10 @@ namespace SubstrateNetApiTests.ClientTests
         [SetUp]
         public void Setup()
         {
-            var config = new NLog.Config.LoggingConfiguration();
+            var config = new LoggingConfiguration();
 
             // Targets where to log to: File and Console
-            var console = new NLog.Targets.ConsoleTarget("logconsole");
+            var console = new ConsoleTarget("logconsole");
 
             // Rules for mapping loggers to targets            
             config.AddRule(LogLevel.Debug, LogLevel.Fatal, console);
@@ -67,7 +67,8 @@ namespace SubstrateNetApiTests.ClientTests
         public void MultipleConverterTest()
         {
             _substrateClient.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
-            Assert.Throws<ConverterAlreadyRegisteredException>(() => _substrateClient.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>()));
+            Assert.Throws<ConverterAlreadyRegisteredException>(() =>
+                _substrateClient.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>()));
         }
 
         [Test]

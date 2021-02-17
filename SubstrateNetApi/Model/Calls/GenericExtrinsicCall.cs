@@ -1,5 +1,6 @@
 ﻿using SubstrateNetApi.Model.Types;
 using System.Collections.Generic;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Calls
 {
@@ -9,7 +10,7 @@ namespace SubstrateNetApi.Model.Calls
 
         public string CallName { get; }
 
-        public List<IType> _callArguments;
+        public List<IType> CallArguments;
 
         public GenericExtrinsicCall(string moduleName, string callName, params IType[] list)
         {
@@ -17,18 +18,18 @@ namespace SubstrateNetApi.Model.Calls
 
             CallName = callName;
 
-            _callArguments = new List<IType>();
+            CallArguments = new List<IType>();
 
             foreach (var element in list)
             {
-                _callArguments.Add(element);
+                CallArguments.Add(element);
             }
         }
 
         public byte[] Encode()
         {
             var byteList = new List<byte>();
-            foreach (var callArgument in _callArguments)
+            foreach (var callArgument in CallArguments)
             {
                 byteList.AddRange(callArgument.Encode());
             }
@@ -54,9 +55,9 @@ namespace SubstrateNetApi.Model.Calls
             return new GenericExtrinsicCall("Balances", "transfer", dest, value);
         }
 
-        public static GenericExtrinsicCall BalanceSetBalance(AccountId who, Balance new_free, Balance new_reserved)
+        public static GenericExtrinsicCall BalanceSetBalance(AccountId who, Balance newFree, Balance newReserved)
         {
-            return new GenericExtrinsicCall("Balances", "set_balance", who, new_free, new_reserved);
+            return new GenericExtrinsicCall("Balances", "set_balance", who, newFree, newReserved);
         }
 
         public static GenericExtrinsicCall BalanceForceTransfer(AccountId source, AccountId dest, Balance value)
@@ -84,24 +85,24 @@ namespace SubstrateNetApi.Model.Calls
 
     public class DotMogCall
     {
-        public static GenericExtrinsicCall BidAuction(Hash mogwai_id, Balance bid)
+        public static GenericExtrinsicCall BidAuction(Hash mogwaiId, Balance bid)
         {
-            return new GenericExtrinsicCall("DotMogModule", "bid_auction", mogwai_id, bid);
+            return new GenericExtrinsicCall("DotMogModule", "bid_auction", mogwaiId, bid);
         }
 
-        public static GenericExtrinsicCall BreedMogwai(Hash mogwai_id_1, Hash mogwai_id_2)
+        public static GenericExtrinsicCall BreedMogwai(Hash mogwaiId1, Hash mogwaiId2)
         {
-            return new GenericExtrinsicCall("DotMogModule", "breed_mogwai", mogwai_id_1, mogwai_id_2);
+            return new GenericExtrinsicCall("DotMogModule", "breed_mogwai", mogwaiId1, mogwaiId2);
         }
 
-        public static GenericExtrinsicCall BuyMogwai(Hash mogwai_id, Balance max_price)
+        public static GenericExtrinsicCall BuyMogwai(Hash mogwaiId, Balance maxPrice)
         {
-            return new GenericExtrinsicCall("DotMogModule", "buy_mogwai", mogwai_id, max_price);
+            return new GenericExtrinsicCall("DotMogModule", "buy_mogwai", mogwaiId, maxPrice);
         }
 
-        public static GenericExtrinsicCall CreateAuction(Hash mogwai_id, Balance min_bid, BlockNumber expiry)
+        public static GenericExtrinsicCall CreateAuction(Hash mogwaiId, Balance minBid, BlockNumber expiry)
         {
-            return new GenericExtrinsicCall("DotMogModule", "create_auction", mogwai_id, min_bid, expiry);
+            return new GenericExtrinsicCall("DotMogModule", "create_auction", mogwaiId, minBid, expiry);
         }
 
         public static GenericExtrinsicCall CreateMogwai()
@@ -109,24 +110,24 @@ namespace SubstrateNetApi.Model.Calls
             return new GenericExtrinsicCall("DotMogModule", "create_mogwai");
         }
 
-        public static GenericExtrinsicCall RemoveMogwai(Hash mogwai_id)
+        public static GenericExtrinsicCall RemoveMogwai(Hash mogwaiId)
         {
-            return new GenericExtrinsicCall("DotMogModule", "remove_mogwai", mogwai_id);
+            return new GenericExtrinsicCall("DotMogModule", "remove_mogwai", mogwaiId);
         }
 
-        public static GenericExtrinsicCall MorphMogwai(Hash mogwai_id)
+        public static GenericExtrinsicCall MorphMogwai(Hash mogwaiId)
         {
-            return new GenericExtrinsicCall("DotMogModule", "morph_mogwai", mogwai_id);
+            return new GenericExtrinsicCall("DotMogModule", "morph_mogwai", mogwaiId);
         }
 
-        public static GenericExtrinsicCall SetPrice(Hash mogwai_id, Balance new_price)
+        public static GenericExtrinsicCall SetPrice(Hash mogwaiId, Balance newPrice)
         {
-            return new GenericExtrinsicCall("DotMogModule", "set_price", mogwai_id, new_price);
+            return new GenericExtrinsicCall("DotMogModule", "set_price", mogwaiId, newPrice);
         }
 
-        public static GenericExtrinsicCall Transfer(AccountId to, Hash mogwai_id)
+        public static GenericExtrinsicCall Transfer(AccountId to, Hash mogwaiId)
         {
-            return new GenericExtrinsicCall("DotMogModule", "transfer", to, mogwai_id);
+            return new GenericExtrinsicCall("DotMogModule", "transfer", to, mogwaiId);
         }
 
         public static GenericExtrinsicCall UpdateConfig(U8 index, U8 valueOpt)

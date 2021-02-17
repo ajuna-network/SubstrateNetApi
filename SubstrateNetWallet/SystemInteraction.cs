@@ -14,16 +14,10 @@ namespace SubstrateNetWallet
         public static string ReadAllText(string path)
         {
             // First check if file exists in persistent store.
-            if (PersistentExists(path))
-            {
-                return ReadPersistent(path);
-            }
+            if (PersistentExists(path)) return ReadPersistent(path);
 
             // Then check if file exists in data store.
-            if (DataExists(path))
-            {
-                return ReadData(path);
-            }
+            if (DataExists(path)) return ReadData(path);
 
             throw new FileNotFoundException(path);
         }

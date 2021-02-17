@@ -1,15 +1,14 @@
-﻿using SubstrateNetApi.Model.Types;
-using SubstrateNetWallet;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.Types.Struct;
+using SubstrateNetWallet;
 
 namespace DemoWalletTest
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             SystemInteraction.ReadData = f => File.ReadAllText(Path.Combine(Environment.CurrentDirectory, f));
             SystemInteraction.DataExists = f => File.Exists(Path.Combine(Environment.CurrentDirectory, f));
@@ -24,12 +23,9 @@ namespace DemoWalletTest
 
             wallet.AccountInfoUpdated += Wallet_AccountInfoUpdated;
 
-            await wallet.StartAsync("wss://mogiway-01.dotmog.com");
+            await wallet.StartAsync();
 
-            if (!wallet.IsConnected)
-            {
-                return;
-            }
+            if (!wallet.IsConnected) return;
 
             if (wallet.Load())
             {
@@ -47,7 +43,6 @@ namespace DemoWalletTest
             Console.ReadKey();
 
             await wallet.StopAsync();
-
         }
 
         private static void Wallet_AccountInfoUpdated(object sender, AccountInfo accountInfo)

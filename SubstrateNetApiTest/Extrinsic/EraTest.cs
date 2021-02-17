@@ -1,7 +1,7 @@
+using System;
 using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Extrinsics;
-using System;
 
 namespace SubstrateNetApiTests.Extrinsic
 {
@@ -23,20 +23,20 @@ namespace SubstrateNetApiTests.Extrinsic
         [Test]
         public void EraEncodeDecodeTest()
         {
-            var era1 = Era.Decode(new byte[] { 58, 6 });
+            var era1 = Era.Decode(new byte[] {58, 6});
             Assert.AreEqual(2048, era1.Period);
             Assert.AreEqual(99, era1.Phase);
-            Assert.AreEqual(new byte[] { 58, 6 }, era1.Encode());
+            Assert.AreEqual(new byte[] {58, 6}, era1.Encode());
 
             var era2 = Era.Decode(Utils.HexToByteArray("0x4503"));
             Assert.AreEqual(64, era2.Period);
             Assert.AreEqual(52, era2.Phase);
-            Assert.AreEqual(new byte[] { 69, 3 }, era2.Encode());
+            Assert.AreEqual(new byte[] {69, 3}, era2.Encode());
 
             var era3 = Era.Decode(Utils.HexToByteArray("0xF502"));
             Assert.AreEqual(64, era3.Period);
             Assert.AreEqual(47, era3.Phase);
-            Assert.AreEqual(new byte[] { 245, 2 }, era3.Encode());
+            Assert.AreEqual(new byte[] {245, 2}, era3.Encode());
         }
 
         [Test]

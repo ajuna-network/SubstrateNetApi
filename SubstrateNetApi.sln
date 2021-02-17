@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnorrkel", "Schnorrkel\Sc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetWallet", "SubstrateNetWallet\SubstrateNetWallet.csproj", "{A5AC7353-B667-4400-A03B-2E9CB9C01A63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetWalletTest", "SubstrateNetWalletTest\SubstrateNetWalletTest.csproj", "{582954DB-2482-4706-BBD5-A4BE6B97E559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetWalletTests", "SubstrateNetWalletTest\SubstrateNetWalletTests.csproj", "{582954DB-2482-4706-BBD5-A4BE6B97E559}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWalletTest", "DemoWalletTest\DemoWalletTest.csproj", "{6DC829AE-9EB1-4C58-ABFF-A260F54569B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{06354223-9242-4D31-83ED-DA8589BFC2AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Sandbox\Sandbox.csproj", "{06354223-9242-4D31-83ED-DA8589BFC2AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
