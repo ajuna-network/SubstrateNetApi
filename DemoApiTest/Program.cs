@@ -13,7 +13,7 @@ namespace DemoApiTest
 {
     internal class Program
     {
-        private const string WEBSOCKETURL = "wss://mogiway-01.dotmog.com";
+        private const string Websocketurl = "wss://mogiway-01.dotmog.com";
 
         private static async Task Main(string[] args)
         {
@@ -76,10 +76,11 @@ namespace DemoApiTest
                     "0x3f997449154f8aaa134341b07c3710f63d57e73025105ca7e65a151d7fc3e2bf4b94e38b0c2ee21c367d4c9584204ce62edf5b4a6f675f10678cc56b6ea86e71"),
                 Utils.GetPublicKeyFrom("5DmogGALxehCbUmm45XJoADcf9BU71ZK2zmqHDPFJD3VxknC"));
 
-            using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+            using var client = new SubstrateClient(new Uri(Websocketurl));
 
             // add chain specific types here
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
 
             await client.ConnectAsync(cancellationToken);
 
@@ -104,7 +105,7 @@ namespace DemoApiTest
              */
             var address = "5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH";
             var mogwaiId = "0xc6e023f423709bc1a955f2913ad71333e0563453ad0347d09c012bcd6590c8b5";
-
+            var mogwaiIdGen1 = "0xe2d3965c287d92c7cf45dc3ff832e8060607cc8eb7f85ae598b4030338f59587";
             //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
             // [Plain] Value: u64
@@ -123,12 +124,12 @@ namespace DemoApiTest
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
+            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>
+            var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
+
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: Vec<u8>
-            var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig",
-                new[]
-                {
-                    Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"))
-                }, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", 
+            //    new[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM")) }, cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: AccountInfo<T::Index, T::AccountData>
             //var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);

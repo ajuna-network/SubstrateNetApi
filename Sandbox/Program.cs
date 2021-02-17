@@ -33,6 +33,7 @@ namespace Sandbox
         {
             using var client = new SubstrateClient(new Uri(Websocketurl));
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
             await client.ConnectAsync(CancellationToken.None);
 
             var reqResult = await client.State.GetRuntimeVersionAsync();

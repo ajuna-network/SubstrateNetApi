@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -288,7 +289,9 @@ namespace SubstrateNetWallet
 
             Client = new SubstrateClient(new Uri(webSocketUrl));
 
+            //TODO check if that can be made generic as parameter
             Client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            Client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
 
             await Client.ConnectAsync(_connectTokenSource.Token);
 
