@@ -52,6 +52,10 @@ Added the dependency needed, there is an example project (https://github.com/dar
 
 ## Architecture
 
+### Example Architecture with SubstrateNetApi
+
+Basic example of a client and a substrate node environment with the SubstrateNetApi.
+
 ![Basic Architecture](https://github.com/dotmog/SubstrateNetApi/raw/origin/images/basic_architecture.png)
 
 ## Usage
