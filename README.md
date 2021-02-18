@@ -14,6 +14,7 @@ If you enjoy using SubstrateNetApi consider supporting me at [buymeacoffee.com/d
 
 * Requirements
 * Installation
+* Architecture
 * Usage
   - connecting
   - pallet storage data
@@ -48,6 +49,10 @@ Added the dependency needed, there is an example project (https://github.com/dar
 - Installation for **NuGetForUnity** https://github.com/GlitchEnzo/NuGetForUnity
 - *NuGet > ManageNuGet Packages*
 - *Search* **SubstrateNetApi** install
+
+## Architecture
+
+
 
 ## Usage
 
