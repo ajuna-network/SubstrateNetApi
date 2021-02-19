@@ -14,13 +14,23 @@ If you enjoy using SubstrateNetApi consider supporting me at [buymeacoffee.com/d
 
 * Requirements
 * Installation
+  - Substrate in .NET
+  - Substrate in Unity3D
 * Architecture
-* Usage
-  - connecting
-  - pallet storage data
-  - pallet call
-  - extrinsic (pallet author)
+* Basic Usage
+  - Create a connection
+  - Access MetaData as JSON
+  - Access a pallet storage data
+    - Example 1: Sudo Key (no parameter)
+    - Example 2: System Account (with parameter)
+  - Access a pallet call
+  - Submit extrinsic
+* Advanced Usage
+  - Subscribe & unsubscribe
 * Wallet
+  - Create
+  - Unlock
+  - Recover
 
 ## Requirements
 
@@ -66,8 +76,26 @@ var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
 using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 await client.ConnectAsync(cancellationToken);
 ```
+#### Add cusom types
 
-#### Access MetaData as JSON (chain specific)
+To be able to add a custom type you need to first add it as a class inheriting [IType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/IType.cs), or you can use following abstract classes:
+- [BaseType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/BaseType.cs)
+  BaseType is for basic implementation of a type that represents one value, like a [Hash](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/Hash.cs) or a [U8](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/U8.cs).
+- [StructType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/StructType.cs)
+  StructType is for complex types composed of other Types, for example [AccountInfo](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Struct/AccountInfo.cs)
+- [EnumType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/EnumType.cs)
+  EnumType is for enums like [DispatchClass](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Enum/DispatchClass.cs).
+
+```csharp
+var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
+using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
+client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>()); // custom types
+client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());  // custom types
+await client.ConnectAsync(cancellationToken);
+```
+
+
+### Access MetaData as JSON (chain specific)
 
 ```csharp
 // MetaData 
@@ -126,6 +154,7 @@ var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancel
 ```
 
 ## Wallet
+
 SubstrateNetWallet is a Wallet buit on top of the SubstrateNetApi, it offers common functionalities. 
 **This is an implementation in progress, feedback is welcome!**
 
@@ -136,6 +165,13 @@ SubstrateNetWallet is a Wallet buit on top of the SubstrateNetApi, it offers com
 - realtime (subscription) updated newHeads and finalizedHeads
 - realtime (subscription) updated extrinsicUpdate
 
+### Create a new wallet
+
+### Unlock a wallet
+
+### Recover a wallet
+
+### Add subscriptions
 
 ## Special Thanks
 - https://github.com/gautamdhameja/sr25519-dotnet
