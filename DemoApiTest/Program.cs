@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using SubstrateNetApi;
+using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
@@ -88,14 +91,13 @@ namespace DemoApiTest
              * Basic ...
              */
 
-            //var systemName = await client.System.NameAsync(cancellationToken);
+            //var reqResult = await client.System.NameAsync(cancellationToken);
             //var systemVersion = await client.System.VersionAsync(cancellationToken);
             //var systemChain = await client.System.ChainAsync(cancellationToken);
-            //var systemRuntimeVersion = await client.State.GetRuntimeVersionAsync(cancellationToken);
+            //var reqResult = await client.State.GetRuntimeVersionAsync(cancellationToken);
             //Console.WriteLine($"Connected to System: {systemName} Chain: {systemChain} Version: {systemVersion}.");
             Console.WriteLine(
                 $"Running: {client.RuntimeVersion.SpecName}[{client.RuntimeVersion.SpecVersion}] transaction_version: {client.RuntimeVersion.TransactionVersion}.");
-
 
             // TODO: Implement all rpc standard functions from substrate node
             //var reqResult = await client.GetMethodAsync<JArray>("system_peers", cancellationToken);
@@ -106,10 +108,12 @@ namespace DemoApiTest
             var address = "5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH";
             var mogwaiId = "0xc6e023f423709bc1a955f2913ad71333e0563453ad0347d09c012bcd6590c8b5";
             var mogwaiIdGen1 = "0xe2d3965c287d92c7cf45dc3ff832e8060607cc8eb7f85ae598b4030338f59587";
+
+            // [Plain] Value: T::AccountId
             //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
             // [Plain] Value: u64
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
+            var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
@@ -125,7 +129,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>
-            var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: Vec<u8>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", 
@@ -171,7 +175,8 @@ namespace DemoApiTest
             // *** test 0 simple extrinsic tests
             //var reqResult = await client.Author.SubmitExtrinsicAsync(DotMogCall.CreateMogwai(), accountZurich, 0, 64, cancellationToken);
             //var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
-            //var reqResult = await client.Author.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer("5GX1FSLUkzeUxdRPHrmc3hm8189WT2qQRbWUgy5vhZwgd2XQ", 9999), accountZurich, 0, 64, cancellationToken);
+            //var balanceTransfer = ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", BigInteger.Parse("100000000000"));
+            //var reqResult = await client.Author.SubmitExtrinsicAsync(balanceTransfer, accountZurich, 0, 64, cancellationToken);
 
             // *** test 1 new head subscription
             //var subscriptionId = await client.Chain
@@ -184,7 +189,7 @@ namespace DemoApiTest
 
             // *** test 2 submit extrinsic
             //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 1000000000), accountZurich, 0, 64, cancellationToken);
+            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 100000000000), accountZurich, 0, 64, cancellationToken);
             //Thread.Sleep(60000);
             //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 

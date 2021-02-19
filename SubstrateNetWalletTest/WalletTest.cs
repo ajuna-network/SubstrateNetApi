@@ -177,17 +177,24 @@ namespace SubstrateNetWalletTest
 
             Assert.True(wallet.IsConnected);
 
-            wallet.Load("dev_wallet");
+            Assert.IsTrue(wallet.Load("dev_wallet"));
 
             ChainInfo test = null;
+            
+            void OnChainInfoUpdated(object sender, ChainInfo chainInfo)
+            {
+                test = chainInfo;
+            }
 
-            wallet.ChainInfoUpdated += delegate(object sender, ChainInfo chainInfo) { test = chainInfo; };
+            wallet.ChainInfoUpdated += OnChainInfoUpdated;
 
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
 
             Assert.IsNotNull(test);
 
             Assert.AreEqual("DOTMog Node", test.Name);
+
+            wallet.ChainInfoUpdated -= OnChainInfoUpdated;
         }
 
         [Test]
@@ -210,7 +217,10 @@ namespace SubstrateNetWalletTest
 
             AccountInfo test = null;
 
-            wallet.AccountInfoUpdated += delegate(object sender, AccountInfo accountInfo) { test = accountInfo; };
+            wallet.AccountInfoUpdated += delegate(object sender, AccountInfo accountInfo)
+            {
+                test = accountInfo;
+            };
 
             Thread.Sleep(3000);
 

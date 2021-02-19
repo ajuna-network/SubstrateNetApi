@@ -1,5 +1,6 @@
 ﻿using SubstrateNetApi.Model.Types;
 using System.Collections.Generic;
+using System.Numerics;
 using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Calls
@@ -39,14 +40,14 @@ namespace SubstrateNetApi.Model.Calls
 
     public class ExtrinsicCall
     {
-        public static GenericExtrinsicCall BalanceTransfer(string address, int balanceAmount)
+        public static GenericExtrinsicCall BalanceTransfer(string address, BigInteger balanceAmount)
         {
             var accountId = new AccountId();
             accountId.Create(Utils.GetPublicKeyFrom(address));
 
             var balance = new Balance();
             balance.Create(balanceAmount);
-            
+
             return BalanceTransfer(accountId, balance);
         }
 
