@@ -63,10 +63,15 @@ Basic example of a client and a substrate node environment with the SubstrateNet
 ### Create a connection
 ```csharp
 var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
-
 using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-client.RegisterTypeConverter(new MogwaiStructTypeConverter());
 await client.ConnectAsync(cancellationToken);
+```
+
+#### Access MetaData as JSON (chain specific)
+
+```csharp
+// MetaData 
+Console.WriteLine(client.MetaData.Serialize());
 ```
 
 ### Access a pallet storage data
@@ -78,7 +83,7 @@ await client.ConnectAsync(cancellationToken);
 var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 ```
-```RESPONSE: '{"Address":"5GYZnHJ4dCtTDoQj4H5H9E727Ykv8NLWKtPAupEc3uJ89BGr","PublicKey":"xjCev8DKRhmK9W9PWJt82svJRhLQnZ5xsp5Z0cHy3mg="}' [AccountId]``` 
+```RESPONSE: '"5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"' [AccountId]``` 
 
 #### Example 2: System Account (Key: AccountId (public key))
 
