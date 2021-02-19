@@ -89,23 +89,26 @@ Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 
 ```csharp
 // [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData> (from metaData)
-var reqResult = await client.GetStorageAsync("System", "Account", "0xD43593C715FDD31C61141ABD04A99FD6822C8558854CCDE39A5684E7A56DA27D", cancellationToken);
+var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
 Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
 ```
-```RESPONSE: '{"Nonce":4,"RefCount":0,"AccountData":{"Free":{"Value":{"Value":17665108313441014531489792}},"Reserved":{"Value":{"Value":0}},"MiscFrozen":{"Value":{"Value":0}},"FeeFrozen":{"Value":{"Value":0}}}}' [AccountInfo]```
+```RESPONSE: '{"Nonce":{"Value":15},"Consumers":{"Value":0},"Providers":{"Value":1},"AccountData":{"Free":{"Value":1998766600579252800594},"Reserved":{"Value":0},"MiscFrozen":{"Value":0},"FeeFrozen":{"Value":0}}}' [AccountInfo]```
 
 ### Access a pallet call
 
 ```csharp
 var systemName = await client.System.NameAsync(cancellationToken);
 ```
+```RESPONSE: 'DOTMog Node' [String]```
 
 ### Submit extrinsic (from pallet author)
 
 ```csharp
-var balanceTransfer = ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 1000);
-var reqResult = await client.SubmitExtrinsicAsync(balanceTransfer, accountDMOG_GALxeh, 0, 64, cancellationToken);
+// Dest: <T::Lookup as StaticLookup>::Source, Value: Compact<T::Balance>
+var balanceTransfer = ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", BigInteger.Parse("100000000000"));
+var reqResult = await client.Author.SubmitExtrinsicAsync(balanceTransfer, accountZurich, 0, 64, cancellationToken);
 ```
+```RESPONSE: '"0xB1435DA6A0F2C9C00E1AC0FAD7EBD2515B8AACDA12F27384A2148C556FEE627A"' [Hash]```
 
 ### Subscribe and unsubscribe with registering a call back
 
