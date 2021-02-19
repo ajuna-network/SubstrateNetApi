@@ -19,6 +19,7 @@ If you enjoy using SubstrateNetApi consider supporting me at [buymeacoffee.com/d
 * Architecture
 * Basic Usage
   - Create a connection
+    - Add a custom type
   - Access MetaData as JSON
   - Access a pallet storage data
     - Example 1: Sudo Key (no parameter)
@@ -76,9 +77,10 @@ var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
 using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
 await client.ConnectAsync(cancellationToken);
 ```
-#### Add cusom types
+#### Add a custom type
 
 To be able to add a custom type you need to first add it as a class inheriting [IType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/IType.cs), or you can use following abstract classes:
+
 - [BaseType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/BaseType.cs)
   BaseType is for basic implementation of a type that represents one value, like a [Hash](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/Hash.cs) or a [U8](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/U8.cs).
 - [StructType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/StructType.cs)
