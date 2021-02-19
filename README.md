@@ -79,7 +79,10 @@ await client.ConnectAsync(cancellationToken);
 ```
 #### Add a custom type
 
-To be able to add a custom type you need to first add it as a class inheriting [IType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/IType.cs), or you can use following abstract classes:
+Adding a custome type consist of two steps.
+
+* 1. Step
+Add the custom type as class inheriting from [IType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/IType.cs), or using one of the following abstract classes:
 
 - [BaseType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/BaseType.cs)
   BaseType is for basic implementation of a type that represents one value, like a [Hash](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/Hash.cs) or a [U8](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/U8.cs).
@@ -87,6 +90,9 @@ To be able to add a custom type you need to first add it as a class inheriting [
   StructType is for complex types composed of other Types, for example [AccountInfo](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Struct/AccountInfo.cs)
 - [EnumType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/EnumType.cs)
   EnumType is for enums like [DispatchClass](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Enum/DispatchClass.cs).
+
+* 2. Step
+Register your class as a GenericTypeConverter<yourclassname> to the client.
 
 ```csharp
 var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
