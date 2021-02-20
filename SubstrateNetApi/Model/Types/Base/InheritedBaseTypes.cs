@@ -2,6 +2,32 @@
 
 namespace SubstrateNetApi.Model.Types
 {
+
+    public class AuthorityId : AccountId
+    {
+        public override string Name() => "AuthorityId";
+    }
+
+    public class AuthorityWeight : U64
+    {
+        public override string Name() => "AuthorityWeight";
+    }
+
+    public class Topic : Hash
+    {
+        public override string Name() => "Topic";
+    }
+
+    public class AccountIndex : U32
+    {
+        public override string Name() => "AccountIndex";
+    }
+
+    public class ApplyExtrinsic : U32
+    {
+        public override string Name() => "ApplyExtrinsic";
+    }
+
     public class BountyIndex : U32
     {
         public override string Name() => "BountyIndex";

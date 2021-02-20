@@ -25,8 +25,8 @@
             Identity
         }
 
-        public string Prefix { get; internal set; }
-        public Item[] Items { get; internal set; }
+        public string Prefix { get; set; }
+        public Item[] Items { get; set; }
 
     }
 }

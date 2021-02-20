@@ -2,7 +2,7 @@
 {
     public class Error
     {
-        public string[] Documentations { get; internal set; }
-        public string Name { get; internal set; }
+        public string[] Documentations { get; set; }
+        public string Name { get; set; }
     }
 }

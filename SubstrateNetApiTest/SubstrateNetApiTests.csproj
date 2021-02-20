@@ -17,4 +17,10 @@
     <ProjectReference Include="..\SubstrateNetApi\SubstrateNetApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DOTMogNET.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

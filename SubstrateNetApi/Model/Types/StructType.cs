@@ -25,6 +25,7 @@ namespace SubstrateNetApi.Model.Types
             Decode(byteArray, ref p);
         }
 
+
         public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(this);

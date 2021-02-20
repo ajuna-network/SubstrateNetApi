@@ -2,8 +2,8 @@
 {
     public class Call
     {
-        public string Name { get; internal set; }
-        public Argument[] Arguments { get; internal set; }
-        public string[] Documentations { get; internal set; }
+        public string Name { get; set; }
+        public Argument[] Arguments { get; set; }
+        public string[] Documentations { get; set; }
     }
 }

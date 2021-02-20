@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Rpc;
@@ -24,7 +25,8 @@ namespace Sandbox
             //await GetKeysPagedAsync(args);
             //TestKey(args);
             //await StorageRuntimeVersion(args);
-            await EventhandlingTestAsync(args);
+            //await EventhandlingTestAsync(args);
+            await EventDecode(args);
         }
 
         //
@@ -99,6 +101,7 @@ namespace Sandbox
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             await client.ConnectAsync(CancellationToken.None);
 
+            // TODO GetStorageKeyBytesHash
             var keys = await client.GetStorageKeysAsync("DotMogModule", "Mogwais", CancellationToken.None);
             var keyString = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "Mogwais"))
                 .ToLower();
@@ -187,6 +190,7 @@ namespace Sandbox
                 Console.WriteLine($"Subscription[{subscriptionId}]: {eventObject}");
             };
 
+            // TODO GetStorageKeyBytesHash
             var keys = await client.GetStorageKeysAsync("DotMogModule", "OwnedMogwaisCount", CancellationToken.None);
 
             //var subscriptionId = await client.SubscribeStorageKeyAsync("DotMogModule", "OwnedMogwaisCount", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH")) },
@@ -240,8 +244,10 @@ namespace Sandbox
 
                 try
                 {
-                    var eventRecord = EventRecords.Decode(eventObject.Changes[0][1].ToString(), client.MetaData);
-                    Console.WriteLine(eventRecord.ToString());
+                    Console.WriteLine($"OldEventRecord: {eventObject.Changes[0][1]}");
+                    var eventRecords = new EventRecords(client.MetaData);
+                    eventRecords.Create(eventObject.Changes[0][1].ToString());
+                    Console.WriteLine(eventRecords.ToString());
                 }
                 catch (NotImplementedException e)
                 {
@@ -249,11 +255,14 @@ namespace Sandbox
                 }
             };
 
-            var systemEventsKeys = await client.GetStorageKeysAsync("System", "Events", CancellationToken.None);
+            // GetStorageKeyBytesHash
+            var systemEventsKeys = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash("System", "Events"));
 
-            Console.WriteLine(systemEventsKeys);
+            var jArray = new JArray(systemEventsKeys);
 
-            var subscriptionId = await client.State.SubscribeStorageAsync(systemEventsKeys,
+            Console.WriteLine($"Key: {systemEventsKeys}");
+
+            var subscriptionId = await client.State.SubscribeStorageAsync(jArray,
                 callBackSubscribeStorage
             );
 
@@ -262,6 +271,25 @@ namespace Sandbox
             Console.ReadKey();
 
             //var reqResult = await client.State.UnsubscribeStorageAsync(subscriptionId, CancellationToken.None);
+
+        }
+
+        private static async Task EventDecode(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(Websocketurl));
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            await client.ConnectAsync(CancellationToken.None);
+
+            //var eventStr = "0x1802130100020800bc0000007f9267dfabb62a000000000000000000ac9baa9c3eff7f00000000000000000000021006ac9baa9c3eff7f000000000000000000000209006e04000000000000000000005095a20900000000020000010f00087c932416d1f140d6351d3b6b09ff6fee66ff240bdb92976d36c2ef5b13d83c7f0100000000000000490b83057d01d315d27e2b607c31754419bce23df85e39db096abce12716470b010000000000000000";
+            //var eventStr = "0x08000000000000005095a20900000000020000000100000000000000000000000000020000";
+            var eventStr = "0x04000000000000005095a20900000000020000";
+            
+            //var eventRecord = EventRecords.Decode(eventStr, client.MetaData);
+
+            var eventRecord = new EventRecords(client.MetaData);
+            eventRecord.Create(eventStr);
+
+            Console.WriteLine(eventRecord.ToString());
         }
 
         private static async Task TestAsync(string[] args)
@@ -306,8 +334,9 @@ namespace Sandbox
                            "00"; // ******************* EVENT 4 begin
             ;
 
-            var eventRecords = EventRecords.Decode(eventStr, client.MetaData);
 
+            var eventRecords = new EventRecords(client.MetaData);
+            eventRecords.Create(eventStr);
             Console.WriteLine(eventRecords);
         }
 
