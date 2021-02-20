@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
 
@@ -25,11 +27,40 @@ namespace Sandbox
             //await GetKeysPagedAsync(args);
             //TestKey(args);
             //await StorageRuntimeVersion(args);
-            //await EventhandlingTestAsync(args);
-            await EventDecode(args);
+            await EventhandlingTestAsync(args);
+            //await EventDecode(args);
+            //TestReflection(args);
         }
 
-        //
+        private static void TestReflection(string[] args)
+        {
+            //var typeStr = "ProxyType";
+            //var typeStr = "U16";
+            var typeStr = "AccountInfo";
+
+            var typeNamespaces = new List<string>()
+            {
+                new U8().GetType().Namespace,
+                new DispatchClass().GetType().Namespace,
+                new DispatchInfo().GetType().Namespace
+            }.ToArray();
+
+            foreach (var typeNameSpace in typeNamespaces)
+            {
+                var getType = Type.GetType($"{typeNameSpace}.{typeStr}, SubstrateNetApi");
+                if (getType != null)
+                {
+                    var iType = (IType) Activator.CreateInstance(getType);
+                    break;
+                }
+            }
+
+
+            
+            //MethodInfo method = Type.GetType($"SubstrateNetApi.MetaDataModel.Values.{typeStr}, SubstrateNetApi")
+            //    .GetMethod("Decode", BindingFlags.Static | BindingFlags.Public);
+
+        }
 
         private static async Task StorageRuntimeVersion(string[] args)
         {
