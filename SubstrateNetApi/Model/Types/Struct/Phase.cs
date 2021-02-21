@@ -1,4 +1,5 @@
 ﻿using System;
+using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
 
 namespace SubstrateNetApi.Model.Types.Struct

@@ -1,6 +1,4 @@
-﻿using SubstrateNetApi.Model.Types.Base;
-
-namespace SubstrateNetApi.Model.Types
+﻿namespace SubstrateNetApi.Model.Types.Base
 {
 
     public class AuthorityId : AccountId
@@ -16,6 +14,11 @@ namespace SubstrateNetApi.Model.Types
     public class Topic : Hash
     {
         public override string Name() => "Topic";
+    }
+
+    public class EraIndex : U32
+    {
+        public override string Name() => "EraIndex";
     }
 
     public class AccountIndex : U32
@@ -36,11 +39,6 @@ namespace SubstrateNetApi.Model.Types
     public class CallHash : Hash
     {
         public override string Name() => "CallHash";
-    }
-
-    public class EraIndex : U32
-    {
-        public override string Name() => "EraIndex";
     }
 
     public class MemberCount : U32
