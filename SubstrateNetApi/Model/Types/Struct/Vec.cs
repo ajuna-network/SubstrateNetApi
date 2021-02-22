@@ -35,6 +35,11 @@ namespace SubstrateNetApi.Model.Types.Struct
             _size = p - start;
         }
 
+        public override void CreateFromJson(string str)
+        {
+            Create(Utils.HexToByteArray(str));
+        }
+
         public List<T> Value { get; internal set; }
     }
 }

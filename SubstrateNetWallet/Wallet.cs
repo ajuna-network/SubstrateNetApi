@@ -21,8 +21,8 @@ using SubstrateNetApi.TypeConverters;
 namespace SubstrateNetWallet
 {
     /// <summary>
-    ///     Basic Wallet implementation
-    ///     TODO: Make sure that a live runtime change is handled correctly.
+    /// Basic Wallet implementation
+    /// TODO: Make sure that a live runtime change is handled correctly.
     /// </summary>
     public class Wallet
     {
@@ -44,7 +44,7 @@ namespace SubstrateNetWallet
         private WalletFile _walletFile;
 
         /// <summary>
-        ///     Constructor
+        /// Constructor
         /// </summary>
         public Wallet()
         {
@@ -90,7 +90,7 @@ namespace SubstrateNetWallet
         public event EventHandler<AccountInfo> AccountInfoUpdated;
 
         /// <summary>
-        ///     Load an existing wallet
+        /// Load an existing wallet
         /// </summary>
         /// <param name="walletName"></param>
         /// <returns></returns>
@@ -113,7 +113,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Create a new wallet which is encrypted with a password
+        /// Create a new wallet which is encrypted with a password
         /// </summary>
         /// <param name="password"></param>
         /// <param name="walletName"></param>
@@ -167,7 +167,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Unlock a locked wallet.
+        /// Unlock a locked wallet.
         /// </summary>
         /// <param name="password"></param>
         /// <param name="noCheck"></param>
@@ -210,7 +210,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Try signing a message
+        /// Try signing a message
         /// </summary>
         /// <param name="signer"></param>
         /// <param name="data"></param>
@@ -240,7 +240,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Verify a signature of a message
+        /// Verify a signature of a message
         /// </summary>
         /// <param name="signer"></param>
         /// <param name="data"></param>
@@ -261,7 +261,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Subscribe to AccountInfo asynchronous
+        /// Subscribe to AccountInfo asynchronous
         /// </summary>
         /// <returns></returns>
         public async Task<string> SubscribeAccountInfoAsync()
@@ -272,7 +272,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Submit generic Extrinsic asynchronous
+        /// Submit generic Extrinsic asynchronous
         /// </summary>
         /// <param name="genericExtrinsicCall"></param>
         /// <returns></returns>
@@ -313,7 +313,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Start connection and refresh subscriptions.
+        /// Start connection and refresh subscriptions.
         /// </summary>
         /// <param name="webSocketUrl"></param>
         /// <returns></returns>
@@ -337,7 +337,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Refresh subscriptions asynchronous
+        /// Refresh subscriptions asynchronous
         /// </summary>
         /// <returns></returns>
         public async Task RefreshSubscriptionsAsync()
@@ -361,7 +361,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Unsubscribe all asynchronous
+        /// Unsubscribe all asynchronous
         /// </summary>
         /// <returns></returns>
         public async Task UnsubscribeAllAsync()
@@ -393,7 +393,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Stop the current connection and unsubscribe all.
+        /// Stop the current connection and unsubscribe all.
         /// </summary>
         /// <returns></returns>
         public async Task StopAsync()
@@ -408,7 +408,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Call back for new heads.
+        /// Call back for new heads.
         /// </summary>
         /// <param name="subscriptionId"></param>
         /// <param name="header"></param>
@@ -417,7 +417,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Call back for finalized heads.
+        /// Call back for finalized heads.
         /// </summary>
         /// <param name="subscriptionId"></param>
         /// <param name="header"></param>
@@ -429,7 +429,7 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Call back for extrinsic.
+        /// Call back for extrinsic.
         /// </summary>
         /// <param name="subscriptionId"></param>
         /// <param name="extrinsicStatus"></param>
@@ -438,23 +438,33 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        ///     Call back account change.
+        /// Call back account change.
+        /// TODO: Implement type StorageChangeSet
         /// </summary>
         /// <param name="subscriptionId"></param>
         /// <param name="storageChangeSet"></param>
         public virtual void CallBackAccountChange(string subscriptionId, StorageChangeSet storageChangeSet)
         {
-            if (storageChangeSet.Changes == null || storageChangeSet.Changes.Length == 0 ||
-                storageChangeSet.Changes[0].Length < 2)
+            if (storageChangeSet.Changes == null 
+                || storageChangeSet.Changes.Length == 0 
+                || storageChangeSet.Changes[0].Length < 2)
             {
                 Logger.Warn("Couldn't update account informations. Please check 'CallBackAccountChange'");
+                return;
+            }
+
+            var accountInfoStr = storageChangeSet.Changes[0][1];
+
+            if (accountInfoStr is null)
+            {
+                Logger.Warn("Couldn't update account informations. Account doesn't exists, please check 'CallBackAccountChange'");
                 return;
             }
 
             Logger.Debug("Updated account successfully.");
 
             var accountInfo = new AccountInfo();
-            accountInfo.Create(storageChangeSet.Changes[0][1]);
+            accountInfo.Create(accountInfoStr);
             AccountInfo = accountInfo;
 
             AccountInfoUpdated?.Invoke(this, AccountInfo);

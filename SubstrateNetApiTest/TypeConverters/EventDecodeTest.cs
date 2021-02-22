@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SubstrateNetApi.Model.Meta;
+using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Struct;
@@ -26,8 +27,8 @@ namespace SubstrateNetApiTests.TypeConverters
             SystemInteraction.PersistentExists = f => File.Exists(Path.Combine(Environment.CurrentDirectory, f));
             SystemInteraction.Persist = (f, c) => File.WriteAllText(Path.Combine(Environment.CurrentDirectory, f), c);
             
-            var jsonFile = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "DOTMogNET.json"));
-            _metaData = JsonConvert.DeserializeObject<MetaData>(jsonFile);
+            var metaDataJson = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "DOTMogNET.json"));
+            _metaData = JsonConvert.DeserializeObject<MetaData>(metaDataJson);
         }
 
         [Test]
@@ -79,6 +80,19 @@ namespace SubstrateNetApiTests.TypeConverters
 
             // TODO add asserts
             Assert.True(true);
+        }
+
+        [Test]
+        public void AdvancedJsonConverter1()
+        {
+            string state_storage_response =
+                "{\r\n\"block\":\"0x30712fe96155dcce61b9e3e41844f13e7a6f642f27a745e44a483b0009191c77\",\r\n\"changes\":[\r\n[\r\n\"0x26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371da9438d5c56935253cd6d9ea70f2bf95d60137f0ffc8904f42aaabf63d4ec80862f5087a8b059260c191401e03c03836767\",\r\nnull\r\n]\r\n]\r\n}";
+            StorageChangeSet storageChangeSet = JsonConvert.DeserializeObject<StorageChangeSet>(state_storage_response);
+            
+            Assert.AreEqual("0x30712FE96155DCCE61B9E3E41844F13E7A6F642F27A745E44A483B0009191C77", storageChangeSet.Block.Value);
+
+            //NewStorageChangeSet newStorageChangeSet = JsonConvert.DeserializeObject<NewStorageChangeSet>(state_storage_response);
+            //Assert.AreEqual("0x30712FE96155DCCE61B9E3E41844F13E7A6F642F27A745E44A483B0009191C77", newStorageChangeSet.Block.Value);
         }
     }
 }

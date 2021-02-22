@@ -1,6 +1,5 @@
 ﻿namespace SubstrateNetApi.Model.Types.Base
 {
-
     public class AuthorityId : AccountId
     {
         public override string Name() => "AuthorityId";
