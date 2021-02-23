@@ -150,13 +150,14 @@ namespace SubstrateNetWalletTest
 
             Thread.Sleep(1000);
 
-            Assert.AreEqual("1335929775713194", wallet.AccountInfo.AccountData.Free.Value.ToString());
+            Assert.AreEqual("998929775057983", wallet.AccountInfo.AccountData.Free.Value.ToString());
 
-            var hash = new Hash();
-            hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
+            var blockNumber = new BlockNumber();
+            blockNumber.Create(10);
+            var blockHash = await wallet.Client.Chain.GetBlockHashAsync(blockNumber);
 
-            var header = await wallet.Client.Chain.GetHeaderAsync(hash);
-            Assert.AreEqual(33335, header.Number.Value);
+            var header = await wallet.Client.Chain.GetHeaderAsync(blockHash);
+            Assert.AreEqual(10, header.Number.Value);
 
             var countMogwais = (U64) await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
                 new[] {Utils.Bytes2HexString(wallet.Account.Bytes)});
@@ -215,6 +216,8 @@ namespace SubstrateNetWalletTest
 
             Assert.True(wallet.IsUnlocked);
 
+            Assert.AreEqual("5FfzQe73TTQhmSQCgvYocrr6vh1jJXEKB8xUB6tExfpKVCEZ", wallet.Account.Value);
+
             AccountInfo test = null;
 
             wallet.AccountInfoUpdated += delegate(object sender, AccountInfo accountInfo)
@@ -228,7 +231,7 @@ namespace SubstrateNetWalletTest
 
             Assert.AreEqual(1, test.Nonce.Value);
 
-            Assert.AreEqual("1335929775713194", test.AccountData.Free.Value.ToString());
+            Assert.AreEqual("998929775057983", test.AccountData.Free.Value.ToString());
         }
 
         [Test]

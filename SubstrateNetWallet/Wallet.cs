@@ -455,13 +455,11 @@ namespace SubstrateNetWallet
 
             var accountInfoStr = storageChangeSet.Changes[0][1];
 
-            if (accountInfoStr is null)
+            if (string.IsNullOrEmpty(accountInfoStr))
             {
                 Logger.Warn("Couldn't update account informations. Account doesn't exists, please check 'CallBackAccountChange'");
                 return;
             }
-
-            Logger.Debug("Updated account successfully.");
 
             var accountInfo = new AccountInfo();
             accountInfo.Create(accountInfoStr);

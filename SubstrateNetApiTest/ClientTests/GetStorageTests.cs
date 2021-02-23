@@ -59,6 +59,9 @@ namespace SubstrateNetApiTests.ClientTests
         {
             await _substrateClient.ConnectAsync();
 
+            var countMogwais = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisCount");
+            Assert.AreEqual("U64", countMogwais.GetType().Name);
+
             var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", new[] {"0"});
             Assert.AreEqual("Hash", request.GetType().Name);
             Assert.IsTrue(request is Hash);
