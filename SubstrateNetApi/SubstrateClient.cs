@@ -407,8 +407,7 @@ namespace SubstrateNetApi
             return await InvokeAsync<T>(method, new object[] {parameter}, token);
         }
 
-        internal async Task<string> GetExtrinsicParametersAsync(GenericExtrinsicCall callArguments, Account account,
-            uint tip, uint lifeTime, CancellationToken token)
+        internal async Task<UnCheckedExtrinsic> GetExtrinsicParametersAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, bool signed, CancellationToken token)
         {
             var method = GetMethod(callArguments);
 
@@ -429,9 +428,7 @@ namespace SubstrateNetApi
                 era = Era.Create(lifeTime, finalizedHeader.Number.Value);
             }
 
-            var uncheckedExtrinsic = RequestGenerator.SubmitExtrinsic(true, account, method, era, nonce, tip,
-                GenesisHash, startEra, RuntimeVersion);
-            return Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
+            return RequestGenerator.SubmitExtrinsic(signed, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);
         }
 
         public Method GetMethod(GenericExtrinsicCall callArguments)

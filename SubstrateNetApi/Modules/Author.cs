@@ -34,18 +34,18 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<Extrinsic[]>("author_pendingExtrinsics", null, token);
         }
 
-        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip,
-            uint lifeTime)
+        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime)
         {
-            return await SubmitExtrinsicAsync(await _client.GetExtrinsicParametersAsync(callArguments, account, tip,
-                lifeTime, CancellationToken.None));
+            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed:true, CancellationToken.None);
+
+            return await SubmitExtrinsicAsync(Utils.Bytes2HexString(extrinsic.Encode()));
         }
 
-        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip,
-            uint lifeTime, CancellationToken token)
+        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
-            return await SubmitExtrinsicAsync(
-                await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, token), token);
+            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed: true, token);
+            
+            return await SubmitExtrinsicAsync(Utils.Bytes2HexString(extrinsic.Encode()), token);
         }
 
         public async Task<Hash> SubmitExtrinsicAsync(string parameters)
@@ -61,16 +61,17 @@ namespace SubstrateNetApi.Modules
         public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback,
             GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime)
         {
-            return await SubmitAndWatchExtrinsicAsync(callback,
-                await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime,
-                    CancellationToken.None));
+            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed: true, CancellationToken.None);
+
+            return await SubmitAndWatchExtrinsicAsync(callback, Utils.Bytes2HexString(extrinsic.Encode()));
         }
 
         public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback,
             GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
-            return await SubmitAndWatchExtrinsicAsync(callback,
-                await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, token), token);
+            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed: true, token);
+
+            return await SubmitAndWatchExtrinsicAsync(callback, Utils.Bytes2HexString(extrinsic.Encode()), token);
         }
 
         public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback,
