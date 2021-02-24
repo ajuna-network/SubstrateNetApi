@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -150,7 +151,8 @@ namespace SubstrateNetWalletTest
 
             Thread.Sleep(1000);
 
-            Assert.AreEqual("998929775057983", wallet.AccountInfo.AccountData.Free.Value.ToString());
+            Assert.True(BigInteger.Parse("900000000000000") < wallet.AccountInfo.AccountData.Free.Value);
+            Assert.True(BigInteger.Parse("1000000000000000") > wallet.AccountInfo.AccountData.Free.Value);
 
             var blockNumber = new BlockNumber();
             blockNumber.Create(10);
@@ -231,7 +233,8 @@ namespace SubstrateNetWalletTest
 
             Assert.AreEqual(1, test.Nonce.Value);
 
-            Assert.AreEqual("998929775057983", test.AccountData.Free.Value.ToString());
+            Assert.True(BigInteger.Parse( "900000000000000") < test.AccountData.Free.Value);
+            Assert.True(BigInteger.Parse("1000000000000000") > test.AccountData.Free.Value);
         }
 
         [Test]
