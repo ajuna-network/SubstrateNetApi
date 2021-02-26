@@ -410,7 +410,17 @@ namespace SubstrateNetApi
             return await InvokeAsync<T>(method, new object[] {parameter}, token);
         }
 
-        internal async Task<UnCheckedExtrinsic> GetExtrinsicParametersAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, bool signed, CancellationToken token)
+        /// <summary>
+        /// Get an unchecked extrinsic.
+        /// </summary>
+        /// <param name="callArguments"></param>
+        /// <param name="account"></param>
+        /// <param name="tip"></param>
+        /// <param name="lifeTime"></param>
+        /// <param name="signed"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task<UnCheckedExtrinsic> GetExtrinsicParametersAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, bool signed, CancellationToken token)
         {
             var method = GetMethod(callArguments);
 
