@@ -94,7 +94,10 @@ namespace SubstrateNetApi
             var uncheckedExtrinsic =
                 new UnCheckedExtrinsic(signed, account, method, era, nonce, tip, genesis, startEra);
 
-            if (!signed) return uncheckedExtrinsic;
+            if (!signed)
+            {
+                return uncheckedExtrinsic;
+            }
 
             var payload = uncheckedExtrinsic.GetPayload(runtime).Encode();
 
