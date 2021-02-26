@@ -77,6 +77,9 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new GenericTypeConverter<AccountData>());
             RegisterTypeConverter(new GenericTypeConverter<Hash>());
             RegisterTypeConverter(new GenericTypeConverter<Vec<U8>>());
+            RegisterTypeConverter(new GenericTypeConverter<Vec<U32>>());
+            RegisterTypeConverter(new GenericTypeConverter<Vec<Hash>>());
+            RegisterTypeConverter(new GenericTypeConverter<Vec<AccountId>>());
 
             //RegisterTypeConverter(new AccountInfoTypeConverter());
 

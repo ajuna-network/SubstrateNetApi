@@ -84,6 +84,7 @@ namespace DemoApiTest
             // add chain specific types here
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
+            client.RegisterTypeConverter(new GenericTypeConverter<GameEvent>());
 
             await client.ConnectAsync(cancellationToken);
 
@@ -110,10 +111,10 @@ namespace DemoApiTest
             var mogwaiIdGen1 = "0xe2d3965c287d92c7cf45dc3ff832e8060607cc8eb7f85ae598b4030338f59587";
 
             // [Plain] Value: T::AccountId
-            //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
+            var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
             // [Plain] Value: u64
-            var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
@@ -137,6 +138,13 @@ namespace DemoApiTest
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: AccountInfo<T::Index, T::AccountData>
             //var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
+
+            // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>
+            //var mogwaiIdEgg1 = "0x5129a01b84073771324030bec439dc9218c87a4d73631fbdd828867a8855babf";
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "GameEventsOfMogwai", new [] { mogwaiIdEgg1 }, cancellationToken);
+
+            //var gameEventId = "0xb9e4454a9a5c1d4c75dc73c9932515456a4c7542e15b0b6bd57142b1336e562c";
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "GameEvents", new[] { gameEventId }, cancellationToken);
 
             //var hash = new Hash();
             //hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
