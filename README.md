@@ -185,8 +185,8 @@ SubstrateNetWallet is a Wallet buit on top of the SubstrateNetApi, it offers com
 
 To execute the unitests please follow the three steps:
 
-1. git clone <project>
-2. cd <project>
+1. git clone https://github.com/dotmog/SubstrateNetApi.git
+2. cd substratenetapi
 3. dotnet test
 
 ![image](https://user-images.githubusercontent.com/17710198/110446644-b349d000-80bf-11eb-9b48-28fadf0f97ed.png)
