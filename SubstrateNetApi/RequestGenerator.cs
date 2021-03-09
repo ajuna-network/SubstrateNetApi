@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chaos.NaCl;
-using Schnorrkel;
+//using Schnorrkel;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.Model.Extrinsics;
 using SubstrateNetApi.Model.Meta;
@@ -108,8 +108,8 @@ namespace SubstrateNetApi
             switch (account.KeyType)
             {
                 case KeyType.Sr25519:
-                    signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
-                    break;
+                    //signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
+                    throw new NotImplementedException();
                 case KeyType.Ed25519:
                     signature = Ed25519.Sign(payload, account.PrivateKey);
                     break;

@@ -1,7 +1,7 @@
-﻿namespace Schnorrkel.Ristretto
-{
-    using Schnorrkel.Scalars;
+﻿using Schnorrkel.Scalars;
 
+namespace Schnorrkel.Ristretto
+{
     public class ProjectivePoint
     {
         public FieldElement51 X { get; set; }

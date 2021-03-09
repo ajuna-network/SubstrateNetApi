@@ -1,9 +1,10 @@
-﻿namespace Schnorrkel
-{
-    using Schnorrkel.Scalars;
-    using System;
+﻿using Schnorrkel.Ristretto;
+using Schnorrkel.Scalars;
+using System;
 
-    internal struct SecretKey
+namespace Schnorrkel
+{
+    public struct SecretKey
     {
         /// Actual public key represented as a scalar.
         public Scalar key;
@@ -12,6 +13,22 @@
         /// We require this be random and secret or else key compromise attacks will ensue.
         /// Any modificaiton here may dirupt some non-public key derivation techniques.
         public byte[] nonce; //[u8; 32],
+
+        public byte[] ToBytes()
+        {
+            var result = new byte[64];
+            key.ScalarBytes.CopyTo(result, 0);
+            nonce.CopyTo(result, 32);
+            return result;
+        }
+
+        public PublicKey ExpandToPublic()
+        {
+            var tbl = new RistrettoBasepointTable();
+            var R = tbl.Mul(key).Compress();
+
+            return new PublicKey(R.ToBytes());
+        }
 
         public static SecretKey FromBytes085(byte[] data)
         {

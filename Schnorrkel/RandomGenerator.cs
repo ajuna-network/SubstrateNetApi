@@ -1,8 +1,8 @@
-﻿namespace Schnorrkel
-{
-    using Schnorrkel.Merlin;
-    using System;
+﻿using Schnorrkel.Merlin;
+using System;
 
+namespace Schnorrkel
+{
     /// <summary>
     /// Hardcoded bytes for debug purposes
     /// </summary>

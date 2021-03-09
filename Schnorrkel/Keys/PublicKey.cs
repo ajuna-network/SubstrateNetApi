@@ -2,7 +2,7 @@
 
 namespace Schnorrkel
 {
-    internal class PublicKey
+    public class PublicKey
     {
         public byte[] Key { get; }
 

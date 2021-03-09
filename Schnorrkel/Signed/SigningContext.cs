@@ -1,8 +1,8 @@
-﻿namespace Schnorrkel.Signed
-{
-    using Schnorrkel.Merlin;
-    using System;
+﻿using Schnorrkel.Merlin;
+using System;
 
+namespace Schnorrkel.Signed
+{
     internal interface ISigningContext
     {
         Transcript Bytes(byte[] data);

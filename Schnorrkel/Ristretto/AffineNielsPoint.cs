@@ -1,7 +1,7 @@
-﻿namespace Schnorrkel.Ristretto
-{
-    using Schnorrkel.Scalars;
+﻿using Schnorrkel.Scalars;
 
+namespace Schnorrkel.Ristretto
+{
     public class AffineNielsPoint
     {
         public FieldElement51 Y_plus_X { get; set; }

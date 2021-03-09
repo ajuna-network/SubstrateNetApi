@@ -1,11 +1,11 @@
-﻿namespace Schnorrkel
-{
-    using Schnorrkel.Merlin;
-    using System.Text;
+﻿using Schnorrkel.Merlin;
+using System.Text;
 
+namespace Schnorrkel
+{
     public abstract class Sr25519Base
     {
-        private RandomGenerator _rng;
+        private readonly RandomGenerator _rng;
 
         public Sr25519Base(SchnorrkelSettings settings)
         {
