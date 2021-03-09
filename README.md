@@ -181,6 +181,17 @@ SubstrateNetWallet is a Wallet buit on top of the SubstrateNetApi, it offers com
 
 ### Add subscriptions
 
+## Testing Guide
+
+To execute the unitests please follow the three steps:
+
+1. git clone <project>
+2. cd <project>
+3. dotnet test
+
+![image](https://user-images.githubusercontent.com/17710198/110446644-b349d000-80bf-11eb-9b48-28fadf0f97ed.png)
+
+
 ## Special Thanks
 - https://github.com/gautamdhameja/sr25519-dotnet
 - https://github.com/usetech-llc/polkadot_api_dotnet
