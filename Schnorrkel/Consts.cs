@@ -1,9 +1,9 @@
-﻿namespace Schnorrkel
-{
-    using Schnorrkel.Ristretto;
-    using Schnorrkel.Scalars;
-    using static Schnorrkel.Ristretto.EdwardsBasepointTable;
+﻿using Schnorrkel.Ristretto;
+using Schnorrkel.Scalars;
+using static Schnorrkel.Ristretto.EdwardsBasepointTable;
 
+namespace Schnorrkel
+{
     public class ConstantTimeEq
     {
         public static bool CtEq(EdwardsPoint a, EdwardsPoint b)

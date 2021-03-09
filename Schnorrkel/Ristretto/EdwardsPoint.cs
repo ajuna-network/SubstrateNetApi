@@ -1,8 +1,8 @@
-﻿namespace Schnorrkel.Ristretto
-{
-    using Schnorrkel.Scalars;
-    using System;
+﻿using Schnorrkel.Scalars;
+using System;
 
+namespace Schnorrkel.Ristretto
+{
     public class EdwardsPoint
     {
         public FieldElement51 X, Y, Z, T;

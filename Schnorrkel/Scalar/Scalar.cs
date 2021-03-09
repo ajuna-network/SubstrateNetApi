@@ -1,7 +1,7 @@
-﻿namespace Schnorrkel.Scalars
-{
-    using System;
+﻿using System;
 
+namespace Schnorrkel.Scalars
+{
     public class Scalar
     {
         /// `bytes` is a little-endian byte encoding of an integer representing a scalar modulo the
@@ -83,8 +83,7 @@
                 var u64_idx = pos / 64;
                 var bit_idx = pos % 64;
                 ulong bit_buf;
-                if (bit_idx < 64 - size)
-                {
+                if (bit_idx < 64 - size) {
                     // This window's bits are contained in a single u64
                     bit_buf = xU64[u64_idx] >> bit_idx;
                 }
@@ -122,6 +121,16 @@
             }
 
             return naf;
+        }
+
+        public static Scalar FromBits(byte[] data)
+        {
+            data[31] &= 127;
+            var sc = new Scalar
+            {
+                ScalarBytes = data
+            };
+            return sc;
         }
 
         public static Scalar FromBytesModOrder(byte[] data)

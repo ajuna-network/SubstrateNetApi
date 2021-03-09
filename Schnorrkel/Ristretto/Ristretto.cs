@@ -1,8 +1,8 @@
-﻿namespace Schnorrkel.Ristretto
-{
-    using Schnorrkel.Scalars;
-    using System;
+﻿using Schnorrkel.Scalars;
+using System;
 
+namespace Schnorrkel.Ristretto
+{
     public class CompressedRistretto : IEquatable<CompressedRistretto>
     {
         public byte[] _compressedRistrettoBytes { get; set; }

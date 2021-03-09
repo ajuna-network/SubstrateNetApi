@@ -1,9 +1,9 @@
-﻿namespace Schnorrkel.Signed
-{
-    using Schnorrkel.Ristretto;
-    using Schnorrkel.Scalars;
-    using System;
+﻿using Schnorrkel.Ristretto;
+using Schnorrkel.Scalars;
+using System;
 
+namespace Schnorrkel.Signed
+{
     public struct Signature
     {
         public CompressedRistretto R { get; set; }

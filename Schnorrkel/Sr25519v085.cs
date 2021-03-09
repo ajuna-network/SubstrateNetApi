@@ -1,11 +1,11 @@
-﻿namespace Schnorrkel
-{
-    using Schnorrkel.Merlin;
-    using Schnorrkel.Ristretto;
-    using Schnorrkel.Scalars;
-    using Schnorrkel.Signed;
-    using System.Text;
+﻿using Schnorrkel.Merlin;
+using Schnorrkel.Ristretto;
+using Schnorrkel.Scalars;
+using Schnorrkel.Signed;
+using System.Text;
 
+namespace Schnorrkel
+{
     public class Sr25519v085 : Sr25519Base
     {
         public Sr25519v085(SchnorrkelSettings settings) : base(settings)

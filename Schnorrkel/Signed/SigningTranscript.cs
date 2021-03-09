@@ -1,9 +1,9 @@
-﻿namespace Schnorrkel.Signed
-{
-    using Schnorrkel.Merlin;
-    using Schnorrkel.Ristretto;
-    using Schnorrkel.Scalars;
+﻿using Schnorrkel.Merlin;
+using Schnorrkel.Ristretto;
+using Schnorrkel.Scalars;
 
+namespace Schnorrkel.Signed
+{
     internal class SigningTranscript
     {
         SigningTranscriptOperation _operations;

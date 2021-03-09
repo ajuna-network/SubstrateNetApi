@@ -15,12 +15,12 @@
             {
                 for (var j = 0; j < 8; j++)
                 {
-                    dt[i] |= (ulong)data[(i * 8) + j] << (j * 8);
+                    dt[i] |= ((ulong)data[(i * 8) + j]) << (j * 8);
                 }
             }
 
-            ulong mask = (1L << 52) - 1;
-            ulong topMask = (1L << 48) - 1;
+            var mask = (1UL << 52) - 1;
+            var topMask = (1UL << 48) - 1;
             var s = Zero();
 
             s[0] = dt[0] & mask;
@@ -55,7 +55,7 @@
 
         private static byte AsU8(ulong num)
         {
-            return BitConverter.GetBytes(num)[0];
+            return (byte)(num & 0xffUL);
         }
 
         private static byte AsU8(BigInteger bi)
@@ -63,24 +63,19 @@
             return bi.ToByteArray()[0];
         }
 
-        private static Func<BigInteger, BigInteger, BigInteger> _m = new Func<BigInteger, BigInteger, BigInteger>((x, y) =>
-        {
-            return x * y;
-        });
+        private static BigInteger M(BigInteger x, BigInteger y) => x * y;
 
-        private static Func<BigInteger, (ulong, BigInteger)> _part1 = new Func<BigInteger, (ulong, BigInteger)>((sum) =>
+        private static (BigInteger Carry, ulong N) Part1(BigInteger sum)
         {
-            var wm = WrappingMul(AsU64(sum), Consts.LFACTOR);
-            var p = WrappingMul(AsU64(sum), Consts.LFACTOR) & ((((ulong)1) << 52) - 1);
-            //var tst = sum + _m(p, Consts.L[0]) >> 52;
-            return (p, sum + _m(p, Consts.L[0]) >> 52);
-        });
+            var p = WrappingMul(AsU64(sum), Consts.LFACTOR) & ((1UL << 52) - 1);
+            return ((sum + M(p, Consts.L[0])) >> 52, p);
+        }
 
-        private static Func<BigInteger, (ulong, BigInteger)> _part2 = new Func<BigInteger, (ulong, BigInteger)>((sum) =>
+        private static (BigInteger Carry, ulong R) Part2(BigInteger sum)
         {
-            var w = AsU64(sum) & ((((ulong)1) << 52) - 1);
-            return (w, sum >> 52);
-        });
+            var w = AsU64(sum) & ((1UL << 52) - 1);
+            return (sum >> 52, w);
+        }
 
         public Scalar52(ulong[] data)
         {
@@ -122,15 +117,15 @@
         {
             BigInteger[] z = new BigInteger[9];
 
-            z[0] = _m(a[0], b[0]);
-            z[1] = _m(a[0], b[1]) + _m(a[1], b[0]);
-            z[2] = _m(a[0], b[2]) + _m(a[1], b[1]) + _m(a[2], b[0]);
-            z[3] = _m(a[0], b[3]) + _m(a[1], b[2]) + _m(a[2], b[1]) + _m(a[3], b[0]);
-            z[4] = _m(a[0], b[4]) + _m(a[1], b[3]) + _m(a[2], b[2]) + _m(a[3], b[1]) + _m(a[4], b[0]);
-            z[5] = _m(a[1], b[4]) + _m(a[2], b[3]) + _m(a[3], b[2]) + _m(a[4], b[1]);
-            z[6] = _m(a[2], b[4]) + _m(a[3], b[3]) + _m(a[4], b[2]);
-            z[7] = _m(a[3], b[4]) + _m(a[4], b[3]);
-            z[8] = _m(a[4], b[4]);
+            z[0] = M(a[0], b[0]);
+            z[1] = M(a[0], b[1]) + M(a[1], b[0]);
+            z[2] = M(a[0], b[2]) + M(a[1], b[1]) + M(a[2], b[0]);
+            z[3] = M(a[0], b[3]) + M(a[1], b[2]) + M(a[2], b[1]) + M(a[3], b[0]);
+            z[4] = M(a[0], b[4]) + M(a[1], b[3]) + M(a[2], b[2]) + M(a[3], b[1]) + M(a[4], b[0]);
+            z[5] =                  M(a[1], b[4]) + M(a[2], b[3]) + M(a[3], b[2]) + M(a[4], b[1]);
+            z[6] =                                   M(a[2], b[4]) + M(a[3], b[3]) + M(a[4], b[2]);
+            z[7] =                                                    M(a[3], b[4]) + M(a[4], b[3]);
+            z[8] =                                                                     M(a[4], b[4]);
 
             return z;
         }
@@ -138,7 +133,7 @@
         public static Scalar52 Add(Scalar52 a, Scalar52 b)
         {
             var sum = Zero();
-            ulong mask = (((ulong)1) << 52) - 1;
+            ulong mask = (1UL << 52) - 1;
 
             ulong carry = 0;
             for (var i = 0; i < 5; i++)
@@ -164,7 +159,7 @@
         public static Scalar52 Sub(Scalar52 a, Scalar52 b)
         {
             var difference = Zero();
-            ulong mask = (((ulong)1) << 52) - 1;
+            ulong mask = (1UL << 52) - 1;
 
             // a - b
             ulong borrow = 0;
@@ -197,20 +192,20 @@
             var l = Consts.L;
 
             // the first half computes the Montgomery adjustment factor n, and begins adding n*l to make limbs divisible by R
-            var n0 = _part1(limbs[0]);
-            var n1 = _part1(n0.Item2 + limbs[1] + _m(n0.Item1, l[1]));
-            var n2 = _part1(n1.Item2 + limbs[2] + _m(n0.Item1, l[2]) + _m(n1.Item1, l[1]));
-            var n3 = _part1(n2.Item2 + limbs[3] + _m(n1.Item1, l[2]) + _m(n2.Item1, l[1]));
-            var n4 = _part1(n3.Item2 + limbs[4] + _m(n0.Item1, l[4]) + _m(n2.Item1, l[2]) + _m(n3.Item1, l[1]));
+            var (carry0, n0) = Part1(limbs[0]);
+            var (carry1, n1) = Part1(carry0 + limbs[1] + M(n0, l[1]));
+            var (carry2, n2) = Part1(carry1 + limbs[2] + M(n0,l[2]) + M(n1,l[1]));
+            var (carry3, n3) = Part1(carry2 + limbs[3]              + M(n1,l[2]) + M(n2,l[1]));
+            var (carry4, n4) = Part1(carry3 + limbs[4] + M(n0,l[4])              + M(n2,l[2]) + M(n3,l[1]));
 
             // limbs is divisible by R now, so we can divide by R by simply storing the upper half as the result
-            var r0 = _part2(n4.Item2 + limbs[5] + _m(n1.Item1, l[4]) + _m(n3.Item1, l[2]) + _m(n4.Item1, l[1]));
-            var r1 = _part2(r0.Item2 + limbs[6] + _m(n2.Item1, l[4]) + _m(n4.Item1, l[2]));
-            var r2 = _part2(r1.Item2 + limbs[7] + _m(n3.Item1, l[4]));
-            var r3 = _part2(r2.Item2 + limbs[8] + _m(n4.Item1, l[4]));
-            var r4 = AsU64(r3.Item2);
+            var (carry5, r0) = Part2(carry4 + limbs[5]              + M(n1,l[4])              + M(n3,l[2]) + M(n4,l[1]));
+            var (carry6, r1) = Part2(carry5 + limbs[6]                           + M(n2,l[4])              + M(n4,l[2]));
+            var (carry7, r2) = Part2(carry6 + limbs[7]                                        + M(n3,l[4])             );
+            var (carry8, r3) = Part2(carry7 + limbs[8]                                                     + M(n4,l[4]));
+            var         r4 = AsU64(carry8);
 
-            return Sub(new Scalar52(new ulong[] { AsU64(r0.Item1), AsU64(r1.Item1), AsU64(r2.Item1), AsU64(r3.Item1), r4 }), l);
+            return Sub(new Scalar52(new ulong[] { r0, r1, r2, r3, r4 }), l);
         }
 
         public byte[] ToBytes()
