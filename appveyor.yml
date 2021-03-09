@@ -13,9 +13,7 @@ environment:
 build_script:
 - cmd: >-
     dotnet build -p:Version=%APPVEYOR_BUILD_VERSION% --configuration %TARGET_CONFIGURATION%
-    
-    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/Schnorrkel/bin/Release/Schnorrkel.%APPVEYOR_BUILD_VERSION%.nupkg -FileName Schnorrkel.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName Schnorrkel
-    
+
     appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/SubstrateNetApi/bin/Release/SubstrateNetApi.%APPVEYOR_BUILD_VERSION%.nupkg -FileName SubstrateNetApi.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName SubstrateNetApi
     
     appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/SubstrateNetWallet/bin/Release/SubstrateNetWallet.%APPVEYOR_BUILD_VERSION%.nupkg -FileName SubstrateNetWallet.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName SubstrateNetWallet
