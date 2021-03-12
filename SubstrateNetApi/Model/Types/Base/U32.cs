@@ -36,5 +36,11 @@ namespace SubstrateNetApi.Model.Types.Base
             Bytes = byteArray;
             Value = BitConverter.ToUInt32(byteArray, 0);
         }
+
+        public void Create(uint value)
+        {
+            Bytes = BitConverter.GetBytes(value);
+            Value = value;
+        }
     }
 }
