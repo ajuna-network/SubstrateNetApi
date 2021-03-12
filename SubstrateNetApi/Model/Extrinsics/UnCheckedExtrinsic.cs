@@ -57,7 +57,7 @@ namespace SubstrateNetApi.Model.Extrinsics
 
             list.AddRange(Method.Encode());
 
-            return Utils.SizePrefixedByteArray(list); ;
+            return Utils.SizePrefixedByteArray(list);
         }
     }
 }

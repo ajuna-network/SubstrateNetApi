@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
@@ -29,10 +30,13 @@ namespace SubstrateNetApi.Model.Types.Struct
                 list.Add(t);
             }
 
-            Bytes = byteArray;
-            Value = list;
-
             _size = p - start;
+
+            var bytes = new byte[_size];
+            Array.Copy(byteArray, start, bytes, 0, _size);
+
+            Bytes = bytes;
+            Value = list;
         }
 
         public override void CreateFromJson(string str)
@@ -41,5 +45,6 @@ namespace SubstrateNetApi.Model.Types.Struct
         }
 
         public List<T> Value { get; internal set; }
+
     }
 }

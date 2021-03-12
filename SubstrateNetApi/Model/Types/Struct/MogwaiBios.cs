@@ -50,5 +50,33 @@ namespace SubstrateNetApi.Model.Types.Struct
         public U8 Level { get; private set; }
         public Vec<BlockNumber> Phases { get; private set; }
         public Vec<Hash> Adaptations { get; private set; }
+
+        public void Create(Hash id, U32 state, Vec<U8Arr16> metaXy, Balance intrinsic, U8 level, Vec<BlockNumber> phases, Vec<Hash> adaptations)
+        {
+            var start = 0;
+
+            Id = id;
+            start += id.Bytes.Length;
+
+            State = state;
+            start += state.Bytes.Length;
+
+            MetaXy = metaXy;
+            start += metaXy.Bytes.Length;
+
+            Intrinsic = intrinsic;
+            start += intrinsic.Bytes.Length;
+
+            Level = level;
+            start += level.Bytes.Length;
+
+            Phases = phases;
+            start += phases.Bytes.Length;
+
+            Adaptations = adaptations;
+            start += adaptations.Bytes.Length;
+
+            _size = start;
+        }
     }
 }

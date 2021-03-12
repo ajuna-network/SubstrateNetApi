@@ -107,11 +107,11 @@ namespace DemoApiTest
              * Testing storage data ...
              */
             var address = "5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH";
-            var mogwaiId = "0xc6e023f423709bc1a955f2913ad71333e0563453ad0347d09c012bcd6590c8b5";
-            var mogwaiIdGen1 = "0xe2d3965c287d92c7cf45dc3ff832e8060607cc8eb7f85ae598b4030338f59587";
+            var mogwaiId = "0xbb45ac2c375db3d5239ea8cc0c08bd75bea17abe903493e88a2c8f9fafe0daa1";
+            var mogwaiIdGen1 = "0x0b1b9f0f79a9e3971baf6188ed98623284f1c3bb275883602164b7097789523f";
 
             // [Plain] Value: T::AccountId
-            var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
@@ -130,7 +130,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>
-            //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
+            var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: Vec<u8>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", 

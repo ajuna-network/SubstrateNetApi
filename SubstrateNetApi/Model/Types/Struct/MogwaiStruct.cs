@@ -42,5 +42,27 @@ namespace SubstrateNetApi.Model.Types.Struct
         public BlockNumber Genesis { get; private set; }
         public Balance Price { get; private set; }
         public U64 Gen { get; private set; }
+
+        public void Create(Hash id, Hash dna, BlockNumber genesis, Balance price, U64 gen)
+        {
+            var start = 0;
+
+            Id = id;
+            start += id.Bytes.Length;
+
+            Dna = dna;
+            start += dna.Bytes.Length;
+
+            Genesis = genesis;
+            start += genesis.Bytes.Length;
+
+            Price = price;
+            start += price.Bytes.Length;
+
+            Gen = gen;
+            start += gen.Bytes.Length;
+
+            _size = start;
+        }
     }
 }
