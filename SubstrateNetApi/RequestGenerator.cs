@@ -107,12 +107,11 @@ namespace SubstrateNetApi
             byte[] signature;
             switch (account.KeyType)
             {
-                case KeyType.Sr25519:
-                    //signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
-                    throw new NotImplementedException();
                 case KeyType.Ed25519:
                     signature = Ed25519.Sign(payload, account.PrivateKey);
                     break;
+                case KeyType.Sr25519:
+                    //signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
                 default:
                     throw new Exception($"Unknown key type found '{account.KeyType}'.");
             }

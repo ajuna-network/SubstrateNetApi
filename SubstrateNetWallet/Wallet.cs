@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Chaos.NaCl;
 using NLog;
-using Schnorrkel;
+//using Schnorrkel;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Rpc;
@@ -231,6 +231,8 @@ namespace SubstrateNetWallet
                 case KeyType.Ed25519:
                     signature = Ed25519.Sign(data, signer.PrivateKey);
                     break;
+                case KeyType.Sr25519:
+                    //signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
                 default:
                     throw new NotImplementedException(
                         $"KeyType {signer.KeyType} is currently not implemented for signing.");
@@ -253,7 +255,7 @@ namespace SubstrateNetWallet
                 case KeyType.Ed25519:
                     return Ed25519.Verify(signature, data, signer.Bytes);
                 case KeyType.Sr25519:
-                    return Sr25519v091.Verify(signature, signer.Bytes, data);
+                    //return Sr25519v091.Verify(signature, signer.Bytes, data);
                 default:
                     throw new NotImplementedException(
                         $"KeyType {signer.KeyType} is currently not implemented for verifying signatures.");
