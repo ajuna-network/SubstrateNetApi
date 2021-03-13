@@ -13,7 +13,7 @@ namespace SubstrateNetApiTests.ClientTests
 {
     internal class ClientTests
     {
-        private const string WebSocketUrl = "wss://mogiway-01.dotmog.com";
+        private const string WebSocketUrl = "wss://rpc.polkadot.io";
 
         private SubstrateClient _substrateClient;
 
@@ -77,7 +77,7 @@ namespace SubstrateNetApiTests.ClientTests
             await _substrateClient.ConnectAsync();
 
             var result = await _substrateClient.GetMethodAsync<string>("system_name");
-            Assert.AreEqual("DOTMog Node", result);
+            Assert.AreEqual("Parity Polkadot", result);
 
             await _substrateClient.CloseAsync();
         }
@@ -88,7 +88,7 @@ namespace SubstrateNetApiTests.ClientTests
             await _substrateClient.ConnectAsync();
 
             var result = await _substrateClient.GetMethodAsync<string>("system_chain");
-            Assert.AreEqual("DOTMog.com NET", result);
+            Assert.AreEqual("Polkadot", result);
 
             await _substrateClient.CloseAsync();
         }

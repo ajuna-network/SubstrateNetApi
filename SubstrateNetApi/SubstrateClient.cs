@@ -72,6 +72,7 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new GenericTypeConverter<U16>());
             RegisterTypeConverter(new GenericTypeConverter<U32>());
             RegisterTypeConverter(new GenericTypeConverter<U64>());
+            RegisterTypeConverter(new GenericTypeConverter<BlockNumber>());
             RegisterTypeConverter(new GenericTypeConverter<AccountId>());
             RegisterTypeConverter(new GenericTypeConverter<AccountInfo>());
             RegisterTypeConverter(new GenericTypeConverter<AccountData>());

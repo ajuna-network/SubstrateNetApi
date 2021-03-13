@@ -1,19 +1,20 @@
 using System;
-using System.Threading.Tasks;
-using NLog;
-using NLog.Config;
-using NLog.Targets;
+using System.Text;
 using NUnit.Framework;
 using SubstrateNetApi;
-using SubstrateNetApi.Exceptions;
-using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Struct;
+using SubstrateNetApi.Model.Types.Base;
+using NLog.Config;
+using NLog;
+using System.Threading.Tasks;
+using SubstrateNetApi.Exceptions;
+using NLog.Targets;
 
-namespace SubstrateNetApiTests.ClientTests
+namespace SubstrateNetApiTests
 {
-    public class GetStorageTests
+    public class CustomStorageTests
     {
-        private const string WebSocketUrl = "wss://rpc.polkadot.io";
+        private const string WebSocketUrl = "wss://mogiway-01.dotmog.com";
 
         private SubstrateClient _substrateClient;
 
@@ -41,25 +42,42 @@ namespace SubstrateNetApiTests.ClientTests
         }
 
         [Test]
-        public async Task BasicStorageTestNoParameterAsync1()
+        public async Task BasicTestAsync()
         {
             await _substrateClient.ConnectAsync();
 
-            var reqResult = await _substrateClient.GetStorageAsync("System", "Number");
-            Assert.AreEqual("BlockNumber", reqResult.GetType().Name);
-            Assert.IsTrue(reqResult is BlockNumber);
+            var reqResult = await _substrateClient.GetStorageAsync("Sudo", "Key");
+            Assert.AreEqual("AccountId", reqResult.GetType().Name);
+            Assert.IsTrue(reqResult is AccountId);
+
+            var accountId = (AccountId)reqResult;
+            Assert.AreEqual("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", accountId.Value);
 
             await _substrateClient.CloseAsync();
         }
 
         [Test]
-        public async Task BasicStorageTestWithParameterAsync1()
+        public async Task ParameterizedTestAsync()
         {
             await _substrateClient.ConnectAsync();
-            
-            var reqResult = await _substrateClient.GetStorageAsync("System", "Account", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("13RDY9nrJpyTDBSUdBw12dGwhk19sGwsrVZ2bxkzYHBSagP2")) });
-            Assert.AreEqual("AccountInfo", reqResult.GetType().Name);
-            Assert.IsTrue(reqResult is AccountInfo);
+
+            var countMogwais = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisCount");
+            Assert.AreEqual("U64", countMogwais.GetType().Name);
+
+            var request = await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray", new[] { "0" });
+            Assert.AreEqual("Hash", request.GetType().Name);
+            Assert.IsTrue(request is Hash);
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task MissingParameterTestAsync()
+        {
+            await _substrateClient.ConnectAsync();
+
+            Assert.ThrowsAsync<MissingParameterException>(async () =>
+                await _substrateClient.GetStorageAsync("DotMogModule", "AllMogwaisArray"));
 
             await _substrateClient.CloseAsync();
         }
@@ -88,7 +106,10 @@ namespace SubstrateNetApiTests.ClientTests
             await _substrateClient.ConnectAsync();
 
             Assert.ThrowsAsync<MissingConverterException>(async () =>
-                await _substrateClient.GetStorageAsync("Timestamp", "Now"));
+                await _substrateClient.GetStorageAsync("DotMogModule", "Mogwais", new[]
+                {
+                    "0xAD35415CB5B574819C8521B9192FFFDA772C0770FED9A55494293B2D728F104C"
+                }));
 
             await _substrateClient.CloseAsync();
         }

@@ -112,6 +112,8 @@ namespace DemoApiTest
 
             // [Plain] Value: T::AccountId
             //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
+            
+            var reqResult = await client.GetStorageAsync("System", "Number", cancellationToken);
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
@@ -130,7 +132,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>
-            var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: Vec<u8>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AccountConfig", 
