@@ -4,6 +4,12 @@ using System.Security.Cryptography;
 
 namespace SubstrateNetWallet
 {
+    /// <summary>
+    /// AesManaged Class
+    /// Using AES Provides a managed implementation of the Advanced Encryption Standard (AES) symmetric algorithm.
+    /// For further information please visit
+    /// https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.aesmanaged?view=netstandard-2.0
+    /// </summary>
     public class ManagedAes
     {
         public static byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
