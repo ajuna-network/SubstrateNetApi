@@ -9,6 +9,9 @@ using NLog;
 using System.Threading.Tasks;
 using SubstrateNetApi.Exceptions;
 using NLog.Targets;
+using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.Extrinsics;
 
 namespace SubstrateNetApiTests
 {
