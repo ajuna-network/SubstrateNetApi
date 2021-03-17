@@ -1,11 +1,12 @@
 ﻿using System;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Enum;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
     public class MogwaiStruct : StructType
     {
-        public override string Name() => "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>";
+        public override string Name() => "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>, RarityType>";
 
         private int _size;
         public override int Size() => _size;
@@ -31,8 +32,11 @@ namespace SubstrateNetApi.Model.Types.Struct
             Price = new Balance();
             Price.Decode(byteArray, ref p);
 
-            Gen = new U64();
+            Gen = new U32();
             Gen.Decode(byteArray, ref p);
+
+            Rarity = new EnumType<RarityType>();
+            Rarity.Decode(byteArray, ref p);
 
             _size = p - start;
         }
@@ -41,9 +45,9 @@ namespace SubstrateNetApi.Model.Types.Struct
         public Hash Dna { get; private set; }
         public BlockNumber Genesis { get; private set; }
         public Balance Price { get; private set; }
-        public U64 Gen { get; private set; }
-
-        public void Create(Hash id, Hash dna, BlockNumber genesis, Balance price, U64 gen)
+        public U32 Gen { get; private set; }
+        public EnumType<RarityType> Rarity { get; private set; }
+        public void Create(Hash id, Hash dna, BlockNumber genesis, Balance price, U32 gen, EnumType<RarityType> rarity)
         {
             var start = 0;
 
@@ -61,6 +65,12 @@ namespace SubstrateNetApi.Model.Types.Struct
 
             Gen = gen;
             start += gen.Bytes.Length;
+
+            Gen = gen;
+            start += gen.Bytes.Length;
+
+            Rarity = rarity;
+            start += rarity.Bytes.Length;
 
             _size = start;
         }

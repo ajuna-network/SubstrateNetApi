@@ -9,6 +9,7 @@ using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
 
@@ -85,6 +86,7 @@ namespace DemoApiTest
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
             client.RegisterTypeConverter(new GenericTypeConverter<GameEvent>());
+            client.RegisterTypeConverter(new GenericTypeConverter<EnumType<RarityType>>());
 
             await client.ConnectAsync(cancellationToken);
 
@@ -107,13 +109,13 @@ namespace DemoApiTest
              * Testing storage data ...
              */
             var address = "5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH";
-            var mogwaiId = "0xbb45ac2c375db3d5239ea8cc0c08bd75bea17abe903493e88a2c8f9fafe0daa1";
+            var mogwaiId = "0x89ab510f57802886c16922685a376edb536f762584dda569cda67381c4e4dec8";
             var mogwaiIdGen1 = "0x0b1b9f0f79a9e3971baf6188ed98623284f1c3bb275883602164b7097789523f";
 
             // [Plain] Value: T::AccountId
-            //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
+            var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
             
-            var reqResult = await client.GetStorageAsync("System", "Number", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("System", "Number", cancellationToken);
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);

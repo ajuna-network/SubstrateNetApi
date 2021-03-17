@@ -4,6 +4,10 @@ using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Enum;
+using SubstrateNetApi.TypeConverters;
+using System.Numerics;
 
 namespace SubstrateNetApiTests
 {
@@ -17,7 +21,7 @@ namespace SubstrateNetApiTests
         [Test]
         public void MogwaiStructTest()
         {
-            var mogwaiStructStr = "0xbb45ac2c375db3d5239ea8cc0c08bd75bea17abe903493e88a2c8f9fafe0daa1bb45ac2c375db3d5239ea8cc0c08bd75bea17abe903493e88a2c8f9fafe0daa161020100000000000000000000000000000000000000000000000000";
+            var mogwaiStructStr = "0x89ab510f57802886c16922685a376edb536f762584dda569cda67381c4e4dec889ab510f57802886c16922685a376edb536f762584dda569cda67381c4e4dec871000000000000000000000000000000000000000000000000";
             var mogwaiStructA = new MogwaiStruct();
             mogwaiStructA.Create(mogwaiStructStr);
 
@@ -36,16 +40,20 @@ namespace SubstrateNetApiTests
             var price = new Balance();
             price.Create(mogwaiStructA.Price.Value);
 
-            var gen = new U64();
+            var gen = new U32();
             gen.Create(mogwaiStructA.Gen.Value);
 
-            mogwaiStructB.Create(id, dna, genesis, price, gen);
+            var rarity = new EnumType<RarityType>();
+            rarity.Create(mogwaiStructA.Rarity.Bytes);
+
+            mogwaiStructB.Create(id, dna, genesis, price, gen, rarity);
 
             Assert.AreEqual(mogwaiStructB.Id.Value, mogwaiStructA.Id.Value);
             Assert.AreEqual(mogwaiStructB.Dna.Value, mogwaiStructA.Dna.Value);
             Assert.AreEqual(mogwaiStructB.Genesis.Value, mogwaiStructA.Genesis.Value);
             Assert.AreEqual(mogwaiStructB.Price.Value, mogwaiStructA.Price.Value);
             Assert.AreEqual(mogwaiStructB.Gen.Value, mogwaiStructA.Gen.Value);
+            Assert.AreEqual(mogwaiStructB.Rarity.Value, mogwaiStructA.Rarity.Value);
         }
 
         [Test]
@@ -94,5 +102,6 @@ namespace SubstrateNetApiTests
             Assert.AreEqual(mogwaiBiosB.Phases.Value[0].Bytes, mogwaiBiosA.Phases.Value[0].Bytes);
             Assert.AreEqual(mogwaiBiosB.Adaptations.Value, mogwaiBiosA.Adaptations.Value);
         }
+
     }
 }
