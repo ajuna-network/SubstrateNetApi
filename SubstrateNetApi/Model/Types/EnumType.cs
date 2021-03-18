@@ -34,6 +34,16 @@ namespace SubstrateNetApi.Model.Types
         {
             Bytes = byteArray;
             Value = (T) System.Enum.Parse(typeof(T), byteArray[0].ToString(), true);
+
+            //if (byteArray.Length < Size())
+            //{
+            //    var newByteArray = new byte[Size()];
+            //    byteArray.CopyTo(newByteArray, 0);
+            //    byteArray = newByteArray;
+            //}
+
+            //Bytes = byteArray;
+            //Value = (T)System.Enum.Parse(typeof(T), BitConverter.ToUInt32(byteArray, 0).ToString(), true);
         }
 
         public IType New() => this;
