@@ -11672,8 +11672,157 @@
       ]
     },
     {
-      "Name": "Contracts",
+      "Name": "DotMogBase",
       "Index": 31,
+      "Storage": {
+        "Prefix": "DotMogBase",
+        "Items": [
+          {
+            "Name": "Something",
+            "Modifier": "Optional",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "u32",
+              "IsLinked": false
+            },
+            "FallBack": "0x00",
+            "Documentations": [
+
+            ]
+          },
+          {
+            "Name": "Key",
+            "Modifier": "Default",
+            "Type": "Plain",
+            "Function": {
+              "Hasher": "None",
+              "Key1": null,
+              "Key2": null,
+              "Value": "T::AccountId",
+              "IsLinked": false
+            },
+            "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+              " The current authority set."
+            ]
+          },
+          {
+            "Name": "AccountClaim",
+            "Modifier": "Default",
+            "Type": "Map",
+            "Function": {
+              "Hasher": "BlakeTwo128Concat",
+              "Key1": "(T::AccountId, Vec<u8>)",
+              "Key2": null,
+              "Value": "MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>",
+              "IsLinked": false
+            },
+            "FallBack": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "Documentations": [
+
+            ]
+          }
+        ]
+      },
+      "Calls": [
+        {
+          "Name": "do_something",
+          "Arguments": [
+            {
+              "Name": "something",
+              "Type": "u32"
+            }
+          ],
+          "Documentations": [
+            " An example dispatchable that takes a singles value as a parameter, writes the value to",
+            " storage and emits an event. This function must be dispatched by a signed extrinsic."
+          ]
+        },
+        {
+          "Name": "claim",
+          "Arguments": [
+            {
+              "Name": "address",
+              "Type": "Vec<u8>"
+            },
+            {
+              "Name": "account",
+              "Type": "T::AccountId"
+            },
+            {
+              "Name": "signature",
+              "Type": "Vec<u8>"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
+          "Name": "cause_error",
+          "Arguments": [
+
+          ],
+          "Documentations": [
+            " An example dispatchable that may throw a custom error."
+          ]
+        }
+      ],
+      "Events": [
+        {
+          "Documentations": [
+            " Event documentation should end with an array that provides descriptive names for event",
+            " parameters. [something, who]"
+          ],
+          "Name": "SomethingStored",
+          "EventArgs": [
+            "u32",
+            "AccountId"
+          ]
+        }
+      ],
+      "Consts": [
+
+      ],
+      "Errors": [
+        {
+          "Documentations": [
+            " Error names should be descriptive."
+          ],
+          "Name": "NoneValue"
+        },
+        {
+          "Documentations": [
+            " Errors should have helpful documentation associated with them."
+          ],
+          "Name": "StorageOverflow"
+        },
+        {
+          "Documentations": [
+            " Account is already claimed."
+          ],
+          "Name": "AccountClaimAlreadyExists"
+        },
+        {
+          "Documentations": [
+            " Incorrect signature size."
+          ],
+          "Name": "SignatureSize"
+        },
+        {
+          "Documentations": [
+            " Incorrect address size."
+          ],
+          "Name": "AddressSize"
+        }
+      ]
+    },
+    {
+      "Name": "Contracts",
+      "Index": 32,
       "Storage": {
         "Prefix": "Contracts",
         "Items": [
@@ -12059,7 +12208,7 @@
         {
           "Name": "TombstoneDeposit",
           "Type": "BalanceOf<T>",
-          "Value": "0x00F0E8857A9C02000000000000000000",
+          "Value": "0x00F002C82A4502000000000000000000",
           "Documentations": [
             " The minimum amount required to generate a tombstone."
           ]
@@ -12067,7 +12216,7 @@
         {
           "Name": "DepositPerContract",
           "Type": "BalanceOf<T>",
-          "Value": "0x00F0E8857A9C02000000000000000000",
+          "Value": "0x00F002C82A4502000000000000000000",
           "Documentations": [
             " The balance every contract needs to deposit to stay alive indefinitely.",
             "",
@@ -12359,7 +12508,7 @@
     },
     {
       "Name": "Society",
-      "Index": 32,
+      "Index": 33,
       "Storage": {
         "Prefix": "Society",
         "Items": [
@@ -13389,7 +13538,7 @@
     },
     {
       "Name": "Recovery",
-      "Index": 33,
+      "Index": 34,
       "Storage": {
         "Prefix": "Recovery",
         "Items": [
@@ -13944,7 +14093,7 @@
     },
     {
       "Name": "Assets",
-      "Index": 34,
+      "Index": 35,
       "Storage": {
         "Prefix": "Assets",
         "Items": [

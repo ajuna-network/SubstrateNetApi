@@ -132,7 +132,7 @@ namespace DemoApiTest
 
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
-            var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new[] { "0x9894948a8efd07c896969c39c805e4a92b29270e5d5a873523f9fe7388fa350e" }, cancellationToken);
+            //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new[] { "0x9894948a8efd07c896969c39c805e4a92b29270e5d5a873523f9fe7388fa350e" }, cancellationToken);
             
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
@@ -222,9 +222,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            //Console.WriteLine(client.MetaData.Serialize());
+            Console.WriteLine(client.MetaData.Serialize());
 
             // Close connection
             await client.CloseAsync(cancellationToken);

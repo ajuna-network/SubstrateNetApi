@@ -151,8 +151,8 @@ namespace SubstrateNetWalletTest
 
             Thread.Sleep(1000);
 
-            Assert.True(BigInteger.Parse("900000000000000") < wallet.AccountInfo.AccountData.Free.Value);
-            Assert.True(BigInteger.Parse("1000000000000000") > wallet.AccountInfo.AccountData.Free.Value);
+            Assert.True(BigInteger.Parse("400000000000000") < wallet.AccountInfo.AccountData.Free.Value);
+            Assert.True(BigInteger.Parse("600000000000000") > wallet.AccountInfo.AccountData.Free.Value);
 
             var blockNumber = new BlockNumber();
             blockNumber.Create(10);
@@ -231,10 +231,10 @@ namespace SubstrateNetWalletTest
 
             Assert.IsNotNull(test);
 
-            Assert.AreEqual(1, test.Nonce.Value);
+            Assert.AreEqual(2, test.Nonce.Value);
 
-            Assert.True(BigInteger.Parse( "900000000000000") < test.AccountData.Free.Value);
-            Assert.True(BigInteger.Parse("1000000000000000") > test.AccountData.Free.Value);
+            Assert.True(BigInteger.Parse("400000000000000") < test.AccountData.Free.Value);
+            Assert.True(BigInteger.Parse("600000000000000") > test.AccountData.Free.Value);
         }
 
         [Test]
