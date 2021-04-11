@@ -6,7 +6,7 @@ namespace SubstrateNetApi.Model.Types.Struct
 {
     public class MogwaicoinAddress : StructType
     {
-        public override string Name() => "MogwaicoinAddress<T::Hash, T::BlockNumber, BalanceOf<T>, RarityType>";
+        public override string Name() => "MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>";
 
         private int _size;
         public override int Size() => _size;

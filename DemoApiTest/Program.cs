@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
@@ -9,6 +10,7 @@ using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
@@ -87,6 +89,7 @@ namespace DemoApiTest
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
             client.RegisterTypeConverter(new GenericTypeConverter<GameEvent>());
             client.RegisterTypeConverter(new GenericTypeConverter<EnumType<RarityType>>());
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaicoinAddress>());
 
             await client.ConnectAsync(cancellationToken);
 
@@ -113,7 +116,7 @@ namespace DemoApiTest
             var mogwaiIdGen1 = "0x0b1b9f0f79a9e3971baf6188ed98623284f1c3bb275883602164b7097789523f";
 
             // [Plain] Value: T::AccountId
-            //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
+            var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
             //var reqResult = await client.GetStorageAsync("System", "Number", cancellationToken);
 
@@ -133,7 +136,7 @@ namespace DemoApiTest
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new [] {mogwaiId}, cancellationToken);
             //var reqResult = await client.GetStorageAsync("DotMogModule", "Mogwais", new[] { "0x9894948a8efd07c896969c39c805e4a92b29270e5d5a873523f9fe7388fa350e" }, cancellationToken);
-            
+
             // [Map] Key: T::Hash, Hasher: Identity, Value: MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogModule", "MogwaisBios", new [] { mogwaiIdGen1 }, cancellationToken);
 
@@ -158,6 +161,12 @@ namespace DemoApiTest
             //var hash = new Hash();
             //hash.Create("0xf7ed3ff62195438d16616cae55cb450e1fdb6e8602190a335b0684fc50f33311");
             //var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
+
+            // [Map] Key: (T::AccountId, Vec<u8>), Hasher: BlakeTwo128Concat, Value: MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>
+            //var reqResult = await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb")), Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u")) }, cancellationToken);
+
+            Vec<U8> tt = new Vec<U8>();
+            tt.Value = new System.Collections.Generic.List<U8>();
 
             // ****************************************************************************************************************************************
 
@@ -222,7 +231,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
             Console.WriteLine(client.MetaData.Serialize());
 

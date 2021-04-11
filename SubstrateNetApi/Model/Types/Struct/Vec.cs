@@ -13,7 +13,12 @@ namespace SubstrateNetApi.Model.Types.Struct
 
         public override byte[] Encode()
         {
-            throw new NotImplementedException();
+           List<byte> result = new List<byte>();
+            for(int i = 0; i < Value.Count; i++)
+            {
+                result.AddRange(Value[i].Encode());
+            }
+            return Utils.SizePrefixedByteArray(result);
         }
 
         public override void Decode(byte[] byteArray, ref int p)
@@ -45,6 +50,12 @@ namespace SubstrateNetApi.Model.Types.Struct
         }
 
         public List<T> Value { get; internal set; }
+
+        public void Create(List<T> list)
+        {
+            Value = list;
+            Bytes = Encode();
+        }
 
     }
 }

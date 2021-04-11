@@ -537,7 +537,7 @@
         {
           "Name": "Version",
           "Type": "RuntimeVersion",
-          "Value": "0x2C646F746D6F672D6E6F6465206D696C6B797761790A000000030000000000000030DF6ACB689907609B0300000037E397FC7C91F5E40100000040FE3AD401F8959A04000000D2BC9897EED08F1502000000F78B278BE53F454C02000000ED99C5ACB25EEDF502000000CBCA25E39F14238702000000687AD44AD37F03C201000000BC9D89904F5B923F0100000068B66BA122C93FA70100000037C8BB1350A9A2A801000000AB3C0572291FEB8B0100000002000000",
+          "Value": "0x2C646F746D6F672D6E6F6465206D696C6B797761790A000000050000000000000030DF6ACB689907609B0300000037E397FC7C91F5E40100000040FE3AD401F8959A04000000D2BC9897EED08F1502000000F78B278BE53F454C02000000ED99C5ACB25EEDF502000000CBCA25E39F14238702000000687AD44AD37F03C201000000BC9D89904F5B923F0100000068B66BA122C93FA70100000037C8BB1350A9A2A801000000AB3C0572291FEB8B0100000002000000",
           "Documentations": [
             " Get the chain's current version."
           ]
@@ -11742,6 +11742,18 @@
           ]
         },
         {
+          "Name": "change_key",
+          "Arguments": [
+            {
+              "Name": "to",
+              "Type": "T::AccountId"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
           "Name": "claim",
           "Arguments": [
             {
@@ -11755,6 +11767,46 @@
             {
               "Name": "signature",
               "Type": "Vec<u8>"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
+          "Name": "update_claim",
+          "Arguments": [
+            {
+              "Name": "address",
+              "Type": "Vec<u8>"
+            },
+            {
+              "Name": "account",
+              "Type": "T::AccountId"
+            },
+            {
+              "Name": "state",
+              "Type": "u32"
+            },
+            {
+              "Name": "balance",
+              "Type": "BalanceOf<T>"
+            }
+          ],
+          "Documentations": [
+
+          ]
+        },
+        {
+          "Name": "remove_claim",
+          "Arguments": [
+            {
+              "Name": "address",
+              "Type": "Vec<u8>"
+            },
+            {
+              "Name": "account",
+              "Type": "T::AccountId"
             }
           ],
           "Documentations": [
@@ -11782,6 +11834,16 @@
             "u32",
             "AccountId"
           ]
+        },
+        {
+          "Documentations": [
+            " Key for claim registrations changed",
+            " parameters. [who] "
+          ],
+          "Name": "KeyChanged",
+          "EventArgs": [
+            "AccountId"
+          ]
         }
       ],
       "Consts": [
@@ -11805,6 +11867,12 @@
             " Account is already claimed."
           ],
           "Name": "AccountClaimAlreadyExists"
+        },
+        {
+          "Documentations": [
+            " Account doesn't exists."
+          ],
+          "Name": "AccountClaimDoesntExists"
         },
         {
           "Documentations": [

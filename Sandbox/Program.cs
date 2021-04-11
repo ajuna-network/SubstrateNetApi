@@ -25,9 +25,11 @@ namespace Sandbox
             //await ParseEventStringAsync(args);
             //await ParseEventsAsync(args);
             //await GetKeysPagedAsync(args);
+            //await GetAllMogwaiHashs(args);
+            await GetAllOwnedMogwais(args);
             //TestKey(args);
             //await StorageRuntimeVersion(args);
-            await EventhandlingTestAsync(args);
+            //await EventhandlingTestAsync(args);
             //await EventDecode(args);
             //TestReflection(args);
         }
@@ -134,10 +136,49 @@ namespace Sandbox
 
             // TODO GetStorageKeyBytesHash
             var keys = await client.GetStorageKeysAsync("DotMogModule", "Mogwais", CancellationToken.None);
-            var keyString = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "Mogwais"))
-                .ToLower();
+            var keyString = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "Mogwais")).ToLower();
             Console.WriteLine($"Key: {keyString}");
-            foreach (var key in keys) Console.WriteLine(key.ToString().Replace(keyString, ""));
+            foreach (var key in keys)
+            {
+                Console.WriteLine(key.ToString().Replace(keyString, ""));
+            }
+        }
+
+        private static async Task GetAllMogwaiStructs(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(Websocketurl));
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var keyBytes = RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "Mogwais");
+            var keyString = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "Mogwais")).ToLower();
+            var keys = await client.State.GetPairsAsync(keyBytes, CancellationToken.None);
+
+            foreach(var child in keys.Children())
+            {
+                var mogwaiId = child[0].ToString().Replace(keyString, "");
+                var mogwaiStruct = new MogwaiStruct();
+                mogwaiStruct.Create(child[1].ToString());
+                Console.WriteLine($"{mogwaiId} -->  {mogwaiStruct}");
+            }
+            
+        }
+
+        private static async Task GetAllOwnedMogwais(string[] args)
+        {
+            using var client = new SubstrateClient(new Uri(Websocketurl));
+            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            await client.ConnectAsync(CancellationToken.None);
+
+            var keyBytes = RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "OwnedMogwaisArray");
+            var keyString = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash("DotMogModule", "OwnedMogwaisArray")).ToLower();
+            var keys = await client.State.GetPairsAsync(keyBytes, CancellationToken.None);
+
+            foreach (var child in keys.Children())
+            {
+                Console.WriteLine($"{child[0].ToString()} -->  {child[1].ToString()}");
+            }
+            
         }
 
         private static async Task AccountSubscriptionAsync(string[] args)

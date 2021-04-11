@@ -224,6 +224,9 @@ namespace SubstrateNetApi
                     var accountId = new AccountId();
                     accountId.Create(parameter);
                     return accountId.Bytes;
+                case "Vec<u8>":
+                    var vecU8 =  Utils.SizePrefixedByteArray(Utils.HexToByteArray(parameter).ToList());
+                    return vecU8;
                 default:
                     throw new Exception("Unimplemented item function key 'item.Function.Key1'!");
             }

@@ -38,8 +38,7 @@ namespace SubstrateNetApi.Modules
 
         public async Task<JArray> GetPairsAsync(byte[] keyPrefix, CancellationToken token)
         {
-            return await _client.InvokeAsync<JArray>("state_getPairs", new object[] {Utils.Bytes2HexString(keyPrefix)},
-                token);
+            return await _client.InvokeAsync<JArray>("state_getPairs", new object[] {Utils.Bytes2HexString(keyPrefix)}, token);
         }
 
         public async Task<JArray> GetKeysPagedAsync(byte[] keyPrefix, uint pageCount, byte[] startKey)
@@ -55,6 +54,11 @@ namespace SubstrateNetApi.Modules
                     new object[] {Utils.Bytes2HexString(keyPrefix), pageCount}, token)
                 : await _client.InvokeAsync<JArray>("state_getKeysPaged",
                     new object[] {Utils.Bytes2HexString(keyPrefix), pageCount, Utils.Bytes2HexString(startKey)}, token);
+        }
+
+        public async Task<object> GetStorageAsync(byte[] parameters, CancellationToken token)
+        {
+            return await _client.InvokeAsync<object>("state_getStorage", new object[] { Utils.Bytes2HexString(parameters) }, token);
         }
 
         public async Task<RuntimeVersion> GetRuntimeVersionAsync()

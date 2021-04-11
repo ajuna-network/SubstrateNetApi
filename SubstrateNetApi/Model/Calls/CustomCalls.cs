@@ -1,9 +1,27 @@
-﻿using SubstrateNetApi.Model.Types.Base;
+﻿using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Enum;
+using SubstrateNetApi.Model.Types.Struct;
 
 namespace SubstrateNetApi.Model.Calls
 {
     public class DotMogCall
     {
+        public static GenericExtrinsicCall Claim(Vec<U8> address, AccountId account, Vec<U8> signature)
+        {
+            return new GenericExtrinsicCall("DotMogBase", "claim", address, account, signature);
+        }
+
+        public static GenericExtrinsicCall UpdateClaim(Vec<U8> address, AccountId account, EnumType<ClaimState> state, Balance balance)
+        {
+            return new GenericExtrinsicCall("DotMogBase", "update_claim", address, account, state, balance);
+        }
+
+        public static GenericExtrinsicCall RemoveClaim(Vec<U8> address, AccountId account)
+        {
+            return new GenericExtrinsicCall("DotMogBase", "remove_claim", address, account);
+        }
+
         public static GenericExtrinsicCall BidAuction(Hash mogwaiId, Balance bid)
         {
             return new GenericExtrinsicCall("DotMogModule", "bid_auction", mogwaiId, bid);

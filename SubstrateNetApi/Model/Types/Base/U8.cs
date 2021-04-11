@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(byte value)
         {
-            Bytes = BitConverter.GetBytes(value);
+            Bytes = new byte[] { value };
             Value = value;
         }
     }
