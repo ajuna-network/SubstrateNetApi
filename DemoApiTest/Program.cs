@@ -165,9 +165,6 @@ namespace DemoApiTest
             // [Map] Key: (T::AccountId, Vec<u8>), Hasher: BlakeTwo128Concat, Value: MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb")), Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u")) }, cancellationToken);
 
-            Vec<U8> tt = new Vec<U8>();
-            tt.Value = new System.Collections.Generic.List<U8>();
-
             // ****************************************************************************************************************************************
 
             // 455455
