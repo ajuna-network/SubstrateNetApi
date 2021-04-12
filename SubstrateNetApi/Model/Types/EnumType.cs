@@ -30,6 +30,12 @@ namespace SubstrateNetApi.Model.Types
 
         public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
 
+        public void Create(T t)
+        {
+            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            Value = t;
+        }
+
         public void Create(byte[] byteArray)
         {
             Bytes = byteArray;

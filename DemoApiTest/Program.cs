@@ -116,7 +116,7 @@ namespace DemoApiTest
             var mogwaiIdGen1 = "0x0b1b9f0f79a9e3971baf6188ed98623284f1c3bb275883602164b7097789523f";
 
             // [Plain] Value: T::AccountId
-            var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
 
             //var reqResult = await client.GetStorageAsync("System", "Number", cancellationToken);
 
@@ -212,6 +212,13 @@ namespace DemoApiTest
             //Thread.Sleep(60000);
             //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
+            // *** test 2.5 submit extrinsic
+            //Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb")), Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u")
+            Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
+            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, DotMogCall.UpdateClaim("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 100000000000), accountZurich, 0, 64, cancellationToken);
+            Thread.Sleep(60000);
+            var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+
             // *** test 3  full stoarge test
             // ???
 
@@ -230,7 +237,7 @@ namespace DemoApiTest
             // Print result
             Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Serialize());
 
             // Close connection
             await client.CloseAsync(cancellationToken);
