@@ -2,6 +2,9 @@
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Struct;
+using System.Linq;
+using System.Numerics;
+using System.Text;
 
 namespace SubstrateNetApi.Model.Calls
 {
@@ -10,6 +13,27 @@ namespace SubstrateNetApi.Model.Calls
         public static GenericExtrinsicCall Claim(Vec<U8> address, AccountId account, Vec<U8> signature)
         {
             return new GenericExtrinsicCall("DotMogBase", "claim", address, account, signature);
+        }
+
+        public static GenericExtrinsicCall UpdateClaim(string mogwaicoinAddress, string account, ClaimState claimState, BigInteger balanceAmount)
+        {
+            var address = new Vec<U8>();
+            address.Create(
+                Encoding.ASCII.GetBytes(mogwaicoinAddress).ToList().Select(p => {
+                    var u = new U8(); u.Create(p); return u;
+                }).ToList()
+            );
+
+            var accountId = new AccountId();
+            accountId.Create(Utils.GetPublicKeyFrom(account));
+
+            var state = new EnumType<ClaimState>();
+            state.Create(claimState);
+
+            var balance = new Balance();
+            balance.Create(balanceAmount);
+
+            return UpdateClaim(address, accountId, state, balance);
         }
 
         public static GenericExtrinsicCall UpdateClaim(Vec<U8> address, AccountId account, EnumType<ClaimState> state, Balance balance)

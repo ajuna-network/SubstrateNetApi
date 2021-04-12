@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading;
@@ -213,9 +214,8 @@ namespace DemoApiTest
             //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             // *** test 2.5 submit extrinsic
-            //Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb")), Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u")
             Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, DotMogCall.UpdateClaim("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 100000000000), accountZurich, 0, 64, cancellationToken);
+            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, DotMogCall.UpdateClaim("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u", "5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb", ClaimState.Cancelled, new BigInteger(3)), accountZurich, 0, 64, cancellationToken);
             Thread.Sleep(60000);
             var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
@@ -235,7 +235,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
             //Console.WriteLine(client.MetaData.Serialize());
 

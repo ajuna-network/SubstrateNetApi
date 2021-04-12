@@ -15,7 +15,7 @@ namespace SubstrateNetApi.Model.Types
 
         public byte[] Encode()
         {
-            throw new NotImplementedException();
+            return Bytes;
         }
 
         public void Decode(byte[] byteArray, ref int p)
