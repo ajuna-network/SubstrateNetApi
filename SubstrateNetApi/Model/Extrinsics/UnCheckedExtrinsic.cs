@@ -47,7 +47,14 @@ namespace SubstrateNetApi.Model.Extrinsics
             // key type ed = 00 and sr = FF
             list.Add(Account.KeyTypeByte);
 
-            list.AddRange(Signature);
+            if (Signature != null)
+            {
+                list.AddRange(Signature);
+            }
+            else
+            {
+
+            }
 
             list.AddRange(Era.Encode());
 

@@ -10,7 +10,29 @@ namespace SubstrateNetApi.Model.Calls
 {
     public class DotMogCall
     {
-        public static GenericExtrinsicCall Claim(Vec<U8> address, AccountId account, Vec<U8> signature)
+        public static GenericExtrinsicCall Claim(string mogwaicoinAddress, string account, string signatureStr)
+        {
+            var address = new Vec<U8>();
+            address.Create(
+                Encoding.ASCII.GetBytes(mogwaicoinAddress).ToList().Select(p => {
+                    var u = new U8(); u.Create(p); return u;
+                }).ToList()
+            );
+
+            var accountId = new RawAccountId();
+            accountId.Create(Utils.GetPublicKeyFrom(account));
+
+            var signature = new Vec<U8>();
+            signature.Create(
+                Encoding.ASCII.GetBytes(signatureStr).ToList().Select(p => {
+                    var u = new U8(); u.Create(p); return u;
+                }).ToList()
+            );
+
+            return Claim(address, accountId, signature);
+        }
+
+        public static GenericExtrinsicCall Claim(Vec<U8> address, RawAccountId account, Vec<U8> signature)
         {
             return new GenericExtrinsicCall("DotMogBase", "claim", address, account, signature);
         }
@@ -24,7 +46,7 @@ namespace SubstrateNetApi.Model.Calls
                 }).ToList()
             );
 
-            var accountId = new AccountId();
+            var accountId = new RawAccountId();
             accountId.Create(Utils.GetPublicKeyFrom(account));
 
             var state = new EnumType<ClaimState>();
@@ -36,12 +58,12 @@ namespace SubstrateNetApi.Model.Calls
             return UpdateClaim(address, accountId, state, balance);
         }
 
-        public static GenericExtrinsicCall UpdateClaim(Vec<U8> address, AccountId account, EnumType<ClaimState> state, Balance balance)
+        public static GenericExtrinsicCall UpdateClaim(Vec<U8> address, RawAccountId account, EnumType<ClaimState> state, Balance balance)
         {
             return new GenericExtrinsicCall("DotMogBase", "update_claim", address, account, state, balance);
         }
 
-        public static GenericExtrinsicCall RemoveClaim(Vec<U8> address, AccountId account)
+        public static GenericExtrinsicCall RemoveClaim(Vec<U8> address, RawAccountId account)
         {
             return new GenericExtrinsicCall("DotMogBase", "remove_claim", address, account);
         }
@@ -91,8 +113,9 @@ namespace SubstrateNetApi.Model.Calls
             return new GenericExtrinsicCall("DotMogModule", "set_price", mogwaiId, newPrice);
         }
 
-        public static GenericExtrinsicCall Transfer(AccountId to, Hash mogwaiId)
+        public static GenericExtrinsicCall Transfer(RawAccountId to, Hash mogwaiId)
         {
+            // TODO check if RawAccountId or AccountId ...
             return new GenericExtrinsicCall("DotMogModule", "transfer", to, mogwaiId);
         }
 

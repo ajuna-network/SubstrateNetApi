@@ -160,7 +160,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetHeaderAsync(hash, cancellationToken);
 
             //var hash = new Hash();
-            //hash.Create("0xf7ed3ff62195438d16616cae55cb450e1fdb6e8602190a335b0684fc50f33311");
+            //hash.Create("0x303f6a9680844b525351261743529fdc2abc748fce454b8986546bdfe94df847");
             //var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
 
             // [Map] Key: (T::AccountId, Vec<u8>), Hasher: BlakeTwo128Concat, Value: MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>
@@ -208,16 +208,16 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** test 2 submit extrinsic
-            //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 100000000000), accountZurich, 0, 64, cancellationToken);
-            //Thread.Sleep(60000);
-            //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
-
-            // *** test 2.5 submit extrinsic
             Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, DotMogCall.UpdateClaim("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u", "5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb", ClaimState.Cancelled, new BigInteger(3)), accountZurich, 0, 64, cancellationToken);
+            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 100000000000), accountZurich, 0, 64, cancellationToken);
             Thread.Sleep(60000);
             var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+
+            // *** test 2.5 submit extrinsic
+            //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
+            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, DotMogCall.UpdateClaim("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u", "5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb", ClaimState.Cancelled, new BigInteger(3)), accountZurich, 0, 64, cancellationToken);
+            //Thread.Sleep(60000);
+            //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             // *** test 3  full stoarge test
             // ???
