@@ -156,21 +156,23 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("DotMogModule", "GameEvents", new[] { gameEventId }, cancellationToken);
 
             //var hash = new Hash();
-            //hash.Create("0x21E1FF2794042872FF8233AAC9D38F6D565BE8A197A112C366D3D40B1321204E");
+            //hash.Create("0xC8C6C7693D6D5256B00FA807A0E990D1AFA33034FB2C0F951809F28886A8C108");
             //var reqResult = await client.Chain.GetHeaderAsync(hash, cancellationToken);
 
-            //var hash = new Hash();
-            //hash.Create("0x303f6a9680844b525351261743529fdc2abc748fce454b8986546bdfe94df847");
-            //var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
+            var hash = new Hash();
+            hash.Create("0xbd702dcda02ebac91080ec80e2d213763754cc1371a9ddb2b6a4b653a97f5683");
+            var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
 
             // [Map] Key: (T::AccountId, Vec<u8>), Hasher: BlakeTwo128Concat, Value: MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb")), Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u")) }, cancellationToken);
 
             // ****************************************************************************************************************************************
 
-            // 455455
+            // 690,520
             // 0x98d7f5fe3efd88cd28d928c418c9ddc8dee254a2e11925a1a78b2ca6c2aac6d5
-            //var reqResult = await client.Chain.GetBlockHashAsync(new BlockNumber(455455), cancellationToken);
+            //var blocknumber = new BlockNumber();
+            //blocknumber.Create(690520);
+            //var reqResult = await client.Chain.GetBlockHashAsync(blocknumber, cancellationToken);
 
             // 486587
             // 0x387b43b09e88adc971bfc64fdd8e84dcfd0c4dcfe5f30c6b7444bf3ad3717445
@@ -208,10 +210,10 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.UnsubscribeAllHeadsAsync(subscriptionId, cancellationToken);
 
             // *** test 2 submit extrinsic
-            Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
-            var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 100000000000), accountZurich, 0, 64, cancellationToken);
-            Thread.Sleep(60000);
-            var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
+            //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
+            //var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", 100000000000), accountZurich, 0, 64, cancellationToken);
+            //Thread.Sleep(60000);
+            //var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
 
             // *** test 2.5 submit extrinsic
             //Action<string, ExtrinsicStatus> actionExtrinsicUpdate = (subscriptionId, extrinsicUpdate) => Console.WriteLine($"CallBack[{subscriptionId}]: {extrinsicUpdate}");
@@ -235,7 +237,7 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
             //Console.WriteLine(client.MetaData.Serialize());
 

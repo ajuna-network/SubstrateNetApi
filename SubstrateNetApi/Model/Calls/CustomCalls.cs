@@ -37,7 +37,7 @@ namespace SubstrateNetApi.Model.Calls
             return new GenericExtrinsicCall("DotMogBase", "claim", address, account, signature);
         }
 
-        public static GenericExtrinsicCall UpdateClaim(string mogwaicoinAddress, string account, ClaimState claimState, BigInteger balanceAmount)
+        public static GenericExtrinsicCall UpdateClaim(string mogwaicoinAddress, string account, ClaimState claimState, RawBalance balanceAmount)
         {
             var address = new Vec<U8>();
             address.Create(
@@ -52,13 +52,10 @@ namespace SubstrateNetApi.Model.Calls
             var state = new EnumType<ClaimState>();
             state.Create(claimState);
 
-            var balance = new Balance();
-            balance.Create(balanceAmount);
-
-            return UpdateClaim(address, accountId, state, balance);
+            return UpdateClaim(address, accountId, state, balanceAmount);
         }
 
-        public static GenericExtrinsicCall UpdateClaim(Vec<U8> address, RawAccountId account, EnumType<ClaimState> state, Balance balance)
+        public static GenericExtrinsicCall UpdateClaim(Vec<U8> address, RawAccountId account, EnumType<ClaimState> state, RawBalance balance)
         {
             return new GenericExtrinsicCall("DotMogBase", "update_claim", address, account, state, balance);
         }

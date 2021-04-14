@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -45,7 +46,9 @@ namespace Sandbox
                 Utils.HexToByteArray(
                     "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
                 Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
-            
+
+            var accountTest = new Account();
+
             using var client = new SubstrateClient(new Uri(Websocketurl));
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
@@ -55,19 +58,25 @@ namespace Sandbox
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaicoinAddress>());
             await client.ConnectAsync(CancellationToken.None);
 
-            //var hexAddress = Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb"));
-            //var hexAccount = Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u"));
+            var hexAddress = Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb"));
+            var hexAccount = Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u"));
 
-            //MogwaicoinAddress reqResult = (MogwaicoinAddress)await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] { hexAddress, hexAccount }, CancellationToken.None);
+            MogwaicoinAddress reqResult = (MogwaicoinAddress)await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] { hexAddress, hexAccount }, CancellationToken.None);
             //Console.WriteLine(Encoding.Default.GetString(reqResult.Signature.Value.Select(p => p.Bytes[0]).ToArray()));
             //string mogwaicoinAddress = Encoding.Default.GetString(reqResult.Address.Value.Select(p => p.Bytes[0]).ToArray());
             //Console.WriteLine(mogwaicoinAddress);
 
             //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            //UnCheckedExtrinsic extrResult = await client.GetExtrinsicParametersAsync(DotMogCall.Claim(reqResult.Address, reqResult.Account, reqResult.Signature), accountTest, 0, 64, false, CancellationToken.None);
-            var register_claim = DotMogCall.Claim("MRKAiQennVXVJCYicmhiPQGoCVf9kgKAMV", "5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb", "H8edEFpxUobjHbjIC6UJRpIZ2eI/iKQYe5zQXr/015O1eMc22W0Yw36aPYEdhlnCURFMDDUfL9ofgBy79rM8aPw=");
-            var extrResult = await client.Author.SubmitExtrinsicAsync(register_claim, accountZurich, 0, 64, CancellationToken.None);
+            var balance = new RawBalance();
+            //balance.Create("0x03000000000000000000000000000000");
+            balance.Create(1000000000000000);
+
+            var update_claim = DotMogCall.UpdateClaim("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u", "5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb", ClaimState.Registred, balance);
+            //var update_claim = DotMogCall.UpdateClaim(reqResult.Address, account, claimState, balance);
+            //UnCheckedExtrinsic extrResult = await client.GetExtrinsicParametersAsync(update_claim, accountTest, 0, 64, true, CancellationToken.None);
+
+            var extrResult = await client.Author.SubmitExtrinsicAsync(update_claim, accountTest, 0, 64, CancellationToken.None);
 
             Console.WriteLine(Utils.Bytes2HexString(extrResult.Encode()));
         }

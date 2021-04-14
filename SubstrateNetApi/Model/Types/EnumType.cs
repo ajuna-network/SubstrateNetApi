@@ -32,6 +32,14 @@ namespace SubstrateNetApi.Model.Types
 
         public void Create(T t)
         {
+            //var byteArray = BitConverter.GetBytes(Convert.ToInt32(t));
+            //if (byteArray.Length < Size())
+            //{
+            //    var newByteArray = new byte[Size()];
+            //    byteArray.CopyTo(newByteArray, 0);
+            //    byteArray = newByteArray;
+            //}
+            //Bytes = byteArray;
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
         }
