@@ -60,6 +60,21 @@ namespace SubstrateNetApi.Model.Calls
             return new GenericExtrinsicCall("DotMogBase", "update_claim", address, account, state, balance);
         }
 
+        public static GenericExtrinsicCall RemoveClaim(string mogwaicoinAddress, string account)
+        {
+            var address = new Vec<U8>();
+            address.Create(
+                Encoding.ASCII.GetBytes(mogwaicoinAddress).ToList().Select(p => {
+                    var u = new U8(); u.Create(p); return u;
+                }).ToList()
+            );
+
+            var accountId = new RawAccountId();
+            accountId.Create(Utils.GetPublicKeyFrom(account));
+
+            return RemoveClaim(address, accountId);
+        }
+
         public static GenericExtrinsicCall RemoveClaim(Vec<U8> address, RawAccountId account)
         {
             return new GenericExtrinsicCall("DotMogBase", "remove_claim", address, account);
