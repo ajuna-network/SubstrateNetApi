@@ -138,12 +138,16 @@ namespace SubstrateNetApi.Model.Calls
 
         public static GenericExtrinsicCall UpdateConfig(U8 index, U8 valueOpt)
         {
-            return new GenericExtrinsicCall("DotMogModule", "update_config", index, valueOpt);
+            var optionByte = new U8();
+            optionByte.Create(1);
+            return new GenericExtrinsicCall("DotMogModule", "update_config", index, optionByte, valueOpt);
         }
 
         public static GenericExtrinsicCall UpdateConfig(U8 index)
         {
-            return new GenericExtrinsicCall("DotMogModule", "update_config", index);
+            var optionByte = new U8();
+            optionByte.Create(0);
+            return new GenericExtrinsicCall("DotMogModule", "update_config", index, optionByte);
         }
     }
 }

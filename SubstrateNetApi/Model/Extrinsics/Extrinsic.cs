@@ -182,6 +182,29 @@ namespace SubstrateNetApi.Model.Extrinsics
                         argument.Value = "Unhandled 'argument.Type'";
                         break;
 
+                    case "u8":
+                        m = 1;
+                        argument.Value = Convert.ToByte(memory.Slice(p, m).ToArray()[0]);
+                        p += m;
+                        break;
+
+                    case "Option<u8>":
+                        m = 1;
+                        var optionByte = Convert.ToByte(memory.Slice(p, m).ToArray()[0]);
+                        p += m;
+                        if (optionByte > 0)
+                        {
+                            m = 1;
+                            argument.Value = Convert.ToByte(memory.Slice(p, m).ToArray()[0]);
+                            p += m;
+                        } 
+                        else
+                        {
+                            argument.Value = "null";
+                        }
+
+                        break;
+
                     default:
                         Logger.Warn($"Argument is currently unhandled in GetTypedArguments, '{argument.Type}', please add!");
                         argument.Value = $"Unhandled '{argument.Type}'";

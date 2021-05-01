@@ -159,9 +159,9 @@ namespace DemoApiTest
             //hash.Create("0xC8C6C7693D6D5256B00FA807A0E990D1AFA33034FB2C0F951809F28886A8C108");
             //var reqResult = await client.Chain.GetHeaderAsync(hash, cancellationToken);
 
-            //var hash = new Hash();
-            //hash.Create("0xbd702dcda02ebac91080ec80e2d213763754cc1371a9ddb2b6a4b653a97f5683");
-            //var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
+            var hash = new Hash();
+            hash.Create("0x55d560dd75e789f955540dc37c6034460b1e5490e4383a83df48b1979de75aa1");
+            var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
 
             // [Map] Key: (T::AccountId, Vec<u8>), Hasher: BlakeTwo128Concat, Value: MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb")), Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u")) }, cancellationToken);
@@ -199,7 +199,10 @@ namespace DemoApiTest
             //var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
             //var balanceTransfer = ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", BigInteger.Parse("100000000000"));
             //var reqResult = await client.Author.SubmitExtrinsicAsync(balanceTransfer, accountZurich, 0, 64, cancellationToken);
-
+            
+            //var u8_1 = new U8();u8_1.Create(1);var u8_3 = new U8();u8_3.Create(3);
+            //var reqResult = await client.Author.SubmitExtrinsicAsync(DotMogCall.UpdateConfig(u8_1, u8_3), accountZurich, 0, 64, cancellationToken);
+            
             // *** test 1 new head subscription
             //var subscriptionId = await client.Chain
             //    .SubscribeAllHeadsAsync(
@@ -237,9 +240,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Serialize());
 
             // Close connection
             await client.CloseAsync(cancellationToken);
