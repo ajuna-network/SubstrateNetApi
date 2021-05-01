@@ -115,6 +115,11 @@ namespace SubstrateNetApi.Model.Calls
             return new GenericExtrinsicCall("DotMogModule", "sacrifice", mogwaiId);
         }
 
+        public static GenericExtrinsicCall SacrificeMogwai(Hash mogwaiId1, Hash mogwaiId2)
+        {
+            return new GenericExtrinsicCall("DotMogModule", "sacrifice_into", mogwaiId1, mogwaiId2);
+        }
+
         public static GenericExtrinsicCall MorphMogwai(Hash mogwaiId)
         {
             return new GenericExtrinsicCall("DotMogModule", "morph_mogwai", mogwaiId);
