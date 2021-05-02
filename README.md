@@ -69,6 +69,8 @@ Basic example of a client and a substrate node environment with the SubstrateNet
 
 ![Basic Architecture](https://github.com/dotmog/SubstrateNetApi/raw/origin/images/basic_architecture.png)
 
+![Advanced Architecture](https://github.com/dotmog/SubstrateNetApi/raw/origin/images/advanced_architecture.png)
+
 ## Usage
 
 ### Create a connection
