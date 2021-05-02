@@ -66,9 +66,22 @@ namespace SubstrateNetApiTests
             Assert.AreEqual(DispatchClass.Mandatory, dispatchClass1.Value);
             Assert.AreEqual(dispatchClass2.Value, dispatchClass1.Value);
 
-
-
         }
 
+        [Test]
+        public void OptionEncodingTest()
+        {
+            var optionU8Null = new Option<U8>();
+            var optionU8One = new Option<U8>();
+
+            optionU8Null.Create("0x00");
+            optionU8One.Create("0x0100");
+
+            Assert.AreEqual(null, optionU8Null.Value);
+            Assert.AreEqual(0, optionU8One.Value.Value);
+
+            Assert.AreEqual("0x00", Utils.Bytes2HexString(optionU8Null.Bytes));
+            Assert.AreEqual("0x0100", Utils.Bytes2HexString(optionU8One.Bytes));
+        }
     }
 }

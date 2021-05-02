@@ -2,6 +2,8 @@
 using NLog;
 using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Struct;
 using System;
 using System.Linq;
 
@@ -148,11 +150,11 @@ namespace SubstrateNetApi.Model.Extrinsics
             var arguments = Method.Arguments;
             var memory = Method.Parameters.AsMemory();
 
-            var p = 0;
             int m;
 
             for (var i = 0; i < arguments.Length; i++)
             {
+                var p = 0;
                 var argument = arguments[i];
                 switch (argument.Type)
                 {
@@ -183,26 +185,15 @@ namespace SubstrateNetApi.Model.Extrinsics
                         break;
 
                     case "u8":
-                        m = 1;
-                        argument.Value = Convert.ToByte(memory.Slice(p, m).ToArray()[0]);
-                        p += m;
+                        var u8 = new U8();
+                        u8.Decode(memory.Slice(p).ToArray(), ref p);
+                        argument.Value = u8.ToString();
                         break;
 
                     case "Option<u8>":
-                        m = 1;
-                        var optionByte = Convert.ToByte(memory.Slice(p, m).ToArray()[0]);
-                        p += m;
-                        if (optionByte > 0)
-                        {
-                            m = 1;
-                            argument.Value = Convert.ToByte(memory.Slice(p, m).ToArray()[0]);
-                            p += m;
-                        } 
-                        else
-                        {
-                            argument.Value = "null";
-                        }
-
+                        var optionU8 = new Option<U8>();
+                        optionU8.Decode(memory.Slice(p).ToArray(), ref p);
+                        argument.Value = optionU8.OptionFlag ? optionU8.ToString() : "null";
                         break;
 
                     default:
