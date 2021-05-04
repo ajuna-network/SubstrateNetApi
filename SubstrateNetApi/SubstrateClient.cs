@@ -68,6 +68,7 @@ namespace SubstrateNetApi
             State = new State(this);
             Author = new Author(this);
 
+            RegisterTypeConverter(new GenericTypeConverter<Bool>());
             RegisterTypeConverter(new GenericTypeConverter<U8>());
             RegisterTypeConverter(new GenericTypeConverter<U16>());
             RegisterTypeConverter(new GenericTypeConverter<U32>());

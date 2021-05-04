@@ -207,8 +207,8 @@ namespace SubstrateNetApi.Model.Types.Custom
             TokenPrefix = new Vec<U8>();
             TokenPrefix.Decode(byteArray, ref p);
 
-            //MintMode = new Bool();
-            //MintMode.Decode(byteArray, ref p);
+            MintMode = new Bool();
+            MintMode.Decode(byteArray, ref p);
 
             OffchainSchema = new Vec<U8>();
             OffchainSchema.Decode(byteArray, ref p);
@@ -238,7 +238,7 @@ namespace SubstrateNetApi.Model.Types.Custom
         public Vec<U16> CollectionName { get; private set; }
         public Vec<U16> Description { get; private set; }
         public Vec<U8> TokenPrefix { get; private set; }
-        //public Bool MintMode { get; private set; }
+        public Bool MintMode { get; private set; }
         public Vec<U8> OffchainSchema { get; private set; }
         public EnumType<SchemaVersion> SchemaVersion { get; private set; }
         public EnumType<SponsorshipState> Sponsorship { get; private set; }
@@ -279,11 +279,11 @@ namespace SubstrateNetApi.Model.Types.Custom
             SponsorTimeout = new U32();
             SponsorTimeout.Decode(byteArray, ref p);
 
-            //OwnerCanTransfer = new Bool();
-            //OwnerCanTransfer.Decode(byteArray, ref p);
+            OwnerCanTransfer = new Bool();
+            OwnerCanTransfer.Decode(byteArray, ref p);
 
-            //OwnerCanDestroy = new Bool();
-            //OwnerCanDestroy.Decode(byteArray, ref p);
+            OwnerCanDestroy = new Bool();
+            OwnerCanDestroy.Decode(byteArray, ref p);
 
             _size = p - start;
         }
@@ -293,8 +293,8 @@ namespace SubstrateNetApi.Model.Types.Custom
         public Option<BlockNumber> SponsoredDataRateLimit { get; private set; }
         public U32 TokenLimit { get; private set; }
         public U32 SponsorTimeout { get; private set; }
-        //public Bool OwnerCanTransfer { get; private set; }
-        //public Bool OwnerCanDestroy { get; private set; }
+        public Bool OwnerCanTransfer { get; private set; }
+        public Bool OwnerCanDestroy { get; private set; }
     }
 
     public class CreateNftData : StructType

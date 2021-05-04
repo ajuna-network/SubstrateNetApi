@@ -21,8 +21,8 @@ namespace DemoApiTest
 {
     internal class Program
     {
-        //private const string Websocketurl = "wss://mogiway-01.dotmog.com";
-        private const string Websocketurl = "wss://testnet2.uniquenetwork.io";
+        private const string Websocketurl = "wss://mogiway-01.dotmog.com";
+        //private const string Websocketurl = "wss://testnet2.uniquenetwork.io";
 
         private static async Task Main(string[] args)
         {
@@ -120,8 +120,9 @@ namespace DemoApiTest
 
             // [Plain] Value: T::AccountId
             //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
-
             //var reqResult = await client.GetStorageAsync("System", "Number", cancellationToken);
+            
+            var reqResult = await client.GetStorageAsync("Session", "QueuedChanged", cancellationToken);
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
@@ -201,10 +202,10 @@ namespace DemoApiTest
             //var reqResult = await client.Author.PendingExtrinsicAsync(cancellationToken);
             //var balanceTransfer = ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", BigInteger.Parse("100000000000"));
             //var reqResult = await client.Author.SubmitExtrinsicAsync(balanceTransfer, accountZurich, 0, 64, cancellationToken);
-            
+
             //var u8_1 = new U8();u8_1.Create(1);var u8_3 = new U8();u8_3.Create(3);
             //var reqResult = await client.Author.SubmitExtrinsicAsync(DotMogCall.UpdateConfig(u8_1, u8_3), accountZurich, 0, 64, cancellationToken);
-            
+
             // *** test 1 new head subscription
             //var subscriptionId = await client.Chain
             //    .SubscribeAllHeadsAsync(
@@ -242,9 +243,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            Console.WriteLine(client.MetaData.Serialize());
+            //Console.WriteLine(client.MetaData.Serialize());
 
             // Close connection
             await client.CloseAsync(cancellationToken);

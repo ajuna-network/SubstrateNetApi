@@ -11,6 +11,16 @@ namespace SubstrateNetApiTests
     public class TypeConverterTest
     {
         [Test]
+        public void BoolTypeConverterTest()
+        {
+            var tc = new GenericTypeConverter<Bool>();
+            var actual = (Bool)tc.Create("0x00");
+            Assert.AreEqual(false, actual.Value);
+            actual = (Bool)tc.Create("0x01");
+            Assert.AreEqual(true, actual.Value);
+        }
+
+        [Test]
         public void U16TypeConverterTest()
         {
             var tc = new GenericTypeConverter<U16>();
