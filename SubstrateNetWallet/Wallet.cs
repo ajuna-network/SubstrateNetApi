@@ -13,6 +13,7 @@ using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
+using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
 

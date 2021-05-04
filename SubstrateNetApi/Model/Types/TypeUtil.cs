@@ -21,9 +21,10 @@ namespace SubstrateNetApi.Model.Types
 
             var typeNamespaces = new List<string>()
             {
-                new U8().GetType().Namespace,
-                new DispatchClass().GetType().Namespace,
-                new DispatchInfo().GetType().Namespace
+                "SubstrateNetApi.Model.Types.Base",
+                "SubstrateNetApi.Model.Types.Enum",
+                "SubstrateNetApi.Model.Types.Struct",
+                "SubstrateNetApi.Model.Types.Custom"
             }.ToArray();
 
             foreach (var typeNameSpace in typeNamespaces)
