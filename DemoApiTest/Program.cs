@@ -21,7 +21,8 @@ namespace DemoApiTest
 {
     internal class Program
     {
-        private const string Websocketurl = "wss://mogiway-01.dotmog.com";
+        //private const string Websocketurl = "wss://mogiway-01.dotmog.com";
+        private const string Websocketurl = "wss://testnet2.uniquenetwork.io";
 
         private static async Task Main(string[] args)
         {
@@ -160,9 +161,9 @@ namespace DemoApiTest
             //hash.Create("0xC8C6C7693D6D5256B00FA807A0E990D1AFA33034FB2C0F951809F28886A8C108");
             //var reqResult = await client.Chain.GetHeaderAsync(hash, cancellationToken);
 
-            var hash = new Hash();
-            hash.Create("0x55d560dd75e789f955540dc37c6034460b1e5490e4383a83df48b1979de75aa1");
-            var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
+            //var hash = new Hash();
+            //hash.Create("0x55d560dd75e789f955540dc37c6034460b1e5490e4383a83df48b1979de75aa1");
+            //var reqResult = await client.Chain.GetBlockAsync(hash, cancellationToken);
 
             // [Map] Key: (T::AccountId, Vec<u8>), Hasher: BlakeTwo128Concat, Value: MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>
             //var reqResult = await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb")), Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u")) }, cancellationToken);
@@ -241,9 +242,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            //Console.WriteLine(client.MetaData.Serialize());
+            Console.WriteLine(client.MetaData.Serialize());
 
             // Close connection
             await client.CloseAsync(cancellationToken);
