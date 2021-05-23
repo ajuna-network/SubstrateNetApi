@@ -61,6 +61,11 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<object>("state_getStorage", new object[] { Utils.Bytes2HexString(parameters) }, token);
         }
 
+        public async Task<object> GetStorageHashAsync(byte[] key, CancellationToken token)
+        {
+            return await _client.InvokeAsync<JArray>("state_getStorageHash", new object[] { Utils.Bytes2HexString(key) }, token);
+        }
+
         public async Task<RuntimeVersion> GetRuntimeVersionAsync()
         {
             return await GetRuntimeVersionAsync(CancellationToken.None);
