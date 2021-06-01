@@ -193,7 +193,11 @@ To execute the unitests please follow the three steps:
 
 ![image](https://user-images.githubusercontent.com/17710198/110446644-b349d000-80bf-11eb-9b48-28fadf0f97ed.png)
 
-
+## Other examples
+  
+- [Connection & MetaData](https://github.com/dotmog/Unity3DExample)
+- [SimpleWallet](https://github.com/dotmog/SubstrateUnityWalletSimple)
+  
 ## Special Thanks
 - https://github.com/gautamdhameja/sr25519-dotnet
 - https://github.com/usetech-llc/polkadot_api_dotnet
