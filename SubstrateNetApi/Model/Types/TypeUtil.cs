@@ -21,9 +21,10 @@ namespace SubstrateNetApi.Model.Types
 
             var typeNamespaces = new List<string>()
             {
-                new U8().GetType().Namespace,
-                new DispatchClass().GetType().Namespace,
-                new DispatchInfo().GetType().Namespace
+                "SubstrateNetApi.Model.Types.Base",
+                "SubstrateNetApi.Model.Types.Enum",
+                "SubstrateNetApi.Model.Types.Struct",
+                "SubstrateNetApi.Model.Types.Custom"
             }.ToArray();
 
             foreach (var typeNameSpace in typeNamespaces)
@@ -51,9 +52,17 @@ namespace SubstrateNetApi.Model.Types
 
             if (TryGetType(typeStr, out Type type))
             {
-                var iType = (IType)Activator.CreateInstance(type);
-                iType.Decode(byteArray, ref p);
-                return iType;
+                switch(type.BaseType.Name)
+                {
+                    case "Enum":
+                        var eType = (IType)Activator.CreateInstance(typeof(EnumType<>).MakeGenericType(type));
+                        eType.Decode(byteArray, ref p);
+                        return eType;
+                    default:
+                        var iType = (IType)Activator.CreateInstance(type);
+                        iType.Decode(byteArray, ref p);
+                        return iType;
+                }
             }
 
             throw new NotImplementedException(

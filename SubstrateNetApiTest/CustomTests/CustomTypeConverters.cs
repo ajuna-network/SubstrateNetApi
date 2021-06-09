@@ -8,6 +8,7 @@ using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.TypeConverters;
 using System.Numerics;
+using SubstrateNetApi.Model.Types.Custom;
 
 namespace SubstrateNetApiTests
 {

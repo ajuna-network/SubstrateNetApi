@@ -4,6 +4,7 @@ using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
@@ -82,6 +83,19 @@ namespace SubstrateNetApiTests
 
             Assert.AreEqual("0x00", Utils.Bytes2HexString(optionU8Null.Bytes));
             Assert.AreEqual("0x0100", Utils.Bytes2HexString(optionU8One.Bytes));
+        }
+
+        [Test]
+        public void ExtEnumEncodingTest()
+        {
+            var extEnumType = new ExtEnumType<PhaseState, NullType, U8, NullType, NullType, NullType, NullType, NullType, NullType, NullType>();
+
+            int p = 0;
+            extEnumType.Decode(new byte[] { 0x01, 0x00 }, ref p);
+
+            Assert.AreEqual(PhaseState.Finalization, extEnumType.Value);
+            Assert.AreEqual("U8", extEnumType.Value2.GetType().Name);
+
         }
     }
 }

@@ -1,0 +1,4331 @@
+{
+   "Origin":"wss://testnet2.uniquenetwork.io",
+   "Magic":"meta",
+   "Version":"v12",
+   "Modules":[
+      {
+         "Name":"System",
+         "Index":0,
+         "Storage":{
+            "Prefix":"System",
+            "Items":[
+               {
+                  "Name":"Account",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"AccountInfo<T::Index, T::AccountData>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                  "Documentations":[
+                     " The full account information for a particular account ID."
+                  ]
+               },
+               {
+                  "Name":"ExtrinsicCount",
+                  "Modifier":"Optional",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"u32",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Total extrinsics count for the current block."
+                  ]
+               },
+               {
+                  "Name":"BlockWeight",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"ConsumedWeight",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x000000000000000000000000000000000000000000000000",
+                  "Documentations":[
+                     " The current weight for the block."
+                  ]
+               },
+               {
+                  "Name":"AllExtrinsicsLen",
+                  "Modifier":"Optional",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"u32",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Total length (in bytes) for all extrinsics put together, for the current block."
+                  ]
+               },
+               {
+                  "Name":"BlockHash",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::BlockNumber",
+                     "Key2":null,
+                     "Value":"T::Hash",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "Documentations":[
+                     " Map of block numbers to block hashes."
+                  ]
+               },
+               {
+                  "Name":"ExtrinsicData",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"u32",
+                     "Key2":null,
+                     "Value":"Vec<u8>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Extrinsics data for the current block (maps an extrinsic's index to its data)."
+                  ]
+               },
+               {
+                  "Name":"Number",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"T::BlockNumber",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " The current block number being processed. Set by `execute_block`."
+                  ]
+               },
+               {
+                  "Name":"ParentHash",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"T::Hash",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "Documentations":[
+                     " Hash of the previous block."
+                  ]
+               },
+               {
+                  "Name":"Digest",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"DigestOf<T>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Digest of the current block, also part of the block header."
+                  ]
+               },
+               {
+                  "Name":"Events",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Vec<EventRecord<T::Event, T::Hash>>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Events deposited for the current block."
+                  ]
+               },
+               {
+                  "Name":"EventCount",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"EventIndex",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " The number of events in the `Events<T>` list."
+                  ]
+               },
+               {
+                  "Name":"EventTopics",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"T::Hash",
+                     "Key2":null,
+                     "Value":"Vec<(T::BlockNumber, EventIndex)>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Mapping between a topic (represented by T::Hash) and a vector of indexes",
+                     " of events in the `<Events<T>>` list.",
+                     "",
+                     " All topic vectors have deterministic storage locations depending on the topic. This",
+                     " allows light-clients to leverage the changes trie storage tracking mechanism and",
+                     " in case of changes fetch the list of events of interest.",
+                     "",
+                     " The value has the type `(T::BlockNumber, EventIndex)` because if we used only just",
+                     " the `EventIndex` then in case if the topic has the same contents on the next block",
+                     " no notification will be triggered thus the event might be lost."
+                  ]
+               },
+               {
+                  "Name":"LastRuntimeUpgrade",
+                  "Modifier":"Optional",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"LastRuntimeUpgradeInfo",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Stores the `spec_version` and `spec_name` of when the last runtime upgrade happened."
+                  ]
+               },
+               {
+                  "Name":"UpgradedToU32RefCount",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"bool",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " True if we have upgraded so that `type RefCount` is `u32`. False (default) if not."
+                  ]
+               },
+               {
+                  "Name":"UpgradedToDualRefCount",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"bool",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " True if we have upgraded so that AccountInfo contains two types of `RefCount`. False",
+                     " (default) if not."
+                  ]
+               },
+               {
+                  "Name":"ExecutionPhase",
+                  "Modifier":"Optional",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Phase",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " The execution phase of the block."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"fill_block",
+               "Arguments":[
+                  {
+                     "Name":"_ratio",
+                     "Type":"Perbill"
+                  }
+               ],
+               "Documentations":[
+                  " A dispatch that will fill the block weight up to the given ratio."
+               ]
+            },
+            {
+               "Name":"remark",
+               "Arguments":[
+                  {
+                     "Name":"_remark",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Make some on-chain remark.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)`",
+                  " - Base Weight: 0.665 Âµs, independent of remark length.",
+                  " - No DB operations.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"set_heap_pages",
+               "Arguments":[
+                  {
+                     "Name":"pages",
+                     "Type":"u64"
+                  }
+               ],
+               "Documentations":[
+                  " Set the number of pages in the WebAssembly environment's heap.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)`",
+                  " - 1 storage write.",
+                  " - Base Weight: 1.405 Âµs",
+                  " - 1 write to HEAP_PAGES",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"set_code",
+               "Arguments":[
+                  {
+                     "Name":"code",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Set the new runtime code.",
+                  "",
+                  " # <weight>",
+                  " - `O(C + S)` where `C` length of `code` and `S` complexity of `can_set_code`",
+                  " - 1 storage write (codec `O(C)`).",
+                  " - 1 call to `can_set_code`: `O(S)` (calls `sp_io::misc::runtime_version` which is expensive).",
+                  " - 1 event.",
+                  " The weight of this function is dependent on the runtime, but generally this is very expensive.",
+                  " We will treat this as a full block.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"set_code_without_checks",
+               "Arguments":[
+                  {
+                     "Name":"code",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Set the new runtime code without doing any checks of the given `code`.",
+                  "",
+                  " # <weight>",
+                  " - `O(C)` where `C` length of `code`",
+                  " - 1 storage write (codec `O(C)`).",
+                  " - 1 event.",
+                  " The weight of this function is dependent on the runtime. We will treat this as a full block.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"set_changes_trie_config",
+               "Arguments":[
+                  {
+                     "Name":"changes_trie_config",
+                     "Type":"Option<ChangesTrieConfiguration>"
+                  }
+               ],
+               "Documentations":[
+                  " Set the new changes trie configuration.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)`",
+                  " - 1 storage write or delete (codec `O(1)`).",
+                  " - 1 call to `deposit_log`: Uses `append` API, so O(1)",
+                  " - Base Weight: 7.218 Âµs",
+                  " - DB Weight:",
+                  "     - Writes: Changes Trie, System Digest",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"set_storage",
+               "Arguments":[
+                  {
+                     "Name":"items",
+                     "Type":"Vec<KeyValue>"
+                  }
+               ],
+               "Documentations":[
+                  " Set some items of storage.",
+                  "",
+                  " # <weight>",
+                  " - `O(I)` where `I` length of `items`",
+                  " - `I` storage writes (`O(1)`).",
+                  " - Base Weight: 0.568 * i Âµs",
+                  " - Writes: Number of items",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"kill_storage",
+               "Arguments":[
+                  {
+                     "Name":"keys",
+                     "Type":"Vec<Key>"
+                  }
+               ],
+               "Documentations":[
+                  " Kill some items from storage.",
+                  "",
+                  " # <weight>",
+                  " - `O(IK)` where `I` length of `keys` and `K` length of one key",
+                  " - `I` storage deletions.",
+                  " - Base Weight: .378 * i Âµs",
+                  " - Writes: Number of items",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"kill_prefix",
+               "Arguments":[
+                  {
+                     "Name":"prefix",
+                     "Type":"Key"
+                  },
+                  {
+                     "Name":"_subkeys",
+                     "Type":"u32"
+                  }
+               ],
+               "Documentations":[
+                  " Kill all storage items with a key that starts with the given prefix.",
+                  "",
+                  " **NOTE:** We rely on the Root origin to provide us the number of subkeys under",
+                  " the prefix we are removing to accurately calculate the weight of this function.",
+                  "",
+                  " # <weight>",
+                  " - `O(P)` where `P` amount of keys with prefix `prefix`",
+                  " - `P` storage deletions.",
+                  " - Base Weight: 0.834 * P Âµs",
+                  " - Writes: Number of subkeys + 1",
+                  " # </weight>"
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " An extrinsic completed successfully. \\[info\\]"
+               ],
+               "Name":"ExtrinsicSuccess",
+               "EventArgs":[
+                  "DispatchInfo"
+               ]
+            },
+            {
+               "Documentations":[
+                  " An extrinsic failed. \\[error, info\\]"
+               ],
+               "Name":"ExtrinsicFailed",
+               "EventArgs":[
+                  "DispatchError",
+                  "DispatchInfo"
+               ]
+            },
+            {
+               "Documentations":[
+                  " `:code` was updated."
+               ],
+               "Name":"CodeUpdated",
+               "EventArgs":[
+                  
+               ]
+            },
+            {
+               "Documentations":[
+                  " A new \\[account\\] was created."
+               ],
+               "Name":"NewAccount",
+               "EventArgs":[
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " An \\[account\\] was reaped."
+               ],
+               "Name":"KilledAccount",
+               "EventArgs":[
+                  "AccountId"
+               ]
+            }
+         ],
+         "Consts":[
+            {
+               "Name":"BlockWeights",
+               "Type":"limits::BlockWeights",
+               "Value":"0x00F2052A0100000000204AA9D1010000405973070000000001C06E96A62E010000010098F73E5D010000010000000000000000405973070000000001C0F6E810A30100000100204AA9D1010000010088526A740000004059730700000000000000",
+               "Documentations":[
+                  " Block & extrinsics weights: base values and limits."
+               ]
+            },
+            {
+               "Name":"BlockLength",
+               "Type":"limits::BlockLength",
+               "Value":"0x00003C000000500000005000",
+               "Documentations":[
+                  " The maximum length of a block (in bytes)."
+               ]
+            },
+            {
+               "Name":"BlockHashCount",
+               "Type":"T::BlockNumber",
+               "Value":"0x60090000",
+               "Documentations":[
+                  " Maximum number of block number to block hash mappings to keep (oldest pruned first)."
+               ]
+            },
+            {
+               "Name":"DbWeight",
+               "Type":"RuntimeDbWeight",
+               "Value":"0x40787D010000000000E1F50500000000",
+               "Documentations":[
+                  " The weight of runtime database operations the runtime can invoke."
+               ]
+            },
+            {
+               "Name":"Version",
+               "Type":"RuntimeVersion",
+               "Value":"0x0C6E66740C6E66740100000003000000010000002C68B66BA122C93FA701000000DF6ACB689907609B0300000037E397FC7C91F5E40100000040FE3AD401F8959A04000000D2BC9897EED08F1502000000F78B278BE53F454C02000000DD718D5CC53262D401000000AB3C0572291FEB8B01000000ED99C5ACB25EEDF502000000BC9D89904F5B923F0100000037C8BB1350A9A2A80100000001000000",
+               "Documentations":[
+                  " Get the chain's current version."
+               ]
+            },
+            {
+               "Name":"SS58Prefix",
+               "Type":"u8",
+               "Value":"0x2A",
+               "Documentations":[
+                  " The designated SS85 prefix of this chain.",
+                  "",
+                  " This replaces the \"ss58Format\" property declared in the chain spec. Reason is",
+                  " that the runtime should know about the prefix in order to make use of it as",
+                  " an identifier of the chain."
+               ]
+            }
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " The name of specification does not match between the current runtime",
+                  " and the new runtime."
+               ],
+               "Name":"InvalidSpecName"
+            },
+            {
+               "Documentations":[
+                  " The specification version is not allowed to decrease between the current runtime",
+                  " and the new runtime."
+               ],
+               "Name":"SpecVersionNeedsToIncrease"
+            },
+            {
+               "Documentations":[
+                  " Failed to extract the runtime version from the new runtime.",
+                  "",
+                  " Either calling `Core_version` or decoding `RuntimeVersion` failed."
+               ],
+               "Name":"FailedToExtractRuntimeVersion"
+            },
+            {
+               "Documentations":[
+                  " Suicide called when the account has non-default composite data."
+               ],
+               "Name":"NonDefaultComposite"
+            },
+            {
+               "Documentations":[
+                  " There is a non-zero reference count preventing the account from being purged."
+               ],
+               "Name":"NonZeroRefCount"
+            }
+         ]
+      },
+      {
+         "Name":"RandomnessCollectiveFlip",
+         "Index":1,
+         "Storage":{
+            "Prefix":"RandomnessCollectiveFlip",
+            "Items":[
+               {
+                  "Name":"RandomMaterial",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Vec<T::Hash>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Series of block headers from the last 81 blocks that acts as random seed material. This",
+                     " is arranged as a ring buffer with `block_number % 81` being the index into the `Vec` of",
+                     " the oldest hash."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            
+         ],
+         "Events":null,
+         "Consts":[
+            
+         ],
+         "Errors":[
+            
+         ]
+      },
+      {
+         "Name":"Contracts",
+         "Index":2,
+         "Storage":{
+            "Prefix":"Contracts",
+            "Items":[
+               {
+                  "Name":"CurrentSchedule",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Schedule<T>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000040000000002000000010000800000001000000000100000000100002000000078060000A5600200A1740300271600000D1C0000E20C00006E160000FF280000A00000008B780100E4F80200B70600002C06000027070000A705000074170000CA2700002807000002EA8F08EF070000FD0700003C0A0000630800007F070000C7070000FE0700008909000022090000EA080000C30900002709000059070000D508000082080000B60900007A090000C90800009B080000BB080000A51F0000B51C00009A1F0000C21C00008C0800006B080000EA0800004009000092090000FC080000AE090000C2090000AE37290000000000E636290000000000BE5A280000000000D479570000000000BC25280000000000A285280000000000008C28000000000052385C00000000003A07280000000000942A280000000000541D4D00000000002603130000000000B08A6F00000000000B01000000000000A053480000000000FD020000000000009862332700000000A32000000000000000E3BD3100000000902200000000000056120000000000006872AD0900000000DE326200000000007CFE8E00000000008211CE07000000009309000000000000AC096D0000000000E43F161100000000DA020000000000005E74CF0800000000E07B0B0200000000F005000000000000DEB1C40A00000000F24A370900000000FF0E000000000000228BF9080000000049020000000000002A030000000000004C971C2300000000892100000000000067020000000000005703000000000000E60B000000000000AAC22400000000006210000000000000F434270000000000200D00000000000094672200000000001806000000000000F86C2200000000001806000000000000",
+                  "Documentations":[
+                     " Current cost schedule for contracts."
+                  ]
+               },
+               {
+                  "Name":"PristineCode",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Identity",
+                     "Key1":"CodeHash<T>",
+                     "Key2":null,
+                     "Value":"Vec<u8>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " A mapping from an original code hash to the original code, untouched by instrumentation."
+                  ]
+               },
+               {
+                  "Name":"CodeStorage",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Identity",
+                     "Key1":"CodeHash<T>",
+                     "Key2":null,
+                     "Value":"PrefabWasmModule<T>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " A mapping between an original code hash and instrumented wasm code, ready for execution."
+                  ]
+               },
+               {
+                  "Name":"AccountCounter",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"u64",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000",
+                  "Documentations":[
+                     " The subtrie counter."
+                  ]
+               },
+               {
+                  "Name":"ContractInfoOf",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"ContractInfo<T>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " The code associated with a given account.",
+                     "",
+                     " TWOX-NOTE: SAFE since `AccountId` is a secure hash."
+                  ]
+               },
+               {
+                  "Name":"DeletionQueue",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Vec<DeletedContract>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Evicted contracts that await child trie deletion.",
+                     "",
+                     " Child trie deletion is a heavy operation depending on the amount of storage items",
+                     " stored in said trie. Therefore this operation is performed lazily in `on_initialize`."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"update_schedule",
+               "Arguments":[
+                  {
+                     "Name":"schedule",
+                     "Type":"Schedule<T>"
+                  }
+               ],
+               "Documentations":[
+                  " Updates the schedule for metering contracts.",
+                  "",
+                  " The schedule must have a greater version than the stored schedule."
+               ]
+            },
+            {
+               "Name":"call",
+               "Arguments":[
+                  {
+                     "Name":"dest",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"value",
+                     "Type":"Compact<BalanceOf<T>>"
+                  },
+                  {
+                     "Name":"gas_limit",
+                     "Type":"Compact<Weight>"
+                  },
+                  {
+                     "Name":"data",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Makes a call to an account, optionally transferring some balance.",
+                  "",
+                  " * If the account is a smart-contract account, the associated code will be",
+                  " executed and any value will be transferred.",
+                  " * If the account is a regular account, any value will be transferred.",
+                  " * If no account exists and the call value is not less than `existential_deposit`,",
+                  " a regular account will be created and any value will be transferred."
+               ]
+            },
+            {
+               "Name":"instantiate_with_code",
+               "Arguments":[
+                  {
+                     "Name":"endowment",
+                     "Type":"Compact<BalanceOf<T>>"
+                  },
+                  {
+                     "Name":"gas_limit",
+                     "Type":"Compact<Weight>"
+                  },
+                  {
+                     "Name":"code",
+                     "Type":"Vec<u8>"
+                  },
+                  {
+                     "Name":"data",
+                     "Type":"Vec<u8>"
+                  },
+                  {
+                     "Name":"salt",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Instantiates a new contract from the supplied `code` optionally transferring",
+                  " some balance.",
+                  "",
+                  " This is the only function that can deploy new code to the chain.",
+                  "",
+                  " # Parameters",
+                  "",
+                  " * `endowment`: The balance to transfer from the `origin` to the newly created contract.",
+                  " * `gas_limit`: The gas limit enforced when executing the constructor.",
+                  " * `code`: The contract code to deploy in raw bytes.",
+                  " * `data`: The input data to pass to the contract constructor.",
+                  " * `salt`: Used for the address derivation. See [`Self::contract_address`].",
+                  "",
+                  " Instantiation is executed as follows:",
+                  "",
+                  " - The supplied `code` is instrumented, deployed, and a `code_hash` is created for that code.",
+                  " - If the `code_hash` already exists on the chain the underlying `code` will be shared.",
+                  " - The destination address is computed based on the sender, code_hash and the salt.",
+                  " - The smart-contract account is created at the computed address.",
+                  " - The `endowment` is transferred to the new account.",
+                  " - The `deploy` function is executed in the context of the newly-created account."
+               ]
+            },
+            {
+               "Name":"instantiate",
+               "Arguments":[
+                  {
+                     "Name":"endowment",
+                     "Type":"Compact<BalanceOf<T>>"
+                  },
+                  {
+                     "Name":"gas_limit",
+                     "Type":"Compact<Weight>"
+                  },
+                  {
+                     "Name":"code_hash",
+                     "Type":"CodeHash<T>"
+                  },
+                  {
+                     "Name":"data",
+                     "Type":"Vec<u8>"
+                  },
+                  {
+                     "Name":"salt",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Instantiates a contract from a previously deployed wasm binary.",
+                  "",
+                  " This function is identical to [`Self::instantiate_with_code`] but without the",
+                  " code deployment step. Instead, the `code_hash` of an on-chain deployed wasm binary",
+                  " must be supplied."
+               ]
+            },
+            {
+               "Name":"claim_surcharge",
+               "Arguments":[
+                  {
+                     "Name":"dest",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"aux_sender",
+                     "Type":"Option<T::AccountId>"
+                  }
+               ],
+               "Documentations":[
+                  " Allows block producers to claim a small reward for evicting a contract. If a block",
+                  " producer fails to do so, a regular users will be allowed to claim the reward.",
+                  "",
+                  " In case of a successful eviction no fees are charged from the sender. However, the",
+                  " reward is capped by the total amount of rent that was payed by the contract while",
+                  " it was alive.",
+                  "",
+                  " If contract is not evicted as a result of this call, [`Error::ContractNotEvictable`]",
+                  " is returned and the sender is not eligible for the reward."
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " Contract deployed by address at the specified address. \\[deployer, contract\\]"
+               ],
+               "Name":"Instantiated",
+               "EventArgs":[
+                  "AccountId",
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Contract has been evicted and is now in tombstone state. \\[contract\\]"
+               ],
+               "Name":"Evicted",
+               "EventArgs":[
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Contract has been terminated without leaving a tombstone.",
+                  " \\[contract, beneficiary\\]",
+                  "",
+                  " # Params",
+                  "",
+                  " - `contract`: The contract that was terminated.",
+                  " - `beneficiary`: The account that received the contracts remaining balance.",
+                  "",
+                  " # Note",
+                  "",
+                  " The only way for a contract to be removed without a tombstone and emitting",
+                  " this event is by calling `seal_terminate`."
+               ],
+               "Name":"Terminated",
+               "EventArgs":[
+                  "AccountId",
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Restoration of a contract has been successful.",
+                  " \\[restorer, dest, code_hash, rent_allowance\\]",
+                  "",
+                  " # Params",
+                  "",
+                  " - `restorer`: Account ID of the restoring contract.",
+                  " - `dest`: Account ID of the restored contract.",
+                  " - `code_hash`: Code hash of the restored contract.",
+                  " - `rent_allowance`: Rent allowance of the restored contract."
+               ],
+               "Name":"Restored",
+               "EventArgs":[
+                  "AccountId",
+                  "AccountId",
+                  "Hash",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Code with the specified hash has been stored. \\[code_hash\\]"
+               ],
+               "Name":"CodeStored",
+               "EventArgs":[
+                  "Hash"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Triggered when the current schedule is updated.",
+                  " \\[version\\]",
+                  "",
+                  " # Params",
+                  "",
+                  " - `version`: The version of the newly set schedule."
+               ],
+               "Name":"ScheduleUpdated",
+               "EventArgs":[
+                  "u32"
+               ]
+            },
+            {
+               "Documentations":[
+                  " A custom event emitted by the contract.",
+                  " \\[contract, data\\]",
+                  "",
+                  " # Params",
+                  "",
+                  " - `contract`: The contract that emitted the event.",
+                  " - `data`: Data supplied by the contract. Metadata generated during contract",
+                  "           compilation is needed to decode it."
+               ],
+               "Name":"ContractEmitted",
+               "EventArgs":[
+                  "AccountId",
+                  "Vec<u8>"
+               ]
+            },
+            {
+               "Documentations":[
+                  " A code with the specified hash was removed.",
+                  " \\[code_hash\\]",
+                  "",
+                  " This happens when the last contract that uses this code hash was removed or evicted."
+               ],
+               "Name":"CodeRemoved",
+               "EventArgs":[
+                  "Hash"
+               ]
+            }
+         ],
+         "Consts":[
+            {
+               "Name":"SignedClaimHandicap",
+               "Type":"T::BlockNumber",
+               "Value":"0x02000000",
+               "Documentations":[
+                  " Number of block delay an extrinsic claim surcharge has.",
+                  "",
+                  " When claim surcharge is called by an extrinsic the rent is checked",
+                  " for current_block - delay"
+               ]
+            },
+            {
+               "Name":"TombstoneDeposit",
+               "Type":"BalanceOf<T>",
+               "Value":"0x000062A25C9419000000000000000000",
+               "Documentations":[
+                  " The minimum amount required to generate a tombstone."
+               ]
+            },
+            {
+               "Name":"DepositPerContract",
+               "Type":"BalanceOf<T>",
+               "Value":"0x000062A25C9419000000000000000000",
+               "Documentations":[
+                  " The balance every contract needs to deposit to stay alive indefinitely.",
+                  "",
+                  " This is different from the [`Self::TombstoneDeposit`] because this only needs to be",
+                  " deposited while the contract is alive. Costs for additional storage are added to",
+                  " this base cost.",
+                  "",
+                  " This is a simple way to ensure that contracts with empty storage eventually get deleted by",
+                  " making them pay rent. This creates an incentive to remove them early in order to save rent."
+               ]
+            },
+            {
+               "Name":"DepositPerStorageByte",
+               "Type":"BalanceOf<T>",
+               "Value":"0x00C0AFD6913600000000000000000000",
+               "Documentations":[
+                  " The balance a contract needs to deposit per storage byte to stay alive indefinitely.",
+                  "",
+                  " Let's suppose the deposit is 1,000 BU (balance units)/byte and the rent is 1 BU/byte/day,",
+                  " then a contract with 1,000,000 BU that uses 1,000 bytes of storage would pay no rent.",
+                  " But if the balance reduced to 500,000 BU and the storage stayed the same at 1,000,",
+                  " then it would pay 500 BU/day."
+               ]
+            },
+            {
+               "Name":"DepositPerStorageItem",
+               "Type":"BalanceOf<T>",
+               "Value":"0x0060B7986C8800000000000000000000",
+               "Documentations":[
+                  " The balance a contract needs to deposit per storage item to stay alive indefinitely.",
+                  "",
+                  " It works the same as [`Self::DepositPerStorageByte`] but for storage items."
+               ]
+            },
+            {
+               "Name":"RentFraction",
+               "Type":"Perbill",
+               "Value":"0x0A090000",
+               "Documentations":[
+                  " The fraction of the deposit that should be used as rent per block.",
+                  "",
+                  " When a contract hasn't enough balance deposited to stay alive indefinitely it needs",
+                  " to pay per block for the storage it consumes that is not covered by the deposit.",
+                  " This determines how high this rent payment is per block as a fraction of the deposit."
+               ]
+            },
+            {
+               "Name":"SurchargeReward",
+               "Type":"BalanceOf<T>",
+               "Value":"0x0060B7986C8800000000000000000000",
+               "Documentations":[
+                  " Reward that is received by the party whose touch has led",
+                  " to removal of a contract."
+               ]
+            },
+            {
+               "Name":"MaxDepth",
+               "Type":"u32",
+               "Value":"0x20000000",
+               "Documentations":[
+                  " The maximum nesting level of a call/instantiate stack."
+               ]
+            },
+            {
+               "Name":"MaxValueSize",
+               "Type":"u32",
+               "Value":"0x00400000",
+               "Documentations":[
+                  " The maximum size of a storage value and event payload in bytes."
+               ]
+            },
+            {
+               "Name":"DeletionQueueDepth",
+               "Type":"u32",
+               "Value":"0x1B010000",
+               "Documentations":[
+                  " The maximum number of tries that can be queued for deletion."
+               ]
+            },
+            {
+               "Name":"DeletionWeightLimit",
+               "Type":"Weight",
+               "Value":"0x00D0ED902E000000",
+               "Documentations":[
+                  " The maximum amount of weight that can be consumed per block for lazy trie removal."
+               ]
+            },
+            {
+               "Name":"MaxCodeSize",
+               "Type":"u32",
+               "Value":"0x00009001",
+               "Documentations":[
+                  " The maximum length of a contract code in bytes. This limit applies to the instrumented",
+                  " version of the code. Therefore `instantiate_with_code` can fail even when supplying",
+                  " a wasm binary below this maximum size."
+               ]
+            }
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " A new schedule must have a greater version than the current one."
+               ],
+               "Name":"InvalidScheduleVersion"
+            },
+            {
+               "Documentations":[
+                  " An origin must be signed or inherent and auxiliary sender only provided on inherent."
+               ],
+               "Name":"InvalidSurchargeClaim"
+            },
+            {
+               "Documentations":[
+                  " Cannot restore from nonexisting or tombstone contract."
+               ],
+               "Name":"InvalidSourceContract"
+            },
+            {
+               "Documentations":[
+                  " Cannot restore to nonexisting or alive contract."
+               ],
+               "Name":"InvalidDestinationContract"
+            },
+            {
+               "Documentations":[
+                  " Tombstones don't match."
+               ],
+               "Name":"InvalidTombstone"
+            },
+            {
+               "Documentations":[
+                  " An origin TrieId written in the current block."
+               ],
+               "Name":"InvalidContractOrigin"
+            },
+            {
+               "Documentations":[
+                  " The executed contract exhausted its gas limit."
+               ],
+               "Name":"OutOfGas"
+            },
+            {
+               "Documentations":[
+                  " The output buffer supplied to a contract API call was too small."
+               ],
+               "Name":"OutputBufferTooSmall"
+            },
+            {
+               "Documentations":[
+                  " Performing the requested transfer would have brought the contract below",
+                  " the subsistence threshold. No transfer is allowed to do this in order to allow",
+                  " for a tombstone to be created. Use `seal_terminate` to remove a contract without",
+                  " leaving a tombstone behind."
+               ],
+               "Name":"BelowSubsistenceThreshold"
+            },
+            {
+               "Documentations":[
+                  " The newly created contract is below the subsistence threshold after executing",
+                  " its contructor. No contracts are allowed to exist below that threshold."
+               ],
+               "Name":"NewContractNotFunded"
+            },
+            {
+               "Documentations":[
+                  " Performing the requested transfer failed for a reason originating in the",
+                  " chosen currency implementation of the runtime. Most probably the balance is",
+                  " too low or locks are placed on it."
+               ],
+               "Name":"TransferFailed"
+            },
+            {
+               "Documentations":[
+                  " Performing a call was denied because the calling depth reached the limit",
+                  " of what is specified in the schedule."
+               ],
+               "Name":"MaxCallDepthReached"
+            },
+            {
+               "Documentations":[
+                  " The contract that was called is either no contract at all (a plain account)",
+                  " or is a tombstone."
+               ],
+               "Name":"NotCallable"
+            },
+            {
+               "Documentations":[
+                  " The code supplied to `instantiate_with_code` exceeds the limit specified in the",
+                  " current schedule."
+               ],
+               "Name":"CodeTooLarge"
+            },
+            {
+               "Documentations":[
+                  " No code could be found at the supplied code hash."
+               ],
+               "Name":"CodeNotFound"
+            },
+            {
+               "Documentations":[
+                  " A buffer outside of sandbox memory was passed to a contract API function."
+               ],
+               "Name":"OutOfBounds"
+            },
+            {
+               "Documentations":[
+                  " Input passed to a contract API function failed to decode as expected type."
+               ],
+               "Name":"DecodingFailed"
+            },
+            {
+               "Documentations":[
+                  " Contract trapped during execution."
+               ],
+               "Name":"ContractTrapped"
+            },
+            {
+               "Documentations":[
+                  " The size defined in `T::MaxValueSize` was exceeded."
+               ],
+               "Name":"ValueTooLarge"
+            },
+            {
+               "Documentations":[
+                  " The action performed is not allowed while the contract performing it is already",
+                  " on the call stack. Those actions are contract self destruction and restoration",
+                  " of a tombstone."
+               ],
+               "Name":"ReentranceDenied"
+            },
+            {
+               "Documentations":[
+                  " `seal_input` was called twice from the same contract execution context."
+               ],
+               "Name":"InputAlreadyRead"
+            },
+            {
+               "Documentations":[
+                  " The subject passed to `seal_random` exceeds the limit."
+               ],
+               "Name":"RandomSubjectTooLong"
+            },
+            {
+               "Documentations":[
+                  " The amount of topics passed to `seal_deposit_events` exceeds the limit."
+               ],
+               "Name":"TooManyTopics"
+            },
+            {
+               "Documentations":[
+                  " The topics passed to `seal_deposit_events` contains at least one duplicate."
+               ],
+               "Name":"DuplicateTopics"
+            },
+            {
+               "Documentations":[
+                  " The chain does not provide a chain extension. Calling the chain extension results",
+                  " in this error. Note that this usually  shouldn't happen as deploying such contracts",
+                  " is rejected."
+               ],
+               "Name":"NoChainExtension"
+            },
+            {
+               "Documentations":[
+                  " Removal of a contract failed because the deletion queue is full.",
+                  "",
+                  " This can happen when either calling [`Pallet::claim_surcharge`] or `seal_terminate`.",
+                  " The queue is filled by deleting contracts and emptied by a fixed amount each block.",
+                  " Trying again during another block is the only way to resolve this issue."
+               ],
+               "Name":"DeletionQueueFull"
+            },
+            {
+               "Documentations":[
+                  " A contract could not be evicted because it has enough balance to pay rent.",
+                  "",
+                  " This can be returned from [`Pallet::claim_surcharge`] because the target",
+                  " contract has enough balance to pay for its rent."
+               ],
+               "Name":"ContractNotEvictable"
+            },
+            {
+               "Documentations":[
+                  " A storage modification exhausted the 32bit type that holds the storage size.",
+                  "",
+                  " This can either happen when the accumulated storage in bytes is too large or",
+                  " when number of storage items is too large."
+               ],
+               "Name":"StorageExhausted"
+            },
+            {
+               "Documentations":[
+                  " A contract with the same AccountId already exists."
+               ],
+               "Name":"DuplicateContract"
+            }
+         ]
+      },
+      {
+         "Name":"Timestamp",
+         "Index":3,
+         "Storage":{
+            "Prefix":"Timestamp",
+            "Items":[
+               {
+                  "Name":"Now",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"T::Moment",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000",
+                  "Documentations":[
+                     " Current time for the current block."
+                  ]
+               },
+               {
+                  "Name":"DidUpdate",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"bool",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Did the timestamp get updated in this block?"
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"set",
+               "Arguments":[
+                  {
+                     "Name":"now",
+                     "Type":"Compact<T::Moment>"
+                  }
+               ],
+               "Documentations":[
+                  " Set the current time.",
+                  "",
+                  " This call should be invoked exactly once per block. It will panic at the finalization",
+                  " phase, if this call hasn't been invoked by that time.",
+                  "",
+                  " The timestamp should be greater than the previous one by the amount specified by",
+                  " `MinimumPeriod`.",
+                  "",
+                  " The dispatch origin for this call must be `Inherent`.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)` (Note that implementations of `OnTimestampSet` must also be `O(1)`)",
+                  " - 1 storage read and 1 storage mutation (codec `O(1)`). (because of `DidUpdate::take` in `on_finalize`)",
+                  " - 1 event handler `on_timestamp_set`. Must be `O(1)`.",
+                  " # </weight>"
+               ]
+            }
+         ],
+         "Events":null,
+         "Consts":[
+            {
+               "Name":"MinimumPeriod",
+               "Type":"T::Moment",
+               "Value":"0xB80B000000000000",
+               "Documentations":[
+                  " The minimum period between blocks. Beware that this is different to the *expected* period",
+                  " that the block production apparatus provides. Your chosen consensus system will generally",
+                  " work with this to determine a sensible block time. e.g. For Aura, it will be double this",
+                  " period on default settings."
+               ]
+            }
+         ],
+         "Errors":[
+            
+         ]
+      },
+      {
+         "Name":"Aura",
+         "Index":4,
+         "Storage":null,
+         "Calls":null,
+         "Events":null,
+         "Consts":[
+            
+         ],
+         "Errors":[
+            
+         ]
+      },
+      {
+         "Name":"Grandpa",
+         "Index":5,
+         "Storage":{
+            "Prefix":"GrandpaFinality",
+            "Items":[
+               {
+                  "Name":"State",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"StoredState<T::BlockNumber>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " State of the current authority set."
+                  ]
+               },
+               {
+                  "Name":"PendingChange",
+                  "Modifier":"Optional",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"StoredPendingChange<T::BlockNumber>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Pending change: (signaled at, scheduled change)."
+                  ]
+               },
+               {
+                  "Name":"NextForced",
+                  "Modifier":"Optional",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"T::BlockNumber",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " next block number where we can force a change."
+                  ]
+               },
+               {
+                  "Name":"Stalled",
+                  "Modifier":"Optional",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"(T::BlockNumber, T::BlockNumber)",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " `true` if we are currently stalled."
+                  ]
+               },
+               {
+                  "Name":"CurrentSetId",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"SetId",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000",
+                  "Documentations":[
+                     " The number of changes (both in terms of keys and underlying economic responsibilities)",
+                     " in the \"set\" of Grandpa validators from genesis."
+                  ]
+               },
+               {
+                  "Name":"SetIdSession",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"SetId",
+                     "Key2":null,
+                     "Value":"SessionIndex",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " A mapping from grandpa set ID to the index of the *most recent* session for which its",
+                     " members were responsible.",
+                     "",
+                     " TWOX-NOTE: `SetId` is not under user control."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"report_equivocation",
+               "Arguments":[
+                  {
+                     "Name":"equivocation_proof",
+                     "Type":"EquivocationProof<T::Hash, T::BlockNumber>"
+                  },
+                  {
+                     "Name":"key_owner_proof",
+                     "Type":"T::KeyOwnerProof"
+                  }
+               ],
+               "Documentations":[
+                  " Report voter equivocation/misbehavior. This method will verify the",
+                  " equivocation proof and validate the given key ownership proof",
+                  " against the extracted offender. If both are valid, the offence",
+                  " will be reported."
+               ]
+            },
+            {
+               "Name":"report_equivocation_unsigned",
+               "Arguments":[
+                  {
+                     "Name":"equivocation_proof",
+                     "Type":"EquivocationProof<T::Hash, T::BlockNumber>"
+                  },
+                  {
+                     "Name":"key_owner_proof",
+                     "Type":"T::KeyOwnerProof"
+                  }
+               ],
+               "Documentations":[
+                  " Report voter equivocation/misbehavior. This method will verify the",
+                  " equivocation proof and validate the given key ownership proof",
+                  " against the extracted offender. If both are valid, the offence",
+                  " will be reported.",
+                  "",
+                  " This extrinsic must be called unsigned and it is expected that only",
+                  " block authors will call it (validated in `ValidateUnsigned`), as such",
+                  " if the block author is defined it will be defined as the equivocation",
+                  " reporter."
+               ]
+            },
+            {
+               "Name":"note_stalled",
+               "Arguments":[
+                  {
+                     "Name":"delay",
+                     "Type":"T::BlockNumber"
+                  },
+                  {
+                     "Name":"best_finalized_block_number",
+                     "Type":"T::BlockNumber"
+                  }
+               ],
+               "Documentations":[
+                  " Note that the current authority set of the GRANDPA finality gadget has",
+                  " stalled. This will trigger a forced authority set change at the beginning",
+                  " of the next session, to be enacted `delay` blocks after that. The delay",
+                  " should be high enough to safely assume that the block signalling the",
+                  " forced change will not be re-orged (e.g. 1000 blocks). The GRANDPA voters",
+                  " will start the new authority set using the given finalized block as base.",
+                  " Only callable by root."
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " New authority set has been applied. \\[authority_set\\]"
+               ],
+               "Name":"NewAuthorities",
+               "EventArgs":[
+                  "AuthorityList"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Current authority set has been paused."
+               ],
+               "Name":"Paused",
+               "EventArgs":[
+                  
+               ]
+            },
+            {
+               "Documentations":[
+                  " Current authority set has been resumed."
+               ],
+               "Name":"Resumed",
+               "EventArgs":[
+                  
+               ]
+            }
+         ],
+         "Consts":[
+            
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " Attempt to signal GRANDPA pause when the authority set isn't live",
+                  " (either paused or already pending pause)."
+               ],
+               "Name":"PauseFailed"
+            },
+            {
+               "Documentations":[
+                  " Attempt to signal GRANDPA resume when the authority set isn't paused",
+                  " (either live or already pending resume)."
+               ],
+               "Name":"ResumeFailed"
+            },
+            {
+               "Documentations":[
+                  " Attempt to signal GRANDPA change with one already pending."
+               ],
+               "Name":"ChangePending"
+            },
+            {
+               "Documentations":[
+                  " Cannot signal forced change so soon after last."
+               ],
+               "Name":"TooSoon"
+            },
+            {
+               "Documentations":[
+                  " A key ownership proof provided as part of an equivocation report is invalid."
+               ],
+               "Name":"InvalidKeyOwnershipProof"
+            },
+            {
+               "Documentations":[
+                  " An equivocation proof provided as part of an equivocation report is invalid."
+               ],
+               "Name":"InvalidEquivocationProof"
+            },
+            {
+               "Documentations":[
+                  " A given equivocation report is valid but already previously reported."
+               ],
+               "Name":"DuplicateOffenceReport"
+            }
+         ]
+      },
+      {
+         "Name":"Balances",
+         "Index":6,
+         "Storage":{
+            "Prefix":"Balances",
+            "Items":[
+               {
+                  "Name":"TotalIssuance",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"T::Balance",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000000000000000000000000000",
+                  "Documentations":[
+                     " The total units issued in the system."
+                  ]
+               },
+               {
+                  "Name":"Account",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"AccountData<T::Balance>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                  "Documentations":[
+                     " The balance of an account.",
+                     "",
+                     " NOTE: This is only used in the case that this pallet is used to store balances."
+                  ]
+               },
+               {
+                  "Name":"Locks",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"Vec<BalanceLock<T::Balance>>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Any liquidity locks on some account balances.",
+                     " NOTE: Should only be accessed when setting, changing and freeing a lock."
+                  ]
+               },
+               {
+                  "Name":"StorageVersion",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Releases",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Storage version of the pallet.",
+                     "",
+                     " This is set to v2.0.0 for new networks."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"transfer",
+               "Arguments":[
+                  {
+                     "Name":"dest",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"value",
+                     "Type":"Compact<T::Balance>"
+                  }
+               ],
+               "Documentations":[
+                  " Transfer some liquid free balance to another account.",
+                  "",
+                  " `transfer` will set the `FreeBalance` of the sender and receiver.",
+                  " It will decrease the total issuance of the system by the `TransferFee`.",
+                  " If the sender's account is below the existential deposit as a result",
+                  " of the transfer, the account will be reaped.",
+                  "",
+                  " The dispatch origin for this call must be `Signed` by the transactor.",
+                  "",
+                  " # <weight>",
+                  " - Dependent on arguments but not critical, given proper implementations for",
+                  "   input config types. See related functions below.",
+                  " - It contains a limited number of reads and writes internally and no complex computation.",
+                  "",
+                  " Related functions:",
+                  "",
+                  "   - `ensure_can_withdraw` is always called internally but has a bounded complexity.",
+                  "   - Transferring balances to accounts that did not exist before will cause",
+                  "      `T::OnNewAccount::on_new_account` to be called.",
+                  "   - Removing enough funds from an account will trigger `T::DustRemoval::on_unbalanced`.",
+                  "   - `transfer_keep_alive` works the same way as `transfer`, but has an additional",
+                  "     check that the transfer will not kill the origin account.",
+                  " ---------------------------------",
+                  " - Base Weight: 73.64 Âµs, worst case scenario (account created, account removed)",
+                  " - DB Weight: 1 Read and 1 Write to destination account",
+                  " - Origin account is already in memory, so no DB operations for them.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"set_balance",
+               "Arguments":[
+                  {
+                     "Name":"who",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"new_free",
+                     "Type":"Compact<T::Balance>"
+                  },
+                  {
+                     "Name":"new_reserved",
+                     "Type":"Compact<T::Balance>"
+                  }
+               ],
+               "Documentations":[
+                  " Set the balances of a given account.",
+                  "",
+                  " This will alter `FreeBalance` and `ReservedBalance` in storage. it will",
+                  " also decrease the total issuance of the system (`TotalIssuance`).",
+                  " If the new free or reserved balance is below the existential deposit,",
+                  " it will reset the account nonce (`frame_system::AccountNonce`).",
+                  "",
+                  " The dispatch origin for this call is `root`.",
+                  "",
+                  " # <weight>",
+                  " - Independent of the arguments.",
+                  " - Contains a limited number of reads and writes.",
+                  " ---------------------",
+                  " - Base Weight:",
+                  "     - Creating: 27.56 Âµs",
+                  "     - Killing: 35.11 Âµs",
+                  " - DB Weight: 1 Read, 1 Write to `who`",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"force_transfer",
+               "Arguments":[
+                  {
+                     "Name":"source",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"dest",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"value",
+                     "Type":"Compact<T::Balance>"
+                  }
+               ],
+               "Documentations":[
+                  " Exactly as `transfer`, except the origin must be root and the source account may be",
+                  " specified.",
+                  " # <weight>",
+                  " - Same as transfer, but additional read and write because the source account is",
+                  "   not assumed to be in the overlay.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"transfer_keep_alive",
+               "Arguments":[
+                  {
+                     "Name":"dest",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"value",
+                     "Type":"Compact<T::Balance>"
+                  }
+               ],
+               "Documentations":[
+                  " Same as the [`transfer`] call, but with a check that the transfer will not kill the",
+                  " origin account.",
+                  "",
+                  " 99% of the time you want [`transfer`] instead.",
+                  "",
+                  " [`transfer`]: struct.Pallet.html#method.transfer",
+                  " # <weight>",
+                  " - Cheaper than transfer because account cannot be killed.",
+                  " - Base Weight: 51.4 Âµs",
+                  " - DB Weight: 1 Read and 1 Write to dest (sender is in overlay already)",
+                  " #</weight>"
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " An account was created with some free balance. \\[account, free_balance\\]"
+               ],
+               "Name":"Endowed",
+               "EventArgs":[
+                  "AccountId",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " An account was removed whose balance was non-zero but below ExistentialDeposit,",
+                  " resulting in an outright loss. \\[account, balance\\]"
+               ],
+               "Name":"DustLost",
+               "EventArgs":[
+                  "AccountId",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Transfer succeeded. \\[from, to, value\\]"
+               ],
+               "Name":"Transfer",
+               "EventArgs":[
+                  "AccountId",
+                  "AccountId",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " A balance was set by root. \\[who, free, reserved\\]"
+               ],
+               "Name":"BalanceSet",
+               "EventArgs":[
+                  "AccountId",
+                  "Balance",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Some amount was deposited (e.g. for transaction fees). \\[who, deposit\\]"
+               ],
+               "Name":"Deposit",
+               "EventArgs":[
+                  "AccountId",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Some balance was reserved (moved from free to reserved). \\[who, value\\]"
+               ],
+               "Name":"Reserved",
+               "EventArgs":[
+                  "AccountId",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Some balance was unreserved (moved from reserved to free). \\[who, value\\]"
+               ],
+               "Name":"Unreserved",
+               "EventArgs":[
+                  "AccountId",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Some balance was moved from the reserve of the first account to the second account.",
+                  " Final argument indicates the destination balance type.",
+                  " \\[from, to, balance, destination_status\\]"
+               ],
+               "Name":"ReserveRepatriated",
+               "EventArgs":[
+                  "AccountId",
+                  "AccountId",
+                  "Balance",
+                  "Status"
+               ]
+            }
+         ],
+         "Consts":[
+            {
+               "Name":"ExistentialDeposit",
+               "Type":"T::Balance",
+               "Value":"0x00000000000000000000000000000000",
+               "Documentations":[
+                  " The minimum amount required to keep an account open."
+               ]
+            }
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " Vesting balance too high to send value"
+               ],
+               "Name":"VestingBalance"
+            },
+            {
+               "Documentations":[
+                  " Account liquidity restrictions prevent withdrawal"
+               ],
+               "Name":"LiquidityRestrictions"
+            },
+            {
+               "Documentations":[
+                  " Got an overflow after adding"
+               ],
+               "Name":"Overflow"
+            },
+            {
+               "Documentations":[
+                  " Balance too low to send value"
+               ],
+               "Name":"InsufficientBalance"
+            },
+            {
+               "Documentations":[
+                  " Value too low to create account due to existential deposit"
+               ],
+               "Name":"ExistentialDeposit"
+            },
+            {
+               "Documentations":[
+                  " Transfer/payment would kill account"
+               ],
+               "Name":"KeepAlive"
+            },
+            {
+               "Documentations":[
+                  " A vesting schedule already exists for this account"
+               ],
+               "Name":"ExistingVestingSchedule"
+            },
+            {
+               "Documentations":[
+                  " Beneficiary account must pre-exist"
+               ],
+               "Name":"DeadAccount"
+            }
+         ]
+      },
+      {
+         "Name":"TransactionPayment",
+         "Index":7,
+         "Storage":{
+            "Prefix":"TransactionPayment",
+            "Items":[
+               {
+                  "Name":"NextFeeMultiplier",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Multiplier",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x000064A7B3B6E00D0000000000000000",
+                  "Documentations":[
+                     
+                  ]
+               },
+               {
+                  "Name":"StorageVersion",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Releases",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     
+                  ]
+               }
+            ]
+         },
+         "Calls":null,
+         "Events":null,
+         "Consts":[
+            {
+               "Name":"TransactionByteFee",
+               "Type":"BalanceOf<T>",
+               "Value":"0x0052EDA5740000000000000000000000",
+               "Documentations":[
+                  " The fee to be paid for making a transaction; the per-byte portion."
+               ]
+            },
+            {
+               "Name":"WeightToFee",
+               "Type":"Vec<WeightToFeeCoefficient<BalanceOf<T>>>",
+               "Value":"0x040C3D0200000000000000000000000000000000000001",
+               "Documentations":[
+                  " The polynomial that is applied in order to derive fee from weight."
+               ]
+            }
+         ],
+         "Errors":[
+            
+         ]
+      },
+      {
+         "Name":"Sudo",
+         "Index":8,
+         "Storage":{
+            "Prefix":"Sudo",
+            "Items":[
+               {
+                  "Name":"Key",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"T::AccountId",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "Documentations":[
+                     " The `AccountId` of the sudo key."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"sudo",
+               "Arguments":[
+                  {
+                     "Name":"call",
+                     "Type":"Box<<T as Config>::Call>"
+                  }
+               ],
+               "Documentations":[
+                  " Authenticates the sudo key and dispatches a function call with `Root` origin.",
+                  "",
+                  " The dispatch origin for this call must be _Signed_.",
+                  "",
+                  " # <weight>",
+                  " - O(1).",
+                  " - Limited storage reads.",
+                  " - One DB write (event).",
+                  " - Weight of derivative `call` execution + 10,000.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"sudo_unchecked_weight",
+               "Arguments":[
+                  {
+                     "Name":"call",
+                     "Type":"Box<<T as Config>::Call>"
+                  },
+                  {
+                     "Name":"_weight",
+                     "Type":"Weight"
+                  }
+               ],
+               "Documentations":[
+                  " Authenticates the sudo key and dispatches a function call with `Root` origin.",
+                  " This function does not check the weight of the call, and instead allows the",
+                  " Sudo user to specify the weight of the call.",
+                  "",
+                  " The dispatch origin for this call must be _Signed_.",
+                  "",
+                  " # <weight>",
+                  " - O(1).",
+                  " - The weight of this call is defined by the caller.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"set_key",
+               "Arguments":[
+                  {
+                     "Name":"new",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  }
+               ],
+               "Documentations":[
+                  " Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo key.",
+                  "",
+                  " The dispatch origin for this call must be _Signed_.",
+                  "",
+                  " # <weight>",
+                  " - O(1).",
+                  " - Limited storage reads.",
+                  " - One DB change.",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"sudo_as",
+               "Arguments":[
+                  {
+                     "Name":"who",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"call",
+                     "Type":"Box<<T as Config>::Call>"
+                  }
+               ],
+               "Documentations":[
+                  " Authenticates the sudo key and dispatches a function call with `Signed` origin from",
+                  " a given account.",
+                  "",
+                  " The dispatch origin for this call must be _Signed_.",
+                  "",
+                  " # <weight>",
+                  " - O(1).",
+                  " - Limited storage reads.",
+                  " - One DB write (event).",
+                  " - Weight of derivative `call` execution + 10,000.",
+                  " # </weight>"
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " A sudo just took place. \\[result\\]"
+               ],
+               "Name":"Sudid",
+               "EventArgs":[
+                  "DispatchResult"
+               ]
+            },
+            {
+               "Documentations":[
+                  " The \\[sudoer\\] just switched identity; the old key is supplied."
+               ],
+               "Name":"KeyChanged",
+               "EventArgs":[
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " A sudo just took place. \\[result\\]"
+               ],
+               "Name":"SudoAsDone",
+               "EventArgs":[
+                  "DispatchResult"
+               ]
+            }
+         ],
+         "Consts":[
+            
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " Sender must be the Sudo account"
+               ],
+               "Name":"RequireSudo"
+            }
+         ]
+      },
+      {
+         "Name":"Nft",
+         "Index":9,
+         "Storage":{
+            "Prefix":"Nft",
+            "Items":[
+               {
+                  "Name":"CreatedCollectionCount",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"u32",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Id of next collection"
+                  ]
+               },
+               {
+                  "Name":"ChainVersion",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"u64",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000",
+                  "Documentations":[
+                     " Used for migrations"
+                  ]
+               },
+               {
+                  "Name":"ItemListIndex",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":null,
+                     "Value":"TokenId",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Id of last collection token",
+                     " Collection id (controlled?1)"
+                  ]
+               },
+               {
+                  "Name":"ChainLimit",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"ChainLimits",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                  "Documentations":[
+                     
+                  ]
+               },
+               {
+                  "Name":"DestroyedCollectionCount",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"u32",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Amount of collections destroyed, used for total amount tracking with",
+                     " CreatedCollectionCount"
+                  ]
+               },
+               {
+                  "Name":"AccountItemCount",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"u32",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Total amount of account owned tokens (NFTs + RFTs + unique fungibles)",
+                     " Account id (real)"
+                  ]
+               },
+               {
+                  "Name":"CollectionById",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":null,
+                     "Value":"Collection<T>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Collection info",
+                     " Collection id (controlled?1)"
+                  ]
+               },
+               {
+                  "Name":"AdminList",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":null,
+                     "Value":"Vec<T::AccountId>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " List of collection admins",
+                     " Collection id (controlled?2)"
+                  ]
+               },
+               {
+                  "Name":"WhiteList",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"T::AccountId",
+                     "Value":"bool",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Whitelisted collection users",
+                     " Collection id (controlled?2), user id (controlled?3)"
+                  ]
+               },
+               {
+                  "Name":"Balance",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"T::AccountId",
+                     "Value":"u128",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00000000000000000000000000000000",
+                  "Documentations":[
+                     " How many of collection items user have",
+                     " Collection id (controlled?2), account id (real)"
+                  ]
+               },
+               {
+                  "Name":"Allowances",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"(TokenId, T::AccountId, T::AccountId)",
+                     "Value":"u128",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00000000000000000000000000000000",
+                  "Documentations":[
+                     " Amount of items which spender can transfer out of owners account (via transferFrom)",
+                     " Collection id (controlled?2), (token id (controlled ?2) + owner account id (real) + spender account id (controlled?3))",
+                     " TODO: Off chain worker should remove from this map when token gets removed"
+                  ]
+               },
+               {
+                  "Name":"NftItemList",
+                  "Modifier":"Optional",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"TokenId",
+                     "Value":"NftItemType<T::AccountId>",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Collection id (controlled?2), token id (controlled?1)"
+                  ]
+               },
+               {
+                  "Name":"FungibleItemList",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"T::AccountId",
+                     "Value":"FungibleItemType",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00000000000000000000000000000000",
+                  "Documentations":[
+                     " Collection id (controlled?2), owner (controlled?2)"
+                  ]
+               },
+               {
+                  "Name":"ReFungibleItemList",
+                  "Modifier":"Optional",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"TokenId",
+                     "Value":"ReFungibleItemType<T::AccountId>",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Collection id (controlled?2), token id (controlled?1)"
+                  ]
+               },
+               {
+                  "Name":"AddressTokens",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"T::AccountId",
+                     "Value":"Vec<TokenId>",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Collection id (controlled?2), tokens owner (controlled?2)"
+                  ]
+               },
+               {
+                  "Name":"CreateItemBasket",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"(CollectionId, T::AccountId)",
+                     "Key2":null,
+                     "Value":"T::BlockNumber",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " (Collection id (controlled?2), who created (real))",
+                     " TODO: Off chain worker should remove from this map when collection gets removed"
+                  ]
+               },
+               {
+                  "Name":"NftTransferBasket",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"TokenId",
+                     "Value":"T::BlockNumber",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Collection id (controlled?2), token id (controlled?2)"
+                  ]
+               },
+               {
+                  "Name":"FungibleTransferBasket",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"T::AccountId",
+                     "Value":"T::BlockNumber",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Collection id (controlled?2), owning user (real)"
+                  ]
+               },
+               {
+                  "Name":"ReFungibleTransferBasket",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"TokenId",
+                     "Value":"T::BlockNumber",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Collection id (controlled?2), token id (controlled?2)"
+                  ]
+               },
+               {
+                  "Name":"VariableMetaDataBasket",
+                  "Modifier":"Optional",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"CollectionId",
+                     "Key2":"TokenId",
+                     "Value":"T::BlockNumber",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Variable metadata sponsoring",
+                     " Collection id (controlled?2), token id (controlled?2)"
+                  ]
+               },
+               {
+                  "Name":"ContractOwner",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"T::AccountId",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Contract address (real)"
+                  ]
+               },
+               {
+                  "Name":"ContractSelfSponsoring",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"bool",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Contract address (real)"
+                  ]
+               },
+               {
+                  "Name":"ContractSponsorBasket",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"(T::AccountId, T::AccountId)",
+                     "Key2":null,
+                     "Value":"T::BlockNumber",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " (Contract address(real), caller (real))"
+                  ]
+               },
+               {
+                  "Name":"ContractSponsoringRateLimit",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"T::BlockNumber",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Contract address (real)"
+                  ]
+               },
+               {
+                  "Name":"ContractWhiteListEnabled",
+                  "Modifier":"Default",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"bool",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Contract address (real)"
+                  ]
+               },
+               {
+                  "Name":"ContractWhiteList",
+                  "Modifier":"Default",
+                  "Type":"DoubleMap",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":"T::AccountId",
+                     "Value":"bool",
+                     "IsLinked":true
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Contract address (real) => Whitelisted user (controlled?3)"
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"create_collection",
+               "Arguments":[
+                  {
+                     "Name":"collection_name",
+                     "Type":"Vec<u16>"
+                  },
+                  {
+                     "Name":"collection_description",
+                     "Type":"Vec<u16>"
+                  },
+                  {
+                     "Name":"token_prefix",
+                     "Type":"Vec<u8>"
+                  },
+                  {
+                     "Name":"mode",
+                     "Type":"CollectionMode"
+                  }
+               ],
+               "Documentations":[
+                  " This method creates a Collection of NFTs. Each Token may have multiple properties encoded as an array of bytes of certain length. The initial owner and admin of the collection are set to the address that signed the transaction. Both addresses can be changed later.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Anyone.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_name: UTF-16 string with collection name (limit 64 characters), will be stored as zero-terminated.",
+                  " ",
+                  " * collection_description: UTF-16 string with collection description (limit 256 characters), will be stored as zero-terminated.",
+                  " ",
+                  " * token_prefix: UTF-8 string with token prefix.",
+                  " ",
+                  " * mode: [CollectionMode] collection type and type dependent data."
+               ]
+            },
+            {
+               "Name":"destroy_collection",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  }
+               ],
+               "Documentations":[
+                  " **DANGEROUS**: Destroys collection and all NFTs within this collection. Users irrecoverably lose their assets and may lose real money.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: collection to destroy."
+               ]
+            },
+            {
+               "Name":"add_to_white_list",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"address",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " Add an address to white list.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * address."
+               ]
+            },
+            {
+               "Name":"remove_from_white_list",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"address",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " Remove an address from white list.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * address."
+               ]
+            },
+            {
+               "Name":"set_public_access_mode",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"mode",
+                     "Type":"AccessMode"
+                  }
+               ],
+               "Documentations":[
+                  " Toggle between normal and white list access for the methods with access for `Anyone`.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * mode: [AccessMode]"
+               ]
+            },
+            {
+               "Name":"set_mint_permission",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"mint_permission",
+                     "Type":"bool"
+                  }
+               ],
+               "Documentations":[
+                  " Allows Anyone to create tokens if:",
+                  " * White List is enabled, and",
+                  " * Address is added to white list, and",
+                  " * This method was called with True parameter",
+                  " ",
+                  " # Permissions",
+                  " * Collection Owner",
+                  "",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * mint_permission: Boolean parameter. If True, allows minting to Anyone with conditions above."
+               ]
+            },
+            {
+               "Name":"change_collection_owner",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"new_owner",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " Change the owner of the collection.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * new_owner."
+               ]
+            },
+            {
+               "Name":"add_collection_admin",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"new_admin_id",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " Adds an admin of the Collection.",
+                  " NFT Collection can be controlled by multiple admin addresses (some which can also be servers, for example). Admins can issue and burn NFTs, as well as add and remove other admins, but cannot change NFT or Collection ownership. ",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " * Collection Admin.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: ID of the Collection to add admin for.",
+                  " ",
+                  " * new_admin_id: Address of new admin to add."
+               ]
+            },
+            {
+               "Name":"remove_collection_admin",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"account_id",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " Remove admin address of the Collection. An admin address can remove itself. List of admins may become empty, in which case only Collection Owner will be able to add an Admin.",
+                  "",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " * Collection Admin.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: ID of the Collection to remove admin for.",
+                  " ",
+                  " * account_id: Address of admin to remove."
+               ]
+            },
+            {
+               "Name":"set_collection_sponsor",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"new_sponsor",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * new_sponsor."
+               ]
+            },
+            {
+               "Name":"confirm_sponsorship",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  }
+               ],
+               "Documentations":[
+                  " # Permissions",
+                  " ",
+                  " * Sponsor.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id."
+               ]
+            },
+            {
+               "Name":"remove_collection_sponsor",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  }
+               ],
+               "Documentations":[
+                  " Switch back to pay-per-own-transaction model.",
+                  "",
+                  " # Permissions",
+                  "",
+                  " * Collection owner.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id."
+               ]
+            },
+            {
+               "Name":"create_item",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"owner",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"data",
+                     "Type":"CreateItemData"
+                  }
+               ],
+               "Documentations":[
+                  " This method creates a concrete instance of NFT Collection created with CreateCollection method.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " * Collection Admin.",
+                  " * Anyone if",
+                  "     * White List is enabled, and",
+                  "     * Address is added to white list, and",
+                  "     * MintPermission is enabled (see SetMintPermission method)",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: ID of the collection.",
+                  " ",
+                  " * owner: Address, initial owner of the NFT.",
+                  "",
+                  " * data: Token data to store on chain."
+               ]
+            },
+            {
+               "Name":"create_multiple_items",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"owner",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"items_data",
+                     "Type":"Vec<CreateItemData>"
+                  }
+               ],
+               "Documentations":[
+                  " This method creates multiple items in a collection created with CreateCollection method.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " * Collection Admin.",
+                  " * Anyone if",
+                  "     * White List is enabled, and",
+                  "     * Address is added to white list, and",
+                  "     * MintPermission is enabled (see SetMintPermission method)",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: ID of the collection.",
+                  " ",
+                  " * itemsData: Array items properties. Each property is an array of bytes itself, see [create_item].",
+                  " ",
+                  " * owner: Address, initial owner of the NFT."
+               ]
+            },
+            {
+               "Name":"burn_item",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"item_id",
+                     "Type":"TokenId"
+                  },
+                  {
+                     "Name":"value",
+                     "Type":"u128"
+                  }
+               ],
+               "Documentations":[
+                  " Destroys a concrete instance of NFT.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner.",
+                  " * Collection Admin.",
+                  " * Current NFT Owner.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: ID of the collection.",
+                  " ",
+                  " * item_id: ID of NFT to burn."
+               ]
+            },
+            {
+               "Name":"transfer",
+               "Arguments":[
+                  {
+                     "Name":"recipient",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"item_id",
+                     "Type":"TokenId"
+                  },
+                  {
+                     "Name":"value",
+                     "Type":"u128"
+                  }
+               ],
+               "Documentations":[
+                  " Change ownership of the token.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " * Current NFT owner",
+                  "",
+                  " # Arguments",
+                  " ",
+                  " * recipient: Address of token recipient.",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * item_id: ID of the item",
+                  "     * Non-Fungible Mode: Required.",
+                  "     * Fungible Mode: Ignored.",
+                  "     * Re-Fungible Mode: Required.",
+                  " ",
+                  " * value: Amount to transfer.",
+                  "     * Non-Fungible Mode: Ignored",
+                  "     * Fungible Mode: Must specify transferred amount",
+                  "     * Re-Fungible Mode: Must specify transferred portion (between 0 and 1)"
+               ]
+            },
+            {
+               "Name":"approve",
+               "Arguments":[
+                  {
+                     "Name":"spender",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"item_id",
+                     "Type":"TokenId"
+                  },
+                  {
+                     "Name":"amount",
+                     "Type":"u128"
+                  }
+               ],
+               "Documentations":[
+                  " Set, change, or remove approved address to transfer the ownership of the NFT.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " * Current NFT owner",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * approved: Address that is approved to transfer this NFT or zero (if needed to remove approval).",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * item_id: ID of the item."
+               ]
+            },
+            {
+               "Name":"transfer_from",
+               "Arguments":[
+                  {
+                     "Name":"from",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"recipient",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"item_id",
+                     "Type":"TokenId"
+                  },
+                  {
+                     "Name":"value",
+                     "Type":"u128"
+                  }
+               ],
+               "Documentations":[
+                  " Change ownership of a NFT on behalf of the owner. See Approve method for additional information. After this method executes, the approval is removed so that the approved address will not be able to transfer this NFT again from this owner.",
+                  " ",
+                  " # Permissions",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " * Current NFT owner",
+                  " * Address approved by current NFT owner",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * from: Address that owns token.",
+                  " ",
+                  " * recipient: Address of token recipient.",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * item_id: ID of the item.",
+                  " ",
+                  " * value: Amount to transfer."
+               ]
+            },
+            {
+               "Name":"set_variable_meta_data",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"item_id",
+                     "Type":"TokenId"
+                  },
+                  {
+                     "Name":"data",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Set off-chain data schema.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * schema: String representing the offchain data schema."
+               ]
+            },
+            {
+               "Name":"set_schema_version",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"version",
+                     "Type":"SchemaVersion"
+                  }
+               ],
+               "Documentations":[
+                  " Set schema standard",
+                  " ImageURL",
+                  " Unique",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * schema: SchemaVersion: enum"
+               ]
+            },
+            {
+               "Name":"set_offchain_schema",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"schema",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Set off-chain data schema.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * schema: String representing the offchain data schema."
+               ]
+            },
+            {
+               "Name":"set_const_on_chain_schema",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"schema",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Set const on-chain data schema.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * schema: String representing the const on-chain data schema."
+               ]
+            },
+            {
+               "Name":"set_variable_on_chain_schema",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"CollectionId"
+                  },
+                  {
+                     "Name":"schema",
+                     "Type":"Vec<u8>"
+                  }
+               ],
+               "Documentations":[
+                  " Set variable on-chain data schema.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Collection Owner",
+                  " * Collection Admin",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id.",
+                  " ",
+                  " * schema: String representing the variable on-chain data schema."
+               ]
+            },
+            {
+               "Name":"set_chain_limits",
+               "Arguments":[
+                  {
+                     "Name":"limits",
+                     "Type":"ChainLimits"
+                  }
+               ],
+               "Documentations":[
+                  
+               ]
+            },
+            {
+               "Name":"enable_contract_sponsoring",
+               "Arguments":[
+                  {
+                     "Name":"contract_address",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"enable",
+                     "Type":"bool"
+                  }
+               ],
+               "Documentations":[
+                  " Enable smart contract self-sponsoring.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Contract Owner",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * contract address",
+                  " * enable flag",
+                  " "
+               ]
+            },
+            {
+               "Name":"set_contract_sponsoring_rate_limit",
+               "Arguments":[
+                  {
+                     "Name":"contract_address",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"rate_limit",
+                     "Type":"T::BlockNumber"
+                  }
+               ],
+               "Documentations":[
+                  " Set the rate limit for contract sponsoring to specified number of blocks.",
+                  " ",
+                  " If not set (has the default value of 0 blocks), the sponsoring will be disabled. ",
+                  " If set to the number B (for blocks), the transactions will be sponsored with a rate ",
+                  " limit of B, i.e. fees for every transaction sent to this smart contract will be paid ",
+                  " from contract endowment if there are at least B blocks between such transactions. ",
+                  " Nonetheless, if transactions are sent more frequently, the fees are paid by the sender.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Contract Owner",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " -`contract_address`: Address of the contract to sponsor",
+                  " -`rate_limit`: Number of blocks to wait until the next sponsored transaction is allowed",
+                  " "
+               ]
+            },
+            {
+               "Name":"toggle_contract_white_list",
+               "Arguments":[
+                  {
+                     "Name":"contract_address",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"enable",
+                     "Type":"bool"
+                  }
+               ],
+               "Documentations":[
+                  " Enable the white list for a contract. Only addresses added to the white list with addToContractWhiteList will be able to call this smart contract.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Address that deployed smart contract.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " -`contract_address`: Address of the contract.",
+                  " ",
+                  " - `enable`: .  "
+               ]
+            },
+            {
+               "Name":"add_to_contract_white_list",
+               "Arguments":[
+                  {
+                     "Name":"contract_address",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"account_address",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " Add an address to smart contract white list.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Address that deployed smart contract.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " -`contract_address`: Address of the contract.",
+                  "",
+                  " -`account_address`: Address to add."
+               ]
+            },
+            {
+               "Name":"remove_from_contract_white_list",
+               "Arguments":[
+                  {
+                     "Name":"contract_address",
+                     "Type":"T::AccountId"
+                  },
+                  {
+                     "Name":"account_address",
+                     "Type":"T::AccountId"
+                  }
+               ],
+               "Documentations":[
+                  " Remove an address from smart contract white list.",
+                  " ",
+                  " # Permissions",
+                  " ",
+                  " * Address that deployed smart contract.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " -`contract_address`: Address of the contract.",
+                  "",
+                  " -`account_address`: Address to remove."
+               ]
+            },
+            {
+               "Name":"set_collection_limits",
+               "Arguments":[
+                  {
+                     "Name":"collection_id",
+                     "Type":"u32"
+                  },
+                  {
+                     "Name":"new_limits",
+                     "Type":"CollectionLimits<T::BlockNumber>"
+                  }
+               ],
+               "Documentations":[
+                  
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " New collection was created",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: Globally unique identifier of newly created collection.",
+                  " ",
+                  " * mode: [CollectionMode] converted into u8.",
+                  " ",
+                  " * account_id: Collection owner."
+               ],
+               "Name":"CollectionCreated",
+               "EventArgs":[
+                  "CollectionId",
+                  "u8",
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " New item was created.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " * collection_id: Id of the collection where item was created.",
+                  " ",
+                  " * item_id: Id of an item. Unique within the collection.",
+                  "",
+                  " * recipient: Owner of newly created item "
+               ],
+               "Name":"ItemCreated",
+               "EventArgs":[
+                  "CollectionId",
+                  "TokenId",
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Collection item was burned.",
+                  " ",
+                  " # Arguments",
+                  " ",
+                  " collection_id.",
+                  " ",
+                  " item_id: Identifier of burned NFT."
+               ],
+               "Name":"ItemDestroyed",
+               "EventArgs":[
+                  "CollectionId",
+                  "TokenId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Item was transferred",
+                  "",
+                  " * collection_id: Id of collection to which item is belong",
+                  "",
+                  " * item_id: Id of an item",
+                  "",
+                  " * sender: Original owner of item",
+                  "",
+                  " * recipient: New owner of item",
+                  "",
+                  " * amount: Always 1 for NFT"
+               ],
+               "Name":"Transfer",
+               "EventArgs":[
+                  "CollectionId",
+                  "TokenId",
+                  "AccountId",
+                  "AccountId",
+                  "u128"
+               ]
+            },
+            {
+               "Documentations":[
+                  " * collection_id",
+                  "",
+                  " * item_id",
+                  "",
+                  " * sender",
+                  "",
+                  " * spender",
+                  "",
+                  " * amount"
+               ],
+               "Name":"Approved",
+               "EventArgs":[
+                  "CollectionId",
+                  "TokenId",
+                  "AccountId",
+                  "AccountId",
+                  "u128"
+               ]
+            }
+         ],
+         "Consts":[
+            
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " Total collections bound exceeded."
+               ],
+               "Name":"TotalCollectionsLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Decimal_points parameter must be lower than MAX_DECIMAL_POINTS constant, currently it is 30."
+               ],
+               "Name":"CollectionDecimalPointLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Collection name can not be longer than 63 char."
+               ],
+               "Name":"CollectionNameLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Collection description can not be longer than 255 char."
+               ],
+               "Name":"CollectionDescriptionLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Token prefix can not be longer than 15 char."
+               ],
+               "Name":"CollectionTokenPrefixLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " This collection does not exist."
+               ],
+               "Name":"CollectionNotFound"
+            },
+            {
+               "Documentations":[
+                  " Item not exists."
+               ],
+               "Name":"TokenNotFound"
+            },
+            {
+               "Documentations":[
+                  " Admin not found"
+               ],
+               "Name":"AdminNotFound"
+            },
+            {
+               "Documentations":[
+                  " Arithmetic calculation overflow."
+               ],
+               "Name":"NumOverflow"
+            },
+            {
+               "Documentations":[
+                  " Account already has admin role."
+               ],
+               "Name":"AlreadyAdmin"
+            },
+            {
+               "Documentations":[
+                  " You do not own this collection."
+               ],
+               "Name":"NoPermission"
+            },
+            {
+               "Documentations":[
+                  " This address is not set as sponsor, use setCollectionSponsor first."
+               ],
+               "Name":"ConfirmUnsetSponsorFail"
+            },
+            {
+               "Documentations":[
+                  " Collection is not in mint mode."
+               ],
+               "Name":"PublicMintingNotAllowed"
+            },
+            {
+               "Documentations":[
+                  " Sender parameter and item owner must be equal."
+               ],
+               "Name":"MustBeTokenOwner"
+            },
+            {
+               "Documentations":[
+                  " Item balance not enough."
+               ],
+               "Name":"TokenValueTooLow"
+            },
+            {
+               "Documentations":[
+                  " Size of item is too large."
+               ],
+               "Name":"NftSizeLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " No approve found"
+               ],
+               "Name":"ApproveNotFound"
+            },
+            {
+               "Documentations":[
+                  " Requested value more than approved."
+               ],
+               "Name":"TokenValueNotEnough"
+            },
+            {
+               "Documentations":[
+                  " Only approved addresses can call this method."
+               ],
+               "Name":"ApproveRequired"
+            },
+            {
+               "Documentations":[
+                  " Address is not in white list."
+               ],
+               "Name":"AddresNotInWhiteList"
+            },
+            {
+               "Documentations":[
+                  " Number of collection admins bound exceeded."
+               ],
+               "Name":"CollectionAdminsLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Owned tokens by a single address bound exceeded."
+               ],
+               "Name":"AddressOwnershipLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Length of items properties must be greater than 0."
+               ],
+               "Name":"EmptyArgument"
+            },
+            {
+               "Documentations":[
+                  " const_data exceeded data limit."
+               ],
+               "Name":"TokenConstDataLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " variable_data exceeded data limit."
+               ],
+               "Name":"TokenVariableDataLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Not NFT item data used to mint in NFT collection."
+               ],
+               "Name":"NotNftDataUsedToMintNftCollectionToken"
+            },
+            {
+               "Documentations":[
+                  " Not Fungible item data used to mint in Fungible collection."
+               ],
+               "Name":"NotFungibleDataUsedToMintFungibleCollectionToken"
+            },
+            {
+               "Documentations":[
+                  " Not Re Fungible item data used to mint in Re Fungible collection."
+               ],
+               "Name":"NotReFungibleDataUsedToMintReFungibleCollectionToken"
+            },
+            {
+               "Documentations":[
+                  " Unexpected collection type."
+               ],
+               "Name":"UnexpectedCollectionType"
+            },
+            {
+               "Documentations":[
+                  " Can't store metadata in fungible tokens."
+               ],
+               "Name":"CantStoreMetadataInFungibleTokens"
+            },
+            {
+               "Documentations":[
+                  " Collection token limit exceeded"
+               ],
+               "Name":"CollectionTokenLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Account token limit exceeded per collection"
+               ],
+               "Name":"AccountTokenLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Collection limit bounds per collection exceeded"
+               ],
+               "Name":"CollectionLimitBoundsExceeded"
+            },
+            {
+               "Documentations":[
+                  " Tried to enable permissions which are only permitted to be disabled"
+               ],
+               "Name":"OwnerPermissionsCantBeReverted"
+            },
+            {
+               "Documentations":[
+                  " Schema data size limit bound exceeded"
+               ],
+               "Name":"SchemaDataLimitExceeded"
+            },
+            {
+               "Documentations":[
+                  " Maximum refungibility exceeded"
+               ],
+               "Name":"WrongRefungiblePieces"
+            },
+            {
+               "Documentations":[
+                  " createRefungible should be called with one owner"
+               ],
+               "Name":"BadCreateRefungibleCall"
+            }
+         ]
+      },
+      {
+         "Name":"Treasury",
+         "Index":10,
+         "Storage":{
+            "Prefix":"Treasury",
+            "Items":[
+               {
+                  "Name":"ProposalCount",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"ProposalIndex",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00000000",
+                  "Documentations":[
+                     " Number of proposals that have been made."
+                  ]
+               },
+               {
+                  "Name":"Proposals",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"Twox64Concat",
+                     "Key1":"ProposalIndex",
+                     "Key2":null,
+                     "Value":"Proposal<T::AccountId, BalanceOf<T, I>>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Proposals that have been made."
+                  ]
+               },
+               {
+                  "Name":"Approvals",
+                  "Modifier":"Default",
+                  "Type":"Plain",
+                  "Function":{
+                     "Hasher":"None",
+                     "Key1":null,
+                     "Key2":null,
+                     "Value":"Vec<ProposalIndex>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Proposal indices that have been approved but not yet awarded."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"propose_spend",
+               "Arguments":[
+                  {
+                     "Name":"value",
+                     "Type":"Compact<BalanceOf<T, I>>"
+                  },
+                  {
+                     "Name":"beneficiary",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  }
+               ],
+               "Documentations":[
+                  " Put forward a suggestion for spending. A deposit proportional to the value",
+                  " is reserved and slashed if the proposal is rejected. It is returned once the",
+                  " proposal is awarded.",
+                  "",
+                  " # <weight>",
+                  " - Complexity: O(1)",
+                  " - DbReads: `ProposalCount`, `origin account`",
+                  " - DbWrites: `ProposalCount`, `Proposals`, `origin account`",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"reject_proposal",
+               "Arguments":[
+                  {
+                     "Name":"proposal_id",
+                     "Type":"Compact<ProposalIndex>"
+                  }
+               ],
+               "Documentations":[
+                  " Reject a proposed spend. The original deposit will be slashed.",
+                  "",
+                  " May only be called from `T::RejectOrigin`.",
+                  "",
+                  " # <weight>",
+                  " - Complexity: O(1)",
+                  " - DbReads: `Proposals`, `rejected proposer account`",
+                  " - DbWrites: `Proposals`, `rejected proposer account`",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"approve_proposal",
+               "Arguments":[
+                  {
+                     "Name":"proposal_id",
+                     "Type":"Compact<ProposalIndex>"
+                  }
+               ],
+               "Documentations":[
+                  " Approve a proposal. At a later time, the proposal will be allocated to the beneficiary",
+                  " and the original deposit will be returned.",
+                  "",
+                  " May only be called from `T::ApproveOrigin`.",
+                  "",
+                  " # <weight>",
+                  " - Complexity: O(1).",
+                  " - DbReads: `Proposals`, `Approvals`",
+                  " - DbWrite: `Approvals`",
+                  " # </weight>"
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " New proposal. \\[proposal_index\\]"
+               ],
+               "Name":"Proposed",
+               "EventArgs":[
+                  "ProposalIndex"
+               ]
+            },
+            {
+               "Documentations":[
+                  " We have ended a spend period and will now allocate funds. \\[budget_remaining\\]"
+               ],
+               "Name":"Spending",
+               "EventArgs":[
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Some funds have been allocated. \\[proposal_index, award, beneficiary\\]"
+               ],
+               "Name":"Awarded",
+               "EventArgs":[
+                  "ProposalIndex",
+                  "Balance",
+                  "AccountId"
+               ]
+            },
+            {
+               "Documentations":[
+                  " A proposal was rejected; funds were slashed. \\[proposal_index, slashed\\]"
+               ],
+               "Name":"Rejected",
+               "EventArgs":[
+                  "ProposalIndex",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Some of our funds have been burnt. \\[burn\\]"
+               ],
+               "Name":"Burnt",
+               "EventArgs":[
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Spending has finished; this is the amount that rolls over until next spend.",
+                  " \\[budget_remaining\\]"
+               ],
+               "Name":"Rollover",
+               "EventArgs":[
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " Some funds have been deposited. \\[deposit\\]"
+               ],
+               "Name":"Deposit",
+               "EventArgs":[
+                  "Balance"
+               ]
+            }
+         ],
+         "Consts":[
+            {
+               "Name":"ProposalBond",
+               "Type":"Permill",
+               "Value":"0x50C30000",
+               "Documentations":[
+                  " Fraction of a proposal's value that should be bonded in order to place the proposal.",
+                  " An accepted proposal gets these back. A rejected proposal does not."
+               ]
+            },
+            {
+               "Name":"ProposalBondMinimum",
+               "Type":"BalanceOf<T, I>",
+               "Value":"0x0080C6A47E8D03000000000000000000",
+               "Documentations":[
+                  " Minimum amount of funds that should be placed in a deposit for making a proposal."
+               ]
+            },
+            {
+               "Name":"SpendPeriod",
+               "Type":"T::BlockNumber",
+               "Value":"0x32000000",
+               "Documentations":[
+                  " Period between successive spends."
+               ]
+            },
+            {
+               "Name":"Burn",
+               "Type":"Permill",
+               "Value":"0x00000000",
+               "Documentations":[
+                  " Percentage of spare funds (if any) that are burnt per spend period."
+               ]
+            },
+            {
+               "Name":"ModuleId",
+               "Type":"ModuleId",
+               "Value":"0x70792F7472737279",
+               "Documentations":[
+                  " The treasury's module id, used for deriving its sovereign account ID."
+               ]
+            }
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " Proposer's balance is too low."
+               ],
+               "Name":"InsufficientProposersBalance"
+            },
+            {
+               "Documentations":[
+                  " No proposal or bounty at that index."
+               ],
+               "Name":"InvalidIndex"
+            }
+         ]
+      },
+      {
+         "Name":"Vesting",
+         "Index":11,
+         "Storage":{
+            "Prefix":"Vesting",
+            "Items":[
+               {
+                  "Name":"Vesting",
+                  "Modifier":"Optional",
+                  "Type":"Map",
+                  "Function":{
+                     "Hasher":"BlakeTwo128Concat",
+                     "Key1":"T::AccountId",
+                     "Key2":null,
+                     "Value":"VestingInfo<BalanceOf<T>, T::BlockNumber>",
+                     "IsLinked":false
+                  },
+                  "FallBack":"0x00",
+                  "Documentations":[
+                     " Information regarding the vesting of a given account."
+                  ]
+               }
+            ]
+         },
+         "Calls":[
+            {
+               "Name":"vest",
+               "Arguments":[
+                  
+               ],
+               "Documentations":[
+                  " Unlock any vested funds of the sender account.",
+                  "",
+                  " The dispatch origin for this call must be _Signed_ and the sender must have funds still",
+                  " locked under this module.",
+                  "",
+                  " Emits either `VestingCompleted` or `VestingUpdated`.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)`.",
+                  " - DbWeight: 2 Reads, 2 Writes",
+                  "     - Reads: Vesting Storage, Balances Locks, [Sender Account]",
+                  "     - Writes: Vesting Storage, Balances Locks, [Sender Account]",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"vest_other",
+               "Arguments":[
+                  {
+                     "Name":"target",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  }
+               ],
+               "Documentations":[
+                  " Unlock any vested funds of a `target` account.",
+                  "",
+                  " The dispatch origin for this call must be _Signed_.",
+                  "",
+                  " - `target`: The account whose vested funds should be unlocked. Must have funds still",
+                  " locked under this module.",
+                  "",
+                  " Emits either `VestingCompleted` or `VestingUpdated`.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)`.",
+                  " - DbWeight: 3 Reads, 3 Writes",
+                  "     - Reads: Vesting Storage, Balances Locks, Target Account",
+                  "     - Writes: Vesting Storage, Balances Locks, Target Account",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"vested_transfer",
+               "Arguments":[
+                  {
+                     "Name":"target",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"schedule",
+                     "Type":"VestingInfo<BalanceOf<T>, T::BlockNumber>"
+                  }
+               ],
+               "Documentations":[
+                  " Create a vested transfer.",
+                  "",
+                  " The dispatch origin for this call must be _Signed_.",
+                  "",
+                  " - `target`: The account that should be transferred the vested funds.",
+                  " - `amount`: The amount of funds to transfer and will be vested.",
+                  " - `schedule`: The vesting schedule attached to the transfer.",
+                  "",
+                  " Emits `VestingCreated`.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)`.",
+                  " - DbWeight: 3 Reads, 3 Writes",
+                  "     - Reads: Vesting Storage, Balances Locks, Target Account, [Sender Account]",
+                  "     - Writes: Vesting Storage, Balances Locks, Target Account, [Sender Account]",
+                  " # </weight>"
+               ]
+            },
+            {
+               "Name":"force_vested_transfer",
+               "Arguments":[
+                  {
+                     "Name":"source",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"target",
+                     "Type":"<T::Lookup as StaticLookup>::Source"
+                  },
+                  {
+                     "Name":"schedule",
+                     "Type":"VestingInfo<BalanceOf<T>, T::BlockNumber>"
+                  }
+               ],
+               "Documentations":[
+                  " Force a vested transfer.",
+                  "",
+                  " The dispatch origin for this call must be _Root_.",
+                  "",
+                  " - `source`: The account whose funds should be transferred.",
+                  " - `target`: The account that should be transferred the vested funds.",
+                  " - `amount`: The amount of funds to transfer and will be vested.",
+                  " - `schedule`: The vesting schedule attached to the transfer.",
+                  "",
+                  " Emits `VestingCreated`.",
+                  "",
+                  " # <weight>",
+                  " - `O(1)`.",
+                  " - DbWeight: 4 Reads, 4 Writes",
+                  "     - Reads: Vesting Storage, Balances Locks, Target Account, Source Account",
+                  "     - Writes: Vesting Storage, Balances Locks, Target Account, Source Account",
+                  " # </weight>"
+               ]
+            }
+         ],
+         "Events":[
+            {
+               "Documentations":[
+                  " The amount vested has been updated. This could indicate more funds are available. The",
+                  " balance given is the amount which is left unvested (and thus locked).",
+                  " \\[account, unvested\\]"
+               ],
+               "Name":"VestingUpdated",
+               "EventArgs":[
+                  "AccountId",
+                  "Balance"
+               ]
+            },
+            {
+               "Documentations":[
+                  " An \\[account\\] has become fully vested. No further vesting can happen."
+               ],
+               "Name":"VestingCompleted",
+               "EventArgs":[
+                  "AccountId"
+               ]
+            }
+         ],
+         "Consts":[
+            {
+               "Name":"MinVestedTransfer",
+               "Type":"BalanceOf<T>",
+               "Value":"0x0000C16FF28623000000000000000000",
+               "Documentations":[
+                  " The minimum amount to be transferred to create a new vesting schedule."
+               ]
+            }
+         ],
+         "Errors":[
+            {
+               "Documentations":[
+                  " The account given is not vesting."
+               ],
+               "Name":"NotVesting"
+            },
+            {
+               "Documentations":[
+                  " An existing vesting schedule already exists for this account that cannot be clobbered."
+               ],
+               "Name":"ExistingVestingSchedule"
+            },
+            {
+               "Documentations":[
+                  " Amount being transferred is too low to create a vesting schedule."
+               ],
+               "Name":"AmountLow"
+            }
+         ]
+      }
+   ],
+   "ExtrinsicExtensions":[
+      "CheckSpecVersion",
+      "CheckTxVersion",
+      "CheckGenesis",
+      "CheckMortality",
+      "CheckNonce",
+      "CheckWeight",
+      "ChargeTransactionPayment"
+   ]
+}

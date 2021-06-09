@@ -6,6 +6,7 @@ using NLog.Targets;
 using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Exceptions;
+using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
 

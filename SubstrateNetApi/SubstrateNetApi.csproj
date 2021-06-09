@@ -14,6 +14,7 @@
     <PackageReference Include="Extensions.Data.xxHash.core20" Version="1.0.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NLog" Version="4.7.4" />
+    <PackageReference Include="OneOf" Version="3.0.178" />
     <PackageReference Include="SimpleBase" Version="2.1.0" />
     <PackageReference Include="StreamJsonRpc" Version="2.5.46" />
   </ItemGroup>

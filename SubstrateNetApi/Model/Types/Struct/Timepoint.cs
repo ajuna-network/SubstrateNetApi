@@ -27,7 +27,6 @@ namespace SubstrateNetApi.Model.Types.Struct
             Index = new U32();
             Index.Decode(byteArray, ref p);
 
-
             _size = p - start;
         }
 
