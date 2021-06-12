@@ -88,13 +88,14 @@ namespace SubstrateNetApiTests
         [Test]
         public void ExtEnumEncodingTest()
         {
-            var extEnumType = new ExtEnumType<PhaseState, NullType, U8, NullType, NullType, NullType, NullType, NullType, NullType, NullType>();
+            var extEnumType = new ExtEnumType<PhaseState, U8, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>();
 
             int p = 0;
-            extEnumType.Decode(new byte[] { 0x01, 0x00 }, ref p);
+            extEnumType.Decode(new byte[] { 0x00, 0x01 }, ref p);
 
-            Assert.AreEqual(PhaseState.Finalization, extEnumType.Value);
+            Assert.AreEqual(PhaseState.None, extEnumType.Value);
             Assert.AreEqual("U8", extEnumType.Value2.GetType().Name);
+            Assert.AreEqual(1, (extEnumType.Value2 as U8).Value);
 
         }
     }
