@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chaos.NaCl;
+using Schnorrkel;
 //using Schnorrkel;
 using SubstrateNetApi.Exceptions;
 using SubstrateNetApi.Model.Extrinsics;
@@ -111,7 +112,8 @@ namespace SubstrateNetApi
                     signature = Ed25519.Sign(payload, account.PrivateKey);
                     break;
                 case KeyType.Sr25519:
-                    //signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
+                    signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
+                    break;
                 default:
                     throw new Exception($"Unknown key type found '{account.KeyType}'.");
             }
