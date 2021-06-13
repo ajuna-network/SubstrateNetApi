@@ -127,10 +127,10 @@ namespace SubstrateNetApi
         /// <param name="bIP39Wordlist"></param>
         /// <param name="expandMode"></param>
         /// <returns></returns>
-        public static KeyPair GetKeyPairFromMnemonic(string mnemonic, string password, BIP39Wordlist bIP39Wordlist)
+        public static KeyPair GetKeyPairFromMnemonic(string mnemonic, string password, BIP39Wordlist bIP39Wordlist, ExpandMode expandMode)
         {
             var secretBytes = GetSecretKeyFromMnemonic(mnemonic, password, bIP39Wordlist);
-            var miniSecret = new MiniSecret(secretBytes, ExpandMode.Ed25519);
+            var miniSecret = new MiniSecret(secretBytes, expandMode);
             return new KeyPair(miniSecret.ExpandToPublic(), miniSecret.ExpandToSecret());
         }
     }

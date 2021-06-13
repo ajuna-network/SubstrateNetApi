@@ -1,5 +1,6 @@
 ﻿using dotnetstandard_bip39;
 using NUnit.Framework;
+using Schnorrkel.Keys;
 using SubstrateNetApi;
 using System.Collections.Generic;
 using System.Text;
@@ -165,6 +166,19 @@ namespace SubstrateNetApiTests
                 var miniSecret = Mnemonic.GetSecretKeyFromMnemonic(mnemonic, "Substrate", BIP39Wordlist.English);
                 Assert.AreEqual(expected_seed.Substring(0, 64), Utils.Bytes2HexString(miniSecret, Utils.HexStringFormat.Pure).ToLower());
             }
+        }
+
+        [Test]
+        public void KeyPairTest()
+        {
+            //sr25519, schnorrkel, without psw or ///Substrate
+
+            var mnemonic = "donor rocket find fan language damp yellow crouch attend meat hybrid pulse";
+            var keyPair1 = Mnemonic.GetKeyPairFromMnemonic(mnemonic, "", BIP39Wordlist.English, ExpandMode.Ed25519);
+            Assert.AreEqual("5CSFNKvSFchQd7TjuuvPca1RheLAqZfFKiqAM6Fv6us9QhvR", Utils.GetAddressFrom(keyPair1.Public.Key));
+
+            var keyPair2 = Mnemonic.GetKeyPairFromMnemonic(mnemonic, "Substrate", BIP39Wordlist.English, ExpandMode.Ed25519);
+            Assert.AreEqual("5FRbTVsuNAXFDq19gSnwihXUDMeEQKfhDnUWgYuUq6jFknVq", Utils.GetAddressFrom(keyPair2.Public.Key));
         }
     }
 }
