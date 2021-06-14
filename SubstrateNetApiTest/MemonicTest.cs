@@ -1,4 +1,5 @@
-﻿using dotnetstandard_bip39;
+﻿using System;
+using dotnetstandard_bip39;
 using NUnit.Framework;
 using Schnorrkel.Keys;
 using SubstrateNetApi;
@@ -166,6 +167,24 @@ namespace SubstrateNetApiTests
                 var miniSecret = Mnemonic.GetSecretKeyFromMnemonic(mnemonic, "Substrate", BIP39Wordlist.English);
                 Assert.AreEqual(expected_seed.Substring(0, 64), Utils.Bytes2HexString(miniSecret, Utils.HexStringFormat.Pure).ToLower());
             }
+        }
+
+        [Test]
+        public void FailWhenMnemonicIsToShortTest()
+        {
+            Assert.Throws<Exception>(delegate
+                {
+                    Mnemonic.SeedFromEntropy(Utils.HexToByteArray("7f7f7f7f7f"), "Substrate");
+                });
+        }
+
+        [Test]
+        public void PBKDF2Sha512GetBytesFailWithInvalidDklen()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(delegate
+                {
+                    Mnemonic.PBKDF2Sha512GetBytes(-1, new byte[] { 1, 2, 3, 4, 5, }, new byte[] { }, 0);
+                });
         }
 
         [Test]
