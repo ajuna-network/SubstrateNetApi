@@ -61,6 +61,13 @@ namespace SubstrateNetApiTests
 
             var ulongValue = (ulong)Utils.Bytes2Value(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF });
             Assert.AreEqual(18446744073709551615, ulongValue);
+
+            Assert.AreEqual(0x1312, Utils.Bytes2Value(new byte[] {0x13,0x12}, false));
+
+            Assert.Throws<Exception>(delegate
+            {
+                Utils.Bytes2Value(new byte[] {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF});
+            });
         }
 
         [Test]
@@ -89,6 +96,14 @@ namespace SubstrateNetApiTests
             Assert.AreEqual(new byte[] { 0x15, 0x14, 0x13, 0x12, 0x11, 0x10, 0x09, 0x08 }, Utils.Value2Bytes((ulong)0x0809101112131415));
             Assert.AreEqual(new byte[] { 0x11, 0x12 }, Utils.Value2Bytes((ushort)0x1112, false));
             Assert.Throws<Exception>(delegate { Utils.Value2Bytes(1.4); });
+        }
+
+        [Test]
+        public void Bytes2HexStringTest()
+        {
+            Assert.AreEqual("0x1213", Utils.Bytes2HexString(new byte[]{0x12, 0x13}));
+            Assert.AreEqual("1213", Utils.Bytes2HexString(new byte[] { 0x12, 0x13 }, Utils.HexStringFormat.Pure));
+            Assert.AreEqual("12-13", Utils.Bytes2HexString(new byte[] { 0x12, 0x13 }, Utils.HexStringFormat.Dash));
         }
     }
 }
