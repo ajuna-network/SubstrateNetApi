@@ -52,7 +52,7 @@ namespace SubstrateNetApi.Model.Types
         where T8 : IType, new()
         where T9 : IType, new()
     {
-        public string Name() => typeof(T0).Name;
+        public virtual string Name() => typeof(T0).Name;
 
         private int _size;
         public int Size() => _size;
