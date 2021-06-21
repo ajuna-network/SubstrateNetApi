@@ -78,6 +78,8 @@ namespace SubstrateNetApiTests.Extrinsic
             uncheckedExtrinsic.AddPayloadSignature(signature);
 
             Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Encode());
+
+            var _ = uncheckedExtrinsic.GetPayload(_runtime).Encode();
         }
 
         [Test]
@@ -154,7 +156,7 @@ namespace SubstrateNetApiTests.Extrinsic
 
             Assert.AreEqual(Utils.HexToByteArray(balanceTransfer), uncheckedExtrinsic.Encode());
 
-            var payload = uncheckedExtrinsic.GetPayload(_runtime).Encode();
+            var _ = uncheckedExtrinsic.GetPayload(_runtime).Encode();
         }
 
         [Test]
@@ -216,7 +218,7 @@ namespace SubstrateNetApiTests.Extrinsic
             ulong currentBlockNumber = 10;
             CompactInteger tip = 1234;
 
-           var Era = new Era(64, 10, false);
+           //var Era = new Era(64, 10, false);
 
             // mocked signature
             var signature =
@@ -345,7 +347,7 @@ namespace SubstrateNetApiTests.Extrinsic
                 Utils.HexToByteArray(
                     "0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
 
-            byte publicKeyType = 0x01;
+            //byte publicKeyType = 0x01;
             var publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
             CompactInteger nonce = 5;
             byte moduleIndex = 0x06;
@@ -357,7 +359,7 @@ namespace SubstrateNetApiTests.Extrinsic
                 Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
             var currentBlockHash =
                 Utils.HexToByteArray("0x9b443ea9cd42d9c3e0549757d029d28d03800631f9a9abf1d96d0c414b9aded9");
-            ;
+
             ulong currentBlockNumber = 0;
             CompactInteger tip = 0;
 
@@ -388,12 +390,12 @@ namespace SubstrateNetApiTests.Extrinsic
             Assert.AreEqual(Utils.HexToByteArray(dmogCreateImmortal), uncheckedExtrinsic.Encode());
 
             var payload = uncheckedExtrinsic.GetPayload(_runtime).Encode();
-            var payloadStr = Utils.Bytes2HexString(payload);
+            //var payloadStr = Utils.Bytes2HexString(payload);
 
             if (payload.Length > 256) payload = HashExtension.Blake2(payload, 256);
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
-            var simpleSignStr = Utils.Bytes2HexString(simpleSign);
+            //var simpleSignStr = Utils.Bytes2HexString(simpleSign);
 
             Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
             Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
@@ -451,7 +453,7 @@ namespace SubstrateNetApiTests.Extrinsic
                 Utils.HexToByteArray(
                     "0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011");
 
-            byte publicKeyType = 0x01;
+            //byte publicKeyType = 0x01;
             var publicKey = Utils.GetPublicKeyFrom("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"); // Alice
             CompactInteger nonce = 5;
             byte moduleIndex = 0x06;
@@ -466,7 +468,7 @@ namespace SubstrateNetApiTests.Extrinsic
             ;
 
             var era = new Era(64, 49, false);
-            var blockHash = era.EraStart(1587);
+            //var blockHash = era.EraStart(1587);
 
             CompactInteger tip = 0;
 
@@ -491,17 +493,17 @@ namespace SubstrateNetApiTests.Extrinsic
 
             uncheckedExtrinsic.AddPayloadSignature(signature);
 
-            var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
+            //var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
 
             Assert.AreEqual(Utils.HexToByteArray(dmogCreateMortal), uncheckedExtrinsic.Encode());
 
             var payload = uncheckedExtrinsic.GetPayload(_runtime).Encode();
-            var payloadStr = Utils.Bytes2HexString(payload);
+            //var payloadStr = Utils.Bytes2HexString(payload);
 
             if (payload.Length > 256) payload = HashExtension.Blake2(payload, 256);
 
             var simpleSign = Sr25519v091.SignSimple(publicKey, privatKey, payload);
-            var simpleSignStr = Utils.Bytes2HexString(simpleSign);
+            //var simpleSignStr = Utils.Bytes2HexString(simpleSign);
 
             Assert.True(Sr25519v091.Verify(simpleSign, publicKey, payload));
             Assert.True(Sr25519v091.Verify(signature, publicKey, payload));
@@ -575,18 +577,18 @@ namespace SubstrateNetApiTests.Extrinsic
             var balanceTransferNode =
                 "0x310284278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e007c9777cf14fe0e14e8aef019695043be2fd153a75ff3381f4cc4850755d537b1a9d7920e509ee2e4e1f244dad670dc44ec3fc24388181e6465fdda13d59ae70063001c000400d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d02890700";
 
-            var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
+            //var uncheckedExtrinsicStr = Utils.Bytes2HexString(uncheckedExtrinsic.Encode());
 
             Assert.AreEqual(Utils.HexToByteArray(balanceTransferNode), uncheckedExtrinsic.Encode());
 
 
             var payload = uncheckedExtrinsic.GetPayload(_runtime).Encode();
-            var payloadStr = Utils.Bytes2HexString(payload);
+            //var payloadStr = Utils.Bytes2HexString(payload);
 
             if (payload.Length > 256) payload = HashExtension.Blake2(payload, 256);
 
             var simpleSign = Chaos.NaCl.Ed25519.Sign(payload, account.PrivateKey);
-            var simpleSignStr = Utils.Bytes2HexString(simpleSign);
+            //var simpleSignStr = Utils.Bytes2HexString(simpleSign);
 
             Assert.True(Chaos.NaCl.Ed25519.Verify(simpleSign, payload, publicKey));
             Assert.True(Chaos.NaCl.Ed25519.Verify(signature, payload, publicKey));
@@ -610,19 +612,19 @@ namespace SubstrateNetApiTests.Extrinsic
 
             // 797447 --> 0xe7b99ee484e6369dd3c2a66d6306bffde5048ddf2090e990faae83e66f5275f4
 
-            var accountZurich = Account.Build(
-                KeyType.Ed25519,
-                Utils.HexToByteArray(
-                    "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
-                Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+            //var accountZurich = Account.Build(
+            //    KeyType.Ed25519,
+            //    Utils.HexToByteArray(
+            //        "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
+            //    Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
 
             var privatKey =
                 Utils.HexToByteArray(
                     "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
             var publicKey = Utils.HexToByteArray("0x278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e");
 
-            var receiverPublicKey =
-                Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"));
+            //var receiverPublicKey =
+            //    Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"));
 
             var referenceExtrinsic =
                 "0x450284ff278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e00d6a14aac2c0da8330f67a04f9ff4154b3c31d02529eaf112a23d59f5a5e1d1766efbb7f4dd56e6ed84a543de94342bdec8c80bdac62373d22387ea980a42270f36000c000600ff4d2b23d27e1f6e3733d7ebf3dc04f3d5d0010cd18038055f9bbbab48f460b61e0b00b04e2bde6f";
@@ -679,7 +681,7 @@ namespace SubstrateNetApiTests.Extrinsic
 
             byte[] signature;
             signature = Chaos.NaCl.Ed25519.Sign(payload, privatKey);
-            var signatureStr = Utils.Bytes2HexString(signature);
+            //var signatureStr = Utils.Bytes2HexString(signature);
 
             uncheckedExtrinsic.AddPayloadSignature(signature);
 
