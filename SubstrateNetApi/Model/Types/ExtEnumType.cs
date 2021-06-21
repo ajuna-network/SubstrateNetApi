@@ -68,11 +68,12 @@ namespace SubstrateNetApi.Model.Types
         public void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
+            var enumByte = byteArray[p];
 
-            Value = (T0)System.Enum.Parse(typeof(T0), byteArray[0].ToString(), true);
+            Value = (T0)System.Enum.Parse(typeof(T0), enumByte.ToString(), true);
             p += 1;
 
-            Value2 = DecodeOneOf(byteArray[0], byteArray, ref p);
+            Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
             _size = p - start;
         }
