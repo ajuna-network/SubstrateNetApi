@@ -4,7 +4,7 @@ using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Types.Base;
 
-namespace SubstrateNetApiTests.Ed25519
+namespace SubstrateNetApiTests.Keys
 {
     public class Ed25519Tests
     {

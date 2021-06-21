@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company>mogwaicoin.org</Company>
-    <Authors>mogwaicoin.org</Authors>
+    <Company>BloGa Tech AG</Company>
+    <Authors>www.dotmog.com</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
