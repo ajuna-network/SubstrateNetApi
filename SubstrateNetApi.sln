@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWalletTest", "DemoWalle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Sandbox\Sandbox.csproj", "{06354223-9242-4D31-83ED-DA8589BFC2AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubstrateNetApiIntegrationTests", "SubstrateNetApiIntegrationTests\SubstrateNetApiIntegrationTests.csproj", "{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{06354223-9242-4D31-83ED-DA8589BFC2AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{06354223-9242-4D31-83ED-DA8589BFC2AE}.Release|x64.ActiveCfg = Release|Any CPU
 		{06354223-9242-4D31-83ED-DA8589BFC2AE}.Release|x64.Build.0 = Release|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Debug|x64.Build.0 = Debug|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Release|x64.ActiveCfg = Release|Any CPU
+		{B731C1D1-D1FC-4EE0-A5D0-E3BBC9EF5890}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

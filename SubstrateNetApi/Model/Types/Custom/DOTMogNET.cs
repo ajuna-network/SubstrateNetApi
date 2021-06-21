@@ -345,6 +345,4 @@ namespace SubstrateNetApi.Model.Types.Custom
 
     #endregion
 
-
-
 }
