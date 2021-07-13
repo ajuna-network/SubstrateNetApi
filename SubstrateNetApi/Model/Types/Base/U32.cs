@@ -11,7 +11,7 @@ namespace SubstrateNetApi.Model.Types.Base
         public override byte[] Encode()
         {
             var reversed = Bytes;
-            Array.Reverse(reversed);
+            //Array.Reverse(reversed);
             return reversed;
         }
 
