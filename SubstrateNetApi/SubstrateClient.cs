@@ -68,6 +68,7 @@ namespace SubstrateNetApi
             State = new State(this);
             Author = new Author(this);
 
+            // types used by the client need to be registred
             RegisterTypeConverter(new GenericTypeConverter<Bool>());
             RegisterTypeConverter(new GenericTypeConverter<U8>());
             RegisterTypeConverter(new GenericTypeConverter<U16>());
@@ -170,7 +171,7 @@ namespace SubstrateNetApi
             Logger.Debug("Connected to Websocket.");
 
             var formatter = new JsonMessageFormatter();
-
+            // adding convertersto the formatter
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U8>());
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U16>());
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U32>());
@@ -285,6 +286,7 @@ namespace SubstrateNetApi
         }
 
         /// <summary>
+        /// Subscribe Storage Key Async
         /// </summary>
         /// <param name="moduleName"></param>
         /// <param name="itemName"></param>
@@ -298,6 +300,7 @@ namespace SubstrateNetApi
         }
 
         /// <summary>
+        /// Subscribe Storage Key Async
         /// </summary>
         /// <param name="moduleName"></param>
         /// <param name="itemName"></param>
@@ -329,6 +332,7 @@ namespace SubstrateNetApi
         }
 
         /// <summary>
+        /// Get Storage Keys Async
         /// </summary>
         /// <param name="moduleName"></param>
         /// <param name="itemName"></param>
@@ -339,6 +343,7 @@ namespace SubstrateNetApi
         }
 
         /// <summary>
+        /// Get Storage Keys Async
         /// </summary>
         /// <param name="moduleName"></param>
         /// <param name="itemName"></param>
@@ -359,25 +364,33 @@ namespace SubstrateNetApi
             return await InvokeAsync<JArray>("state_getKeys", new object[] {parameters}, token);
         }
 
-        private byte[] GetParameterBytes(string key, string[] parameter, string moduleName = "", string itemName = "")
-        {
-            // multi keys support
-            if (key.StartsWith("("))
-            {
-                var keysDelimited = key.Replace("(", "").Replace(")", "");
-                var keys = keysDelimited.Split(',');
-                if (keys.Length != parameter.Length)
-                    throw new MissingParameterException(
-                        $"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");
-                var byteList = new List<byte>();
-                for (var i = 0; i < keys.Length; i++)
-                    byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameter[i]));
-                return byteList.ToArray();
-            }
-            // single key support
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="key"></param>
+        ///// <param name="parameter"></param>
+        ///// <param name="moduleName"></param>
+        ///// <param name="itemName"></param>
+        ///// <returns></returns>
+        //private byte[] GetParameterBytes(string key, string[] parameter, string moduleName = "", string itemName = "")
+        //{
+        //    // multi keys support
+        //    if (key.StartsWith("("))
+        //    {
+        //        var keysDelimited = key.Replace("(", "").Replace(")", "");
+        //        var keys = keysDelimited.Split(',');
+        //        if (keys.Length != parameter.Length)
+        //            throw new MissingParameterException(
+        //                $"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");
+        //        var byteList = new List<byte>();
+        //        for (var i = 0; i < keys.Length; i++)
+        //            byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameter[i]));
+        //        return byteList.ToArray();
+        //    }
+        //    // single key support
 
-            return Utils.KeyTypeToBytes(key, parameter[0]);
-        }
+        //    return Utils.KeyTypeToBytes(key, parameter[0]);
+        //}
 
         /// <summary> Gets method asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
