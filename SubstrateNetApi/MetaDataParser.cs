@@ -57,6 +57,12 @@ namespace SubstrateNetApi
                                 : -1)
                         };
 
+                        // default
+                        item.Function.Key1 = null;
+                        item.Function.Key2 = null;
+                        item.Function.IsLinked = null;
+                        item.Function.Key2Hasher = Storage.Hasher.None;
+
                         switch (item.Type)
                         {
                             case Storage.Type.Plain:
@@ -71,7 +77,9 @@ namespace SubstrateNetApi
                                 item.Function.Key1 = ExtractString(m, ref p);
                                 item.Function.Key2 = ExtractString(m, ref p);
                                 item.Function.Value = ExtractString(m, ref p);
-                                item.Function.IsLinked = m[p++] != 0;
+                                item.Function.Key2Hasher = (Storage.Hasher)(item.Type != Storage.Type.Plain
+                                ? BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0)
+                                : -1);
                                 break;
                         }
 
