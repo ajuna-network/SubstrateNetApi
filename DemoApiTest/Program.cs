@@ -21,7 +21,8 @@ namespace DemoApiTest
 {
     internal class Program
     {
-        private const string Websocketurl = "wss://mogiway-01.dotmog.com";
+        private const string Websocketurl = "ws://127.0.0.1:9944";
+        //private const string Websocketurl = "wss://mogiway-01.dotmog.com";
         //private const string Websocketurl = "wss://testnet2.uniquenetwork.io";
 
         private static async Task Main(string[] args)
@@ -122,7 +123,7 @@ namespace DemoApiTest
             //var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
             //var reqResult = await client.GetStorageAsync("System", "Number", cancellationToken);
             
-            var reqResult = await client.GetStorageAsync("Session", "QueuedChanged", cancellationToken);
+            //var reqResult = await client.GetStorageAsync("Session", "QueuedChanged", cancellationToken);
 
             // [Plain] Value: u64
             //var reqResult = await client.GetStorageAsync("DotMogModule", "AllMogwaisCount", cancellationToken);
@@ -243,9 +244,9 @@ namespace DemoApiTest
             //var reqResult = await client.Chain.GetBlockAsync(finalizedHead, cancellationToken);
 
             // Print result
-            Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
+            //Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult?.GetType().Name}]");
 
-            //Console.WriteLine(client.MetaData.Serialize());
+            Console.WriteLine(client.MetaData.Serialize());
 
             // Close connection
             await client.CloseAsync(cancellationToken);

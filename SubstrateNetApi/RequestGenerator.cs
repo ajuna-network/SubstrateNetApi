@@ -44,6 +44,9 @@ namespace SubstrateNetApi
                         case Storage.Hasher.Twox128:
                         case Storage.Hasher.Twox256:
                         case Storage.Hasher.Twox64Concat:
+                            return Utils.Bytes2HexString(keybytes.Concat(HashExtension.XxHash128(parameterBytes))
+                                .ToArray());
+
                         case Storage.Hasher.None:
                         default:
                             break;

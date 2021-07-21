@@ -145,12 +145,12 @@ namespace IntegrationTest
             var u32 = new U32();
             u32.Create(77);
 
-            var extrinsicCall = new GenericExtrinsicCall("ConnectFour", "do_something", u32);
+            var extrinsicCall = new GenericExtrinsicCall("TemplateModule", "do_something", u32);
 
             _ = await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, extrinsicCall, Alice, 0, 64, cts.Token);
             Thread.Sleep(extrinsic_wait);
 
-            var result = await _substrateClient.GetStorageAsync("ConnectFour", "Something", cts.Token);
+            var result = await _substrateClient.GetStorageAsync("TemplateModule", "Something", cts.Token);
             Assert.AreEqual("U32", result.GetType().Name);
 
             var something = result as U32;

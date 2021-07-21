@@ -7,28 +7,32 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Modules
 {
-    /// <summary> A chain. </summary>
-    /// <remarks> 19.09.2020. </remarks>
+    /// <summary>
+    ///   <br />
+    /// </summary>
     public class Chain
     {
-        /// <summary> The client. </summary>
+        /// <summary>The client.</summary>
         private readonly SubstrateClient _client;
 
-        /// <summary> Constructor. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <param name="client"> The client. </param>
+        /// <summary>Initializes a new instance of the <see cref="Chain" /> class.</summary>
+        /// <param name="client">The client.</param>
         internal Chain(SubstrateClient client)
         {
             _client = client;
         }
 
-        /// Get header of a relay chain block.
+        /// <summary>Gets the header asynchronous.</summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<Header> GetHeaderAsync(CancellationToken token)
         {
             return await GetHeaderAsync(null, token);
         }
 
-        /// Get header of a relay chain block.
+        /// <summary>Gets the header asynchronous.</summary>
+        /// <param name="hash">The hash.</param>
+        /// <returns></returns>
         public async Task<Header> GetHeaderAsync(Hash hash = null)
         {
             return await GetHeaderAsync(hash, CancellationToken.None);
@@ -132,11 +136,18 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<Hash>("chain_getFinalizedHead", null, token);
         }
 
+        /// <summary>Subscribes all heads asynchronous.</summary>
+        /// <param name="callback">The callback.</param>
+        /// <returns></returns>
         public async Task<string> SubscribeAllHeadsAsync(Action<string, Header> callback)
         {
             return await SubscribeAllHeadsAsync(callback, CancellationToken.None);
         }
 
+        /// <summary>Subscribes all heads asynchronous.</summary>
+        /// <param name="callback">The callback.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<string> SubscribeAllHeadsAsync(Action<string, Header> callback, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("chain_subscribeAllHeads", null, token);
@@ -144,11 +155,18 @@ namespace SubstrateNetApi.Modules
             return subscriptionId;
         }
 
+        /// <summary>Unsubscribes all heads asynchronous.</summary>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <returns></returns>
         public async Task<bool> UnsubscribeAllHeadsAsync(string subscriptionId)
         {
             return await UnsubscribeAllHeadsAsync(subscriptionId, CancellationToken.None);
         }
 
+        /// <summary>Unsubscribes all heads asynchronous.</summary>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<bool> UnsubscribeAllHeadsAsync(string subscriptionId, CancellationToken token)
         {
             var result =
@@ -157,11 +175,18 @@ namespace SubstrateNetApi.Modules
             return result;
         }
 
+        /// <summary>Subscribes the new heads asynchronous.</summary>
+        /// <param name="callback">The callback.</param>
+        /// <returns></returns>
         public async Task<string> SubscribeNewHeadsAsync(Action<string, Header> callback)
         {
             return await SubscribeNewHeadsAsync(callback, CancellationToken.None);
         }
 
+        /// <summary>Subscribes the new heads asynchronous.</summary>
+        /// <param name="callback">The callback.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<string> SubscribeNewHeadsAsync(Action<string, Header> callback, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("chain_subscribeNewHeads", null, token);
@@ -169,11 +194,18 @@ namespace SubstrateNetApi.Modules
             return subscriptionId;
         }
 
+        /// <summary>Unubscribes the new heads asynchronous.</summary>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <returns></returns>
         public async Task<bool> UnubscribeNewHeadsAsync(string subscriptionId)
         {
             return await UnsubscribeNewHeadsAsync(subscriptionId, CancellationToken.None);
         }
 
+        /// <summary>Unsubscribes the new heads asynchronous.</summary>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<bool> UnsubscribeNewHeadsAsync(string subscriptionId, CancellationToken token)
         {
             var result =
@@ -182,11 +214,18 @@ namespace SubstrateNetApi.Modules
             return result;
         }
 
+        /// <summary>Subscribes the finalized heads asynchronous.</summary>
+        /// <param name="callback">The callback.</param>
+        /// <returns></returns>
         public async Task<string> SubscribeFinalizedHeadsAsync(Action<string, Header> callback)
         {
             return await SubscribeFinalizedHeadsAsync(callback, CancellationToken.None);
         }
 
+        /// <summary>Subscribes the finalized heads asynchronous.</summary>
+        /// <param name="callback">The callback.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<string> SubscribeFinalizedHeadsAsync(Action<string, Header> callback, CancellationToken token)
         {
             var subscriptionId = await _client.InvokeAsync<string>("chain_subscribeFinalizedHeads", null, token);
@@ -194,11 +233,18 @@ namespace SubstrateNetApi.Modules
             return subscriptionId;
         }
 
+        /// <summary>Unsubscribes the finalized heads asynchronous.</summary>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <returns></returns>
         public async Task<bool> UnsubscribeFinalizedHeadsAsync(string subscriptionId)
         {
             return await UnsubscribeFinalizedHeadsAsync(subscriptionId, CancellationToken.None);
         }
 
+        /// <summary>Unsubscribes the finalized heads asynchronous.</summary>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<bool> UnsubscribeFinalizedHeadsAsync(string subscriptionId, CancellationToken token)
         {
             var result = await _client.InvokeAsync<bool>("chain_unsubscribeFinalizedHeads",
