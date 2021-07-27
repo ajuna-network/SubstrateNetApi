@@ -1,13 +1,18 @@
-﻿namespace SubstrateNetWallet
+﻿using SubstrateNetApi.Model.Types;
+
+namespace SubstrateNetWallet
 {
     public class WalletFile
     {
-        public WalletFile(byte[] publicKey, byte[] encryptedSeed, byte[] salt)
+        public WalletFile(KeyType keyType, byte[] publicKey, byte[] encryptedSeed, byte[] salt)
         {
+            KeyType = keyType;
             PublicKey = publicKey;
             EncryptedSeed = encryptedSeed;
             Salt = salt;
         }
+
+        public KeyType KeyType { get; }
 
         public byte[] PublicKey { get; }
 

@@ -7,7 +7,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Chaos.NaCl;
+using dotnetstandard_bip39;
 using NLog;
+using Schnorrkel;
+using Schnorrkel.Keys;
 //using Schnorrkel;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
@@ -114,6 +117,61 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <param name="mnemonic">The mnemonic.</param>
+        /// <param name="walletName">Name of the wallet.</param>
+        /// <returns></returns>
+        public async Task<bool> CreateAsync(string password, string mnemonic, string walletName = DefaultWalletName)
+        {
+            if (IsCreated)
+            {
+                Logger.Warn("Wallet already created.");
+                return true;
+            }
+
+            if (!IsValidPassword(password))
+            {
+                Logger.Warn(
+                    "Password isn't is invalid, please provide a proper password. Minmimu eight size and must have upper, lower and digits.");
+                return false;
+            }
+
+            Logger.Info("Creating new wallet from mnemonic.");
+
+            var seed = Mnemonic.GetSecretKeyFromMnemonic(mnemonic, "Substrate", BIP39Wordlist.English);
+
+            var randomBytes = new byte[48];
+
+            _random.NextBytes(randomBytes);
+
+            var memoryBytes = randomBytes.AsMemory();
+
+            var pswBytes = Encoding.UTF8.GetBytes(password);
+
+            var salt = memoryBytes.Slice(0, 16).ToArray();
+
+            pswBytes = SHA256.Create().ComputeHash(pswBytes);
+
+            var encryptedSeed =
+                ManagedAes.EncryptStringToBytes_Aes(Utils.Bytes2HexString(seed, Utils.HexStringFormat.Pure), pswBytes, salt);
+
+            var miniSecret = new MiniSecret(seed, ExpandMode.Ed25519);
+            var getPair = miniSecret.GetPair();
+
+            var keyType = KeyType.Sr25519;
+            _walletFile = new WalletFile(keyType, getPair.Public.Key, encryptedSeed, salt);
+
+            Caching.Persist(AddWalletFileType(walletName), _walletFile);
+
+            Account = Account.Build(keyType, getPair.Secret.ToBytes(), getPair.Public.Key);
+
+            if (IsOnline) _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
+
+            return true;
+        }
+
+        /// <summary>
         /// Create a new wallet which is encrypted with a password
         /// </summary>
         /// <param name="password"></param>
@@ -156,11 +214,12 @@ namespace SubstrateNetWallet
 
             Ed25519.KeyPairFromSeed(out var publicKey, out var privateKey, seed);
 
-            _walletFile = new WalletFile(publicKey, encryptedSeed, salt);
+            var keyType = KeyType.Ed25519;
+            _walletFile = new WalletFile(keyType, publicKey, encryptedSeed, salt);
 
             Caching.Persist(AddWalletFileType(walletName), _walletFile);
 
-            Account = Account.Build(KeyType.Ed25519, privateKey, publicKey);
+            Account = Account.Build(keyType, privateKey, publicKey);
 
             if (IsOnline) _subscriptionAccountInfo = await SubscribeAccountInfoAsync();
 
@@ -191,12 +250,25 @@ namespace SubstrateNetWallet
 
                 var seed = ManagedAes.DecryptStringFromBytes_Aes(_walletFile.EncryptedSeed, pswBytes, _walletFile.Salt);
 
-                Ed25519.KeyPairFromSeed(out var publicKey, out var privateKey, Utils.HexToByteArray(seed));
+                byte[] publicKey = null;
+                byte[] privateKey = null;
+                switch (_walletFile.KeyType)
+                {
+                    case KeyType.Ed25519:
+                        Ed25519.KeyPairFromSeed(out publicKey, out privateKey, Utils.HexToByteArray(seed));
+                        break;
+                    case KeyType.Sr25519:
+                        var miniSecret = new MiniSecret(Utils.HexToByteArray(seed), ExpandMode.Ed25519);
+                        var getPair = miniSecret.GetPair();
+                        privateKey = getPair.Secret.ToBytes();
+                        publicKey = getPair.Public.Key;
+                        break;
+                }
 
                 if (noCheck || !publicKey.SequenceEqual(_walletFile.PublicKey))
                     throw new Exception("Public key check failed!");
 
-                Account = Account.Build(KeyType.Ed25519, privateKey, publicKey);
+                Account = Account.Build(_walletFile.KeyType, privateKey, publicKey);
             }
             catch (Exception exception)
             {
@@ -233,7 +305,8 @@ namespace SubstrateNetWallet
                     signature = Ed25519.Sign(data, signer.PrivateKey);
                     break;
                 case KeyType.Sr25519:
-                    //signature = Sr25519v091.SignSimple(account.Bytes, account.PrivateKey, payload);
+                    signature = Sr25519v091.SignSimple(signer.Bytes, signer.PrivateKey, data);
+                    break;
                 default:
                     throw new NotImplementedException(
                         $"KeyType {signer.KeyType} is currently not implemented for signing.");
@@ -256,7 +329,7 @@ namespace SubstrateNetWallet
                 case KeyType.Ed25519:
                     return Ed25519.Verify(signature, data, signer.Bytes);
                 case KeyType.Sr25519:
-                    //return Sr25519v091.Verify(signature, signer.Bytes, data);
+                    return Sr25519v091.Verify(signature, signer.Bytes, data);
                 default:
                     throw new NotImplementedException(
                         $"KeyType {signer.KeyType} is currently not implemented for verifying signatures.");

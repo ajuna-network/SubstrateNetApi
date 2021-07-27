@@ -198,6 +198,24 @@ namespace SubstrateNetApiTests
 
             var keyPair2 = Mnemonic.GetKeyPairFromMnemonic(mnemonic, "Substrate", BIP39Wordlist.English, ExpandMode.Ed25519);
             Assert.AreEqual("5FRbTVsuNAXFDq19gSnwihXUDMeEQKfhDnUWgYuUq6jFknVq", Utils.GetAddressFrom(keyPair2.Public.Key));
+
+            Assert.AreEqual(32, keyPair2.Secret.key.GetBytes().Length);
+            Assert.AreEqual("0x7CFF5CEAEEAF93EF4675DFCA17FF1383B66DF5141F491309D70A5C1087D3910D", Utils.Bytes2HexString(keyPair2.Secret.key.GetBytes()));
+            Assert.AreEqual("0x767B646A4BEAD69074C77B69D142A21978D867357A2227D16370F8A675991011", Utils.Bytes2HexString(keyPair2.Secret.nonce));
+            Assert.AreEqual("0x7CFF5CEAEEAF93EF4675DFCA17FF1383B66DF5141F491309D70A5C1087D3910D" +
+                              "767B646A4BEAD69074C77B69D142A21978D867357A2227D16370F8A675991011", Utils.Bytes2HexString(keyPair2.Secret.ToBytes()));
+            Assert.AreEqual("0x94A34FAF4D464F0404C41EFEAE6C476C21755492F77B5715CE5291CE601A8318", Utils.Bytes2HexString(keyPair2.Public.Key));
+
+            var secret = Mnemonic.GetSecretKeyFromMnemonic(mnemonic, "Substrate", BIP39Wordlist.English);
+            Assert.AreEqual("0x9AD12F46F904DA56073948B789F7FD8A5CD1A2E79480A5986DFB7C814E228586", Utils.Bytes2HexString(secret));
+
+            var miniSecret = new MiniSecret(secret, ExpandMode.Ed25519);
+            var keyPair3 = miniSecret.GetPair();
+
+            Assert.AreEqual(keyPair2.Public.Key, keyPair3.Public.Key);
+            Assert.AreEqual(keyPair2.Secret.ToBytes(), keyPair3.Secret.ToBytes());
+
+
         }
     }
 }
