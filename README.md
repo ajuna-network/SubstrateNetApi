@@ -10,196 +10,29 @@ SubstrateNetApi is written in [NETStandard2.0](https://docs.microsoft.com/en-us/
 
 If you enjoy using SubstrateNetApi consider supporting me at [buymeacoffee.com/darkfriend77](https://www.buymeacoffee.com/darkfriend77)
 
-## Table of Content
+## Wiki, Table of Content
 
-* Requirements
-* Installation
-  - Substrate in .NET
-  - Substrate in Unity3D
-* Architecture
-* Basic Usage
-  - Create a connection
-    - Add a custom type
-  - Access MetaData as JSON
-  - Access a pallet storage data
-    - Example 1: Sudo Key (no parameter)
-    - Example 2: System Account (with parameter)
-  - Access a pallet call
-  - Submit extrinsic
-* Advanced Usage
-  - Subscribe & unsubscribe
-* Wallet
-  - Create
-  - Unlock
-  - Recover
-
-## Requirements
-
-* Windows, MacOS or Linux
-  - [Visual Studio 2019 Community](https://visualstudio.microsoft.com/de/vs/) or [Visual Studio Code](https://code.visualstudio.com/) for best .NET Core support
-  - [.NET Core](https://www.microsoft.com/net/download/core)
-
-## Installation
-
-### Substrate in .NET
-Add NuGet package https://www.nuget.org/packages/SubstrateNetApi/
-
-### Substrate in Unity3D
-
-#### Method A:
-Added the dependency needed, there is an example project (https://github.com/darkfriend77/Unity3DExample), which already imported the necessary dependencies. 
-
-![NuGet Dependencies](https://github.com/darkfriend77/SubstrateNetApi/raw/origin/images/dependencies.png)
-
-#### Method B:
-*Currently there is an issue where NuGetForUnity, will pull to many dependencies and break the project.*
-- Download *NuGetForUnity.x.y.z.unitypackage* Link https://github.com/GlitchEnzo/NuGetForUnity/releases
-- Open our unity project
-- *Asset > Import package > Custom package*
-- Choose downloaded NuGetForUnity.x.y.z.unitypackage
-- Installation for **NuGetForUnity** https://github.com/GlitchEnzo/NuGetForUnity
-- *NuGet > ManageNuGet Packages*
-- *Search* **SubstrateNetApi** install
-
-## Architecture
-
-### Example Architecture with SubstrateNetApi
-
-Basic example of a client and a substrate node environment with the SubstrateNetApi.
-
-![Basic Architecture](https://github.com/dotmog/SubstrateNetApi/raw/origin/images/basic_architecture.png)
-
-![Advanced Architecture](https://github.com/dotmog/SubstrateNetApi/raw/origin/images/advanced_architecture.png)
-
-## Usage
-
-### Create a connection
-```csharp
-var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
-using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-await client.ConnectAsync(cancellationToken);
-```
-#### Add a custom type
-
-Adding a custome type consist of two steps.
-
-* 1. Step
-Add the custom type as class inheriting from [IType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/IType.cs), or using one of the following abstract classes:
-
-- [BaseType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/BaseType.cs)
-  BaseType is for basic implementation of a type that represents one value, like a [Hash](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/Hash.cs) or a [U8](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Base/U8.cs).
-- [StructType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/StructType.cs)
-  StructType is for complex types composed of other Types, for example [AccountInfo](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Struct/AccountInfo.cs)
-- [EnumType](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/EnumType.cs)
-  EnumType is for enums like [DispatchClass](https://github.com/dotmog/SubstrateNetApi/blob/origin/SubstrateNetApi/Model/Types/Enum/DispatchClass.cs).
-
-* 2. Step
-Register your class as a GenericTypeConverter<yourclassname> to the client.
-
-```csharp
-var WEBSOCKETURL = "wss://xyz.node.com"; // or local node ws://127.0.0.1:9944
-using var client = new SubstrateClient(new Uri(WEBSOCKETURL));
-client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>()); // custom types
-client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());  // custom types
-await client.ConnectAsync(cancellationToken);
-```
-
-
-### Access MetaData as JSON (chain specific)
-
-```csharp
-// MetaData 
-Console.WriteLine(client.MetaData.Serialize());
-```
-
-### Access a pallet storage data
-
-#### Example 1: Sudo Key (no parameter)
-
-```csharp
-// [Plain] Value: T::AccountId (from metaData)
-var reqResult = await client.GetStorageAsync("Sudo", "Key", cancellationToken);
-Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
-```
-```RESPONSE: '"5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"' [AccountId]``` 
-
-#### Example 2: System Account (Key: AccountId (public key))
-
-```csharp
-// [Map] Key: T::AccountId, Hasher: Blake2_128Concat, Value: AccountInfo<T::Index, T::AccountData> (from metaData)
-var reqResult = await client.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(address))}, cancellationToken);
-Console.WriteLine($"RESPONSE: '{reqResult}' [{reqResult.GetType().Name}]");
-```
-```RESPONSE: '{"Nonce":{"Value":15},"Consumers":{"Value":0},"Providers":{"Value":1},"AccountData":{"Free":{"Value":1998766600579252800594},"Reserved":{"Value":0},"MiscFrozen":{"Value":0},"FeeFrozen":{"Value":0}}}' [AccountInfo]```
-
-### Access a pallet call
-
-```csharp
-var systemName = await client.System.NameAsync(cancellationToken);
-```
-```RESPONSE: 'DOTMog Node' [String]```
-
-### Submit extrinsic (from pallet author)
-
-```csharp
-// Dest: <T::Lookup as StaticLookup>::Source, Value: Compact<T::Balance>
-var balanceTransfer = ExtrinsicCall.BalanceTransfer("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH", BigInteger.Parse("100000000000"));
-var reqResult = await client.Author.SubmitExtrinsicAsync(balanceTransfer, accountZurich, 0, 64, cancellationToken);
-```
-```RESPONSE: '"0xB1435DA6A0F2C9C00E1AC0FAD7EBD2515B8AACDA12F27384A2148C556FEE627A"' [Hash]```
-
-### Subscribe and unsubscribe with registering a call back
-
-```csharp
-// create a call back action with the expected type
-Action<ExtrinsicStatus> actionExtrinsicUpdate = (extrinsicUpdate) => Console.WriteLine($"CallBack: {extrinsicUpdate}");
-// create the extrinsic parameters
-var balanceTransfer = ExtrinsicCall.BalanceTransfer("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", 1000);
-// submit and subscribe to the extrinsic
-var subscriptionId = await client.Author.SubmitAndWatchExtrinsicAsync(actionExtrinsicUpdate, balanceTransfer, accountDMOG_GALxeh, 0, 64, cancellationToken);
-// wait for extrinsic pass into a finalized block
-Thread.Sleep(60000);
-// unsubscribe
-var reqResult = await client.Author.UnwatchExtrinsicAsync(subscriptionId, cancellationToken);
-```
-
-## Wallet
-
-SubstrateNetWallet is a Wallet buit on top of the SubstrateNetApi, it offers common functionalities. 
-**This is an implementation in progress, feedback is welcome!**
-
-- Key derivation, currently only for ED25519
-- Private keystore with AES encryption (please verify code before using in a productive environment)
-- Sign message & verify message
-- Transfer balance
-- realtime (subscription) updated newHeads and finalizedHeads
-- realtime (subscription) updated extrinsicUpdate
-
-### Create a new wallet
-
-### Unlock a wallet
-
-### Recover a wallet
-
-### Add subscriptions
-
-## Testing Guide
-
-To execute the unitests please follow the three steps:
-
-1. git clone https://github.com/dotmog/SubstrateNetApi.git
-2. cd substratenetapi
-3. dotnet test
-
-![image](https://user-images.githubusercontent.com/17710198/110446644-b349d000-80bf-11eb-9b48-28fadf0f97ed.png)
-
-![image](https://user-images.githubusercontent.com/17710198/127189879-09a57ff5-5928-4e91-afc8-387d7db3e552.png)
-
-  
-## Other examples
-  
-- [Connection & MetaData](https://github.com/dotmog/Unity3DExample)
-- [SimpleWallet](https://github.com/dotmog/SubstrateUnityWalletSimple)
+1. [Home](https://github.com/JetonNetwork/SubstrateNetApi/wiki)  
+1. [Requirements](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Requirements)  
+1. [Installation](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Installation)
+   - [NuGet](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Installation#substrate-in-net)
+   - [Unity3D](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Installation#substrate-in-unity3d)  
+1. [Usage](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Usage)  
+1. [Types](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Types#types)
+   - [Base Types](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Types#base-types)
+   - [Enum Types](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Types#enum-types)
+   - [Struct Types](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Types#struct-types)
+1. [Wallet](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Wallet) 
+   - [Create](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Wallet#create-a-new-wallet) 
+   - [Mnemonic / Restore](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Wallet#mnemonic--restore)
+   - [Wallet File](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Wallet#wallet-file)
+1. [Extension](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Extension#extension)
+1. [Testing](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Testing)  
+   - [Guide](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Testing#guide)    
+   - [Node-Template](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Testing#node-template)
+1. [Project](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Project#project)  
+   - [Substrate Version](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Project#substrate-version)
+   - [Upgrading Substrate Version](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Project#upgrading-substrate-version)
   
 ## Special Thanks
 - https://github.com/gautamdhameja/sr25519-dotnet
