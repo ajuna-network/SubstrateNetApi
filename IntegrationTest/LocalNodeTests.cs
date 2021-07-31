@@ -111,20 +111,20 @@ namespace IntegrationTest
             await _substrateClient.ConnectAsync(cts.Token);
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: AccountInfo<T::Index, T::AccountData>
-            var reqResult1 = await _substrateClient.GetStorageAsync("System", "Account", new[] { Utils.Bytes2HexString(Alice.Bytes) }, cts.Token);
+            var reqResult1 = await _substrateClient.GetStorageAsync("System", "Account", new[] { Utils.Bytes2HexString(Alice.Bytes) }, null,  cts.Token);
             Assert.AreEqual("AccountInfo", reqResult1.GetType().Name);
             var aliceAccountInfo1 = reqResult1 as AccountInfo;
-            var bobAccountInfo1 = (AccountInfo) await _substrateClient.GetStorageAsync("System", "Account", new[] { Utils.Bytes2HexString(Bob.Bytes) }, cts.Token);
+            var bobAccountInfo1 = (AccountInfo) await _substrateClient.GetStorageAsync("System", "Account", new[] { Utils.Bytes2HexString(Bob.Bytes) }, null, cts.Token);
 
             // Alice sends bob some coins ...
             _ = await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer(Bob.Value, 100000000000), Alice, 0, 64, cts.Token);
             Thread.Sleep(extrinsic_wait);
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: AccountInfo<T::Index, T::AccountData>
-            var reqResult2 = await _substrateClient.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Alice.Bytes)}, cts.Token);
+            var reqResult2 = await _substrateClient.GetStorageAsync("System", "Account", new [] {Utils.Bytes2HexString(Alice.Bytes)}, null, cts.Token);
             Assert.AreEqual("AccountInfo", reqResult2.GetType().Name);
             var aliceAccountInfo2 = reqResult2 as AccountInfo;
-            var bobAccountInfo2 = (AccountInfo)await _substrateClient.GetStorageAsync("System", "Account", new[] { Utils.Bytes2HexString(Bob.Bytes) }, cts.Token);
+            var bobAccountInfo2 = (AccountInfo)await _substrateClient.GetStorageAsync("System", "Account", new[] { Utils.Bytes2HexString(Bob.Bytes) }, null, cts.Token);
 
 
             Assert.IsTrue(aliceAccountInfo1.AccountData.Free.Value > aliceAccountInfo2.AccountData.Free.Value);

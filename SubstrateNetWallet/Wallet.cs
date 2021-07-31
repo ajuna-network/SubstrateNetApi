@@ -36,7 +36,6 @@ namespace SubstrateNetWallet
 
         private const string DefaultWalletName = "wallet";
 
-        /// <summary> The logger. </summary>
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly CancellationTokenSource _connectTokenSource;
@@ -55,8 +54,20 @@ namespace SubstrateNetWallet
             _connectTokenSource = new CancellationTokenSource();
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is unlocked.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is unlocked; otherwise, <c>false</c>.
+        /// </value>
         public bool IsUnlocked => Account != null;
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is created.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is created; otherwise, <c>false</c>.
+        /// </value>
         public bool IsCreated => _walletFile != null;
 
         public Account Account { get; private set; }
@@ -67,30 +78,67 @@ namespace SubstrateNetWallet
 
         public SubstrateClient Client { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is connected.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+        /// </value>
         public bool IsConnected => Client != null && Client.IsConnected;
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is online.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is online; otherwise, <c>false</c>.
+        /// </value>
         public bool IsOnline => IsConnected && _subscriptionIdNewHead != string.Empty &&
                                 _subscriptionIdFinalizedHeads != string.Empty;
 
+        /// <summary>
+        /// Determines whether [is valid wallet name] [the specified wallet name].
+        /// </summary>
+        /// <param name="walletName">Name of the wallet.</param>
+        /// <returns>
+        ///   <c>true</c> if [is valid wallet name] [the specified wallet name]; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsValidWalletName(string walletName)
         {
             return walletName.Length > 4 && walletName.Length < 21 &&
                    walletName.All(c => char.IsLetterOrDigit(c) || c.Equals('_'));
         }
 
+        /// <summary>
+        /// Determines whether [is valid password] [the specified password].
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        ///   <c>true</c> if [is valid password] [the specified password]; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsValidPassword(string password)
         {
             return password.Length > 7 && password.Length < 21 && password.Any(char.IsUpper) &&
                    password.Any(char.IsLower) && password.Any(char.IsDigit);
         }
 
+        /// <summary>
+        /// Adds the type of the wallet file.
+        /// </summary>
+        /// <param name="walletName">Name of the wallet.</param>
+        /// <returns></returns>
         public string AddWalletFileType(string walletName)
         {
             return $"{walletName}.{FileType}";
         }
 
+        /// <summary>
+        /// Occurs when [chain information updated].
+        /// </summary>
         public event EventHandler<ChainInfo> ChainInfoUpdated;
 
+        /// <summary>
+        /// Occurs when [account information updated].
+        /// </summary>
         public event EventHandler<AccountInfo> AccountInfoUpdated;
 
         /// <summary>
@@ -119,6 +167,7 @@ namespace SubstrateNetWallet
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
+        /// <param name="password">The password.</param>
         /// <param name="mnemonic">The mnemonic.</param>
         /// <param name="walletName">Name of the wallet.</param>
         /// <returns></returns>
@@ -172,10 +221,10 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Create a new wallet which is encrypted with a password
+        /// Creates the asynchronous.
         /// </summary>
-        /// <param name="password"></param>
-        /// <param name="walletName"></param>
+        /// <param name="password">The password.</param>
+        /// <param name="walletName">Name of the wallet.</param>
         /// <returns></returns>
         public async Task<bool> CreateAsync(string password, string walletName = DefaultWalletName)
         {
@@ -227,11 +276,12 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Unlock a locked wallet.
+        /// Unlocks the asynchronous.
         /// </summary>
-        /// <param name="password"></param>
-        /// <param name="noCheck"></param>
+        /// <param name="password">The password.</param>
+        /// <param name="noCheck">if set to <c>true</c> [no check].</param>
         /// <returns></returns>
+        /// <exception cref="Exception">Public key check failed!</exception>
         public async Task<bool> UnlockAsync(string password, bool noCheck = false)
         {
             if (IsUnlocked || !IsCreated)
@@ -283,12 +333,13 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Try signing a message
+        /// Tries the sign message.
         /// </summary>
-        /// <param name="signer"></param>
-        /// <param name="data"></param>
-        /// <param name="signature"></param>
+        /// <param name="signer">The signer.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="signature">The signature.</param>
         /// <returns></returns>
+        /// <exception cref="NotImplementedException">KeyType {signer.KeyType} is currently not implemented for signing.</exception>
         public bool TrySignMessage(Account signer, byte[] data, out byte[] signature)
         {
             signature = null;
@@ -316,12 +367,13 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Verify a signature of a message
+        /// Verifies the signature.
         /// </summary>
-        /// <param name="signer"></param>
-        /// <param name="data"></param>
-        /// <param name="signature"></param>
+        /// <param name="signer">The signer.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="signature">The signature.</param>
         /// <returns></returns>
+        /// <exception cref="NotImplementedException">KeyType {signer.KeyType} is currently not implemented for verifying signatures.</exception>
         public bool VerifySignature(Account signer, byte[] data, byte[] signature)
         {
             switch (signer.KeyType)
@@ -348,9 +400,9 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Submit generic Extrinsic asynchronous
+        /// Submits the generic extrinsic asynchronous.
         /// </summary>
-        /// <param name="genericExtrinsicCall"></param>
+        /// <param name="genericExtrinsicCall">The generic extrinsic call.</param>
         /// <returns></returns>
         public async Task<string> SubmitGenericExtrinsicAsync(GenericExtrinsicCall genericExtrinsicCall)
         {
@@ -359,6 +411,10 @@ namespace SubstrateNetWallet
                     _connectTokenSource.Token);
         }
 
+        /// <summary>
+        /// Connects the asynchronous.
+        /// </summary>
+        /// <param name="webSocketUrl">The web socket URL.</param>
         private async Task ConnectAsync(string webSocketUrl)
         {
             Logger.Info($"Connecting to {webSocketUrl}");
@@ -389,10 +445,9 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Start connection and refresh subscriptions.
+        /// Starts the asynchronous.
         /// </summary>
-        /// <param name="webSocketUrl"></param>
-        /// <returns></returns>
+        /// <param name="webSocketUrl">The web socket URL.</param>
         public async Task StartAsync(string webSocketUrl = Websocketurl)
         {
             // disconnect from node if we are already connected to one.
@@ -413,9 +468,8 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Refresh subscriptions asynchronous
+        /// Refreshes the subscriptions asynchronous.
         /// </summary>
-        /// <returns></returns>
         public async Task RefreshSubscriptionsAsync()
         {
             Logger.Info("Refreshing all subscriptions");
@@ -437,9 +491,8 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Unsubscribe all asynchronous
+        /// Unsubscribes all asynchronous.
         /// </summary>
-        /// <returns></returns>
         public async Task UnsubscribeAllAsync()
         {
             if (!string.IsNullOrEmpty(_subscriptionIdNewHead))
@@ -469,9 +522,8 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Stop the current connection and unsubscribe all.
+        /// Stops the asynchronous.
         /// </summary>
-        /// <returns></returns>
         public async Task StopAsync()
         {
             // unsubscribe all subscriptions
@@ -484,19 +536,19 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Call back for new heads.
+        /// Calls the back new heads.
         /// </summary>
-        /// <param name="subscriptionId"></param>
-        /// <param name="header"></param>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <param name="header">The header.</param>
         public virtual void CallBackNewHeads(string subscriptionId, Header header)
         {
         }
 
         /// <summary>
-        /// Call back for finalized heads.
+        /// Calls the back finalized heads.
         /// </summary>
-        /// <param name="subscriptionId"></param>
-        /// <param name="header"></param>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <param name="header">The header.</param>
         public virtual void CallBackFinalizedHeads(string subscriptionId, Header header)
         {
             ChainInfo.UpdateFinalizedHeader(header);
@@ -514,11 +566,10 @@ namespace SubstrateNetWallet
         }
 
         /// <summary>
-        /// Call back account change.
-        /// TODO: Implement type StorageChangeSet
+        /// Calls the back account change.
         /// </summary>
-        /// <param name="subscriptionId"></param>
-        /// <param name="storageChangeSet"></param>
+        /// <param name="subscriptionId">The subscription identifier.</param>
+        /// <param name="storageChangeSet">The storage change set.</param>
         public virtual void CallBackAccountChange(string subscriptionId, StorageChangeSet storageChangeSet)
         {
             if (storageChangeSet.Changes == null 
