@@ -20,6 +20,16 @@ namespace SubstrateNetApi.Model.Extrinsics
 
         private CompactInteger _chargeTransactionPayment;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignedExtensions"/> class.
+        /// </summary>
+        /// <param name="specVersion">The spec version.</param>
+        /// <param name="txVersion">The tx version.</param>
+        /// <param name="genesis">The genesis.</param>
+        /// <param name="startEra">The start era.</param>
+        /// <param name="mortality">The mortality.</param>
+        /// <param name="nonce">The nonce.</param>
+        /// <param name="chargeTransactionPayment">The charge transaction payment.</param>
         public SignedExtensions(uint specVersion, uint txVersion, Hash genesis, Hash startEra, Era mortality, CompactInteger nonce, CompactInteger chargeTransactionPayment)
         {
             _specVersion = specVersion;
@@ -31,6 +41,10 @@ namespace SubstrateNetApi.Model.Extrinsics
             _chargeTransactionPayment = chargeTransactionPayment;
         }
 
+        /// <summary>
+        /// Gets the extra.
+        /// </summary>
+        /// <returns></returns>
         public byte[] GetExtra()
         {
             var bytes = new List<byte>();
@@ -47,6 +61,10 @@ namespace SubstrateNetApi.Model.Extrinsics
             return bytes.ToArray();
         }
 
+        /// <summary>
+        /// Gets the additional signed.
+        /// </summary>
+        /// <returns></returns>
         public byte[] GetAdditionalSigned()
         {
             var bytes = new List<byte>();
@@ -66,6 +84,10 @@ namespace SubstrateNetApi.Model.Extrinsics
             return bytes.ToArray();
         }
 
+        /// <summary>
+        /// Encodes this instance.
+        /// </summary>
+        /// <returns></returns>
         public byte[] Encode()
         {
             var bytes = new List<byte>();
