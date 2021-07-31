@@ -10,7 +10,7 @@ SubstrateNetApi is written in [NETStandard2.0](https://docs.microsoft.com/en-us/
 
 If you enjoy using SubstrateNetApi consider supporting me at [buymeacoffee.com/darkfriend77](https://www.buymeacoffee.com/darkfriend77)
 
-## Wiki, Table of Content
+## Table of Content
 
 1. [Home](https://github.com/JetonNetwork/SubstrateNetApi/wiki)  
 1. [Requirements](https://github.com/JetonNetwork/SubstrateNetApi/wiki/Requirements)  
