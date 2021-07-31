@@ -53,6 +53,20 @@ namespace SubstrateNetWallet
             return encrypted;
         }
 
+        /// <summary>
+        /// Decrypts the string from bytes aes.
+        /// </summary>
+        /// <param name="cipherText">The cipher text.</param>
+        /// <param name="Key">The key.</param>
+        /// <param name="IV">The iv.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">
+        /// cipherText
+        /// or
+        /// Key
+        /// or
+        /// IV
+        /// </exception>
         public static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
         {
             // Check arguments.
