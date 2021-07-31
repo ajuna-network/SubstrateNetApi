@@ -114,7 +114,7 @@ namespace SubstrateNetApi
         /// <param name="module">The module.</param>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-/        public static byte[] GetStorageKeyBytesHash(string module, string item)
+        public static byte[] GetStorageKeyBytesHash(string module, string item)
         {
             var mBytes = Encoding.ASCII.GetBytes(module);
             var iBytes = Encoding.ASCII.GetBytes(item);

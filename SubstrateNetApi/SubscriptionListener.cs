@@ -104,7 +104,7 @@ namespace SubstrateNetApi
         /// </summary>
         /// <param name="subscription">The subscription.</param>
         /// <param name="result">The result.</param>
-/        [JsonRpcMethod("state_runtimeVersion")]
+        [JsonRpcMethod("state_runtimeVersion")]
         public void StateRuntimeVersion(string subscription, JObject result)
         {
             GenericCallBack(subscription, result);
