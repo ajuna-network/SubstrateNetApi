@@ -18,7 +18,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "AccountInfo<T::Index, T::AccountData>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -34,7 +35,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -50,7 +52,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ConsumedWeight",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -66,7 +69,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -82,7 +86,8 @@
               "Key1": "T::BlockNumber",
               "Key2": null,
               "Value": "T::Hash",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -98,7 +103,8 @@
               "Key1": "u32",
               "Key2": null,
               "Value": "Vec<u8>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -114,7 +120,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::BlockNumber",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -130,7 +137,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::Hash",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -146,7 +154,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "DigestOf<T>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -162,7 +171,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<EventRecord<T::Event, T::Hash>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -178,7 +188,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "EventIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -194,7 +205,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Vec<(T::BlockNumber, EventIndex)>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -219,7 +231,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "LastRuntimeUpgradeInfo",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -235,7 +248,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -251,7 +265,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -268,7 +283,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Phase",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -607,7 +623,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::Hash>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -644,7 +661,8 @@
               "Key1": "T::BlockNumber",
               "Key2": null,
               "Value": "Vec<Option<Scheduled<<T as Config>::Call, T::BlockNumber, T::\nPalletsOrigin, T::AccountId>>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -660,7 +678,8 @@
               "Key1": "Vec<u8>",
               "Key2": null,
               "Value": "TaskAddress<T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -676,7 +695,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Releases",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -943,7 +963,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -959,7 +980,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<(AuthorityId, BabeAuthorityWeight)>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -975,7 +997,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Slot",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -992,7 +1015,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Slot",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -1008,7 +1032,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "schnorrkel::Randomness",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -1033,7 +1058,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "NextConfigDescriptor",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1049,7 +1075,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "schnorrkel::Randomness",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -1065,7 +1092,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<(AuthorityId, BabeAuthorityWeight)>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1081,7 +1109,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -1105,7 +1134,8 @@
               "Key1": "u32",
               "Key2": null,
               "Value": "Vec<schnorrkel::Randomness>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1121,7 +1151,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "MaybeRandomness",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1138,7 +1169,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "MaybeRandomness",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1156,7 +1188,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::BlockNumber",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -1259,7 +1292,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::Moment",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -1275,7 +1309,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1345,7 +1380,8 @@
               "Key1": "T::AccountIndex",
               "Key2": null,
               "Value": "(T::AccountId, BalanceOf<T>, bool)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1577,7 +1613,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::Balance",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
@@ -1593,7 +1630,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "AccountData<T::Balance>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -1611,7 +1649,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Vec<BalanceLock<T::Balance>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1628,7 +1667,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Releases",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -1936,7 +1976,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Multiplier",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x000064A7B3B6E00D0000000000000000",
             "Documentations": [
@@ -1952,7 +1993,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Releases",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2000,7 +2042,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<UncleEntryItem<T::BlockNumber, T::Hash, T::AccountId>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2016,7 +2059,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2032,7 +2076,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2119,7 +2164,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x54000000",
             "Documentations": [
@@ -2141,7 +2187,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -2157,7 +2204,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -2173,7 +2221,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2191,7 +2240,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2207,7 +2257,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "StakingLedger<T::AccountId, BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2223,7 +2274,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "RewardDestination<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2239,7 +2291,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "ValidatorPrefs",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000",
             "Documentations": [
@@ -2255,7 +2308,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Nominations<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2271,7 +2325,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "EraIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2290,7 +2345,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ActiveEraInfo",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2309,7 +2365,8 @@
               "Key1": "EraIndex",
               "Key2": null,
               "Value": "SessionIndex",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2328,7 +2385,8 @@
               "Key1": "EraIndex",
               "Key2": "T::AccountId",
               "Value": "Exposure<T::AccountId, BalanceOf<T>>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x000000",
             "Documentations": [
@@ -2349,7 +2407,8 @@
               "Key1": "EraIndex",
               "Key2": "T::AccountId",
               "Value": "Exposure<T::AccountId, BalanceOf<T>>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x000000",
             "Documentations": [
@@ -2375,7 +2434,8 @@
               "Key1": "EraIndex",
               "Key2": "T::AccountId",
               "Value": "ValidatorPrefs",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x0000",
             "Documentations": [
@@ -2395,7 +2455,8 @@
               "Key1": "EraIndex",
               "Key2": null,
               "Value": "BalanceOf<T>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2413,7 +2474,8 @@
               "Key1": "EraIndex",
               "Key2": null,
               "Value": "EraRewardPoints<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000",
             "Documentations": [
@@ -2430,7 +2492,8 @@
               "Key1": "EraIndex",
               "Key2": null,
               "Value": "BalanceOf<T>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
@@ -2447,7 +2510,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Forcing",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2463,7 +2527,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Perbill",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -2481,7 +2546,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "BalanceOf<T>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
@@ -2498,7 +2564,8 @@
               "Key1": "EraIndex",
               "Key2": null,
               "Value": "Vec<UnappliedSlash<T::AccountId, BalanceOf<T>>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2514,7 +2581,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<(EraIndex, SessionIndex)>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2533,7 +2601,8 @@
               "Key1": "EraIndex",
               "Key2": "T::AccountId",
               "Value": "(Perbill, BalanceOf<T>)",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2550,7 +2619,8 @@
               "Key1": "EraIndex",
               "Key2": "T::AccountId",
               "Value": "BalanceOf<T>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2566,7 +2636,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "slashing::SlashingSpans",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2582,7 +2653,8 @@
               "Key1": "(T::AccountId, slashing::SpanIndex)",
               "Key2": null,
               "Value": "slashing::SpanRecord<BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -2599,7 +2671,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "EraIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2615,7 +2688,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2632,7 +2706,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2649,7 +2724,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ElectionResult<T::AccountId, BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2667,7 +2743,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ElectionScore",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2683,7 +2760,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ElectionStatus<T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2700,7 +2778,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -2717,7 +2796,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Releases",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x04",
             "Documentations": [
@@ -3880,7 +3960,8 @@
               "Key1": "ReportIdOf<T>",
               "Key2": null,
               "Value": "OffenceDetails<T::AccountId, T::IdentificationTuple>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -3896,7 +3977,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<DeferredOffenceOf<T>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -3913,7 +3995,8 @@
               "Key1": "Kind",
               "Key2": "OpaqueTimeSlot",
               "Value": "Vec<ReportIdOf<T>>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -3929,7 +4012,8 @@
               "Key1": "Kind",
               "Key2": null,
               "Value": "Vec<u8>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -3997,7 +4081,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::ValidatorId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4013,7 +4098,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "SessionIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -4029,7 +4115,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4046,7 +4133,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<(T::ValidatorId, T::Keys)>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4063,7 +4151,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<u32>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4081,7 +4170,8 @@
               "Key1": "T::ValidatorId",
               "Key2": null,
               "Value": "T::Keys",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4097,7 +4187,8 @@
               "Key1": "(KeyTypeId, Vec<u8>)",
               "Key2": null,
               "Value": "T::ValidatorId",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4220,7 +4311,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "StoredState<T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4236,7 +4328,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "StoredPendingChange<T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4252,7 +4345,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::BlockNumber",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4268,7 +4362,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "(T::BlockNumber, T::BlockNumber)",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4284,7 +4379,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "SetId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -4301,7 +4397,8 @@
               "Key1": "SetId",
               "Key2": null,
               "Value": "SessionIndex",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4474,7 +4571,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::BlockNumber",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -4495,7 +4593,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AuthorityId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4511,7 +4610,8 @@
               "Key1": "SessionIndex",
               "Key2": "AuthIndex",
               "Value": "Vec<u8>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4528,7 +4628,8 @@
               "Key1": "SessionIndex",
               "Key2": "ValidatorId<T>",
               "Value": "u32",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -4641,7 +4742,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "PropIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -4657,7 +4759,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<(PropIndex, T::Hash, T::AccountId)>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4673,7 +4776,8 @@
               "Key1": "PropIndex",
               "Key2": null,
               "Value": "(Vec<T::AccountId>, BalanceOf<T>)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4691,7 +4795,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "PreimageStatus<T::AccountId, BalanceOf<T>, T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4708,7 +4813,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ReferendumIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -4724,7 +4830,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ReferendumIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -4741,7 +4848,8 @@
               "Key1": "ReferendumIndex",
               "Key2": null,
               "Value": "ReferendumInfo<T::BlockNumber, T::Hash, BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4759,7 +4867,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Voting<BalanceOf<T>, T::AccountId, T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -4778,7 +4887,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "T::BlockNumber",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4797,7 +4907,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4814,7 +4925,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "(T::Hash, VoteThreshold)",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4833,7 +4945,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "(T::BlockNumber, Vec<T::AccountId>)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4850,7 +4963,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -4866,7 +4980,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Releases",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -5931,7 +6046,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::Hash>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -5947,7 +6063,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "<T as Config<I>>::Proposal",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -5963,7 +6080,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Votes<T::AccountId, T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -5979,7 +6097,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -5995,7 +6114,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6011,7 +6131,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6412,7 +6533,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::Hash>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6428,7 +6550,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "<T as Config<I>>::Proposal",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6444,7 +6567,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Votes<T::AccountId, T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6460,7 +6584,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -6476,7 +6601,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6492,7 +6618,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6893,7 +7020,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<SeatHolder<T::AccountId, BalanceOf<T>>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6911,7 +7039,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<SeatHolder<T::AccountId, BalanceOf<T>>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6930,7 +7059,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<(T::AccountId, BalanceOf<T>)>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -6951,7 +7081,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -6967,7 +7098,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Voter<T::AccountId, BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -7392,7 +7524,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -7408,7 +7541,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -7601,7 +7735,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "ProposalIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -7617,7 +7752,8 @@
               "Key1": "ProposalIndex",
               "Key2": null,
               "Value": "Proposal<T::AccountId, BalanceOf<T, I>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -7633,7 +7769,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<ProposalIndex>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -7851,7 +7988,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "VestingInfo<BalanceOf<T>, T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -8161,7 +8299,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Registration<BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -8179,7 +8318,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "(T::AccountId, Data)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -8196,7 +8336,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "(BalanceOf<T>, Vec<T::AccountId>)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000",
             "Documentations": [
@@ -8216,7 +8357,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<Option<RegistrarInfo<BalanceOf<T>, T::AccountId>>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -8910,7 +9052,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "(Vec<ProxyDefinition<T::AccountId, T::ProxyType, T::BlockNumber>>,\n BalanceOf<T>)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000",
             "Documentations": [
@@ -8927,7 +9070,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "(Vec<Announcement<T::AccountId, CallHashOf<T>, T::BlockNumber>>,\n BalanceOf<T>)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000",
             "Documentations": [
@@ -9430,7 +9574,8 @@
               "Key1": "T::AccountId",
               "Key2": "[u8; 32]",
               "Value": "Multisig<T::BlockNumber, BalanceOf<T>, T::AccountId>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "BlakeTwo128Concat"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -9446,7 +9591,8 @@
               "Key1": "[u8; 32]",
               "Key2": null,
               "Value": "(OpaqueCall, T::AccountId, BalanceOf<T>)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -9857,7 +10003,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "BountyIndex",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -9873,7 +10020,8 @@
               "Key1": "BountyIndex",
               "Key2": null,
               "Value": "Bounty<T::AccountId, BalanceOf<T>, T::BlockNumber>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -9889,7 +10037,8 @@
               "Key1": "BountyIndex",
               "Key2": null,
               "Value": "Vec<u8>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -9905,7 +10054,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<BountyIndex>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -10327,7 +10477,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "OpenTip<T::AccountId, BalanceOf<T>, T::BlockNumber, T::Hash>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -10345,7 +10496,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Vec<u8>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -10700,7 +10852,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -10859,7 +11012,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -10875,7 +11029,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -10891,7 +11046,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Vec<u8>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -10907,7 +11063,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "MogwaiStruct<T::Hash, T::BlockNumber, BalanceOf<T>, RarityType>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -10923,7 +11080,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "MogwaiBios<T::Hash, T::BlockNumber, BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -10939,7 +11097,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -10955,7 +11114,8 @@
               "Key1": "u64",
               "Key2": null,
               "Value": "T::Hash",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -10971,7 +11131,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -10987,7 +11148,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11003,7 +11165,8 @@
               "Key1": "(T::AccountId, u64)",
               "Key2": null,
               "Value": "T::Hash",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -11019,7 +11182,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11035,7 +11199,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11051,7 +11216,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Auction<T::Hash, BalanceOf<T>, T::BlockNumber, T::AccountId>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11067,7 +11233,8 @@
               "Key1": "T::BlockNumber",
               "Key2": null,
               "Value": "Vec<Auction<T::Hash, BalanceOf<T>, T::BlockNumber, T::AccountId>\n>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11083,7 +11250,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::BlockNumber",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0xE8030000",
             "Documentations": [
@@ -11099,7 +11267,8 @@
               "Key1": "(T::Hash, T::AccountId)",
               "Key2": null,
               "Value": "BalanceOf<T>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
@@ -11115,7 +11284,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11131,7 +11301,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "GameEvent<T::Hash, T::BlockNumber, GameEventType>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -11147,7 +11318,8 @@
               "Key1": "u64",
               "Key2": null,
               "Value": "T::Hash",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -11163,7 +11335,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11179,7 +11352,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11195,7 +11369,8 @@
               "Key1": "(GameEventType, u64)",
               "Key2": null,
               "Value": "T::Hash",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -11211,7 +11386,8 @@
               "Key1": "GameEventType",
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11227,7 +11403,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11243,7 +11420,8 @@
               "Key1": "T::BlockNumber",
               "Key2": null,
               "Value": "Vec<T::Hash>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11259,7 +11437,8 @@
               "Key1": "T::Hash",
               "Key2": null,
               "Value": "Vec<T::Hash>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11275,7 +11454,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -11720,7 +11900,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11736,7 +11917,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -11752,7 +11934,8 @@
               "Key1": "(T::AccountId, Vec<u8>)",
               "Key2": null,
               "Value": "MogwaicoinAddress<T::AccountId, ClaimState, BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "Documentations": [
@@ -11937,7 +12120,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Schedule<T>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000040000000002000000010000800000001000000000100000000100002000000000000800150600004C6B02004C8103009E1800000B1D0000160D0000651800006D2B00008A000000F5700100FDF602008E070000440600006E070000030600004F180000B528000091070000B60DA70827080000590800006A0A0000EF070000560800004A0800008E080000F509000061090000DD090000A10A00009C090000E409000091090000650900001E0A0000120A0000AE09000099090000060A00006B2000000B1D000051200000221D000094090000AD090000B6090000160A0000660A0000FD090000260A0000440A0000D41A2A0000000000A0C729000000000092122900000000001AB5580000000000BA1C290000000000E000290000000000B0EF280000000000EE325C0000000000DEC1280000000000CA07290000000000C07D4E00000000009C77140000000000303A7200000000000B01000000000000F0AB450000000000FF0200000000000060A21C270000000030078D31000000002635AF09000000000AE164000000000038B18E0000000000B6B1CC0700000000890900000000000040036C00000000008AD6E21100000000DE020000000000006E67CC080000000078F6110200000000E605000000000000ACB1B50A00000000B24419090000000092579F08000000004702000000000000240300000000000016EAEB220000000055020000000000003503000000000000DB0A000000000000F4802600000000006A100000000000006A9A280000000000220D0000000000004E9C2400000000001C0600000000000026832400000000001B06000000000000",
             "Documentations": [
@@ -11953,7 +12137,8 @@
               "Key1": "CodeHash<T>",
               "Key2": null,
               "Value": "Vec<u8>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11969,7 +12154,8 @@
               "Key1": "CodeHash<T>",
               "Key2": null,
               "Value": "PrefabWasmModule<T>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -11985,7 +12171,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u64",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x0000000000000000",
             "Documentations": [
@@ -12001,7 +12188,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "ContractInfo<T>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12019,7 +12207,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<storage::DeletedContract>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12623,7 +12812,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12639,7 +12829,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::Hash",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12656,7 +12847,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<Bid<T::AccountId, BalanceOf<T, I>>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12672,7 +12864,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "(BalanceOf<T, I>, BidKind<T::AccountId, BalanceOf<T, I>>)",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12688,7 +12881,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "BalanceOf<T, I>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000",
             "Documentations": [
@@ -12704,7 +12898,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12720,7 +12915,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<T::AccountId>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12736,7 +12932,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "bool",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12752,7 +12949,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "Vec<Bid<T::AccountId, BalanceOf<T, I>>>",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12768,7 +12966,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "VouchingStatus",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12784,7 +12983,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Vec<(T::BlockNumber, BalanceOf<T, I>)>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12800,7 +13000,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "StrikeCount",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -12816,7 +13017,8 @@
               "Key1": "T::AccountId",
               "Key2": "T::AccountId",
               "Value": "Vote",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12832,7 +13034,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12848,7 +13051,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "Vote",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -12864,7 +13068,8 @@
               "Key1": null,
               "Key2": null,
               "Value": "u32",
-              "IsLinked": false
+              "IsLinked": null,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000",
             "Documentations": [
@@ -13653,7 +13858,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "RecoveryConfig<T::BlockNumber, BalanceOf<T>, T::AccountId>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -13669,7 +13875,8 @@
               "Key1": "T::AccountId",
               "Key2": "T::AccountId",
               "Value": "ActiveRecovery<T::BlockNumber, BalanceOf<T>, T::AccountId>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "Twox64Concat"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -13688,7 +13895,8 @@
               "Key1": "T::AccountId",
               "Key2": null,
               "Value": "T::AccountId",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -14208,7 +14416,8 @@
               "Key1": "T::AssetId",
               "Key2": null,
               "Value": "AssetDetails<T::Balance, T::AccountId, BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00",
             "Documentations": [
@@ -14224,7 +14433,8 @@
               "Key1": "T::AssetId",
               "Key2": "T::AccountId",
               "Value": "AssetBalance<T::Balance>",
-              "IsLinked": true
+              "IsLinked": null,
+              "Key2Hasher": "BlakeTwo128Concat"
             },
             "FallBack": "0x00000000000000000000",
             "Documentations": [
@@ -14240,7 +14450,8 @@
               "Key1": "T::AssetId",
               "Key2": null,
               "Value": "AssetMetadata<BalanceOf<T>>",
-              "IsLinked": false
+              "IsLinked": false,
+              "Key2Hasher": "None"
             },
             "FallBack": "0x00000000000000000000000000000000000000",
             "Documentations": [

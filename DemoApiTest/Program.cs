@@ -21,8 +21,8 @@ namespace DemoApiTest
 {
     internal class Program
     {
-        private const string Websocketurl = "ws://127.0.0.1:9944";
-        //private const string Websocketurl = "wss://mogiway-01.dotmog.com";
+        //private const string Websocketurl = "ws://127.0.0.1:9944";
+        private const string Websocketurl = "wss://mogiway-01.dotmog.com";
         //private const string Websocketurl = "wss://testnet2.uniquenetwork.io";
 
         private static async Task Main(string[] args)

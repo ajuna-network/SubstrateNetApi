@@ -218,47 +218,46 @@ namespace SubstrateNetApi
         /// <param name="moduleName"> Name of the module. </param>
         /// <param name="itemName">   Name of the item. </param>
         /// <param name="token">      A token that allows processing to be cancelled. </param>
-        /// <returns> The storage. </returns>
+        /// <returns> Returns storage object of ITypeConverter result.</returns>
         public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token)
         {
-            return await GetStorageAsync(moduleName, itemName, null, token);
+            return await GetStorageAsync(moduleName, itemName, null, null, token);
         }
 
         /// <summary> Gets storage asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="moduleName"> Name of the module. </param>
         /// <param name="itemName">   Name of the item. </param>
-        /// <param name="parameter">  The parameter. </param>
-        /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] parameter)
+        /// <param name="key1Param">  The parameter. </param>
+        /// <returns> Returns storage object of ITypeConverter result.</returns>
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] key1Param)
         {
-            return await GetStorageAsync(moduleName, itemName, parameter, CancellationToken.None);
+            return await GetStorageAsync(moduleName, itemName, key1Param, null, CancellationToken.None);
         }
 
-        /// <summary> Gets storage asynchronous. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="ClientNotConnectedException">
-        ///     Thrown when a Client Not Connected error
-        ///     condition occurs.
-        /// </exception>
-        /// <exception cref="MissingModuleOrItemException">
-        ///     Thrown when a Missing Module Or Item error
-        ///     condition occurs.
-        /// </exception>
-        /// <exception cref="MissingParameterException">
-        ///     Thrown when a Missing Parameter error
-        ///     condition occurs.
-        /// </exception>
-        /// <exception cref="MissingConverterException">
-        ///     Thrown when a Missing Converter error
-        ///     condition occurs.
-        /// </exception>
-        /// <param name="moduleName"> Name of the module. </param>
-        /// <param name="itemName">   Name of the item. </param>
-        /// <param name="parameter">  The parameter. </param>
-        /// <param name="token">      A token that allows processing to be cancelled. </param>
-        /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] parameter,
+        /// <summary>Gets the storage asynchronous.</summary>
+        /// <param name="moduleName">Name of the module.</param>
+        /// <param name="itemName">Name of the item.</param>
+        /// <param name="key1Param">The key1 parameter.</param>
+        /// <param name="key2Param">The key2 parameter.</param>
+        /// <returns> Returns storage object of ITypeConverter result.</returns>
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] key1Param, string[] key2Param)
+        {
+            return await GetStorageAsync(moduleName, itemName, key1Param, key2Param, CancellationToken.None);
+        }
+
+        /// <summary>Gets the storage asynchronous.</summary>
+        /// <param name="moduleName">Name of the module.</param>
+        /// <param name="itemName">Name of the item.</param>
+        /// <param name="key1Param">The key1 parameter.</param>
+        /// <param name="key2Param">The key2 parameter.</param>
+        /// <param name="token">The token.</param>
+        /// <returns> Returns storage object of ITypeConverter result.</returns>
+        /// <exception cref="ClientNotConnectedException">WebSocketState is not open! Currently {_socket?.State}!</exception>
+        /// <exception cref="MissingModuleOrItemException">Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!</exception>
+        /// <exception cref="MissingParameterException"></exception>
+        /// <exception cref="MissingConverterException">Unknown type '{returnType}' for result '{resultString}'!</exception>
+        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] key1Param, string[] key2Param,
             CancellationToken token)
         {
             if (_socket?.State != WebSocketState.Open)
@@ -269,11 +268,17 @@ namespace SubstrateNetApi
                 throw new MissingModuleOrItemException(
                     $"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
 
-            if (item.Function?.Key1 != null && (parameter == null || parameter.Length == 0))
+            // map
+            if (item.Function?.Key1 != null && (key1Param == null || key1Param.Length == 0))
                 throw new MissingParameterException(
                     $"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
 
-            var parameters = RequestGenerator.GetStorage(module, item, parameter);
+            // double map
+            if (item.Function?.Key2 != null && (key2Param == null || key2Param.Length == 0))
+                throw new MissingParameterException(
+                    $"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key2}'!");
+
+            var parameters = RequestGenerator.GetStorage(module, item, key1Param, key2Param);
 
             var resultString = await InvokeAsync<string>("state_getStorage", new object[] {parameters}, token);
 

@@ -12,6 +12,7 @@ using NLog.Targets;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Extrinsics;
+using SubstrateNetApi.TypeConverters;
 
 namespace SubstrateNetApiTests
 {
@@ -36,6 +37,7 @@ namespace SubstrateNetApiTests
             LogManager.Configuration = config;
 
             _substrateClient = new SubstrateClient(new Uri(WebSocketUrl));
+
         }
 
         [OneTimeTearDown]
@@ -72,6 +74,29 @@ namespace SubstrateNetApiTests
             Assert.IsTrue(request is Hash);
 
             await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task ParameterizedTest2Async()
+        {
+            var accountZurich = Account.Build(
+                KeyType.Ed25519,
+                Utils.HexToByteArray(
+                    "0xf5e5767cf153319517630f226876b86c8160cc583bc013744c6bf255f5cc0ee5278117fc144c72340f67d0f2316e8386ceffbf2b2428c9c51fef7c597f1d426e"),
+                Utils.GetPublicKeyFrom("5CxW5DWQDpXi4cpACd62wzbPjbYrx4y67TZEmRXBcvmDTNaM"));
+
+            _substrateClient.RegisterTypeConverter(new GenericTypeConverter<AssetBalance>());
+            await _substrateClient.ConnectAsync();
+
+
+            var request = await _substrateClient.GetStorageAsync("Assets", "Account", new[] { "0" }, new[] { Utils.Bytes2HexString(accountZurich.Bytes) });
+            Assert.AreEqual("AssetBalance", request.GetType().Name);
+            Assert.IsTrue(request is AssetBalance);
+            var assetBalance = (AssetBalance)request;
+            Assert.AreEqual(100, assetBalance.Balance.Value);
+
+            await _substrateClient.CloseAsync();
+
         }
 
         [Test]

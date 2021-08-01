@@ -26,47 +26,99 @@ namespace SubstrateNetApi
         /// <param name="item">The item, is listed in the metadata of the node.</param>
         /// <param name="parameter">The parameter.</param>
         /// <returns></returns>
-        public static string GetStorage(Module module, Item item, string[] parameter = null)
+        public static string GetStorage(Module module, Item item, string[] key1Param = null, string[] key2Param = null)
         {
             var keybytes = GetStorageKeyBytesHash(module, item);
 
-            byte[] parameterBytes = null;
-            if (item.Function?.Key1 != null) parameterBytes = GetParameterBytes(item.Function.Key1, parameter);
+            byte[] key1ParamBytes = null;
+            if (item.Function?.Key1 != null)
+            {
+                key1ParamBytes = GetParameterBytes(item.Function.Key1, key1Param);
+            }
 
+            byte[] key2ParamBytes = null;
+            if (item.Function?.Key2 != null)
+            {
+                key2ParamBytes = GetParameterBytes(item.Function.Key2, key2Param);
+            }
+
+            // https://www.shawntabrizi.com/substrate/querying-substrate-storage-via-rpc/
+            byte[] key1Hashed, key2Hashed;
             switch (item.Type)
             {
+                // xxhash128("ModuleName") + xxhash128("StorageName")
                 case Storage.Type.Plain:
                     return Utils.Bytes2HexString(keybytes);
 
+                // xxhash128("ModuleName") + xxhash128("StorageName") + blake256hash("StorageItemKey")
                 case Storage.Type.Map:
-
                     switch (item.Function.Hasher)
                     {
                         case Storage.Hasher.Identity:
-                            return Utils.Bytes2HexString(keybytes.Concat(parameterBytes).ToArray());
+                            key1Hashed = key1ParamBytes; break;
 
                         case Storage.Hasher.BlakeTwo128:
                         case Storage.Hasher.BlakeTwo256:
                         case Storage.Hasher.BlakeTwo128Concat:
-                            return Utils.Bytes2HexString(keybytes.Concat(HashExtension.Blake2Concat(parameterBytes))
-                                .ToArray());
+                            key1Hashed = HashExtension.Blake2Concat(key1ParamBytes); break;
 
                         case Storage.Hasher.Twox128:
                         case Storage.Hasher.Twox256:
                         case Storage.Hasher.Twox64Concat:
-                            return Utils.Bytes2HexString(keybytes.Concat(HashExtension.XxHash128(parameterBytes))
-                                .ToArray());
+                            throw new NotSupportedException();
 
                         case Storage.Hasher.None:
                         default:
-                            break;
+                            throw new NotSupportedException();
+                    }
+                    return Utils.Bytes2HexString(keybytes.Concat(key1Hashed).ToArray());
+
+                // xxhash128("ModuleName") + xxhash128("StorageName") + blake256hash("FirstKey") + blake256hash("SecondKey")
+                case Storage.Type.DoubleMap:
+
+                    switch (item.Function.Hasher)
+                    {
+                        case Storage.Hasher.Identity:
+                            key1Hashed = key1ParamBytes; break;
+
+                        case Storage.Hasher.BlakeTwo128:
+                        case Storage.Hasher.BlakeTwo256:
+                        case Storage.Hasher.BlakeTwo128Concat:
+                            key1Hashed = HashExtension.Blake2Concat(key1ParamBytes); break;
+
+                        case Storage.Hasher.Twox128:
+                        case Storage.Hasher.Twox256:
+                        case Storage.Hasher.Twox64Concat:
+                            throw new NotSupportedException();
+
+                        case Storage.Hasher.None:
+                        default:
+                            throw new NotSupportedException();
                     }
 
-                    return "";
-                case Storage.Type.DoubleMap:
-                    return "";
+                    switch (item.Function.Key2Hasher)
+                    {
+                        case Storage.Hasher.Identity:
+                            key2Hashed = key2ParamBytes; break;
+
+                        case Storage.Hasher.BlakeTwo128:
+                        case Storage.Hasher.BlakeTwo256:
+                        case Storage.Hasher.BlakeTwo128Concat:
+                            key2Hashed = HashExtension.Blake2Concat(key2ParamBytes); break;
+
+                        case Storage.Hasher.Twox128:
+                        case Storage.Hasher.Twox256:
+                        case Storage.Hasher.Twox64Concat:
+                            throw new NotSupportedException();
+
+                        case Storage.Hasher.None:
+                        default:
+                            throw new NotSupportedException();
+                    }
+                    return Utils.Bytes2HexString(keybytes.Concat(key1Hashed).Concat(key2Hashed).ToArray());
+
                 default:
-                    return "";
+                    throw new NotSupportedException();
             }
         }
 

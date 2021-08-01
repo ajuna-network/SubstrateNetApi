@@ -12,7 +12,7 @@ using SubstrateNetWallet;
 
 namespace SubstrateNetWalletTest
 {
-    public class Tests
+    public class WalletTest
     {
         [SetUp]
         public void Setup()
@@ -98,6 +98,37 @@ namespace SubstrateNetWalletTest
             wallet4.Load("dev_wallet");
 
             Assert.True(wallet4.IsCreated);
+        }
+
+        [Test]
+        public async Task CreateMnemonicWalletTestAsync()
+        {
+            var mnemonic = "donor rocket find fan language damp yellow crouch attend meat hybrid pulse";
+
+            // create new wallet with password and persist
+            var wallet1 = new Wallet();
+
+            await wallet1.CreateAsync("aA1234dd", mnemonic, "mnemonic_wallet");
+
+            Assert.True(wallet1.IsCreated);
+
+            Assert.True(wallet1.IsUnlocked);
+
+            // read wallet
+            var wallet2 = new Wallet();
+
+            wallet2.Load("mnemonic_wallet");
+
+            Assert.True(wallet2.IsCreated);
+
+            Assert.False(wallet2.IsUnlocked);
+
+            // unlock wallet with password
+            await wallet2.UnlockAsync("aA1234dd");
+
+            Assert.True(wallet2.IsUnlocked);
+
+            Assert.AreEqual(wallet1.Account.Value, wallet2.Account.Value);
         }
 
         [Test]
