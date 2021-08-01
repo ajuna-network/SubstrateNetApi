@@ -111,7 +111,7 @@ namespace IntegrationTest
             var extrinsics = result as Extrinsic[];
             Assert.AreEqual(0, extrinsics.Length);
 
-            var subscription = (string) await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer(Bob.Value, 100000000000), Alice, 0, 64, cts.Token);
+            var subscription = (string) await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer(Bob.Value, 100000000000), Alice, 0, 64);
 
             extrinsics = (Extrinsic[]) await _substrateClient.Author.PendingExtrinsicAsync();
             Assert.AreEqual(1, extrinsics.Length);
@@ -119,7 +119,7 @@ namespace IntegrationTest
             Thread.Sleep(extrinsic_wait);
             Thread.Sleep(extrinsic_wait);
 
-            extrinsics = (Extrinsic[])await _substrateClient.Author.PendingExtrinsicAsync();
+            extrinsics = (Extrinsic[])await _substrateClient.Author.PendingExtrinsicAsync(cts.Token);
             Assert.AreEqual(0, extrinsics.Length);
 
 
@@ -245,7 +245,7 @@ namespace IntegrationTest
             var bobAccountInfo1 = (AccountInfo) await _substrateClient.GetStorageAsync("System", "Account", new[] { Utils.Bytes2HexString(Bob.Bytes) }, cts.Token);
 
             // Alice sends bob some coins ...
-            _ = await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer(Bob.Value, 100000000000), Alice, 0, 64, cts.Token);
+            var subscription = await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer(Bob.Value, 100000000000), Alice, 0, 64, cts.Token);
             Thread.Sleep(extrinsic_wait);
 
             // [Map] Key: T::AccountId, Hasher: BlakeTwo128Concat, Value: AccountInfo<T::Index, T::AccountData>
@@ -259,8 +259,10 @@ namespace IntegrationTest
             Assert.IsTrue(bobAccountInfo1.AccountData.Free.Value < bobAccountInfo2.AccountData.Free.Value);
 
 
-            _ = await _substrateClient.Author.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer(Alice.Value, 90000000000), Bob, 0, 64, cts.Token);
+            var extrinsicHash = (Hash) await _substrateClient.Author.SubmitExtrinsicAsync(ExtrinsicCall.BalanceTransfer(Alice.Value, 90000000000), Bob, 0, 64, cts.Token);
             Thread.Sleep(extrinsic_wait);
+
+            var subscription_state = await _substrateClient.Author.UnwatchExtrinsicAsync(subscription, cts.Token);
 
             await _substrateClient.CloseAsync();
         }
