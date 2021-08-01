@@ -62,7 +62,7 @@ namespace Sandbox
             var hexAddress = Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5E77sDSL4sgAteLAMLjkEyQsHaoiqCMUJTk18XWefeVXC4Bb"));
             var hexAccount = Utils.Bytes2HexString(Encoding.ASCII.GetBytes("M9XfSaTHgGtwQnkrkG1EWRJpSdVsREU44u"));
 
-            MogwaicoinAddress reqResult = (MogwaicoinAddress)await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] { hexAddress, hexAccount }, CancellationToken.None);
+            MogwaicoinAddress reqResult = (MogwaicoinAddress)await client.GetStorageAsync("DotMogBase", "AccountClaim", new [] { hexAddress, hexAccount }, null, CancellationToken.None);
             //Console.WriteLine(Encoding.Default.GetString(reqResult.Signature.Value.Select(p => p.Bytes[0]).ToArray()));
             //string mogwaicoinAddress = Encoding.Default.GetString(reqResult.Address.Value.Select(p => p.Bytes[0]).ToArray());
             //Console.WriteLine(mogwaicoinAddress);
@@ -301,6 +301,7 @@ namespace Sandbox
                 {
                     Utils.Bytes2HexString(Utils.GetPublicKeyFrom("5DotMog6fcsVhMPqniyopz5sEJ5SMhHpz7ymgubr56gDxXwH"))
                 },
+                null,
                 CancellationToken.None);
 
             Console.WriteLine($"DotMogModule.OwnedMogwaisCount = {reqResult}");
