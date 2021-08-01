@@ -31,11 +31,19 @@ namespace SubstrateNetApi.Model.Extrinsics
 
         public byte[] Signature;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Extrinsic"/> class.
+        /// </summary>
+        /// <param name="str">The string.</param>
         public Extrinsic(string str) : this(Utils.HexToByteArray(str).AsMemory())
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Extrinsic"/> class.
+        /// </summary>
+        /// <param name="memory">The memory.</param>
         internal Extrinsic(Memory<byte> memory)
         {
             int p = 0;
@@ -108,6 +116,15 @@ namespace SubstrateNetApi.Model.Extrinsics
             Method = new Method(method[0], method[1], parameter);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Extrinsic"/> class.
+        /// </summary>
+        /// <param name="signed">if set to <c>true</c> [signed].</param>
+        /// <param name="account">The account.</param>
+        /// <param name="nonce">The nonce.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="era">The era.</param>
+        /// <param name="tip">The tip.</param>
         public Extrinsic(bool signed, Account account, CompactInteger nonce, Method method, Era era, CompactInteger tip)
         {
             Signed = signed;
@@ -124,6 +141,12 @@ namespace SubstrateNetApi.Model.Extrinsics
             return JsonConvert.SerializeObject(this);
         }
 
+        /// <summary>
+        /// Gets the typed extrinsic.
+        /// </summary>
+        /// <param name="extrinsic">The extrinsic.</param>
+        /// <param name="metaData">The meta data.</param>
+        /// <returns></returns>
         internal static Extrinsic GetTypedExtrinsic(Extrinsic extrinsic, MetaData metaData)
         {
             var modules = metaData.Modules.ToList();

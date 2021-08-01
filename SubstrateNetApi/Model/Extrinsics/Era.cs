@@ -14,6 +14,12 @@ namespace SubstrateNetApi.Model.Extrinsics
 
         public ulong EraStart(ulong currentBlockNumber) => IsImmortal ? 0 : (Math.Max(currentBlockNumber, Phase) - Phase) / Period * Period + Phase;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Era"/> class.
+        /// </summary>
+        /// <param name="period">The period.</param>
+        /// <param name="phase">The phase.</param>
+        /// <param name="isImmortal">if set to <c>true</c> [is immortal].</param>
         public Era(ulong period, ulong phase, bool isImmortal)
         {
             Period = period;
@@ -28,6 +34,12 @@ namespace SubstrateNetApi.Model.Extrinsics
             return JsonConvert.SerializeObject(this);
         }
 
+        /// <summary>
+        /// Creates the specified life time.
+        /// </summary>
+        /// <param name="lifeTime">The life time.</param>
+        /// <param name="finalizedHeaderBlockNumber">The finalized header block number.</param>
+        /// <returns></returns>
         public static Era Create(uint lifeTime, ulong finalizedHeaderBlockNumber)
         {
             if (lifeTime == 0)
@@ -58,6 +70,10 @@ namespace SubstrateNetApi.Model.Extrinsics
             return new Era(period, quantized_phase, false);
         }
 
+        /// <summary>
+        /// Encodes this instance.
+        /// </summary>
+        /// <returns></returns>
         public byte[] Encode()
         {
             if (IsImmortal)
@@ -81,6 +97,16 @@ namespace SubstrateNetApi.Model.Extrinsics
             return BitConverter.GetBytes(encoded);
         }
 
+        /// <summary>
+        /// Decodes the specified bytes.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns></returns>
+        /// <exception cref="Era">
+        /// 0, 0, true
+        /// or
+        /// 0, 0, true
+        /// </exception>
         public static Era Decode(byte[] bytes)
         {
             if (bytes.Length == 1 && bytes[0] == 0x00)

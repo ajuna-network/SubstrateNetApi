@@ -14,8 +14,18 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi
 {
+    /// <summary>
+    /// Request Generator creates a requests for storage queries or extrinsic calls.
+    /// </summary>
     public class RequestGenerator
     {
+        /// <summary>
+        /// Create a request for a storage call.
+        /// </summary>
+        /// <param name="module">The module, is listed in the metadata of the node.</param>
+        /// <param name="item">The item, is listed in the metadata of the node.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
         public static string GetStorage(Module module, Item item, string[] key1Param = null, string[] key2Param = null)
         {
             var keybytes = GetStorageKeyBytesHash(module, item);
@@ -112,6 +122,13 @@ namespace SubstrateNetApi
             }
         }
 
+        /// <summary>
+        /// Gets the parameter bytes.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        /// <exception cref="MissingParameterException">Needs {keys.Length} keys, but provided where {parameter.Length} keys!</exception>
         private static byte[] GetParameterBytes(string key, string[] parameter)
         {
             // multi keys support
@@ -132,11 +149,23 @@ namespace SubstrateNetApi
             return Utils.KeyTypeToBytes(key, parameter[0]);
         }
 
+        /// <summary>
+        /// Gets the storage key bytes hash.
+        /// </summary>
+        /// <param name="module">The module.</param>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
         public static byte[] GetStorageKeyBytesHash(Module module, Item item)
         {
             return GetStorageKeyBytesHash(module.Name, item.Name);
         }
 
+        /// <summary>
+        /// Gets the storage key bytes hash.
+        /// </summary>
+        /// <param name="module">The module.</param>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
         public static byte[] GetStorageKeyBytesHash(string module, string item)
         {
             var mBytes = Encoding.ASCII.GetBytes(module);
@@ -144,6 +173,20 @@ namespace SubstrateNetApi
             return HashExtension.XxHash128(mBytes).Concat(HashExtension.XxHash128(iBytes)).ToArray();
         }
 
+        /// <summary>
+        /// Submits the extrinsic.
+        /// </summary>
+        /// <param name="signed">if set to <c>true</c> [signed].</param>
+        /// <param name="account">The account.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="era">The era.</param>
+        /// <param name="nonce">The nonce.</param>
+        /// <param name="tip">The tip.</param>
+        /// <param name="genesis">The genesis.</param>
+        /// <param name="startEra">The start era.</param>
+        /// <param name="runtime">The runtime.</param>
+        /// <returns></returns>
+        /// <exception cref="UnCheckedExtrinsic">signed, account, method, era, nonce, tip, genesis, startEra</exception>
         internal static UnCheckedExtrinsic SubmitExtrinsic(bool signed, Account account, Method method, Era era,
             uint nonce, uint tip, Hash genesis, Hash startEra, RuntimeVersion runtime)
         {

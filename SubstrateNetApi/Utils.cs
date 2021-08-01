@@ -10,8 +10,10 @@ namespace SubstrateNetApi
     /// <remarks> 19.09.2020. </remarks>
     public class Utils
     {
-        /// <summary> Values that represent Hexadecimal string formats. </summary>
-        /// <remarks> 19.09.2020. </remarks>
+
+        /// <summary>
+        /// Different representations of a hex string.
+        /// </summary>
         public enum HexStringFormat
         {
             Pure,
@@ -19,12 +21,13 @@ namespace SubstrateNetApi
             Prefixed
         }
 
-        /// <summary> Bytes 2 hexadecimal string. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
-        /// <param name="bytes">  The bytes. </param>
-        /// <param name="format"> (Optional) Describes the format to use. </param>
-        /// <returns> A string. </returns>
+        /// <summary>
+        /// Convert bytes to the hexadecimal string.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="format">The format.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Unimplemented hex string format '{format}'</exception>
         public static string Bytes2HexString(byte[] bytes, HexStringFormat format = HexStringFormat.Prefixed)
         {
             switch (format)
@@ -40,11 +43,12 @@ namespace SubstrateNetApi
             }
         }
 
-        /// <summary> String value array bytes array. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
-        /// <param name="valueArray"> Array of values. </param>
-        /// <returns> A byte[]. </returns>
+        /// <summary>
+        /// Strings the value array bytes array.
+        /// </summary>
+        /// <param name="valueArray">The value array.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Not valid string array for byte array conversion. Format should be [ 0-255, 0-255, ...]</exception>
         internal static byte[] StringValueArrayBytesArray(string valueArray)
         {
             var strArray = valueArray
@@ -65,11 +69,13 @@ namespace SubstrateNetApi
             return result;
         }
 
-        /// <summary> Hexadecimal to byte array. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
-        /// <param name="hex"> The hexadecimal. </param>
-        /// <returns> A byte[]. </returns>
+        /// <summary>
+        /// Converts hexadecimal string to byte array.
+        /// </summary>
+        /// <param name="hex">The hexadecimal.</param>
+        /// <param name="evenLeftZeroPad">if set to <c>true</c> [even left zero pad].</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">The binary key cannot have an odd number of digits</exception>
         public static byte[] HexToByteArray(string hex, bool evenLeftZeroPad = false)
         {
             if (hex.Equals("0x0")) return new byte[] {0x00};
@@ -89,12 +95,13 @@ namespace SubstrateNetApi
             return arr;
         }
 
-        /// <summary> Bytes 2 value. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
-        /// <param name="value">        The value. </param>
-        /// <param name="littleEndian"> (Optional) True to little endian. </param>
-        /// <returns> An object. </returns>
+        /// <summary>
+        /// Converts bytes to value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="littleEndian">if set to <c>true</c> [little endian].</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Unhandled byte size {value.Length} for this method!</exception>
         public static object Bytes2Value(byte[] value, bool littleEndian = true)
         {
             if (!littleEndian) Array.Reverse(value);
@@ -169,11 +176,16 @@ namespace SubstrateNetApi
             return val - (val < 58 ? 48 : val < 97 ? 55 : 87);
         }
 
-        /// <summary> Gets public key from. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="ApplicationException"> Thrown when an Application error condition occurs. </exception>
-        /// <param name="address"> The address. </param>
-        /// <returns> An array of byte. </returns>
+        /// <summary>
+        /// Gets the public key from.
+        /// </summary>
+        /// <param name="address">The address.</param>
+        /// <returns></returns>
+        /// <exception cref="ApplicationException">
+        /// Address checksum is wrong.
+        /// or
+        /// Address checksum is wrong.
+        /// </exception>
         public static byte[] GetPublicKeyFrom(string address)
         {
             var PUBLIC_KEY_LENGTH = 32;
@@ -200,12 +212,13 @@ namespace SubstrateNetApi
             throw new ApplicationException("Address checksum is wrong.");
         }
 
-        /// <summary> Key type to bytes. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <exception cref="Exception"> Thrown when an exception error condition occurs. </exception>
-        /// <param name="keyType">   Type of the key. </param>
-        /// <param name="parameter"> The parameter. </param>
-        /// <returns> A byte[]. </returns>
+        /// <summary>
+        /// Keys the type to bytes.
+        /// </summary>
+        /// <param name="keyType">Type of the key.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Unimplemented item function key 'item.Function.Key1'!</exception>
         internal static byte[] KeyTypeToBytes(string keyType, string parameter)
         {
             switch (keyType)
@@ -236,10 +249,11 @@ namespace SubstrateNetApi
             }
         }
 
-        /// <summary> Gets address from. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <param name="bytes"> The bytes. </param>
-        /// <returns> The address from. </returns>
+        /// <summary>
+        /// Gets the address from.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns></returns>
         public static string GetAddressFrom(byte[] bytes)
         {
             var SR25519_PUBLIC_SIZE = 32;

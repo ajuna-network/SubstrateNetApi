@@ -18,6 +18,12 @@ namespace SubstrateNetApi.Model.Extrinsics
 
         public byte[] Parameters;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Method"/> class.
+        /// </summary>
+        /// <param name="moduleIndex">Index of the module.</param>
+        /// <param name="callIndex">Index of the call.</param>
+        /// <param name="parameters">The parameters.</param>
         public Method(byte moduleIndex, byte callIndex, byte[] parameters)
         {
             ModuleIndex = moduleIndex;
@@ -25,6 +31,11 @@ namespace SubstrateNetApi.Model.Extrinsics
             Parameters = parameters ?? new byte[0];
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Method"/> class.
+        /// </summary>
+        /// <param name="moduleIndex">Index of the module.</param>
+        /// <param name="callIndex">Index of the call.</param>
         public Method(byte moduleIndex, byte callIndex)
         {
             ModuleIndex = moduleIndex;
@@ -32,6 +43,12 @@ namespace SubstrateNetApi.Model.Extrinsics
             Parameters = new byte[0];
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Method"/> class.
+        /// </summary>
+        /// <param name="module">The module.</param>
+        /// <param name="call">The call.</param>
+        /// <param name="parameters">The parameters.</param>
         public Method(Module module, Call call, byte[] parameters)
         {
             ModuleName = module.Name;
@@ -41,6 +58,10 @@ namespace SubstrateNetApi.Model.Extrinsics
             Parameters = parameters;
         }
 
+        /// <summary>
+        /// Encodes this instance.
+        /// </summary>
+        /// <returns></returns>
         public byte[] Encode()
         {
             var result = new List<byte>();
