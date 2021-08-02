@@ -52,69 +52,13 @@ namespace SubstrateNetApi
 
                 // xxhash128("ModuleName") + xxhash128("StorageName") + blake256hash("StorageItemKey")
                 case Storage.Type.Map:
-                    switch (item.Function.Hasher)
-                    {
-                        case Storage.Hasher.Identity:
-                            key1Hashed = key1ParamBytes; break;
-
-                        case Storage.Hasher.BlakeTwo128:
-                        case Storage.Hasher.BlakeTwo256:
-                        case Storage.Hasher.BlakeTwo128Concat:
-                            key1Hashed = HashExtension.Blake2Concat(key1ParamBytes); break;
-
-                        case Storage.Hasher.Twox128:
-                        case Storage.Hasher.Twox256:
-                        case Storage.Hasher.Twox64Concat:
-                            throw new NotSupportedException();
-
-                        case Storage.Hasher.None:
-                        default:
-                            throw new NotSupportedException();
-                    }
+                    key1Hashed = HashExtension.Hash(item.Function.Hasher, key1ParamBytes);
                     return Utils.Bytes2HexString(keybytes.Concat(key1Hashed).ToArray());
 
                 // xxhash128("ModuleName") + xxhash128("StorageName") + blake256hash("FirstKey") + blake256hash("SecondKey")
                 case Storage.Type.DoubleMap:
-
-                    switch (item.Function.Hasher)
-                    {
-                        case Storage.Hasher.Identity:
-                            key1Hashed = key1ParamBytes; break;
-
-                        case Storage.Hasher.BlakeTwo128:
-                        case Storage.Hasher.BlakeTwo256:
-                        case Storage.Hasher.BlakeTwo128Concat:
-                            key1Hashed = HashExtension.Blake2Concat(key1ParamBytes); break;
-
-                        case Storage.Hasher.Twox128:
-                        case Storage.Hasher.Twox256:
-                        case Storage.Hasher.Twox64Concat:
-                            throw new NotSupportedException();
-
-                        case Storage.Hasher.None:
-                        default:
-                            throw new NotSupportedException();
-                    }
-
-                    switch (item.Function.Key2Hasher)
-                    {
-                        case Storage.Hasher.Identity:
-                            key2Hashed = key2ParamBytes; break;
-
-                        case Storage.Hasher.BlakeTwo128:
-                        case Storage.Hasher.BlakeTwo256:
-                        case Storage.Hasher.BlakeTwo128Concat:
-                            key2Hashed = HashExtension.Blake2Concat(key2ParamBytes); break;
-
-                        case Storage.Hasher.Twox128:
-                        case Storage.Hasher.Twox256:
-                        case Storage.Hasher.Twox64Concat:
-                            throw new NotSupportedException();
-
-                        case Storage.Hasher.None:
-                        default:
-                            throw new NotSupportedException();
-                    }
+                    key1Hashed = HashExtension.Hash(item.Function.Hasher, key1ParamBytes);
+                    key2Hashed = HashExtension.Hash(item.Function.Key2Hasher, key2ParamBytes);
                     return Utils.Bytes2HexString(keybytes.Concat(key1Hashed).Concat(key2Hashed).ToArray());
 
                 default:
@@ -170,7 +114,7 @@ namespace SubstrateNetApi
         {
             var mBytes = Encoding.ASCII.GetBytes(module);
             var iBytes = Encoding.ASCII.GetBytes(item);
-            return HashExtension.XxHash128(mBytes).Concat(HashExtension.XxHash128(iBytes)).ToArray();
+            return HashExtension.Twox128(mBytes).Concat(HashExtension.Twox128(iBytes)).ToArray();
         }
 
         /// <summary>
