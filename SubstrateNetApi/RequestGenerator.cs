@@ -114,7 +114,7 @@ namespace SubstrateNetApi
         {
             var mBytes = Encoding.ASCII.GetBytes(module);
             var iBytes = Encoding.ASCII.GetBytes(item);
-            return HashExtension.XxHash128(mBytes).Concat(HashExtension.XxHash128(iBytes)).ToArray();
+            return HashExtension.Twox128(mBytes).Concat(HashExtension.Twox128(iBytes)).ToArray();
         }
 
         /// <summary>

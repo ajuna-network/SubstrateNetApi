@@ -40,18 +40,6 @@ namespace SubstrateNetApi
             }
         }
 
-        /// <summary>Xxes the hash128.</summary>
-        /// <param name="bytes">The bytes.</param>
-        /// <returns>
-        ///   Hash<br />
-        /// </returns>
-        /// TODO: This is redundant to Twox128, need remove!
-        public static byte[] XxHash128(byte[] bytes)
-        {
-            return BitConverter.GetBytes(XXHash.XXH64(bytes, 0)).Concat(BitConverter.GetBytes(XXHash.XXH64(bytes, 1)))
-                .ToArray();
-        }
-
         /// <summary>Blake2 hashed the specified bytes.</summary>
         /// <param name="bytes">The bytes.</param>
         /// <param name="size">The size.</param>
