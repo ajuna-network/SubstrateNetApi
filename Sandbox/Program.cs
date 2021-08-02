@@ -112,7 +112,7 @@ namespace Sandbox
 
         }
 
-        private static async Task StorageRuntimeVersion(string[] args)
+        private static async Task StorageRuntimeVersionAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(Websocketurl));
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
@@ -176,7 +176,7 @@ namespace Sandbox
             Console.WriteLine($"Key: {keys}");
         }
 
-        private static async Task GetAllMogwaiHashs(string[] args)
+        private static async Task GetAllMogwaiHashsAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(Websocketurl));
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
@@ -192,7 +192,7 @@ namespace Sandbox
             }
         }
 
-        private static async Task GetAllMogwaiStructs(string[] args)
+        private static async Task GetAllMogwaiStructsAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(Websocketurl));
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
@@ -212,7 +212,7 @@ namespace Sandbox
             
         }
 
-        private static async Task GetAllOwnedMogwais(string[] args)
+        private static async Task GetAllOwnedMogwaisAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(Websocketurl));
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
@@ -395,7 +395,7 @@ namespace Sandbox
 
         }
 
-        private static async Task EventDecode(string[] args)
+        private static async Task EventDecodeAsync(string[] args)
         {
             using var client = new SubstrateClient(new Uri(Websocketurl));
             client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
