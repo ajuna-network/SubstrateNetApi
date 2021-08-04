@@ -179,15 +179,6 @@ namespace SubstrateNetApiTests
         }
 
         [Test]
-        public void PBKDF2Sha512GetBytesFailWithInvalidDklen()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(delegate
-                {
-                    Mnemonic.PBKDF2Sha512GetBytes(-1, new byte[] { 1, 2, 3, 4, 5, }, new byte[] { }, 0);
-                });
-        }
-
-        [Test]
         public void KeyPairTest()
         {
             //sr25519, schnorrkel, without psw or ///Substrate

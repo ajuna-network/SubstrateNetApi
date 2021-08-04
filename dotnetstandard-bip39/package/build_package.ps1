@@ -1,0 +1,1 @@
+.\nuget pack .\dotnetstandard-bip39.nuspec

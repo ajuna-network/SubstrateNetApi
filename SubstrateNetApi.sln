@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWalletTest", "DemoWalle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Sandbox\Sandbox.csproj", "{06354223-9242-4D31-83ED-DA8589BFC2AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{5AD61EBF-AD5A-4FCF-8012-0899EE6EFB8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{5AD61EBF-AD5A-4FCF-8012-0899EE6EFB8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnetstandard-bip39", "dotnetstandard-bip39\dotnetstandard-bip39\dotnetstandard-bip39.csproj", "{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,14 @@ Global
 		{5AD61EBF-AD5A-4FCF-8012-0899EE6EFB8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AD61EBF-AD5A-4FCF-8012-0899EE6EFB8D}.Release|x64.ActiveCfg = Release|Any CPU
 		{5AD61EBF-AD5A-4FCF-8012-0899EE6EFB8D}.Release|x64.Build.0 = Release|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Debug|x64.Build.0 = Debug|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Release|x64.ActiveCfg = Release|Any CPU
+		{5F5AA3B9-738E-4165-8BC2-BD6760BC5F6F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
