@@ -211,8 +211,8 @@ namespace IntegrationTest
 
             var version0 = await _substrateClient.System.VersionAsync();
             var version1 = await _substrateClient.System.VersionAsync(cts.Token);
-            Assert.AreEqual("3.0.0-3a1acf0-x86_64-linux-gnu", version0);
-            Assert.AreEqual("3.0.0-3a1acf0-x86_64-linux-gnu", version1);
+            Assert.AreEqual("3.0.0", version0.Split('-')[0]);
+            Assert.AreEqual("3.0.0", version1.Split('-')[0]);
 
             var chain0 = await _substrateClient.System.ChainAsync();
             var chain1 = await _substrateClient.System.ChainAsync(cts.Token);
