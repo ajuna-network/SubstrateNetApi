@@ -4,8 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>BloGa Tech AG</Company>
-    <Authors>www.dotmog.com</Authors>
+    <Authors>Cedric Decoster</Authors>
+    <Description>A basic wallet implementation with the SubstrateNetApi.</Description>
+    <PackageProjectUrl>https://github.com/JetonNetwork/SubstrateNetApi/tree/origin/SubstrateNetWallet</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/JetonNetwork/SubstrateNetApi</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
