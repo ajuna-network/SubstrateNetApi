@@ -15,7 +15,6 @@
   <ItemGroup>
     <PackageReference Include="Blake2Core" Version="1.0.0" />
     <PackageReference Include="Chaos.NaCl.Standard" Version="1.0.0" />
-    <PackageReference Include="dotnetstandard-bip39" Version="1.0.2" />
     <PackageReference Include="Extensions.Data.xxHash.core20" Version="1.0.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.10" />
