@@ -10,19 +10,22 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        dotnet-version: ["3.1.x"]
+        
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Setup .NET Core SDK ${{matrix.dotnet-version}}
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: ${{matrix.dotnet-version}}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --configuration Release ./SubstrateNetApiTest
     - name: Publish SubstrateNetApi
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
