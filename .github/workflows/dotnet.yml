@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Release ./SubstrateNetApiTest
+      run: dotnet test --no-build --verbosity normal
     - name: Publish SubstrateNetApi
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
