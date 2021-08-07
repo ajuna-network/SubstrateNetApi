@@ -139,7 +139,6 @@ namespace SubstrateNetApi
             return new KeyPair(miniSecret.ExpandToPublic(), miniSecret.ExpandToSecret());
         }
 
-
         public static string MnemonicToEntropy(string mnemonic, BIP39Wordlist wordlistType)
         {
             var wordlist = GetWordlist(wordlistType);
@@ -177,7 +176,6 @@ namespace SubstrateNetApi
                 .Select(bytes => Convert.ToByte(bytes, 2)).ToArray();
 
             CheckValidEntropy(entropyBytes);
-
 
             var newChecksum = DeriveChecksumBits(entropyBytes);
 
@@ -266,6 +264,7 @@ namespace SubstrateNetApi
             return wordlist.GetWords();
         }
     }
+
 
     //namespace System.Security.Cryptography
     //{
