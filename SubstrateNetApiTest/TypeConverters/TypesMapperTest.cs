@@ -26,8 +26,8 @@ namespace SubstrateNetApiTests
             Assert.IsTrue(TypeUtil.TryGetType("AccountData", out type));
             Assert.AreEqual("SubstrateNetApi.Model.Types.Struct.AccountData", type.FullName);
 
-            Assert.IsTrue(TypeUtil.TryGetType("MogwaiStruct", out type));
-            Assert.AreEqual("SubstrateNetApi.Model.Types.Custom.MogwaiStruct", type.FullName);
+            Assert.IsTrue(TypeUtil.TryGetType("CustomU32", out type));
+            Assert.AreEqual("SubstrateNetApi.Model.Types.Custom.CustomU32", type.FullName);
         }
     }
 }

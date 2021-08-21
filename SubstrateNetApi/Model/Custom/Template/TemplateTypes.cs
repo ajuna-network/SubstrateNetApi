@@ -8,25 +8,9 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Custom
 {
-    public class Template
+    public class CustomU32 : U32
     {
-
+        public override string Name() => "CustomU32";
     }
-    #region BASE_TYPES
-
-    #endregion
-
-    #region ENUM_TYPES
-
-    #endregion
-
-    #region STRUCT_TYPES
-
-    #endregion
-
-    #region INHERITED_TYPES
-
-    #endregion
-
 
 }
