@@ -9,7 +9,7 @@ namespace SubstrateNetApi.Model.Types
         public abstract int Size();
 
         [JsonIgnore] 
-        public byte[] Bytes { get; internal set; }
+        public byte[] Bytes { get; set; }
 
         public abstract byte[] Encode();
 
@@ -31,7 +31,7 @@ namespace SubstrateNetApi.Model.Types
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
-        public T Value { get; internal set; }
+        public T Value { get; set; }
 
     }
 }

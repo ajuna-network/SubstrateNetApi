@@ -8,6 +8,10 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Custom
 {
+    public class Template
+    {
+
+    }
     #region BASE_TYPES
 
     #endregion

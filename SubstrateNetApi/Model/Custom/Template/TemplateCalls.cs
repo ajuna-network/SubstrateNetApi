@@ -9,7 +9,7 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Calls
 {
-    public class PolkaDotCall
+    public class TemplateCall
     {
 
     }

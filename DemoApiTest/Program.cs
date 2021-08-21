@@ -89,11 +89,11 @@ namespace DemoApiTest
             using var client = new SubstrateClient(new Uri(Websocketurl));
 
             // add chain specific types here
-            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
-            client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
-            client.RegisterTypeConverter(new GenericTypeConverter<GameEvent>());
-            client.RegisterTypeConverter(new GenericTypeConverter<EnumType<RarityType>>());
-            client.RegisterTypeConverter(new GenericTypeConverter<MogwaicoinAddress>());
+            //client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
+            //client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
+            //client.RegisterTypeConverter(new GenericTypeConverter<GameEvent>());
+            //client.RegisterTypeConverter(new GenericTypeConverter<EnumType<RarityType>>());
+            //client.RegisterTypeConverter(new GenericTypeConverter<MogwaicoinAddress>());
 
             await client.ConnectAsync(cancellationToken);
 
