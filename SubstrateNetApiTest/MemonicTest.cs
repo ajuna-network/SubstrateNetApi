@@ -1,10 +1,10 @@
 ﻿using System;
-using dotnetstandard_bip39;
 using NUnit.Framework;
 using Schnorrkel.Keys;
 using SubstrateNetApi;
 using System.Collections.Generic;
 using System.Text;
+using static SubstrateNetApi.Mnemonic;
 
 namespace SubstrateNetApiTests
 {
@@ -157,7 +157,7 @@ namespace SubstrateNetApiTests
                 var expected_entropy = vector[1];
                 var expected_seed = vector[2];
 
-                var entropy = Mnemonic.GetEntropy(mnemonic, BIP39Wordlist.English);
+                var entropy = Mnemonic.MnemonicToEntropy(mnemonic, BIP39Wordlist.English);
                 Assert.AreEqual(expected_entropy, entropy);
 
                 var seed = Mnemonic.SeedFromEntropy(Utils.HexToByteArray(entropy), "Substrate");
@@ -172,7 +172,7 @@ namespace SubstrateNetApiTests
         [Test]
         public void FailWhenMnemonicIsToShortTest()
         {
-            Assert.Throws<Exception>(delegate
+            Assert.Throws<FormatException>(delegate
                 {
                     Mnemonic.SeedFromEntropy(Utils.HexToByteArray("7f7f7f7f7f"), "Substrate");
                 });
