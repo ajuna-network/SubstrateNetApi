@@ -4,7 +4,10 @@
     {
         public enum Type
         {
-            Plain, Map, DoubleMap
+            Plain, 
+            Map, 
+            DoubleMap, 
+            NMap
         }
 
         public enum Modifier

@@ -14,7 +14,7 @@ namespace SubstrateNetApi.Model.Meta
         public string Magic { get; set; }
         public string Version { get; set; }
         public Module[] Modules { get; set; }
-        public string[] ExtrinsicExtensions { get; set; }
+        public ExtrinsicExtension Extrinsic { get; set; }
 
         public bool TryGetModuleByName(string name, out Module result)
         {
