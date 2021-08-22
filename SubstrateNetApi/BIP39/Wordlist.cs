@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace SubstrateNetApi
+namespace SubstrateNetApi.BIP39
 {
     public abstract class Wordlist
     {

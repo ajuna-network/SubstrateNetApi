@@ -172,7 +172,7 @@ namespace SubstrateNetApiTests
         [Test]
         public void FailWhenMnemonicIsToShortTest()
         {
-            Assert.Throws<Exception>(delegate
+            Assert.Throws<FormatException>(delegate
                 {
                     Mnemonic.SeedFromEntropy(Utils.HexToByteArray("7f7f7f7f7f"), "Substrate");
                 });

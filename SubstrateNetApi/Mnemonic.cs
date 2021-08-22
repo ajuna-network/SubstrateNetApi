@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using SubstrateNetApi.BIP39;
 
 namespace SubstrateNetApi
 {
@@ -13,14 +14,16 @@ namespace SubstrateNetApi
     {
         public enum BIP39Wordlist
         {
-            ChineseSimplified,
-            ChineseTraditional,
             English,
-            French,
-            Italian,
             Japanese,
             Korean,
-            Spanish
+            Spanish,
+            ChineseSimplified,
+            ChineseTraditional,
+            French,
+            Italian,
+            Czech,
+            Portuguese
         }
 
         /// <summary>
@@ -102,10 +105,8 @@ namespace SubstrateNetApi
         /// <returns></returns>
         public static byte[] SeedFromEntropy(byte[] entropyBytes, string password)
         {
-            if (entropyBytes.Length < 16 || entropyBytes.Length > 32 || entropyBytes.Length % 4 != 0)
-            {
-                throw new Exception($"InvalidEntropy, length not allowed '{entropyBytes.Length}'");
-            }
+            CheckValidEntropy(entropyBytes);
+
             var saltBytes = Encoding.UTF8.GetBytes("mnemonic" + password);
             return PBKDF2Sha512GetBytes(64, entropyBytes, saltBytes, 2048);
         }
@@ -142,24 +143,21 @@ namespace SubstrateNetApi
         public static string MnemonicToEntropy(string mnemonic, BIP39Wordlist wordlistType)
         {
             var wordlist = GetWordlist(wordlistType);
-            var words = mnemonic.Normalize(NormalizationForm.FormKD).Split(new[] { ' ' },
-                StringSplitOptions.RemoveEmptyEntries);
+            var words = mnemonic.Normalize(NormalizationForm.FormKD).Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (words.Length % 3 != 0)
             {
                 throw new FormatException("InvalidMnemonic");
             }
 
-            var bits = string.Join("", words.Select(word =>
+            var bits = String.Empty;
+            foreach (var word in words.ToList())
             {
-                var index = Array.IndexOf(wordlist, word);
-                if (index == -1)
-                {
+                if (!wordlist.WordExists(word, out int index)) {
                     throw new FormatException("InvalidMnemonic");
                 }
-
-                return LPad(Convert.ToString(index, 2), "0", 11);
-            }));
+                bits += Convert.ToString(index, 2).PadLeft(11, '0');
+            } 
 
             // split the binary string into ENT/CS
             var dividerIndex = (int)Math.Floor((double)bits.Length / 33) * 32;
@@ -209,59 +207,37 @@ namespace SubstrateNetApi
 
             var sha256Provider = new SHA256CryptoServiceProvider();
             var hash = sha256Provider.ComputeHash(checksum);
-            string result = BytesToBinary(hash);
+            string result = string.Join(null, hash.Select(h => Convert.ToString(h, 2).PadLeft(8, '0')));
             return result.Substring(0, cs);
         }
 
-        private static string BytesToBinary(byte[] hash)
+        private static Wordlist GetWordlist(BIP39Wordlist language)
         {
-            return string.Join("", hash.Select(h => LPad(Convert.ToString(h, 2), "0", 8)));
-        }
-
-        private static string LPad(string str, string padString, int length)
-        {
-            while (str.Length < length)
-            {
-                str = padString + str;
-            }
-
-            return str;
-        }
-
-        private static string[] GetWordlist(BIP39Wordlist language)
-        {
-            Wordlist wordlist;
             switch (language)
             {
                 case BIP39Wordlist.ChineseSimplified:
-                    wordlist = new ChineseSimplified();
-                    break;
+                    return new ChineseSimplified();
                 case BIP39Wordlist.ChineseTraditional:
-                    wordlist = new ChineseTraditional();
-                    break;
+                    return new ChineseTraditional();
                 case BIP39Wordlist.English:
-                    wordlist = new English();
-                    break;
+                    return new English();
                 case BIP39Wordlist.French:
-                    wordlist = new French();
-                    break;
-                //case BIP39Wordlist.Italian:
-                //    wordlist = new Italian();
-                //    break;
+                    return new French();
+                case BIP39Wordlist.Italian:
+                    return new Italian();
                 case BIP39Wordlist.Japanese:
-                    wordlist = new Japanese();
-                    break;
-                //case BIP39Wordlist.Korean:
-                //    wordlist = new Korean();
-                //    break;
+                    return new Japanese();
+                case BIP39Wordlist.Korean:
+                    return new Korean();
                 case BIP39Wordlist.Spanish:
-                    wordlist = new Spanish();
-                    break;
+                    return new Spanish();
+                case BIP39Wordlist.Czech:
+                    return new Czech();
+                case BIP39Wordlist.Portuguese:
+                    return new Portuguese();
                 default:
                     throw new Exception($"Unknown {language} in BIP39 implementation!");
             }
-
-            return wordlist.GetWords();
         }
     }
 
