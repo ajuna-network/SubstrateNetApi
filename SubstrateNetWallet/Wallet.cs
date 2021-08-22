@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Chaos.NaCl;
-using dotnetstandard_bip39;
 using NLog;
 using Schnorrkel;
 using Schnorrkel.Keys;
@@ -19,6 +18,7 @@ using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
+using static SubstrateNetApi.Mnemonic;
 
 [assembly: InternalsVisibleTo("SubstrateNetWalletTests")]
 
