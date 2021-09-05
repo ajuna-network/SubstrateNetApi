@@ -383,7 +383,8 @@ namespace SubstrateNetApi
         //    if (key.StartsWith("("))
         //    {
         //        var keysDelimited = key.Replace("(", "").Replace(")", "");
-        //        var keys = keysDelimited.Split(',');
+        //        var keys = keysDelimited.
+        //        (',');
         //        if (keys.Length != parameter.Length)
         //            throw new MissingParameterException(
         //                $"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");
