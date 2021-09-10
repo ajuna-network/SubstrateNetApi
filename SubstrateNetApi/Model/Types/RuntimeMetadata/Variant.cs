@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            VariantName = new Vec<BaseChar>();
+            VariantName = new BaseString();
             VariantName.Decode(byteArray, ref p);
 
             VariantFields = new Vec<Field>();
@@ -29,15 +29,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Index = new U8();
             Index.Decode(byteArray, ref p);
 
-            Docs = new Vec<Vec<BaseChar>>();
+            Docs = new Vec<BaseString>();
             Docs.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public Vec<BaseChar> VariantName { get; private set; }
+        public BaseString VariantName { get; private set; }
         public Vec<Field> VariantFields { get; private set; }
         public U8 Index { get; private set; }
-        public Vec<Vec<BaseChar>> Docs { get; private set; }
+        public Vec<BaseString> Docs { get; private set; }
     }
 
 }

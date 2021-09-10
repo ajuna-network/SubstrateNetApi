@@ -89,7 +89,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            PalletName = new Vec<BaseChar>();
+            PalletName = new BaseString();
             PalletName.Decode(byteArray, ref p);
 
             PalletStorage = new Option<StorageMetadata>();
@@ -112,7 +112,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
             _size = p - start;
         }
-        public Vec<BaseChar> PalletName { get; private set; }
+        public BaseString PalletName { get; private set; }
         public Option<StorageMetadata> PalletStorage { get; private set; }
         public Option<PalletCallMetadata> PalletCalls { get; private set; }
         public Option<PalletEventMetadata> PalletEvent { get; private set; }
@@ -137,7 +137,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            Prefix = new Vec<BaseChar>();
+            Prefix = new BaseString();
             Prefix.Decode(byteArray, ref p);
 
             Entries = new Vec<StorageEntryMetadata>();
@@ -145,7 +145,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
             _size = p - start;
         }
-        public Vec<BaseChar> Prefix { get; private set; }
+        public BaseString Prefix { get; private set; }
         public Vec<StorageEntryMetadata> Entries { get; private set; }
     }
 
@@ -165,7 +165,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            StorageName = new Vec<BaseChar>();
+            StorageName = new BaseString();
             StorageName.Decode(byteArray, ref p);
 
             StorageModifier = new EnumType<Modifier>();
@@ -177,16 +177,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             StorageDefault = new ByteGetter();
             StorageDefault.Decode(byteArray, ref p);
 
-            Documentation = new Vec<Vec<BaseChar>>();
+            Documentation = new Vec<BaseString>();
             Documentation.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public Vec<BaseChar> StorageName { get; private set; }
+        public BaseString StorageName { get; private set; }
         public EnumType<Modifier> StorageModifier { get; private set; }
         public ExtEnumType<Storage.Type, TType, StorageEntryTypeMap, NullType, NullType, NullType, NullType, NullType, NullType, NullType> StorageType { get; private set; }
         public ByteGetter StorageDefault { get; private set; }
-        public Vec<Vec<BaseChar>> Documentation { get; private set; }
+        public Vec<BaseString> Documentation { get; private set; }
     }
 
     public class ByteGetter : Vec<U8>
@@ -382,7 +382,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            ConstantName = new Vec<BaseChar>();
+            ConstantName = new BaseString();
             ConstantName.Decode(byteArray, ref p);
 
             ConstantType = new TType();
@@ -391,15 +391,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             ConstantValue = new ByteGetter();
             ConstantValue.Decode(byteArray, ref p);
 
-            Documentation = new Vec<Vec<BaseChar>>();
+            Documentation = new Vec<BaseString>();
             Documentation.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public Vec<BaseChar> ConstantName { get; private set; }
+        public BaseString ConstantName { get; private set; }
         public TType ConstantType { get; private set; }
         public ByteGetter ConstantValue { get; private set; }
-        public Vec<Vec<BaseChar>> Documentation { get; private set; }
+        public Vec<BaseString> Documentation { get; private set; }
     }
 
     public class ErrorMetadata : StructType
@@ -475,7 +475,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            SignedIdentifier = new Vec<BaseChar>();
+            SignedIdentifier = new BaseString();
             SignedIdentifier.Decode(byteArray, ref p);
 
             SignedExtType = new TType();
@@ -486,7 +486,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
             _size = p - start;
         }
-        public Vec<BaseChar> SignedIdentifier { get; private set; }
+        public BaseString SignedIdentifier { get; private set; }
         public TType SignedExtType { get; private set; }
         public TType AddSignedExtType { get; private set; }
     }

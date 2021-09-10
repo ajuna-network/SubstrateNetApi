@@ -20,24 +20,24 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            FieldName = new Option<Vec<BaseChar>>();
+            FieldName = new Option<BaseString>();
             FieldName.Decode(byteArray, ref p);
 
             FieldTy = new TType();
             FieldTy.Decode(byteArray, ref p);
 
-            FieldTypeName = new Option<Vec<BaseChar>>();
+            FieldTypeName = new Option<BaseString>();
             FieldTypeName.Decode(byteArray, ref p);
 
-            Docs = new Vec<Vec<BaseChar>>();
+            Docs = new Vec<BaseString>();
             Docs.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public Option<Vec<BaseChar>> FieldName { get; private set; }
+        public Option<BaseString> FieldName { get; private set; }
         public TType FieldTy { get; private set; }
-        public Option<Vec<BaseChar>> FieldTypeName { get; private set; }
-        public Vec<Vec<BaseChar>> Docs { get; private set; }
+        public Option<BaseString> FieldTypeName { get; private set; }
+        public Vec<BaseString> Docs { get; private set; }
     }
 
 }

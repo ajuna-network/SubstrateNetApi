@@ -24,8 +24,6 @@ namespace SubstrateNetApi.Model.Types.Struct
             MetaDataInfo = new MetaDataInfo();
             MetaDataInfo.Decode(byteArray, ref p);
 
-            string str = Encoding.Default.GetString(byteArray.AsMemory().Slice(p).ToArray());
-
             RuntimeMetadataData = new RuntimeMetadataV14();
             RuntimeMetadataData.Decode(byteArray, ref p);
 
