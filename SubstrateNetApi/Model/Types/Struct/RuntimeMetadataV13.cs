@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Struct;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using static SubstrateNetApi.Model.Meta.Storage;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Metadata.V13
 {
     public class RuntimeMetadataV13 : StructType
     {

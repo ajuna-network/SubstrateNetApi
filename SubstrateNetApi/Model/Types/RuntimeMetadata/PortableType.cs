@@ -1,7 +1,7 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
 using System;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
     public class PortableType : StructType
     {

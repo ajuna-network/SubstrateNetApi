@@ -1,11 +1,12 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Struct;
 using System;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
     public class Field : StructType
     {
-        public override string Name() => "Type<T: Form = MetaForm>";
+        public override string Name() => "Field<T: Form = MetaForm>";
 
         private int _size;
         public override int Size() => _size;
@@ -19,24 +20,24 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            TypeDefFieldName = new Option<Vec<BaseChar>>();
-            TypeDefFieldName.Decode(byteArray, ref p);
+            FieldName = new Option<Vec<BaseChar>>();
+            FieldName.Decode(byteArray, ref p);
 
-            TypeDefFieldType = new TypePortableForm();
-            TypeDefFieldType.Decode(byteArray, ref p);
+            FieldTy = new TType();
+            FieldTy.Decode(byteArray, ref p);
 
-            TypeDefFieldTypeName = new Option<Vec<BaseChar>>();
-            TypeDefFieldTypeName.Decode(byteArray, ref p);
+            FieldTypeName = new Option<Vec<BaseChar>>();
+            FieldTypeName.Decode(byteArray, ref p);
 
-            Docs = new Vec<BaseChar>();
+            Docs = new Vec<Vec<BaseChar>>();
             Docs.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public Option<Vec<BaseChar>> TypeDefFieldName { get; private set; }
-        public TypePortableForm TypeDefFieldType { get; private set; }
-        public Option<Vec<BaseChar>> TypeDefFieldTypeName { get; private set; }
-        public Vec<BaseChar> Docs { get; private set; }
+        public Option<Vec<BaseChar>> FieldName { get; private set; }
+        public TType FieldTy { get; private set; }
+        public Option<Vec<BaseChar>> FieldTypeName { get; private set; }
+        public Vec<Vec<BaseChar>> Docs { get; private set; }
     }
 
 }

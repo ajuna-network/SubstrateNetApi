@@ -1,8 +1,55 @@
-﻿using SubstrateNetApi.Model.Types.Base;
+﻿using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Struct;
 using System;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
+    public class CompactIntegerType : IType
+    {
+        public virtual string Name() => "CompactInteger";
+
+        public int Size() => 0;
+
+        public void Create(string str)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(byte[] byteArray)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateFromJson(string str)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Decode(byte[] byteArray, ref int p)
+        {
+            Value = CompactInteger.Decode(byteArray, ref p);
+        }
+
+        public byte[] Encode()
+        {
+            return Value.Encode();
+        }
+
+        public override string ToString() => JsonConvert.SerializeObject(Value);
+
+        public IType New() => this;
+
+        public CompactInteger Value { get; set; }
+
+    }
+
+    public class TType : CompactIntegerType
+    {
+        public override string Name() => "T::Type";
+
+    }
+
     public enum TypeDefEnum
     {
         /// A composite type (e.g. a struct or a tuple)
@@ -88,12 +135,12 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            TypeParam = new TypePortableForm();
+            TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public TypePortableForm TypeParam { get; private set; }
+        public TType TypeParam { get; private set; }
     }
 
     public class TypeDefArray : StructType
@@ -115,13 +162,13 @@ namespace SubstrateNetApi.Model.Types.Struct
             Len = new U32();
             Len.Decode(byteArray, ref p);
 
-            TypeParam = new TypePortableForm();
-            TypeParam.Decode(byteArray, ref p);
+            TypeParam = new U64();
+            TypeParam.Create(CompactInteger.Decode(byteArray, ref p));
 
             _size = p - start;
         }
         public U32 Len { get; private set; }
-        public TypePortableForm TypeParam { get; private set; }
+        public U64 TypeParam { get; private set; }
     }
 
     public class TypeDefTuple : StructType
@@ -140,12 +187,12 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            Fields = new Vec<Field>();
+            Fields = new Vec<TType>();
             Fields.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public Vec<Field> Fields { get; private set; }
+        public Vec<TType> Fields { get; private set; }
     }
 
     public enum TypeDefPrimitive
@@ -198,12 +245,12 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            TypeParam = new TypePortableForm();
+            TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public TypePortableForm TypeParam { get; private set; }
+        public TType TypeParam { get; private set; }
     }
 
     public class TypeDefBitSequence : StructType

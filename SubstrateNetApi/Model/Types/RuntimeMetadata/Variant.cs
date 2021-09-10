@@ -1,7 +1,8 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Struct;
 using System;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
     public class Variant : StructType
     {
@@ -28,7 +29,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Index = new U8();
             Index.Decode(byteArray, ref p);
 
-            Docs = new Vec<BaseChar>();
+            Docs = new Vec<Vec<BaseChar>>();
             Docs.Decode(byteArray, ref p);
 
             _size = p - start;
@@ -36,7 +37,7 @@ namespace SubstrateNetApi.Model.Types.Struct
         public Vec<BaseChar> VariantName { get; private set; }
         public Vec<Field> VariantFields { get; private set; }
         public U8 Index { get; private set; }
-        public Vec<BaseChar> Docs { get; private set; }
+        public Vec<Vec<BaseChar>> Docs { get; private set; }
     }
 
 }

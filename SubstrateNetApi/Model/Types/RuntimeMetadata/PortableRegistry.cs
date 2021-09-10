@@ -1,4 +1,6 @@
-﻿namespace SubstrateNetApi.Model.Types.Struct
+﻿using SubstrateNetApi.Model.Types.Struct;
+
+namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
     public class PortableRegistry : Vec<PortableType>
     {

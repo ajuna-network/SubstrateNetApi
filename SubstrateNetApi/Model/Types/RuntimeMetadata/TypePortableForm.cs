@@ -1,7 +1,8 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Struct;
 using System;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
     public class TypePortableForm : StructType
     {
@@ -28,7 +29,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             TypeDef = new ExtEnumType<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, EnumType<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType>();
             TypeDef.Decode(byteArray, ref p);
 
-            Docs = new Vec<BaseChar>();
+            Docs = new Vec<Vec<BaseChar>>();
             Docs.Decode(byteArray, ref p);
 
             _size = p - start;
@@ -36,7 +37,7 @@ namespace SubstrateNetApi.Model.Types.Struct
         public Path Path { get; private set; }
         public Vec<TypeParameter> TypeParams { get; private set; }
         public ExtEnumType<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, EnumType<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType> TypeDef { get; private set; }
-        public Vec<BaseChar> Docs { get; private set; }
+        public Vec<Vec<BaseChar>> Docs { get; private set; }
     }
 
     public class Path : Vec<Vec<BaseChar>>
@@ -63,13 +64,13 @@ namespace SubstrateNetApi.Model.Types.Struct
             TypeParameterName = new Vec<BaseChar>();
             TypeParameterName.Decode(byteArray, ref p);
 
-            TypeParameterType = new Option<TypePortableForm>();
+            TypeParameterType = new Option<TType>();
             TypeParameterType.Decode(byteArray, ref p);
 
             _size = p - start;
         }
         public Vec<BaseChar> TypeParameterName { get; private set; }
-        public Option<TypePortableForm> TypeParameterType { get; private set; }
+        public Option<TType> TypeParameterType { get; private set; }
     }
 
 }
