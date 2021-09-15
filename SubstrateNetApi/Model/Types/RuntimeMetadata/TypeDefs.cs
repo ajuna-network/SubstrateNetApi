@@ -162,13 +162,13 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Len = new U32();
             Len.Decode(byteArray, ref p);
 
-            TypeParam = new U64();
-            TypeParam.Create(CompactInteger.Decode(byteArray, ref p));
+            TypeParam = new TType();
+            TypeParam.Decode(byteArray, ref p);
 
             _size = p - start;
         }
         public U32 Len { get; private set; }
-        public U64 TypeParam { get; private set; }
+        public TType TypeParam { get; private set; }
     }
 
     public class TypeDefTuple : StructType
@@ -269,15 +269,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            BitStoreType = new TypePortableForm();
+            BitStoreType = new TType();
             BitStoreType.Decode(byteArray, ref p);
 
-            BitOrderType = new TypePortableForm();
+            BitOrderType = new TType();
             BitOrderType.Decode(byteArray, ref p);
 
             _size = p - start;
         }
-        public TypePortableForm BitStoreType { get; private set; }
-        public TypePortableForm BitOrderType { get; private set; }
+        public TType BitStoreType { get; private set; }
+        public TType BitOrderType { get; private set; }
     }
 }
