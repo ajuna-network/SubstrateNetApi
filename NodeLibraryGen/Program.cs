@@ -30,11 +30,42 @@ namespace NodeLibraryGen
 
             //Console.WriteLine(mdv14);
 
-            var nodeTypes = new Dictionary<uint, NodeType>();
+            var nodeTypes = CreateNodeTypeDict(mdv14.RuntimeMetadataData.Types.Value);
 
-            foreach (var type in mdv14.RuntimeMetadataData.Types.Value)
+            var jsonFile = JsonConvert.SerializeObject(nodeTypes, Formatting.Indented);
+            File.WriteAllText("metadata.json", jsonFile);
+
+
+            for(uint i = 0; i < 3; i++) // nodeTypes.Keys.Max(); i++)
             {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType))
+                {
+                    continue;
+                }
 
+                if (nodeType is NodeTypePrimitive)
+                {
+                    var nodeTypePrimitive = nodeType as NodeTypePrimitive;
+                    var generatedCode = BaseGeneratorBuilder
+                        .Init(nodeTypePrimitive)
+                        .Build();
+
+                    Console.WriteLine(generatedCode);
+
+                }
+
+
+                
+
+            }
+        }
+
+        public static Dictionary<uint, NodeType> CreateNodeTypeDict(List<PortableType> types)
+        {
+            var result = new Dictionary<uint, NodeType>();
+
+            foreach (var type in types)
+            {
                 var path = type.Ty.Path.Value.Count == 0 ? null : type.Ty.Path.Value.Select(p => p.Value).ToArray();
                 var typeParams = type.Ty.TypeParams.Value.Count == 0 ? null : type.Ty.TypeParams.Value.Select(p =>
                 {
@@ -192,14 +223,15 @@ namespace NodeLibraryGen
 
                 if (nodeType != null)
                 {
-                    nodeTypes.Add(nodeType.Id, nodeType);
+                    result.Add(nodeType.Id, nodeType);
                 }
             }
 
-            var jsonFile = JsonConvert.SerializeObject(nodeTypes, Formatting.Indented);
+            return result;
+        }
 
-            File.WriteAllText("metadata.json", jsonFile);
-
+        public void Print()
+        {
             //foreach(var type in mdv14.RuntimeMetadataData.Types.Value)
             //{
             //    //var value = type.Ty.Path.Value;
@@ -254,7 +286,7 @@ namespace NodeLibraryGen
             //            break;
             //    }
             //}
-
         }
+
     }
 }
