@@ -2,11 +2,12 @@
 
 namespace SubstrateNetApi.Model.Types
 {
-    public abstract class StructType : IType
+    public abstract class StructBase : IType
     {
-        public abstract string Name();
+        public abstract string TypeName();
 
-        public abstract int Size();
+        internal int _typeSize;
+        public int TypeSize() => _typeSize;
 
         [JsonIgnore] 
         public byte[] Bytes { get; internal set; }

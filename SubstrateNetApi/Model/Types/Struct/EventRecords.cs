@@ -4,12 +4,9 @@ using SubstrateNetApi.Model.Meta;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class EventRecords : StructType
+    public class EventRecords : StructBase
     {
-        public override string Name() => $"Vec<EventRecord<T::Event, T::Hash>>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => $"Vec<EventRecord<T::Event, T::Hash>>";
 
         private MetaData _metaData;
 
@@ -49,7 +46,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Bytes = byteArray;
             Value = list;
 
-            _size = p - start;
+            _typeSize = p - start;
         }
 
         public List<EventRecord> Value { get; internal set; }

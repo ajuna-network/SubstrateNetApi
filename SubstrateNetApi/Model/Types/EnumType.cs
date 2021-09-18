@@ -6,9 +6,9 @@ namespace SubstrateNetApi.Model.Types
 {
     public class EnumType<T> : IType where T : System.Enum
     {
-        public string Name() => typeof(T).Name;
+        public string TypeName() => typeof(T).Name;
 
-        public int Size() => 1;
+        public int TypeSize() => 1;
 
         [JsonIgnore] 
         public byte[] Bytes { get; internal set; }
@@ -21,8 +21,8 @@ namespace SubstrateNetApi.Model.Types
         public void Decode(byte[] byteArray, ref int p)
         {
             var memory = byteArray.AsMemory();
-            var result = memory.Span.Slice(p, Size()).ToArray();
-            p += Size();
+            var result = memory.Span.Slice(p, TypeSize()).ToArray();
+            p += TypeSize();
             Create(result);
         }
 

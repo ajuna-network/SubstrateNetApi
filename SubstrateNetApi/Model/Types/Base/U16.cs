@@ -4,9 +4,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class U16 : BaseType<ushort>
     {
-        public override string Name() => "u16";
+        public override string TypeName() => "u16";
 
-        public override int Size() => 2;
+        public override int TypeSize() => 2;
 
         public override byte[] Encode()
         {
@@ -19,16 +19,16 @@ namespace SubstrateNetApi.Model.Types.Base
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            var result = new byte[Size()];
+            var result = new byte[TypeSize()];
             bytes.CopyTo(result, 0);
             Create(result);
         }
 
         public override void Create(byte[] byteArray)
         {
-            if (byteArray.Length < Size())
+            if (byteArray.Length < TypeSize())
             {
-                var newByteArray = new byte[Size()];
+                var newByteArray = new byte[TypeSize()];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
             }

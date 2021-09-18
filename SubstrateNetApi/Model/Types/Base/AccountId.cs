@@ -6,10 +6,10 @@ namespace SubstrateNetApi.Model.Types.Base
     public class AccountId : BaseType<string>
     {
         // TODO: <T::Lookup as StaticLookup>::Source -- RawAccountId is unprefixed Address
-        public override string Name() => "T::AccountId";
+        public override string TypeName() => "T::AccountId";
 
         // TODO: might have to change this based on the address type.
-        public override int Size() => 32;
+        public override int TypeSize() => 32;
 
         public override byte[] Encode()
         {

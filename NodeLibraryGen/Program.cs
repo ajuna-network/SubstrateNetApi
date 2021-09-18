@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi;
+using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Metadata.V14;
+using SubstrateNetApi.Model.Types.TypeDefPrimitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.Modules;
 using System;
@@ -32,32 +34,347 @@ namespace NodeLibraryGen
 
             var nodeTypes = CreateNodeTypeDict(mdv14.RuntimeMetadataData.Types.Value);
 
-            var jsonFile = JsonConvert.SerializeObject(nodeTypes, Formatting.Indented);
-            File.WriteAllText("metadata.json", jsonFile);
+            var typeDict = CreateMapping(nodeTypes);
 
+            Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
 
-            for(uint i = 0; i < 3; i++) // nodeTypes.Keys.Max(); i++)
+            Console.WriteLine($"{((double)typeDict.Count/ nodeTypes.Count).ToString("P")}");
+
+            //WriteJsonFile("metadata.json", nodeTypes);
+            //GenerateCode(nodeTypes);
+
+        }
+
+        private static Dictionary<uint, string> CreateMapping(Dictionary<uint, NodeType> nodeTypes)
+        {
+            var typeDict = new Dictionary<uint, string>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                CallPrimitive(nodeTypes, ref typeDict);
+                CallArray(nodeTypes, ref typeDict);
+                CallTuple(nodeTypes, ref typeDict);
+                CallSequence(nodeTypes, ref typeDict);
+                CallCompact(nodeTypes, ref typeDict);
+                CallComposite(nodeTypes, ref typeDict);
+            //    CallVariant(nodeTypes, ref typeDict);
+            }
+
+            return typeDict;
+        }
+
+        private static void CallPrimitive(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.Primitive)
+                {
+                    var typeDef = nodeType as NodeTypePrimitive;
+                    switch (typeDef.Primitive)
+                    {
+                        case TypeDefPrimitive.Bool:
+                            typeDict.Add(i, typeof(PrimBool).Name);
+                            break;
+                        case TypeDefPrimitive.Char:
+                            typeDict.Add(i, typeof(PrimChar).Name);
+                            break;
+                        case TypeDefPrimitive.Str:
+                            typeDict.Add(i, typeof(PrimStr).Name);
+                            break;
+                        case TypeDefPrimitive.U8:
+                            typeDict.Add(i, typeof(PrimU8).Name);
+                            break;
+                        case TypeDefPrimitive.U16:
+                            typeDict.Add(i, typeof(PrimU16).Name);
+                            break;
+                        case TypeDefPrimitive.U32:
+                            typeDict.Add(i, typeof(PrimU32).Name);
+                            break;
+                        case TypeDefPrimitive.U64:
+                            typeDict.Add(i, typeof(PrimU64).Name);
+                            break;
+                        case TypeDefPrimitive.U128:
+                            typeDict.Add(i, typeof(PrimU128).Name);
+                            break;
+                        case TypeDefPrimitive.U256:
+                            typeDict.Add(i, typeof(PrimU256).Name);
+                            break;
+                        case TypeDefPrimitive.I8:
+                            typeDict.Add(i, typeof(PrimI8).Name);
+                            break;
+                        case TypeDefPrimitive.I16:
+                            typeDict.Add(i, typeof(PrimI16).Name);
+                            break;
+                        case TypeDefPrimitive.I32:
+                            typeDict.Add(i, typeof(PrimI32).Name);
+                            break;
+                        case TypeDefPrimitive.I64:
+                            typeDict.Add(i, typeof(PrimI64).Name);
+                            break;
+                        case TypeDefPrimitive.I128:
+                            typeDict.Add(i, typeof(PrimI128).Name);
+                            break;
+                        case TypeDefPrimitive.I256:
+                            typeDict.Add(i, typeof(PrimI128).Name);
+                            break;
+                        default:
+                            throw new NotImplementedException($"Please implement {typeDef.Primitive}, in SubstrateNetApi.");
+                    }
+                }
+            }
+        }
+
+        private static void CallArray(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.Array)
+                {
+                    var typeDef = nodeType as NodeTypeArray;
+
+                    if (typeDict.TryGetValue(typeDef.TypeId, out string baseType))
+                    {
+                        if (nodeType.Path != null && nodeType.Path.Length > 0)
+                        {
+                            Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
+                        }
+
+                        if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
+                        {
+                            Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
+                        }
+
+                        var typeName = ArrayGenBuilder.Create(baseType, typeDef.Length).Build();
+                        typeDict.Add(i, typeName);
+                    }
+                }
+            }
+        }
+
+        private static void CallTuple(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.Tuple)
+                {
+                    var typeDef = nodeType as NodeTypeTuple;
+
+                    if (nodeType.Path != null && nodeType.Path.Length > 0)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
+                    }
+
+                    if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
+                    }
+
+                    if (typeDef.TypeIds.Length > 7)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has more {typeDef.TypeIds.Length}, parts!");
+                    }
+
+                    var typeIds = new List<string>();
+                    for (int j = 0; j < typeDef.TypeIds.Length; j++)
+                    {
+                        var typeId = typeDef.TypeIds[j];
+                        if (!typeDict.TryGetValue(typeId, out string value))
+                        {
+                            typeIds = null;
+                            break;
+                        }
+
+                        typeIds.Add(value);
+                    }
+                    // all types found
+                    if (typeIds != null)
+                    {
+                        var typeName = $"PrimTuple{(typeIds.Count > 0 ? "<" + String.Join(',', typeIds.ToArray()) + ">" : "")}";
+                        typeDict.Add(i, typeName);
+                    }
+                }
+            }
+        }
+
+        private static void CallSequence(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.Sequence)
+                {
+                    var typeDef = nodeType as NodeTypeSequence;
+
+                    if (nodeType.Path != null && nodeType.Path.Length > 0)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
+                    }
+
+                    if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
+                    }
+
+                    if (typeDict.TryGetValue(typeDef.TypeId, out string value))
+                    {
+                        var typeName = $"PrimVec<{value}>";
+                        typeDict.Add(i, typeName);
+                    }
+                }
+            }
+        }
+
+        private static void CallCompact(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.Compact)
+                {
+                    var typeDef = nodeType as NodeTypeCompact;
+
+                    if (nodeType.Path != null && nodeType.Path.Length > 0)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
+                    }
+
+                    if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
+                    }
+
+                    if (typeDict.TryGetValue(typeDef.TypeId, out string value))
+                    {
+                        var typeName = $"PrimCom<{value}>";
+                        typeDict.Add(i, typeName);
+                    }
+                }
+            }
+        }
+
+        private static void CallComposite(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.Composite)
+                {
+                    var typeDef = nodeType as NodeTypeComposite;
+
+                    if (nodeType.Path == null || nodeType.Path.Length == 0)
+                    {
+                        Console.WriteLine($"{nodeType.GetType().Name} has no path, please check!");
+                    }                
+
+                    bool satisfied = true;
+                    List<string> types = new();
+                    if (typeDef.TypeFields != null)
+                    {
+                        foreach (var field in typeDef.TypeFields)
+                        {
+                            if (!typeDict.TryGetValue(field.TypeId, out string value))
+                            {
+                                satisfied = false;
+                                break;
+                            }
+
+                            types.Add(value);
+                        }
+                    }
+                    if (satisfied)
+                    {
+                        var typeName = StructGenBuilder.Create(typeDef, types).Build();
+                        typeDict.Add(i, typeName);
+                    }
+                }
+            }
+        }
+
+        private static void CallBitSequence(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.BitSequence)
+                {
+                    var typeDef = nodeType as NodeTypeBitSequence;
+
+                    throw new NotImplementedException("CallBitSequence");
+                }
+            }
+        }
+
+        private static void CallVariant(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        {
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (!nodeTypes.TryGetValue(i, out NodeType nodeType) || typeDict.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                if (nodeType.TypeDef == TypeDefEnum.Variant)
+                {
+                    var typeDef = nodeType as NodeTypeVariant;
+
+                    typeDict.Add(i, $"{String.Join('.', typeDef.Path)}");
+                }
+            }
+        }
+
+        private static void GenerateCode(Dictionary<uint, NodeType> nodeTypes)
+        {
+            for (uint i = 0; i < 1; i++) // nodeTypes.Keys.Max(); i++)
             {
                 if (!nodeTypes.TryGetValue(i, out NodeType nodeType))
                 {
                     continue;
                 }
 
-                if (nodeType is NodeTypePrimitive)
+                if (nodeType is NodeTypeComposite)
                 {
-                    var nodeTypePrimitive = nodeType as NodeTypePrimitive;
-                    var generatedCode = BaseGeneratorBuilder
-                        .Init(nodeTypePrimitive)
-                        .Build();
-
-                    Console.WriteLine(generatedCode);
-
+                    var composite = nodeType as NodeTypeComposite;
+                    Console.WriteLine(StructGeneratorBuilder.Create(composite, nodeTypes).Build());
                 }
 
-
-                
-
             }
+        }
+
+        private static void WriteJsonFile(string fileName, Dictionary<uint, NodeType> nodeTypes)
+        {
+            var jsonFile = JsonConvert.SerializeObject(nodeTypes, Formatting.Indented);
+            File.WriteAllText(fileName, jsonFile);
         }
 
         public static Dictionary<uint, NodeType> CreateNodeTypeDict(List<PortableType> types)

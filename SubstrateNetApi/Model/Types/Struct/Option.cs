@@ -5,12 +5,9 @@ using System.Linq;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Option<T> : StructType where T : IType, new()
+    public class Option<T> : StructBase where T : IType, new()
     {
-        public override string Name() => $"Option<{new T().Name()}>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => $"Option<{new T().TypeName()}>";
 
         public bool OptionFlag { get; set; }
 
@@ -46,10 +43,10 @@ namespace SubstrateNetApi.Model.Types.Struct
                 t.Decode(byteArray, ref p);
             }
 
-            _size = p - start;
+            _typeSize = p - start;
 
-            var bytes = new byte[_size];
-            Array.Copy(byteArray, start, bytes, 0, _size);
+            var bytes = new byte[_typeSize];
+            Array.Copy(byteArray, start, bytes, 0, _typeSize);
 
             Bytes = bytes;
             Value = t != null ? t : default;

@@ -10,12 +10,9 @@ using static SubstrateNetApi.Model.Meta.Storage;
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
 
-    public class RuntimeMetadataV14 : StructType
+    public class RuntimeMetadataV14 : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -35,7 +32,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Extrinsic = new ExtrinsicMetadata();
             Extrinsic.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public PortableRegistry Types { get; private set; }
  
@@ -44,12 +41,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public ExtrinsicMetadata Extrinsic { get; private set; }
     }
 
-    public class MetaDataInfo : StructType
+    public class MetaDataInfo : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -66,19 +60,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Version = new U8();
             Version.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public U32 Magic { get; private set; }
         public U8 Version { get; private set; }
 
     }
 
-    public class PalletMetadata : StructType
+    public class PalletMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -110,7 +101,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Index = new U8();
             Index.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public BaseString PalletName { get; private set; }
         public Option<StorageMetadata> PalletStorage { get; private set; }
@@ -121,12 +112,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public U8 Index { get; private set; }
     }
 
-    public class StorageMetadata : StructType
+    public class StorageMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -143,18 +131,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Entries = new Vec<StorageEntryMetadata>();
             Entries.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public BaseString Prefix { get; private set; }
         public Vec<StorageEntryMetadata> Entries { get; private set; }
     }
 
-    public class StorageEntryMetadata : StructType
+    public class StorageEntryMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -180,7 +165,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Documentation = new Vec<BaseString>();
             Documentation.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public BaseString StorageName { get; private set; }
         public EnumType<Modifier> StorageModifier { get; private set; }
@@ -191,15 +176,12 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class ByteGetter : Vec<U8>
     {
-        public override string Name() => "unknown";
+        public override string TypeName() => "unknown";
     }
 
-    public class StorageEntryTypeMap : StructType
+    public class StorageEntryTypeMap : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -219,19 +201,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Value = new TType();
             Value.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public Vec<EnumType<Hasher>> Hashers { get; private set; }
         public TType Key { get; private set; }
         public TType Value { get; private set; }
     }
 
-    public class PalletCallMetadata : StructType
+    public class PalletCallMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -245,7 +224,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             CallType = new TType();
             CallType.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public TType CallType { get; private set; }
     }
@@ -310,12 +289,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
     //    public DecodeDifferentStr FunctionArgumentType { get; private set; }
     //}
 
-    public class PalletEventMetadata : StructType
+    public class PalletEventMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -329,7 +305,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             EventType = new TType();
             EventType.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public TType EventType { get; private set; }
     }
@@ -366,12 +342,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
     //    public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     //}
 
-    public class PalletConstantMetadata : StructType
+    public class PalletConstantMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -394,7 +367,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Documentation = new Vec<BaseString>();
             Documentation.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public BaseString ConstantName { get; private set; }
         public TType ConstantType { get; private set; }
@@ -402,12 +375,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public Vec<BaseString> Documentation { get; private set; }
     }
 
-    public class ErrorMetadata : StructType
+    public class ErrorMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -421,18 +391,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             ErrorType = new TType();
             ErrorType.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public TType ErrorType { get; private set; }
 
     }
 
-    public class ExtrinsicMetadata : StructType
+    public class ExtrinsicMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -452,19 +419,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             SignedExtensions = new Vec<SignedExtensionMetadata>();
             SignedExtensions.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public TType ExtrinsicType { get; private set; }
         public U8 Version { get; private set; }
         public Vec<SignedExtensionMetadata> SignedExtensions { get; private set; }
     }
 
-    public class SignedExtensionMetadata : StructType
+    public class SignedExtensionMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -484,7 +448,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             AddSignedExtType = new TType();
             AddSignedExtType.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public BaseString SignedIdentifier { get; private set; }
         public TType SignedExtType { get; private set; }

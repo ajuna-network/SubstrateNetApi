@@ -2,11 +2,11 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class U8 : BaseType<byte>
+    public class U8 : BaseType<Byte>
     {
-        public override string Name() => "u8";
+        public override string TypeName() => "u8";
 
-        public override int Size() => 1;
+        public override int TypeSize() => 1;
 
         public override byte[] Encode()
         {

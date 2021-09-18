@@ -5,12 +5,9 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class RuntimeMetadata : StructType
+    public class RuntimeMetadata : StructBase
     {
-        public override string Name() => "unknown";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "unknown";
 
         public override byte[] Encode()
         {
@@ -27,7 +24,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             RuntimeMetadataData = new RuntimeMetadataV14();
             RuntimeMetadataData.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public MetaDataInfo MetaDataInfo { get; private set; }
         public U32 MetaReserved { get; private set; }

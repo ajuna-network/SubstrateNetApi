@@ -4,9 +4,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class U32 : BaseType<uint>
     {
-        public override string Name() => "u32";
+        public override string TypeName() => "u32";
 
-        public override int Size() => 4;
+        public override int TypeSize() => 4;
 
         public override byte[] Encode()
         {
@@ -19,16 +19,16 @@ namespace SubstrateNetApi.Model.Types.Base
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            var result = new byte[Size()];
+            var result = new byte[TypeSize()];
             bytes.CopyTo(result, 0);
             Create(result);
         }
 
         public override void Create(byte[] byteArray)
         {
-            if (byteArray.Length < Size())
+            if (byteArray.Length < TypeSize())
             {
-                var newByteArray = new byte[Size()];
+                var newByteArray = new byte[TypeSize()];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
             }

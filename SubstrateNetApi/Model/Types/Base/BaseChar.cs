@@ -6,9 +6,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class BaseChar : BaseType<char>
     {
-        public override string Name() => "unknown";
+        public override string TypeName() => "unknown";
 
-        public override int Size() => 1;
+        public override int TypeSize() => 1;
 
         public override byte[] Encode()
         {

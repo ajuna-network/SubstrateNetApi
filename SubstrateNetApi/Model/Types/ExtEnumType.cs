@@ -6,8 +6,8 @@ namespace SubstrateNetApi.Model.Types
 {
     public class NullType : IType
     {
-        public string Name() => "NullType";
-        public int Size() => 0;
+        public string TypeName() => "NullType";
+        public int TypeSize() => 0;
 
         public void Create(string str)
         {
@@ -52,10 +52,10 @@ namespace SubstrateNetApi.Model.Types
         where T8 : IType, new()
         where T9 : IType, new()
     {
-        public virtual string Name() => typeof(T0).Name;
+        public virtual string TypeName() => typeof(T0).Name;
 
         private int _size;
-        public int Size() => _size;
+        public int TypeSize() => _size;
 
         [JsonIgnore] 
         public byte[] Bytes { get; internal set; }

@@ -6,12 +6,9 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class BaseString : StructType
+    public class BaseString : StructBase
     {
-        public override string Name() => $"String";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => $"String";
 
         public override byte[] Encode()
         {
@@ -33,10 +30,10 @@ namespace SubstrateNetApi.Model.Types.Struct
                 value += t.Value;
             }
 
-            _size = p - start;
+            _typeSize = p - start;
 
-            var bytes = new byte[_size];
-            Array.Copy(byteArray, start, bytes, 0, _size);
+            var bytes = new byte[_typeSize];
+            Array.Copy(byteArray, start, bytes, 0, _typeSize);
 
             Bytes = bytes;
             Value = value;

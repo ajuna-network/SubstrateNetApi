@@ -4,12 +4,9 @@ using System.Linq;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Vec<T> : StructType where T : IType, new()
+    public class Vec<T> : StructBase where T : IType, new()
     {
-        public override string Name() => $"Vec<{new T().Name()}>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => $"Vec<{new T().TypeName()}>";
 
         public override byte[] Encode()
         {
@@ -35,10 +32,10 @@ namespace SubstrateNetApi.Model.Types.Struct
                 list.Add(t);
             }
 
-            _size = p - start;
+            _typeSize = p - start;
 
-            var bytes = new byte[_size];
-            Array.Copy(byteArray, start, bytes, 0, _size);
+            var bytes = new byte[_typeSize];
+            Array.Copy(byteArray, start, bytes, 0, _typeSize);
 
             Bytes = bytes;
             Value = list;

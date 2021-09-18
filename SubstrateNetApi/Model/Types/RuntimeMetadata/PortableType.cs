@@ -3,12 +3,9 @@ using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class PortableType : StructType
+    public class PortableType : StructBase
     {
-        public override string Name() => "PortableType";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "PortableType";
 
         public override byte[] Encode()
         {
@@ -26,7 +23,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Ty = new TypePortableForm();
             Ty.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public U32 Id { get; private set; }
         public TypePortableForm Ty { get; private set; }

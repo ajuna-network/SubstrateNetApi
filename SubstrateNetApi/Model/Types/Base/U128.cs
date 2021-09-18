@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Numerics;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class U128 : BaseType<ulong>
+    public class U128 : BaseType<BigInteger>
     {
-        public override string Name() => "u128";
+        public override string TypeName() => "u128";
 
-        public override int Size() => 16;
+        public override int TypeSize() => 16;
 
         public override byte[] Encode()
         {
@@ -19,20 +20,22 @@ namespace SubstrateNetApi.Model.Types.Base
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            Create(bytes);
+            var result = new byte[TypeSize()];
+            bytes.CopyTo(result, 0);
+            Create(result);
         }
 
         public override void Create(byte[] byteArray)
         {
-            if (byteArray.Length < Size())
+            if (byteArray.Length < TypeSize())
             {
-                var newByteArray = new byte[Size()];
+                var newByteArray = new byte[TypeSize()];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
             }
 
             Bytes = byteArray;
-            Value = BitConverter.ToUInt64(byteArray, 0);
+            Value = new BigInteger(byteArray);
         }
 
         public void Create(ulong value)

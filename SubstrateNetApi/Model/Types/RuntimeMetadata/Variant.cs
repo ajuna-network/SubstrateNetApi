@@ -4,12 +4,9 @@ using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class Variant : StructType
+    public class Variant : StructBase
     {
-        public override string Name() => "Variant<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "Variant<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -32,7 +29,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Docs = new Vec<BaseString>();
             Docs.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public BaseString VariantName { get; private set; }
         public Vec<Field> VariantFields { get; private set; }

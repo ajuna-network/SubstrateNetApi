@@ -5,12 +5,9 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Timepoint : StructType
+    public class Timepoint : StructBase
     {
-        public override string Name() => "Timepoint<T::BlockNumber>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "Timepoint<T::BlockNumber>";
 
         public override byte[] Encode()
         {
@@ -27,7 +24,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Index = new U32();
             Index.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
 
         public BlockNumber Height { get; private set; }

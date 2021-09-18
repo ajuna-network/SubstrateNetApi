@@ -4,12 +4,9 @@ using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class TypePortableForm : StructType
+    public class TypePortableForm : StructBase
     {
-        public override string Name() => "Type<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "Type<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -32,7 +29,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Docs = new Vec<BaseString>();
             Docs.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public Path Path { get; private set; }
         public Vec<TypeParameter> TypeParams { get; private set; }
@@ -42,15 +39,12 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class Path : Vec<BaseString>
     {
-        public override string Name() => "Path<T: Form = MetaForm>";
+        public override string TypeName() => "Path<T: Form = MetaForm>";
     }
 
-    public class TypeParameter : StructType
+    public class TypeParameter : StructBase
     {
-        public override string Name() => "TypeParameter<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeParameter<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -67,7 +61,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParameterType = new Option<TType>();
             TypeParameterType.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public BaseString TypeParameterName { get; private set; }
         public Option<TType> TypeParameterType { get; private set; }

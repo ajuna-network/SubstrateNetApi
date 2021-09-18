@@ -3,12 +3,9 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class AccountInfo : StructType
+    public class AccountInfo : StructBase
     {
-        public override string Name() => "AccountInfo<T::Index, T::AccountData>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "AccountInfo<T::Index, T::AccountData>";
 
         public override byte[] Encode()
         {
@@ -31,7 +28,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             AccountData = new AccountData();
             AccountData.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
 
         public U32 Nonce { get; private set; }

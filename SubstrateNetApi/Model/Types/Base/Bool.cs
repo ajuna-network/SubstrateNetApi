@@ -4,9 +4,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class Bool : BaseType<bool>
     {
-        public override string Name() => "bool";
+        public override string TypeName() => "bool";
 
-        public override int Size() => 1;
+        public override int TypeSize() => 1;
 
         public override byte[] Encode()
         {

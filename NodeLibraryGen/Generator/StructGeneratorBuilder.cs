@@ -11,6 +11,10 @@ namespace NodeLibraryGen
 {
     public class StructGeneratorBuilder
     {
+        private Dictionary<uint, NodeType> _nodeTypes;
+
+        private NodeTypeComposite _nodeType;
+
         private string _className;
 
         /// <summary>
@@ -24,9 +28,11 @@ namespace NodeLibraryGen
         /// </summary>
         private readonly CodeTypeDeclaration _targetClass;
 
-        private StructGeneratorBuilder(string[] path)
+        private StructGeneratorBuilder(NodeTypeComposite nodeType, Dictionary<uint, NodeType> nodeTypes)
         {
-            _className = path.Last();
+            _nodeTypes = nodeTypes;
+            _nodeType = nodeType;
+            _className = nodeType.Path.Last();
             
             _targetUnit = new CodeCompileUnit();
 
@@ -45,11 +51,22 @@ namespace NodeLibraryGen
             generatedCode.Types.Add(_targetClass);
 
             _targetUnit.Namespaces.Add(generatedCode);
+
+            GenerateTypeFields(_nodeType.TypeFields);
         }
 
-        public static StructGeneratorBuilder Init(string[] path)
+        private void GenerateTypeFields(NodeTypeField[] typeFields)
         {
-            return new StructGeneratorBuilder(path);
+            for (int i = 0; i < typeFields.Length; i++)
+            {
+                NodeTypeField typeField = typeFields[i];
+                var nodeType = _nodeTypes[typeField.TypeId];
+            }
+        }
+
+        public static StructGeneratorBuilder Create(NodeTypeComposite nodeTypeComposite, Dictionary<uint, NodeType> nodeTypes)
+        {
+            return new StructGeneratorBuilder(nodeTypeComposite, nodeTypes);
         }
 
         public StructGeneratorBuilder AddTypeFields(NodeTypeField[] typeFields)

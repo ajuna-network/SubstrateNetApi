@@ -10,13 +10,13 @@
         /// Names this instance.
         /// </summary>
         /// <returns></returns>
-        string Name();
+        string TypeName();
 
         /// <summary>
         /// Sizes this instance.
         /// </summary>
         /// <returns></returns>
-        int Size();
+        int TypeSize();
 
         /// <summary>
         /// Encodes this instance.

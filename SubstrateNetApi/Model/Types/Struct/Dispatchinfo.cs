@@ -1,19 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class DispatchInfo : StructType
+    public class DispatchInfo : StructBase
     {
-        public override string Name() => "DispatchInfo";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "DispatchInfo";
 
         public override byte[] Encode()
         {
-            throw new NotImplementedException();
+            List<byte> result = new List<byte>();
+
+            result.AddRange(Weight.Encode());
+
+            result.AddRange(DispatchClass.Encode());
+
+            result.AddRange(Pays.Encode());
+
+            return result.ToArray();
         }
 
         public override void Decode(byte[] byteArray, ref int p)
@@ -30,7 +36,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Pays = new EnumType<Pays>();
             Pays.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
 
         public U64 Weight { get; set; }

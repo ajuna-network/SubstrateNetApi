@@ -3,13 +3,10 @@ using System.Collections.Generic;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class RustTuple<T1, T2> : StructType where T1 : IType, new()
+    public class RustTuple<T1, T2> : StructBase where T1 : IType, new()
                                                 where T2 : IType, new()
     {
-        public override string Name() => $"({new T1().Name()},{new T2().Name()})";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => $"({new T1().TypeName()},{new T2().TypeName()})";
 
         public override byte[] Encode()
         {
@@ -30,10 +27,10 @@ namespace SubstrateNetApi.Model.Types.Struct
             t2.Decode(byteArray, ref p);
             Value[1] = t2;
 
-            _size = p - start;
+            _typeSize = p - start;
 
-            Bytes = new byte[_size];
-            Array.Copy(byteArray, start, Bytes, 0, _size);
+            Bytes = new byte[_typeSize];
+            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
         }
 
         public IType[] Value { get; internal set; }

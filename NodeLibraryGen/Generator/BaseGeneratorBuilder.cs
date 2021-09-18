@@ -53,7 +53,7 @@ namespace NodeLibraryGen
             _targetUnit.Namespaces.Add(generatedCode);
 
             // Declaring a Name method
-            _targetClass.Members.Add(GetCodeMemberMethod("Name", typeof(System.String), nodeType.Primitive.ToString().FirstCharToLowerCase()));
+            _targetClass.Members.Add(GetCodeMemberMethod("Name", typeof(System.String), nodeType.Primitive.ToString().ToLowerFirst()));
 
             // Declaring a Size method
             _targetClass.Members.Add(GetCodeMemberMethod("Size", typeof(System.Int32), size));

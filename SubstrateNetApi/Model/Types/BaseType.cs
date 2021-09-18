@@ -5,8 +5,8 @@ namespace SubstrateNetApi.Model.Types
 {
     public abstract class BaseType<T> : IType
     {
-        public abstract string Name();
-        public abstract int Size();
+        public abstract string TypeName();
+        public abstract int TypeSize();
 
         [JsonIgnore] 
         public byte[] Bytes { get; set; }
@@ -16,8 +16,8 @@ namespace SubstrateNetApi.Model.Types
         public void Decode(byte[] byteArray, ref int p)
         {
             var memory = byteArray.AsMemory();
-            var result = memory.Span.Slice(p, Size()).ToArray();
-            p += Size();
+            var result = memory.Span.Slice(p, TypeSize()).ToArray();
+            p += TypeSize();
             Create(result);
         }
 

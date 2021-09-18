@@ -6,12 +6,9 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class EventRecord : StructType
+    public class EventRecord : StructBase
     {
-        public override string Name() => "EventRecord<T::Event, T::Hash>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "EventRecord<T::Event, T::Hash>";
 
         private MetaData _metaData;
 
@@ -47,7 +44,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Topics = new Vec<Topic>();
             Topics.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
 
         public Phase Phase;

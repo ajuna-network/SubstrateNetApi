@@ -8,7 +8,7 @@ namespace SubstrateNetApi.TypeConverters
     {
         /// <summary>Gets the name of the type.</summary>
         /// <value>The name of the type.</value>
-        public string TypeName { get; } = new T().Name();
+        public string TypeName { get; } = new T().TypeName();
 
         /// <summary>Creates a new object.</summary>
         /// <param name="value">The value.</param>

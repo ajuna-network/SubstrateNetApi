@@ -4,9 +4,9 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public class U64 : BaseType<ulong>
     {
-        public override string Name() => "u64";
+        public override string TypeName() => "u64";
 
-        public override int Size() => 8;
+        public override int TypeSize() => 8;
 
         public override byte[] Encode()
         {
@@ -19,14 +19,16 @@ namespace SubstrateNetApi.Model.Types.Base
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            Create(bytes);
+            var result = new byte[TypeSize()];
+            bytes.CopyTo(result, 0);
+            Create(result);
         }
 
         public override void Create(byte[] byteArray)
         {
-            if (byteArray.Length < Size())
+            if (byteArray.Length < TypeSize())
             {
-                var newByteArray = new byte[Size()];
+                var newByteArray = new byte[TypeSize()];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
             }

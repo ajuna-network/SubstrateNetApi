@@ -7,9 +7,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
     public class CompactIntegerType : IType
     {
-        public virtual string Name() => "CompactInteger";
+        public virtual string TypeName() => "CompactInteger";
 
-        public int Size() => 0;
+        public int TypeSize() => 0;
 
         public void Create(string str)
         {
@@ -46,7 +46,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class TType : CompactIntegerType
     {
-        public override string Name() => "T::Type";
+        public override string TypeName() => "T::Type";
 
     }
 
@@ -70,12 +70,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         BitSequence
     }
 
-    public class TypeDefComposite : StructType
+    public class TypeDefComposite : StructBase
     {
-        public override string Name() => "TypeDefComposite<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeDefComposite<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -89,18 +86,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Fields = new Vec<Field>();
             Fields.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public Vec<Field> Fields { get; private set; }
 
     }
 
-    public class TypeDefVariant : StructType
+    public class TypeDefVariant : StructBase
     {
-        public override string Name() => "TypeDefVariant<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeDefVariant<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -114,17 +108,14 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new Vec<Variant>();
             TypeParam.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public Vec<Variant> TypeParam { get; private set; }
     }
 
-    public class TypeDefSequence : StructType
+    public class TypeDefSequence : StructBase
     {
-        public override string Name() => "TypeDefSequence<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeDefSequence<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -138,17 +129,14 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public TType TypeParam { get; private set; }
     }
 
-    public class TypeDefArray : StructType
+    public class TypeDefArray : StructBase
     {
-        public override string Name() => "TypeDefArray<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeDefArray<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -165,18 +153,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public U32 Len { get; private set; }
         public TType TypeParam { get; private set; }
     }
 
-    public class TypeDefTuple : StructType
+    public class TypeDefTuple : StructBase
     {
-        public override string Name() => "TypeDefTuple<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeDefTuple<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -190,7 +175,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Fields = new Vec<TType>();
             Fields.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public Vec<TType> Fields { get; private set; }
     }
@@ -229,12 +214,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         I256,
     }
 
-    public class TypeDefCompact : StructType
+    public class TypeDefCompact : StructBase
     {
-        public override string Name() => "TypeDefCompact<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeDefCompact<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -248,17 +230,14 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public TType TypeParam { get; private set; }
     }
 
-    public class TypeDefBitSequence : StructType
+    public class TypeDefBitSequence : StructBase
     {
-        public override string Name() => "TypeDefBitSequence<T: Form = MetaForm>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "TypeDefBitSequence<T: Form = MetaForm>";
 
         public override byte[] Encode()
         {
@@ -275,7 +254,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             BitOrderType = new TType();
             BitOrderType.Decode(byteArray, ref p);
 
-            _size = p - start;
+            _typeSize = p - start;
         }
         public TType BitStoreType { get; private set; }
         public TType BitOrderType { get; private set; }
