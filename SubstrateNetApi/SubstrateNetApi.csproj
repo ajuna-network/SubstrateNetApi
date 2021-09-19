@@ -17,8 +17,8 @@
     <PackageReference Include="Chaos.NaCl.Standard" Version="1.0.0" />
     <PackageReference Include="Extensions.Data.xxHash.core20" Version="1.0.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NLog" Version="4.7.10" />
-    <PackageReference Include="Schnorrkel" Version="1.1.2" />
+    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="Schnorrkel" Version="1.1.3" />
     <PackageReference Include="SimpleBase" Version="2.1.0" />
     <PackageReference Include="StreamJsonRpc" Version="2.8.21" />
   </ItemGroup>

@@ -19,7 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWalletTest", "DemoWalle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Sandbox\Sandbox.csproj", "{C56459F9-D948-437B-98EA-096CE8C2E3EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NodeLibraryGen", "NodeLibraryGen\NodeLibraryGen.csproj", "{A1093D5B-2EA7-461C-B2A2-D8DE7A6456EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NodeLibraryGen", "NodeLibraryGen\NodeLibraryGen.csproj", "{A1093D5B-2EA7-461C-B2A2-D8DE7A6456EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetApiExt", "SubstrateNetApiGen\SubstrateNetApiExt\SubstrateNetApiExt.csproj", "{B1D14942-C434-43B8-AAFA-B625C520C0BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubstrateNetApiExtTest", "SubstrateNetApiGen\SubstrateNetApiExtTest\SubstrateNetApiExtTest.csproj", "{20611A39-FA1C-4E2F-8E7A-636557793B1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +105,22 @@ Global
 		{A1093D5B-2EA7-461C-B2A2-D8DE7A6456EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1093D5B-2EA7-461C-B2A2-D8DE7A6456EA}.Release|x64.ActiveCfg = Release|Any CPU
 		{A1093D5B-2EA7-461C-B2A2-D8DE7A6456EA}.Release|x64.Build.0 = Release|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Debug|x64.Build.0 = Debug|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{B1D14942-C434-43B8-AAFA-B625C520C0BF}.Release|x64.Build.0 = Release|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Debug|x64.Build.0 = Debug|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Release|x64.ActiveCfg = Release|Any CPU
+		{20611A39-FA1C-4E2F-8E7A-636557793B1E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
