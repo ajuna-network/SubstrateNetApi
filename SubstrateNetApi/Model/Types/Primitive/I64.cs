@@ -2,11 +2,11 @@
 
 namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class PrimI16 : BasePrim<short>
+    public class I64 : BasePrim<long>
     {
-        public override string TypeName() => "i16";
+        public override string TypeName() => "i64";
 
-        public override int TypeSize() => 2;
+        public override int TypeSize() => 8;
 
         public override byte[] Encode()
         {
@@ -34,10 +34,10 @@ namespace SubstrateNetApi.Model.Types.Primitive
             }
 
             Bytes = byteArray;
-            Value = BitConverter.ToInt16(byteArray, 0);
+            Value = BitConverter.ToInt64(byteArray, 0);
         }
 
-        public void Create(short value)
+        public void Create(long value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;

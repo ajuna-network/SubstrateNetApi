@@ -1,7 +1,5 @@
 ﻿using SubstrateNetApi.Model.Types.Primitive;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
@@ -18,13 +16,13 @@ namespace SubstrateNetApi.Model.Types.Base
         {
             var start = p;
 
-            Balance = new PrimU32();
+            Balance = new U32();
             Balance.Decode(byteArray, ref p);
 
-            IsFrozen = new PrimBool();
+            IsFrozen = new Bool();
             IsFrozen.Decode(byteArray, ref p);
 
-            Sufficient = new PrimBool();
+            Sufficient = new Bool();
             Sufficient.Decode(byteArray, ref p);
 
             //Extra = new Extra();
@@ -33,9 +31,9 @@ namespace SubstrateNetApi.Model.Types.Base
             _typeSize = p - start;
         }
 
-        public PrimU32 Balance { get; private set; }
-        public PrimBool IsFrozen { get; private set; }
-        public PrimBool Sufficient { get; private set; }
+        public U32 Balance { get; private set; }
+        public Bool IsFrozen { get; private set; }
+        public Bool Sufficient { get; private set; }
         //public Extra Extra { get; private set; }
     }
 

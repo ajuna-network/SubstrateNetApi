@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Numerics;
 
 namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class PrimU32 : BasePrim<uint>
+    public class I128 : BasePrim<BigInteger>
     {
-        public override string TypeName() => "u32";
+        public override string TypeName() => "i128";
 
-        public override int TypeSize() => 4;
+        public override int TypeSize() => 2;
 
         public override byte[] Encode()
         {
@@ -34,10 +35,10 @@ namespace SubstrateNetApi.Model.Types.Primitive
             }
 
             Bytes = byteArray;
-            Value = BitConverter.ToUInt32(byteArray, 0);
+            Value = new BigInteger(byteArray);
         }
 
-        public void Create(uint value)
+        public void Create(short value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;

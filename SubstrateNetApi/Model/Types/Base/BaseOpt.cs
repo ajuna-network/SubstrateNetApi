@@ -1,18 +1,22 @@
-﻿using SubstrateNetApi.Model.Types.Base;
+﻿using Newtonsoft.Json;
 using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Base
 {
-    public class Option<T> : BaseType where T : IType, new()
+    public class BaseOpt<T> : IType where T : IType, new()
     {
-        public override string TypeName() => $"Option<{new T().TypeName()}>";
+        public virtual string TypeName() => $"Option<{new T().TypeName()}>";
 
-        public bool OptionFlag { get; set; }
+        private int _typeSize;
 
-        public override byte[] Encode()
+        public int TypeSize() => _typeSize;
+
+        [JsonIgnore]
+        public byte[] Bytes { get; internal set; }
+
+        public byte[] Encode()
         {
            var bytes = new List<byte>();
            if (OptionFlag)
@@ -28,11 +32,11 @@ namespace SubstrateNetApi.Model.Types.Struct
             return bytes.ToArray();
         }
 
-        public override void Decode(byte[] byteArray, ref int p)
+        public void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
 
-            var optionByte = new PrimU8();
+            var optionByte = new U8();
             optionByte.Decode(byteArray, ref p);
 
             OptionFlag = optionByte.Value > 0;
@@ -53,10 +57,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Value = t != null ? t : default;
         }
 
-        public override void CreateFromJson(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
+        public bool OptionFlag { get; set; }
 
         public T Value { get; internal set; }
 
@@ -66,6 +67,20 @@ namespace SubstrateNetApi.Model.Types.Struct
             Value = value;
             Bytes = Encode();
         }
+
+        public void Create(string str) => Create(Utils.HexToByteArray(str));
+
+        public void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
+
+        public void Create(byte[] byteArray)
+        {
+            var p = 0;
+            Decode(byteArray, ref p);
+        }
+
+        public IType New() => this;
+
+        public override string ToString() => JsonConvert.SerializeObject(this);
 
     }
 }

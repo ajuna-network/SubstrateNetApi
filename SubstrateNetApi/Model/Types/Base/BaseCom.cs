@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 
-namespace SubstrateNetApi.Model.Types.TypeDefBase
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class BaseCom<T> : IType where T : IType, new()
     {

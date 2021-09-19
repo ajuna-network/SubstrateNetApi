@@ -88,49 +88,49 @@ namespace NodeLibraryGen
                     switch (typeDef.Primitive)
                     {
                         case TypeDefPrimitive.Bool:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimBool).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.Bool).Name);
                             break;
                         case TypeDefPrimitive.Char:
-                            typeDict.Add(i, typeof(PrimChar).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimChar).Name);
                             break;
                         case TypeDefPrimitive.Str:
-                            typeDict.Add(i, typeof(PrimStr).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.Str).Name);
                             break;
                         case TypeDefPrimitive.U8:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU8).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U8).Name);
                             break;
                         case TypeDefPrimitive.U16:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU16).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U16).Name);
                             break;
                         case TypeDefPrimitive.U32:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU32).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U32).Name);
                             break;
                         case TypeDefPrimitive.U64:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU64).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U64).Name);
                             break;
                         case TypeDefPrimitive.U128:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU128).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U128).Name);
                             break;
                         case TypeDefPrimitive.U256:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU256).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U256).Name);
                             break;
                         case TypeDefPrimitive.I8:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimI8).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.I8).Name);
                             break;
                         case TypeDefPrimitive.I16:
-                            typeDict.Add(i, typeof(PrimI16).Name);
+                            typeDict.Add(i, typeof(I16).Name);
                             break;
                         case TypeDefPrimitive.I32:
-                            typeDict.Add(i, typeof(PrimI32).Name);
+                            typeDict.Add(i, typeof(I32).Name);
                             break;
                         case TypeDefPrimitive.I64:
-                            typeDict.Add(i, typeof(PrimI64).Name);
+                            typeDict.Add(i, typeof(I64).Name);
                             break;
                         case TypeDefPrimitive.I128:
-                            typeDict.Add(i, typeof(PrimI128).Name);
+                            typeDict.Add(i, typeof(I128).Name);
                             break;
                         case TypeDefPrimitive.I256:
-                            typeDict.Add(i, typeof(PrimI128).Name);
+                            typeDict.Add(i, typeof(I128).Name);
                             break;
                         default:
                             throw new NotImplementedException($"Please implement {typeDef.Primitive}, in SubstrateNetApi.");
@@ -384,7 +384,15 @@ namespace NodeLibraryGen
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                         //typeDict.Add(i, $"Result");
                     }
-                    else if (path.Contains("node_runtime.Event") || path.Contains(".pallet.Event") || path.Contains("pallet_") && path.Contains(".Event"))
+                    else if (path.Contains(".pallet.Event"))
+                    {
+                        var typeName = EventGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(i, typeName);
+                        }
+                    }
+                    else if (path.Contains("node_runtime.Event"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                         //typeDict.Add(i, $"Result");

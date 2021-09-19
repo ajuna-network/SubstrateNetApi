@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            Nonce = new PrimU32();
+            Nonce = new U32();
             Nonce.Decode(byteArray, ref p);
 
             Consumers = new RefCount();
@@ -32,7 +32,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             _typeSize = p - start;
         }
 
-        public PrimU32 Nonce { get; private set; }
+        public U32 Nonce { get; private set; }
         public RefCount Consumers { get; private set; }
         public RefCount Providers { get; private set; }
         public AccountData AccountData { get; private set; }

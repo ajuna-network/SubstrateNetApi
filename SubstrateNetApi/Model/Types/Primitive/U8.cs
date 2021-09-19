@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace SubstrateNetApi.Model.Types.Primitive
+﻿namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class PrimI8 : BasePrim<sbyte>
+    public class U8 : BasePrim<byte>
     {
-        public override string TypeName() => "i8";
+        public override string TypeName() => "u8";
 
         public override int TypeSize() => 1;
 
@@ -16,12 +14,12 @@ namespace SubstrateNetApi.Model.Types.Primitive
         public override void Create(byte[] byteArray)
         {
             Bytes = byteArray;
-            Value = (sbyte) byteArray[0];
+            Value = byteArray[0];
         }
 
-        public void Create(sbyte value)
+        public void Create(byte value)
         {
-            Bytes = new byte[] { (byte)value };
+            Bytes = new byte[] { value };
             Value = value;
         }
     }

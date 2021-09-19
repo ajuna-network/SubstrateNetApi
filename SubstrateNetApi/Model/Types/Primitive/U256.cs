@@ -3,11 +3,11 @@ using System.Numerics;
 
 namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class PrimU128 : BasePrim<BigInteger>
+    public class U256 : BasePrim<BigInteger>
     {
-        public override string TypeName() => "u128";
+        public override string TypeName() => "u256";
 
-        public override int TypeSize() => 16;
+        public override int TypeSize() => 32;
 
         public override byte[] Encode()
         {
@@ -20,9 +20,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            var result = new byte[TypeSize()];
-            bytes.CopyTo(result, 0);
-            Create(result);
+            Create(bytes);
         }
 
         public override void Create(byte[] byteArray)
@@ -33,13 +31,14 @@ namespace SubstrateNetApi.Model.Types.Primitive
                 var newByteArray = new byte[TypeSize()];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
-            } 
+            }
             else if (byteArray.Length == TypeSize())
             {
                 byte[] newArray = new byte[byteArray.Length + 2];
                 byteArray.CopyTo(newArray, 0);
                 newArray[byteArray.Length - 1] = 0x00;
-            } else
+            }
+            else
             {
                 throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize()} bytes!");
             }

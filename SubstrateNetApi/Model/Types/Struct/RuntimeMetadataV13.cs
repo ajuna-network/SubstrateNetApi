@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
-using SubstrateNetApi.Model.Meta;
+﻿using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using static SubstrateNetApi.Model.Meta.Storage;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V13
@@ -52,16 +50,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         {
             var start = p;
 
-            Magic = new PrimU32();
+            Magic = new U32();
             Magic.Decode(byteArray, ref p);
 
-            Version = new PrimU8();
+            Version = new U8();
             Version.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
-        public PrimU32 Magic { get; private set; }
-        public PrimU8 Version { get; private set; }
+        public U32 Magic { get; private set; }
+        public U8 Version { get; private set; }
 
     }
 
@@ -81,13 +79,13 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             ModuleName = new DecodeDifferentStr();
             ModuleName.Decode(byteArray, ref p);
 
-            ModuleStorage = new Option<StorageMetadata>();
+            ModuleStorage = new BaseOpt<StorageMetadata>();
             ModuleStorage.Decode(byteArray, ref p);
 
-            ModuleCalls = new Option<DecodeDifferent<FunctionMetadata>>();
+            ModuleCalls = new BaseOpt<DecodeDifferent<FunctionMetadata>>();
             ModuleCalls.Decode(byteArray, ref p);
 
-            ModuleEvent = new Option<DecodeDifferent<EventMetadata>>();
+            ModuleEvent = new BaseOpt<DecodeDifferent<EventMetadata>>();
             ModuleEvent.Decode(byteArray, ref p);
 
             ModuleConstants = new DecodeDifferent<ModuleConstantMetadata>();
@@ -96,18 +94,18 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             ModuleErrors = new DecodeDifferent<ErrorMetadata>();
             ModuleErrors.Decode(byteArray, ref p);
 
-            Index = new PrimU8();
+            Index = new U8();
             Index.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
         public DecodeDifferentStr ModuleName { get; private set; }
-        public Option<StorageMetadata> ModuleStorage { get; private set; }
-        public Option<DecodeDifferent<FunctionMetadata>> ModuleCalls { get; private set; }
-        public Option<DecodeDifferent<EventMetadata>> ModuleEvent { get; private set; }
+        public BaseOpt<StorageMetadata> ModuleStorage { get; private set; }
+        public BaseOpt<DecodeDifferent<FunctionMetadata>> ModuleCalls { get; private set; }
+        public BaseOpt<DecodeDifferent<EventMetadata>> ModuleEvent { get; private set; }
         public DecodeDifferent<ModuleConstantMetadata> ModuleConstants { get; private set; }
         public DecodeDifferent<ErrorMetadata> ModuleErrors { get; private set; }
-        public PrimU8 Index { get; private set; }
+        public U8 Index { get; private set; }
     }
 
     public class StorageMetadata : BaseType
@@ -123,7 +121,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         {
             var start = p;
 
-            Prefix = new DecodeDifferent<BaseChar>();
+            Prefix = new DecodeDifferent<PrimChar>();
             Prefix.Decode(byteArray, ref p);
 
             Entries = new DecodeDifferent<StorageEntryMetadata>();
@@ -131,7 +129,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
 
             _typeSize = p - start;
         }
-        public DecodeDifferent<BaseChar> Prefix { get; private set; }
+        public DecodeDifferent<PrimChar> Prefix { get; private set; }
         public DecodeDifferent<StorageEntryMetadata> Entries { get; private set; }
     }
 
@@ -172,7 +170,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
 
-    public class ByteGetter : Vec<PrimU8>
+    public class ByteGetter : Vec<U8>
     {
         public override string TypeName() => "unknown";
     }
@@ -199,7 +197,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Value = new DecodeDifferentStr();
             Value.Decode(byteArray, ref p);
 
-            Unused = new PrimBool();
+            Unused = new Bool();
             Unused.Decode(byteArray, ref p);
 
             _typeSize = p - start;
@@ -207,7 +205,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public BaseEnum<Hasher> Hasher { get; private set; }
         public DecodeDifferentStr Key { get; private set; }
         public DecodeDifferentStr Value { get; private set; }
-        public PrimBool Unused { get; private set; }
+        public Bool Unused { get; private set; }
     }
 
     public class StorageEntryTypeDoubleMap : BaseType
@@ -432,7 +430,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         {
             var start = p;
 
-            Version = new PrimU8();
+            Version = new U8();
             Version.Decode(byteArray, ref p);
 
             SignedExtensions = new Vec<DecodeDifferentStr>();
@@ -440,11 +438,11 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
 
             _typeSize = p - start;
         }
-        public PrimU8 Version { get; private set; }
+        public U8 Version { get; private set; }
         public Vec<DecodeDifferentStr> SignedExtensions { get; private set; }
     }
 
-    public class DecodeDifferentStr : DecodeDifferent<BaseChar>
+    public class DecodeDifferentStr : DecodeDifferent<PrimChar>
     {
         public override string TypeName() => "unknown";
     }

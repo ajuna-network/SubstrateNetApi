@@ -12,16 +12,15 @@ namespace NodeLibraryGen
 {
     public class EnumGenBuilder : BaseBuilder
     {
-        private bool _success = true;
-
         private EnumGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
         {
+            Success = true;
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
             CodeNamespace importsNamespace = new() {
                 Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
@@ -92,14 +91,14 @@ namespace NodeLibraryGen
                                 else
                                 {
                                     //codeTypeRef.TypeArguments.Add(new CodeTypeReference("FuckYou"));
-                                    _success = false;
+                                    Success = false;
                                 }
 
                             }
                             else
                             {
                                 //Console.WriteLine($"fucking {Id} extenum shizzle {variant.TypeFields.Length}");
-                                _success = false;
+                                Success = false;
                             }
 
                         }
@@ -117,8 +116,8 @@ namespace NodeLibraryGen
 
         public string Build(out bool success)
         {
-            success = _success;
-            if (success)
+            success = Success;
+            if (Success)
             {
                 CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
                 CodeGeneratorOptions options = new()

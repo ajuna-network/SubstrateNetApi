@@ -4,7 +4,6 @@ using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
-using SubstrateNetApi.Model.Types.Struct;
 using System;
 using System.Linq;
 
@@ -209,13 +208,13 @@ namespace SubstrateNetApi.Model.Extrinsics
                         break;
 
                     case "u8":
-                        var u8 = new PrimU8();
+                        var u8 = new U8();
                         u8.Decode(memory.Slice(p).ToArray(), ref p);
                         argument.Value = u8.ToString();
                         break;
 
                     case "Option<u8>":
-                        var optionU8 = new Option<PrimU8>();
+                        var optionU8 = new BaseOpt<U8>();
                         optionU8.Decode(memory.Slice(p).ToArray(), ref p);
                         argument.Value = optionU8.OptionFlag ? optionU8.ToString() : "null";
                         break;

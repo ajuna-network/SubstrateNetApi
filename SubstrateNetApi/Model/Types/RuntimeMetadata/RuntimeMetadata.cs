@@ -1,8 +1,6 @@
-﻿using SubstrateNetApi.Model.Types.Base;
-using SubstrateNetApi.Model.Types.Metadata.V14;
+﻿using SubstrateNetApi.Model.Types.Metadata.V14;
 using SubstrateNetApi.Model.Types.Primitive;
 using System;
-using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
@@ -28,7 +26,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             _typeSize = p - start;
         }
         public MetaDataInfo MetaDataInfo { get; private set; }
-        public PrimU32 MetaReserved { get; private set; }
+        public U32 MetaReserved { get; private set; }
         public RuntimeMetadataV14 RuntimeMetadataData { get; private set; }
     }
 

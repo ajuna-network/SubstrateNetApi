@@ -284,7 +284,7 @@ namespace Sandbox
 
             var typeNamespaces = new List<string>()
             {
-                new PrimU8().GetType().Namespace,
+                new U8().GetType().Namespace,
                 new DispatchClass().GetType().Namespace,
                 new DispatchInfo().GetType().Namespace
             }.ToArray();
@@ -326,14 +326,14 @@ namespace Sandbox
             var str = "0x200101020304050607";
 
             var memory = Utils.HexToByteArray(str).AsMemory();
-            var vecU8 = new List<PrimU8>();
+            var vecU8 = new List<U8>();
             var byteArray = memory.ToArray();
             var p = 0;
             var length = CompactInteger.Decode(byteArray, ref p);
             Console.WriteLine($"Length: {length}, p = {p}");
             for (var i = 0; i < length; i++)
             {
-                var u8 = new PrimU8();
+                var u8 = new U8();
                 u8.Decode(byteArray, ref p);
                 vecU8.Add(u8);
             }

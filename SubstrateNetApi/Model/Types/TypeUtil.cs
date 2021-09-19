@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SubstrateNetApi.Model.Types.Base;
-using SubstrateNetApi.Model.Types.Enum;
-using SubstrateNetApi.Model.Types.Struct;
 
 namespace SubstrateNetApi.Model.Types
 {
@@ -21,6 +18,7 @@ namespace SubstrateNetApi.Model.Types
 
             var typeNamespaces = new List<string>()
             {
+                "SubstrateNetApi.Model.Types.Primitive",
                 "SubstrateNetApi.Model.Types.Base",
                 "SubstrateNetApi.Model.Types.Enum",
                 "SubstrateNetApi.Model.Types.Struct",

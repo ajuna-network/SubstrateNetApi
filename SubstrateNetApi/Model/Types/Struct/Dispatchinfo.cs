@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SubstrateNetApi.Model.Types.Base;
+﻿using System.Collections.Generic;
 using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Primitive;
 
@@ -27,7 +25,7 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            Weight = new PrimU64();
+            Weight = new U64();
             Weight.Decode(byteArray, ref p);
 
 
@@ -40,7 +38,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             _typeSize = p - start;
         }
 
-        public PrimU64 Weight { get; set; }
+        public U64 Weight { get; set; }
         public BaseEnum<DispatchClass> DispatchClass { get; set; }
         public BaseEnum<Pays> Pays { get; set; }
     }

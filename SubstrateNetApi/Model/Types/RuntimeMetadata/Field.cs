@@ -1,4 +1,5 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
 
@@ -17,24 +18,24 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            FieldName = new Option<BaseString>();
+            FieldName = new BaseOpt<Str>();
             FieldName.Decode(byteArray, ref p);
 
             FieldTy = new TType();
             FieldTy.Decode(byteArray, ref p);
 
-            FieldTypeName = new Option<BaseString>();
+            FieldTypeName = new BaseOpt<Str>();
             FieldTypeName.Decode(byteArray, ref p);
 
-            Docs = new Vec<BaseString>();
+            Docs = new Vec<Str>();
             Docs.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
-        public Option<BaseString> FieldName { get; private set; }
+        public BaseOpt<Str> FieldName { get; private set; }
         public TType FieldTy { get; private set; }
-        public Option<BaseString> FieldTypeName { get; private set; }
-        public Vec<BaseString> Docs { get; private set; }
+        public BaseOpt<Str> FieldTypeName { get; private set; }
+        public Vec<Str> Docs { get; private set; }
     }
 
 }

@@ -19,7 +19,7 @@ namespace NodeLibraryGen
             TargetUnit = new CodeCompileUnit();
             CodeNamespace importsNamespace = new() { 
                 Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),

@@ -1,19 +1,16 @@
-﻿using SubstrateNetApi.Model.Types.Base;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Text;
 
-namespace SubstrateNetApi.Model.Types.Struct
+namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class BaseString : BaseType
+    public class Str : BaseType
     {
-        public override string TypeName() => $"String";
+        public override string TypeName() => "str";
 
         public override byte[] Encode()
         {
-            var result = Encoding.Default.GetBytes(Value);
-            return Utils.SizePrefixedByteArray(result.ToList());
+            return Utils.SizePrefixedByteArray(Encoding.UTF8.GetBytes(Value).ToList());
         }
 
         public override void Decode(byte[] byteArray, ref int p)
@@ -25,7 +22,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             var length = CompactInteger.Decode(byteArray, ref p);
             for (var i = 0; i < length; i++)
             {
-                var t = new BaseChar();
+                var t = new PrimChar();
                 t.Decode(byteArray, ref p);
                 value += t.Value;
             }
@@ -39,11 +36,6 @@ namespace SubstrateNetApi.Model.Types.Struct
             Value = value;
         }
 
-        public override void CreateFromJson(string str)
-        {
-            Create(Utils.HexToByteArray(str));
-        }
-
         public string Value { get; internal set; }
 
         public override void Create(string value)
@@ -51,6 +43,5 @@ namespace SubstrateNetApi.Model.Types.Struct
             Value = value;
             Bytes = Encode();
         }
-
     }
 }

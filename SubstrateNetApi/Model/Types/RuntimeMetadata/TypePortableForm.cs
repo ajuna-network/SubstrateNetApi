@@ -1,4 +1,5 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
 
@@ -26,7 +27,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeDef = new BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType>();
             TypeDef.Decode(byteArray, ref p);
 
-            Docs = new Vec<BaseString>();
+            Docs = new Vec<Str>();
             Docs.Decode(byteArray, ref p);
 
             _typeSize = p - start;
@@ -34,10 +35,10 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public Path Path { get; private set; }
         public Vec<TypeParameter> TypeParams { get; private set; }
         public BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType> TypeDef { get; private set; }
-        public Vec<BaseString> Docs { get; private set; }
+        public Vec<Str> Docs { get; private set; }
     }
 
-    public class Path : Vec<BaseString>
+    public class Path : Vec<Str>
     {
         public override string TypeName() => "Path<T: Form = MetaForm>";
     }
@@ -55,16 +56,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            TypeParameterName = new BaseString();
+            TypeParameterName = new Str();
             TypeParameterName.Decode(byteArray, ref p);
 
-            TypeParameterType = new Option<TType>();
+            TypeParameterType = new BaseOpt<TType>();
             TypeParameterType.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
-        public BaseString TypeParameterName { get; private set; }
-        public Option<TType> TypeParameterType { get; private set; }
+        public Str TypeParameterName { get; private set; }
+        public BaseOpt<TType> TypeParameterType { get; private set; }
     }
 
 }

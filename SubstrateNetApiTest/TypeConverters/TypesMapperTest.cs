@@ -18,7 +18,7 @@ namespace SubstrateNetApiTests
         {
             Type type = null;
             Assert.IsTrue(TypeUtil.TryGetType("U8", out type));
-            Assert.AreEqual("SubstrateNetApi.Model.Types.Base.U8", type.FullName);
+            Assert.AreEqual("SubstrateNetApi.Model.Types.Primitive.U8", type.FullName);
 
             Assert.IsTrue(TypeUtil.TryGetType("BalanceStatus", out type));
             Assert.AreEqual("SubstrateNetApi.Model.Types.Enum.BalanceStatus", type.FullName);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
 
@@ -22,13 +20,13 @@ namespace SubstrateNetApi.Model.Types.Struct
             Height = new BlockNumber();
             Height.Decode(byteArray, ref p);
 
-            Index = new PrimU32();
+            Index = new U32();
             Index.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
 
         public BlockNumber Height { get; private set; }
-        public PrimU32 Index { get; private set; }
+        public U32 Index { get; private set; }
     }
 }

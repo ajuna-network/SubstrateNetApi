@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Primitive
@@ -19,6 +18,12 @@ namespace SubstrateNetApi.Model.Types.Primitive
         {
             Bytes = byteArray;
             Value = Encoding.UTF8.GetString(byteArray)[0];
+        }
+
+        public void Create(char value)
+        {
+            Bytes = Encoding.UTF8.GetBytes(value.ToString());
+            Value = value;
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Numerics;
 
 namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class PrimI128 : BasePrim<BigInteger>
+    public class U16 : BasePrim<ushort>
     {
-        public override string TypeName() => "i128";
+        public override string TypeName() => "u16";
 
         public override int TypeSize() => 2;
 
@@ -35,10 +34,10 @@ namespace SubstrateNetApi.Model.Types.Primitive
             }
 
             Bytes = byteArray;
-            Value = new BigInteger(byteArray);
+            Value = BitConverter.ToUInt16(byteArray, 0);
         }
 
-        public void Create(short value)
+        public void Create(ushort value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;

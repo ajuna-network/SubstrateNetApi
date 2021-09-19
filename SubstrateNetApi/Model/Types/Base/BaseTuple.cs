@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SubstrateNetApi.Model.Types.TypeDefBase
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class BaseTuple : BaseType
     {
@@ -23,6 +23,44 @@ namespace SubstrateNetApi.Model.Types.TypeDefBase
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
+            _typeSize = p - start;
+
+            Bytes = new byte[_typeSize];
+            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+        }
+
+        public IType[] Value { get; internal set; }
+    }
+
+    public class BaseTuple<T1> : BaseType
+                                            where T1 : IType, new()
+    {
+        public override string TypeName()
+        {
+            return "(" +
+                new T1().TypeName() + ")";
+        }
+
+        public override byte[] Encode()
+        {
+            var result = new List<byte>();
+            foreach (var v in Value)
+            {
+                result.AddRange(v.Encode());
+            }
+            return result.ToArray();
+        }
+
+        public override void Decode(byte[] byteArray, ref int p)
+        {
+            var start = p;
+
+            Value = new IType[2];
+
+            var t1 = new T1();
+            t1.Decode(byteArray, ref p);
+            Value[0] = t1;
+
             _typeSize = p - start;
 
             Bytes = new byte[_typeSize];

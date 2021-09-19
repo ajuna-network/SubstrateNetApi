@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace SubstrateNetApi.Model.Types.Primitive
+﻿namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class PrimBool : BasePrim<bool>
+    public class Bool : BasePrim<bool>
     {
         public override string TypeName() => "bool";
 

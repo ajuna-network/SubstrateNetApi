@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.TypeConverters;
@@ -13,8 +12,8 @@ namespace SubstrateNetApi.Model.Rpc
         [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash ExtrinsicsRoot { get; set; }
 
-        [JsonConverter(typeof(GenericTypeConverter<PrimU64>))]
-        public PrimU64 Number { get; set; }
+        [JsonConverter(typeof(GenericTypeConverter<U64>))]
+        public U64 Number { get; set; }
 
         [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash ParentHash { get; set; }

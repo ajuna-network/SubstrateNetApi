@@ -10,14 +10,16 @@ using System.Text;
 
 namespace NodeLibraryGen
 {
-    public class StructGenBuilder : BaseBuilder
+    public class EventGenBuilder : BaseBuilder
     {
-        private StructGenBuilder(uint id, NodeTypeComposite typeDef, List<string> types)
+        private EventGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
         {
+            Success = true;
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new() { 
+            CodeNamespace importsNamespace = new()
+            {
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
@@ -29,45 +31,74 @@ namespace NodeLibraryGen
                 }
             };
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.TypeDefComposite");
+            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Custom.Events");
             TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
-            ClassName = $"{typeDef.Path.Last()}";
+            var fullPath = $"{String.Join('.', typeDef.Path)}";
+
+            ClassName = typeDef.Path[0].MakeMethod();
+
+            var palletName = typeDef.Path[0]
+                .Replace("pallet_", "")
+                .Replace("frame_", "")
+                .MakeMethod();
 
             TargetClass = new CodeTypeDeclaration(ClassName)
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-            TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
-            typeNamespace.Types.Add(TargetClass);
 
-            var nameMethod = SimpleMethod("TypeName", "System.String", ClassName);
-            TargetClass.Members.Add(nameMethod);
-
-            if (typeDef.TypeFields != null)
+            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {fullPath}", true));
+            foreach (var doc in typeDef.Docs)
             {
-                for (int i = 0; i < typeDef.TypeFields.Length; i++) {
-                    
-                    NodeTypeField typeField = typeDef.TypeFields[i];
-                    string fieldName = typeField.Name;
-                    if (typeField.Name == null)
-                    {
-                        fieldName = typeDef.TypeFields.Length > 1 ? typeField.TypeName : "value";
-                    }
+                TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
+            }
+            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
 
-                    string baseType = types[i];
-                    var field = GetPropertyField(fieldName, baseType);
-                    TargetClass.Members.Add(field);
-                    TargetClass.Members.Add(GetProperty(fieldName, field)); }
+            if (typeDef.Variants != null)
+            {
+                foreach (var variant in typeDef.Variants)
+                {
+                    var eventClass = new CodeTypeDeclaration(variant.Name.MakeMethod())
+                    {
+                        IsClass = true,
+                        TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
+                    };
+
+                    eventClass.Comments.Add(new CodeCommentStatement("<summary>", true));
+                    eventClass.Comments.Add(new CodeCommentStatement($">> Event: {variant.Name}", true));
+                    foreach (var doc in variant.Docs)
+                    {
+                        eventClass.Comments.Add(new CodeCommentStatement(doc, true));
+                    }
+                    eventClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+
+                    var codeTypeRef = new CodeTypeReference("BaseTuple");
+                    if (variant.TypeFields != null)
+                    {
+                        foreach (var field in variant.TypeFields)
+                        {
+                            if (typeDict.TryGetValue(field.TypeId, out string baseType))
+                            {
+                                codeTypeRef.TypeArguments.Add(new CodeTypeReference(baseType));
+                            }
+                            else
+                            {
+                                Success = false;
+                            }
+                        }
+                    }
+                    eventClass.BaseTypes.Add(codeTypeRef);
+
+                    TargetClass.Members.Add(eventClass);
+                }
             }
 
-            CodeMemberMethod encodeMethod = GetEncode(typeDef.TypeFields);
-            TargetClass.Members.Add(encodeMethod);
+            typeNamespace.Types.Add(TargetClass);
 
-            CodeMemberMethod decodeMethod = GetDecode(typeDef.TypeFields, types);
-            TargetClass.Members.Add(decodeMethod);
         }
         private CodeMemberField GetPropertyField(string name, string baseType)
         {
@@ -79,6 +110,7 @@ namespace NodeLibraryGen
             };
             return field;
         }
+
         private CodeMemberProperty GetProperty(string name, CodeMemberField propertyField)
         {
             CodeMemberProperty prop = new()
@@ -168,27 +200,29 @@ namespace NodeLibraryGen
             return encodeMethod;
         }
 
-        public static StructGenBuilder Create(uint id, NodeTypeComposite typeDef, List<string> types)
+        public static EventGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
         {
-            return new StructGenBuilder(id, typeDef, types);
+            return new EventGenBuilder(id, typeDef, typeDict);
         }
 
-        public string Build()
+        public string Build(out bool success)
         {
-
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-            CodeGeneratorOptions options = new()
+            success = Success;
+            if (Success)
             {
-                BracingStyle = "C"
-            };
-            var path = Path.Combine("Model", "Types", "TypeDefComposite", ClassName + ".cs");
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            using (StreamWriter sourceWriter = new(path))
-            {
-                provider.GenerateCodeFromCompileUnit(
-                    TargetUnit, sourceWriter, options);
+                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+                CodeGeneratorOptions options = new()
+                {
+                    BracingStyle = "C"
+                };
+                var path = Path.Combine("Model", "Custom", "Events", ClassName + ".cs");
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                using (StreamWriter sourceWriter = new(path))
+                {
+                    provider.GenerateCodeFromCompileUnit(
+                        TargetUnit, sourceWriter, options);
+                }
             }
-
             return ClassName;
         }
     }

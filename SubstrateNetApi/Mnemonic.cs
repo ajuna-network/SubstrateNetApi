@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
 using SubstrateNetApi.BIP39;
 
 namespace SubstrateNetApi

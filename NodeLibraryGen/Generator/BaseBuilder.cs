@@ -6,6 +6,8 @@ namespace NodeLibraryGen
 {
     public class BaseBuilder
     {
+        internal bool Success { get; set; }
+
         internal uint Id { get; set; }
 
         internal string ClassName { get; set; }

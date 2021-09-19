@@ -7,6 +7,7 @@ using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetWallet;
 
@@ -192,7 +193,7 @@ namespace SubstrateNetWalletTest
             var header = await wallet.Client.Chain.GetHeaderAsync(blockHash);
             Assert.AreEqual(10, header.Number.Value);
 
-            var countMogwais = (PrimU64) await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
+            var countMogwais = (U64) await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
                 new[] {Utils.Bytes2HexString(wallet.Account.Bytes)});
             Assert.AreEqual(1, countMogwais.Value);
 
@@ -293,7 +294,7 @@ namespace SubstrateNetWalletTest
                 if (eventObject.Changes != null)
                 {
                     var p = 0;
-                    var u64 = new PrimU64();
+                    var u64 = new U64();
                     u64.Decode(Utils.HexToByteArray(eventObject.Changes[0][1]), ref p);
                     test = u64.Value;
                 }
