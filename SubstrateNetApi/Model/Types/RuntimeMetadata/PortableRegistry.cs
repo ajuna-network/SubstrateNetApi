@@ -1,8 +1,8 @@
-﻿using SubstrateNetApi.Model.Types.Struct;
+﻿using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class PortableRegistry : Vec<PortableType>
+    public class PortableRegistry : BaseVec<PortableType>
     {
         public override string TypeName() => "PortableRegistry";
     }

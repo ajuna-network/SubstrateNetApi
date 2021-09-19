@@ -48,8 +48,8 @@ namespace SubstrateNetApiTests
         [Test]
         public void VecU8TypeConverterTest()
         {
-            var tc = new GenericTypeConverter<Vec<U8>>();
-            var actual = (Vec<U8>) tc.Create("0x200101020304050607");
+            var tc = new GenericTypeConverter<BaseVec<U8>>();
+            var actual = (BaseVec<U8>) tc.Create("0x200101020304050607");
             Assert.AreEqual(1, actual.Value[0].Value);
             Assert.AreEqual(1, actual.Value[1].Value);
             Assert.AreEqual(2, actual.Value[2].Value);

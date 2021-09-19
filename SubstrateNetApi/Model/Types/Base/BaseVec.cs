@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SubstrateNetApi.Model.Types.Primitive
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class BaseVec<T> : IType where T : IType, new()
     {

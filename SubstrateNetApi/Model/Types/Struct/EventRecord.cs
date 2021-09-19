@@ -1,6 +1,7 @@
 ﻿using System;
 using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
@@ -39,7 +40,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             BaseEvent = new BaseEvent(_metaData);
             BaseEvent.Decode(byteArray, ref p);
 
-            Topics = new Vec<Topic>();
+            Topics = new BaseVec<Topic>();
             Topics.Decode(byteArray, ref p);
 
             TypeSize = p - start;
@@ -47,6 +48,6 @@ namespace SubstrateNetApi.Model.Types.Struct
 
         public Phase Phase;
         public BaseEvent BaseEvent;
-        public Vec<Topic> Topics;
+        public BaseVec<Topic> Topics;
     }
 }

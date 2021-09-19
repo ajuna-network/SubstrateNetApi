@@ -445,14 +445,14 @@ namespace NodeLibraryGen
             File.WriteAllText(fileName, jsonFile);
         }
 
-        public static Dictionary<uint, NodeType> CreateNodeTypeDict(List<PortableType> types)
+        public static Dictionary<uint, NodeType> CreateNodeTypeDict(PortableType[] types)
         {
             var result = new Dictionary<uint, NodeType>();
 
             foreach (var type in types)
             {
-                var path = type.Ty.Path.Value.Count == 0 ? null : type.Ty.Path.Value.Select(p => p.Value).ToArray();
-                var typeParams = type.Ty.TypeParams.Value.Count == 0 ? null : type.Ty.TypeParams.Value.Select(p =>
+                var path = type.Ty.Path.Value.Length == 0 ? null : type.Ty.Path.Value.Select(p => p.Value).ToArray();
+                var typeParams = type.Ty.TypeParams.Value.Length == 0 ? null : type.Ty.TypeParams.Value.Select(p =>
                 {
                     return new NodeTypeParam()
                     {
@@ -461,7 +461,7 @@ namespace NodeLibraryGen
                     };
                 }).ToArray();
                 var typeDefValue = type.Ty.TypeDef.Value;
-                var docs = type.Ty.Docs == null || type.Ty.Docs.Value.Count == 0 ? null : type.Ty.Docs.Value.Select(p => p.Value).ToArray();
+                var docs = type.Ty.Docs == null || type.Ty.Docs.Value.Length == 0 ? null : type.Ty.Docs.Value.Select(p => p.Value).ToArray();
 
                 NodeType nodeType = null;
                 switch (typeDefValue)
@@ -475,9 +475,9 @@ namespace NodeLibraryGen
                                 Path = path,
                                 TypeParams = typeParams,
                                 TypeDef = typeDefValue,
-                                TypeFields = typeDef.Fields.Value.Count == 0 ? null : typeDef.Fields.Value.Select(p =>
+                                TypeFields = typeDef.Fields.Value.Length == 0 ? null : typeDef.Fields.Value.Select(p =>
                                 {
-                                    var fDocs = p.Docs == null || p.Docs.Value.Count == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
+                                    var fDocs = p.Docs == null || p.Docs.Value.Length == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
                                     return new NodeTypeField()
                                     {
                                         Name = p.FieldName.Value?.Value,
@@ -499,15 +499,15 @@ namespace NodeLibraryGen
                                 Path = path,
                                 TypeParams = typeParams,
                                 TypeDef = typeDefValue,
-                                Variants = typeDef.TypeParam.Value.Count == 0 ? null : typeDef.TypeParam.Value.Select(p =>
+                                Variants = typeDef.TypeParam.Value.Length == 0 ? null : typeDef.TypeParam.Value.Select(p =>
                                 {
-                                    var vDocs = p.Docs == null || p.Docs.Value.Count == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
+                                    var vDocs = p.Docs == null || p.Docs.Value.Length == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
                                     return new TypeVariant()
                                     {
                                         Name = p.VariantName.Value,
-                                        TypeFields = p.VariantFields.Value.Count == 0 ? null : p.VariantFields.Value.Select(p =>
+                                        TypeFields = p.VariantFields.Value.Length == 0 ? null : p.VariantFields.Value.Select(p =>
                                         {
-                                            var fDocs = p.Docs == null || p.Docs.Value.Count == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
+                                            var fDocs = p.Docs == null || p.Docs.Value.Length == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
                                             return new NodeTypeField()
                                             {
                                                 Name = p.FieldName.Value?.Value,

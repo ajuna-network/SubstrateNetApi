@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
@@ -83,12 +84,12 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            Fields = new Vec<Field>();
+            Fields = new BaseVec<Field>();
             Fields.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
-        public Vec<Field> Fields { get; private set; }
+        public BaseVec<Field> Fields { get; private set; }
 
     }
 
@@ -105,12 +106,12 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            TypeParam = new Vec<Variant>();
+            TypeParam = new BaseVec<Variant>();
             TypeParam.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
-        public Vec<Variant> TypeParam { get; private set; }
+        public BaseVec<Variant> TypeParam { get; private set; }
     }
 
     public class TypeDefSequence : BaseType
@@ -172,12 +173,12 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            Fields = new Vec<TType>();
+            Fields = new BaseVec<TType>();
             Fields.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
-        public Vec<TType> Fields { get; private set; }
+        public BaseVec<TType> Fields { get; private set; }
     }
 
     public enum TypeDefPrimitive

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SubstrateNetApi.Model.Meta;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubstrateNetApi.Model.Types.Base;
+using System;
 using System.Collections.Generic;
 
 namespace SubstrateNetApi.Model.Types

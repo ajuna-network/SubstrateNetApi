@@ -3,22 +3,22 @@ using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class AuthorityList : Vec<BaseTuple<AuthorityId, AuthorityWeight>>
+    public class AuthorityList : BaseVec<BaseTuple<AuthorityId, AuthorityWeight>>
     {
         public override string TypeName() => "AuthorityList";
     }
 
-    public class StorageKey : Vec<U8>
+    public class StorageKey : BaseVec<U8>
     {
         public override string TypeName() => "StorageKey";
     }
 
-    public class StorageData : Vec<U8>
+    public class StorageData : BaseVec<U8>
     {
         public override string TypeName() => "StorageData";
     }
 
-    public class OpaqueTimeSlot : Vec<U8>
+    public class OpaqueTimeSlot : BaseVec<U8>
     {
         public override string TypeName() => "OpaqueTimeSlot";
     }

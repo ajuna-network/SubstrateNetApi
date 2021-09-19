@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class BaseEnumExt<T0, T1> : BaseType
                                         where T0 : System.Enum
@@ -442,7 +442,7 @@ namespace SubstrateNetApi.Model.Types
         public IType Value2 { get; internal set; }
 
     }
-    
+
     public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7> : BaseType
                                                             where T0 : System.Enum
                                                             where T1 : IType, new()

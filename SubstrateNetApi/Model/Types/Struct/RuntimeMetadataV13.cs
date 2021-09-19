@@ -170,7 +170,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
 
-    public class ByteGetter : Vec<U8>
+    public class ByteGetter : BaseVec<U8>
     {
         public override string TypeName() => "unknown";
     }
@@ -433,13 +433,13 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Version = new U8();
             Version.Decode(byteArray, ref p);
 
-            SignedExtensions = new Vec<DecodeDifferentStr>();
+            SignedExtensions = new BaseVec<DecodeDifferentStr>();
             SignedExtensions.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
         public U8 Version { get; private set; }
-        public Vec<DecodeDifferentStr> SignedExtensions { get; private set; }
+        public BaseVec<DecodeDifferentStr> SignedExtensions { get; private set; }
     }
 
     public class DecodeDifferentStr : DecodeDifferent<PrimChar>

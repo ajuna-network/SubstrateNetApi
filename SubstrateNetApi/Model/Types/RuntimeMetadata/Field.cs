@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             FieldTypeName = new BaseOpt<Str>();
             FieldTypeName.Decode(byteArray, ref p);
 
-            Docs = new Vec<Str>();
+            Docs = new BaseVec<Str>();
             Docs.Decode(byteArray, ref p);
 
             TypeSize = p - start;
@@ -35,7 +35,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public BaseOpt<Str> FieldName { get; private set; }
         public TType FieldTy { get; private set; }
         public BaseOpt<Str> FieldTypeName { get; private set; }
-        public Vec<Str> Docs { get; private set; }
+        public BaseVec<Str> Docs { get; private set; }
     }
 
 }

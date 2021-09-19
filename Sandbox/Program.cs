@@ -259,8 +259,8 @@ namespace Sandbox
 
             newModel.Extrinsic = new ExtrinsicExtension();
             newModel.Extrinsic.Version = mdv13.Extrinsic.Version.Value;
-            newModel.Extrinsic.SignedExtensions = new string[mdv13.Extrinsic.SignedExtensions.Value.Count];
-            for (int i = 0; i < mdv13.Extrinsic.SignedExtensions.Value.Count; i++)
+            newModel.Extrinsic.SignedExtensions = new string[mdv13.Extrinsic.SignedExtensions.Value.Length];
+            for (int i = 0; i < mdv13.Extrinsic.SignedExtensions.Value.Length; i++)
             {
                 newModel.Extrinsic.SignedExtensions[i] = new string(mdv13.Extrinsic.SignedExtensions.Value[i].Value.Select(t => t.Value).ToArray());
             }

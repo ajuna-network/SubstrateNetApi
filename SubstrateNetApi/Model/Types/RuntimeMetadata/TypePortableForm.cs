@@ -21,24 +21,24 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Path = new Path();
             Path.Decode(byteArray, ref p);
 
-            TypeParams = new Vec<TypeParameter>();
+            TypeParams = new BaseVec<TypeParameter>();
             TypeParams.Decode(byteArray, ref p);
 
             TypeDef = new BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, Void>();
             TypeDef.Decode(byteArray, ref p);
 
-            Docs = new Vec<Str>();
+            Docs = new BaseVec<Str>();
             Docs.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
         public Path Path { get; private set; }
-        public Vec<TypeParameter> TypeParams { get; private set; }
+        public BaseVec<TypeParameter> TypeParams { get; private set; }
         public BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, Void> TypeDef { get; private set; }
-        public Vec<Str> Docs { get; private set; }
+        public BaseVec<Str> Docs { get; private set; }
     }
 
-    public class Path : Vec<Str>
+    public class Path : BaseVec<Str>
     {
         public override string TypeName() => "Path<T: Form = MetaForm>";
     }

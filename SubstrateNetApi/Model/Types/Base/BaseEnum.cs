@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class BaseEnum<T> : IType where T : System.Enum
     {
@@ -10,7 +10,7 @@ namespace SubstrateNetApi.Model.Types
 
         public int TypeSize { get; set; } = 1;
 
-        [JsonIgnore] 
+        [JsonIgnore]
         public byte[] Bytes { get; internal set; }
 
         public byte[] Encode()
@@ -47,7 +47,7 @@ namespace SubstrateNetApi.Model.Types
         public void Create(byte[] byteArray)
         {
             Bytes = byteArray;
-            Value = (T) System.Enum.Parse(typeof(T), byteArray[0].ToString(), true);
+            Value = (T)System.Enum.Parse(typeof(T), byteArray[0].ToString(), true);
 
             //if (byteArray.Length < Size())
             //{

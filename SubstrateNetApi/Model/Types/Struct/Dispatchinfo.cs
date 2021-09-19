@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
 using SubstrateNetApi.Model.Types.Primitive;
 

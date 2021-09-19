@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using SubstrateNetApi.Model.Meta;
+using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct

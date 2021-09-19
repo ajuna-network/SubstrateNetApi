@@ -1,4 +1,6 @@
-﻿namespace SubstrateNetApi.Model.Types
+﻿using SubstrateNetApi.Model.Types.Base;
+
+namespace SubstrateNetApi.Model.Types
 {
     public class Void : BaseType
     {

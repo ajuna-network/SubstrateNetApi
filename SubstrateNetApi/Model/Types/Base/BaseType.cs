@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SubstrateNetApi.Model.Types
+namespace SubstrateNetApi.Model.Types.Base
 {
     public abstract class BaseType : IType
     {
@@ -8,7 +8,7 @@ namespace SubstrateNetApi.Model.Types
 
         public virtual int TypeSize { get; set; }
 
-        [JsonIgnore] 
+        [JsonIgnore]
         public byte[] Bytes { get; internal set; }
 
         public abstract byte[] Encode();

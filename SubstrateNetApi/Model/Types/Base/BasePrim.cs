@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types
 {

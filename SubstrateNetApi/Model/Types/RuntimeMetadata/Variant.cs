@@ -1,4 +1,5 @@
-﻿using SubstrateNetApi.Model.Types.Primitive;
+﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
 
@@ -20,21 +21,21 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             VariantName = new Str();
             VariantName.Decode(byteArray, ref p);
 
-            VariantFields = new Vec<Field>();
+            VariantFields = new BaseVec<Field>();
             VariantFields.Decode(byteArray, ref p);
 
             Index = new U8();
             Index.Decode(byteArray, ref p);
 
-            Docs = new Vec<Str>();
+            Docs = new BaseVec<Str>();
             Docs.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
         public Str VariantName { get; private set; }
-        public Vec<Field> VariantFields { get; private set; }
+        public BaseVec<Field> VariantFields { get; private set; }
         public U8 Index { get; private set; }
-        public Vec<Str> Docs { get; private set; }
+        public BaseVec<Str> Docs { get; private set; }
     }
 
 }

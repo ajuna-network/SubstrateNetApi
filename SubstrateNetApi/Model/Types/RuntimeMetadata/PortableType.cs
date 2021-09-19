@@ -1,4 +1,5 @@
-﻿using SubstrateNetApi.Model.Types.Primitive;
+﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
