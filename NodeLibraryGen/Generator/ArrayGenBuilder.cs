@@ -11,13 +11,19 @@ namespace NodeLibraryGen
 {
     public class ArrayGenBuilder : BaseBuilder
     {
-        private ArrayGenBuilder(string baseType, uint length)
+        public static int Counter = 0;
+        private ArrayGenBuilder(uint id, string baseType, uint length)
         {
+            Id = id;
+
             TargetUnit = new CodeCompileUnit();
             CodeNamespace importsNamespace = new() { 
                 Imports = {
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefPrimitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
                     new CodeNamespaceImport("System.Collections.Generic"),
                     new CodeNamespaceImport("System")
                 }
@@ -28,6 +34,11 @@ namespace NodeLibraryGen
             TargetUnit.Namespaces.Add(typeNamespace);
 
             ClassName = $"Arr{length}{baseType}";
+
+            if (baseType.Any(ch => !Char.IsLetterOrDigit(ch))) {
+                Counter++;
+                ClassName = $"Arr{length}Special" + Counter++;
+            }           
 
             TargetClass = new CodeTypeDeclaration(ClassName)
             {
@@ -159,9 +170,9 @@ namespace NodeLibraryGen
             return encodeMethod;
         }
 
-        public static ArrayGenBuilder Create(string baseType, uint length)
+        public static ArrayGenBuilder Create(uint id, string baseType, uint length)
         {
-            return new ArrayGenBuilder(baseType, length);
+            return new ArrayGenBuilder(id, baseType, length);
         }
 
         public string Build()

@@ -6,6 +6,8 @@ namespace NodeLibraryGen
 {
     public class BaseBuilder
     {
+        internal uint Id { get; set; }
+
         internal string ClassName { get; set; }
 
         internal CodeCompileUnit TargetUnit { get; set; }

@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
 {
-    public class PrimStr : PrimVec<PrimChar>
+    public class PrimStr : BaseVec<PrimChar>
     {
         public override string TypeName() => "str";
     }

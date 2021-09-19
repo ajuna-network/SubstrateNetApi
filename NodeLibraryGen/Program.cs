@@ -49,15 +49,16 @@ namespace NodeLibraryGen
         {
             var typeDict = new Dictionary<uint, string>();
 
-            for (int i = 0; i < 3; i++)
+            CallPrimitive(nodeTypes, ref typeDict);
+
+            for (int i = 0; i < 10; i++)
             {
-                CallPrimitive(nodeTypes, ref typeDict);
                 CallArray(nodeTypes, ref typeDict);
                 CallTuple(nodeTypes, ref typeDict);
                 CallSequence(nodeTypes, ref typeDict);
                 CallCompact(nodeTypes, ref typeDict);
                 CallComposite(nodeTypes, ref typeDict);
-            //    CallVariant(nodeTypes, ref typeDict);
+                CallVariant(nodeTypes, ref typeDict);
             }
 
             return typeDict;
@@ -154,7 +155,7 @@ namespace NodeLibraryGen
                             Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
                         }
 
-                        var typeName = ArrayGenBuilder.Create(baseType, typeDef.Length).Build();
+                        var typeName = ArrayGenBuilder.Create(i, baseType, typeDef.Length).Build();
                         typeDict.Add(i, typeName);
                     }
                 }
@@ -204,7 +205,7 @@ namespace NodeLibraryGen
                     // all types found
                     if (typeIds != null)
                     {
-                        var typeName = $"PrimTuple{(typeIds.Count > 0 ? "<" + String.Join(',', typeIds.ToArray()) + ">" : "")}";
+                        var typeName = $"BaseTuple{(typeIds.Count > 0 ? "<" + String.Join(',', typeIds.ToArray()) + ">" : "")}";
                         typeDict.Add(i, typeName);
                     }
                 }
@@ -236,7 +237,7 @@ namespace NodeLibraryGen
 
                     if (typeDict.TryGetValue(typeDef.TypeId, out string value))
                     {
-                        var typeName = $"PrimVec<{value}>";
+                        var typeName = $"BaseVec<{value}>";
                         typeDict.Add(i, typeName);
                     }
                 }
@@ -268,7 +269,7 @@ namespace NodeLibraryGen
 
                     if (typeDict.TryGetValue(typeDef.TypeId, out string value))
                     {
-                        var typeName = $"PrimCom<{value}>";
+                        var typeName = $"BaseCom<{value}>";
                         typeDict.Add(i, typeName);
                     }
                 }
@@ -310,7 +311,7 @@ namespace NodeLibraryGen
                     }
                     if (satisfied)
                     {
-                        var typeName = StructGenBuilder.Create(typeDef, types).Build();
+                        var typeName = StructGenBuilder.Create(i, typeDef, types).Build();
                         typeDict.Add(i, typeName);
                     }
                 }
@@ -348,26 +349,60 @@ namespace NodeLibraryGen
                 {
                     var typeDef = nodeType as NodeTypeVariant;
 
-                    typeDict.Add(i, $"{String.Join('.', typeDef.Path)}");
-                }
-            }
-        }
+                    var path = String.Join('.', typeDef.Path);
+                    //typeDict.Add(i, $"{String.Join('.', typeDef.Path)}");
 
-        private static void GenerateCode(Dictionary<uint, NodeType> nodeTypes)
-        {
-            for (uint i = 0; i < 1; i++) // nodeTypes.Keys.Max(); i++)
-            {
-                if (!nodeTypes.TryGetValue(i, out NodeType nodeType))
-                {
-                    continue;
-                }
+                    if (path == "Option")
+                    {
+                        if (typeDict.TryGetValue(typeDef.Variants[1].TypeFields[0].TypeId, out string optType)) {
+                            typeDict.Add(i, $"BaseOpt<{optType}>");
+                        }
+                    }
+                    else if (path == "Result")
+                    {
+                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                    }
+                    else if (path.Contains("node_runtime.Call") || path.Contains(".pallet.Call") || path.Contains("pallet_") && path.Contains(".Call"))
+                    {
+                        Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                    }
+                    else if (path.Contains("node_runtime.Event") || path.Contains(".pallet.Event") || path.Contains("pallet_") && path.Contains(".Event"))
+                    {
+                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                    }
+                    else if (path.Contains(".pallet.Error") || path.Contains("pallet_") && path.Contains(".Error"))
+                    {
+                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                    } 
+                    else if (path.Contains("pallet_") )
+                    {
+                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(i, typeName);
+                        }
+                    }
+                    else if (path.Contains(".Void"))
+                    {
+                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(i, typeName);
+                        }
+                    }
+                    else
+                    {
+                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(i, typeName);
+                        }
+                    }
 
-                if (nodeType is NodeTypeComposite)
-                {
-                    var composite = nodeType as NodeTypeComposite;
-                    Console.WriteLine(StructGeneratorBuilder.Create(composite, nodeTypes).Build());
                 }
-
             }
         }
 

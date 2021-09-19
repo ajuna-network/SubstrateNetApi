@@ -12,13 +12,18 @@ namespace NodeLibraryGen
 {
     public class StructGenBuilder : BaseBuilder
     {
-        private StructGenBuilder(NodeTypeComposite typeDef, List<string> types)
+        private StructGenBuilder(uint id, NodeTypeComposite typeDef, List<string> types)
         {
+            Id = id;
+
             TargetUnit = new CodeCompileUnit();
             CodeNamespace importsNamespace = new() { 
                 Imports = {
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefPrimitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
                     new CodeNamespaceImport("System.Collections.Generic"),
                     new CodeNamespaceImport("System")
                 }
@@ -163,9 +168,9 @@ namespace NodeLibraryGen
             return encodeMethod;
         }
 
-        public static StructGenBuilder Create(NodeTypeComposite typeDef, List<string> types)
+        public static StructGenBuilder Create(uint id, NodeTypeComposite typeDef, List<string> types)
         {
-            return new StructGenBuilder(typeDef, types);
+            return new StructGenBuilder(id, typeDef, types);
         }
 
         public string Build()

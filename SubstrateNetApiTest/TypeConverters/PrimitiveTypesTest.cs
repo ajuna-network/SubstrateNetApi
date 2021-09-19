@@ -112,7 +112,7 @@ namespace SubstrateNetApiTests
         {
             // vec u16 test
             var vecUInt16 = new uint[] { 4, 8, 15, 16, 23, 42 };
-            var primVec = new PrimVec<PrimU16>();
+            var primVec = new BaseVec<PrimU16>();
             primVec.Create("0x18040008000f00100017002a00");
             for (int i = 0; i < vecUInt16.Length; i++)
             {
