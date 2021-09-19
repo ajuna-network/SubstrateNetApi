@@ -40,14 +40,14 @@ namespace NodeLibraryGen
 
             Console.WriteLine($"{((double)typeDict.Count / nodeTypes.Count).ToString("P")}");
 
-            //for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
-            //{
-            //    if (nodeTypes.ContainsKey(i) && !typeDict.ContainsKey(i))
-            //    {
-            //        Console.WriteLine($"### {i} -------------------------------------------------");
-            //        Console.WriteLine(JsonConvert.SerializeObject(nodeTypes[i], Formatting.Indented));
-            //    }
-            //}
+            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            {
+                if (nodeTypes.ContainsKey(i) && !typeDict.ContainsKey(i))
+                {
+                    Console.WriteLine($"### {i} -------------------------------------------------");
+                    Console.WriteLine(JsonConvert.SerializeObject(nodeTypes[i], Formatting.Indented));
+                }
+            }
 
             //WriteJsonFile("metadata.json", nodeTypes);
             //GenerateCode(nodeTypes);

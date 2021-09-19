@@ -140,7 +140,7 @@ namespace NodeLibraryGen
                         TargetUnit, sourceWriter, options);
                 }
             }
-            return ClassName;
+            return ClassName + "Call";
         }
     }
 }
