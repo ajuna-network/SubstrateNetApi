@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Index = new U32();
             Index.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public BlockNumber Height { get; private set; }

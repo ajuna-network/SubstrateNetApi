@@ -371,8 +371,9 @@ namespace NodeLibraryGen
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                         //typeDict.Add(i, $"Result");
                     }
-                    else if (path.Contains(".pallet.Call"))
+                    else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Call"))
                     {
+                        Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                         var typeName = CallGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
@@ -384,7 +385,7 @@ namespace NodeLibraryGen
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                         //typeDict.Add(i, $"Result");
                     }
-                    else if (path.Contains(".pallet.Event"))
+                    else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && ( path.Contains(".Event") || path.Contains(".RawEvent")))
                     {
                         var typeName = EventGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
@@ -397,10 +398,13 @@ namespace NodeLibraryGen
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                         //typeDict.Add(i, $"Result");
                     }
-                    else if (path.Contains(".pallet.Error") || path.Contains("pallet_") && path.Contains(".Error"))
+                    else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Error"))
                     {
-                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        //typeDict.Add(i, $"Result");
+                        var typeName = ErrorGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(i, typeName);
+                        }
                     }
                     else if (path.Contains("pallet_"))
                     {
@@ -414,11 +418,12 @@ namespace NodeLibraryGen
                     else if (path.Contains(".Void"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
-                        if (success)
-                        {
-                            typeDict.Add(i, typeName);
-                        }
+                        //var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        //if (success)
+                        //{
+                        //    typeDict.Add(i, typeName);
+                        //}
+                        typeDict.Add(i, "Void");
                     }
                     else
                     {

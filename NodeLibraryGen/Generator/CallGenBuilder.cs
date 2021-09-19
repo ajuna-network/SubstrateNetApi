@@ -24,9 +24,9 @@ namespace NodeLibraryGen
                     new CodeNamespaceImport("SubstrateNetApi.Model.Calls"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
                     new CodeNamespaceImport("System.Collections.Generic"),
                     new CodeNamespaceImport("System")
                 }

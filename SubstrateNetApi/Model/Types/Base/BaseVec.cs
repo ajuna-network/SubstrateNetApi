@@ -8,9 +8,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
     {
         public virtual string TypeName() => $"Vec<{new T().TypeName()}>";
 
-        private int _typeSize;
-
-        public int TypeSize() => _typeSize;
+        public int TypeSize { get; set; }
 
         [JsonIgnore]
         public byte[] Bytes { get; internal set; }
@@ -39,10 +37,10 @@ namespace SubstrateNetApi.Model.Types.Primitive
                 array[i] = t;
             }
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
             Value = array;
         }
 

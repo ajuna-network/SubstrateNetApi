@@ -16,7 +16,7 @@
         /// Sizes this instance.
         /// </summary>
         /// <returns></returns>
-        int TypeSize();
+        int TypeSize { get; set; }
 
         /// <summary>
         /// Encodes this instance.

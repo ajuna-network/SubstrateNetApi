@@ -4,60 +4,18 @@ using Newtonsoft.Json.Converters;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class NullType : IType
-    {
-        public string TypeName() => "NullType";
-        public int TypeSize() => 0;
-
-        public void Create(string str)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Create(byte[] byteArray)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateFromJson(string str)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Decode(byte[] byteArray, ref int p)
-        {
-            throw new NotImplementedException();
-        }
-
-        public byte[] Encode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IType New()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class BaseEnumExt<T0, T1> : IType
+    public class BaseEnumExt<T0, T1> : BaseType
                                         where T0 : System.Enum
                                         where T1 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -67,7 +25,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -77,7 +35,7 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -86,24 +44,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
@@ -114,25 +60,19 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class BaseEnumExt<T0, T1, T2> : IType
+    public class BaseEnumExt<T0, T1, T2> : BaseType
                                             where T0 : System.Enum
                                             where T1 : IType, new()
                                             where T2 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -142,7 +82,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -152,13 +92,13 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -167,26 +107,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
-
-        public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
         public T0 Value { get; internal set; }
@@ -195,26 +121,20 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3> : IType
+    public class BaseEnumExt<T0, T1, T2, T3> : BaseType
                                                 where T0 : System.Enum
                                                 where T1 : IType, new()
                                                 where T2 : IType, new()
                                                 where T3 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -224,7 +144,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -234,19 +154,19 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x02:
                     result = new T3();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -255,24 +175,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
@@ -283,27 +191,21 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4> : BaseType
                                                     where T0 : System.Enum
                                                     where T1 : IType, new()
                                                     where T2 : IType, new()
                                                     where T3 : IType, new()
                                                     where T4 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -313,7 +215,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -323,25 +225,25 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x02:
                     result = new T3();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x03:
                     result = new T4();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -350,24 +252,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
@@ -378,7 +268,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5> : BaseType
                                                         where T0 : System.Enum
                                                         where T1 : IType, new()
                                                         where T2 : IType, new()
@@ -386,20 +276,14 @@ namespace SubstrateNetApi.Model.Types
                                                         where T4 : IType, new()
                                                         where T5 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -409,7 +293,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -419,31 +303,31 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x02:
                     result = new T3();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x03:
                     result = new T4();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x04:
                     result = new T5();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -452,24 +336,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
@@ -480,7 +352,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6> : BaseType
                                                             where T0 : System.Enum
                                                             where T1 : IType, new()
                                                             where T2 : IType, new()
@@ -489,20 +361,14 @@ namespace SubstrateNetApi.Model.Types
                                                             where T5 : IType, new()
                                                             where T6 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -512,7 +378,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -522,37 +388,37 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x02:
                     result = new T3();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x03:
                     result = new T4();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x04:
                     result = new T5();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x05:
                     result = new T6();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -561,24 +427,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
@@ -589,7 +443,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
     
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7> : BaseType
                                                             where T0 : System.Enum
                                                             where T1 : IType, new()
                                                             where T2 : IType, new()
@@ -599,20 +453,14 @@ namespace SubstrateNetApi.Model.Types
                                                             where T6 : IType, new()
                                                             where T7 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -622,7 +470,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -632,43 +480,43 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x02:
                     result = new T3();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x03:
                     result = new T4();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x04:
                     result = new T5();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x05:
                     result = new T6();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x06:
                     result = new T7();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -677,24 +525,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
@@ -705,7 +541,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8> : BaseType
                                                                 where T0 : System.Enum
                                                                 where T1 : IType, new()
                                                                 where T2 : IType, new()
@@ -716,20 +552,14 @@ namespace SubstrateNetApi.Model.Types
                                                                 where T7 : IType, new()
                                                                 where T8 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -739,7 +569,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -749,49 +579,49 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x02:
                     result = new T3();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x03:
                     result = new T4();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x04:
                     result = new T5();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x05:
                     result = new T6();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x06:
                     result = new T7();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x07:
                     result = new T8();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -800,24 +630,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
 
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
@@ -828,7 +646,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> : IType 
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> : BaseType
         where T0 : System.Enum
         where T1 : IType, new()
         where T2 : IType, new()
@@ -840,20 +658,14 @@ namespace SubstrateNetApi.Model.Types
         where T8 : IType, new()
         where T9 : IType, new()
     {
-        public virtual string TypeName() => typeof(T0).Name;
+        public override string TypeName() => typeof(T0).Name;
 
-        private int _size;
-        public int TypeSize() => _size;
-
-        [JsonIgnore] 
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Bytes;
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
             var enumByte = byteArray[p];
@@ -863,7 +675,7 @@ namespace SubstrateNetApi.Model.Types
 
             Value2 = DecodeOneOf(enumByte, byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
@@ -873,55 +685,55 @@ namespace SubstrateNetApi.Model.Types
             {
                 case 0x00:
                     result = new T1();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x01:
                     result = new T2();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x02:
                     result = new T3();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x03:
                     result = new T4();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x04:
                     result = new T5();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x05:
                     result = new T6();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x06:
                     result = new T7();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x07:
                     result = new T8();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
                 case 0x08:
                     result = new T9();
-                    if (result.GetType().Name == "NullType")
+                    if (result.GetType().Name == "Void")
                         return null;
                     result.Decode(byteArray, ref p);
                     return result;
@@ -930,26 +742,12 @@ namespace SubstrateNetApi.Model.Types
             }
         }
 
-        public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
         public void Create(T0 t, IType value2)
         {
             Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
             Value = t;
             Value2 = value2;
         }
-
-        public void Create(byte[] byteArray)
-        {
-            int p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
-
-        public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
         public T0 Value { get; internal set; }

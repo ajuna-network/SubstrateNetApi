@@ -22,15 +22,15 @@ namespace NodeLibraryGen
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
                     new CodeNamespaceImport("System.Collections.Generic"),
                     new CodeNamespaceImport("System")
                 }
             };
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.TypeDefVariant");
+            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.Enum");
             TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
@@ -78,7 +78,7 @@ namespace NodeLibraryGen
                     {
                         if (variant.TypeFields == null)
                         {
-                            codeTypeRef.TypeArguments.Add(new CodeTypeReference("NullType"));
+                            codeTypeRef.TypeArguments.Add(new CodeTypeReference("Void"));
                         }
                         else
                         {
@@ -97,8 +97,20 @@ namespace NodeLibraryGen
                             }
                             else
                             {
-                                //Console.WriteLine($"fucking {Id} extenum shizzle {variant.TypeFields.Length}");
-                                Success = false;
+                                var baseTuple = new CodeTypeReference("BaseTuple");
+                                foreach (var field in variant.TypeFields)
+                                {
+                                    if (typeDict.TryGetValue(field.TypeId, out string baseType))
+                                    {
+                                        baseTuple.TypeArguments.Add(new CodeTypeReference(baseType));
+                                    }
+                                    else
+                                    {
+                                        //codeTypeRef.TypeArguments.Add(new CodeTypeReference("FuckYou"));
+                                        Success = false;
+                                    }
+                                }
+                                codeTypeRef.TypeArguments.Add(baseTuple);
                             }
 
                         }
@@ -124,7 +136,7 @@ namespace NodeLibraryGen
                 {
                     BracingStyle = "C"
                 };
-                var path = Path.Combine("Model", "Types", "TypeDefVariant", ClassName + ".cs");
+                var path = Path.Combine("Model", "Types", "Enum", ClassName + ".cs");
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 using (StreamWriter sourceWriter = new(path))
                 {

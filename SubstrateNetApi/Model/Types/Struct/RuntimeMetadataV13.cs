@@ -30,7 +30,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Extrinsic = new ExtrinsicMetadata();
             Extrinsic.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public MetaDataInfo MetaDataInfo { get; private set; }
         public DecodeDifferent<ModuleMetadata> Modules { get; private set; }
@@ -56,7 +56,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Version = new U8();
             Version.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public U32 Magic { get; private set; }
         public U8 Version { get; private set; }
@@ -97,7 +97,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Index = new U8();
             Index.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferentStr ModuleName { get; private set; }
         public BaseOpt<StorageMetadata> ModuleStorage { get; private set; }
@@ -127,7 +127,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Entries = new DecodeDifferent<StorageEntryMetadata>();
             Entries.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferent<PrimChar> Prefix { get; private set; }
         public DecodeDifferent<StorageEntryMetadata> Entries { get; private set; }
@@ -152,7 +152,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             StorageModifier = new BaseEnum<Modifier>();
             StorageModifier.Decode(byteArray, ref p);
 
-            StorageType = new BaseEnumExt<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, NullType, NullType, NullType, NullType, NullType>();
+            StorageType = new BaseEnumExt<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, Void, Void, Void, Void, Void>();
             StorageType.Decode(byteArray, ref p);
 
             StorageDefault = new ByteGetter();
@@ -161,11 +161,11 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Documentation = new DecodeDifferent<DecodeDifferentStr>();
             Documentation.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferentStr StorageName { get; private set; }
         public BaseEnum<Modifier> StorageModifier { get; private set; }
-        public BaseEnumExt<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, NullType, NullType, NullType, NullType, NullType> StorageType { get; private set; }
+        public BaseEnumExt<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, Void, Void, Void, Void, Void> StorageType { get; private set; }
         public ByteGetter StorageDefault { get; private set; }
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
@@ -200,7 +200,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Unused = new Bool();
             Unused.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public BaseEnum<Hasher> Hasher { get; private set; }
         public DecodeDifferentStr Key { get; private set; }
@@ -236,7 +236,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Key2Hasher = new BaseEnum<Hasher>();
             Key2Hasher.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public BaseEnum<Hasher> Hasher { get; private set; }
         public DecodeDifferentStr Key1 { get; private set; }
@@ -267,7 +267,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Value = new DecodeDifferentStr();
             Value.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferent<DecodeDifferentStr> Keys { get; private set; }
         public DecodeDifferent<BaseEnum<Hasher>> Hashers { get; private set; }
@@ -296,7 +296,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Documentation = new DecodeDifferent<DecodeDifferentStr>();
             Documentation.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferentStr FunctionName { get; private set; }
         public DecodeDifferent<FunctionArgumentMetadata> FunctionArguments { get; private set; }
@@ -322,7 +322,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             FunctionArgumentType = new DecodeDifferentStr();
             FunctionArgumentType.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferentStr FunctionArgumentName { get; private set; }
         public DecodeDifferentStr FunctionArgumentType { get; private set; }
@@ -350,7 +350,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Documentation = new DecodeDifferent<DecodeDifferentStr>();
             Documentation.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferentStr EventName { get; private set; }
         public DecodeDifferent<DecodeDifferentStr> EventArguments { get; private set; }
@@ -382,7 +382,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Documentation = new DecodeDifferent<DecodeDifferentStr>();
             Documentation.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferentStr ConstantName { get; private set; }
         public DecodeDifferentStr ConstantType { get; private set; }
@@ -409,7 +409,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Documentation = new DecodeDifferent<DecodeDifferentStr>();
             Documentation.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public DecodeDifferentStr ErrorName { get; private set; }
         public DecodeDifferentStr ConstantType { get; private set; }
@@ -436,7 +436,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             SignedExtensions = new Vec<DecodeDifferentStr>();
             SignedExtensions.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public U8 Version { get; private set; }
         public Vec<DecodeDifferentStr> SignedExtensions { get; private set; }
@@ -470,10 +470,10 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
                 list.Add(t);
             }
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            var bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, bytes, 0, _typeSize);
+            var bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, bytes, 0, TypeSize);
 
             Bytes = bytes;
             Value = list;

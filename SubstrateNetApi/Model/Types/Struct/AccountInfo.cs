@@ -29,7 +29,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             AccountData = new AccountData();
             AccountData.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public U32 Nonce { get; private set; }

@@ -35,7 +35,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Pays = new BaseEnum<Pays>();
             Pays.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public U64 Weight { get; set; }

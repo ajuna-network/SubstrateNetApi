@@ -28,7 +28,7 @@ namespace SubstrateNetApi.Model.Types.Base
             //Extra = new Extra();
             //Extra.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public U32 Balance { get; private set; }

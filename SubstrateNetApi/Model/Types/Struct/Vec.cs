@@ -31,10 +31,10 @@ namespace SubstrateNetApi.Model.Types.Struct
                 list.Add(t);
             }
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            var bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, bytes, 0, _typeSize);
+            var bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, bytes, 0, TypeSize);
 
             Bytes = bytes;
             Value = list;

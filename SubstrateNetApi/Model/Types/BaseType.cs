@@ -6,8 +6,7 @@ namespace SubstrateNetApi.Model.Types
     {
         public abstract string TypeName();
 
-        internal int _typeSize;
-        public virtual int TypeSize() => _typeSize;
+        public virtual int TypeSize { get; set; }
 
         [JsonIgnore] 
         public byte[] Bytes { get; internal set; }
@@ -20,7 +19,7 @@ namespace SubstrateNetApi.Model.Types
 
         public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
 
-        public void Create(byte[] byteArray)
+        public virtual void Create(byte[] byteArray)
         {
             var p = 0;
             Decode(byteArray, ref p);

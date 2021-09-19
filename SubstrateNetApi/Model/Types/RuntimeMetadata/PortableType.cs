@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Ty = new TypePortableForm();
             Ty.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public U32 Id { get; private set; }
         public TypePortableForm Ty { get; private set; }

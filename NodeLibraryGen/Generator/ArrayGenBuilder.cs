@@ -21,15 +21,15 @@ namespace NodeLibraryGen
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
                     new CodeNamespaceImport("System.Collections.Generic"),
                     new CodeNamespaceImport("System")
                 }
             };
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.TypeDefArray");
+            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.Sequence");
             TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
@@ -56,7 +56,7 @@ namespace NodeLibraryGen
                 ReturnType = new CodeTypeReference(typeof(System.String))
             };
             var methodRef1 = new CodeMethodReferenceExpression(new CodeObjectCreateExpression(baseType, Array.Empty<CodeExpression>()), "TypeName()");
-            var methodRef2 = new CodeMethodReferenceExpression(new CodeThisReferenceExpression(), "TypeSize()");
+            var methodRef2 = new CodeMethodReferenceExpression(new CodeThisReferenceExpression(), "TypeSize");
 
             // Declaring a return statement for method ToString.
             CodeMethodReturnStatement returnStatement =
@@ -73,14 +73,14 @@ namespace NodeLibraryGen
 
             //var sizeMethod = SimpleMethod("TypeSize", "System.Int32", (int)length);
             //TargetClass.Members.Add(sizeMethod);
-            CodeMemberField sizeField = new()
+            CodeMemberProperty sizeProperty = new()
             {
-                Attributes = MemberAttributes.Private | MemberAttributes.New,
-                Name = "_typeSize",
-                Type = new CodeTypeReference(typeof(System.Int32)),
-                InitExpression = new CodePrimitiveExpression((int)length)
+                Attributes = MemberAttributes.Public | MemberAttributes.Override,
+                Name = "TypeSize",
+                Type = new CodeTypeReference(typeof(System.Int32))
             };
-            TargetClass.Members.Add(sizeField);
+            sizeProperty.GetStatements.Add( new CodeMethodReturnStatement(new CodePrimitiveExpression((int)length)));
+            TargetClass.Members.Add(sizeProperty);
 
 
             CodeMemberMethod encodeMethod = GetEncode();
@@ -192,7 +192,7 @@ namespace NodeLibraryGen
             {
                 BracingStyle = "C"
             };
-            var path = Path.Combine("Model", "Types", "TypeDefArray", ClassName + ".cs");
+            var path = Path.Combine("Model", "Types", "Sequence", ClassName + ".cs");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             using (StreamWriter sourceWriter = new(path))
             {

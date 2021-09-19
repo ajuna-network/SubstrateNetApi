@@ -42,7 +42,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Topics = new Vec<Topic>();
             Topics.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public Phase Phase;

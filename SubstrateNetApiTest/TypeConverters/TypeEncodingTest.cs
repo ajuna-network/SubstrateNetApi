@@ -89,7 +89,7 @@ namespace SubstrateNetApiTests
         [Test]
         public void ExtEnumEncodingTest()
         {
-            var extEnumType = new BaseEnumExt<PhaseState, U8, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>();
+            var extEnumType = new BaseEnumExt<PhaseState, U8, Void, Void, Void, Void, Void, Void, Void, Void>();
 
             int p = 0;
             extEnumType.Decode(new byte[] { 0x00, 0x01 }, ref p);

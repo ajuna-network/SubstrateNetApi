@@ -10,9 +10,9 @@ using System.Text;
 
 namespace NodeLibraryGen
 {
-    public class EventGenBuilder : BaseBuilder
+    public class ErrorGenBuilder : BaseBuilder
     {
-        private EventGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        private ErrorGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
         {
             Success = true;
             Id = id;
@@ -31,7 +31,7 @@ namespace NodeLibraryGen
                 }
             };
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Custom.Events");
+            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Custom.Errors");
             TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
@@ -46,7 +46,7 @@ namespace NodeLibraryGen
 
             TargetClass = new CodeTypeDeclaration(ClassName)
             {
-                IsClass = true,
+                IsEnum = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
 
@@ -59,42 +59,20 @@ namespace NodeLibraryGen
             TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
             typeNamespace.Types.Add(TargetClass);
 
+
             if (typeDef.Variants != null)
             {
                 foreach (var variant in typeDef.Variants)
                 {
-                    var eventClass = new CodeTypeDeclaration(variant.Name.MakeMethod())
-                    {
-                        IsClass = true,
-                        TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
-                    };
-
-                    eventClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-                    eventClass.Comments.Add(new CodeCommentStatement($">> Event: {variant.Name}", true));
+                    var enumField = new CodeMemberField(ClassName, variant.Name);
+                    enumField.Comments.Add(new CodeCommentStatement("<summary>", true));
+                    enumField.Comments.Add(new CodeCommentStatement($">> Event: {variant.Name}", true));
                     foreach (var doc in variant.Docs)
                     {
-                        eventClass.Comments.Add(new CodeCommentStatement(doc, true));
+                        enumField.Comments.Add(new CodeCommentStatement(doc, true));
                     }
-                    eventClass.Comments.Add(new CodeCommentStatement("</summary>", true));
-
-                    var codeTypeRef = new CodeTypeReference("BaseTuple");
-                    if (variant.TypeFields != null)
-                    {
-                        foreach (var field in variant.TypeFields)
-                        {
-                            if (typeDict.TryGetValue(field.TypeId, out string baseType))
-                            {
-                                codeTypeRef.TypeArguments.Add(new CodeTypeReference(baseType));
-                            }
-                            else
-                            {
-                                Success = false;
-                            }
-                        }
-                    }
-                    eventClass.BaseTypes.Add(codeTypeRef);
-
-                    TargetClass.Members.Add(eventClass);
+                    enumField.Comments.Add(new CodeCommentStatement("</summary>", true));
+                    TargetClass.Members.Add(enumField);
                 }
             }
 
@@ -102,9 +80,9 @@ namespace NodeLibraryGen
 
         }
 
-        public static EventGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        public static ErrorGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
         {
-            return new EventGenBuilder(id, typeDef, typeDict);
+            return new ErrorGenBuilder(id, typeDef, typeDict);
         }
 
         public string Build(out bool success)
@@ -117,7 +95,7 @@ namespace NodeLibraryGen
                 {
                     BracingStyle = "C"
                 };
-                var path = Path.Combine("Model", "Custom", "Events", ClassName + ".cs");
+                var path = Path.Combine("Model", "Custom", "Errors", ClassName + ".cs");
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 using (StreamWriter sourceWriter = new(path))
                 {

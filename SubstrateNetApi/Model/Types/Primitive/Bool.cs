@@ -4,7 +4,7 @@
     {
         public override string TypeName() => "bool";
 
-        public override int TypeSize() => 1;
+        public override int TypeSize => 1;
 
         public override byte[] Encode()
         {

@@ -2,29 +2,22 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class BaseCom<T> : IType where T : IType, new()
+    public class BaseCom<T> : BaseType where T : IType, new()
     {
-        public virtual string TypeName() => $"Compact<{new T().TypeName()}>";
+        public override string TypeName() => $"Compact<{new T().TypeName()}>";
 
-        private int _size;
-
-        public int TypeSize() => _size;
-
-        [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
-
-        public byte[] Encode()
+        public override byte[] Encode()
         {
             return Value.Encode();
         }
 
-        public void Decode(byte[] byteArray, ref int p)
+        public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
 
             Value = CompactInteger.Decode(byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
 
         }
 
@@ -35,19 +28,5 @@ namespace SubstrateNetApi.Model.Types.Base
             Value = compactInteger;
             Bytes = Encode();
         }
-
-        public void Create(string str) => Create(Utils.HexToByteArray(str));
-
-        public void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
-
-        public void Create(byte[] byteArray)
-        {
-            var p = 0;
-            Decode(byteArray, ref p);
-        }
-
-        public IType New() => this;
-
-        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

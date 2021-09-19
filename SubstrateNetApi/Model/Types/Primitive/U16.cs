@@ -6,7 +6,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
     {
         public override string TypeName() => "u16";
 
-        public override int TypeSize() => 2;
+        public override int TypeSize => 2;
 
         public override byte[] Encode()
         {
@@ -19,16 +19,16 @@ namespace SubstrateNetApi.Model.Types.Primitive
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            var result = new byte[TypeSize()];
+            var result = new byte[TypeSize];
             bytes.CopyTo(result, 0);
             Create(result);
         }
 
         public override void Create(byte[] byteArray)
         {
-            if (byteArray.Length < TypeSize())
+            if (byteArray.Length < TypeSize)
             {
-                var newByteArray = new byte[TypeSize()];
+                var newByteArray = new byte[TypeSize];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
             }

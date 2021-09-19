@@ -4,7 +4,7 @@
     {
         public override string TypeName() => "T::Hash";
 
-        public override int TypeSize() => 32;
+        public override int TypeSize => 32;
 
         public override byte[] Encode()
         {

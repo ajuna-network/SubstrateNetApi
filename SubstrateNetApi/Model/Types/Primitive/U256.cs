@@ -7,7 +7,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
     {
         public override string TypeName() => "u256";
 
-        public override int TypeSize() => 32;
+        public override int TypeSize => 32;
 
         public override byte[] Encode()
         {
@@ -26,13 +26,13 @@ namespace SubstrateNetApi.Model.Types.Primitive
         public override void Create(byte[] byteArray)
         {
             // make sure it is unsigned we add 00 at the end
-            if (byteArray.Length < TypeSize())
+            if (byteArray.Length < TypeSize)
             {
-                var newByteArray = new byte[TypeSize()];
+                var newByteArray = new byte[TypeSize];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
             }
-            else if (byteArray.Length == TypeSize())
+            else if (byteArray.Length == TypeSize)
             {
                 byte[] newArray = new byte[byteArray.Length + 2];
                 byteArray.CopyTo(newArray, 0);
@@ -40,7 +40,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
             }
             else
             {
-                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize()} bytes!");
+                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize} bytes!");
             }
 
             Bytes = byteArray;
@@ -53,7 +53,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
 
             if (byteArray.Length > 16)
             {
-                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize()} bytes!");
+                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize} bytes!");
             }
 
             Bytes = value.ToByteArray();

@@ -7,7 +7,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
     {
         public override string TypeName() => "char";
 
-        public override int TypeSize() => 1;
+        public override int TypeSize => 1;
 
         public override byte[] Encode()
         {

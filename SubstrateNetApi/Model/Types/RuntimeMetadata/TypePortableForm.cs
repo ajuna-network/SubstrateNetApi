@@ -24,17 +24,17 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParams = new Vec<TypeParameter>();
             TypeParams.Decode(byteArray, ref p);
 
-            TypeDef = new BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType>();
+            TypeDef = new BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, Void>();
             TypeDef.Decode(byteArray, ref p);
 
             Docs = new Vec<Str>();
             Docs.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Path Path { get; private set; }
         public Vec<TypeParameter> TypeParams { get; private set; }
-        public BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType> TypeDef { get; private set; }
+        public BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, Void> TypeDef { get; private set; }
         public Vec<Str> Docs { get; private set; }
     }
 
@@ -62,7 +62,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParameterType = new BaseOpt<TType>();
             TypeParameterType.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Str TypeParameterName { get; private set; }
         public BaseOpt<TType> TypeParameterType { get; private set; }

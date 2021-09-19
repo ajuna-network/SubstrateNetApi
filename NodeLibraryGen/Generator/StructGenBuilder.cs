@@ -17,21 +17,23 @@ namespace NodeLibraryGen
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new() { 
+            CodeNamespace importsNamespace = new() {
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
                     new CodeNamespaceImport("System.Collections.Generic"),
                     new CodeNamespaceImport("System")
                 }
             };
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.TypeDefComposite");
+            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.Composite");
             TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
+
+            var fullPath = $"{String.Join('.', typeDef.Path)}";
 
             ClassName = $"{typeDef.Path.Last()}";
 
@@ -41,6 +43,15 @@ namespace NodeLibraryGen
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
             TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
+            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {fullPath}", true));
+            if (typeDef.Docs != null) {
+                foreach (var doc in typeDef.Docs)
+                {
+                    TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
+                }
+            }
+            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
             typeNamespace.Types.Add(TargetClass);
 
             var nameMethod = SimpleMethod("TypeName", "System.String", ClassName);
@@ -181,7 +192,7 @@ namespace NodeLibraryGen
             {
                 BracingStyle = "C"
             };
-            var path = Path.Combine("Model", "Types", "TypeDefComposite", ClassName + ".cs");
+            var path = Path.Combine("Model", "Types", "Composite", ClassName + ".cs");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             using (StreamWriter sourceWriter = new(path))
             {

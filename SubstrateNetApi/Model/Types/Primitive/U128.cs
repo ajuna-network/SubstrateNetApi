@@ -7,7 +7,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
     {
         public override string TypeName() => "u128";
 
-        public override int TypeSize() => 16;
+        public override int TypeSize => 16;
 
         public override byte[] Encode()
         {
@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            var result = new byte[TypeSize()];
+            var result = new byte[TypeSize];
             bytes.CopyTo(result, 0);
             Create(result);
         }
@@ -28,20 +28,20 @@ namespace SubstrateNetApi.Model.Types.Primitive
         public override void Create(byte[] byteArray)
         {
             // make sure it is unsigned we add 00 at the end
-            if (byteArray.Length < TypeSize())
+            if (byteArray.Length < TypeSize)
             {
-                var newByteArray = new byte[TypeSize()];
+                var newByteArray = new byte[TypeSize];
                 byteArray.CopyTo(newByteArray, 0);
                 byteArray = newByteArray;
             } 
-            else if (byteArray.Length == TypeSize())
+            else if (byteArray.Length == TypeSize)
             {
                 byte[] newArray = new byte[byteArray.Length + 2];
                 byteArray.CopyTo(newArray, 0);
                 newArray[byteArray.Length - 1] = 0x00;
             } else
             {
-                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize()} bytes!");
+                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize} bytes!");
             }
 
             Bytes = byteArray;
@@ -54,7 +54,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
 
             if (byteArray.Length > 16)
             {
-                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize()} bytes!");
+                throw new Exception($"Wrong byte array size for {TypeName()}, max. {TypeSize} bytes!");
             }
 
             Bytes = value.ToByteArray();

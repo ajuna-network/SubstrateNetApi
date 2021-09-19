@@ -30,7 +30,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Extrinsic = new ExtrinsicMetadata();
             Extrinsic.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public PortableRegistry Types { get; private set; }
  
@@ -58,7 +58,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Version = new U8();
             Version.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public U32 Magic { get; private set; }
         public U8 Version { get; private set; }
@@ -99,7 +99,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Index = new U8();
             Index.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Str PalletName { get; private set; }
         public BaseOpt<StorageMetadata> PalletStorage { get; private set; }
@@ -129,7 +129,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Entries = new Vec<StorageEntryMetadata>();
             Entries.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Str Prefix { get; private set; }
         public Vec<StorageEntryMetadata> Entries { get; private set; }
@@ -154,7 +154,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             StorageModifier = new BaseEnum<Modifier>();
             StorageModifier.Decode(byteArray, ref p);
 
-            StorageType = new BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, NullType, NullType, NullType, NullType, NullType, NullType, NullType>();
+            StorageType = new BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, Void, Void, Void, Void, Void, Void, Void>();
             StorageType.Decode(byteArray, ref p);
 
             StorageDefault = new ByteGetter();
@@ -163,11 +163,11 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Documentation = new Vec<Str>();
             Documentation.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Str StorageName { get; private set; }
         public BaseEnum<Modifier> StorageModifier { get; private set; }
-        public BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, NullType, NullType, NullType, NullType, NullType, NullType, NullType> StorageType { get; private set; }
+        public BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, Void, Void, Void, Void, Void, Void, Void> StorageType { get; private set; }
         public ByteGetter StorageDefault { get; private set; }
         public Vec<Str> Documentation { get; private set; }
     }
@@ -199,7 +199,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Value = new TType();
             Value.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Vec<BaseEnum<Hasher>> Hashers { get; private set; }
         public TType Key { get; private set; }
@@ -222,7 +222,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             CallType = new TType();
             CallType.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public TType CallType { get; private set; }
     }
@@ -303,7 +303,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             EventType = new TType();
             EventType.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public TType EventType { get; private set; }
     }
@@ -365,7 +365,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Documentation = new Vec<Str>();
             Documentation.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Str ConstantName { get; private set; }
         public TType ConstantType { get; private set; }
@@ -389,7 +389,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             ErrorType = new TType();
             ErrorType.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public TType ErrorType { get; private set; }
 
@@ -417,7 +417,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             SignedExtensions = new Vec<SignedExtensionMetadata>();
             SignedExtensions.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public TType ExtrinsicType { get; private set; }
         public U8 Version { get; private set; }
@@ -446,7 +446,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             AddSignedExtType = new TType();
             AddSignedExtType.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Str SignedIdentifier { get; private set; }
         public TType SignedExtType { get; private set; }

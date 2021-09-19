@@ -9,7 +9,7 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string TypeName() => "T::AccountId";
 
         // TODO: might have to change this based on the address type.
-        public override int TypeSize() => 32;
+        public override int TypeSize => 32;
 
         public override byte[] Encode()
         {

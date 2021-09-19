@@ -6,7 +6,7 @@ namespace SubstrateNetApi.Model.Types.Base
     {
         public override string TypeName() => "T::Balance";
 
-        public override int TypeSize() => 16;
+        public override int TypeSize => 16;
 
         public override byte[] Encode()
         {

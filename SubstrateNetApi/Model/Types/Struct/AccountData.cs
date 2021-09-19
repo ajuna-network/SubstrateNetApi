@@ -28,7 +28,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             FeeFrozen = new Balance();
             FeeFrozen.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public Balance Free { get; private set; }

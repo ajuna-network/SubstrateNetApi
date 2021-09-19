@@ -9,9 +9,7 @@ namespace SubstrateNetApi.Model.Types.Base
     {
         public virtual string TypeName() => $"Option<{new T().TypeName()}>";
 
-        private int _typeSize;
-
-        public int TypeSize() => _typeSize;
+        public int TypeSize { get; set; }
 
         [JsonIgnore]
         public byte[] Bytes { get; internal set; }
@@ -48,10 +46,10 @@ namespace SubstrateNetApi.Model.Types.Base
                 t.Decode(byteArray, ref p);
             }
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            var bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, bytes, 0, _typeSize);
+            var bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, bytes, 0, TypeSize);
 
             Bytes = bytes;
             Value = t != null ? t : default;

@@ -23,10 +23,10 @@ namespace SubstrateNetApi.Model.Types.Base
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }
@@ -61,10 +61,10 @@ namespace SubstrateNetApi.Model.Types.Base
             t1.Decode(byteArray, ref p);
             Value[0] = t1;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }
@@ -104,10 +104,10 @@ namespace SubstrateNetApi.Model.Types.Base
             t2.Decode(byteArray, ref p);
             Value[1] = t2;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }
@@ -154,10 +154,10 @@ namespace SubstrateNetApi.Model.Types.Base
             t3.Decode(byteArray, ref p);
             Value[2] = t3;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }
@@ -210,10 +210,10 @@ namespace SubstrateNetApi.Model.Types.Base
             t4.Decode(byteArray, ref p);
             Value[3] = t4;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }
@@ -272,10 +272,10 @@ namespace SubstrateNetApi.Model.Types.Base
             t5.Decode(byteArray, ref p);
             Value[4] = t5;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }
@@ -340,10 +340,10 @@ namespace SubstrateNetApi.Model.Types.Base
             t6.Decode(byteArray, ref p);
             Value[5] = t6;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }
@@ -414,10 +414,10 @@ namespace SubstrateNetApi.Model.Types.Base
             t7.Decode(byteArray, ref p);
             Value[6] = t7;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
 
-            Bytes = new byte[_typeSize];
-            Array.Copy(byteArray, start, Bytes, 0, _typeSize);
+            Bytes = new byte[TypeSize];
+            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
         }
 
         public IType[] Value { get; internal set; }

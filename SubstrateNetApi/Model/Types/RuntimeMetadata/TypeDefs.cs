@@ -9,7 +9,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
     {
         public virtual string TypeName() => "CompactInteger";
 
-        public int TypeSize() => 0;
+        public int TypeSize { get; set; } = 0;
 
         public void Create(string str)
         {
@@ -86,7 +86,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Fields = new Vec<Field>();
             Fields.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Vec<Field> Fields { get; private set; }
 
@@ -108,7 +108,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new Vec<Variant>();
             TypeParam.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Vec<Variant> TypeParam { get; private set; }
     }
@@ -129,7 +129,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public TType TypeParam { get; private set; }
     }
@@ -153,7 +153,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public U32 Len { get; private set; }
         public TType TypeParam { get; private set; }
@@ -175,7 +175,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Fields = new Vec<TType>();
             Fields.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Vec<TType> Fields { get; private set; }
     }
@@ -230,7 +230,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParam = new TType();
             TypeParam.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public TType TypeParam { get; private set; }
     }
@@ -254,7 +254,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             BitOrderType = new TType();
             BitOrderType.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public TType BitStoreType { get; private set; }
         public TType BitOrderType { get; private set; }

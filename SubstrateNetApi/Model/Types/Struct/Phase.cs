@@ -26,7 +26,7 @@ namespace SubstrateNetApi.Model.Types.Struct
                 ApplyExtrinsic.Decode(byteArray, ref p);
             }
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public ApplyExtrinsic ApplyExtrinsic { get; set; }

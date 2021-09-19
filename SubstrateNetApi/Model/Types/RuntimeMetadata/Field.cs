@@ -30,7 +30,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Docs = new Vec<Str>();
             Docs.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public BaseOpt<Str> FieldName { get; private set; }
         public TType FieldTy { get; private set; }

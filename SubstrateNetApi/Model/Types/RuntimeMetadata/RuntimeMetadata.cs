@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             RuntimeMetadataData = new RuntimeMetadataV14();
             RuntimeMetadataData.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public MetaDataInfo MetaDataInfo { get; private set; }
         public U32 MetaReserved { get; private set; }

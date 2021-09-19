@@ -8,7 +8,7 @@ namespace SubstrateNetApi.Model.Types
     {
         public string TypeName() => typeof(T).Name;
 
-        public int TypeSize() => 1;
+        public int TypeSize { get; set; } = 1;
 
         [JsonIgnore] 
         public byte[] Bytes { get; internal set; }
@@ -21,8 +21,8 @@ namespace SubstrateNetApi.Model.Types
         public void Decode(byte[] byteArray, ref int p)
         {
             var memory = byteArray.AsMemory();
-            var result = memory.Span.Slice(p, TypeSize()).ToArray();
-            p += TypeSize();
+            var result = memory.Span.Slice(p, TypeSize).ToArray();
+            p += TypeSize;
             Create(result);
         }
 

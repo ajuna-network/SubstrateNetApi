@@ -29,7 +29,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Docs = new Vec<Str>();
             Docs.Decode(byteArray, ref p);
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
         public Str VariantName { get; private set; }
         public Vec<Field> VariantFields { get; private set; }

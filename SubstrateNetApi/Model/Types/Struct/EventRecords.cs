@@ -46,7 +46,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Bytes = byteArray;
             Value = list;
 
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
 
         public List<EventRecord> Value { get; internal set; }
