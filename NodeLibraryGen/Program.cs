@@ -38,7 +38,7 @@ namespace NodeLibraryGen
 
             Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
 
-            Console.WriteLine($"{((double)typeDict.Count/ nodeTypes.Count).ToString("P")}");
+            Console.WriteLine($"{((double)typeDict.Count / nodeTypes.Count).ToString("P")}");
 
             //WriteJsonFile("metadata.json", nodeTypes);
             //GenerateCode(nodeTypes);
@@ -292,7 +292,7 @@ namespace NodeLibraryGen
                     if (nodeType.Path == null || nodeType.Path.Length == 0)
                     {
                         Console.WriteLine($"{nodeType.GetType().Name} has no path, please check!");
-                    }                
+                    }
 
                     bool satisfied = true;
                     List<string> types = new();
@@ -354,7 +354,8 @@ namespace NodeLibraryGen
 
                     if (path == "Option")
                     {
-                        if (typeDict.TryGetValue(typeDef.Variants[1].TypeFields[0].TypeId, out string optType)) {
+                        if (typeDict.TryGetValue(typeDef.Variants[1].TypeFields[0].TypeId, out string optType))
+                        {
                             typeDict.Add(i, $"BaseOpt<{optType}>");
                         }
                     }
@@ -362,7 +363,16 @@ namespace NodeLibraryGen
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                     }
-                    else if (path.Contains("node_runtime.Call") || path.Contains(".pallet.Call") || path.Contains("pallet_") && path.Contains(".Call"))
+                    else if (path.Contains("pallet_") && path.Contains(".Call"))
+                    {
+                        var typeName = CallGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(i, typeName);
+                        }
+
+                    }
+                    else if (path.Contains("node_runtime.Call") || path.Contains(".pallet.Call"))
                     {
                         Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                     }
@@ -373,8 +383,8 @@ namespace NodeLibraryGen
                     else if (path.Contains(".pallet.Error") || path.Contains("pallet_") && path.Contains(".Error"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                    } 
-                    else if (path.Contains("pallet_") )
+                    }
+                    else if (path.Contains("pallet_"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
                         var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);

@@ -125,7 +125,7 @@ namespace NodeLibraryGen
                 {
                     BracingStyle = "C"
                 };
-                var path = Path.Combine("Types", "TypeDefVariant", ClassName + ".cs");
+                var path = Path.Combine("Model", "Types", "TypeDefVariant", ClassName + ".cs");
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 using (StreamWriter sourceWriter = new(path))
                 {
