@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            PhaseState = new EnumType<PhaseState>();
+            PhaseState = new BaseEnum<PhaseState>();
             PhaseState.Decode(byteArray, ref p);
 
             if (PhaseState.Value == Enum.PhaseState.None)
@@ -30,6 +30,6 @@ namespace SubstrateNetApi.Model.Types.Struct
         }
 
         public ApplyExtrinsic ApplyExtrinsic { get; set; }
-        public EnumType<PhaseState> PhaseState { get; set; }
+        public BaseEnum<PhaseState> PhaseState { get; set; }
     }
 }

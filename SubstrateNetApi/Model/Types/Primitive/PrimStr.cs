@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
+namespace SubstrateNetApi.Model.Types.Primitive
 {
     public class PrimStr : BaseVec<PrimChar>
     {

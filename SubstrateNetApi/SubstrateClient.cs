@@ -17,6 +17,7 @@ using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.Modules;
 using SubstrateNetApi.TypeConverters;
@@ -69,18 +70,18 @@ namespace SubstrateNetApi
             Author = new Author(this);
 
             // types used by the client need to be registred
-            RegisterTypeConverter(new GenericTypeConverter<Bool>());
-            RegisterTypeConverter(new GenericTypeConverter<U8>());
-            RegisterTypeConverter(new GenericTypeConverter<U16>());
-            RegisterTypeConverter(new GenericTypeConverter<U32>());
-            RegisterTypeConverter(new GenericTypeConverter<U64>());
+            RegisterTypeConverter(new GenericTypeConverter<PrimBool>());
+            RegisterTypeConverter(new GenericTypeConverter<PrimU8>());
+            RegisterTypeConverter(new GenericTypeConverter<PrimU16>());
+            RegisterTypeConverter(new GenericTypeConverter<PrimU32>());
+            RegisterTypeConverter(new GenericTypeConverter<PrimU64>());
             RegisterTypeConverter(new GenericTypeConverter<BlockNumber>());
             RegisterTypeConverter(new GenericTypeConverter<AccountId>());
             RegisterTypeConverter(new GenericTypeConverter<AccountInfo>());
             RegisterTypeConverter(new GenericTypeConverter<AccountData>());
             RegisterTypeConverter(new GenericTypeConverter<Hash>());
-            RegisterTypeConverter(new GenericTypeConverter<Vec<U8>>());
-            RegisterTypeConverter(new GenericTypeConverter<Vec<U32>>());
+            RegisterTypeConverter(new GenericTypeConverter<Vec<PrimU8>>());
+            RegisterTypeConverter(new GenericTypeConverter<Vec<PrimU32>>());
             RegisterTypeConverter(new GenericTypeConverter<Vec<Hash>>());
             RegisterTypeConverter(new GenericTypeConverter<Vec<AccountId>>());
 
@@ -202,10 +203,10 @@ namespace SubstrateNetApi
 
             var formatter = new JsonMessageFormatter();
             // adding convertersto the formatter
-            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U8>());
-            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U16>());
-            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U32>());
-            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<U64>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<PrimU8>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<PrimU16>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<PrimU32>());
+            formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<PrimU64>());
             formatter.JsonSerializer.Converters.Add(new GenericTypeConverter<Hash>());
             formatter.JsonSerializer.Converters.Add(_extrinsicJsonConverter);
             formatter.JsonSerializer.Converters.Add(_extrinsicStatusJsonConverter);

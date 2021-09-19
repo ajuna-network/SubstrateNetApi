@@ -40,7 +40,7 @@ namespace SubstrateNetApi.Model.Types
         }
     }
 
-    public class ExtEnumType<T0, T1> : IType
+    public class BaseEnumExt<T0, T1> : IType
                                         where T0 : System.Enum
                                         where T1 : IType, new()
     {
@@ -114,7 +114,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class ExtEnumType<T0, T1, T2> : IType
+    public class BaseEnumExt<T0, T1, T2> : IType
                                             where T0 : System.Enum
                                             where T1 : IType, new()
                                             where T2 : IType, new()
@@ -195,7 +195,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class ExtEnumType<T0, T1, T2, T3> : IType
+    public class BaseEnumExt<T0, T1, T2, T3> : IType
                                                 where T0 : System.Enum
                                                 where T1 : IType, new()
                                                 where T2 : IType, new()
@@ -283,7 +283,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class ExtEnumType<T0, T1, T2, T3, T4> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4> : IType
                                                     where T0 : System.Enum
                                                     where T1 : IType, new()
                                                     where T2 : IType, new()
@@ -378,7 +378,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class ExtEnumType<T0, T1, T2, T3, T4, T5> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5> : IType
                                                         where T0 : System.Enum
                                                         where T1 : IType, new()
                                                         where T2 : IType, new()
@@ -480,7 +480,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class ExtEnumType<T0, T1, T2, T3, T4, T5, T6> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6> : IType
                                                             where T0 : System.Enum
                                                             where T1 : IType, new()
                                                             where T2 : IType, new()
@@ -589,7 +589,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
     
-    public class ExtEnumType<T0, T1, T2, T3, T4, T5, T6, T7> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7> : IType
                                                             where T0 : System.Enum
                                                             where T1 : IType, new()
                                                             where T2 : IType, new()
@@ -705,7 +705,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class ExtEnumType<T0, T1, T2, T3, T4, T5, T6, T7, T8> : IType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8> : IType
                                                                 where T0 : System.Enum
                                                                 where T1 : IType, new()
                                                                 where T2 : IType, new()
@@ -828,7 +828,7 @@ namespace SubstrateNetApi.Model.Types
 
     }
 
-    public class ExtEnumType<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> : IType 
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> : IType 
         where T0 : System.Enum
         where T1 : IType, new()
         where T2 : IType, new()

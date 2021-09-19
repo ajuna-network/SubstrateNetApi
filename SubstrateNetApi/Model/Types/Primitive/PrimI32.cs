@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
+namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class PrimU16 : BasePrim<ushort>
+    public class PrimI32 : BasePrim<int>
     {
-        public override string TypeName() => "u16";
+        public override string TypeName() => "i32";
 
-        public override int TypeSize() => 2;
+        public override int TypeSize() => 4;
 
         public override byte[] Encode()
         {
@@ -34,10 +34,10 @@ namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
             }
 
             Bytes = byteArray;
-            Value = BitConverter.ToUInt16(byteArray, 0);
+            Value = BitConverter.ToInt32(byteArray, 0);
         }
 
-        public void Create(ushort value)
+        public void Create(int value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;

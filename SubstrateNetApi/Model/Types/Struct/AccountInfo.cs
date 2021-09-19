@@ -1,5 +1,6 @@
 ﻿using System;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
@@ -16,7 +17,7 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            Nonce = new U32();
+            Nonce = new PrimU32();
             Nonce.Decode(byteArray, ref p);
 
             Consumers = new RefCount();
@@ -31,7 +32,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             _typeSize = p - start;
         }
 
-        public U32 Nonce { get; private set; }
+        public PrimU32 Nonce { get; private set; }
         public RefCount Consumers { get; private set; }
         public RefCount Providers { get; private set; }
         public AccountData AccountData { get; private set; }

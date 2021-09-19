@@ -192,7 +192,7 @@ namespace SubstrateNetWalletTest
             var header = await wallet.Client.Chain.GetHeaderAsync(blockHash);
             Assert.AreEqual(10, header.Number.Value);
 
-            var countMogwais = (U64) await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
+            var countMogwais = (PrimU64) await wallet.Client.GetStorageAsync("DotMogModule", "OwnedMogwaisCount",
                 new[] {Utils.Bytes2HexString(wallet.Account.Bytes)});
             Assert.AreEqual(1, countMogwais.Value);
 
@@ -293,7 +293,7 @@ namespace SubstrateNetWalletTest
                 if (eventObject.Changes != null)
                 {
                     var p = 0;
-                    var u64 = new U64();
+                    var u64 = new PrimU64();
                     u64.Decode(Utils.HexToByteArray(eventObject.Changes[0][1]), ref p);
                     test = u64.Value;
                 }

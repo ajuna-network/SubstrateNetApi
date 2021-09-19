@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
 
@@ -147,7 +148,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         {
             var start = p;
 
-            Len = new U32();
+            Len = new PrimU32();
             Len.Decode(byteArray, ref p);
 
             TypeParam = new TType();
@@ -155,7 +156,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
             _typeSize = p - start;
         }
-        public U32 Len { get; private set; }
+        public PrimU32 Len { get; private set; }
         public TType TypeParam { get; private set; }
     }
 

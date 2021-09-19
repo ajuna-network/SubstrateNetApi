@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace SubstrateNetApi.Model.Types.Base
+namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class U32 : BasePrim<uint>
+    public class PrimU64 : BasePrim<ulong>
     {
-        public override string TypeName() => "u32";
+        public override string TypeName() => "u64";
 
-        public override int TypeSize() => 4;
+        public override int TypeSize() => 8;
 
         public override byte[] Encode()
         {
@@ -34,10 +34,10 @@ namespace SubstrateNetApi.Model.Types.Base
             }
 
             Bytes = byteArray;
-            Value = BitConverter.ToUInt32(byteArray, 0);
+            Value = BitConverter.ToUInt64(byteArray, 0);
         }
 
-        public void Create(uint value)
+        public void Create(ulong value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;

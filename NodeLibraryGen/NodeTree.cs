@@ -52,6 +52,9 @@ namespace NodeLibraryGen
         public string TypeName { get; set; }
 
         public uint TypeId { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string[] Docs { get; set; }
     }
 
     public class NodeTypeArray : NodeType
@@ -93,5 +96,8 @@ namespace NodeLibraryGen
         public NodeTypeField[] TypeFields { get; set; }
 
         public int Index { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string[] Docs { get; set; }
     }
 }

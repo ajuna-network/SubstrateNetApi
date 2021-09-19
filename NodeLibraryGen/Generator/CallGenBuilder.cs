@@ -24,7 +24,7 @@ namespace NodeLibraryGen
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Calls"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefPrimitive"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
@@ -51,6 +51,15 @@ namespace NodeLibraryGen
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
+
+            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {fullPath}", true));
+            foreach (var doc in typeDef.Docs)
+            {
+                TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
+            }
+            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+
             typeNamespace.Types.Add(TargetClass);
 
             if (typeDef.Variants != null)
@@ -63,7 +72,17 @@ namespace NodeLibraryGen
                         Name = variant.Name.MakeMethod(),
                         ReturnType = new CodeTypeReference(typeof(GenericExtrinsicCall).Name)
                     };
-                    
+
+                    callMethod.Comments.Add(new CodeCommentStatement("<summary>", true));
+                    callMethod.Comments.Add(new CodeCommentStatement($">> Extrinsic: {variant.Name}", true));
+                    foreach(var doc in variant.Docs)
+                    {
+                        callMethod.Comments.Add(new CodeCommentStatement(doc, true));
+                    }
+                    //callMethod.Comments.Add(new CodeCommentStatement(
+                    //    @"<para>Add a new paragraph to the description.</para>", true));
+                    callMethod.Comments.Add(new CodeCommentStatement("</summary>", true));
+
                     var create = new CodeObjectCreateExpression(typeof(GenericExtrinsicCall).Name, Array.Empty<CodeExpression>());
                     create.Parameters.Add(new CodePrimitiveExpression(palletName));
                     create.Parameters.Add(new CodePrimitiveExpression(variant.Name));

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public class EnumType<T> : IType where T : System.Enum
+    public class BaseEnum<T> : IType where T : System.Enum
     {
         public string TypeName() => typeof(T).Name;
 

@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace SubstrateNetApi.Model.Types.Base
+namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class U256 : BasePrim<ulong>
+    public class PrimU32 : BasePrim<uint>
     {
-        public override string TypeName() => "u256";
+        public override string TypeName() => "u32";
 
-        public override int TypeSize() => 32;
+        public override int TypeSize() => 4;
 
         public override byte[] Encode()
         {
@@ -19,7 +19,9 @@ namespace SubstrateNetApi.Model.Types.Base
         {
             var bytes = Utils.HexToByteArray(str, true);
             Array.Reverse(bytes);
-            Create(bytes);
+            var result = new byte[TypeSize()];
+            bytes.CopyTo(result, 0);
+            Create(result);
         }
 
         public override void Create(byte[] byteArray)
@@ -32,10 +34,10 @@ namespace SubstrateNetApi.Model.Types.Base
             }
 
             Bytes = byteArray;
-            Value = BitConverter.ToUInt64(byteArray, 0);
+            Value = BitConverter.ToUInt32(byteArray, 0);
         }
 
-        public void Create(ulong value)
+        public void Create(uint value)
         {
             Bytes = BitConverter.GetBytes(value);
             Value = value;

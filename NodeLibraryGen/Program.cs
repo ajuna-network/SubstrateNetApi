@@ -2,7 +2,7 @@
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Metadata.V14;
-using SubstrateNetApi.Model.Types.TypeDefPrimitive;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.Modules;
 using System;
@@ -21,8 +21,8 @@ namespace NodeLibraryGen
 
         static async Task Main(string[] args)
         {
-            using var client = new SubstrateClient(new Uri(Websocketurl));
-            await client.ConnectLightAsync(CancellationToken.None);
+            //using var client = new SubstrateClient(new Uri(Websocketurl));
+            //await client.ConnectLightAsync(CancellationToken.None);
             //var result = await client.State.GetMetaDataAsync(CancellationToken.None);
 
             string result = File.ReadAllText("metadata_20210919.txt");
@@ -49,7 +49,7 @@ namespace NodeLibraryGen
             //    }
             //}
 
-            //WriteJsonFile("metadata.json", nodeTypes);
+            WriteJsonFile("metadata.json", nodeTypes);
             //GenerateCode(nodeTypes);
 
         }
@@ -88,7 +88,7 @@ namespace NodeLibraryGen
                     switch (typeDef.Primitive)
                     {
                         case TypeDefPrimitive.Bool:
-                            typeDict.Add(i, typeof(PrimBool).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimBool).Name);
                             break;
                         case TypeDefPrimitive.Char:
                             typeDict.Add(i, typeof(PrimChar).Name);
@@ -97,25 +97,25 @@ namespace NodeLibraryGen
                             typeDict.Add(i, typeof(PrimStr).Name);
                             break;
                         case TypeDefPrimitive.U8:
-                            typeDict.Add(i, typeof(PrimU8).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU8).Name);
                             break;
                         case TypeDefPrimitive.U16:
-                            typeDict.Add(i, typeof(PrimU16).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU16).Name);
                             break;
                         case TypeDefPrimitive.U32:
-                            typeDict.Add(i, typeof(PrimU32).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU32).Name);
                             break;
                         case TypeDefPrimitive.U64:
-                            typeDict.Add(i, typeof(PrimU64).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU64).Name);
                             break;
                         case TypeDefPrimitive.U128:
-                            typeDict.Add(i, typeof(PrimU128).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU128).Name);
                             break;
                         case TypeDefPrimitive.U256:
-                            typeDict.Add(i, typeof(PrimU256).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimU256).Name);
                             break;
                         case TypeDefPrimitive.I8:
-                            typeDict.Add(i, typeof(PrimI8).Name);
+                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimI8).Name);
                             break;
                         case TypeDefPrimitive.I16:
                             typeDict.Add(i, typeof(PrimI16).Name);
@@ -464,11 +464,13 @@ namespace NodeLibraryGen
                                 TypeDef = typeDefValue,
                                 TypeFields = typeDef.Fields.Value.Count == 0 ? null : typeDef.Fields.Value.Select(p =>
                                 {
+                                    var fDocs = p.Docs == null || p.Docs.Value.Count == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
                                     return new NodeTypeField()
                                     {
                                         Name = p.FieldName.Value?.Value,
                                         TypeName = p.FieldTypeName.Value?.Value,
-                                        TypeId = p.FieldTy.Value
+                                        TypeId = p.FieldTy.Value,
+                                        Docs = fDocs
                                     };
                                 }).ToArray(),
                                 Docs = docs
@@ -486,19 +488,23 @@ namespace NodeLibraryGen
                                 TypeDef = typeDefValue,
                                 Variants = typeDef.TypeParam.Value.Count == 0 ? null : typeDef.TypeParam.Value.Select(p =>
                                 {
+                                    var vDocs = p.Docs == null || p.Docs.Value.Count == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
                                     return new TypeVariant()
                                     {
                                         Name = p.VariantName.Value,
                                         TypeFields = p.VariantFields.Value.Count == 0 ? null : p.VariantFields.Value.Select(p =>
                                         {
+                                            var fDocs = p.Docs == null || p.Docs.Value.Count == 0 ? null : p.Docs.Value.Select(p => p.Value).ToArray();
                                             return new NodeTypeField()
                                             {
                                                 Name = p.FieldName.Value?.Value,
                                                 TypeName = p.FieldTypeName.Value?.Value,
-                                                TypeId = p.FieldTy.Value
+                                                TypeId = p.FieldTy.Value,
+                                                Docs = fDocs
                                             };
                                         }).ToArray(),
-                                        Index = p.Index.Value
+                                        Index = p.Index.Value,
+                                        Docs = vDocs
                                     };
                                 }).ToArray(),
                                 Docs = docs

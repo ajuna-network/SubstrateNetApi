@@ -1,4 +1,5 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            var optionByte = new U8();
+            var optionByte = new PrimU8();
             optionByte.Decode(byteArray, ref p);
 
             OptionFlag = optionByte.Value > 0;

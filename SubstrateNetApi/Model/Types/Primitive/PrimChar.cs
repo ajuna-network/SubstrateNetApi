@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
+namespace SubstrateNetApi.Model.Types.Primitive
 {
     public class PrimChar : BasePrim<char>
     {

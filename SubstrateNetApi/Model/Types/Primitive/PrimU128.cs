@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
+namespace SubstrateNetApi.Model.Types.Primitive
 {
     public class PrimU128 : BasePrim<BigInteger>
     {

@@ -7,7 +7,7 @@ namespace SubstrateNetApi.Model.Types
         public abstract string TypeName();
 
         internal int _typeSize;
-        public int TypeSize() => _typeSize;
+        public virtual int TypeSize() => _typeSize;
 
         [JsonIgnore] 
         public byte[] Bytes { get; internal set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
@@ -26,21 +27,21 @@ namespace SubstrateNetApi.Model.Types.Struct
         {
             var start = p;
 
-            Weight = new U64();
+            Weight = new PrimU64();
             Weight.Decode(byteArray, ref p);
 
 
-            DispatchClass = new EnumType<DispatchClass>();
+            DispatchClass = new BaseEnum<DispatchClass>();
             DispatchClass.Decode(byteArray, ref p);
 
-            Pays = new EnumType<Pays>();
+            Pays = new BaseEnum<Pays>();
             Pays.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
 
-        public U64 Weight { get; set; }
-        public EnumType<DispatchClass> DispatchClass { get; set; }
-        public EnumType<Pays> Pays { get; set; }
+        public PrimU64 Weight { get; set; }
+        public BaseEnum<DispatchClass> DispatchClass { get; set; }
+        public BaseEnum<Pays> Pays { get; set; }
     }
 }

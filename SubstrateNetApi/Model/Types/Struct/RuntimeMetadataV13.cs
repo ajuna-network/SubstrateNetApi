@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
 using System.Collections.Generic;
@@ -51,16 +52,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         {
             var start = p;
 
-            Magic = new U32();
+            Magic = new PrimU32();
             Magic.Decode(byteArray, ref p);
 
-            Version = new U8();
+            Version = new PrimU8();
             Version.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
-        public U32 Magic { get; private set; }
-        public U8 Version { get; private set; }
+        public PrimU32 Magic { get; private set; }
+        public PrimU8 Version { get; private set; }
 
     }
 
@@ -95,7 +96,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             ModuleErrors = new DecodeDifferent<ErrorMetadata>();
             ModuleErrors.Decode(byteArray, ref p);
 
-            Index = new U8();
+            Index = new PrimU8();
             Index.Decode(byteArray, ref p);
 
             _typeSize = p - start;
@@ -106,7 +107,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public Option<DecodeDifferent<EventMetadata>> ModuleEvent { get; private set; }
         public DecodeDifferent<ModuleConstantMetadata> ModuleConstants { get; private set; }
         public DecodeDifferent<ErrorMetadata> ModuleErrors { get; private set; }
-        public U8 Index { get; private set; }
+        public PrimU8 Index { get; private set; }
     }
 
     public class StorageMetadata : BaseType
@@ -150,10 +151,10 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             StorageName = new DecodeDifferentStr();
             StorageName.Decode(byteArray, ref p);
 
-            StorageModifier = new EnumType<Modifier>();
+            StorageModifier = new BaseEnum<Modifier>();
             StorageModifier.Decode(byteArray, ref p);
 
-            StorageType = new ExtEnumType<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, NullType, NullType, NullType, NullType, NullType>();
+            StorageType = new BaseEnumExt<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, NullType, NullType, NullType, NullType, NullType>();
             StorageType.Decode(byteArray, ref p);
 
             StorageDefault = new ByteGetter();
@@ -165,13 +166,13 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             _typeSize = p - start;
         }
         public DecodeDifferentStr StorageName { get; private set; }
-        public EnumType<Modifier> StorageModifier { get; private set; }
-        public ExtEnumType<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, NullType, NullType, NullType, NullType, NullType> StorageType { get; private set; }
+        public BaseEnum<Modifier> StorageModifier { get; private set; }
+        public BaseEnumExt<Storage.Type, DecodeDifferentStr, StorageEntryTypeMap, StorageEntryTypeDoubleMap, StorageEntryTypeNMap, NullType, NullType, NullType, NullType, NullType> StorageType { get; private set; }
         public ByteGetter StorageDefault { get; private set; }
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
 
-    public class ByteGetter : Vec<U8>
+    public class ByteGetter : Vec<PrimU8>
     {
         public override string TypeName() => "unknown";
     }
@@ -189,7 +190,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         {
             var start = p;
 
-            Hasher = new EnumType<Hasher>();
+            Hasher = new BaseEnum<Hasher>();
             Hasher.Decode(byteArray, ref p);
 
             Key = new DecodeDifferentStr();
@@ -198,15 +199,15 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Value = new DecodeDifferentStr();
             Value.Decode(byteArray, ref p);
 
-            Unused = new Bool();
+            Unused = new PrimBool();
             Unused.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
-        public EnumType<Hasher> Hasher { get; private set; }
+        public BaseEnum<Hasher> Hasher { get; private set; }
         public DecodeDifferentStr Key { get; private set; }
         public DecodeDifferentStr Value { get; private set; }
-        public Bool Unused { get; private set; }
+        public PrimBool Unused { get; private set; }
     }
 
     public class StorageEntryTypeDoubleMap : BaseType
@@ -222,7 +223,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         {
             var start = p;
 
-            Hasher = new EnumType<Hasher>();
+            Hasher = new BaseEnum<Hasher>();
             Hasher.Decode(byteArray, ref p);
 
             Key1 = new DecodeDifferentStr();
@@ -234,16 +235,16 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Value = new DecodeDifferentStr();
             Value.Decode(byteArray, ref p);
 
-            Key2Hasher = new EnumType<Hasher>();
+            Key2Hasher = new BaseEnum<Hasher>();
             Key2Hasher.Decode(byteArray, ref p);
 
             _typeSize = p - start;
         }
-        public EnumType<Hasher> Hasher { get; private set; }
+        public BaseEnum<Hasher> Hasher { get; private set; }
         public DecodeDifferentStr Key1 { get; private set; }
         public DecodeDifferentStr Key2 { get; private set; }
         public DecodeDifferentStr Value { get; private set; }
-        public EnumType<Hasher> Key2Hasher { get; private set; }
+        public BaseEnum<Hasher> Key2Hasher { get; private set; }
     }
 
     public class StorageEntryTypeNMap : BaseType
@@ -262,7 +263,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             Keys = new DecodeDifferent<DecodeDifferentStr>();
             Keys.Decode(byteArray, ref p);
 
-            Hashers = new DecodeDifferent<EnumType<Hasher>>();
+            Hashers = new DecodeDifferent<BaseEnum<Hasher>>();
             Hashers.Decode(byteArray, ref p);
 
             Value = new DecodeDifferentStr();
@@ -271,7 +272,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
             _typeSize = p - start;
         }
         public DecodeDifferent<DecodeDifferentStr> Keys { get; private set; }
-        public DecodeDifferent<EnumType<Hasher>> Hashers { get; private set; }
+        public DecodeDifferent<BaseEnum<Hasher>> Hashers { get; private set; }
         public DecodeDifferentStr Value { get; private set; }
     }
 
@@ -431,7 +432,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         {
             var start = p;
 
-            Version = new U8();
+            Version = new PrimU8();
             Version.Decode(byteArray, ref p);
 
             SignedExtensions = new Vec<DecodeDifferentStr>();
@@ -439,7 +440,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
 
             _typeSize = p - start;
         }
-        public U8 Version { get; private set; }
+        public PrimU8 Version { get; private set; }
         public Vec<DecodeDifferentStr> SignedExtensions { get; private set; }
     }
 

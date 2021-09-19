@@ -55,7 +55,7 @@ namespace SubstrateNetApi.Model.Types
                 switch(type.BaseType.Name)
                 {
                     case "Enum":
-                        var eType = (IType)Activator.CreateInstance(typeof(EnumType<>).MakeGenericType(type));
+                        var eType = (IType)Activator.CreateInstance(typeof(BaseEnum<>).MakeGenericType(type));
                         eType.Decode(byteArray, ref p);
                         return eType;
                     default:

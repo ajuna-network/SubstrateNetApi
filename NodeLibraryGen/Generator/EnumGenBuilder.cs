@@ -22,7 +22,7 @@ namespace NodeLibraryGen
             CodeNamespace importsNamespace = new() {
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefPrimitive"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
@@ -62,7 +62,7 @@ namespace NodeLibraryGen
                         IsClass = true,
                         TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
                     };
-                    TargetClass.BaseTypes.Add(new CodeTypeReference($"EnumType<{enumName}>"));
+                    TargetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
                     typeNamespace.Types.Add(TargetClass);
                 }
                 else
@@ -73,7 +73,7 @@ namespace NodeLibraryGen
                         TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
                     };
 
-                    var codeTypeRef = new CodeTypeReference("ExtEnumType");
+                    var codeTypeRef = new CodeTypeReference("BaseEnumExt");
                     codeTypeRef.TypeArguments.Add(new CodeTypeReference(enumName));
                     foreach (TypeVariant variant in typeDef.Variants)
                     {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SubstrateNetApi.Model.Types.Base
+namespace SubstrateNetApi.Model.Types.Primitive
 {
-    public class I8 : BasePrim<sbyte>
+    public class PrimI8 : BasePrim<sbyte>
     {
         public override string TypeName() => "i8";
 
@@ -21,8 +21,8 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(sbyte value)
         {
-            Bytes = new byte[] { (byte) value };
-            Value = (sbyte) value;
+            Bytes = new byte[] { (byte)value };
+            Value = value;
         }
     }
 }

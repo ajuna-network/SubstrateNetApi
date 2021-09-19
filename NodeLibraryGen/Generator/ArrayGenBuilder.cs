@@ -20,7 +20,7 @@ namespace NodeLibraryGen
             CodeNamespace importsNamespace = new() { 
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefPrimitive"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),
@@ -45,7 +45,7 @@ namespace NodeLibraryGen
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-            TargetClass.BaseTypes.Add(new CodeTypeReference("ArrBase"));
+            TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
             typeNamespace.Types.Add(TargetClass);
 
             // Declaring a name method
@@ -71,8 +71,17 @@ namespace NodeLibraryGen
             nameMethod.Statements.Add(returnStatement);
             TargetClass.Members.Add(nameMethod);
 
-            var sizeMethod = SimpleMethod("TypeSize", "System.Int32", (int)length);
-            TargetClass.Members.Add(sizeMethod);
+            //var sizeMethod = SimpleMethod("TypeSize", "System.Int32", (int)length);
+            //TargetClass.Members.Add(sizeMethod);
+            CodeMemberField sizeField = new()
+            {
+                Attributes = MemberAttributes.Private | MemberAttributes.New,
+                Name = "_typeSize",
+                Type = new CodeTypeReference(typeof(System.Int32)),
+                InitExpression = new CodePrimitiveExpression((int)length)
+            };
+            TargetClass.Members.Add(sizeField);
+
 
             CodeMemberMethod encodeMethod = GetEncode();
             TargetClass.Members.Add(encodeMethod);

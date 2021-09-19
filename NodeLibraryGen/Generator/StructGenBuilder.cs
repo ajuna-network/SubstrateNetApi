@@ -20,7 +20,7 @@ namespace NodeLibraryGen
             CodeNamespace importsNamespace = new() { 
                 Imports = {
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefBase"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefPrimitive"),
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefArray"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefComposite"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.TypeDefVariant"),

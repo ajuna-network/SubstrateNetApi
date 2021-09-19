@@ -1,11 +1,13 @@
-﻿namespace SubstrateNetApi.Model.Types.Base
+﻿using SubstrateNetApi.Model.Types.Primitive;
+
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class AuthorityId : AccountId
     {
         public override string TypeName() => "AuthorityId";
     }
 
-    public class AuthorityWeight : U64
+    public class AuthorityWeight : PrimU64
     {
         public override string TypeName() => "AuthorityWeight";
     }
@@ -15,22 +17,22 @@
         public override string TypeName() => "Topic";
     }
 
-    public class EraIndex : U32
+    public class EraIndex : PrimU32
     {
         public override string TypeName() => "EraIndex";
     }
 
-    public class AccountIndex : U32
+    public class AccountIndex : PrimU32
     {
         public override string TypeName() => "AccountIndex";
     }
 
-    public class ApplyExtrinsic : U32
+    public class ApplyExtrinsic : PrimU32
     {
         public override string TypeName() => "ApplyExtrinsic";
     }
 
-    public class BountyIndex : U32
+    public class BountyIndex : PrimU32
     {
         public override string TypeName() => "BountyIndex";
     }
@@ -40,37 +42,37 @@
         public override string TypeName() => "CallHash";
     }
 
-    public class MemberCount : U32
+    public class MemberCount : PrimU32
     {
         public override string TypeName() => "MemberCount";
     }
 
-    public class PropIndex : U32
+    public class PropIndex : PrimU32
     {
         public override string TypeName() => "PropIndex";
     }
 
-    public class SessionIndex : U32
+    public class SessionIndex : PrimU32
     {
         public override string TypeName() => "SessionIndex";
     }
 
-    public class ProposalIndex : U32
+    public class ProposalIndex : PrimU32
     {
         public override string TypeName() => "ProposalIndex";
     }
 
-    public class ReferendumIndex : U32
+    public class ReferendumIndex : PrimU32
     {
         public override string TypeName() => "ReferendumIndex";
     }
 
-    public class RefCount : U32
+    public class RefCount : PrimU32
     {
         public override string TypeName() => "RefCount";
     }
 
-    public class RegistrarIndex : U32
+    public class RegistrarIndex : PrimU32
     {
         public override string TypeName() => "RegistrarIndex";
     }

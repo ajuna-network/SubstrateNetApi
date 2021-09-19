@@ -275,7 +275,7 @@ namespace IntegrationTest
             var cts = new CancellationTokenSource();
             await _substrateClient.ConnectAsync(cts.Token);
 
-            var u32 = new U32();
+            var u32 = new PrimU32();
             u32.Create(77);
 
             var extrinsicCall = new GenericExtrinsicCall("TemplateModule", "do_something", u32);
@@ -286,7 +286,7 @@ namespace IntegrationTest
             var result = await _substrateClient.GetStorageAsync("TemplateModule", "Something", cts.Token);
             Assert.AreEqual("U32", result.GetType().Name);
 
-            var something = result as U32;
+            var something = result as PrimU32;
 
             Assert.AreEqual(77, something.Value);
         }

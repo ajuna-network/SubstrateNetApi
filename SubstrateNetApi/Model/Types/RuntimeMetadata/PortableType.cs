@@ -1,4 +1,5 @@
 ﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
@@ -17,7 +18,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             var start = p;
 
             // #[codec(compact)]
-            Id = new U32();
+            Id = new PrimU32();
             Id.Create(CompactInteger.Decode(byteArray, ref p));
 
             Ty = new TypePortableForm();
@@ -25,7 +26,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
             _typeSize = p - start;
         }
-        public U32 Id { get; private set; }
+        public PrimU32 Id { get; private set; }
         public TypePortableForm Ty { get; private set; }
     }
 

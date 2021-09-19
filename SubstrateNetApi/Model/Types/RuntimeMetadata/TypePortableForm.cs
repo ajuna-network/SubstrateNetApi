@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             TypeParams = new Vec<TypeParameter>();
             TypeParams.Decode(byteArray, ref p);
 
-            TypeDef = new ExtEnumType<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, EnumType<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType>();
+            TypeDef = new BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType>();
             TypeDef.Decode(byteArray, ref p);
 
             Docs = new Vec<BaseString>();
@@ -33,7 +33,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         }
         public Path Path { get; private set; }
         public Vec<TypeParameter> TypeParams { get; private set; }
-        public ExtEnumType<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, EnumType<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType> TypeDef { get; private set; }
+        public BaseEnumExt<TypeDefEnum, TypeDefComposite, TypeDefVariant, TypeDefSequence, TypeDefArray, TypeDefTuple, BaseEnum<TypeDefPrimitive>, TypeDefCompact, TypeDefBitSequence, NullType> TypeDef { get; private set; }
         public Vec<BaseString> Docs { get; private set; }
     }
 
