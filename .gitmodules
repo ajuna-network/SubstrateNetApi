@@ -1,0 +1,3 @@
+[submodule "SubstrateNetApiGen"]
+	path = SubstrateNetApiGen
+	url = https://github.com/JetonNetwork/SubstrateNetApiGen.git
