@@ -22,11 +22,8 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public override void Decode(byte[] byteArray, ref int p)
         {
-            var start = p;
-            TypeSize = p - start;
-
-            Bytes = new byte[TypeSize];
-            Array.Copy(byteArray, start, Bytes, 0, TypeSize);
+            TypeSize = 0;
+            Bytes = new byte[0];
         }
 
         public IType[] Value { get; internal set; }
