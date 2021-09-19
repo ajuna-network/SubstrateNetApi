@@ -3,7 +3,7 @@ using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class PortableType : StructBase
+    public class PortableType : BaseType
     {
         public override string TypeName() => "PortableType";
 

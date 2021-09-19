@@ -6,7 +6,7 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class EventRecord : StructBase
+    public class EventRecord : BaseType
     {
         public override string TypeName() => "EventRecord<T::Event, T::Hash>";
 

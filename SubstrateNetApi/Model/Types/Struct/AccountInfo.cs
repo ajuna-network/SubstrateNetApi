@@ -3,7 +3,7 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class AccountInfo : StructBase
+    public class AccountInfo : BaseType
     {
         public override string TypeName() => "AccountInfo<T::Index, T::AccountData>";
 

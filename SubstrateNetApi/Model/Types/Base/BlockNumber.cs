@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class BlockNumber : BaseType<uint>
+    public class BlockNumber : BasePrim<uint>
     {
         public override string TypeName() => "T::BlockNumber";
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SubstrateNetApi.Model.Types.TypeDefBase
 {
-    public class BaseTuple : StructBase
+    public class BaseTuple : BaseType
     {
         public override string TypeName()
         {
@@ -32,7 +32,7 @@ namespace SubstrateNetApi.Model.Types.TypeDefBase
         public IType[] Value { get; internal set; }
     }
 
-    public class BaseTuple<T1, T2> : StructBase 
+    public class BaseTuple<T1, T2> : BaseType 
                                                 where T1 : IType, new()
                                                 where T2 : IType, new()
     {
@@ -75,7 +75,7 @@ namespace SubstrateNetApi.Model.Types.TypeDefBase
         public IType[] Value { get; internal set; }
     }
 
-    public class BaseTuple<T1, T2, T3> : StructBase 
+    public class BaseTuple<T1, T2, T3> : BaseType 
                                             where T1 : IType, new()
                                             where T2 : IType, new()
                                             where T3 : IType, new()
@@ -125,7 +125,7 @@ namespace SubstrateNetApi.Model.Types.TypeDefBase
         public IType[] Value { get; internal set; }
     }
 
-    public class BaseTuple<T1, T2, T3, T4> : StructBase
+    public class BaseTuple<T1, T2, T3, T4> : BaseType
                                             where T1 : IType, new()
                                             where T2 : IType, new()
                                             where T3 : IType, new()
@@ -181,7 +181,7 @@ namespace SubstrateNetApi.Model.Types.TypeDefBase
         public IType[] Value { get; internal set; }
     }
 
-    public class BaseTuple<T1, T2, T3, T4, T5> : StructBase
+    public class BaseTuple<T1, T2, T3, T4, T5> : BaseType
                                         where T1 : IType, new()
                                         where T2 : IType, new()
                                         where T3 : IType, new()
@@ -243,7 +243,7 @@ namespace SubstrateNetApi.Model.Types.TypeDefBase
         public IType[] Value { get; internal set; }
     }
 
-    public class BaseTuple<T1, T2, T3, T4, T5, T6> : StructBase
+    public class BaseTuple<T1, T2, T3, T4, T5, T6> : BaseType
                                     where T1 : IType, new()
                                     where T2 : IType, new()
                                     where T3 : IType, new()
@@ -311,7 +311,7 @@ namespace SubstrateNetApi.Model.Types.TypeDefBase
         public IType[] Value { get; internal set; }
     }
 
-    public class BaseTuple<T1, T2, T3, T4, T5, T6, T7> : StructBase
+    public class BaseTuple<T1, T2, T3, T4, T5, T6, T7> : BaseType
                                 where T1 : IType, new()
                                 where T2 : IType, new()
                                 where T3 : IType, new()

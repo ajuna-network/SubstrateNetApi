@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Vec<T> : StructBase where T : IType, new()
+    public class Vec<T> : BaseType where T : IType, new()
     {
         public override string TypeName() => $"Vec<{new T().TypeName()}>";
 

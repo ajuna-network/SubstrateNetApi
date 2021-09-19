@@ -10,7 +10,7 @@ using static SubstrateNetApi.Model.Meta.Storage;
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
 
-    public class RuntimeMetadataV14 : StructBase
+    public class RuntimeMetadataV14 : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -41,7 +41,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public ExtrinsicMetadata Extrinsic { get; private set; }
     }
 
-    public class MetaDataInfo : StructBase
+    public class MetaDataInfo : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -67,7 +67,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     }
 
-    public class PalletMetadata : StructBase
+    public class PalletMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -112,7 +112,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public U8 Index { get; private set; }
     }
 
-    public class StorageMetadata : StructBase
+    public class StorageMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -137,7 +137,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public Vec<StorageEntryMetadata> Entries { get; private set; }
     }
 
-    public class StorageEntryMetadata : StructBase
+    public class StorageEntryMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -179,7 +179,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public override string TypeName() => "unknown";
     }
 
-    public class StorageEntryTypeMap : StructBase
+    public class StorageEntryTypeMap : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -208,7 +208,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public TType Value { get; private set; }
     }
 
-    public class PalletCallMetadata : StructBase
+    public class PalletCallMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -289,7 +289,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
     //    public DecodeDifferentStr FunctionArgumentType { get; private set; }
     //}
 
-    public class PalletEventMetadata : StructBase
+    public class PalletEventMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -342,7 +342,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
     //    public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     //}
 
-    public class PalletConstantMetadata : StructBase
+    public class PalletConstantMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -375,7 +375,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public Vec<BaseString> Documentation { get; private set; }
     }
 
-    public class ErrorMetadata : StructBase
+    public class ErrorMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -397,7 +397,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     }
 
-    public class ExtrinsicMetadata : StructBase
+    public class ExtrinsicMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -426,7 +426,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public Vec<SignedExtensionMetadata> SignedExtensions { get; private set; }
     }
 
-    public class SignedExtensionMetadata : StructBase
+    public class SignedExtensionMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 

@@ -21,11 +21,11 @@ namespace NodeLibraryGen
 
         static async Task Main(string[] args)
         {
-            //using var client = new SubstrateClient(new Uri(Websocketurl));
-            //await client.ConnectLightAsync(CancellationToken.None);
+            using var client = new SubstrateClient(new Uri(Websocketurl));
+            await client.ConnectLightAsync(CancellationToken.None);
             //var result = await client.State.GetMetaDataAsync(CancellationToken.None);
 
-            string result = File.ReadAllText("metadata.txt");
+            string result = File.ReadAllText("metadata_20210919.txt");
 
             var mdv14 = new RuntimeMetadata();
             mdv14.Create(result);
@@ -39,6 +39,15 @@ namespace NodeLibraryGen
             Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
 
             Console.WriteLine($"{((double)typeDict.Count / nodeTypes.Count).ToString("P")}");
+
+            //for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            //{
+            //    if (nodeTypes.ContainsKey(i) && !typeDict.ContainsKey(i))
+            //    {
+            //        Console.WriteLine($"### {i} -------------------------------------------------");
+            //        Console.WriteLine(JsonConvert.SerializeObject(nodeTypes[i]));
+            //    }
+            //}
 
             //WriteJsonFile("metadata.json", nodeTypes);
             //GenerateCode(nodeTypes);
@@ -348,9 +357,7 @@ namespace NodeLibraryGen
                 if (nodeType.TypeDef == TypeDefEnum.Variant)
                 {
                     var typeDef = nodeType as NodeTypeVariant;
-
                     var path = String.Join('.', typeDef.Path);
-                    //typeDict.Add(i, $"{String.Join('.', typeDef.Path)}");
 
                     if (path == "Option")
                     {
@@ -362,27 +369,30 @@ namespace NodeLibraryGen
                     else if (path == "Result")
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        //typeDict.Add(i, $"Result");
                     }
-                    else if (path.Contains("pallet_") && path.Contains(".Call"))
+                    else if (path.Contains(".pallet.Call"))
                     {
                         var typeName = CallGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, typeName);
                         }
-
                     }
-                    else if (path.Contains("node_runtime.Call") || path.Contains(".pallet.Call"))
+                    else if (path.Contains("node_runtime.Call"))
                     {
-                        Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        //typeDict.Add(i, $"Result");
                     }
                     else if (path.Contains("node_runtime.Event") || path.Contains(".pallet.Event") || path.Contains("pallet_") && path.Contains(".Event"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        //typeDict.Add(i, $"Result");
                     }
                     else if (path.Contains(".pallet.Error") || path.Contains("pallet_") && path.Contains(".Error"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
+                        //typeDict.Add(i, $"Result");
                     }
                     else if (path.Contains("pallet_"))
                     {

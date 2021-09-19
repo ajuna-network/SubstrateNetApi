@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
 {
-    public class PrimI8 : BaseType<sbyte>
+    public class PrimI8 : BasePrim<sbyte>
     {
         public override string TypeName() => "i8";
 

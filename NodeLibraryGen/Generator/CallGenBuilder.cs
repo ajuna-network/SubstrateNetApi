@@ -41,7 +41,10 @@ namespace NodeLibraryGen
 
             ClassName = typeDef.Path[0].MakeMethod();
 
-            var palletName = typeDef.Path[0].Replace("pallet_", "").MakeMethod();
+            var palletName = typeDef.Path[0]
+                .Replace("pallet_", "")
+                .Replace("frame_", "")
+                .MakeMethod();
 
             TargetClass = new CodeTypeDeclaration(ClassName)
             {
@@ -54,8 +57,6 @@ namespace NodeLibraryGen
             {
                 foreach (var variant in typeDef.Variants)
                 {
-                    //Console.WriteLine($"{variant.Name}");
-
                     CodeMemberMethod callMethod = new()
                     {
                         Attributes = MemberAttributes.Public | MemberAttributes.Final,

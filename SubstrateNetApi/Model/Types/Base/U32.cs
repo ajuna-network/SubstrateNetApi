@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class U32 : BaseType<uint>
+    public class U32 : BasePrim<uint>
     {
         public override string TypeName() => "u32";
 

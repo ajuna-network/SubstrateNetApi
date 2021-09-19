@@ -4,7 +4,7 @@ using SubstrateNetApi.Model.Meta;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class EventRecords : StructBase
+    public class EventRecords : BaseType
     {
         public override string TypeName() => $"Vec<EventRecord<T::Event, T::Hash>>";
 

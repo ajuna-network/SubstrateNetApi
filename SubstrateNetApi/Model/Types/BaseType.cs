@@ -1,37 +1,33 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace SubstrateNetApi.Model.Types
 {
-    public abstract class BaseType<T> : IType
+    public abstract class BaseType : IType
     {
         public abstract string TypeName();
-        public abstract int TypeSize();
+
+        internal int _typeSize;
+        public int TypeSize() => _typeSize;
 
         [JsonIgnore] 
-        public byte[] Bytes { get; set; }
+        public byte[] Bytes { get; internal set; }
 
         public abstract byte[] Encode();
 
-        public void Decode(byte[] byteArray, ref int p)
-        {
-            var memory = byteArray.AsMemory();
-            var result = memory.Span.Slice(p, TypeSize()).ToArray();
-            p += TypeSize();
-            Create(result);
-        }
+        public abstract void Decode(byte[] byteArray, ref int p);
 
         public virtual void Create(string str) => Create(Utils.HexToByteArray(str));
 
         public virtual void CreateFromJson(string str) => Create(Utils.HexToByteArray(str));
 
-        public abstract void Create(byte[] byteArray);
+        public void Create(byte[] byteArray)
+        {
+            var p = 0;
+            Decode(byteArray, ref p);
+        }
 
         public IType New() => this;
 
-        public override string ToString() => JsonConvert.SerializeObject(Value);
-
-        public T Value { get; set; }
-
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

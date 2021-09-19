@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class RuntimeMetadata : StructBase
+    public class RuntimeMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 

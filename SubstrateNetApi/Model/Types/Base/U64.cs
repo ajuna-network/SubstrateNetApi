@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class U64 : BaseType<ulong>
+    public class U64 : BasePrim<ulong>
     {
         public override string TypeName() => "u64";
 

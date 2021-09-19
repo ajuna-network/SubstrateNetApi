@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class Balance : BaseType<BigInteger>
+    public class Balance : BasePrim<BigInteger>
     {
         public override string TypeName() => "T::Balance";
 

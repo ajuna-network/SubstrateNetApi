@@ -5,7 +5,7 @@ using SubstrateNetApi.Model.Types.Enum;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class DispatchInfo : StructBase
+    public class DispatchInfo : BaseType
     {
         public override string TypeName() => "DispatchInfo";
 

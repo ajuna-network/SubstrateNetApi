@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class U128 : BaseType<BigInteger>
+    public class U128 : BasePrim<BigInteger>
     {
         public override string TypeName() => "u128";
 

@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class U16 : BaseType<ushort>
+    public class U16 : BasePrim<ushort>
     {
         public override string TypeName() => "u16";
 

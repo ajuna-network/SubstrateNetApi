@@ -1,6 +1,6 @@
 ﻿namespace SubstrateNetApi.Model.Types.Base
 {
-    public class Hash : BaseType<string>
+    public class Hash : BasePrim<string>
     {
         public override string TypeName() => "T::Hash";
 

@@ -4,7 +4,7 @@ using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class TypePortableForm : StructBase
+    public class TypePortableForm : BaseType
     {
         public override string TypeName() => "Type<T: Form = MetaForm>";
 
@@ -42,7 +42,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public override string TypeName() => "Path<T: Form = MetaForm>";
     }
 
-    public class TypeParameter : StructBase
+    public class TypeParameter : BaseType
     {
         public override string TypeName() => "TypeParameter<T: Form = MetaForm>";
 

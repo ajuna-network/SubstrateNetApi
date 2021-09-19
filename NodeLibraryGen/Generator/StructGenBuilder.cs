@@ -40,7 +40,7 @@ namespace NodeLibraryGen
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-            TargetClass.BaseTypes.Add(new CodeTypeReference("StructBase"));
+            TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
             typeNamespace.Types.Add(TargetClass);
 
             var nameMethod = SimpleMethod("TypeName", "System.String", ClassName);

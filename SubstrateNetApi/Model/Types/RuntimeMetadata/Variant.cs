@@ -4,7 +4,7 @@ using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class Variant : StructBase
+    public class Variant : BaseType
     {
         public override string TypeName() => "Variant<T: Form = MetaForm>";
 

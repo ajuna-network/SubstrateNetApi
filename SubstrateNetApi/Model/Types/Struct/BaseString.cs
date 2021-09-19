@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class BaseString : StructBase
+    public class BaseString : BaseType
     {
         public override string TypeName() => $"String";
 

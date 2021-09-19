@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Option<T> : StructBase where T : IType, new()
+    public class Option<T> : BaseType where T : IType, new()
     {
         public override string TypeName() => $"Option<{new T().TypeName()}>";
 

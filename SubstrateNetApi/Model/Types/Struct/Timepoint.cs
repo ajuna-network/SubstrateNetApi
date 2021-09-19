@@ -5,7 +5,7 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Timepoint : StructBase
+    public class Timepoint : BaseType
     {
         public override string TypeName() => "Timepoint<T::BlockNumber>";
 

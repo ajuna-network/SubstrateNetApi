@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
 {
-    public class PrimChar : BaseType<char>
+    public class PrimChar : BasePrim<char>
     {
         public override string TypeName() => "char";
 

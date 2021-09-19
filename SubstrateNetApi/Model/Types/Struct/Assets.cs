@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class AssetBalance : StructBase
+    public class AssetBalance : BaseType
     {
         public override string TypeName() => "AssetBalance<T::Balance>";
 

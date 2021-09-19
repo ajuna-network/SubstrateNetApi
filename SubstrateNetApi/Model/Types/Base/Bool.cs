@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class Bool : BaseType<bool>
+    public class Bool : BasePrim<bool>
     {
         public override string TypeName() => "bool";
 

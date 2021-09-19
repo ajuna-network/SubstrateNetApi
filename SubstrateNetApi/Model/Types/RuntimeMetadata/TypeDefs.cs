@@ -70,7 +70,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         BitSequence
     }
 
-    public class TypeDefComposite : StructBase
+    public class TypeDefComposite : BaseType
     {
         public override string TypeName() => "TypeDefComposite<T: Form = MetaForm>";
 
@@ -92,7 +92,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     }
 
-    public class TypeDefVariant : StructBase
+    public class TypeDefVariant : BaseType
     {
         public override string TypeName() => "TypeDefVariant<T: Form = MetaForm>";
 
@@ -113,7 +113,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public Vec<Variant> TypeParam { get; private set; }
     }
 
-    public class TypeDefSequence : StructBase
+    public class TypeDefSequence : BaseType
     {
         public override string TypeName() => "TypeDefSequence<T: Form = MetaForm>";
 
@@ -134,7 +134,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public TType TypeParam { get; private set; }
     }
 
-    public class TypeDefArray : StructBase
+    public class TypeDefArray : BaseType
     {
         public override string TypeName() => "TypeDefArray<T: Form = MetaForm>";
 
@@ -159,7 +159,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public TType TypeParam { get; private set; }
     }
 
-    public class TypeDefTuple : StructBase
+    public class TypeDefTuple : BaseType
     {
         public override string TypeName() => "TypeDefTuple<T: Form = MetaForm>";
 
@@ -214,7 +214,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         I256,
     }
 
-    public class TypeDefCompact : StructBase
+    public class TypeDefCompact : BaseType
     {
         public override string TypeName() => "TypeDefCompact<T: Form = MetaForm>";
 
@@ -235,7 +235,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public TType TypeParam { get; private set; }
     }
 
-    public class TypeDefBitSequence : StructBase
+    public class TypeDefBitSequence : BaseType
     {
         public override string TypeName() => "TypeDefBitSequence<T: Form = MetaForm>";
 

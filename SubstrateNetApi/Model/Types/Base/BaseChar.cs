@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class BaseChar : BaseType<char>
+    public class BaseChar : BasePrim<char>
     {
         public override string TypeName() => "unknown";
 

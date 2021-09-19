@@ -4,7 +4,7 @@ using SubstrateNetApi.Model.Types.Enum;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Phase : StructBase
+    public class Phase : BaseType
     {
         public override string TypeName() => "Phase";
 

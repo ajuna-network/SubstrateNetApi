@@ -7,7 +7,7 @@ using SubstrateNetApi.Model.Types.Enum;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public partial class BaseEvent : StructBase
+    public partial class BaseEvent : BaseType
     {
         public override string TypeName() => "Event";
 

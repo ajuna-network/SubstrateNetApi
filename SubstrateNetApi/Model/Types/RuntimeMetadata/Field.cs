@@ -4,7 +4,7 @@ using System;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V14
 {
-    public class Field : StructBase
+    public class Field : BaseType
     {
         public override string TypeName() => "Field<T: Form = MetaForm>";
 

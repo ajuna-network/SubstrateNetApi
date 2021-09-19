@@ -9,7 +9,7 @@ using static SubstrateNetApi.Model.Meta.Storage;
 
 namespace SubstrateNetApi.Model.Types.Metadata.V13
 {
-    public class RuntimeMetadataV13 : StructBase
+    public class RuntimeMetadataV13 : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -38,7 +38,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public ExtrinsicMetadata Extrinsic { get; private set; }
     }
 
-    public class MetaDataInfo : StructBase
+    public class MetaDataInfo : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -64,7 +64,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
 
     }
 
-    public class ModuleMetadata : StructBase
+    public class ModuleMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -109,7 +109,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public U8 Index { get; private set; }
     }
 
-    public class StorageMetadata : StructBase
+    public class StorageMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -134,7 +134,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferent<StorageEntryMetadata> Entries { get; private set; }
     }
 
-    public class StorageEntryMetadata : StructBase
+    public class StorageEntryMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -176,7 +176,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public override string TypeName() => "unknown";
     }
 
-    public class StorageEntryTypeMap : StructBase
+    public class StorageEntryTypeMap : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -209,7 +209,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public Bool Unused { get; private set; }
     }
 
-    public class StorageEntryTypeDoubleMap : StructBase
+    public class StorageEntryTypeDoubleMap : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -246,7 +246,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public EnumType<Hasher> Key2Hasher { get; private set; }
     }
 
-    public class StorageEntryTypeNMap : StructBase
+    public class StorageEntryTypeNMap : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -275,7 +275,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferentStr Value { get; private set; }
     }
 
-    public class FunctionMetadata : StructBase
+    public class FunctionMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -304,7 +304,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
 
-    public class FunctionArgumentMetadata : StructBase
+    public class FunctionArgumentMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -329,7 +329,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferentStr FunctionArgumentType { get; private set; }
     }
 
-    public class EventMetadata : StructBase
+    public class EventMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -358,7 +358,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
 
-    public class ModuleConstantMetadata : StructBase
+    public class ModuleConstantMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -391,7 +391,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
 
-    public class ErrorMetadata : StructBase
+    public class ErrorMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -418,7 +418,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
     }
 
-    public class ExtrinsicMetadata : StructBase
+    public class ExtrinsicMetadata : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -448,7 +448,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V13
         public override string TypeName() => "unknown";
     }
 
-    public class DecodeDifferent<T> : StructBase where T : IType, new()
+    public class DecodeDifferent<T> : BaseType where T : IType, new()
     {
         public override string TypeName() => "unknown";
 

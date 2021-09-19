@@ -2,7 +2,7 @@
 
 namespace SubstrateNetApi.Model.Types.TypeDefPrimitive
 {
-    public class PrimI64 : BaseType<long>
+    public class PrimI64 : BasePrim<long>
     {
         public override string TypeName() => "i64";
 

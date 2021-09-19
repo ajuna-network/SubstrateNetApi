@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class RustTuple<T1, T2> : StructBase where T1 : IType, new()
+    public class RustTuple<T1, T2> : BaseType where T1 : IType, new()
                                                 where T2 : IType, new()
     {
         public override string TypeName() => $"({new T1().TypeName()},{new T2().TypeName()})";
