@@ -12,33 +12,30 @@ namespace NodeLibraryGen
 {
     public class EventGenBuilder : BaseBuilder
     {
-        private EventGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        private EventGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Success = true;
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new()
+            TargetUnit.Namespaces.Add(ImportsNamespace);
+
+            if (typeDef.Path[0].Contains("_"))
             {
-                Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
-                    new CodeNamespaceImport("System.Collections.Generic"),
-                    new CodeNamespaceImport("System")
-                }
-            };
+                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
+            }
+            else
+            {
+                NameSpace = "SubstrateNetApi.Model." + "Base";
+            }
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Custom.Events");
-            TargetUnit.Namespaces.Add(importsNamespace);
+            ClassName = typeDef.Path[0].MakeMethod() + "Event";
+
+            ReferenzName = $"{NameSpace}.{ClassName}";
+
+            CodeNamespace typeNamespace = new(NameSpace);
+            
             TargetUnit.Namespaces.Add(typeNamespace);
-
-            var fullPath = $"{String.Join('.', typeDef.Path)}";
-
-            ClassName = typeDef.Path[0].MakeMethod();
 
             var palletName = typeDef.Path[0]
                 .Replace("pallet_", "")
@@ -52,7 +49,7 @@ namespace NodeLibraryGen
             };
 
             TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {fullPath}", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
             foreach (var doc in typeDef.Docs)
             {
                 TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
@@ -83,9 +80,10 @@ namespace NodeLibraryGen
                     {
                         foreach (var field in variant.TypeFields)
                         {
-                            if (typeDict.TryGetValue(field.TypeId, out string baseType))
+                            if (typeDict.TryGetValue(field.TypeId, out (string, List<string>) fullItem))
                             {
-                                codeTypeRef.TypeArguments.Add(new CodeTypeReference(baseType));
+                                codeTypeRef.TypeArguments.Add(new CodeTypeReference(fullItem.Item1));
+                                //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
                             }
                             else
                             {
@@ -103,30 +101,9 @@ namespace NodeLibraryGen
 
         }
 
-        public static EventGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        public static EventGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new EventGenBuilder(id, typeDef, typeDict);
-        }
-
-        public string Build(out bool success)
-        {
-            success = Success;
-            if (Success)
-            {
-                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                CodeGeneratorOptions options = new()
-                {
-                    BracingStyle = "C"
-                };
-                var path = Path.Combine("Model", "Custom", "Events", ClassName + ".cs");
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (StreamWriter sourceWriter = new(path))
-                {
-                    provider.GenerateCodeFromCompileUnit(
-                        TargetUnit, sourceWriter, options);
-                }
-            }
-            return ClassName + "Event";
         }
     }
 }

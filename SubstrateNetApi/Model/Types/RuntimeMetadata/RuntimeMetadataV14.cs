@@ -154,7 +154,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             StorageModifier = new BaseEnum<Modifier>();
             StorageModifier.Decode(byteArray, ref p);
 
-            StorageType = new BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, Void, Void, Void, Void, Void, Void, Void>();
+            StorageType = new BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid>();
             StorageType.Decode(byteArray, ref p);
 
             StorageDefault = new ByteGetter();
@@ -167,7 +167,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         }
         public Str StorageName { get; private set; }
         public BaseEnum<Modifier> StorageModifier { get; private set; }
-        public BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, Void, Void, Void, Void, Void, Void, Void> StorageType { get; private set; }
+        public BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid> StorageType { get; private set; }
         public ByteGetter StorageDefault { get; private set; }
         public BaseVec<Str> Documentation { get; private set; }
     }

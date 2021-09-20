@@ -9,7 +9,7 @@ namespace SubstrateNetApi.Model.Types.Base
         public virtual int TypeSize { get; set; }
 
         [JsonIgnore]
-        public byte[] Bytes { get; internal set; }
+        public byte[] Bytes { get; set; }
 
         public abstract byte[] Encode();
 

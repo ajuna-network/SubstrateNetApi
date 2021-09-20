@@ -12,33 +12,30 @@ namespace NodeLibraryGen
 {
     public class RuntimeGenBuilder : BaseBuilder
     {
-        private RuntimeGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        private RuntimeGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Success = true;
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new() {
-                Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
-                    new CodeNamespaceImport("System.Collections.Generic"),
-                    new CodeNamespaceImport("System")
-                }
-            };
-
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Custom.Runtime");
-            TargetUnit.Namespaces.Add(importsNamespace);
-            TargetUnit.Namespaces.Add(typeNamespace);
-
-            var fullPath = $"{String.Join('.', typeDef.Path)}";
+            TargetUnit.Namespaces.Add(ImportsNamespace);
 
             var runtimeType = $"{typeDef.Path.Last()}";
             var enumName = $"Node{runtimeType}";
+
+            if (typeDef.Path[0].Contains("_"))
+            {
+                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
+            }
+            else
+            {
+                NameSpace = "SubstrateNetApi.Model." + "Base";
+            }
+
             ClassName = $"Enum{enumName}";
+            ReferenzName = $"{NameSpace}.{ClassName}";
+            CodeNamespace typeNamespace = new(NameSpace);
+            TargetUnit.Namespaces.Add(typeNamespace);
 
             CodeTypeDeclaration TargetType = new(enumName)
             {
@@ -61,7 +58,7 @@ namespace NodeLibraryGen
             };
             TargetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
             TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Enum", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> {String.Join('.', typeDef.Path)}", true));
             if (typeDef.Docs != null)
             {
                 foreach (var doc in typeDef.Docs)
@@ -75,30 +72,9 @@ namespace NodeLibraryGen
 
         }
 
-        public static RuntimeGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        public static RuntimeGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new RuntimeGenBuilder(id, typeDef, typeDict);
-        }
-
-        public string Build(out bool success)
-        {
-            success = Success;
-            if (Success)
-            {
-                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                CodeGeneratorOptions options = new()
-                {
-                    BracingStyle = "C"
-                };
-                var path = Path.Combine("Model", "Custom", "Runtime", ClassName + ".cs");
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (StreamWriter sourceWriter = new(path))
-                {
-                    provider.GenerateCodeFromCompileUnit(
-                        TargetUnit, sourceWriter, options);
-                }
-            }
-            return ClassName;
         }
     }
 }

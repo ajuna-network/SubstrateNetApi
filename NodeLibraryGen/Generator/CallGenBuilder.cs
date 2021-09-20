@@ -13,33 +13,28 @@ namespace NodeLibraryGen
 {
     public class CallGenBuilder : BaseBuilder
     {
-        private CallGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        private CallGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Success = true;
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new() {
-                Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Calls"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
-                    new CodeNamespaceImport("System.Collections.Generic"),
-                    new CodeNamespaceImport("System")
-                }
-            };
+            ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Calls"));
+            TargetUnit.Namespaces.Add(ImportsNamespace);
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Custom.Calls");
-            TargetUnit.Namespaces.Add(importsNamespace);
+            if (typeDef.Path[0].Contains("_"))
+            {
+                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
+            }
+            else
+            {
+                NameSpace = "SubstrateNetApi.Model." + "Base";
+            }
+
+            ClassName = typeDef.Path[0].MakeMethod() + "Call";
+            ReferenzName = $"{NameSpace}.{ClassName}";
+            CodeNamespace typeNamespace = new(NameSpace);
             TargetUnit.Namespaces.Add(typeNamespace);
-
-            var fullPath = $"{String.Join('.', typeDef.Path)}";
-
-            ClassName = typeDef.Path[0].MakeMethod();
 
             var palletName = typeDef.Path[0]
                 .Replace("pallet_", "")
@@ -51,9 +46,8 @@ namespace NodeLibraryGen
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-
             TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {fullPath}", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
             foreach (var doc in typeDef.Docs)
             {
                 TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
@@ -91,14 +85,15 @@ namespace NodeLibraryGen
                     {
                         foreach (var field in variant.TypeFields)
                         {
-                            if (!typeDict.TryGetValue(field.TypeId, out string baseType))
+                            if (!typeDict.TryGetValue(field.TypeId, out (string, List<string>) fullItem))
                             {
                                 Success = false;
-                                baseType = "Unknown";
+                                fullItem = ("Unknown", new List<string>() { "Unknown" });
                             }
+                            //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
                             CodeParameterDeclarationExpression param = new()
                             {
-                                Type = new CodeTypeReference(baseType),
+                                Type = new CodeTypeReference(fullItem.Item1),
                                 Name = field.Name
                             };
                             callMethod.Parameters.Add(param);
@@ -118,30 +113,9 @@ namespace NodeLibraryGen
             }
         }
 
-        public static CallGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        public static CallGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new CallGenBuilder(id, typeDef, typeDict);
-        }
-
-        public string Build(out bool success)
-        {
-            success = Success;
-            if (Success)
-            {
-                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                CodeGeneratorOptions options = new()
-                {
-                    BracingStyle = "C"
-                };
-                var path = Path.Combine("Model", "Custom", "Calls", ClassName + ".cs");
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (StreamWriter sourceWriter = new(path))
-                {
-                    provider.GenerateCodeFromCompileUnit(
-                        TargetUnit, sourceWriter, options);
-                }
-            }
-            return ClassName + "Call";
         }
     }
 }

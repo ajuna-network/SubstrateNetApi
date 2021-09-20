@@ -12,36 +12,31 @@ namespace NodeLibraryGen
 {
     public class EnumGenBuilder : BaseBuilder
     {
-        private EnumGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        private EnumGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Success = true;
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new() {
-                Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
-                    new CodeNamespaceImport("System.Collections.Generic"),
-                    new CodeNamespaceImport("System")
-                }
-            };
-
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.Enum");
-            TargetUnit.Namespaces.Add(importsNamespace);
-            TargetUnit.Namespaces.Add(typeNamespace);
-
-            var fullPath = $"{String.Join('.', typeDef.Path)}";
+            TargetUnit.Namespaces.Add(ImportsNamespace);
 
             var enumName = $"{typeDef.Path.Last()}";
 
-            ClassName = $"Enum{enumName}";
+            if (typeDef.Path[0].Contains("_"))
+            {
+                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
+            }
+            else
+            {
+                NameSpace = "SubstrateNetApi.Model." + "Base";
+            }
 
-            CodeTypeDeclaration TargetType = new CodeTypeDeclaration(enumName)
+            ClassName = $"Enum{enumName}";
+            ReferenzName = $"{NameSpace}.{ClassName}";
+            CodeNamespace typeNamespace = new(NameSpace);
+            TargetUnit.Namespaces.Add(typeNamespace);
+
+            CodeTypeDeclaration TargetType = new(enumName)
             {
                 IsEnum = true
             };
@@ -86,35 +81,35 @@ namespace NodeLibraryGen
                     {
                         if (variant.TypeFields == null)
                         {
-                            codeTypeRef.TypeArguments.Add(new CodeTypeReference("Void"));
+                            codeTypeRef.TypeArguments.Add(new CodeTypeReference("BaseVoid"));
+                            //ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Types"));
                         }
                         else
                         {
                             if (variant.TypeFields.Length == 1)
                             {
-                                if (typeDict.TryGetValue(variant.TypeFields[0].TypeId, out string baseType))
+                                if (typeDict.TryGetValue(variant.TypeFields[0].TypeId, out (string, List<string>) fullItem))
                                 {
-                                    codeTypeRef.TypeArguments.Add(new CodeTypeReference(baseType));
+                                    codeTypeRef.TypeArguments.Add(new CodeTypeReference(fullItem.Item1));
+                                    //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
                                 }
                                 else
                                 {
-                                    //codeTypeRef.TypeArguments.Add(new CodeTypeReference("FuckYou"));
                                     Success = false;
                                 }
-
                             }
                             else
                             {
                                 var baseTuple = new CodeTypeReference("BaseTuple");
                                 foreach (var field in variant.TypeFields)
                                 {
-                                    if (typeDict.TryGetValue(field.TypeId, out string baseType))
+                                    if (typeDict.TryGetValue(field.TypeId, out (string, List<string>) fullItem))
                                     {
-                                        baseTuple.TypeArguments.Add(new CodeTypeReference(baseType));
+                                        baseTuple.TypeArguments.Add(new CodeTypeReference(fullItem.Item1));
+                                        //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
                                     }
                                     else
                                     {
-                                        //codeTypeRef.TypeArguments.Add(new CodeTypeReference("FuckYou"));
                                         Success = false;
                                     }
                                 }
@@ -129,30 +124,9 @@ namespace NodeLibraryGen
             }
         }
 
-        public static EnumGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        public static EnumGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new EnumGenBuilder(id, typeDef, typeDict);
-        }
-
-        public string Build(out bool success)
-        {
-            success = Success;
-            if (Success)
-            {
-                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                CodeGeneratorOptions options = new()
-                {
-                    BracingStyle = "C"
-                };
-                var path = Path.Combine("Model", "Types", "Enum", ClassName + ".cs");
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (StreamWriter sourceWriter = new(path))
-                {
-                    provider.GenerateCodeFromCompileUnit(
-                        TargetUnit, sourceWriter, options);
-                }
-            }
-            return ClassName;
         }
     }
 }

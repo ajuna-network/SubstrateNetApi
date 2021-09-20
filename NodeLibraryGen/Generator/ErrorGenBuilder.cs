@@ -12,33 +12,27 @@ namespace NodeLibraryGen
 {
     public class ErrorGenBuilder : BaseBuilder
     {
-        private ErrorGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        private ErrorGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Success = true;
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new()
+            TargetUnit.Namespaces.Add(ImportsNamespace);
+
+            if (typeDef.Path[0].Contains("_"))
             {
-                Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
-                    new CodeNamespaceImport("System.Collections.Generic"),
-                    new CodeNamespaceImport("System")
-                }
-            };
+                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
+            }
+            else
+            {
+                NameSpace = "SubstrateNetApi.Model." + "Base";
+            }
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Custom.Errors");
-            TargetUnit.Namespaces.Add(importsNamespace);
+            ClassName = typeDef.Path[0].MakeMethod() + "Error";
+            ReferenzName = $"{NameSpace}.{ClassName}";
+            CodeNamespace typeNamespace = new(NameSpace);
             TargetUnit.Namespaces.Add(typeNamespace);
-
-            var fullPath = $"{String.Join('.', typeDef.Path)}";
-
-            ClassName = typeDef.Path[0].MakeMethod();
 
             var palletName = typeDef.Path[0]
                 .Replace("pallet_", "")
@@ -52,7 +46,7 @@ namespace NodeLibraryGen
             };
 
             TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {fullPath}", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
             foreach (var doc in typeDef.Docs)
             {
                 TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
@@ -76,35 +70,13 @@ namespace NodeLibraryGen
                     TargetClass.Members.Add(enumField);
                 }
             }
-
-
-
         }
 
-        public static ErrorGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, string> typeDict)
+        public static ErrorGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new ErrorGenBuilder(id, typeDef, typeDict);
         }
 
-        public string Build(out bool success)
-        {
-            success = Success;
-            if (Success)
-            {
-                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                CodeGeneratorOptions options = new()
-                {
-                    BracingStyle = "C"
-                };
-                var path = Path.Combine("Model", "Custom", "Errors", ClassName + ".cs");
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (StreamWriter sourceWriter = new(path))
-                {
-                    provider.GenerateCodeFromCompileUnit(
-                        TargetUnit, sourceWriter, options);
-                }
-            }
-            return ClassName + "Error";
-        }
+
     }
 }

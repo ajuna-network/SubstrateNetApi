@@ -12,30 +12,22 @@ namespace NodeLibraryGen
 {
     public class StructGenBuilder : BaseBuilder
     {
-        private StructGenBuilder(uint id, NodeTypeComposite typeDef, Dictionary<uint, string> typeDict)
+        private StructGenBuilder(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Success = true;
 
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new()
+            
+            ImportsNamespace = new()
             {
                 Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
                     new CodeNamespaceImport("System.Collections.Generic"),
                     new CodeNamespaceImport("System")
                 }
             };
-
-            var fullPath = $"{String.Join('.', typeDef.Path)}";
-
-            ClassName = $"{typeDef.Path.Last()}";
 
             if (typeDef.Path[0].Contains("_"))
             {
@@ -46,8 +38,12 @@ namespace NodeLibraryGen
                 NameSpace = "SubstrateNetApi.Model." + "Base";
             }
 
+            ClassName = $"{typeDef.Path.Last()}";
+
+            ReferenzName = $"{NameSpace}.{typeDef.Path.Last()}";
+
             CodeNamespace typeNamespace = new(NameSpace);
-            TargetUnit.Namespaces.Add(importsNamespace);
+            TargetUnit.Namespaces.Add(ImportsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
             TargetClass = new CodeTypeDeclaration(ClassName)
@@ -57,7 +53,7 @@ namespace NodeLibraryGen
             };
             TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
             TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {fullPath}", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
             if (typeDef.Docs != null)
             {
                 foreach (var doc in typeDef.Docs)
@@ -83,13 +79,14 @@ namespace NodeLibraryGen
                         fieldName = typeDef.TypeFields.Length > 1 ? typeField.TypeName : "value";
                     }
 
-                    if (!typeDict.TryGetValue(typeField.TypeId, out string baseType))
+                    if (!typeDict.TryGetValue(typeField.TypeId, out (string, List<string>) fullItem))
                     {
                         Success = false;
-                        baseType = "Unknown";
+                        fullItem = ("Unknown", new List<string>() { "Unknown" });
                     }
+                    //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
 
-                    var field = GetPropertyField(fieldName, baseType);
+                    var field = GetPropertyField(fieldName, fullItem.Item1);
                     TargetClass.Members.Add(field);
                     TargetClass.Members.Add(GetProperty(fieldName, field));
                 }
@@ -131,7 +128,7 @@ namespace NodeLibraryGen
             return prop;
         }
 
-        private CodeMemberMethod GetDecode(NodeTypeField[] typeFields, Dictionary<uint, string> typeDict)
+        private CodeMemberMethod GetDecode(NodeTypeField[] typeFields, Dictionary<uint, (string, List<string>)> typeDict)
         {
             var decodeMethod = SimpleMethod("Decode");
             CodeParameterDeclarationExpression param1 = new()
@@ -161,13 +158,14 @@ namespace NodeLibraryGen
                         fieldName = typeFields.Length > 1 ? typeField.TypeName : "value";
                     }
 
-                    if (!typeDict.TryGetValue(typeField.TypeId, out string baseType))
+                    if (!typeDict.TryGetValue(typeField.TypeId, out (string, List<string>) fullItem))
                     {
                         Success = false;
-                        baseType = "Unknown";
+                        fullItem = ("Unknown", new List<string>() { "Unknown" });
                     }
+                    //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
 
-                    decodeMethod.Statements.Add(new CodeSnippetExpression($"{fieldName.MakeMethod()} = new {baseType}()"));
+                    decodeMethod.Statements.Add(new CodeSnippetExpression($"{fieldName.MakeMethod()} = new {fullItem.Item1}()"));
                     decodeMethod.Statements.Add(new CodeSnippetExpression($"{fieldName.MakeMethod()}.Decode(byteArray, ref p)"));
                 }
             }
@@ -205,30 +203,10 @@ namespace NodeLibraryGen
             return encodeMethod;
         }
 
-        public static StructGenBuilder Create(uint id, NodeTypeComposite typeDef, Dictionary<uint, string> typeDict)
+        public static StructGenBuilder Create(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new StructGenBuilder(id, typeDef, typeDict);
         }
 
-        public (string, string) Build(out bool success)
-        {
-            success = Success;
-            if (Success)
-            {
-                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                CodeGeneratorOptions options = new()
-                {
-                    BracingStyle = "C"
-                };
-                var path = Path.Combine(NameSpace, ClassName + ".cs");
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (StreamWriter sourceWriter = new(path))
-                {
-                    provider.GenerateCodeFromCompileUnit(
-                        TargetUnit, sourceWriter, options);
-                }
-            }
-            return (ClassName, NameSpace);
-        }
     }
 }

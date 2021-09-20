@@ -12,46 +12,34 @@ namespace NodeLibraryGen
     public class ArrayGenBuilder : BaseBuilder
     {
         public static int Counter = 0;
-        private ArrayGenBuilder(uint id, NodeTypeArray typeDef, Dictionary<uint, string> typeDict)
+        private ArrayGenBuilder(uint id, NodeTypeArray typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Success = true;
 
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new()
-            {
-                Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Composite"),
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Enum"),
-                    new CodeNamespaceImport("System.Collections.Generic"),
-                    new CodeNamespaceImport("System")
-                }
-            };
+            TargetUnit.Namespaces.Add(ImportsNamespace);
 
-            if (!typeDict.TryGetValue(typeDef.TypeId, out string baseType))
+            if (!typeDict.TryGetValue(typeDef.TypeId, out (string, List<string>) fullItem))
             {
                 Success = false;
-                baseType = "Unknown";
+                fullItem = ("Unknown", new List<string>() { "Unknown" });
             }
-
-            ClassName = $"Arr{typeDef.Length}{baseType}";
+            //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
 
             NameSpace = "SubstrateNetApi.Model." + "Base";
-
+            ClassName = $"Arr{typeDef.Length}{fullItem.Item1}";
             CodeNamespace typeNamespace = new(NameSpace);
-            TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
-            if (baseType.Any(ch => !Char.IsLetterOrDigit(ch)))
+            if (fullItem.Item1.Any(ch => !Char.IsLetterOrDigit(ch)))
             {
                 Counter++;
                 ClassName = $"Arr{typeDef.Length}Special" + Counter++;
             }
+
+            ReferenzName = $"{NameSpace}.{ClassName}";
 
             TargetClass = new CodeTypeDeclaration(ClassName)
             {
@@ -78,7 +66,7 @@ namespace NodeLibraryGen
                 Name = "TypeName",
                 ReturnType = new CodeTypeReference(typeof(System.String))
             };
-            var methodRef1 = new CodeMethodReferenceExpression(new CodeObjectCreateExpression(baseType, Array.Empty<CodeExpression>()), "TypeName()");
+            var methodRef1 = new CodeMethodReferenceExpression(new CodeObjectCreateExpression(fullItem.Item1, Array.Empty<CodeExpression>()), "TypeName()");
             var methodRef2 = new CodeMethodReferenceExpression(new CodeThisReferenceExpression(), "TypeSize");
 
             // Declaring a return statement for method ToString.
@@ -107,7 +95,7 @@ namespace NodeLibraryGen
             CodeMemberMethod encodeMethod = GetEncode();
             TargetClass.Members.Add(encodeMethod);
 
-            CodeMemberMethod decodeMethod = GetDecode(baseType);
+            CodeMemberMethod decodeMethod = GetDecode(fullItem.Item1);
             TargetClass.Members.Add(decodeMethod);
 
 
@@ -115,7 +103,7 @@ namespace NodeLibraryGen
             {
                 Attributes = MemberAttributes.Private,
                 Name = "_value",
-                Type = new CodeTypeReference($"{baseType}[]")
+                Type = new CodeTypeReference($"{fullItem.Item1}[]")
             };
             TargetClass.Members.Add(valueField);
             CodeMemberProperty valueProperty = new()
@@ -124,7 +112,7 @@ namespace NodeLibraryGen
                 Name = "Value",
                 HasGet = true,
                 HasSet = true,
-                Type = new CodeTypeReference($"{baseType}[]")
+                Type = new CodeTypeReference($"{fullItem.Item1}[]")
             };
             valueProperty.GetStatements.Add(new CodeMethodReturnStatement(
                 new CodeFieldReferenceExpression(
@@ -142,7 +130,7 @@ namespace NodeLibraryGen
             };
             createMethod.Parameters.Add(new()
             {
-                Type = new CodeTypeReference($"{baseType}[]"),
+                Type = new CodeTypeReference($"{fullItem.Item1}[]"),
                 Name = "array"
             });
             createMethod.Statements.Add(new CodeSnippetExpression("Value = array"));
@@ -200,30 +188,9 @@ namespace NodeLibraryGen
             return encodeMethod;
         }
 
-        public static ArrayGenBuilder Create(uint id, NodeTypeArray nodeType, Dictionary<uint, string> typeDict)
+        public static ArrayGenBuilder Create(uint id, NodeTypeArray nodeType, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new ArrayGenBuilder(id, nodeType, typeDict);
-        }
-
-        public (string, string) Build(out bool success)
-        {
-            success = Success;
-            if (Success)
-            {
-                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                CodeGeneratorOptions options = new()
-                {
-                    BracingStyle = "C"
-                };
-                var path = Path.Combine(NameSpace, ClassName + ".cs");
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (StreamWriter sourceWriter = new(path))
-                {
-                    provider.GenerateCodeFromCompileUnit(
-                        TargetUnit, sourceWriter, options);
-                }
-            }
-            return (ClassName, NameSpace);
         }
     }
 }

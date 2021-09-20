@@ -54,13 +54,13 @@ namespace NodeLibraryGen
 
         }
 
-        private static Dictionary<uint, string> CreateMapping(Dictionary<uint, NodeType> nodeTypes)
+        private static Dictionary<uint, (string, List<string>)> CreateMapping(Dictionary<uint, NodeType> nodeTypes)
         {
-            var typeDict = new Dictionary<uint, string>();
+            var typeDict = new Dictionary<uint, (string, List<string>)>();
 
             CallPrimitive(nodeTypes, ref typeDict);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 CallArray(nodeTypes, ref typeDict);
                 CallTuple(nodeTypes, ref typeDict);
@@ -73,7 +73,7 @@ namespace NodeLibraryGen
             return typeDict;
         }
 
-        private static void CallPrimitive(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallPrimitive(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -85,52 +85,54 @@ namespace NodeLibraryGen
                 if (nodeType.TypeDef == TypeDefEnum.Primitive)
                 {
                     var typeDef = nodeType as NodeTypePrimitive;
+                    List<string> spaces = new() { "SubstrateNetApi.Model.Types.Primitive" };
+                    var path = "SubstrateNetApi.Model.Types.Primitive.";
                     switch (typeDef.Primitive)
                     {
                         case TypeDefPrimitive.Bool:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.Bool).Name);
+                            typeDict.Add(i,(path + nameof(Bool), spaces));
                             break;
                         case TypeDefPrimitive.Char:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.PrimChar).Name);
+                            typeDict.Add(i, (path + nameof(PrimChar), spaces));
                             break;
                         case TypeDefPrimitive.Str:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.Str).Name);
+                            typeDict.Add(i, (path + nameof(Str), spaces));
                             break;
                         case TypeDefPrimitive.U8:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U8).Name);
+                            typeDict.Add(i, (path + nameof(U8), spaces));
                             break;
                         case TypeDefPrimitive.U16:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U16).Name);
+                            typeDict.Add(i, (path + nameof(U16), spaces));
                             break;
                         case TypeDefPrimitive.U32:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U32).Name);
+                            typeDict.Add(i, (path + nameof(U32), spaces));
                             break;
                         case TypeDefPrimitive.U64:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U64).Name);
+                            typeDict.Add(i, (path + nameof(U64), spaces));
                             break;
                         case TypeDefPrimitive.U128:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U128).Name);
+                            typeDict.Add(i, (path + nameof(U128), spaces));
                             break;
                         case TypeDefPrimitive.U256:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.U256).Name);
+                            typeDict.Add(i, (path + nameof(U256), spaces));
                             break;
                         case TypeDefPrimitive.I8:
-                            typeDict.Add(i, typeof(SubstrateNetApi.Model.Types.Primitive.I8).Name);
+                            typeDict.Add(i, (path + nameof(I8), spaces));
                             break;
                         case TypeDefPrimitive.I16:
-                            typeDict.Add(i, typeof(I16).Name);
+                            typeDict.Add(i, (path + nameof(I16), spaces));
                             break;
                         case TypeDefPrimitive.I32:
-                            typeDict.Add(i, typeof(I32).Name);
+                            typeDict.Add(i, (path + nameof(I32), spaces));
                             break;
                         case TypeDefPrimitive.I64:
-                            typeDict.Add(i, typeof(I64).Name);
+                            typeDict.Add(i, (path + nameof(I64), spaces));
                             break;
                         case TypeDefPrimitive.I128:
-                            typeDict.Add(i, typeof(I128).Name);
+                            typeDict.Add(i, (path + nameof(I128), spaces));
                             break;
                         case TypeDefPrimitive.I256:
-                            typeDict.Add(i, typeof(I128).Name);
+                            typeDict.Add(i, (path + nameof(I256), spaces));
                             break;
                         default:
                             throw new NotImplementedException($"Please implement {typeDef.Primitive}, in SubstrateNetApi.");
@@ -139,7 +141,7 @@ namespace NodeLibraryGen
             }
         }
 
-        private static void CallArray(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallArray(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -153,13 +155,13 @@ namespace NodeLibraryGen
                     var fullItem = ArrayGenBuilder.Create(i, nodeType as NodeTypeArray, typeDict).Build(out bool success);
                     if (success)
                     {
-                        typeDict.Add(i, fullItem.Item1);
+                        typeDict.Add(i, fullItem);
                     }
                 }
             }
         }
 
-        private static void CallTuple(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallTuple(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -173,28 +175,29 @@ namespace NodeLibraryGen
                     var typeDef = nodeType as NodeTypeTuple;
 
                     var typeIds = new List<string>();
+                    var imports = new List<string>();
                     for (int j = 0; j < typeDef.TypeIds.Length; j++)
                     {
                         var typeId = typeDef.TypeIds[j];
-                        if (!typeDict.TryGetValue(typeId, out string value))
+                        if (!typeDict.TryGetValue(typeId, out (string, List<string>) fullItem))
                         {
                             typeIds = null;
                             break;
                         }
-
-                        typeIds.Add(value);
+                        imports.AddRange(fullItem.Item2);
+                        typeIds.Add(fullItem.Item1);
                     }
                     // all types found
                     if (typeIds != null)
                     {
                         var typeName = $"BaseTuple{(typeIds.Count > 0 ? "<" + String.Join(',', typeIds.ToArray()) + ">" : "")}";
-                        typeDict.Add(i, typeName);
+                        typeDict.Add(i, (typeName, imports.Distinct().ToList()));
                     }
                 }
             }
         }
 
-        private static void CallSequence(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallSequence(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -207,16 +210,16 @@ namespace NodeLibraryGen
                 {
                     var typeDef = nodeType as NodeTypeSequence;
 
-                    if (typeDict.TryGetValue(typeDef.TypeId, out string value))
+                    if (typeDict.TryGetValue(typeDef.TypeId, out (string, List<string>) fullItem))
                     {
-                        var typeName = $"BaseVec<{value}>";
-                        typeDict.Add(i, typeName);
+                        var typeName = $"BaseVec<{fullItem.Item1}>";
+                        typeDict.Add(i, (typeName, fullItem.Item2));
                     }
                 }
             }
         }
 
-        private static void CallCompact(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallCompact(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -229,16 +232,16 @@ namespace NodeLibraryGen
                 {
                     var typeDef = nodeType as NodeTypeCompact;
 
-                    if (typeDict.TryGetValue(typeDef.TypeId, out string value))
-                    {                      
-                        var typeName = $"BaseCom<{value}>";
-                        typeDict.Add(i, typeName);
+                    if (typeDict.TryGetValue(typeDef.TypeId, out (string, List<string>) fullItem))
+                    {
+                        var typeName = $"BaseCom<{fullItem.Item1}>";
+                        typeDict.Add(i, (typeName, fullItem.Item2));
                     }
                 }
             }
         }
 
-        private static void CallComposite(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallComposite(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -252,13 +255,13 @@ namespace NodeLibraryGen
                     var fullItem = StructGenBuilder.Create(i, nodeType as NodeTypeComposite, typeDict).Build(out bool success);
                     if (success)
                     {
-                        typeDict.Add(i, fullItem.Item1);
+                        typeDict.Add(i, fullItem);
                     }
                 }
             }
         }
 
-        private static void CallBitSequence(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallBitSequence(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -276,7 +279,7 @@ namespace NodeLibraryGen
             }
         }
 
-        private static void CallVariant(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, string> typeDict)
+        private static void CallVariant(Dictionary<uint, NodeType> nodeTypes, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
             for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             {
@@ -292,71 +295,72 @@ namespace NodeLibraryGen
 
                     if (path == "Option")
                     {
-                        if (typeDict.TryGetValue(typeDef.Variants[1].TypeFields[0].TypeId, out string optType))
+                        if (typeDict.TryGetValue(typeDef.Variants[1].TypeFields[0].TypeId, out (string, List<string>) fullItem))
                         {
-                            typeDict.Add(i, $"BaseOpt<{optType}>");
+                            typeDict.Add(i, ($"BaseOpt<{fullItem.Item1}>", fullItem.Item2));
                         }
                     }
                     else if (path == "Result")
                     {
-                        typeDict.Add(i, $"BaseTuple<BaseTuple, EnumDispatchError>");
+                        var spaces = new List<string>() { "SubstrateNetApi.Model.Types.Base" };
+                        typeDict.Add(i, ($"BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>", spaces));
                     }
                     else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Call"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        var typeName = CallGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = CallGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
-                            typeDict.Add(i, typeName);
+                            typeDict.Add(i, fullItem);
                         }
                     }
                     else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && (path.Contains(".Event") || path.Contains(".RawEvent")))
                     {
-                        var typeName = EventGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = EventGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
-                            typeDict.Add(i, typeName);
+                            typeDict.Add(i, fullItem);
                         }
                     }
                     else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Error"))
                     {
-                        var typeName = ErrorGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = ErrorGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
-                            typeDict.Add(i, typeName);
+                            typeDict.Add(i, fullItem);
                         }
                     }
                     else if (path.Contains("node_runtime.Event") || path.Contains("node_runtime.Call"))
                     {
-                        var typeName = RuntimeGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = RuntimeGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
-                            typeDict.Add(i, typeName);
+                            typeDict.Add(i, fullItem);
                         }
                     }
                     else if (path.Contains("pallet_"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
-                            typeDict.Add(i, typeName);
+                            typeDict.Add(i, fullItem);
                         }
                     }
                     else if (path.Contains(".Void"))
                     {
-                        typeDict.Add(i, "Void");
+                        var spaces = new List<string>() { "SubstrateNetApi.Model.Types.Base" };
+                        typeDict.Add(i, ("SubstrateNetApi.Model.Types.Base.BaseVoid", spaces));
                     }
                     else
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        var typeName = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
-                            typeDict.Add(i, typeName);
+                            typeDict.Add(i, fullItem);
                         }
                     }
-
                 }
             }
         }

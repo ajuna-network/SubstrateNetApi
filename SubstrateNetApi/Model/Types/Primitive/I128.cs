@@ -7,7 +7,7 @@ namespace SubstrateNetApi.Model.Types.Primitive
     {
         public override string TypeName() => "i128";
 
-        public override int TypeSize => 2;
+        public override int TypeSize => 16;
 
         public override byte[] Encode()
         {
