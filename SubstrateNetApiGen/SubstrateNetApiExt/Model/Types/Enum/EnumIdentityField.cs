@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -40,6 +41,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         Twitter,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumIdentityField : BaseEnum<IdentityField>
     {
     }

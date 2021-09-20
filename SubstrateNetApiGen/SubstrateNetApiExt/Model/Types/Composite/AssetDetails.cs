@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -244,7 +245,7 @@ namespace SubstrateNetApi.Model.Types.Composite
             Approvals.Decode(byteArray, ref p);
             IsFrozen = new Bool();
             IsFrozen.Decode(byteArray, ref p);
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
     }
 }

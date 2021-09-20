@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -20,6 +21,9 @@ namespace SubstrateNetApi.Model.Types.Sequence
 {
     
     
+    /// <summary>
+    /// >> Array
+    /// </summary>
     public sealed class Arr16U8 : BaseType
     {
         
@@ -60,7 +64,7 @@ namespace SubstrateNetApi.Model.Types.Sequence
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            var array = new U8[TypeSize()];
+            var array = new U8[TypeSize];
             for (var i = 0; i < array.Length; i++) {var t = new U8();t.Decode(byteArray, ref p);array[i] = t;};
             var bytesLength = p - start;
             Bytes = new byte[bytesLength];

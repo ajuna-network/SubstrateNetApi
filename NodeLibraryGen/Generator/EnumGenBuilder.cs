@@ -20,6 +20,7 @@ namespace NodeLibraryGen
             TargetUnit = new CodeCompileUnit();
             CodeNamespace importsNamespace = new() {
                 Imports = {
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
@@ -33,6 +34,8 @@ namespace NodeLibraryGen
             CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.Enum");
             TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
+
+            var fullPath = $"{String.Join('.', typeDef.Path)}";
 
             var enumName = $"{typeDef.Path.Last()}";
 
@@ -54,24 +57,29 @@ namespace NodeLibraryGen
 
             if (typeDef.Variants != null)
             {
+                TargetClass = new CodeTypeDeclaration(ClassName)
+                {
+                    IsClass = true,
+                    TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
+                };
+                TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
+                TargetClass.Comments.Add(new CodeCommentStatement($">> Enum", true));
+                if (typeDef.Docs != null)
+                {
+                    foreach (var doc in typeDef.Docs)
+                    {
+                        TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
+                    }
+                }
+                TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+
                 if (typeDef.Variants.All(p => p.TypeFields == null))
                 {
-                    TargetClass = new CodeTypeDeclaration(ClassName)
-                    {
-                        IsClass = true,
-                        TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
-                    };
                     TargetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
                     typeNamespace.Types.Add(TargetClass);
                 }
                 else
                 {
-                    TargetClass = new CodeTypeDeclaration(ClassName)
-                    {
-                        IsClass = true,
-                        TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
-                    };
-
                     var codeTypeRef = new CodeTypeReference("BaseEnumExt");
                     codeTypeRef.TypeArguments.Add(new CodeTypeReference(enumName));
                     foreach (TypeVariant variant in typeDef.Variants)

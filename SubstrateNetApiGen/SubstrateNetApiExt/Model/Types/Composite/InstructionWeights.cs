@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -924,7 +925,7 @@ namespace SubstrateNetApi.Model.Types.Composite
             I64rotl.Decode(byteArray, ref p);
             I64rotr = new U32();
             I64rotr.Decode(byteArray, ref p);
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
     }
 }

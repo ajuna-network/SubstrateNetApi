@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -312,7 +313,7 @@ namespace SubstrateNetApi.Model.Types.Composite
             Votes15.Decode(byteArray, ref p);
             Votes16 = new BaseVec<BaseTuple<BaseCom<U32>,Arr15Special27,BaseCom<U16>>>();
             Votes16.Decode(byteArray, ref p);
-            _typeSize = p - start;
+            TypeSize = p - start;
         }
     }
 }

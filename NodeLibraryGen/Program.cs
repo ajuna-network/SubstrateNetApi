@@ -38,16 +38,16 @@ namespace NodeLibraryGen
 
             Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
 
-            Console.WriteLine($"{((double)typeDict.Count / nodeTypes.Count).ToString("P")}");
+            Console.WriteLine($"Map: {typeDict.Count} vs. Tot: {nodeTypes.Count} {((double)typeDict.Count / nodeTypes.Count).ToString("P")}");
 
-            for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
-            {
-                if (nodeTypes.ContainsKey(i) && !typeDict.ContainsKey(i))
-                {
-                    Console.WriteLine($"### {i} -------------------------------------------------");
-                    Console.WriteLine(JsonConvert.SerializeObject(nodeTypes[i], Formatting.Indented));
-                }
-            }
+            //for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
+            //{
+            //    if (nodeTypes.ContainsKey(i) && !typeDict.ContainsKey(i))
+            //    {
+            //        Console.WriteLine($"### {i} -------------------------------------------------");
+            //        Console.WriteLine(JsonConvert.SerializeObject(nodeTypes[i], Formatting.Indented));
+            //    }
+            //}
 
             //WriteJsonFile("metadata.json", nodeTypes);
             //GenerateCode(nodeTypes);
@@ -150,22 +150,10 @@ namespace NodeLibraryGen
 
                 if (nodeType.TypeDef == TypeDefEnum.Array)
                 {
-                    var typeDef = nodeType as NodeTypeArray;
-
-                    if (typeDict.TryGetValue(typeDef.TypeId, out string baseType))
+                    var fullItem = ArrayGenBuilder.Create(i, nodeType as NodeTypeArray, typeDict).Build(out bool success);
+                    if (success)
                     {
-                        if (nodeType.Path != null && nodeType.Path.Length > 0)
-                        {
-                            Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
-                        }
-
-                        if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
-                        {
-                            Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
-                        }
-
-                        var typeName = ArrayGenBuilder.Create(i, baseType, typeDef.Length).Build();
-                        typeDict.Add(i, typeName);
+                        typeDict.Add(i, fullItem.Item1);
                     }
                 }
             }
@@ -183,21 +171,6 @@ namespace NodeLibraryGen
                 if (nodeType.TypeDef == TypeDefEnum.Tuple)
                 {
                     var typeDef = nodeType as NodeTypeTuple;
-
-                    if (nodeType.Path != null && nodeType.Path.Length > 0)
-                    {
-                        Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
-                    }
-
-                    if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
-                    {
-                        Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
-                    }
-
-                    if (typeDef.TypeIds.Length > 7)
-                    {
-                        Console.WriteLine($"{nodeType.GetType().Name} has more {typeDef.TypeIds.Length}, parts!");
-                    }
 
                     var typeIds = new List<string>();
                     for (int j = 0; j < typeDef.TypeIds.Length; j++)
@@ -234,16 +207,6 @@ namespace NodeLibraryGen
                 {
                     var typeDef = nodeType as NodeTypeSequence;
 
-                    if (nodeType.Path != null && nodeType.Path.Length > 0)
-                    {
-                        Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
-                    }
-
-                    if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
-                    {
-                        Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
-                    }
-
                     if (typeDict.TryGetValue(typeDef.TypeId, out string value))
                     {
                         var typeName = $"BaseVec<{value}>";
@@ -266,18 +229,8 @@ namespace NodeLibraryGen
                 {
                     var typeDef = nodeType as NodeTypeCompact;
 
-                    if (nodeType.Path != null && nodeType.Path.Length > 0)
-                    {
-                        Console.WriteLine($"{nodeType.GetType().Name} has path {String.Join('.', nodeType.Path)}, please check!");
-                    }
-
-                    if (nodeType.TypeParams != null && nodeType.TypeParams.Length > 0)
-                    {
-                        Console.WriteLine($"{nodeType.GetType().Name} has TypeParams, please check!");
-                    }
-
                     if (typeDict.TryGetValue(typeDef.TypeId, out string value))
-                    {
+                    {                      
                         var typeName = $"BaseCom<{value}>";
                         typeDict.Add(i, typeName);
                     }
@@ -296,32 +249,10 @@ namespace NodeLibraryGen
 
                 if (nodeType.TypeDef == TypeDefEnum.Composite)
                 {
-                    var typeDef = nodeType as NodeTypeComposite;
-
-                    if (nodeType.Path == null || nodeType.Path.Length == 0)
+                    var fullItem = StructGenBuilder.Create(i, nodeType as NodeTypeComposite, typeDict).Build(out bool success);
+                    if (success)
                     {
-                        Console.WriteLine($"{nodeType.GetType().Name} has no path, please check!");
-                    }
-
-                    bool satisfied = true;
-                    List<string> types = new();
-                    if (typeDef.TypeFields != null)
-                    {
-                        foreach (var field in typeDef.TypeFields)
-                        {
-                            if (!typeDict.TryGetValue(field.TypeId, out string value))
-                            {
-                                satisfied = false;
-                                break;
-                            }
-
-                            types.Add(value);
-                        }
-                    }
-                    if (satisfied)
-                    {
-                        var typeName = StructGenBuilder.Create(i, typeDef, types).Build();
-                        typeDict.Add(i, typeName);
+                        typeDict.Add(i, fullItem.Item1);
                     }
                 }
             }
@@ -379,12 +310,7 @@ namespace NodeLibraryGen
                             typeDict.Add(i, typeName);
                         }
                     }
-                    else if (path.Contains("node_runtime.Call"))
-                    {
-                        Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        //typeDict.Add(i, $"Result");
-                    }
-                    else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && ( path.Contains(".Event") || path.Contains(".RawEvent")))
+                    else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && (path.Contains(".Event") || path.Contains(".RawEvent")))
                     {
                         var typeName = EventGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
@@ -392,14 +318,17 @@ namespace NodeLibraryGen
                             typeDict.Add(i, typeName);
                         }
                     }
-                    else if (path.Contains("node_runtime.Event"))
-                    {
-                        Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        //typeDict.Add(i, $"Result");
-                    }
                     else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Error"))
                     {
                         var typeName = ErrorGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(i, typeName);
+                        }
+                    }
+                    else if (path.Contains("node_runtime.Event") || path.Contains("node_runtime.Call"))
+                    {
+                        var typeName = RuntimeGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, typeName);

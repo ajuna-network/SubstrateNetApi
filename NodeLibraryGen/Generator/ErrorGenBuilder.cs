@@ -21,6 +21,7 @@ namespace NodeLibraryGen
             CodeNamespace importsNamespace = new()
             {
                 Imports = {
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),

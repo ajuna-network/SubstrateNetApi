@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -100,6 +101,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         ShaThree256,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumData : BaseEnumExt<Data, Void, Arr0U8, Arr1U8, Arr2U8, Arr3U8, Arr4U8, Arr5U8, Arr6U8, Arr7U8, Arr8U8, Arr9U8, Arr10U8, Arr11U8, Arr12U8, Arr13U8, Arr14U8, Arr15U8, Arr16U8, Arr17U8, Arr18U8, Arr19U8, Arr20U8, Arr21U8, Arr22U8, Arr23U8, Arr24U8, Arr25U8, Arr26U8, Arr27U8, Arr28U8, Arr29U8, Arr30U8, Arr31U8, Arr32U8, Arr32U8, Arr32U8, Arr32U8, Arr32U8>
     {
     }

@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -36,6 +37,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         PendingPayout,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumBountyStatus : BaseEnumExt<BountyStatus, Void, Void, Void, AccountId32, BaseTuple<AccountId32, U32>, BaseTuple<AccountId32, AccountId32, U32>>
     {
     }

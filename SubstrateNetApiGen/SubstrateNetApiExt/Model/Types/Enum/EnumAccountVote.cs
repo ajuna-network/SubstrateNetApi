@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -28,7 +29,10 @@ namespace SubstrateNetApi.Model.Types.Enum
         Split,
     }
     
-    public sealed class EnumAccountVote : BaseEnumExt<AccountVote, BaseTuple<Composite.Vote, U128>, BaseTuple<U128, U128>>
+    /// <summary>
+    /// >> Enum
+    /// </summary>
+    public sealed class EnumAccountVote : BaseEnumExt<AccountVote, BaseTuple<Vote, U128>, BaseTuple<U128, U128>>
     {
     }
 }

@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -28,6 +29,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         Vouch,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumBidKind : BaseEnumExt<BidKind, U128, BaseTuple<AccountId32, U128>>
     {
     }

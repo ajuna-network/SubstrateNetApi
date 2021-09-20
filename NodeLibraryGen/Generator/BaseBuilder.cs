@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NodeLibraryGen
@@ -10,7 +11,11 @@ namespace NodeLibraryGen
 
         internal uint Id { get; set; }
 
+        public string NameSpace { get; set; }
+
         internal string ClassName { get; set; }
+
+        internal List<string> Imports { get; } = new List<string>();
 
         internal CodeCompileUnit TargetUnit { get; set; }
 

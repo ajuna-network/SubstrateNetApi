@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -30,6 +31,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         _Phantom,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumRawOrigin : BaseEnumExt<RawOrigin, BaseTuple<U32, U32>, AccountId32, Void>
     {
     }

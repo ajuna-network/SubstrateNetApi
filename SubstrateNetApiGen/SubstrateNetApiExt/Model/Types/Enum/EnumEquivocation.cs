@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -28,7 +29,10 @@ namespace SubstrateNetApi.Model.Types.Enum
         Precommit,
     }
     
-    public sealed class EnumEquivocation : BaseEnumExt<Equivocation, Composite.Equivocation, Composite.Equivocation>
+    /// <summary>
+    /// >> Enum
+    /// </summary>
+    public sealed class EnumEquivocation : BaseEnumExt<Equivocation, Equivocation, Equivocation>
     {
     }
 }

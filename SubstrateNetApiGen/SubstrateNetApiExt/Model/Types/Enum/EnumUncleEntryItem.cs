@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -28,6 +29,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         Uncle,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumUncleEntryItem : BaseEnumExt<UncleEntryItem, U32, BaseTuple<H256, BaseOpt<AccountId32>>>
     {
     }

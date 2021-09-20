@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -28,6 +29,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         Available,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumPreimageStatus : BaseEnumExt<PreimageStatus, U32, BaseTuple<BaseVec<U8>, AccountId32, U128, U32, BaseOpt<U32>>>
     {
     }

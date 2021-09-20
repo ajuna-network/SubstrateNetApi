@@ -12,13 +12,17 @@ namespace NodeLibraryGen
     public class ArrayGenBuilder : BaseBuilder
     {
         public static int Counter = 0;
-        private ArrayGenBuilder(uint id, string baseType, uint length)
+        private ArrayGenBuilder(uint id, NodeTypeArray typeDef, Dictionary<uint, string> typeDict)
         {
+            Success = true;
+
             Id = id;
 
             TargetUnit = new CodeCompileUnit();
-            CodeNamespace importsNamespace = new() { 
+            CodeNamespace importsNamespace = new()
+            {
                 Imports = {
+                    new CodeNamespaceImport("SubstrateNetApi.Model.Custom.Runtime"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Primitive"),
                     new CodeNamespaceImport("SubstrateNetApi.Model.Types.Sequence"),
@@ -29,16 +33,25 @@ namespace NodeLibraryGen
                 }
             };
 
-            CodeNamespace typeNamespace = new("SubstrateNetApi.Model.Types.Sequence");
+            if (!typeDict.TryGetValue(typeDef.TypeId, out string baseType))
+            {
+                Success = false;
+                baseType = "Unknown";
+            }
+
+            ClassName = $"Arr{typeDef.Length}{baseType}";
+
+            NameSpace = "SubstrateNetApi.Model." + "Base";
+
+            CodeNamespace typeNamespace = new(NameSpace);
             TargetUnit.Namespaces.Add(importsNamespace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
-            ClassName = $"Arr{length}{baseType}";
-
-            if (baseType.Any(ch => !Char.IsLetterOrDigit(ch))) {
+            if (baseType.Any(ch => !Char.IsLetterOrDigit(ch)))
+            {
                 Counter++;
-                ClassName = $"Arr{length}Special" + Counter++;
-            }           
+                ClassName = $"Arr{typeDef.Length}Special" + Counter++;
+            }
 
             TargetClass = new CodeTypeDeclaration(ClassName)
             {
@@ -46,6 +59,16 @@ namespace NodeLibraryGen
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
             TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
+            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
+            TargetClass.Comments.Add(new CodeCommentStatement($">> Array", true));
+            if (typeDef.Docs != null)
+            {
+                foreach (var doc in typeDef.Docs)
+                {
+                    TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
+                }
+            }
+            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
             typeNamespace.Types.Add(TargetClass);
 
             // Declaring a name method
@@ -71,15 +94,13 @@ namespace NodeLibraryGen
             nameMethod.Statements.Add(returnStatement);
             TargetClass.Members.Add(nameMethod);
 
-            //var sizeMethod = SimpleMethod("TypeSize", "System.Int32", (int)length);
-            //TargetClass.Members.Add(sizeMethod);
             CodeMemberProperty sizeProperty = new()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Override,
                 Name = "TypeSize",
                 Type = new CodeTypeReference(typeof(System.Int32))
             };
-            sizeProperty.GetStatements.Add( new CodeMethodReturnStatement(new CodePrimitiveExpression((int)length)));
+            sizeProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodePrimitiveExpression((int)typeDef.Length)));
             TargetClass.Members.Add(sizeProperty);
 
 
@@ -148,7 +169,7 @@ namespace NodeLibraryGen
             };
             decodeMethod.Parameters.Add(param2);
             decodeMethod.Statements.Add(new CodeSnippetExpression("var start = p"));
-            decodeMethod.Statements.Add(new CodeSnippetExpression($"var array = new {baseType}[TypeSize()]"));
+            decodeMethod.Statements.Add(new CodeSnippetExpression($"var array = new {baseType}[TypeSize]"));
             decodeMethod.Statements.Add(new CodeSnippetExpression("for (var i = 0; i < array.Length; i++) " +
                 "{" +
                 $"var t = new {baseType}();" +
@@ -179,28 +200,30 @@ namespace NodeLibraryGen
             return encodeMethod;
         }
 
-        public static ArrayGenBuilder Create(uint id, string baseType, uint length)
+        public static ArrayGenBuilder Create(uint id, NodeTypeArray nodeType, Dictionary<uint, string> typeDict)
         {
-            return new ArrayGenBuilder(id, baseType, length);
+            return new ArrayGenBuilder(id, nodeType, typeDict);
         }
 
-        public string Build()
+        public (string, string) Build(out bool success)
         {
-
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-            CodeGeneratorOptions options = new()
+            success = Success;
+            if (Success)
             {
-                BracingStyle = "C"
-            };
-            var path = Path.Combine("Model", "Types", "Sequence", ClassName + ".cs");
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            using (StreamWriter sourceWriter = new(path))
-            {
-                provider.GenerateCodeFromCompileUnit(
-                    TargetUnit, sourceWriter, options);
+                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+                CodeGeneratorOptions options = new()
+                {
+                    BracingStyle = "C"
+                };
+                var path = Path.Combine(NameSpace, ClassName + ".cs");
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                using (StreamWriter sourceWriter = new(path))
+                {
+                    provider.GenerateCodeFromCompileUnit(
+                        TargetUnit, sourceWriter, options);
+                }
             }
-
-            return ClassName;
+            return (ClassName, NameSpace);
         }
     }
 }

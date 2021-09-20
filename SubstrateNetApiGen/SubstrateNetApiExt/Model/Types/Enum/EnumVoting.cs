@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Custom.Runtime;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Composite;
 using SubstrateNetApi.Model.Types.Enum;
@@ -28,6 +29,9 @@ namespace SubstrateNetApi.Model.Types.Enum
         Delegating,
     }
     
+    /// <summary>
+    /// >> Enum
+    /// </summary>
     public sealed class EnumVoting : BaseEnumExt<Voting, BaseTuple<BaseVec<BaseTuple<U32,EnumAccountVote>>, Delegations, PriorLock>, BaseTuple<U128, AccountId32, EnumConviction, Delegations, PriorLock>>
     {
     }
