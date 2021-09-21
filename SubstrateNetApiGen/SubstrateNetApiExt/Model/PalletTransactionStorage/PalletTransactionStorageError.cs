@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     
     /// <summary>
-    /// >> 497 - Variant[pallet_transaction_storage.pallet.Error]
+    /// >> 503 - Variant[pallet_transaction_storage.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

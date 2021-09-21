@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     
     /// <summary>
-    /// >> 496 - Composite[pallet_transaction_storage.TransactionInfo]
+    /// >> 502 - Composite[pallet_transaction_storage.TransactionInfo]
     /// </summary>
     public sealed class TransactionInfo : BaseType
     {

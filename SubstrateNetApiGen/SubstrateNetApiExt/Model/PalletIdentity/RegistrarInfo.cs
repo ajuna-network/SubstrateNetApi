@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> 424 - Composite[pallet_identity.types.RegistrarInfo]
+    /// >> 430 - Composite[pallet_identity.types.RegistrarInfo]
     /// </summary>
     public sealed class RegistrarInfo : BaseType
     {

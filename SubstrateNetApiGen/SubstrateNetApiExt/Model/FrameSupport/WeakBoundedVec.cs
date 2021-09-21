@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using SubstrateNetApi.Model.PalletBalances;
+using SubstrateNetApi.Model.PalletImOnline;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 319 - Composite[frame_support.storage.weak_bounded_vec.WeakBoundedVec]
+    /// >> 412 - Composite[frame_support.storage.weak_bounded_vec.WeakBoundedVec]
     /// </summary>
     public sealed class WeakBoundedVec : BaseType
     {
@@ -26,9 +26,9 @@ namespace SubstrateNetApi.Model.FrameSupport
         /// <summary>
         /// >> value
         /// </summary>
-        private BaseVec<SubstrateNetApi.Model.PalletBalances.BalanceLock> _value;
+        private BaseVec<SubstrateNetApi.Model.PalletImOnline.Public> _value;
         
-        public BaseVec<SubstrateNetApi.Model.PalletBalances.BalanceLock> Value
+        public BaseVec<SubstrateNetApi.Model.PalletImOnline.Public> Value
         {
             get
             {
@@ -55,7 +55,7 @@ namespace SubstrateNetApi.Model.FrameSupport
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Value = new BaseVec<SubstrateNetApi.Model.PalletBalances.BalanceLock>();
+            Value = new BaseVec<SubstrateNetApi.Model.PalletImOnline.Public>();
             Value.Decode(byteArray, ref p);
             TypeSize = p - start;
         }

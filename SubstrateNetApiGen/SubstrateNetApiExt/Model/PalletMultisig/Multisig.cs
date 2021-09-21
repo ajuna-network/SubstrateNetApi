@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> 464 - Composite[pallet_multisig.Multisig]
+    /// >> 470 - Composite[pallet_multisig.Multisig]
     /// </summary>
     public sealed class Multisig : BaseType
     {

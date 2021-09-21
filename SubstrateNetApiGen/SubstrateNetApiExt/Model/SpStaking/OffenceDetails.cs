@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.SpStaking
     
     
     /// <summary>
-    /// >> 414 - Composite[sp_staking.offence.OffenceDetails]
+    /// >> 420 - Composite[sp_staking.offence.OffenceDetails]
     /// </summary>
     public sealed class OffenceDetails : BaseType
     {

@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> 426 - Variant[pallet_identity.pallet.Error]
+    /// >> 432 - Variant[pallet_identity.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

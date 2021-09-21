@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> 436 - Variant[pallet_society.Error]
+    /// >> 442 - Variant[pallet_society.Error]
     /// Errors for this module.
     /// </summary>
     public enum PalletSocietyError

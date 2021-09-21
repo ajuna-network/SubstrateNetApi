@@ -20,10 +20,8 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> 293 - Variant[pallet_bounties.Call]
-    /// Dispatchable calls.
-    /// 
-    /// Each variant of this enum maps to a dispatchable function from the associated module.
+    /// >> 293 - Variant[pallet_bounties.pallet.Call]
+    /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletBountiesCall
     {
@@ -95,9 +93,9 @@ namespace SubstrateNetApi.Model.PalletBounties
         /// <summary>
         /// >> extend_bounty_expiry
         /// </summary>
-        public GenericExtrinsicCall ExtendBountyExpiry(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> _remark)
+        public GenericExtrinsicCall ExtendBountyExpiry(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> remark)
         {
-            return new GenericExtrinsicCall("Bounties", "extend_bounty_expiry", bounty_id, _remark);
+            return new GenericExtrinsicCall("Bounties", "extend_bounty_expiry", bounty_id, remark);
         }
     }
 }

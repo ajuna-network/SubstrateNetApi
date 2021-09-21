@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 508 - Composite[frame_system.extensions.check_genesis.CheckGenesis]
+    /// >> 514 - Composite[frame_system.extensions.check_genesis.CheckGenesis]
     /// </summary>
     public sealed class CheckGenesis : BaseType
     {

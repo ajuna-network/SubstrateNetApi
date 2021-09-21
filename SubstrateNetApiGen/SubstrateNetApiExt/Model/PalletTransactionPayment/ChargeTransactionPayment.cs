@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
     
     
     /// <summary>
-    /// >> 513 - Composite[pallet_transaction_payment.ChargeTransactionPayment]
+    /// >> 519 - Composite[pallet_transaction_payment.ChargeTransactionPayment]
     /// </summary>
     public sealed class ChargeTransactionPayment : BaseType
     {

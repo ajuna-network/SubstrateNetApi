@@ -17,6 +17,11 @@ namespace NodeLibraryGen
         {
         }
 
+        public static EnumGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        {
+            return new EnumGenBuilder(id, typeDef, typeDict);
+        }
+
         public override BaseBuilder Create()
         {
             var typeDef = TypeDef as NodeTypeVariant;
@@ -83,7 +88,7 @@ namespace NodeLibraryGen
                                 {
                                     var fullItem = GetFullItemPath(field.TypeId);
                                     baseTuple.TypeArguments.Add(new CodeTypeReference(fullItem.Item1));
-                                 }
+                                }
                                 codeTypeRef.TypeArguments.Add(baseTuple);
                             }
                         }
@@ -93,12 +98,8 @@ namespace NodeLibraryGen
                 }
             }
             #endregion
-            return this;
-        }
 
-        public static EnumGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
-        {
-            return new EnumGenBuilder(id, typeDef, typeDict);
+            return this;
         }
     }
 }

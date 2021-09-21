@@ -12,7 +12,8 @@ namespace NodeLibraryGen
 {
     public class ErrorGenBuilder : BaseBuilder
     {
-        private ErrorGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) : base(id, typeDef, typeDict)
+        private ErrorGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+            : base(id, typeDef, typeDict)
         {
         }
 

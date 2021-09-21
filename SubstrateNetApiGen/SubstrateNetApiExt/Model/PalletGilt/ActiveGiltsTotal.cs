@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> 484 - Composite[pallet_gilt.pallet.ActiveGiltsTotal]
+    /// >> 490 - Composite[pallet_gilt.pallet.ActiveGiltsTotal]
     /// </summary>
     public sealed class ActiveGiltsTotal : BaseType
     {

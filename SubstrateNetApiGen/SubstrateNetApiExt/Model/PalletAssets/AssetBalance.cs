@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> 473 - Composite[pallet_assets.types.AssetBalance]
+    /// >> 479 - Composite[pallet_assets.types.AssetBalance]
     /// </summary>
     public sealed class AssetBalance : BaseType
     {

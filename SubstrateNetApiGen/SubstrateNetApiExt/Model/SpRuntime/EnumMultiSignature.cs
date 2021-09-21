@@ -28,7 +28,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> 502 - Variant[sp_runtime.MultiSignature]
+    /// >> 508 - Variant[sp_runtime.MultiSignature]
     /// </summary>
     public sealed class EnumMultiSignature : BaseEnumExt<MultiSignature, SubstrateNetApi.Model.SpCore.Signature, SubstrateNetApi.Model.SpCore.Signature, SubstrateNetApi.Model.SpCore.Signature>
     {

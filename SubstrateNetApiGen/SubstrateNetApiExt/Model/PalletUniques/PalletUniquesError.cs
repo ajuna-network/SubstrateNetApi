@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> 494 - Variant[pallet_uniques.pallet.Error]
+    /// >> 500 - Variant[pallet_uniques.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

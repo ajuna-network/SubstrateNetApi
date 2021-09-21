@@ -21,12 +21,17 @@ namespace NodeLibraryGen
 
         static async Task Main(string[] args)
         {
-            //using var client = new SubstrateClient(new Uri(Websocketurl));
-            //await client.ConnectLightAsync(CancellationToken.None);
-            //var result = await client.State.GetMetaDataAsync(CancellationToken.None);
-
-            string result = File.ReadAllText("metadata_20210919.txt");
-
+            string result;
+            if (false)
+            {
+                using var client = new SubstrateClient(new Uri(Websocketurl));
+                await client.ConnectLightAsync(CancellationToken.None);
+                result = await client.State.GetMetaDataAsync(CancellationToken.None);
+            }
+            else
+            {
+                result = File.ReadAllText("metadata_20210921.txt");
+            }
             var mdv14 = new RuntimeMetadata();
             mdv14.Create(result);
 

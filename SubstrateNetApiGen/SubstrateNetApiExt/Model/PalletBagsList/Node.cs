@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
     
     
     /// <summary>
-    /// >> 498 - Composite[pallet_bags_list.list.Node]
+    /// >> 504 - Composite[pallet_bags_list.list.Node]
     /// </summary>
     public sealed class Node : BaseType
     {

@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     
     /// <summary>
-    /// >> 481 - Variant[pallet_lottery.pallet.Error]
+    /// >> 487 - Variant[pallet_lottery.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

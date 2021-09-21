@@ -7,77 +7,76 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using SubstrateNetApi.Model.SpCore;
+using SubstrateNetApi.Model.FrameSupport;
 using SubstrateNetApi.Model.Types.Base;
-using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
 
-namespace SubstrateNetApi.Model.PalletGilt
+namespace SubstrateNetApi.Model.PalletImOnline
 {
     
     
     /// <summary>
-    /// >> 489 - Composite[pallet_gilt.pallet.GiltBid]
+    /// >> 415 - Composite[pallet_im_online.BoundedOpaqueNetworkState]
     /// </summary>
-    public sealed class GiltBid : BaseType
+    public sealed class BoundedOpaqueNetworkState : BaseType
     {
         
         /// <summary>
-        /// >> amount
+        /// >> peer_id
         /// </summary>
-        private SubstrateNetApi.Model.Types.Primitive.U128 _amount;
+        private SubstrateNetApi.Model.FrameSupport.WeakBoundedVec _peerId;
         
         /// <summary>
-        /// >> who
+        /// >> external_addresses
         /// </summary>
-        private SubstrateNetApi.Model.SpCore.AccountId32 _who;
+        private SubstrateNetApi.Model.FrameSupport.WeakBoundedVec _externalAddresses;
         
-        public SubstrateNetApi.Model.Types.Primitive.U128 Amount
+        public SubstrateNetApi.Model.FrameSupport.WeakBoundedVec PeerId
         {
             get
             {
-                return this._amount;
+                return this._peerId;
             }
             set
             {
-                this._amount = value;
+                this._peerId = value;
             }
         }
         
-        public SubstrateNetApi.Model.SpCore.AccountId32 Who
+        public SubstrateNetApi.Model.FrameSupport.WeakBoundedVec ExternalAddresses
         {
             get
             {
-                return this._who;
+                return this._externalAddresses;
             }
             set
             {
-                this._who = value;
+                this._externalAddresses = value;
             }
         }
         
         public override string TypeName()
         {
-            return "GiltBid";
+            return "BoundedOpaqueNetworkState";
         }
         
         public override byte[] Encode()
         {
             var result = new List<byte>();
-            result.AddRange(Amount.Encode());
-            result.AddRange(Who.Encode());
+            result.AddRange(PeerId.Encode());
+            result.AddRange(ExternalAddresses.Encode());
             return result.ToArray();
         }
         
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Amount = new SubstrateNetApi.Model.Types.Primitive.U128();
-            Amount.Decode(byteArray, ref p);
-            Who = new SubstrateNetApi.Model.SpCore.AccountId32();
-            Who.Decode(byteArray, ref p);
+            PeerId = new SubstrateNetApi.Model.FrameSupport.WeakBoundedVec();
+            PeerId.Decode(byteArray, ref p);
+            ExternalAddresses = new SubstrateNetApi.Model.FrameSupport.WeakBoundedVec();
+            ExternalAddresses.Decode(byteArray, ref p);
             TypeSize = p - start;
         }
     }

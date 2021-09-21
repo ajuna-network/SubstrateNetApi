@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 511 - Composite[frame_system.extensions.check_nonce.CheckNonce]
+    /// >> 517 - Composite[frame_system.extensions.check_nonce.CheckNonce]
     /// </summary>
     public sealed class CheckNonce : BaseType
     {

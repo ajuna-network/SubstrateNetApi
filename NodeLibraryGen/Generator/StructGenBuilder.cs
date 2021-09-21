@@ -48,7 +48,7 @@ namespace NodeLibraryGen
             return prop;
         }
 
-        private CodeMemberMethod GetDecode(NodeTypeField[] typeFields, Dictionary<uint, (string, List<string>)> typeDict)
+        private CodeMemberMethod GetDecode(NodeTypeField[] typeFields)
         {
             var decodeMethod = SimpleMethod("Decode");
             CodeParameterDeclarationExpression param1 = new()
@@ -77,13 +77,7 @@ namespace NodeLibraryGen
                     {
                         fieldName = typeFields.Length > 1 ? typeField.TypeName : "value";
                     }
-
-                    if (!typeDict.TryGetValue(typeField.TypeId, out (string, List<string>) fullItem))
-                    {
-                        Success = false;
-                        fullItem = ("Unknown", new List<string>() { "Unknown" });
-                    }
-                    //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
+                    var fullItem = GetFullItemPath(typeField.TypeId);
 
                     decodeMethod.Statements.Add(new CodeSnippetExpression($"{fieldName.MakeMethod()} = new {fullItem.Item1}()"));
                     decodeMethod.Statements.Add(new CodeSnippetExpression($"{fieldName.MakeMethod()}.Decode(byteArray, ref p)"));
@@ -112,7 +106,6 @@ namespace NodeLibraryGen
                     if (typeField.Name == null)
                     {
                         fieldName = typeFields.Length > 1 ? typeField.TypeName : "value";
-                        //Console.WriteLine(ClassName + ": " + JsonConvert.SerializeObject(typeField) + " -- >" + types[i]);
                     }
 
                     encodeMethod.Statements.Add(new CodeSnippetExpression($"result.AddRange({fieldName.MakeMethod()}.Encode())"));
@@ -183,7 +176,7 @@ namespace NodeLibraryGen
             CodeMemberMethod encodeMethod = GetEncode(typeDef.TypeFields);
             TargetClass.Members.Add(encodeMethod);
 
-            CodeMemberMethod decodeMethod = GetDecode(typeDef.TypeFields, TypeDict);
+            CodeMemberMethod decodeMethod = GetDecode(typeDef.TypeFields);
             TargetClass.Members.Add(decodeMethod);
 
             #endregion

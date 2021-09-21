@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> 456 - Composite[pallet_proxy.ProxyDefinition]
+    /// >> 462 - Composite[pallet_proxy.ProxyDefinition]
     /// </summary>
     public sealed class ProxyDefinition : BaseType
     {

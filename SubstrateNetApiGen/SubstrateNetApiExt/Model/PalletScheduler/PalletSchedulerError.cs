@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> 453 - Variant[pallet_scheduler.pallet.Error]
+    /// >> 459 - Variant[pallet_scheduler.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

@@ -7,28 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using SubstrateNetApi.Model.SpRuntime;
+using SubstrateNetApi.Model.PalletImOnline;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
 
 
-namespace SubstrateNetApi.Model.FrameSystem
+namespace SubstrateNetApi.Model.FrameSupport
 {
     
     
     /// <summary>
-    /// >> 515 - Composite[frame_system.extensions.check_mortality.CheckMortality]
+    /// >> 414 - Composite[frame_support.traits.misc.WrapperOpaque]
     /// </summary>
-    public sealed class CheckMortality : BaseType
+    public sealed class WrapperOpaque : BaseType
     {
         
         /// <summary>
         /// >> value
         /// </summary>
-        private SubstrateNetApi.Model.SpRuntime.EnumEra _value;
+        private SubstrateNetApi.Model.PalletImOnline.BoundedOpaqueNetworkState _value;
         
-        public SubstrateNetApi.Model.SpRuntime.EnumEra Value
+        public SubstrateNetApi.Model.PalletImOnline.BoundedOpaqueNetworkState Value
         {
             get
             {
@@ -42,7 +42,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public override string TypeName()
         {
-            return "CheckMortality";
+            return "WrapperOpaque";
         }
         
         public override byte[] Encode()
@@ -55,7 +55,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Value = new SubstrateNetApi.Model.SpRuntime.EnumEra();
+            Value = new SubstrateNetApi.Model.PalletImOnline.BoundedOpaqueNetworkState();
             Value.Decode(byteArray, ref p);
             TypeSize = p - start;
         }

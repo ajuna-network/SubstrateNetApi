@@ -17,8 +17,11 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> 469 - Variant[pallet_bounties.Error]
-    /// Error for the treasury module.
+    /// >> 475 - Variant[pallet_bounties.pallet.Error]
+    /// 
+    ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
+    ///			of this pallet.
+    ///			
     /// </summary>
     public enum PalletBountiesError
     {

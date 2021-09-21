@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> 485 - Composite[pallet_gilt.pallet.ActiveGilt]
+    /// >> 491 - Composite[pallet_gilt.pallet.ActiveGilt]
     /// </summary>
     public sealed class ActiveGilt : BaseType
     {
