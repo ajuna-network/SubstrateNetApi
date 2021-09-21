@@ -12,64 +12,8 @@ namespace NodeLibraryGen
 {
     public class ErrorGenBuilder : BaseBuilder
     {
-        private ErrorGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        private ErrorGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) : base(id, typeDef, typeDict)
         {
-            Success = true;
-            Id = id;
-
-            TargetUnit = new CodeCompileUnit();
-            TargetUnit.Namespaces.Add(ImportsNamespace);
-
-            if (typeDef.Path[0].Contains("_"))
-            {
-                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
-            }
-            else
-            {
-                NameSpace = "SubstrateNetApi.Model." + "Base";
-            }
-
-            ClassName = typeDef.Path[0].MakeMethod() + "Error";
-            ReferenzName = $"{NameSpace}.{ClassName}";
-            CodeNamespace typeNamespace = new(NameSpace);
-            TargetUnit.Namespaces.Add(typeNamespace);
-
-            var palletName = typeDef.Path[0]
-                .Replace("pallet_", "")
-                .Replace("frame_", "")
-                .MakeMethod();
-
-            TargetClass = new CodeTypeDeclaration(ClassName)
-            {
-                IsEnum = true,
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
-            };
-
-            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
-            foreach (var doc in typeDef.Docs)
-            {
-                TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
-            }
-            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
-            typeNamespace.Types.Add(TargetClass);
-
-
-            if (typeDef.Variants != null)
-            {
-                foreach (var variant in typeDef.Variants)
-                {
-                    var enumField = new CodeMemberField(ClassName, variant.Name);
-                    enumField.Comments.Add(new CodeCommentStatement("<summary>", true));
-                    enumField.Comments.Add(new CodeCommentStatement($">> Event: {variant.Name}", true));
-                    foreach (var doc in variant.Docs)
-                    {
-                        enumField.Comments.Add(new CodeCommentStatement(doc, true));
-                    }
-                    enumField.Comments.Add(new CodeCommentStatement("</summary>", true));
-                    TargetClass.Members.Add(enumField);
-                }
-            }
         }
 
         public static ErrorGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
@@ -77,6 +21,43 @@ namespace NodeLibraryGen
             return new ErrorGenBuilder(id, typeDef, typeDict);
         }
 
+        public override BaseBuilder Create()
+        {
+            var typeDef = TypeDef as NodeTypeVariant;
 
+            #region CREATE
+
+            ClassName = typeDef.Path[0].MakeMethod() + "Error";
+            ReferenzName = $"{NameSpace}.{ClassName}";
+            CodeNamespace typeNamespace = new(NameSpace);
+            TargetUnit.Namespaces.Add(typeNamespace);
+
+            TargetClass = new CodeTypeDeclaration(ClassName)
+            {
+                IsEnum = true,
+                TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
+            };
+
+            // add comment to class if exists
+            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+
+            typeNamespace.Types.Add(TargetClass);
+
+            if (typeDef.Variants != null)
+            {
+                foreach (var variant in typeDef.Variants)
+                {
+                    var enumField = new CodeMemberField(ClassName, variant.Name);
+
+                    // add comment to field if exists
+                    enumField.Comments.AddRange(GetComments(variant.Docs, null, variant.Name));
+
+                    TargetClass.Members.Add(enumField);
+                }
+            }
+            #endregion
+
+            return this;
+        }
     }
 }

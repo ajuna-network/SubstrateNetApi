@@ -12,29 +12,28 @@ namespace NodeLibraryGen
 {
     public class EventGenBuilder : BaseBuilder
     {
-        private EventGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        private EventGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+            : base(id, typeDef, typeDict)
         {
-            Success = true;
-            Id = id;
+        }
 
-            TargetUnit = new CodeCompileUnit();
-            TargetUnit.Namespaces.Add(ImportsNamespace);
+        public static EventGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        {
+            return new EventGenBuilder(id, typeDef, typeDict);
+        }
 
-            if (typeDef.Path[0].Contains("_"))
-            {
-                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
-            }
-            else
-            {
-                NameSpace = "SubstrateNetApi.Model." + "Base";
-            }
+        public override BaseBuilder Create()
+        {
+            var typeDef = TypeDef as NodeTypeVariant;
+
+            #region CREATE
 
             ClassName = typeDef.Path[0].MakeMethod() + "Event";
 
             ReferenzName = $"{NameSpace}.{ClassName}";
 
             CodeNamespace typeNamespace = new(NameSpace);
-            
+
             TargetUnit.Namespaces.Add(typeNamespace);
 
             var palletName = typeDef.Path[0]
@@ -48,13 +47,9 @@ namespace NodeLibraryGen
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
 
-            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
-            foreach (var doc in typeDef.Docs)
-            {
-                TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
-            }
-            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+            // add comment to class if exists
+            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+
             typeNamespace.Types.Add(TargetClass);
 
             if (typeDef.Variants != null)
@@ -67,28 +62,16 @@ namespace NodeLibraryGen
                         TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
                     };
 
-                    eventClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-                    eventClass.Comments.Add(new CodeCommentStatement($">> Event: {variant.Name}", true));
-                    foreach (var doc in variant.Docs)
-                    {
-                        eventClass.Comments.Add(new CodeCommentStatement(doc, true));
-                    }
-                    eventClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+                    // add comment to variant if exists
+                    eventClass.Comments.AddRange(GetComments(variant.Docs, null, variant.Name));
 
                     var codeTypeRef = new CodeTypeReference("BaseTuple");
                     if (variant.TypeFields != null)
                     {
                         foreach (var field in variant.TypeFields)
                         {
-                            if (typeDict.TryGetValue(field.TypeId, out (string, List<string>) fullItem))
-                            {
-                                codeTypeRef.TypeArguments.Add(new CodeTypeReference(fullItem.Item1));
-                                //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
-                            }
-                            else
-                            {
-                                Success = false;
-                            }
+                            var fullItem = GetFullItemPath(field.TypeId);
+                            codeTypeRef.TypeArguments.Add(new CodeTypeReference(fullItem.Item1));
                         }
                     }
                     eventClass.BaseTypes.Add(codeTypeRef);
@@ -97,13 +80,10 @@ namespace NodeLibraryGen
                 }
             }
 
+            #endregion
 
-
+            return this;
         }
 
-        public static EventGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
-        {
-            return new EventGenBuilder(id, typeDef, typeDict);
-        }
     }
 }

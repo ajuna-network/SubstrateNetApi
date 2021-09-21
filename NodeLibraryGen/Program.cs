@@ -152,7 +152,9 @@ namespace NodeLibraryGen
 
                 if (nodeType.TypeDef == TypeDefEnum.Array)
                 {
-                    var fullItem = ArrayGenBuilder.Create(i, nodeType as NodeTypeArray, typeDict).Build(out bool success);
+                    var fullItem = ArrayGenBuilder.Create(i, nodeType as NodeTypeArray, typeDict)
+                        .Create()
+                        .Build(out bool success);
                     if (success)
                     {
                         typeDict.Add(i, fullItem);
@@ -252,7 +254,9 @@ namespace NodeLibraryGen
 
                 if (nodeType.TypeDef == TypeDefEnum.Composite)
                 {
-                    var fullItem = StructGenBuilder.Create(i, nodeType as NodeTypeComposite, typeDict).Build(out bool success);
+                    var fullItem = StructGenBuilder.Create(i, nodeType as NodeTypeComposite, typeDict)
+                        .Create()
+                        .Build(out bool success);
                     if (success)
                     {
                         typeDict.Add(i, fullItem);
@@ -308,7 +312,9 @@ namespace NodeLibraryGen
                     else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Call"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        var fullItem = CallGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = CallGenBuilder.Create(i, typeDef, typeDict)
+                            .Create()
+                            .Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, fullItem);
@@ -316,7 +322,9 @@ namespace NodeLibraryGen
                     }
                     else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && (path.Contains(".Event") || path.Contains(".RawEvent")))
                     {
-                        var fullItem = EventGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = EventGenBuilder.Create(i, typeDef, typeDict)
+                            .Create()
+                            .Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, fullItem);
@@ -324,7 +332,9 @@ namespace NodeLibraryGen
                     }
                     else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Error"))
                     {
-                        var fullItem = ErrorGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = ErrorGenBuilder.Create(i, typeDef, typeDict)
+                            .Create()
+                            .Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, fullItem);
@@ -332,7 +342,9 @@ namespace NodeLibraryGen
                     }
                     else if (path.Contains("node_runtime.Event") || path.Contains("node_runtime.Call"))
                     {
-                        var fullItem = RuntimeGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = RuntimeGenBuilder.Create(i, typeDef, typeDict)
+                            .Create()
+                            .Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, fullItem);
@@ -341,7 +353,9 @@ namespace NodeLibraryGen
                     else if (path.Contains("pallet_"))
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        var fullItem = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = EnumGenBuilder.Create(i, typeDef, typeDict)
+                            .Create()
+                            .Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, fullItem);
@@ -355,7 +369,9 @@ namespace NodeLibraryGen
                     else
                     {
                         //Console.WriteLine($"{i} --> {String.Join('.', typeDef.Path)}");
-                        var fullItem = EnumGenBuilder.Create(i, typeDef, typeDict).Build(out bool success);
+                        var fullItem = EnumGenBuilder.Create(i, typeDef, typeDict)
+                            .Create()
+                            .Build(out bool success);
                         if (success)
                         {
                             typeDict.Add(i, fullItem);

@@ -12,25 +12,24 @@ namespace NodeLibraryGen
 {
     public class RuntimeGenBuilder : BaseBuilder
     {
-        private RuntimeGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        private RuntimeGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+            : base(id, typeDef, typeDict)
         {
-            Success = true;
-            Id = id;
+        }
 
-            TargetUnit = new CodeCompileUnit();
-            TargetUnit.Namespaces.Add(ImportsNamespace);
+        public static RuntimeGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        {
+            return new RuntimeGenBuilder(id, typeDef, typeDict);
+        }
+
+        public override BaseBuilder Create()
+        {
+            var typeDef = TypeDef as NodeTypeVariant;
+
+            #region CREATE
 
             var runtimeType = $"{typeDef.Path.Last()}";
             var enumName = $"Node{runtimeType}";
-
-            if (typeDef.Path[0].Contains("_"))
-            {
-                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
-            }
-            else
-            {
-                NameSpace = "SubstrateNetApi.Model." + "Base";
-            }
 
             ClassName = $"Enum{enumName}";
             ReferenzName = $"{NameSpace}.{ClassName}";
@@ -42,8 +41,8 @@ namespace NodeLibraryGen
                 IsEnum = true
             };
 
-            if (typeDef.Variants != null) 
-            { 
+            if (typeDef.Variants != null)
+            {
                 foreach (var enumFieldName in typeDef.Variants.Select(p => p.Name))
                 {
                     TargetType.Members.Add(new CodeMemberField(ClassName, enumFieldName));
@@ -57,24 +56,15 @@ namespace NodeLibraryGen
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
             TargetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
-            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> {String.Join('.', typeDef.Path)}", true));
-            if (typeDef.Docs != null)
-            {
-                foreach (var doc in typeDef.Docs)
-                {
-                    TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
-                }
-            }
-            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+
+            // add comment to class if exists
+            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
             typeNamespace.Types.Add(TargetClass);
 
-        }
+            #endregion
 
-        public static RuntimeGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
-        {
-            return new RuntimeGenBuilder(id, typeDef, typeDict);
+            return this;
         }
     }
 }

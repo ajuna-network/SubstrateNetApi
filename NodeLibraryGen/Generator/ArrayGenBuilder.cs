@@ -12,28 +12,77 @@ namespace NodeLibraryGen
     public class ArrayGenBuilder : BaseBuilder
     {
         public static int Counter = 0;
-        private ArrayGenBuilder(uint id, NodeTypeArray typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        private ArrayGenBuilder(uint id, NodeTypeArray typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+            : base(id, typeDef, typeDict)
         {
-            Success = true;
+        }
 
-            Id = id;
-
-            TargetUnit = new CodeCompileUnit();
-            TargetUnit.Namespaces.Add(ImportsNamespace);
-
-            if (!typeDict.TryGetValue(typeDef.TypeId, out (string, List<string>) fullItem))
+        private CodeMemberMethod GetDecode(string baseType)
+        {
+            var decodeMethod = SimpleMethod("Decode");
+            CodeParameterDeclarationExpression param1 = new()
             {
-                Success = false;
-                fullItem = ("Unknown", new List<string>() { "Unknown" });
-            }
-            //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
+                Type = new CodeTypeReference("System.Byte[]"),
+                Name = "byteArray"
+            };
+            decodeMethod.Parameters.Add(param1);
+            CodeParameterDeclarationExpression param2 = new()
+            {
+                Type = new CodeTypeReference("System.Int32"),
+                Name = "p",
+                Direction = FieldDirection.Ref
+            };
+            decodeMethod.Parameters.Add(param2);
+            decodeMethod.Statements.Add(new CodeSnippetExpression("var start = p"));
+            decodeMethod.Statements.Add(new CodeSnippetExpression($"var array = new {baseType}[TypeSize]"));
+            decodeMethod.Statements.Add(new CodeSnippetExpression("for (var i = 0; i < array.Length; i++) " +
+                "{" +
+                $"var t = new {baseType}();" +
+                "t.Decode(byteArray, ref p);" +
+                "array[i] = t;" +
+                "}"));
+            decodeMethod.Statements.Add(new CodeSnippetExpression("var bytesLength = p - start"));
+            decodeMethod.Statements.Add(new CodeSnippetExpression("Bytes = new byte[bytesLength]"));
+            decodeMethod.Statements.Add(new CodeSnippetExpression("Array.Copy(byteArray, start, Bytes, 0, bytesLength)"));
+            decodeMethod.Statements.Add(new CodeSnippetExpression("Value = array"));
+            return decodeMethod;
+        }
 
-            NameSpace = "SubstrateNetApi.Model." + "Base";
-            ClassName = $"Arr{typeDef.Length}{fullItem.Item1}";
+        private CodeMemberMethod GetEncode()
+        {
+            CodeMemberMethod encodeMethod = new()
+            {
+                Attributes = MemberAttributes.Public | MemberAttributes.Override,
+                Name = "Encode",
+                ReturnType = new CodeTypeReference("System.Byte[]")
+            };
+            encodeMethod.Statements.Add(new CodeSnippetExpression("var result = new List<byte>()"));
+            encodeMethod.Statements.Add(new CodeSnippetExpression("foreach (var v in Value)" +
+                "{" +
+                "result.AddRange(v.Encode());" +
+                "}"));
+            encodeMethod.Statements.Add(new CodeSnippetExpression("return result.ToArray()"));
+            return encodeMethod;
+        }
+
+        public static ArrayGenBuilder Create(uint id, NodeTypeArray nodeType, Dictionary<uint, (string, List<string>)> typeDict)
+        {
+            return new ArrayGenBuilder(id, nodeType, typeDict);
+        }
+
+        public override BaseBuilder Create()
+        {
+            var typeDef = TypeDef as NodeTypeArray;
+
+            #region CREATE
+
+            var fullItem = GetFullItemPath(typeDef.TypeId);
+
+            ClassName = $"Arr{typeDef.Length}{fullItem.Item1.Split('.').Last()}";
             CodeNamespace typeNamespace = new(NameSpace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
-            if (fullItem.Item1.Any(ch => !Char.IsLetterOrDigit(ch)))
+            if (ClassName.Any(ch => !Char.IsLetterOrDigit(ch)))
             {
                 Counter++;
                 ClassName = $"Arr{typeDef.Length}Special" + Counter++;
@@ -47,16 +96,10 @@ namespace NodeLibraryGen
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
             TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
-            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Array", true));
-            if (typeDef.Docs != null)
-            {
-                foreach (var doc in typeDef.Docs)
-                {
-                    TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
-                }
-            }
-            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+
+            // add comment to class if exists
+            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+
             typeNamespace.Types.Add(TargetClass);
 
             // Declaring a name method
@@ -138,59 +181,9 @@ namespace NodeLibraryGen
             TargetClass.Members.Add(createMethod);
 
             TargetClass.Members.Add(valueProperty);
-        }
+            #endregion
 
-        private CodeMemberMethod GetDecode(string baseType)
-        {
-            var decodeMethod = SimpleMethod("Decode");
-            CodeParameterDeclarationExpression param1 = new()
-            {
-                Type = new CodeTypeReference("System.Byte[]"),
-                Name = "byteArray"
-            };
-            decodeMethod.Parameters.Add(param1);
-            CodeParameterDeclarationExpression param2 = new()
-            {
-                Type = new CodeTypeReference("System.Int32"),
-                Name = "p",
-                Direction = FieldDirection.Ref
-            };
-            decodeMethod.Parameters.Add(param2);
-            decodeMethod.Statements.Add(new CodeSnippetExpression("var start = p"));
-            decodeMethod.Statements.Add(new CodeSnippetExpression($"var array = new {baseType}[TypeSize]"));
-            decodeMethod.Statements.Add(new CodeSnippetExpression("for (var i = 0; i < array.Length; i++) " +
-                "{" +
-                $"var t = new {baseType}();" +
-                "t.Decode(byteArray, ref p);" +
-                "array[i] = t;" +
-                "}"));
-            decodeMethod.Statements.Add(new CodeSnippetExpression("var bytesLength = p - start"));
-            decodeMethod.Statements.Add(new CodeSnippetExpression("Bytes = new byte[bytesLength]"));
-            decodeMethod.Statements.Add(new CodeSnippetExpression("Array.Copy(byteArray, start, Bytes, 0, bytesLength)"));
-            decodeMethod.Statements.Add(new CodeSnippetExpression("Value = array"));
-            return decodeMethod;
-        }
-
-        private CodeMemberMethod GetEncode()
-        {
-            CodeMemberMethod encodeMethod = new()
-            {
-                Attributes = MemberAttributes.Public | MemberAttributes.Override,
-                Name = "Encode",
-                ReturnType = new CodeTypeReference("System.Byte[]")
-            };
-            encodeMethod.Statements.Add(new CodeSnippetExpression("var result = new List<byte>()"));
-            encodeMethod.Statements.Add(new CodeSnippetExpression("foreach (var v in Value)" +
-                "{" +
-                "result.AddRange(v.Encode());" +
-                "}"));
-            encodeMethod.Statements.Add(new CodeSnippetExpression("return result.ToArray()"));
-            return encodeMethod;
-        }
-
-        public static ArrayGenBuilder Create(uint id, NodeTypeArray nodeType, Dictionary<uint, (string, List<string>)> typeDict)
-        {
-            return new ArrayGenBuilder(id, nodeType, typeDict);
+            return this;
         }
     }
 }

@@ -12,92 +12,11 @@ namespace NodeLibraryGen
 {
     public class StructGenBuilder : BaseBuilder
     {
-        private StructGenBuilder(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        private StructGenBuilder(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+            : base(id, typeDef, typeDict)
         {
-            Success = true;
-
-            Id = id;
-
-            TargetUnit = new CodeCompileUnit();
-            
-            ImportsNamespace = new()
-            {
-                Imports = {
-                    new CodeNamespaceImport("SubstrateNetApi.Model.Types.Base"),
-                    new CodeNamespaceImport("System.Collections.Generic"),
-                    new CodeNamespaceImport("System")
-                }
-            };
-
-            if (typeDef.Path[0].Contains("_"))
-            {
-                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
-            }
-            else
-            {
-                NameSpace = "SubstrateNetApi.Model." + "Base";
-            }
-
-            ClassName = $"{typeDef.Path.Last()}";
-
-            ReferenzName = $"{NameSpace}.{typeDef.Path.Last()}";
-
-            CodeNamespace typeNamespace = new(NameSpace);
-            TargetUnit.Namespaces.Add(ImportsNamespace);
-            TargetUnit.Namespaces.Add(typeNamespace);
-
-            TargetClass = new CodeTypeDeclaration(ClassName)
-            {
-                IsClass = true,
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
-            };
-            TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
-            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
-            if (typeDef.Docs != null)
-            {
-                foreach (var doc in typeDef.Docs)
-                {
-                    TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
-                }
-            }
-            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
-            typeNamespace.Types.Add(TargetClass);
-
-            var nameMethod = SimpleMethod("TypeName", "System.String", ClassName);
-            TargetClass.Members.Add(nameMethod);
-
-            if (typeDef.TypeFields != null)
-            {
-                for (uint i = 0; i < typeDef.TypeFields.Length; i++)
-                {
-
-                    NodeTypeField typeField = typeDef.TypeFields[i];
-                    string fieldName = typeField.Name;
-                    if (typeField.Name == null)
-                    {
-                        fieldName = typeDef.TypeFields.Length > 1 ? typeField.TypeName : "value";
-                    }
-
-                    if (!typeDict.TryGetValue(typeField.TypeId, out (string, List<string>) fullItem))
-                    {
-                        Success = false;
-                        fullItem = ("Unknown", new List<string>() { "Unknown" });
-                    }
-                    //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
-
-                    var field = GetPropertyField(fieldName, fullItem.Item1);
-                    TargetClass.Members.Add(field);
-                    TargetClass.Members.Add(GetProperty(fieldName, field));
-                }
-            }
-
-            CodeMemberMethod encodeMethod = GetEncode(typeDef.TypeFields);
-            TargetClass.Members.Add(encodeMethod);
-
-            CodeMemberMethod decodeMethod = GetDecode(typeDef.TypeFields, typeDict);
-            TargetClass.Members.Add(decodeMethod);
         }
+        
         private CodeMemberField GetPropertyField(string name, string baseType)
         {
             CodeMemberField field = new()
@@ -108,6 +27,7 @@ namespace NodeLibraryGen
             };
             return field;
         }
+        
         private CodeMemberProperty GetProperty(string name, CodeMemberField propertyField)
         {
             CodeMemberProperty prop = new()
@@ -203,10 +123,72 @@ namespace NodeLibraryGen
             return encodeMethod;
         }
 
-        public static StructGenBuilder Create(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        public static BaseBuilder Create(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new StructGenBuilder(id, typeDef, typeDict);
         }
 
+        public override BaseBuilder Create()
+        {
+            var typeDef = TypeDef as NodeTypeComposite;
+
+            #region CREATE
+
+            ClassName = $"{typeDef.Path.Last()}";
+
+            ReferenzName = $"{NameSpace}.{typeDef.Path.Last()}";
+
+            CodeNamespace typeNamespace = new(NameSpace);
+            TargetUnit.Namespaces.Add(typeNamespace);
+
+            TargetClass = new CodeTypeDeclaration(ClassName)
+            {
+                IsClass = true,
+                TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
+            };
+            TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
+
+            // add comment to class if exists
+            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+
+            typeNamespace.Types.Add(TargetClass);
+
+            var nameMethod = SimpleMethod("TypeName", "System.String", ClassName);
+            TargetClass.Members.Add(nameMethod);
+
+            if (typeDef.TypeFields != null)
+            {
+                for (uint i = 0; i < typeDef.TypeFields.Length; i++)
+                {
+
+                    NodeTypeField typeField = typeDef.TypeFields[i];
+                    string fieldName = typeField.Name;
+                    if (typeField.Name == null)
+                    {
+                        fieldName = typeDef.TypeFields.Length > 1 ? typeField.TypeName : "value";
+                    }
+
+                    var fullItem = GetFullItemPath(typeField.TypeId);
+
+                    var field = GetPropertyField(fieldName, fullItem.Item1);
+                    
+                    // add comment to field if exists
+                    field.Comments.AddRange(GetComments(typeField.Docs, null, fieldName));
+
+                    TargetClass.Members.Add(field);
+                    TargetClass.Members.Add(GetProperty(fieldName, field));
+                }
+            }
+
+            CodeMemberMethod encodeMethod = GetEncode(typeDef.TypeFields);
+            TargetClass.Members.Add(encodeMethod);
+
+            CodeMemberMethod decodeMethod = GetDecode(typeDef.TypeFields, TypeDict);
+            TargetClass.Members.Add(decodeMethod);
+
+            #endregion
+
+            return this;
+        }
     }
 }

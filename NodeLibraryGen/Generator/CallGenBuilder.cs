@@ -13,24 +13,24 @@ namespace NodeLibraryGen
 {
     public class CallGenBuilder : BaseBuilder
     {
-        private CallGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        private CallGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+            : base(id, typeDef, typeDict)
         {
-            Success = true;
-            Id = id;
+        }
 
-            TargetUnit = new CodeCompileUnit();
+        public static CallGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        {
+            return new CallGenBuilder(id, typeDef, typeDict);
+        }
+
+        public override BaseBuilder Create()
+        {
+            var typeDef = TypeDef as NodeTypeVariant;
+
+            #region CREATE
+
             ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Calls"));
-            TargetUnit.Namespaces.Add(ImportsNamespace);
-
-            if (typeDef.Path[0].Contains("_"))
-            {
-                NameSpace = "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod();
-            }
-            else
-            {
-                NameSpace = "SubstrateNetApi.Model." + "Base";
-            }
-
+            
             ClassName = typeDef.Path[0].MakeMethod() + "Call";
             ReferenzName = $"{NameSpace}.{ClassName}";
             CodeNamespace typeNamespace = new(NameSpace);
@@ -46,13 +46,9 @@ namespace NodeLibraryGen
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-            TargetClass.Comments.Add(new CodeCommentStatement("<summary>", true));
-            TargetClass.Comments.Add(new CodeCommentStatement($">> Path: {String.Join('.', typeDef.Path)}", true));
-            foreach (var doc in typeDef.Docs)
-            {
-                TargetClass.Comments.Add(new CodeCommentStatement(doc, true));
-            }
-            TargetClass.Comments.Add(new CodeCommentStatement("</summary>", true));
+
+            // add comment to class if exists
+            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
             typeNamespace.Types.Add(TargetClass);
 
@@ -67,30 +63,19 @@ namespace NodeLibraryGen
                         ReturnType = new CodeTypeReference(typeof(GenericExtrinsicCall).Name)
                     };
 
-                    callMethod.Comments.Add(new CodeCommentStatement("<summary>", true));
-                    callMethod.Comments.Add(new CodeCommentStatement($">> Extrinsic: {variant.Name}", true));
-                    foreach(var doc in variant.Docs)
-                    {
-                        callMethod.Comments.Add(new CodeCommentStatement(doc, true));
-                    }
-                    //callMethod.Comments.Add(new CodeCommentStatement(
-                    //    @"<para>Add a new paragraph to the description.</para>", true));
-                    callMethod.Comments.Add(new CodeCommentStatement("</summary>", true));
+                    // add comment to class if exists
+                    callMethod.Comments.AddRange(GetComments(typeDef.Docs, null, variant.Name));
 
                     var create = new CodeObjectCreateExpression(typeof(GenericExtrinsicCall).Name, Array.Empty<CodeExpression>());
                     create.Parameters.Add(new CodePrimitiveExpression(palletName));
                     create.Parameters.Add(new CodePrimitiveExpression(variant.Name));
-                    
+
                     if (variant.TypeFields != null)
                     {
                         foreach (var field in variant.TypeFields)
                         {
-                            if (!typeDict.TryGetValue(field.TypeId, out (string, List<string>) fullItem))
-                            {
-                                Success = false;
-                                fullItem = ("Unknown", new List<string>() { "Unknown" });
-                            }
-                            //fullItem.Item2.ForEach(p => ImportsNamespace.Imports.Add(new CodeNamespaceImport(p)));
+                            var fullItem = GetFullItemPath(field.TypeId);
+
                             CodeParameterDeclarationExpression param = new()
                             {
                                 Type = new CodeTypeReference(fullItem.Item1),
@@ -111,11 +96,11 @@ namespace NodeLibraryGen
                     TargetClass.Members.Add(callMethod);
                 }
             }
+
+            #endregion
+
+            return this;
         }
 
-        public static CallGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
-        {
-            return new CallGenBuilder(id, typeDef, typeDict);
-        }
     }
 }
