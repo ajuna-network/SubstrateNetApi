@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NodeLibraryGen
+namespace RuntimeMetadata
 {
     public static class StringExtensions 
     {

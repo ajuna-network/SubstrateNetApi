@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi;
+using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Metadata.V14;
 using SubstrateNetApi.Model.Types.Primitive;
@@ -12,7 +13,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NodeLibraryGen
+namespace RuntimeMetadata
 {
 
     class Program
@@ -32,18 +33,24 @@ namespace NodeLibraryGen
             {
                 result = File.ReadAllText("metadata_20210921.txt");
             }
-            var mdv14 = new RuntimeMetadata();
+            var mdv14 = new SubstrateNetApi.Model.Types.Struct.RuntimeMetadata();
             mdv14.Create(result);
 
             //Console.WriteLine(mdv14);
 
-            var nodeTypes = CreateNodeTypeDict(mdv14.RuntimeMetadataData.Types.Value);
+            NodeMetadataV14 metadata = new()
+            {
+                Types = CreateNodeTypeDict(mdv14.RuntimeMetadataData.Types.Value),
+                Modules = CreateModuleDict(mdv14.RuntimeMetadataData.Modules.Value),
+                Extrinsic = CreateExtrinsic(mdv14.RuntimeMetadataData.Extrinsic),
+                TypeId = (uint)mdv14.RuntimeMetadataData.TypeId.Value
+            };
 
-            var typeDict = CreateMapping(nodeTypes);
+            var typeDict = CreateMapping(metadata.Types);
 
             Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
 
-            Console.WriteLine($"Map: {typeDict.Count} vs. Tot: {nodeTypes.Count} {((double)typeDict.Count / nodeTypes.Count).ToString("P")}");
+            Console.WriteLine($"Map: {typeDict.Count} vs. Tot: {metadata.Types.Count} {((double)typeDict.Count / metadata.Types.Count).ToString("P")}");
 
             //for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
             //{
@@ -54,9 +61,24 @@ namespace NodeLibraryGen
             //    }
             //}
 
-            //WriteJsonFile("metadata.json", nodeTypes);
+            WriteJsonFile("metadata.json", metadata);
             //GenerateCode(nodeTypes);
 
+        }
+
+        private static ExtrinsicMetadata CreateExtrinsic(ExtrinsicMetadataStruct extrinsic)
+        {
+            return new ExtrinsicMetadata()
+            {
+                TypeId = (uint)extrinsic.ExtrinsicType.Value,
+                Version = (int)extrinsic.Version.Value,
+                SignedExtensions = extrinsic.SignedExtensions.Value.Select(p => new SignedExtensionMetadata()
+                {
+                    SignedIdentifier = p.SignedIdentifier.Value,
+                    SignedExtType = (uint)p.SignedExtType.Value,
+                    AddSignedExtType = (uint)p.AddSignedExtType.Value,
+                }).ToArray()
+            };
         }
 
         private static Dictionary<uint, (string, List<string>)> CreateMapping(Dictionary<uint, NodeType> nodeTypes)
@@ -95,7 +117,7 @@ namespace NodeLibraryGen
                     switch (typeDef.Primitive)
                     {
                         case TypeDefPrimitive.Bool:
-                            typeDict.Add(i,(path + nameof(Bool), spaces));
+                            typeDict.Add(i, (path + nameof(Bool), spaces));
                             break;
                         case TypeDefPrimitive.Char:
                             typeDict.Add(i, (path + nameof(PrimChar), spaces));
@@ -386,9 +408,9 @@ namespace NodeLibraryGen
             }
         }
 
-        private static void WriteJsonFile(string fileName, Dictionary<uint, NodeType> nodeTypes)
+        private static void WriteJsonFile(string fileName, NodeMetadataV14 runtimeMetadata)
         {
-            var jsonFile = JsonConvert.SerializeObject(nodeTypes, Formatting.Indented);
+            var jsonFile = JsonConvert.SerializeObject(runtimeMetadata, Formatting.Indented);
             File.WriteAllText(fileName, jsonFile);
         }
 
@@ -568,63 +590,108 @@ namespace NodeLibraryGen
             return result;
         }
 
-        public void Print()
+        public static Dictionary<uint, PalletModule> CreateModuleDict(PalletMetadata[] modules)
         {
-            //foreach(var type in mdv14.RuntimeMetadataData.Types.Value)
-            //{
-            //    //var value = type.Ty.Path.Value;
-            //    Console.WriteLine($"{type.Id}[{type.Ty.TypeDef.Value}] --> {string.Join('.', type.Ty.Path.Value.Select(p => p.Value))}");
-            //    for (int i = 0; i < type.Ty.TypeParams.Value.Count; i++)
-            //    {
-            //        var typeParam = type.Ty.TypeParams.Value[i];
-            //        Console.WriteLine($"          +-> Param: {typeParam.TypeParameterName.Value}{(typeParam.TypeParameterType.OptionFlag? "[" + typeParam.TypeParameterType.Value.Value.ToString() + "]":"")}");
+            var result = new Dictionary<uint, PalletModule>();
 
-            //    }
+            foreach (var module in modules)
+            {
 
-            //    switch (type.Ty.TypeDef.Value)
-            //    {
-            //        case TypeDefEnum.Composite:
-            //            {
-            //                var typeDef = type.Ty.TypeDef.Value2 as TypeDefComposite;
-            //                Console.WriteLine($"          ### {typeDef.GetType().Name}");
-            //                for (int i = 0; i < typeDef.Fields.Value.Count; i++)
-            //                {
-            //                    Field field = typeDef.Fields.Value[i];
-            //                    Console.WriteLine($"          +-> Field{(field.FieldName.OptionFlag ? "(" + field.FieldName.Value.Value + ")" : "")}: {(field.FieldTypeName.OptionFlag ? field.FieldTypeName.Value.Value : "")}[{field.FieldTy.Value.Value}]");
+                var palletModule = new PalletModule()
+                {
+                    Name = module.PalletName.Value,
+                    Index = module.Index.Value,
+                };
+                result.Add(module.Index.Value, palletModule);
 
-            //                }
-            //            }
-            //            break;
-            //        case TypeDefEnum.Variant:
-            //            break;
-            //        case TypeDefEnum.Sequence:
-            //            break;
-            //        case TypeDefEnum.Array:
-            //            {
-            //                var typeDef = type.Ty.TypeDef.Value2 as TypeDefArray;
-            //                Console.WriteLine($"          ### {typeDef.GetType().Name}");
-            //                Console.WriteLine($"          +-> [{typeDef.TypeParam.Value}] Length: {typeDef.Len.Value}");
-            //            }
-            //            break;
-            //        case TypeDefEnum.Tuple:
-            //            break;
-            //        case TypeDefEnum.Primitive:
-            //            {
-            //                var typeDef = (TypeDefPrimitive)Enum.Parse(typeof(TypeDefPrimitive), type.Ty.TypeDef.Value2.ToString());
-            //                Console.WriteLine($"          ### TypeDefPrimitive");
-            //                Console.WriteLine($"          +-> {typeDef}");
-            //            }
-            //            break;
-            //        case TypeDefEnum.Compact:
-            //            {
-            //                var typeDef = type.Ty.TypeDef.Value2 as TypeDefCompact;
-            //            }
-            //            break;
-            //        case TypeDefEnum.BitSequence:
-            //            break;
-            //    }
-            //}
+                if (module.PalletStorage.OptionFlag)
+                {
+                    var storage = module.PalletStorage.Value;
+                    palletModule.Storage = new PalletStorage()
+                    {
+                        Prefix = storage.Prefix.Value,
+                    };
+
+                    palletModule.Storage.Entries = new Entry[storage.Entries.Value.Length];
+                    for (int i = 0; i < storage.Entries.Value.Length; i++)
+                    {
+                        var entry = storage.Entries.Value[i];
+                        palletModule.Storage.Entries[i] = new()
+                        {
+                            Name = entry.StorageName.Value,
+                            Modifier = entry.StorageModifier.Value,
+                            StorageType = entry.StorageType.Value,
+                            Default = entry.StorageDefault.Value.Select(p => p.Value).ToArray(),
+                            Docs = entry.Documentation.Value.Select(p => p.Value).ToArray(),
+                        };
+
+                        switch (entry.StorageType.Value)
+                        {
+                            case Storage.Type.Plain:
+                                palletModule.Storage.Entries[i].TypeMap = (((TType)entry.StorageType.Value2).Value, null);
+                                break;
+                            case Storage.Type.Map:
+                                var typeMap = ((StorageEntryTypeMap)entry.StorageType.Value2);
+                                palletModule.Storage.Entries[i].TypeMap = (0, new TypeMap()
+                                {
+                                    Hashers = typeMap.Hashers.Value.Select(p => p.Value).ToArray(),
+                                    Key = (uint)typeMap.Key.Value,
+                                    Value = (uint)typeMap.Value.Value
+                                });
+                                break;
+                            default:
+                                throw new NotImplementedException();
+                        }
+
+                    }
+                }
+
+                if (module.PalletCalls.OptionFlag)
+                {
+                    var calls = module.PalletCalls.Value;
+                    palletModule.Calls = new PalletCalls()
+                    {
+                        TypeId = (uint)calls.CallType.Value
+                    };
+                }
+
+                if (module.PalletEvents.OptionFlag)
+                {
+                    var events = module.PalletEvents.Value;
+                    palletModule.Events = new PalletEvents()
+                    {
+                        TypeId = (uint)events.EventType.Value
+                    };
+                }
+
+                var constants = module.PalletConstants.Value;
+                palletModule.Constants = new PalletConstant[constants.Length];
+                for (int i = 0; i < constants.Length; i++)
+                {
+                    PalletConstantMetadata constant = constants[i];
+                    palletModule.Constants[i] = new PalletConstant()
+                    {
+                        Name = constant.ConstantName.Value,
+                        TypeId = (uint)constant.ConstantType.Value,
+                        Value = constant.ConstantValue.Value.Select(p => p.Value).ToArray(),
+                        Docs = constant.Documentation.Value.Select(p => p.Value).ToArray()
+
+                    };
+                }
+
+                if (module.PalletErrors.OptionFlag)
+                {
+                    var errors = module.PalletErrors.Value;
+                    palletModule.Errors = new PalletErrors()
+                    {
+                        TypeId = (uint)errors.ErrorType.Value
+                    };
+                }
+            }
+
+            return result;
         }
 
     }
+
 }

@@ -27,8 +27,11 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Modules = new BaseVec<PalletMetadata>();
             Modules.Decode(byteArray, ref p);
 
-            Extrinsic = new ExtrinsicMetadata();
+            Extrinsic = new ExtrinsicMetadataStruct();
             Extrinsic.Decode(byteArray, ref p);
+
+            TypeId = new TType();
+            TypeId.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
@@ -36,7 +39,9 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
  
         public BaseVec<PalletMetadata> Modules { get; private set; }
         
-        public ExtrinsicMetadata Extrinsic { get; private set; }
+        public ExtrinsicMetadataStruct Extrinsic { get; private set; }
+
+        public TType TypeId { get; private set; }
     }
 
     public class MetaDataInfo : BaseType
@@ -87,8 +92,8 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             PalletCalls = new BaseOpt<PalletCallMetadata>();
             PalletCalls.Decode(byteArray, ref p);
 
-            PalletEvent = new BaseOpt<PalletEventMetadata>();
-            PalletEvent.Decode(byteArray, ref p);
+            PalletEvents = new BaseOpt<PalletEventMetadata>();
+            PalletEvents.Decode(byteArray, ref p);
 
             PalletConstants = new BaseVec<PalletConstantMetadata>();
             PalletConstants.Decode(byteArray, ref p);
@@ -104,7 +109,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public Str PalletName { get; private set; }
         public BaseOpt<StorageMetadata> PalletStorage { get; private set; }
         public BaseOpt<PalletCallMetadata> PalletCalls { get; private set; }
-        public BaseOpt<PalletEventMetadata> PalletEvent { get; private set; }
+        public BaseOpt<PalletEventMetadata> PalletEvents { get; private set; }
         public BaseVec<PalletConstantMetadata> PalletConstants { get; private set; }
         public BaseOpt<ErrorMetadata> PalletErrors { get; private set; }
         public U8 Index { get; private set; }
@@ -154,7 +159,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             StorageModifier = new BaseEnum<Modifier>();
             StorageModifier.Decode(byteArray, ref p);
 
-            StorageType = new BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid>();
+            StorageType = new BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap>();
             StorageType.Decode(byteArray, ref p);
 
             StorageDefault = new ByteGetter();
@@ -167,7 +172,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         }
         public Str StorageName { get; private set; }
         public BaseEnum<Modifier> StorageModifier { get; private set; }
-        public BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid> StorageType { get; private set; }
+        public BaseEnumExt<Storage.Type, TType, StorageEntryTypeMap> StorageType { get; private set; }
         public ByteGetter StorageDefault { get; private set; }
         public BaseVec<Str> Documentation { get; private set; }
     }
@@ -395,7 +400,7 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     }
 
-    public class ExtrinsicMetadata : BaseType
+    public class ExtrinsicMetadataStruct : BaseType
     {
         public override string TypeName() => "unknown";
 
@@ -414,17 +419,17 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
             Version = new U8();
             Version.Decode(byteArray, ref p);
 
-            SignedExtensions = new BaseVec<SignedExtensionMetadata>();
+            SignedExtensions = new BaseVec<SignedExtensionMetadataStruct>();
             SignedExtensions.Decode(byteArray, ref p);
 
             TypeSize = p - start;
         }
         public TType ExtrinsicType { get; private set; }
         public U8 Version { get; private set; }
-        public BaseVec<SignedExtensionMetadata> SignedExtensions { get; private set; }
+        public BaseVec<SignedExtensionMetadataStruct> SignedExtensions { get; private set; }
     }
 
-    public class SignedExtensionMetadata : BaseType
+    public class SignedExtensionMetadataStruct : BaseType
     {
         public override string TypeName() => "unknown";
 
