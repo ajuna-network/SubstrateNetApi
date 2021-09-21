@@ -29,7 +29,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 354 - Variant[pallet_staking.Forcing]
     /// </summary>
     public sealed class EnumForcing : BaseEnum<Forcing>
     {

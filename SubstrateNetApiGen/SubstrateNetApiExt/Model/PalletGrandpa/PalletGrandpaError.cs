@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     
     /// <summary>
-    /// >> Path: pallet_grandpa.pallet.Error
+    /// >> 395 - Variant[pallet_grandpa.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,46 +27,37 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     {
         
         /// <summary>
-        /// >> Event: PauseFailed
-        /// Attempt to signal GRANDPA pause when the authority set isn't live
-        /// (either paused or already pending pause).
+        /// >> PauseFailed
         /// </summary>
         PauseFailed,
         
         /// <summary>
-        /// >> Event: ResumeFailed
-        /// Attempt to signal GRANDPA resume when the authority set isn't paused
-        /// (either live or already pending resume).
+        /// >> ResumeFailed
         /// </summary>
         ResumeFailed,
         
         /// <summary>
-        /// >> Event: ChangePending
-        /// Attempt to signal GRANDPA change with one already pending.
+        /// >> ChangePending
         /// </summary>
         ChangePending,
         
         /// <summary>
-        /// >> Event: TooSoon
-        /// Cannot signal forced change so soon after last.
+        /// >> TooSoon
         /// </summary>
         TooSoon,
         
         /// <summary>
-        /// >> Event: InvalidKeyOwnershipProof
-        /// A key ownership proof provided as part of an equivocation report is invalid.
+        /// >> InvalidKeyOwnershipProof
         /// </summary>
         InvalidKeyOwnershipProof,
         
         /// <summary>
-        /// >> Event: InvalidEquivocationProof
-        /// An equivocation proof provided as part of an equivocation report is invalid.
+        /// >> InvalidEquivocationProof
         /// </summary>
         InvalidEquivocationProof,
         
         /// <summary>
-        /// >> Event: DuplicateOffenceReport
-        /// A given equivocation report is valid but already previously reported.
+        /// >> DuplicateOffenceReport
         /// </summary>
         DuplicateOffenceReport,
     }

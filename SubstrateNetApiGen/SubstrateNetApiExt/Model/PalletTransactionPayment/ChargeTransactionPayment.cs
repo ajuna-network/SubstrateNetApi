@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
     
     
     /// <summary>
-    /// >> Path: pallet_transaction_payment.ChargeTransactionPayment
+    /// >> 513 - Composite[pallet_transaction_payment.ChargeTransactionPayment]
     /// </summary>
     public sealed class ChargeTransactionPayment : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> _value;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> Value

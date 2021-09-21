@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +18,29 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> Path: pallet_balances.AccountData
+    /// >> 5 - Composite[pallet_balances.AccountData]
     /// </summary>
     public sealed class AccountData : BaseType
     {
         
+        /// <summary>
+        /// >> free
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _free;
         
+        /// <summary>
+        /// >> reserved
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _reserved;
         
+        /// <summary>
+        /// >> misc_frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _miscFrozen;
         
+        /// <summary>
+        /// >> fee_frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _feeFrozen;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Free

@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpFinalityGrandpa
     
     
     /// <summary>
-    /// >> Path: sp_finality_grandpa.app.Public
+    /// >> 52 - Composite[sp_finality_grandpa.app.Public]
     /// </summary>
     public sealed class Public : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.Public _value;
         
         public SubstrateNetApi.Model.SpCore.Public Value

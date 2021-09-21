@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletDemocracy;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +27,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 210 - Variant[pallet_democracy.vote.AccountVote]
     /// </summary>
     public sealed class EnumAccountVote : BaseEnumExt<AccountVote, BaseTuple<SubstrateNetApi.Model.PalletDemocracy.Vote, SubstrateNetApi.Model.Types.Primitive.U128>, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U128>>
     {

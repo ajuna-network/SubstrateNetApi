@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
+using SubstrateNetApi.Model.PalletIdentity;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +20,24 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> Path: pallet_identity.types.Registration
+    /// >> 416 - Composite[pallet_identity.types.Registration]
     /// </summary>
     public sealed class Registration : BaseType
     {
         
+        /// <summary>
+        /// >> judgements
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.BoundedVec _judgements;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> info
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.IdentityInfo _info;
         
         public SubstrateNetApi.Model.FrameSupport.BoundedVec Judgements

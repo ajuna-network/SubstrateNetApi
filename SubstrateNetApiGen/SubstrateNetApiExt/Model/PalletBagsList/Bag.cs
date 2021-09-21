@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletBagsList
     
     
     /// <summary>
-    /// >> Path: pallet_bags_list.list.Bag
+    /// >> 499 - Composite[pallet_bags_list.list.Bag]
     /// </summary>
     public sealed class Bag : BaseType
     {
         
+        /// <summary>
+        /// >> head
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.SpCore.AccountId32> _head;
         
+        /// <summary>
+        /// >> tail
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.SpCore.AccountId32> _tail;
         
         public BaseOpt<SubstrateNetApi.Model.SpCore.AccountId32> Head

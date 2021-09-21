@@ -35,7 +35,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 26 - Variant[sp_runtime.TokenError]
     /// </summary>
     public sealed class EnumTokenError : BaseEnum<TokenError>
     {

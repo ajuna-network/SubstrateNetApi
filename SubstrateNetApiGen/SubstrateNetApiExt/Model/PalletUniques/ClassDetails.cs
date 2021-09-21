@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,29 +19,59 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> Path: pallet_uniques.types.ClassDetails
+    /// >> 487 - Composite[pallet_uniques.types.ClassDetails]
     /// </summary>
     public sealed class ClassDetails : BaseType
     {
         
+        /// <summary>
+        /// >> owner
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _owner;
         
+        /// <summary>
+        /// >> issuer
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _issuer;
         
+        /// <summary>
+        /// >> admin
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _admin;
         
+        /// <summary>
+        /// >> freezer
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _freezer;
         
+        /// <summary>
+        /// >> total_deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _totalDeposit;
         
+        /// <summary>
+        /// >> free_holding
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _freeHolding;
         
+        /// <summary>
+        /// >> instances
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _instances;
         
+        /// <summary>
+        /// >> instance_metadatas
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _instanceMetadatas;
         
+        /// <summary>
+        /// >> attributes
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _attributes;
         
+        /// <summary>
+        /// >> is_frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _isFrozen;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Owner

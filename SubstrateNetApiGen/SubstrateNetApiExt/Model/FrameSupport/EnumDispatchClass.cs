@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 23 - Variant[frame_support.weights.DispatchClass]
     /// </summary>
     public sealed class EnumDispatchClass : BaseEnum<DispatchClass>
     {

@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> Path: pallet_recovery.RecoveryConfig
+    /// >> 437 - Composite[pallet_recovery.RecoveryConfig]
     /// </summary>
     public sealed class RecoveryConfig : BaseType
     {
         
+        /// <summary>
+        /// >> delay_period
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _delayPeriod;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> friends
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _friends;
         
+        /// <summary>
+        /// >> threshold
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U16 _threshold;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 DelayPeriod

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,97 +18,229 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.schedule.HostFnWeights
+    /// >> 409 - Composite[pallet_contracts.schedule.HostFnWeights]
     /// </summary>
     public sealed class HostFnWeights : BaseType
     {
         
+        /// <summary>
+        /// >> caller
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _caller;
         
+        /// <summary>
+        /// >> address
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _address;
         
+        /// <summary>
+        /// >> gas_left
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _gasLeft;
         
+        /// <summary>
+        /// >> balance
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _balance;
         
+        /// <summary>
+        /// >> value_transferred
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _valueTransferred;
         
+        /// <summary>
+        /// >> minimum_balance
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _minimumBalance;
         
+        /// <summary>
+        /// >> contract_deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _contractDeposit;
         
+        /// <summary>
+        /// >> block_number
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _blockNumber;
         
+        /// <summary>
+        /// >> now
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _now;
         
+        /// <summary>
+        /// >> weight_to_fee
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _weightToFee;
         
+        /// <summary>
+        /// >> gas
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _gas;
         
+        /// <summary>
+        /// >> input
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _input;
         
+        /// <summary>
+        /// >> input_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _inputPerByte;
         
+        /// <summary>
+        /// >> r#return
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _rHreturn;
         
+        /// <summary>
+        /// >> return_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _returnPerByte;
         
+        /// <summary>
+        /// >> terminate
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _terminate;
         
+        /// <summary>
+        /// >> random
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _random;
         
+        /// <summary>
+        /// >> deposit_event
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _depositEvent;
         
+        /// <summary>
+        /// >> deposit_event_per_topic
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _depositEventPerTopic;
         
+        /// <summary>
+        /// >> deposit_event_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _depositEventPerByte;
         
+        /// <summary>
+        /// >> debug_message
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _debugMessage;
         
+        /// <summary>
+        /// >> set_storage
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _setStorage;
         
+        /// <summary>
+        /// >> set_storage_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _setStoragePerByte;
         
+        /// <summary>
+        /// >> clear_storage
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _clearStorage;
         
+        /// <summary>
+        /// >> get_storage
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _getStorage;
         
+        /// <summary>
+        /// >> get_storage_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _getStoragePerByte;
         
+        /// <summary>
+        /// >> transfer
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _transfer;
         
+        /// <summary>
+        /// >> call
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _call;
         
+        /// <summary>
+        /// >> call_transfer_surcharge
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _callTransferSurcharge;
         
+        /// <summary>
+        /// >> call_per_input_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _callPerInputByte;
         
+        /// <summary>
+        /// >> call_per_output_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _callPerOutputByte;
         
+        /// <summary>
+        /// >> instantiate
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _instantiate;
         
+        /// <summary>
+        /// >> instantiate_per_input_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _instantiatePerInputByte;
         
+        /// <summary>
+        /// >> instantiate_per_output_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _instantiatePerOutputByte;
         
+        /// <summary>
+        /// >> instantiate_per_salt_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _instantiatePerSaltByte;
         
+        /// <summary>
+        /// >> hash_sha2_256
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashSha2256;
         
+        /// <summary>
+        /// >> hash_sha2_256_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashSha2256PerByte;
         
+        /// <summary>
+        /// >> hash_keccak_256
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashKeccak256;
         
+        /// <summary>
+        /// >> hash_keccak_256_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashKeccak256PerByte;
         
+        /// <summary>
+        /// >> hash_blake2_256
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashBlake2256;
         
+        /// <summary>
+        /// >> hash_blake2_256_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashBlake2256PerByte;
         
+        /// <summary>
+        /// >> hash_blake2_128
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashBlake2128;
         
+        /// <summary>
+        /// >> hash_blake2_128_per_byte
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _hashBlake2128PerByte;
         
+        /// <summary>
+        /// >> ecdsa_recover
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _ecdsaRecover;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 Caller

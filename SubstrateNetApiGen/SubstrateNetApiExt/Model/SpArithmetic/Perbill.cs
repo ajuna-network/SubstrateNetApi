@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> Path: sp_arithmetic.per_things.Perbill
+    /// >> 102 - Composite[sp_arithmetic.per_things.Perbill]
     /// </summary>
     public sealed class Perbill : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _value;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Value

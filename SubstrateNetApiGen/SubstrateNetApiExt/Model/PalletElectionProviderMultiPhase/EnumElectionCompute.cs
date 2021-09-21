@@ -31,7 +31,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 33 - Variant[pallet_election_provider_multi_phase.ElectionCompute]
     /// </summary>
     public sealed class EnumElectionCompute : BaseEnum<ElectionCompute>
     {

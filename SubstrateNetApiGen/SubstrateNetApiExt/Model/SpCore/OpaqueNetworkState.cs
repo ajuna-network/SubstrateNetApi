@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> Path: sp_core.offchain.OpaqueNetworkState
+    /// >> 236 - Composite[sp_core.offchain.OpaqueNetworkState]
     /// </summary>
     public sealed class OpaqueNetworkState : BaseType
     {
         
+        /// <summary>
+        /// >> peer_id
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.OpaquePeerId _peerId;
         
+        /// <summary>
+        /// >> external_addresses
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.OpaqueMultiaddr> _externalAddresses;
         
         public SubstrateNetApi.Model.SpCore.OpaquePeerId PeerId

@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletIndices
     
     
     /// <summary>
-    /// >> Path: pallet_indices.pallet.Event
+    /// >> 29 - Variant[pallet_indices.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,24 +29,21 @@ namespace SubstrateNetApi.Model.PalletIndices
     {
         
         /// <summary>
-        /// >> Event: IndexAssigned
-        /// A account index was assigned. \[index, who\]
+        /// >> IndexAssigned
         /// </summary>
         public sealed class IndexAssigned : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: IndexFreed
-        /// A account index has been freed up (unassigned). \[index\]
+        /// >> IndexFreed
         /// </summary>
         public sealed class IndexFreed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: IndexFrozen
-        /// A account index has been frozen to its current account ID. \[index, who\]
+        /// >> IndexFrozen
         /// </summary>
         public sealed class IndexFrozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {

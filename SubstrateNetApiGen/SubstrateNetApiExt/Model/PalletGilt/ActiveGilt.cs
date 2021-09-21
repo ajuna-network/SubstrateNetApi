@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpArithmetic;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +20,29 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> Path: pallet_gilt.pallet.ActiveGilt
+    /// >> 485 - Composite[pallet_gilt.pallet.ActiveGilt]
     /// </summary>
     public sealed class ActiveGilt : BaseType
     {
         
+        /// <summary>
+        /// >> proportion
+        /// </summary>
         private SubstrateNetApi.Model.SpArithmetic.Perquintill _proportion;
         
+        /// <summary>
+        /// >> amount
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _amount;
         
+        /// <summary>
+        /// >> who
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _who;
         
+        /// <summary>
+        /// >> expiry
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _expiry;
         
         public SubstrateNetApi.Model.SpArithmetic.Perquintill Proportion

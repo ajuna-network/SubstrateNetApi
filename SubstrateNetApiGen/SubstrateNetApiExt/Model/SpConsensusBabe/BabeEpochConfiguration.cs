@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpConsensusBabe;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.SpConsensusBabe
     
     
     /// <summary>
-    /// >> Path: sp_consensus_babe.BabeEpochConfiguration
+    /// >> 312 - Composite[sp_consensus_babe.BabeEpochConfiguration]
     /// </summary>
     public sealed class BabeEpochConfiguration : BaseType
     {
         
+        /// <summary>
+        /// >> c
+        /// </summary>
         private BaseTuple<SubstrateNetApi.Model.Types.Primitive.U64,SubstrateNetApi.Model.Types.Primitive.U64> _c;
         
+        /// <summary>
+        /// >> allowed_slots
+        /// </summary>
         private SubstrateNetApi.Model.SpConsensusBabe.EnumAllowedSlots _allowedSlots;
         
         public BaseTuple<SubstrateNetApi.Model.Types.Primitive.U64,SubstrateNetApi.Model.Types.Primitive.U64> C

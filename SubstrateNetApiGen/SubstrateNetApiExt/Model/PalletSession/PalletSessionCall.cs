@@ -8,7 +8,9 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.NodeRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletSession
     
     
     /// <summary>
-    /// >> Path: pallet_session.Call
+    /// >> 206 - Variant[pallet_session.Call]
     /// Dispatchable calls.
     /// 
     /// Each variant of this enum maps to a dispatchable function from the associated module.
@@ -27,21 +29,7 @@ namespace SubstrateNetApi.Model.PalletSession
     {
         
         /// <summary>
-        /// >> Extrinsic: set_keys
-        /// Sets the session key(s) of the function caller to `keys`.
-        /// Allows an account to set its session key prior to becoming a validator.
-        /// This doesn't take effect until the next session.
-        /// 
-        /// The dispatch origin of this function must be signed.
-        /// 
-        /// # <weight>
-        /// - Complexity: `O(1)`
-        ///   Actual cost depends on the number of length of `T::Keys::key_ids()` which is fixed.
-        /// - DbReads: `origin account`, `T::ValidatorIdOf`, `NextKeys`
-        /// - DbWrites: `origin account`, `NextKeys`
-        /// - DbReads per key id: `KeyOwner`
-        /// - DbWrites per key id: `KeyOwner`
-        /// # </weight>
+        /// >> set_keys
         /// </summary>
         public GenericExtrinsicCall SetKeys(SubstrateNetApi.Model.NodeRuntime.SessionKeys keys, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> proof)
         {
@@ -49,19 +37,7 @@ namespace SubstrateNetApi.Model.PalletSession
         }
         
         /// <summary>
-        /// >> Extrinsic: purge_keys
-        /// Removes any session key(s) of the function caller.
-        /// This doesn't take effect until the next session.
-        /// 
-        /// The dispatch origin of this function must be signed.
-        /// 
-        /// # <weight>
-        /// - Complexity: `O(1)` in number of key types.
-        ///   Actual cost depends on the number of length of `T::Keys::key_ids()` which is fixed.
-        /// - DbReads: `T::ValidatorIdOf`, `NextKeys`, `origin account`
-        /// - DbWrites: `NextKeys`, `origin account`
-        /// - DbWrites per key id: `KeyOwner`
-        /// # </weight>
+        /// >> purge_keys
         /// </summary>
         public GenericExtrinsicCall PurgeKeys()
         {

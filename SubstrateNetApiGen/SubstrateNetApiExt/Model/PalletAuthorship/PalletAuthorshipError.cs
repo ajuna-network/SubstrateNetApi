@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletAuthorship
     
     
     /// <summary>
-    /// >> Path: pallet_authorship.pallet.Error
+    /// >> 316 - Variant[pallet_authorship.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,44 +27,37 @@ namespace SubstrateNetApi.Model.PalletAuthorship
     {
         
         /// <summary>
-        /// >> Event: InvalidUncleParent
-        /// The uncle parent not in the chain.
+        /// >> InvalidUncleParent
         /// </summary>
         InvalidUncleParent,
         
         /// <summary>
-        /// >> Event: UnclesAlreadySet
-        /// Uncles already set in the block.
+        /// >> UnclesAlreadySet
         /// </summary>
         UnclesAlreadySet,
         
         /// <summary>
-        /// >> Event: TooManyUncles
-        /// Too many uncles.
+        /// >> TooManyUncles
         /// </summary>
         TooManyUncles,
         
         /// <summary>
-        /// >> Event: GenesisUncle
-        /// The uncle is genesis.
+        /// >> GenesisUncle
         /// </summary>
         GenesisUncle,
         
         /// <summary>
-        /// >> Event: TooHighUncle
-        /// The uncle is too high in chain.
+        /// >> TooHighUncle
         /// </summary>
         TooHighUncle,
         
         /// <summary>
-        /// >> Event: UncleAlreadyIncluded
-        /// The uncle is already included.
+        /// >> UncleAlreadyIncluded
         /// </summary>
         UncleAlreadyIncluded,
         
         /// <summary>
-        /// >> Event: OldUncle
-        /// The uncle isn't recent enough to be included.
+        /// >> OldUncle
         /// </summary>
         OldUncle,
     }

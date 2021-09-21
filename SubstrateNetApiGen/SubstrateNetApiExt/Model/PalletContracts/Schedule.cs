@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletContracts;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,24 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.schedule.Schedule
+    /// >> 406 - Composite[pallet_contracts.schedule.Schedule]
     /// </summary>
     public sealed class Schedule : BaseType
     {
         
+        /// <summary>
+        /// >> limits
+        /// </summary>
         private SubstrateNetApi.Model.PalletContracts.Limits _limits;
         
+        /// <summary>
+        /// >> instruction_weights
+        /// </summary>
         private SubstrateNetApi.Model.PalletContracts.InstructionWeights _instructionWeights;
         
+        /// <summary>
+        /// >> host_fn_weights
+        /// </summary>
         private SubstrateNetApi.Model.PalletContracts.HostFnWeights _hostFnWeights;
         
         public SubstrateNetApi.Model.PalletContracts.Limits Limits

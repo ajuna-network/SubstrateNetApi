@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.LastRuntimeUpgradeInfo
+    /// >> 98 - Composite[frame_system.LastRuntimeUpgradeInfo]
     /// </summary>
     public sealed class LastRuntimeUpgradeInfo : BaseType
     {
         
+        /// <summary>
+        /// >> spec_version
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _specVersion;
         
+        /// <summary>
+        /// >> spec_name
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Str _specName;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> SpecVersion

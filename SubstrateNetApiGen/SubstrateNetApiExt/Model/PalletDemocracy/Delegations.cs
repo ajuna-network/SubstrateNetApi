@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> Path: pallet_democracy.types.Delegations
+    /// >> 377 - Composite[pallet_democracy.types.Delegations]
     /// </summary>
     public sealed class Delegations : BaseType
     {
         
+        /// <summary>
+        /// >> votes
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _votes;
         
+        /// <summary>
+        /// >> capital
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _capital;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Votes

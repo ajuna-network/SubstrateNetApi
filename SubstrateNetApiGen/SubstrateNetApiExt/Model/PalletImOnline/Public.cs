@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> Path: pallet_im_online.sr25519.app_sr25519.Public
+    /// >> 58 - Composite[pallet_im_online.sr25519.app_sr25519.Public]
     /// </summary>
     public sealed class Public : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.Public _value;
         
         public SubstrateNetApi.Model.SpCore.Public Value

@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.pallet.pallet.Event
+    /// >> 36 - Variant[pallet_staking.pallet.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,105 +29,84 @@ namespace SubstrateNetApi.Model.PalletStaking
     {
         
         /// <summary>
-        /// >> Event: EraPaid
-        /// The era payout has been set; the first balance is the validator-payout; the second is
-        /// the remainder from the maximum amount of reward.
-        /// \[era_index, validator_payout, remainder\]
+        /// >> EraPaid
         /// </summary>
         public sealed class EraPaid : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Rewarded
-        /// The nominator has been rewarded by this amount. \[stash, amount\]
+        /// >> Rewarded
         /// </summary>
         public sealed class Rewarded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Slashed
-        /// One validator (and its nominators) has been slashed by the given amount.
-        /// \[validator, amount\]
+        /// >> Slashed
         /// </summary>
         public sealed class Slashed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: OldSlashingReportDiscarded
-        /// An old slashing report from a prior era was discarded because it could
-        /// not be processed. \[session_index\]
+        /// >> OldSlashingReportDiscarded
         /// </summary>
         public sealed class OldSlashingReportDiscarded : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: StakersElected
-        /// A new set of stakers was elected.
+        /// >> StakersElected
         /// </summary>
         public sealed class StakersElected : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: Bonded
-        /// An account has bonded this amount. \[stash, amount\]
-        /// 
-        /// NOTE: This event is only emitted when funds are bonded via a dispatchable. Notably,
-        /// it will not be emitted for staking rewards when they are added to stake.
+        /// >> Bonded
         /// </summary>
         public sealed class Bonded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Unbonded
-        /// An account has unbonded this amount. \[stash, amount\]
+        /// >> Unbonded
         /// </summary>
         public sealed class Unbonded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Withdrawn
-        /// An account has called `withdraw_unbonded` and removed unbonding chunks worth `Balance`
-        /// from the unlocking queue. \[stash, amount\]
+        /// >> Withdrawn
         /// </summary>
         public sealed class Withdrawn : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Kicked
-        /// A nominator has been kicked from a validator. \[nominator, stash\]
+        /// >> Kicked
         /// </summary>
         public sealed class Kicked : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: StakingElectionFailed
-        /// The election failed. No new era is planned.
+        /// >> StakingElectionFailed
         /// </summary>
         public sealed class StakingElectionFailed : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: Chilled
-        /// An account has stopped participating as either a validator or nominator.
-        /// \[stash\]
+        /// >> Chilled
         /// </summary>
         public sealed class Chilled : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: PayoutStarted
-        /// The stakers' rewards are getting paid. \[era_index, validator_stash\]
+        /// >> PayoutStarted
         /// </summary>
         public sealed class PayoutStarted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {

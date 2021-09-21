@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     
     /// <summary>
-    /// >> Path: pallet_treasury.Proposal
+    /// >> 396 - Composite[pallet_treasury.Proposal]
     /// </summary>
     public sealed class Proposal : BaseType
     {
         
+        /// <summary>
+        /// >> proposer
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _proposer;
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _value;
         
+        /// <summary>
+        /// >> beneficiary
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _beneficiary;
         
+        /// <summary>
+        /// >> bond
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _bond;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Proposer

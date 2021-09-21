@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.PalletMultisig;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> Path: pallet_multisig.pallet.Event
+    /// >> 79 - Variant[pallet_multisig.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,35 +30,30 @@ namespace SubstrateNetApi.Model.PalletMultisig
     {
         
         /// <summary>
-        /// >> Event: NewMultisig
-        /// A new multisig operation has begun. \[approving, multisig, call_hash\]
+        /// >> NewMultisig
         /// </summary>
-        public sealed class NewMultisig : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32Special1>
+        public sealed class NewMultisig : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
         {
         }
         
         /// <summary>
-        /// >> Event: MultisigApproval
-        /// A multisig operation has been approved by someone.
-        /// \[approving, timepoint, multisig, call_hash\]
+        /// >> MultisigApproval
         /// </summary>
-        public sealed class MultisigApproval : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32Special1>
+        public sealed class MultisigApproval : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
         {
         }
         
         /// <summary>
-        /// >> Event: MultisigExecuted
-        /// A multisig operation has been executed. \[approving, timepoint, multisig, call_hash\]
+        /// >> MultisigExecuted
         /// </summary>
-        public sealed class MultisigExecuted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32Special1, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
+        public sealed class MultisigExecuted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {
         }
         
         /// <summary>
-        /// >> Event: MultisigCancelled
-        /// A multisig operation has been cancelled. \[cancelling, timepoint, multisig, call_hash\]
+        /// >> MultisigCancelled
         /// </summary>
-        public sealed class MultisigCancelled : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32Special1>
+        public sealed class MultisigCancelled : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
         {
         }
     }

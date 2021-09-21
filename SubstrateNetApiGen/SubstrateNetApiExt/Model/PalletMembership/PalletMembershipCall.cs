@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -18,17 +19,14 @@ namespace SubstrateNetApi.Model.PalletMembership
     
     
     /// <summary>
-    /// >> Path: pallet_membership.pallet.Call
+    /// >> 218 - Variant[pallet_membership.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletMembershipCall
     {
         
         /// <summary>
-        /// >> Extrinsic: add_member
-        /// Add a member `who` to the set.
-        /// 
-        /// May only be called from `T::AddOrigin`.
+        /// >> add_member
         /// </summary>
         public GenericExtrinsicCall AddMember(SubstrateNetApi.Model.SpCore.AccountId32 who)
         {
@@ -36,10 +34,7 @@ namespace SubstrateNetApi.Model.PalletMembership
         }
         
         /// <summary>
-        /// >> Extrinsic: remove_member
-        /// Remove a member `who` from the set.
-        /// 
-        /// May only be called from `T::RemoveOrigin`.
+        /// >> remove_member
         /// </summary>
         public GenericExtrinsicCall RemoveMember(SubstrateNetApi.Model.SpCore.AccountId32 who)
         {
@@ -47,12 +42,7 @@ namespace SubstrateNetApi.Model.PalletMembership
         }
         
         /// <summary>
-        /// >> Extrinsic: swap_member
-        /// Swap out one member `remove` for another `add`.
-        /// 
-        /// May only be called from `T::SwapOrigin`.
-        /// 
-        /// Prime membership is *not* passed from `remove` to `add`, if extant.
+        /// >> swap_member
         /// </summary>
         public GenericExtrinsicCall SwapMember(SubstrateNetApi.Model.SpCore.AccountId32 remove, SubstrateNetApi.Model.SpCore.AccountId32 add)
         {
@@ -60,11 +50,7 @@ namespace SubstrateNetApi.Model.PalletMembership
         }
         
         /// <summary>
-        /// >> Extrinsic: reset_members
-        /// Change the membership to a new set, disregarding the existing membership. Be nice and
-        /// pass `members` pre-sorted.
-        /// 
-        /// May only be called from `T::ResetOrigin`.
+        /// >> reset_members
         /// </summary>
         public GenericExtrinsicCall ResetMembers(BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> members)
         {
@@ -72,12 +58,7 @@ namespace SubstrateNetApi.Model.PalletMembership
         }
         
         /// <summary>
-        /// >> Extrinsic: change_key
-        /// Swap out the sending member for some other key `new`.
-        /// 
-        /// May only be called from `Signed` origin of a current member.
-        /// 
-        /// Prime membership is passed from the origin account to `new`, if extant.
+        /// >> change_key
         /// </summary>
         public GenericExtrinsicCall ChangeKey(SubstrateNetApi.Model.SpCore.AccountId32 @new)
         {
@@ -85,10 +66,7 @@ namespace SubstrateNetApi.Model.PalletMembership
         }
         
         /// <summary>
-        /// >> Extrinsic: set_prime
-        /// Set the prime member. Must be a current member.
-        /// 
-        /// May only be called from `T::PrimeOrigin`.
+        /// >> set_prime
         /// </summary>
         public GenericExtrinsicCall SetPrime(SubstrateNetApi.Model.SpCore.AccountId32 who)
         {
@@ -96,10 +74,7 @@ namespace SubstrateNetApi.Model.PalletMembership
         }
         
         /// <summary>
-        /// >> Extrinsic: clear_prime
-        /// Remove the prime member if it exists.
-        /// 
-        /// May only be called from `T::PrimeOrigin`.
+        /// >> clear_prime
         /// </summary>
         public GenericExtrinsicCall ClearPrime()
         {

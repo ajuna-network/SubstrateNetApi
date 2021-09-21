@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.pallet.Event
+    /// >> 55 - Variant[pallet_contracts.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,74 +30,42 @@ namespace SubstrateNetApi.Model.PalletContracts
     {
         
         /// <summary>
-        /// >> Event: Instantiated
-        /// Contract deployed by address at the specified address. \[deployer, contract\]
+        /// >> Instantiated
         /// </summary>
         public sealed class Instantiated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Terminated
-        /// Contract has been removed.
-        /// \[contract, beneficiary\]
-        /// 
-        /// # Params
-        /// 
-        /// - `contract`: The contract that was terminated.
-        /// - `beneficiary`: The account that received the contracts remaining balance.
-        /// 
-        /// # Note
-        /// 
-        /// The only way for a contract to be removed and emitting this event is by calling
-        /// `seal_terminate`.
+        /// >> Terminated
         /// </summary>
         public sealed class Terminated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: CodeStored
-        /// Code with the specified hash has been stored. \[code_hash\]
+        /// >> CodeStored
         /// </summary>
         public sealed class CodeStored : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {
         }
         
         /// <summary>
-        /// >> Event: ScheduleUpdated
-        /// Triggered when the current schedule is updated.
-        /// \[version\]
-        /// 
-        /// # Params
-        /// 
-        /// - `version`: The version of the newly set schedule.
+        /// >> ScheduleUpdated
         /// </summary>
         public sealed class ScheduleUpdated : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: ContractEmitted
-        /// A custom event emitted by the contract.
-        /// \[contract, data\]
-        /// 
-        /// # Params
-        /// 
-        /// - `contract`: The contract that emitted the event.
-        /// - `data`: Data supplied by the contract. Metadata generated during contract compilation
-        ///   is needed to decode it.
+        /// >> ContractEmitted
         /// </summary>
         public sealed class ContractEmitted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>
         {
         }
         
         /// <summary>
-        /// >> Event: CodeRemoved
-        /// A code with the specified hash was removed.
-        /// \[code_hash\]
-        /// 
-        /// This happens when the last contract that uses this code hash was removed.
+        /// >> CodeRemoved
         /// </summary>
         public sealed class CodeRemoved : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {

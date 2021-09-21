@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     
     /// <summary>
-    /// >> Path: pallet_tips.pallet.Event
+    /// >> 82 - Variant[pallet_tips.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,40 +30,35 @@ namespace SubstrateNetApi.Model.PalletTips
     {
         
         /// <summary>
-        /// >> Event: NewTip
-        /// A new tip suggestion has been opened. \[tip_hash\]
+        /// >> NewTip
         /// </summary>
         public sealed class NewTip : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {
         }
         
         /// <summary>
-        /// >> Event: TipClosing
-        /// A tip suggestion has reached threshold and is closing. \[tip_hash\]
+        /// >> TipClosing
         /// </summary>
         public sealed class TipClosing : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {
         }
         
         /// <summary>
-        /// >> Event: TipClosed
-        /// A tip suggestion has been closed. \[tip_hash, who, payout\]
+        /// >> TipClosed
         /// </summary>
         public sealed class TipClosed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: TipRetracted
-        /// A tip suggestion has been retracted. \[tip_hash\]
+        /// >> TipRetracted
         /// </summary>
         public sealed class TipRetracted : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {
         }
         
         /// <summary>
-        /// >> Event: TipSlashed
-        /// A tip suggestion has been slashed. \[tip_hash, finder, deposit\]
+        /// >> TipSlashed
         /// </summary>
         public sealed class TipSlashed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {

@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,23 +20,44 @@ namespace SubstrateNetApi.Model.PalletTips
     
     
     /// <summary>
-    /// >> Path: pallet_tips.OpenTip
+    /// >> 470 - Composite[pallet_tips.OpenTip]
     /// </summary>
     public sealed class OpenTip : BaseType
     {
         
+        /// <summary>
+        /// >> reason
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _reason;
         
+        /// <summary>
+        /// >> who
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _who;
         
+        /// <summary>
+        /// >> finder
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _finder;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> closes
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32> _closes;
         
+        /// <summary>
+        /// >> tips
+        /// </summary>
         private BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>> _tips;
         
+        /// <summary>
+        /// >> finders_fee
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _findersFee;
         
         public SubstrateNetApi.Model.PrimitiveTypes.H256 Reason

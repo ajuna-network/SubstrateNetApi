@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpConsensusBabe;
+using SubstrateNetApi.Model.SpConsensusSlots;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,17 +20,29 @@ namespace SubstrateNetApi.Model.SpConsensusSlots
     
     
     /// <summary>
-    /// >> Path: sp_consensus_slots.EquivocationProof
+    /// >> 123 - Composite[sp_consensus_slots.EquivocationProof]
     /// </summary>
     public sealed class EquivocationProof : BaseType
     {
         
+        /// <summary>
+        /// >> offender
+        /// </summary>
         private SubstrateNetApi.Model.SpConsensusBabe.Public _offender;
         
+        /// <summary>
+        /// >> slot
+        /// </summary>
         private SubstrateNetApi.Model.SpConsensusSlots.Slot _slot;
         
+        /// <summary>
+        /// >> first_header
+        /// </summary>
         private SubstrateNetApi.Model.SpRuntime.Header _firstHeader;
         
+        /// <summary>
+        /// >> second_header
+        /// </summary>
         private SubstrateNetApi.Model.SpRuntime.Header _secondHeader;
         
         public SubstrateNetApi.Model.SpConsensusBabe.Public Offender

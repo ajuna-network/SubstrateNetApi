@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpRuntime
     
     
     /// <summary>
-    /// >> Path: sp_runtime.generic.digest.Digest
+    /// >> 11 - Composite[sp_runtime.generic.digest.Digest]
     /// </summary>
     public sealed class Digest : BaseType
     {
         
+        /// <summary>
+        /// >> logs
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpRuntime.EnumDigestItem> _logs;
         
         public BaseVec<SubstrateNetApi.Model.SpRuntime.EnumDigestItem> Logs

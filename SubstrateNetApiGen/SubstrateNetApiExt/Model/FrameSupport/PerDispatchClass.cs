@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSystem;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,24 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.weights.PerDispatchClass
+    /// >> 107 - Composite[frame_support.weights.PerDispatchClass]
     /// </summary>
     public sealed class PerDispatchClass : BaseType
     {
         
+        /// <summary>
+        /// >> normal
+        /// </summary>
         private SubstrateNetApi.Model.FrameSystem.WeightsPerClass _normal;
         
+        /// <summary>
+        /// >> operational
+        /// </summary>
         private SubstrateNetApi.Model.FrameSystem.WeightsPerClass _operational;
         
+        /// <summary>
+        /// >> mandatory
+        /// </summary>
         private SubstrateNetApi.Model.FrameSystem.WeightsPerClass _mandatory;
         
         public SubstrateNetApi.Model.FrameSystem.WeightsPerClass Normal

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +18,24 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> Path: pallet_democracy.types.Tally
+    /// >> 373 - Composite[pallet_democracy.types.Tally]
     /// </summary>
     public sealed class Tally : BaseType
     {
         
+        /// <summary>
+        /// >> ayes
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _ayes;
         
+        /// <summary>
+        /// >> nays
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _nays;
         
+        /// <summary>
+        /// >> turnout
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _turnout;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Ayes

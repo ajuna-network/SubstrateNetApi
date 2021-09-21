@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     
     /// <summary>
-    /// >> Path: pallet_sudo.pallet.Event
+    /// >> 56 - Variant[pallet_sudo.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,24 +28,21 @@ namespace SubstrateNetApi.Model.PalletSudo
     {
         
         /// <summary>
-        /// >> Event: Sudid
-        /// A sudo just took place. \[result\]
+        /// >> Sudid
         /// </summary>
         public sealed class Sudid : BaseTuple<BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {
         }
         
         /// <summary>
-        /// >> Event: KeyChanged
-        /// The \[sudoer\] just switched identity; the old key is supplied.
+        /// >> KeyChanged
         /// </summary>
         public sealed class KeyChanged : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: SudoAsDone
-        /// A sudo just took place. \[result\]
+        /// >> SudoAsDone
         /// </summary>
         public sealed class SudoAsDone : BaseTuple<BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {

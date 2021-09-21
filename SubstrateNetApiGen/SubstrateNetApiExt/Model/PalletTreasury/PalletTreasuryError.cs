@@ -17,27 +17,24 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     
     /// <summary>
-    /// >> Path: pallet_treasury.pallet.Error
+    /// >> 400 - Variant[pallet_treasury.pallet.Error]
     /// Error for the treasury pallet.
     /// </summary>
     public enum PalletTreasuryError
     {
         
         /// <summary>
-        /// >> Event: InsufficientProposersBalance
-        /// Proposer's balance is too low.
+        /// >> InsufficientProposersBalance
         /// </summary>
         InsufficientProposersBalance,
         
         /// <summary>
-        /// >> Event: InvalidIndex
-        /// No proposal or bounty at that index.
+        /// >> InvalidIndex
         /// </summary>
         InvalidIndex,
         
         /// <summary>
-        /// >> Event: TooManyApprovals
-        /// Too many approvals in the queue.
+        /// >> TooManyApprovals
         /// </summary>
         TooManyApprovals,
     }

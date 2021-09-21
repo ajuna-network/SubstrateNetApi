@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.SpNposElections
     
     
     /// <summary>
-    /// >> Path: sp_npos_elections.Support
+    /// >> 198 - Composite[sp_npos_elections.Support]
     /// </summary>
     public sealed class Support : BaseType
     {
         
+        /// <summary>
+        /// >> total
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _total;
         
+        /// <summary>
+        /// >> voters
+        /// </summary>
         private BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>> _voters;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Total

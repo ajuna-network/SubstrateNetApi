@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     
     /// <summary>
-    /// >> Path: pallet_vesting.pallet.Event
+    /// >> 72 - Variant[pallet_vesting.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,18 +29,14 @@ namespace SubstrateNetApi.Model.PalletVesting
     {
         
         /// <summary>
-        /// >> Event: VestingUpdated
-        /// The amount vested has been updated. This could indicate a change in funds available.
-        /// The balance given is the amount which is left unvested (and thus locked).
-        /// \[account, unvested\]
+        /// >> VestingUpdated
         /// </summary>
         public sealed class VestingUpdated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: VestingCompleted
-        /// An \[account\] has become fully vested.
+        /// >> VestingCompleted
         /// </summary>
         public sealed class VestingCompleted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {

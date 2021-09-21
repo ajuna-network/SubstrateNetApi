@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.PalletBagsList
     
     
     /// <summary>
-    /// >> Path: pallet_bags_list.list.Node
+    /// >> 498 - Composite[pallet_bags_list.list.Node]
     /// </summary>
     public sealed class Node : BaseType
     {
         
+        /// <summary>
+        /// >> id
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _id;
         
+        /// <summary>
+        /// >> prev
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.SpCore.AccountId32> _prev;
         
+        /// <summary>
+        /// >> next
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.SpCore.AccountId32> _next;
         
+        /// <summary>
+        /// >> bag_upper
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _bagUpper;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Id

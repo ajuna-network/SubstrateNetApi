@@ -7,7 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -35,9 +39,9 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 13 - Variant[sp_runtime.generic.digest.DigestItem]
     /// </summary>
-    public sealed class EnumDigestItem : BaseEnumExt<DigestItem, SubstrateNetApi.Model.PrimitiveTypes.H256, BaseTuple<SubstrateNetApi.Model.Base.Arr4Special3, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, BaseTuple<SubstrateNetApi.Model.Base.Arr4Special3, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, BaseTuple<SubstrateNetApi.Model.Base.Arr4Special3, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, SubstrateNetApi.Model.SpRuntime.EnumChangesTrieSignal, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, BaseVoid>
+    public sealed class EnumDigestItem : BaseEnumExt<DigestItem, SubstrateNetApi.Model.PrimitiveTypes.H256, BaseTuple<SubstrateNetApi.Model.Base.Arr4U8, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, BaseTuple<SubstrateNetApi.Model.Base.Arr4U8, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, BaseTuple<SubstrateNetApi.Model.Base.Arr4U8, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, SubstrateNetApi.Model.SpRuntime.EnumChangesTrieSignal, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, BaseVoid>
     {
     }
 }

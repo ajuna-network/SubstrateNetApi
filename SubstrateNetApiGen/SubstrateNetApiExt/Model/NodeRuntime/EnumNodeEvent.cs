@@ -87,7 +87,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
     }
     
     /// <summary>
-    /// >> node_runtime.Event
+    /// >> 20 - Variant[node_runtime.Event]
     /// </summary>
     public sealed class EnumNodeEvent : BaseEnum<NodeEvent>
     {

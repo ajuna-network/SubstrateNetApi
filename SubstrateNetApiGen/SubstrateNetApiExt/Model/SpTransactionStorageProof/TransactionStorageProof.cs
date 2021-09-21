@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.SpTransactionStorageProof
     
     
     /// <summary>
-    /// >> Path: sp_transaction_storage_proof.TransactionStorageProof
+    /// >> 305 - Composite[sp_transaction_storage_proof.TransactionStorageProof]
     /// </summary>
     public sealed class TransactionStorageProof : BaseType
     {
         
+        /// <summary>
+        /// >> chunk
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> _chunk;
         
+        /// <summary>
+        /// >> proof
+        /// </summary>
         private BaseVec<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> _proof;
         
         public BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> Chunk

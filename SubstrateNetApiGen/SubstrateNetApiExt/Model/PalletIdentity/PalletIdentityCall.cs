@@ -8,7 +8,11 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.PalletIdentity;
+using SubstrateNetApi.Model.SpCore;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,27 +22,14 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> Path: pallet_identity.pallet.Call
+    /// >> 242 - Variant[pallet_identity.pallet.Call]
     /// Identity pallet declaration.
     /// </summary>
     public sealed class PalletIdentityCall
     {
         
         /// <summary>
-        /// >> Extrinsic: add_registrar
-        /// Add a registrar to the system.
-        /// 
-        /// The dispatch origin for this call must be `T::RegistrarOrigin`.
-        /// 
-        /// - `account`: the account of the registrar.
-        /// 
-        /// Emits `RegistrarAdded` if successful.
-        /// 
-        /// # <weight>
-        /// - `O(R)` where `R` registrar-count (governance-bounded and code-bounded).
-        /// - One storage mutation (codec `O(R)`).
-        /// - One event.
-        /// # </weight>
+        /// >> add_registrar
         /// </summary>
         public GenericExtrinsicCall AddRegistrar(SubstrateNetApi.Model.SpCore.AccountId32 account)
         {
@@ -46,26 +37,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: set_identity
-        /// Set an account's identity information and reserve the appropriate deposit.
-        /// 
-        /// If the account already has identity information, the deposit is taken as part payment
-        /// for the new deposit.
-        /// 
-        /// The dispatch origin for this call must be _Signed_.
-        /// 
-        /// - `info`: The identity information.
-        /// 
-        /// Emits `IdentitySet` if successful.
-        /// 
-        /// # <weight>
-        /// - `O(X + X' + R)`
-        ///   - where `X` additional-field-count (deposit-bounded and code-bounded)
-        ///   - where `R` judgements-count (registrar-count-bounded)
-        /// - One balance reserve operation.
-        /// - One storage mutation (codec-read `O(X' + R)`, codec-write `O(X + R)`).
-        /// - One event.
-        /// # </weight>
+        /// >> set_identity
         /// </summary>
         public GenericExtrinsicCall SetIdentity(SubstrateNetApi.Model.PalletIdentity.IdentityInfo info)
         {
@@ -73,28 +45,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: set_subs
-        /// Set the sub-accounts of the sender.
-        /// 
-        /// Payment: Any aggregate balance reserved by previous `set_subs` calls will be returned
-        /// and an amount `SubAccountDeposit` will be reserved for each item in `subs`.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a registered
-        /// identity.
-        /// 
-        /// - `subs`: The identity's (new) sub-accounts.
-        /// 
-        /// # <weight>
-        /// - `O(P + S)`
-        ///   - where `P` old-subs-count (hard- and deposit-bounded).
-        ///   - where `S` subs-count (hard- and deposit-bounded).
-        /// - At most one balance operations.
-        /// - DB:
-        ///   - `P + S` storage mutations (codec complexity `O(1)`)
-        ///   - One storage read (codec complexity `O(P)`).
-        ///   - One storage write (codec complexity `O(S)`).
-        ///   - One storage-exists (`IdentityOf::contains_key`).
-        /// # </weight>
+        /// >> set_subs
         /// </summary>
         public GenericExtrinsicCall SetSubs(BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletIdentity.EnumData>> subs)
         {
@@ -102,25 +53,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: clear_identity
-        /// Clear an account's identity info and all sub-accounts and return all deposits.
-        /// 
-        /// Payment: All reserved balances on the account are returned.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a registered
-        /// identity.
-        /// 
-        /// Emits `IdentityCleared` if successful.
-        /// 
-        /// # <weight>
-        /// - `O(R + S + X)`
-        ///   - where `R` registrar-count (governance-bounded).
-        ///   - where `S` subs-count (hard- and deposit-bounded).
-        ///   - where `X` additional-field-count (deposit-bounded and code-bounded).
-        /// - One balance-unreserve operation.
-        /// - `2` storage reads and `S + 2` storage deletions.
-        /// - One event.
-        /// # </weight>
+        /// >> clear_identity
         /// </summary>
         public GenericExtrinsicCall ClearIdentity()
         {
@@ -128,30 +61,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: request_judgement
-        /// Request a judgement from a registrar.
-        /// 
-        /// Payment: At most `max_fee` will be reserved for payment to the registrar if judgement
-        /// given.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a
-        /// registered identity.
-        /// 
-        /// - `reg_index`: The index of the registrar whose judgement is requested.
-        /// - `max_fee`: The maximum fee that may be paid. This should just be auto-populated as:
-        /// 
-        /// ```nocompile
-        /// Self::registrars().get(reg_index).unwrap().fee
-        /// ```
-        /// 
-        /// Emits `JudgementRequested` if successful.
-        /// 
-        /// # <weight>
-        /// - `O(R + X)`.
-        /// - One balance-reserve operation.
-        /// - Storage: 1 read `O(R)`, 1 mutate `O(X + R)`.
-        /// - One event.
-        /// # </weight>
+        /// >> request_judgement
         /// </summary>
         public GenericExtrinsicCall RequestJudgement(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> reg_index, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> max_fee)
         {
@@ -159,24 +69,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: cancel_request
-        /// Cancel a previous request.
-        /// 
-        /// Payment: A previously reserved deposit is returned on success.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a
-        /// registered identity.
-        /// 
-        /// - `reg_index`: The index of the registrar whose judgement is no longer requested.
-        /// 
-        /// Emits `JudgementUnrequested` if successful.
-        /// 
-        /// # <weight>
-        /// - `O(R + X)`.
-        /// - One balance-reserve operation.
-        /// - One storage mutation `O(R + X)`.
-        /// - One event
-        /// # </weight>
+        /// >> cancel_request
         /// </summary>
         public GenericExtrinsicCall CancelRequest(SubstrateNetApi.Model.Types.Primitive.U32 reg_index)
         {
@@ -184,20 +77,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: set_fee
-        /// Set the fee required for a judgement to be requested from a registrar.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must be the account
-        /// of the registrar whose index is `index`.
-        /// 
-        /// - `index`: the index of the registrar whose fee is to be set.
-        /// - `fee`: the new fee.
-        /// 
-        /// # <weight>
-        /// - `O(R)`.
-        /// - One storage mutation `O(R)`.
-        /// - Benchmark: 7.315 + R * 0.329 ��s (min squares analysis)
-        /// # </weight>
+        /// >> set_fee
         /// </summary>
         public GenericExtrinsicCall SetFee(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> index, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> fee)
         {
@@ -205,20 +85,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: set_account_id
-        /// Change the account associated with a registrar.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must be the account
-        /// of the registrar whose index is `index`.
-        /// 
-        /// - `index`: the index of the registrar whose fee is to be set.
-        /// - `new`: the new account ID.
-        /// 
-        /// # <weight>
-        /// - `O(R)`.
-        /// - One storage mutation `O(R)`.
-        /// - Benchmark: 8.823 + R * 0.32 ��s (min squares analysis)
-        /// # </weight>
+        /// >> set_account_id
         /// </summary>
         public GenericExtrinsicCall SetAccountId(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> index, SubstrateNetApi.Model.SpCore.AccountId32 @new)
         {
@@ -226,20 +93,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: set_fields
-        /// Set the field information for a registrar.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must be the account
-        /// of the registrar whose index is `index`.
-        /// 
-        /// - `index`: the index of the registrar whose fee is to be set.
-        /// - `fields`: the fields that the registrar concerns themselves with.
-        /// 
-        /// # <weight>
-        /// - `O(R)`.
-        /// - One storage mutation `O(R)`.
-        /// - Benchmark: 7.464 + R * 0.325 ��s (min squares analysis)
-        /// # </weight>
+        /// >> set_fields
         /// </summary>
         public GenericExtrinsicCall SetFields(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> index, SubstrateNetApi.Model.PalletIdentity.BitFlags fields)
         {
@@ -247,26 +101,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: provide_judgement
-        /// Provide a judgement for an account's identity.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must be the account
-        /// of the registrar whose index is `reg_index`.
-        /// 
-        /// - `reg_index`: the index of the registrar whose judgement is being made.
-        /// - `target`: the account whose identity the judgement is upon. This must be an account
-        ///   with a registered identity.
-        /// - `judgement`: the judgement of the registrar of index `reg_index` about `target`.
-        /// 
-        /// Emits `JudgementGiven` if successful.
-        /// 
-        /// # <weight>
-        /// - `O(R + X)`.
-        /// - One balance-transfer operation.
-        /// - Up to one account-lookup operation.
-        /// - Storage: 1 read `O(R)`, 1 mutate `O(R + X)`.
-        /// - One event.
-        /// # </weight>
+        /// >> provide_judgement
         /// </summary>
         public GenericExtrinsicCall ProvideJudgement(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> reg_index, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress target, SubstrateNetApi.Model.PalletIdentity.EnumJudgement judgement)
         {
@@ -274,26 +109,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: kill_identity
-        /// Remove an account's identity and sub-account information and slash the deposits.
-        /// 
-        /// Payment: Reserved balances from `set_subs` and `set_identity` are slashed and handled by
-        /// `Slash`. Verification request deposits are not returned; they should be cancelled
-        /// manually using `cancel_request`.
-        /// 
-        /// The dispatch origin for this call must match `T::ForceOrigin`.
-        /// 
-        /// - `target`: the account whose identity the judgement is upon. This must be an account
-        ///   with a registered identity.
-        /// 
-        /// Emits `IdentityKilled` if successful.
-        /// 
-        /// # <weight>
-        /// - `O(R + S + X)`.
-        /// - One balance-reserve operation.
-        /// - `S + 2` storage mutations.
-        /// - One event.
-        /// # </weight>
+        /// >> kill_identity
         /// </summary>
         public GenericExtrinsicCall KillIdentity(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress target)
         {
@@ -301,14 +117,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: add_sub
-        /// Add the given account to the sender's subs.
-        /// 
-        /// Payment: Balance reserved by a previous `set_subs` call for one sub will be repatriated
-        /// to the sender.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a registered
-        /// sub identity of `sub`.
+        /// >> add_sub
         /// </summary>
         public GenericExtrinsicCall AddSub(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress sub, SubstrateNetApi.Model.PalletIdentity.EnumData data)
         {
@@ -316,11 +125,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: rename_sub
-        /// Alter the associated name of the given sub-account.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a registered
-        /// sub identity of `sub`.
+        /// >> rename_sub
         /// </summary>
         public GenericExtrinsicCall RenameSub(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress sub, SubstrateNetApi.Model.PalletIdentity.EnumData data)
         {
@@ -328,14 +133,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: remove_sub
-        /// Remove the given account from the sender's subs.
-        /// 
-        /// Payment: Balance reserved by a previous `set_subs` call for one sub will be repatriated
-        /// to the sender.
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a registered
-        /// sub identity of `sub`.
+        /// >> remove_sub
         /// </summary>
         public GenericExtrinsicCall RemoveSub(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress sub)
         {
@@ -343,17 +141,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         }
         
         /// <summary>
-        /// >> Extrinsic: quit_sub
-        /// Remove the sender as a sub-account.
-        /// 
-        /// Payment: Balance reserved by a previous `set_subs` call for one sub will be repatriated
-        /// to the sender (*not* the original depositor).
-        /// 
-        /// The dispatch origin for this call must be _Signed_ and the sender must have a registered
-        /// super-identity.
-        /// 
-        /// NOTE: This should not normally be used, but is provided in the case that the non-
-        /// controller of an account is maliciously registered as a sub-account.
+        /// >> quit_sub
         /// </summary>
         public GenericExtrinsicCall QuitSub()
         {

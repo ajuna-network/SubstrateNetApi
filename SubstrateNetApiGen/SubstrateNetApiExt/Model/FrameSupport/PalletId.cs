@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,17 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.PalletId
+    /// >> 399 - Composite[frame_support.PalletId]
     /// </summary>
     public sealed class PalletId : BaseType
     {
         
-        private SubstrateNetApi.Model.Base.Arr8Special7 _value;
+        /// <summary>
+        /// >> value
+        /// </summary>
+        private SubstrateNetApi.Model.Base.Arr8U8 _value;
         
-        public SubstrateNetApi.Model.Base.Arr8Special7 Value
+        public SubstrateNetApi.Model.Base.Arr8U8 Value
         {
             get
             {
@@ -51,7 +55,7 @@ namespace SubstrateNetApi.Model.FrameSupport
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Value = new SubstrateNetApi.Model.Base.Arr8Special7();
+            Value = new SubstrateNetApi.Model.Base.Arr8U8();
             Value.Decode(byteArray, ref p);
             TypeSize = p - start;
         }

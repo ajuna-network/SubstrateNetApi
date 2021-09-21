@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpFinalityGrandpa;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     
     /// <summary>
-    /// >> Path: pallet_grandpa.StoredPendingChange
+    /// >> 394 - Composite[pallet_grandpa.StoredPendingChange]
     /// </summary>
     public sealed class StoredPendingChange : BaseType
     {
         
+        /// <summary>
+        /// >> scheduled_at
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _scheduledAt;
         
+        /// <summary>
+        /// >> delay
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _delay;
         
+        /// <summary>
+        /// >> next_authorities
+        /// </summary>
         private BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>> _nextAuthorities;
         
+        /// <summary>
+        /// >> forced
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32> _forced;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 ScheduledAt

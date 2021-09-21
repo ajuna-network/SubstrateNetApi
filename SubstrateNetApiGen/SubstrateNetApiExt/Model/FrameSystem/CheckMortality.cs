@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.extensions.check_mortality.CheckMortality
+    /// >> 509 - Composite[frame_system.extensions.check_mortality.CheckMortality]
     /// </summary>
     public sealed class CheckMortality : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.SpRuntime.EnumEra _value;
         
         public SubstrateNetApi.Model.SpRuntime.EnumEra Value

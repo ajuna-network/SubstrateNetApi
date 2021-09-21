@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.storage.bounded_btree_map.BoundedBTreeMap
+    /// >> 338 - Composite[frame_support.storage.bounded_btree_map.BoundedBTreeMap]
     /// </summary>
     public sealed class BoundedBTreeMap : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Base.BTreeMap _value;
         
         public SubstrateNetApi.Model.Base.BTreeMap Value

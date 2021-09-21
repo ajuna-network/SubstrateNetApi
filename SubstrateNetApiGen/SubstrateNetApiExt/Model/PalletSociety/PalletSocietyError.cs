@@ -17,117 +17,99 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> Path: pallet_society.Error
+    /// >> 436 - Variant[pallet_society.Error]
     /// Errors for this module.
     /// </summary>
     public enum PalletSocietyError
     {
         
         /// <summary>
-        /// >> Event: BadPosition
-        /// An incorrect position was provided.
+        /// >> BadPosition
         /// </summary>
         BadPosition,
         
         /// <summary>
-        /// >> Event: NotMember
-        /// User is not a member.
+        /// >> NotMember
         /// </summary>
         NotMember,
         
         /// <summary>
-        /// >> Event: AlreadyMember
-        /// User is already a member.
+        /// >> AlreadyMember
         /// </summary>
         AlreadyMember,
         
         /// <summary>
-        /// >> Event: Suspended
-        /// User is suspended.
+        /// >> Suspended
         /// </summary>
         Suspended,
         
         /// <summary>
-        /// >> Event: NotSuspended
-        /// User is not suspended.
+        /// >> NotSuspended
         /// </summary>
         NotSuspended,
         
         /// <summary>
-        /// >> Event: NoPayout
-        /// Nothing to payout.
+        /// >> NoPayout
         /// </summary>
         NoPayout,
         
         /// <summary>
-        /// >> Event: AlreadyFounded
-        /// Society already founded.
+        /// >> AlreadyFounded
         /// </summary>
         AlreadyFounded,
         
         /// <summary>
-        /// >> Event: InsufficientPot
-        /// Not enough in pot to accept candidate.
+        /// >> InsufficientPot
         /// </summary>
         InsufficientPot,
         
         /// <summary>
-        /// >> Event: AlreadyVouching
-        /// Member is already vouching or banned from vouching again.
+        /// >> AlreadyVouching
         /// </summary>
         AlreadyVouching,
         
         /// <summary>
-        /// >> Event: NotVouching
-        /// Member is not vouching.
+        /// >> NotVouching
         /// </summary>
         NotVouching,
         
         /// <summary>
-        /// >> Event: Head
-        /// Cannot remove the head of the chain.
+        /// >> Head
         /// </summary>
         Head,
         
         /// <summary>
-        /// >> Event: Founder
-        /// Cannot remove the founder.
+        /// >> Founder
         /// </summary>
         Founder,
         
         /// <summary>
-        /// >> Event: AlreadyBid
-        /// User has already made a bid.
+        /// >> AlreadyBid
         /// </summary>
         AlreadyBid,
         
         /// <summary>
-        /// >> Event: AlreadyCandidate
-        /// User is already a candidate.
+        /// >> AlreadyCandidate
         /// </summary>
         AlreadyCandidate,
         
         /// <summary>
-        /// >> Event: NotCandidate
-        /// User is not a candidate.
+        /// >> NotCandidate
         /// </summary>
         NotCandidate,
         
         /// <summary>
-        /// >> Event: MaxMembers
-        /// Too many members in the society.
+        /// >> MaxMembers
         /// </summary>
         MaxMembers,
         
         /// <summary>
-        /// >> Event: NotFounder
-        /// The caller is not the founder.
+        /// >> NotFounder
         /// </summary>
         NotFounder,
         
         /// <summary>
-        /// >> Event: NotHead
-        /// The caller is not the head.
+        /// >> NotHead
         /// </summary>
         NotHead,
     }

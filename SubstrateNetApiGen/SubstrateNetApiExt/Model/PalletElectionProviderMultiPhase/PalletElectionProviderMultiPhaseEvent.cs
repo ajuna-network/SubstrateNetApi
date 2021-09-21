@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletElectionProviderMultiPhase;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> Path: pallet_election_provider_multi_phase.pallet.Event
+    /// >> 32 - Variant[pallet_election_provider_multi_phase.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,54 +30,42 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     {
         
         /// <summary>
-        /// >> Event: SolutionStored
-        /// A solution was stored with the given compute.
-        /// 
-        /// If the solution is signed, this means that it hasn't yet been processed. If the
-        /// solution is unsigned, this means that it has also been processed.
-        /// 
-        /// The `bool` is `true` when a previous solution was ejected to make room for this one.
+        /// >> SolutionStored
         /// </summary>
         public sealed class SolutionStored : BaseTuple<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumElectionCompute, SubstrateNetApi.Model.Types.Primitive.Bool>
         {
         }
         
         /// <summary>
-        /// >> Event: ElectionFinalized
-        /// The election has been finalized, with `Some` of the given computation, or else if the
-        /// election failed, `None`.
+        /// >> ElectionFinalized
         /// </summary>
         public sealed class ElectionFinalized : BaseTuple<BaseOpt<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumElectionCompute>>
         {
         }
         
         /// <summary>
-        /// >> Event: Rewarded
-        /// An account has been rewarded for their signed submission being finalized.
+        /// >> Rewarded
         /// </summary>
         public sealed class Rewarded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Slashed
-        /// An account has been slashed for submitting an invalid signed submission.
+        /// >> Slashed
         /// </summary>
         public sealed class Slashed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: SignedPhaseStarted
-        /// The signed phase of the given round has started.
+        /// >> SignedPhaseStarted
         /// </summary>
         public sealed class SignedPhaseStarted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: UnsignedPhaseStarted
-        /// The unsigned phase of the given round has started.
+        /// >> UnsignedPhaseStarted
         /// </summary>
         public sealed class UnsignedPhaseStarted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {

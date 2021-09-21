@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> Path: sp_arithmetic.fixed_point.FixedU128
+    /// >> 328 - Composite[sp_arithmetic.fixed_point.FixedU128]
     /// </summary>
     public sealed class FixedU128 : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _value;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Value

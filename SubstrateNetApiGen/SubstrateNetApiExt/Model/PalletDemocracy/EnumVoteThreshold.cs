@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 40 - Variant[pallet_democracy.vote_threshold.VoteThreshold]
     /// </summary>
     public sealed class EnumVoteThreshold : BaseEnum<VoteThreshold>
     {

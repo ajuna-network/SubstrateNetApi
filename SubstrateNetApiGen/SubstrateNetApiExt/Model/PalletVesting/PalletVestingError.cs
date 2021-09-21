@@ -17,40 +17,34 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     
     /// <summary>
-    /// >> Path: pallet_vesting.pallet.Error
+    /// >> 443 - Variant[pallet_vesting.pallet.Error]
     /// Error for the vesting pallet.
     /// </summary>
     public enum PalletVestingError
     {
         
         /// <summary>
-        /// >> Event: NotVesting
-        /// The account given is not vesting.
+        /// >> NotVesting
         /// </summary>
         NotVesting,
         
         /// <summary>
-        /// >> Event: AtMaxVestingSchedules
-        /// The account already has `MaxVestingSchedules` count of schedules and thus
-        /// cannot add another one. Consider merging existing schedules in order to add another.
+        /// >> AtMaxVestingSchedules
         /// </summary>
         AtMaxVestingSchedules,
         
         /// <summary>
-        /// >> Event: AmountLow
-        /// Amount being transferred is too low to create a vesting schedule.
+        /// >> AmountLow
         /// </summary>
         AmountLow,
         
         /// <summary>
-        /// >> Event: ScheduleIndexOutOfBounds
-        /// An index was out of bounds of the vesting schedules.
+        /// >> ScheduleIndexOutOfBounds
         /// </summary>
         ScheduleIndexOutOfBounds,
         
         /// <summary>
-        /// >> Event: InvalidScheduleParams
-        /// Failed to create a new schedule because some parameter was invalid.
+        /// >> InvalidScheduleParams
         /// </summary>
         InvalidScheduleParams,
     }

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.extensions.check_nonce.CheckNonce
+    /// >> 511 - Composite[frame_system.extensions.check_nonce.CheckNonce]
     /// </summary>
     public sealed class CheckNonce : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _value;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> Value

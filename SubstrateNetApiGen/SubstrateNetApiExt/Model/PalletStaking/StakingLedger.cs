@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletStaking;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +20,34 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.StakingLedger
+    /// >> 344 - Composite[pallet_staking.StakingLedger]
     /// </summary>
     public sealed class StakingLedger : BaseType
     {
         
+        /// <summary>
+        /// >> stash
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _stash;
         
+        /// <summary>
+        /// >> total
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> _total;
         
+        /// <summary>
+        /// >> active
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> _active;
         
+        /// <summary>
+        /// >> unlocking
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.PalletStaking.UnlockChunk> _unlocking;
         
+        /// <summary>
+        /// >> claimed_rewards
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U32> _claimedRewards;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Stash

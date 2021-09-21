@@ -9,6 +9,7 @@
 
 using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,30 +19,14 @@ namespace SubstrateNetApi.Model.PalletTimestamp
     
     
     /// <summary>
-    /// >> Path: pallet_timestamp.pallet.Call
+    /// >> 132 - Variant[pallet_timestamp.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletTimestampCall
     {
         
         /// <summary>
-        /// >> Extrinsic: set
-        /// Set the current time.
-        /// 
-        /// This call should be invoked exactly once per block. It will panic at the finalization
-        /// phase, if this call hasn't been invoked by that time.
-        /// 
-        /// The timestamp should be greater than the previous one by the amount specified by
-        /// `MinimumPeriod`.
-        /// 
-        /// The dispatch origin for this call must be `Inherent`.
-        /// 
-        /// # <weight>
-        /// - `O(1)` (Note that implementations of `OnTimestampSet` must also be `O(1)`)
-        /// - 1 storage read and 1 storage mutation (codec `O(1)`). (because of `DidUpdate::take` in
-        ///   `on_finalize`)
-        /// - 1 event handler `on_timestamp_set`. Must be `O(1)`.
-        /// # </weight>
+        /// >> set
         /// </summary>
         public GenericExtrinsicCall Set(BaseCom<SubstrateNetApi.Model.Types.Primitive.U64> now)
         {

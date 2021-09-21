@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> Path: pallet_im_online.pallet.Error
+    /// >> 413 - Variant[pallet_im_online.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,14 +27,12 @@ namespace SubstrateNetApi.Model.PalletImOnline
     {
         
         /// <summary>
-        /// >> Event: InvalidKey
-        /// Non existent public key.
+        /// >> InvalidKey
         /// </summary>
         InvalidKey,
         
         /// <summary>
-        /// >> Event: DuplicatedHeartbeat
-        /// Duplicated heartbeat.
+        /// >> DuplicatedHeartbeat
         /// </summary>
         DuplicatedHeartbeat,
     }

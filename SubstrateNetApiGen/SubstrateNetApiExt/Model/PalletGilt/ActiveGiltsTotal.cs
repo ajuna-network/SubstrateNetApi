@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpArithmetic;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> Path: pallet_gilt.pallet.ActiveGiltsTotal
+    /// >> 484 - Composite[pallet_gilt.pallet.ActiveGiltsTotal]
     /// </summary>
     public sealed class ActiveGiltsTotal : BaseType
     {
         
+        /// <summary>
+        /// >> frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _frozen;
         
+        /// <summary>
+        /// >> proportion
+        /// </summary>
         private SubstrateNetApi.Model.SpArithmetic.Perquintill _proportion;
         
+        /// <summary>
+        /// >> index
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _index;
         
+        /// <summary>
+        /// >> target
+        /// </summary>
         private SubstrateNetApi.Model.SpArithmetic.Perquintill _target;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Frozen

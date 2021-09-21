@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> Path: pallet_gilt.pallet.GiltBid
+    /// >> 483 - Composite[pallet_gilt.pallet.GiltBid]
     /// </summary>
     public sealed class GiltBid : BaseType
     {
         
+        /// <summary>
+        /// >> amount
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _amount;
         
+        /// <summary>
+        /// >> who
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _who;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Amount

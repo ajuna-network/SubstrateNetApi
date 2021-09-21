@@ -8,7 +8,10 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.SpFinalityGrandpa;
+using SubstrateNetApi.Model.SpSession;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,18 +21,14 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     
     /// <summary>
-    /// >> Path: pallet_grandpa.pallet.Call
+    /// >> 219 - Variant[pallet_grandpa.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletGrandpaCall
     {
         
         /// <summary>
-        /// >> Extrinsic: report_equivocation
-        /// Report voter equivocation/misbehavior. This method will verify the
-        /// equivocation proof and validate the given key ownership proof
-        /// against the extracted offender. If both are valid, the offence
-        /// will be reported.
+        /// >> report_equivocation
         /// </summary>
         public GenericExtrinsicCall ReportEquivocation(SubstrateNetApi.Model.SpFinalityGrandpa.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -37,16 +36,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         }
         
         /// <summary>
-        /// >> Extrinsic: report_equivocation_unsigned
-        /// Report voter equivocation/misbehavior. This method will verify the
-        /// equivocation proof and validate the given key ownership proof
-        /// against the extracted offender. If both are valid, the offence
-        /// will be reported.
-        /// 
-        /// This extrinsic must be called unsigned and it is expected that only
-        /// block authors will call it (validated in `ValidateUnsigned`), as such
-        /// if the block author is defined it will be defined as the equivocation
-        /// reporter.
+        /// >> report_equivocation_unsigned
         /// </summary>
         public GenericExtrinsicCall ReportEquivocationUnsigned(SubstrateNetApi.Model.SpFinalityGrandpa.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -54,14 +44,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         }
         
         /// <summary>
-        /// >> Extrinsic: note_stalled
-        /// Note that the current authority set of the GRANDPA finality gadget has
-        /// stalled. This will trigger a forced authority set change at the beginning
-        /// of the next session, to be enacted `delay` blocks after that. The delay
-        /// should be high enough to safely assume that the block signalling the
-        /// forced change will not be re-orged (e.g. 1000 blocks). The GRANDPA voters
-        /// will start the new authority set using the given finalized block as base.
-        /// Only callable by root.
+        /// >> note_stalled
         /// </summary>
         public GenericExtrinsicCall NoteStalled(SubstrateNetApi.Model.Types.Primitive.U32 delay, SubstrateNetApi.Model.Types.Primitive.U32 best_finalized_block_number)
         {

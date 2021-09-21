@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +19,34 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> Path: pallet_im_online.Heartbeat
+    /// >> 235 - Composite[pallet_im_online.Heartbeat]
     /// </summary>
     public sealed class Heartbeat : BaseType
     {
         
+        /// <summary>
+        /// >> block_number
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _blockNumber;
         
+        /// <summary>
+        /// >> network_state
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.OpaqueNetworkState _networkState;
         
+        /// <summary>
+        /// >> session_index
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _sessionIndex;
         
+        /// <summary>
+        /// >> authority_index
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _authorityIndex;
         
+        /// <summary>
+        /// >> validators_len
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _validatorsLen;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 BlockNumber

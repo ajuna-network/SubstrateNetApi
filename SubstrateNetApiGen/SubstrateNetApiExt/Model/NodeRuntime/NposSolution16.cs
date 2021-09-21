@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.SpArithmetic;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,42 +20,90 @@ namespace SubstrateNetApi.Model.NodeRuntime
     
     
     /// <summary>
-    /// >> Path: node_runtime.NposSolution16
+    /// >> 142 - Composite[node_runtime.NposSolution16]
     /// </summary>
     public sealed class NposSolution16 : BaseType
     {
         
+        /// <summary>
+        /// >> votes1
+        /// </summary>
         private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes1;
         
+        /// <summary>
+        /// >> votes2
+        /// </summary>
         private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>,BaseCom<SubstrateNetApi.Model.SpArithmetic.PerU16>>,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes2;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr2Special73,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes3;
+        /// <summary>
+        /// >> votes3
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr2Special1,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes3;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr3Special75,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes4;
+        /// <summary>
+        /// >> votes4
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr3Special3,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes4;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr4Special77,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes5;
+        /// <summary>
+        /// >> votes5
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr4Special5,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes5;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr5Special79,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes6;
+        /// <summary>
+        /// >> votes6
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr5Special7,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes6;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr6Special81,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes7;
+        /// <summary>
+        /// >> votes7
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr6Special9,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes7;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr7Special83,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes8;
+        /// <summary>
+        /// >> votes8
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr7Special11,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes8;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr8Special85,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes9;
+        /// <summary>
+        /// >> votes9
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr8Special13,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes9;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr9Special87,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes10;
+        /// <summary>
+        /// >> votes10
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr9Special15,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes10;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr10Special89,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes11;
+        /// <summary>
+        /// >> votes11
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr10Special17,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes11;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr11Special91,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes12;
+        /// <summary>
+        /// >> votes12
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr11Special19,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes12;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr12Special93,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes13;
+        /// <summary>
+        /// >> votes13
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr12Special21,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes13;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr13Special95,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes14;
+        /// <summary>
+        /// >> votes14
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr13Special23,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes14;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr14Special97,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes15;
+        /// <summary>
+        /// >> votes15
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr14Special25,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes15;
         
-        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr15Special99,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes16;
+        /// <summary>
+        /// >> votes16
+        /// </summary>
+        private BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr15Special27,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> _votes16;
         
         public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes1
         {
@@ -78,7 +129,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr2Special73,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes3
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr2Special1,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes3
         {
             get
             {
@@ -90,7 +141,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr3Special75,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes4
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr3Special3,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes4
         {
             get
             {
@@ -102,7 +153,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr4Special77,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes5
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr4Special5,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes5
         {
             get
             {
@@ -114,7 +165,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr5Special79,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes6
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr5Special7,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes6
         {
             get
             {
@@ -126,7 +177,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr6Special81,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes7
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr6Special9,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes7
         {
             get
             {
@@ -138,7 +189,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr7Special83,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes8
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr7Special11,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes8
         {
             get
             {
@@ -150,7 +201,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr8Special85,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes9
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr8Special13,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes9
         {
             get
             {
@@ -162,7 +213,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr9Special87,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes10
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr9Special15,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes10
         {
             get
             {
@@ -174,7 +225,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr10Special89,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes11
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr10Special17,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes11
         {
             get
             {
@@ -186,7 +237,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr11Special91,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes12
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr11Special19,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes12
         {
             get
             {
@@ -198,7 +249,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr12Special93,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes13
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr12Special21,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes13
         {
             get
             {
@@ -210,7 +261,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr13Special95,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes14
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr13Special23,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes14
         {
             get
             {
@@ -222,7 +273,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr14Special97,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes15
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr14Special25,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes15
         {
             get
             {
@@ -234,7 +285,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
             }
         }
         
-        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr15Special99,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes16
+        public BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr15Special27,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>> Votes16
         {
             get
             {
@@ -280,33 +331,33 @@ namespace SubstrateNetApi.Model.NodeRuntime
             Votes1.Decode(byteArray, ref p);
             Votes2 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>,BaseCom<SubstrateNetApi.Model.SpArithmetic.PerU16>>,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes2.Decode(byteArray, ref p);
-            Votes3 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr2Special73,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes3 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr2Special1,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes3.Decode(byteArray, ref p);
-            Votes4 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr3Special75,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes4 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr3Special3,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes4.Decode(byteArray, ref p);
-            Votes5 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr4Special77,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes5 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr4Special5,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes5.Decode(byteArray, ref p);
-            Votes6 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr5Special79,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes6 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr5Special7,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes6.Decode(byteArray, ref p);
-            Votes7 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr6Special81,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes7 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr6Special9,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes7.Decode(byteArray, ref p);
-            Votes8 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr7Special83,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes8 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr7Special11,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes8.Decode(byteArray, ref p);
-            Votes9 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr8Special85,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes9 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr8Special13,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes9.Decode(byteArray, ref p);
-            Votes10 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr9Special87,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes10 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr9Special15,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes10.Decode(byteArray, ref p);
-            Votes11 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr10Special89,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes11 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr10Special17,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes11.Decode(byteArray, ref p);
-            Votes12 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr11Special91,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes12 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr11Special19,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes12.Decode(byteArray, ref p);
-            Votes13 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr12Special93,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes13 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr12Special21,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes13.Decode(byteArray, ref p);
-            Votes14 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr13Special95,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes14 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr13Special23,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes14.Decode(byteArray, ref p);
-            Votes15 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr14Special97,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes15 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr14Special25,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes15.Decode(byteArray, ref p);
-            Votes16 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr15Special99,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
+            Votes16 = new BaseVec<BaseTuple<BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.Base.Arr15Special27,BaseCom<SubstrateNetApi.Model.Types.Primitive.U16>>>();
             Votes16.Decode(byteArray, ref p);
             TypeSize = p - start;
         }

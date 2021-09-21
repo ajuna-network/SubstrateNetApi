@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletCollective
     
     
     /// <summary>
-    /// >> Path: pallet_collective.pallet.Event
+    /// >> 44 - Variant[pallet_collective.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,65 +30,49 @@ namespace SubstrateNetApi.Model.PalletCollective
     {
         
         /// <summary>
-        /// >> Event: Proposed
-        /// A motion (given hash) has been proposed (by given account) with a threshold (given
-        /// `MemberCount`).
-        /// \[account, proposal_index, proposal_hash, threshold\]
+        /// >> Proposed
         /// </summary>
         public sealed class Proposed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Voted
-        /// A motion (given hash) has been voted on by given account, leaving
-        /// a tally (yes votes and no votes given respectively as `MemberCount`).
-        /// \[account, proposal_hash, voted, yes, no\]
+        /// >> Voted
         /// </summary>
         public sealed class Voted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.Bool, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Approved
-        /// A motion was approved by the required threshold.
-        /// \[proposal_hash\]
+        /// >> Approved
         /// </summary>
         public sealed class Approved : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {
         }
         
         /// <summary>
-        /// >> Event: Disapproved
-        /// A motion was not approved by the required threshold.
-        /// \[proposal_hash\]
+        /// >> Disapproved
         /// </summary>
         public sealed class Disapproved : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {
         }
         
         /// <summary>
-        /// >> Event: Executed
-        /// A motion was executed; result will be `Ok` if it returned without error.
-        /// \[proposal_hash, result\]
+        /// >> Executed
         /// </summary>
         public sealed class Executed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {
         }
         
         /// <summary>
-        /// >> Event: MemberExecuted
-        /// A single member did some action; result will be `Ok` if it returned without error.
-        /// \[proposal_hash, result\]
+        /// >> MemberExecuted
         /// </summary>
         public sealed class MemberExecuted : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {
         }
         
         /// <summary>
-        /// >> Event: Closed
-        /// A proposal was closed because its threshold was reached or after its duration was up.
-        /// \[proposal_hash, yes, no\]
+        /// >> Closed
         /// </summary>
         public sealed class Closed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
         {

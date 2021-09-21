@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.pallet.pallet.Error
+    /// >> 361 - Variant[pallet_staking.pallet.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,142 +27,117 @@ namespace SubstrateNetApi.Model.PalletStaking
     {
         
         /// <summary>
-        /// >> Event: NotController
-        /// Not a controller account.
+        /// >> NotController
         /// </summary>
         NotController,
         
         /// <summary>
-        /// >> Event: NotStash
-        /// Not a stash account.
+        /// >> NotStash
         /// </summary>
         NotStash,
         
         /// <summary>
-        /// >> Event: AlreadyBonded
-        /// Stash is already bonded.
+        /// >> AlreadyBonded
         /// </summary>
         AlreadyBonded,
         
         /// <summary>
-        /// >> Event: AlreadyPaired
-        /// Controller is already paired.
+        /// >> AlreadyPaired
         /// </summary>
         AlreadyPaired,
         
         /// <summary>
-        /// >> Event: EmptyTargets
-        /// Targets cannot be empty.
+        /// >> EmptyTargets
         /// </summary>
         EmptyTargets,
         
         /// <summary>
-        /// >> Event: DuplicateIndex
-        /// Duplicate index.
+        /// >> DuplicateIndex
         /// </summary>
         DuplicateIndex,
         
         /// <summary>
-        /// >> Event: InvalidSlashIndex
-        /// Slash record index out of bounds.
+        /// >> InvalidSlashIndex
         /// </summary>
         InvalidSlashIndex,
         
         /// <summary>
-        /// >> Event: InsufficientBond
-        /// Can not bond with value less than minimum required.
+        /// >> InsufficientBond
         /// </summary>
         InsufficientBond,
         
         /// <summary>
-        /// >> Event: NoMoreChunks
-        /// Can not schedule more unlock chunks.
+        /// >> NoMoreChunks
         /// </summary>
         NoMoreChunks,
         
         /// <summary>
-        /// >> Event: NoUnlockChunk
-        /// Can not rebond without unlocking chunks.
+        /// >> NoUnlockChunk
         /// </summary>
         NoUnlockChunk,
         
         /// <summary>
-        /// >> Event: FundedTarget
-        /// Attempting to target a stash that still has funds.
+        /// >> FundedTarget
         /// </summary>
         FundedTarget,
         
         /// <summary>
-        /// >> Event: InvalidEraToReward
-        /// Invalid era to reward.
+        /// >> InvalidEraToReward
         /// </summary>
         InvalidEraToReward,
         
         /// <summary>
-        /// >> Event: InvalidNumberOfNominations
-        /// Invalid number of nominations.
+        /// >> InvalidNumberOfNominations
         /// </summary>
         InvalidNumberOfNominations,
         
         /// <summary>
-        /// >> Event: NotSortedAndUnique
-        /// Items are not sorted and unique.
+        /// >> NotSortedAndUnique
         /// </summary>
         NotSortedAndUnique,
         
         /// <summary>
-        /// >> Event: AlreadyClaimed
-        /// Rewards for this era have already been claimed for this validator.
+        /// >> AlreadyClaimed
         /// </summary>
         AlreadyClaimed,
         
         /// <summary>
-        /// >> Event: IncorrectHistoryDepth
-        /// Incorrect previous history depth input provided.
+        /// >> IncorrectHistoryDepth
         /// </summary>
         IncorrectHistoryDepth,
         
         /// <summary>
-        /// >> Event: IncorrectSlashingSpans
-        /// Incorrect number of slashing spans provided.
+        /// >> IncorrectSlashingSpans
         /// </summary>
         IncorrectSlashingSpans,
         
         /// <summary>
-        /// >> Event: BadState
-        /// Internal state has become somehow corrupted and the operation cannot continue.
+        /// >> BadState
         /// </summary>
         BadState,
         
         /// <summary>
-        /// >> Event: TooManyTargets
-        /// Too many nomination targets supplied.
+        /// >> TooManyTargets
         /// </summary>
         TooManyTargets,
         
         /// <summary>
-        /// >> Event: BadTarget
-        /// A nomination target was supplied that was blocked or otherwise not a validator.
+        /// >> BadTarget
         /// </summary>
         BadTarget,
         
         /// <summary>
-        /// >> Event: CannotChillOther
-        /// The user has enough bond and thus cannot be chilled forcefully by an external person.
+        /// >> CannotChillOther
         /// </summary>
         CannotChillOther,
         
         /// <summary>
-        /// >> Event: TooManyNominators
-        /// There are too many nominators in the system. Governance needs to adjust the staking
-        /// settings to keep things safe for the runtime.
+        /// >> TooManyNominators
         /// </summary>
         TooManyNominators,
         
         /// <summary>
-        /// >> Event: TooManyValidators
-        /// There are too many validators in the system. Governance needs to adjust the staking
-        /// settings to keep things safe for the runtime.
+        /// >> TooManyValidators
         /// </summary>
         TooManyValidators,
     }

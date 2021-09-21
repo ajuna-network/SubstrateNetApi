@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -97,9 +98,9 @@ namespace SubstrateNetApi.Model.PalletIdentity
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 246 - Variant[pallet_identity.types.Data]
     /// </summary>
-    public sealed class EnumData : BaseEnumExt<Data, BaseVoid, SubstrateNetApi.Model.Base.Arr0Special15, SubstrateNetApi.Model.Base.Arr1Special17, SubstrateNetApi.Model.Base.Arr2Special19, SubstrateNetApi.Model.Base.Arr3Special21, SubstrateNetApi.Model.Base.Arr4Special3, SubstrateNetApi.Model.Base.Arr5Special23, SubstrateNetApi.Model.Base.Arr6Special25, SubstrateNetApi.Model.Base.Arr7Special27, SubstrateNetApi.Model.Base.Arr8Special7, SubstrateNetApi.Model.Base.Arr9Special29, SubstrateNetApi.Model.Base.Arr10Special31, SubstrateNetApi.Model.Base.Arr11Special33, SubstrateNetApi.Model.Base.Arr12Special35, SubstrateNetApi.Model.Base.Arr13Special37, SubstrateNetApi.Model.Base.Arr14Special39, SubstrateNetApi.Model.Base.Arr15Special41, SubstrateNetApi.Model.Base.Arr16Special5, SubstrateNetApi.Model.Base.Arr17Special43, SubstrateNetApi.Model.Base.Arr18Special45, SubstrateNetApi.Model.Base.Arr19Special47, SubstrateNetApi.Model.Base.Arr20Special9, SubstrateNetApi.Model.Base.Arr21Special49, SubstrateNetApi.Model.Base.Arr22Special51, SubstrateNetApi.Model.Base.Arr23Special53, SubstrateNetApi.Model.Base.Arr24Special55, SubstrateNetApi.Model.Base.Arr25Special57, SubstrateNetApi.Model.Base.Arr26Special59, SubstrateNetApi.Model.Base.Arr27Special61, SubstrateNetApi.Model.Base.Arr28Special63, SubstrateNetApi.Model.Base.Arr29Special65, SubstrateNetApi.Model.Base.Arr30Special67, SubstrateNetApi.Model.Base.Arr31Special69, SubstrateNetApi.Model.Base.Arr32Special1, SubstrateNetApi.Model.Base.Arr32Special1, SubstrateNetApi.Model.Base.Arr32Special1, SubstrateNetApi.Model.Base.Arr32Special1, SubstrateNetApi.Model.Base.Arr32Special1>
+    public sealed class EnumData : BaseEnumExt<Data, BaseVoid, SubstrateNetApi.Model.Base.Arr0U8, SubstrateNetApi.Model.Base.Arr1U8, SubstrateNetApi.Model.Base.Arr2U8, SubstrateNetApi.Model.Base.Arr3U8, SubstrateNetApi.Model.Base.Arr4U8, SubstrateNetApi.Model.Base.Arr5U8, SubstrateNetApi.Model.Base.Arr6U8, SubstrateNetApi.Model.Base.Arr7U8, SubstrateNetApi.Model.Base.Arr8U8, SubstrateNetApi.Model.Base.Arr9U8, SubstrateNetApi.Model.Base.Arr10U8, SubstrateNetApi.Model.Base.Arr11U8, SubstrateNetApi.Model.Base.Arr12U8, SubstrateNetApi.Model.Base.Arr13U8, SubstrateNetApi.Model.Base.Arr14U8, SubstrateNetApi.Model.Base.Arr15U8, SubstrateNetApi.Model.Base.Arr16U8, SubstrateNetApi.Model.Base.Arr17U8, SubstrateNetApi.Model.Base.Arr18U8, SubstrateNetApi.Model.Base.Arr19U8, SubstrateNetApi.Model.Base.Arr20U8, SubstrateNetApi.Model.Base.Arr21U8, SubstrateNetApi.Model.Base.Arr22U8, SubstrateNetApi.Model.Base.Arr23U8, SubstrateNetApi.Model.Base.Arr24U8, SubstrateNetApi.Model.Base.Arr25U8, SubstrateNetApi.Model.Base.Arr26U8, SubstrateNetApi.Model.Base.Arr27U8, SubstrateNetApi.Model.Base.Arr28U8, SubstrateNetApi.Model.Base.Arr29U8, SubstrateNetApi.Model.Base.Arr30U8, SubstrateNetApi.Model.Base.Arr31U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8>
     {
     }
 }

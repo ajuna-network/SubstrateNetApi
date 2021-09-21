@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     
     /// <summary>
-    /// >> Path: pallet_transaction_storage.pallet.Error
+    /// >> 497 - Variant[pallet_transaction_storage.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,80 +27,67 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     {
         
         /// <summary>
-        /// >> Event: InsufficientFunds
-        /// Insufficient account balance.
+        /// >> InsufficientFunds
         /// </summary>
         InsufficientFunds,
         
         /// <summary>
-        /// >> Event: NotConfigured
-        /// Invalid configuration.
+        /// >> NotConfigured
         /// </summary>
         NotConfigured,
         
         /// <summary>
-        /// >> Event: RenewedNotFound
-        /// Renewed extrinsic is not found.
+        /// >> RenewedNotFound
         /// </summary>
         RenewedNotFound,
         
         /// <summary>
-        /// >> Event: EmptyTransaction
-        /// Attempting to store empty transaction
+        /// >> EmptyTransaction
         /// </summary>
         EmptyTransaction,
         
         /// <summary>
-        /// >> Event: UnexpectedProof
-        /// Proof was not expected in this block.
+        /// >> UnexpectedProof
         /// </summary>
         UnexpectedProof,
         
         /// <summary>
-        /// >> Event: InvalidProof
-        /// Proof failed verification.
+        /// >> InvalidProof
         /// </summary>
         InvalidProof,
         
         /// <summary>
-        /// >> Event: MissingProof
-        /// Missing storage proof.
+        /// >> MissingProof
         /// </summary>
         MissingProof,
         
         /// <summary>
-        /// >> Event: MissingStateData
-        /// Unable to verify proof becasue state data is missing.
+        /// >> MissingStateData
         /// </summary>
         MissingStateData,
         
         /// <summary>
-        /// >> Event: DoubleCheck
-        /// Double proof check in the block.
+        /// >> DoubleCheck
         /// </summary>
         DoubleCheck,
         
         /// <summary>
-        /// >> Event: ProofNotChecked
-        /// Storage proof was not checked in the block.
+        /// >> ProofNotChecked
         /// </summary>
         ProofNotChecked,
         
         /// <summary>
-        /// >> Event: TransactionTooLarge
-        /// Transaction is too large.
+        /// >> TransactionTooLarge
         /// </summary>
         TransactionTooLarge,
         
         /// <summary>
-        /// >> Event: TooManyTransactions
-        /// Too many transactions in the block.
+        /// >> TooManyTransactions
         /// </summary>
         TooManyTransactions,
         
         /// <summary>
-        /// >> Event: BadContext
-        /// Attempted to call `store` outside of block execution.
+        /// >> BadContext
         /// </summary>
         BadContext,
     }

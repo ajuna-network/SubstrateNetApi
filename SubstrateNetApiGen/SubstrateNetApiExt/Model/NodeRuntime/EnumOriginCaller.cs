@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSystem;
+using SubstrateNetApi.Model.PalletCollective;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -29,7 +31,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 447 - Variant[node_runtime.OriginCaller]
     /// </summary>
     public sealed class EnumOriginCaller : BaseEnumExt<OriginCaller, SubstrateNetApi.Model.FrameSystem.EnumRawOrigin, SubstrateNetApi.Model.PalletCollective.EnumRawOrigin, SubstrateNetApi.Model.PalletCollective.EnumRawOrigin, SubstrateNetApi.Model.Types.Base.BaseVoid>
     {

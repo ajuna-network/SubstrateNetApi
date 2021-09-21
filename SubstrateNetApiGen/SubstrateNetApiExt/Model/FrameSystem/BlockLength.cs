@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.limits.BlockLength
+    /// >> 110 - Composite[frame_system.limits.BlockLength]
     /// </summary>
     public sealed class BlockLength : BaseType
     {
         
+        /// <summary>
+        /// >> max
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.PerDispatchClass _max;
         
         public SubstrateNetApi.Model.FrameSupport.PerDispatchClass Max

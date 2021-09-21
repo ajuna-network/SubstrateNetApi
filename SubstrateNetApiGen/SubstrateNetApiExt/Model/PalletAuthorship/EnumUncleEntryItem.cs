@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +28,7 @@ namespace SubstrateNetApi.Model.PalletAuthorship
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 315 - Variant[pallet_authorship.UncleEntryItem]
     /// </summary>
     public sealed class EnumUncleEntryItem : BaseEnumExt<UncleEntryItem, SubstrateNetApi.Model.Types.Primitive.U32, BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, BaseOpt<SubstrateNetApi.Model.SpCore.AccountId32>>>
     {

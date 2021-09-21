@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,23 +19,44 @@ namespace SubstrateNetApi.Model.SpVersion
     
     
     /// <summary>
-    /// >> Path: sp_version.RuntimeVersion
+    /// >> 113 - Composite[sp_version.RuntimeVersion]
     /// </summary>
     public sealed class RuntimeVersion : BaseType
     {
         
+        /// <summary>
+        /// >> spec_name
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Str _specName;
         
+        /// <summary>
+        /// >> impl_name
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Str _implName;
         
+        /// <summary>
+        /// >> authoring_version
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _authoringVersion;
         
+        /// <summary>
+        /// >> spec_version
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _specVersion;
         
+        /// <summary>
+        /// >> impl_version
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _implVersion;
         
+        /// <summary>
+        /// >> apis
+        /// </summary>
         private SubstrateNetApi.Model.Base.Cow _apis;
         
+        /// <summary>
+        /// >> transaction_version
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _transactionVersion;
         
         public SubstrateNetApi.Model.Types.Primitive.Str SpecName

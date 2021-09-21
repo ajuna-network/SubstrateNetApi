@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +19,14 @@ namespace SubstrateNetApi.Model.Base
     
     
     /// <summary>
-    /// >> Path: BTreeMap
+    /// >> 351 - Composite[BTreeMap]
     /// </summary>
     public sealed class BTreeMap : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32>> _value;
         
         public BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32>> Value

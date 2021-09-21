@@ -8,7 +8,9 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.NodeRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,24 +20,14 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> Path: pallet_scheduler.pallet.Call
+    /// >> 287 - Variant[pallet_scheduler.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletSchedulerCall
     {
         
         /// <summary>
-        /// >> Extrinsic: schedule
-        /// Anonymously schedule a task.
-        /// 
-        /// # <weight>
-        /// - S = Number of already scheduled calls
-        /// - Base Weight: 22.29 + .126 * S ��s
-        /// - DB Weight:
-        ///     - Read: Agenda
-        ///     - Write: Agenda
-        /// - Will use base weight of 25 which should be good for up to 30 scheduled calls
-        /// # </weight>
+        /// >> schedule
         /// </summary>
         public GenericExtrinsicCall Schedule(SubstrateNetApi.Model.Types.Primitive.U32 when, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -43,17 +35,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         }
         
         /// <summary>
-        /// >> Extrinsic: cancel
-        /// Cancel an anonymously scheduled task.
-        /// 
-        /// # <weight>
-        /// - S = Number of already scheduled calls
-        /// - Base Weight: 22.15 + 2.869 * S ��s
-        /// - DB Weight:
-        ///     - Read: Agenda
-        ///     - Write: Agenda, Lookup
-        /// - Will use base weight of 100 which should be good for up to 30 scheduled calls
-        /// # </weight>
+        /// >> cancel
         /// </summary>
         public GenericExtrinsicCall Cancel(SubstrateNetApi.Model.Types.Primitive.U32 when, SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -61,17 +43,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         }
         
         /// <summary>
-        /// >> Extrinsic: schedule_named
-        /// Schedule a named task.
-        /// 
-        /// # <weight>
-        /// - S = Number of already scheduled calls
-        /// - Base Weight: 29.6 + .159 * S ��s
-        /// - DB Weight:
-        ///     - Read: Agenda, Lookup
-        ///     - Write: Agenda, Lookup
-        /// - Will use base weight of 35 which should be good for more than 30 scheduled calls
-        /// # </weight>
+        /// >> schedule_named
         /// </summary>
         public GenericExtrinsicCall ScheduleNamed(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> id, SubstrateNetApi.Model.Types.Primitive.U32 when, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -79,17 +51,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         }
         
         /// <summary>
-        /// >> Extrinsic: cancel_named
-        /// Cancel a named scheduled task.
-        /// 
-        /// # <weight>
-        /// - S = Number of already scheduled calls
-        /// - Base Weight: 24.91 + 2.907 * S ��s
-        /// - DB Weight:
-        ///     - Read: Agenda, Lookup
-        ///     - Write: Agenda, Lookup
-        /// - Will use base weight of 100 which should be good for up to 30 scheduled calls
-        /// # </weight>
+        /// >> cancel_named
         /// </summary>
         public GenericExtrinsicCall CancelNamed(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> id)
         {
@@ -97,12 +59,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         }
         
         /// <summary>
-        /// >> Extrinsic: schedule_after
-        /// Anonymously schedule a task after a delay.
-        /// 
-        /// # <weight>
-        /// Same as [`schedule`].
-        /// # </weight>
+        /// >> schedule_after
         /// </summary>
         public GenericExtrinsicCall ScheduleAfter(SubstrateNetApi.Model.Types.Primitive.U32 after, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -110,12 +67,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         }
         
         /// <summary>
-        /// >> Extrinsic: schedule_named_after
-        /// Schedule a named task after a delay.
-        /// 
-        /// # <weight>
-        /// Same as [`schedule_named`](Self::schedule_named).
-        /// # </weight>
+        /// >> schedule_named_after
         /// </summary>
         public GenericExtrinsicCall ScheduleNamedAfter(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> id, SubstrateNetApi.Model.Types.Primitive.U32 after, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {

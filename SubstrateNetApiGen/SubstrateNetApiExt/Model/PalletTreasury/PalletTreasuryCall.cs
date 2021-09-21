@@ -8,7 +8,9 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,23 +20,14 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     
     /// <summary>
-    /// >> Path: pallet_treasury.pallet.Call
+    /// >> 231 - Variant[pallet_treasury.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletTreasuryCall
     {
         
         /// <summary>
-        /// >> Extrinsic: propose_spend
-        /// Put forward a suggestion for spending. A deposit proportional to the value
-        /// is reserved and slashed if the proposal is rejected. It is returned once the
-        /// proposal is awarded.
-        /// 
-        /// # <weight>
-        /// - Complexity: O(1)
-        /// - DbReads: `ProposalCount`, `origin account`
-        /// - DbWrites: `ProposalCount`, `Proposals`, `origin account`
-        /// # </weight>
+        /// >> propose_spend
         /// </summary>
         public GenericExtrinsicCall ProposeSpend(BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress beneficiary)
         {
@@ -42,16 +35,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
         }
         
         /// <summary>
-        /// >> Extrinsic: reject_proposal
-        /// Reject a proposed spend. The original deposit will be slashed.
-        /// 
-        /// May only be called from `T::RejectOrigin`.
-        /// 
-        /// # <weight>
-        /// - Complexity: O(1)
-        /// - DbReads: `Proposals`, `rejected proposer account`
-        /// - DbWrites: `Proposals`, `rejected proposer account`
-        /// # </weight>
+        /// >> reject_proposal
         /// </summary>
         public GenericExtrinsicCall RejectProposal(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> proposal_id)
         {
@@ -59,17 +43,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
         }
         
         /// <summary>
-        /// >> Extrinsic: approve_proposal
-        /// Approve a proposal. At a later time, the proposal will be allocated to the beneficiary
-        /// and the original deposit will be returned.
-        /// 
-        /// May only be called from `T::ApproveOrigin`.
-        /// 
-        /// # <weight>
-        /// - Complexity: O(1).
-        /// - DbReads: `Proposals`, `Approvals`
-        /// - DbWrite: `Approvals`
-        /// # </weight>
+        /// >> approve_proposal
         /// </summary>
         public GenericExtrinsicCall ApproveProposal(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> proposal_id)
         {

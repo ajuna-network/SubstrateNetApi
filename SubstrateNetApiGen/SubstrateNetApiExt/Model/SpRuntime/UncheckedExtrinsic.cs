@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpRuntime
     
     
     /// <summary>
-    /// >> Path: sp_runtime.generic.unchecked_extrinsic.UncheckedExtrinsic
+    /// >> 501 - Composite[sp_runtime.generic.unchecked_extrinsic.UncheckedExtrinsic]
     /// </summary>
     public sealed class UncheckedExtrinsic : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> _value;
         
         public BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> Value

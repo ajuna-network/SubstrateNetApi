@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,23 +18,44 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.wasm.PrefabWasmModule
+    /// >> 401 - Composite[pallet_contracts.wasm.PrefabWasmModule]
     /// </summary>
     public sealed class PrefabWasmModule : BaseType
     {
         
+        /// <summary>
+        /// >> instruction_weights_version
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _instructionWeightsVersion;
         
+        /// <summary>
+        /// >> initial
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _initial;
         
+        /// <summary>
+        /// >> maximum
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _maximum;
         
+        /// <summary>
+        /// >> refcount
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U64> _refcount;
         
+        /// <summary>
+        /// >> _reserved
+        /// </summary>
         private BaseOpt<BaseTuple> _reserved;
         
+        /// <summary>
+        /// >> code
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> _code;
         
+        /// <summary>
+        /// >> original_code_len
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _originalCodeLen;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> InstructionWeightsVersion

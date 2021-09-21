@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FinalityGrandpa;
+using SubstrateNetApi.Model.SpFinalityGrandpa;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +20,29 @@ namespace SubstrateNetApi.Model.FinalityGrandpa
     
     
     /// <summary>
-    /// >> Path: finality_grandpa.Equivocation
+    /// >> 228 - Composite[finality_grandpa.Equivocation]
     /// </summary>
     public sealed class Equivocation : BaseType
     {
         
+        /// <summary>
+        /// >> round_number
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _roundNumber;
         
+        /// <summary>
+        /// >> identity
+        /// </summary>
         private SubstrateNetApi.Model.SpFinalityGrandpa.Public _identity;
         
+        /// <summary>
+        /// >> first
+        /// </summary>
         private BaseTuple<SubstrateNetApi.Model.FinalityGrandpa.Precommit,SubstrateNetApi.Model.SpFinalityGrandpa.Signature> _first;
         
+        /// <summary>
+        /// >> second
+        /// </summary>
         private BaseTuple<SubstrateNetApi.Model.FinalityGrandpa.Precommit,SubstrateNetApi.Model.SpFinalityGrandpa.Signature> _second;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 RoundNumber

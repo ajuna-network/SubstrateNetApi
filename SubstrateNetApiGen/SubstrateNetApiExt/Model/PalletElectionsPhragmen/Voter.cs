@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +19,24 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     
     
     /// <summary>
-    /// >> Path: pallet_elections_phragmen.Voter
+    /// >> 390 - Composite[pallet_elections_phragmen.Voter]
     /// </summary>
     public sealed class Voter : BaseType
     {
         
+        /// <summary>
+        /// >> votes
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _votes;
         
+        /// <summary>
+        /// >> stake
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _stake;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
         public BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> Votes

@@ -7,7 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.NodeRuntime;
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> Path: pallet_proxy.pallet.Event
+    /// >> 76 - Variant[pallet_proxy.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,34 +31,28 @@ namespace SubstrateNetApi.Model.PalletProxy
     {
         
         /// <summary>
-        /// >> Event: ProxyExecuted
-        /// A proxy was executed correctly, with the given \[result\].
+        /// >> ProxyExecuted
         /// </summary>
         public sealed class ProxyExecuted : BaseTuple<BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {
         }
         
         /// <summary>
-        /// >> Event: AnonymousCreated
-        /// Anonymous account has been created by new proxy with given
-        /// disambiguation index and proxy type. \[anonymous, who, proxy_type,
-        /// disambiguation_index\]
+        /// >> AnonymousCreated
         /// </summary>
         public sealed class AnonymousCreated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.NodeRuntime.EnumProxyType, SubstrateNetApi.Model.Types.Primitive.U16>
         {
         }
         
         /// <summary>
-        /// >> Event: Announced
-        /// An announcement was placed to make a call in the future. \[real, proxy, call_hash\]
+        /// >> Announced
         /// </summary>
         public sealed class Announced : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PrimitiveTypes.H256>
         {
         }
         
         /// <summary>
-        /// >> Event: ProxyAdded
-        /// A proxy was added. \[delegator, delegatee, proxy_type, delay\]
+        /// >> ProxyAdded
         /// </summary>
         public sealed class ProxyAdded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.NodeRuntime.EnumProxyType, SubstrateNetApi.Model.Types.Primitive.U32>
         {

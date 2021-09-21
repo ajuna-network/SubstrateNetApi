@@ -8,7 +8,11 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.FrameSupport;
+using SubstrateNetApi.Model.PalletUniques;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,30 +22,14 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> Path: pallet_uniques.pallet.Call
+    /// >> 301 - Variant[pallet_uniques.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletUniquesCall
     {
         
         /// <summary>
-        /// >> Extrinsic: create
-        /// Issue a new class of non-fungible assets from a public origin.
-        /// 
-        /// This new asset class has no assets initially and its owner is the origin.
-        /// 
-        /// The origin must be Signed and the sender must have sufficient funds free.
-        /// 
-        /// `AssetDeposit` funds of sender are reserved.
-        /// 
-        /// Parameters:
-        /// - `class`: The identifier of the new asset class. This must not be currently in use.
-        /// - `admin`: The admin of this class of assets. The admin is the initial address of each
-        /// member of the asset class's admin team.
-        /// 
-        /// Emits `Created` event when successful.
-        /// 
-        /// Weight: `O(1)`
+        /// >> create
         /// </summary>
         public GenericExtrinsicCall Create(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress admin)
         {
@@ -49,23 +37,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: force_create
-        /// Issue a new class of non-fungible assets from a privileged origin.
-        /// 
-        /// This new asset class has no assets initially.
-        /// 
-        /// The origin must conform to `ForceOrigin`.
-        /// 
-        /// Unlike `create`, no funds are reserved.
-        /// 
-        /// - `class`: The identifier of the new asset. This must not be currently in use.
-        /// - `owner`: The owner of this class of assets. The owner has full superuser permissions
-        /// over this asset, but may later change and configure the permissions using
-        /// `transfer_ownership` and `set_team`.
-        /// 
-        /// Emits `ForceCreated` event when successful.
-        /// 
-        /// Weight: `O(1)`
+        /// >> force_create
         /// </summary>
         public GenericExtrinsicCall ForceCreate(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner, SubstrateNetApi.Model.Types.Primitive.Bool free_holding)
         {
@@ -73,22 +45,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: destroy
-        /// Destroy a class of fungible assets.
-        /// 
-        /// The origin must conform to `ForceOrigin` or must be `Signed` and the sender must be the
-        /// owner of the asset `class`.
-        /// 
-        /// - `class`: The identifier of the asset class to be destroyed.
-        /// - `witness`: Information on the instances minted in the asset class. This must be
-        /// correct.
-        /// 
-        /// Emits `Destroyed` event when successful.
-        /// 
-        /// Weight: `O(n + m)` where:
-        /// - `n = witness.instances`
-        /// - `m = witness.instance_metadatas`
-        /// - `a = witness.attributes`
+        /// >> destroy
         /// </summary>
         public GenericExtrinsicCall Destroy(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.PalletUniques.DestroyWitness witness)
         {
@@ -96,18 +53,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: mint
-        /// Mint an asset instance of a particular class.
-        /// 
-        /// The origin must be Signed and the sender must be the Issuer of the asset `class`.
-        /// 
-        /// - `class`: The class of the asset to be minted.
-        /// - `instance`: The instance value of the asset to be minted.
-        /// - `beneficiary`: The initial owner of the minted asset.
-        /// 
-        /// Emits `Issued` event when successful.
-        /// 
-        /// Weight: `O(1)`
+        /// >> mint
         /// </summary>
         public GenericExtrinsicCall Mint(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner)
         {
@@ -115,20 +61,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: burn
-        /// Destroy a single asset instance.
-        /// 
-        /// Origin must be Signed and the sender should be the Admin of the asset `class`.
-        /// 
-        /// - `class`: The class of the asset to be burned.
-        /// - `instance`: The instance of the asset to be burned.
-        /// - `check_owner`: If `Some` then the operation will fail with `WrongOwner` unless the
-        ///   asset is owned by this value.
-        /// 
-        /// Emits `Burned` with the actual amount burned.
-        /// 
-        /// Weight: `O(1)`
-        /// Modes: `check_owner.is_some()`.
+        /// >> burn
         /// </summary>
         public GenericExtrinsicCall Burn(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, BaseOpt<SubstrateNetApi.Model.SpRuntime.EnumMultiAddress> check_owner)
         {
@@ -136,22 +69,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: transfer
-        /// Move an asset from the sender account to another.
-        /// 
-        /// Origin must be Signed and the signing account must be either:
-        /// - the Admin of the asset `class`;
-        /// - the Owner of the asset `instance`;
-        /// - the approved delegate for the asset `instance` (in this case, the approval is reset).
-        /// 
-        /// Arguments:
-        /// - `class`: The class of the asset to be transferred.
-        /// - `instance`: The instance of the asset to be transferred.
-        /// - `dest`: The account to receive ownership of the asset.
-        /// 
-        /// Emits `Transferred`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> transfer
         /// </summary>
         public GenericExtrinsicCall Transfer(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress dest)
         {
@@ -159,24 +77,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: redeposit
-        /// Reevaluate the deposits on some assets.
-        /// 
-        /// Origin must be Signed and the sender should be the Owner of the asset `class`.
-        /// 
-        /// - `class`: The class of the asset to be frozen.
-        /// - `instances`: The instances of the asset class whose deposits will be reevaluated.
-        /// 
-        /// NOTE: This exists as a best-effort function. Any asset instances which are unknown or
-        /// in the case that the owner account does not have reservable funds to pay for a
-        /// deposit increase are ignored. Generally the owner isn't going to call this on instances
-        /// whose existing deposit is less than the refreshed deposit as it would only cost them,
-        /// so it's of little consequence.
-        /// 
-        /// It will still return an error in the case that the class is unknown of the signer is
-        /// not permitted to call it.
-        /// 
-        /// Weight: `O(instances.len())`
+        /// >> redeposit
         /// </summary>
         public GenericExtrinsicCall Redeposit(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseVec<SubstrateNetApi.Model.Types.Primitive.U32> instances)
         {
@@ -184,17 +85,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: freeze
-        /// Disallow further unprivileged transfer of an asset instance.
-        /// 
-        /// Origin must be Signed and the sender should be the Freezer of the asset `class`.
-        /// 
-        /// - `class`: The class of the asset to be frozen.
-        /// - `instance`: The instance of the asset to be frozen.
-        /// 
-        /// Emits `Frozen`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> freeze
         /// </summary>
         public GenericExtrinsicCall Freeze(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance)
         {
@@ -202,17 +93,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: thaw
-        /// Re-allow unprivileged transfer of an asset instance.
-        /// 
-        /// Origin must be Signed and the sender should be the Freezer of the asset `class`.
-        /// 
-        /// - `class`: The class of the asset to be thawed.
-        /// - `instance`: The instance of the asset to be thawed.
-        /// 
-        /// Emits `Thawed`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> thaw
         /// </summary>
         public GenericExtrinsicCall Thaw(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance)
         {
@@ -220,16 +101,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: freeze_class
-        /// Disallow further unprivileged transfers for a whole asset class.
-        /// 
-        /// Origin must be Signed and the sender should be the Freezer of the asset `class`.
-        /// 
-        /// - `class`: The asset class to be frozen.
-        /// 
-        /// Emits `ClassFrozen`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> freeze_class
         /// </summary>
         public GenericExtrinsicCall FreezeClass(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class)
         {
@@ -237,16 +109,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: thaw_class
-        /// Re-allow unprivileged transfers for a whole asset class.
-        /// 
-        /// Origin must be Signed and the sender should be the Admin of the asset `class`.
-        /// 
-        /// - `class`: The class to be thawed.
-        /// 
-        /// Emits `ClassThawed`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> thaw_class
         /// </summary>
         public GenericExtrinsicCall ThawClass(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class)
         {
@@ -254,17 +117,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: transfer_ownership
-        /// Change the Owner of an asset class.
-        /// 
-        /// Origin must be Signed and the sender should be the Owner of the asset `class`.
-        /// 
-        /// - `class`: The asset class whose owner should be changed.
-        /// - `owner`: The new Owner of this asset class.
-        /// 
-        /// Emits `OwnerChanged`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> transfer_ownership
         /// </summary>
         public GenericExtrinsicCall TransferOwnership(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner)
         {
@@ -272,19 +125,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: set_team
-        /// Change the Issuer, Admin and Freezer of an asset class.
-        /// 
-        /// Origin must be Signed and the sender should be the Owner of the asset `class`.
-        /// 
-        /// - `class`: The asset class whose team should be changed.
-        /// - `issuer`: The new Issuer of this asset class.
-        /// - `admin`: The new Admin of this asset class.
-        /// - `freezer`: The new Freezer of this asset class.
-        /// 
-        /// Emits `TeamChanged`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> set_team
         /// </summary>
         public GenericExtrinsicCall SetTeam(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress issuer, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress admin, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress freezer)
         {
@@ -292,18 +133,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: approve_transfer
-        /// Approve an instance to be transferred by a delegated third-party account.
-        /// 
-        /// Origin must be Signed and must be the owner of the asset `instance`.
-        /// 
-        /// - `class`: The class of the asset to be approved for delegated transfer.
-        /// - `instance`: The instance of the asset to be approved for delegated transfer.
-        /// - `delegate`: The account to delegate permission to transfer the asset.
-        /// 
-        /// Emits `ApprovedTransfer` on success.
-        /// 
-        /// Weight: `O(1)`
+        /// >> approve_transfer
         /// </summary>
         public GenericExtrinsicCall ApproveTransfer(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress @delegate)
         {
@@ -311,23 +141,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: cancel_approval
-        /// Cancel the prior approval for the transfer of an asset by a delegate.
-        /// 
-        /// Origin must be either:
-        /// - the `Force` origin;
-        /// - `Signed` with the signer being the Admin of the asset `class`;
-        /// - `Signed` with the signer being the Owner of the asset `instance`;
-        /// 
-        /// Arguments:
-        /// - `class`: The class of the asset of whose approval will be cancelled.
-        /// - `instance`: The instance of the asset of whose approval will be cancelled.
-        /// - `maybe_check_delegate`: If `Some` will ensure that the given account is the one to
-        ///   which permission of transfer is delegated.
-        /// 
-        /// Emits `ApprovalCancelled` on success.
-        /// 
-        /// Weight: `O(1)`
+        /// >> cancel_approval
         /// </summary>
         public GenericExtrinsicCall CancelApproval(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, BaseOpt<SubstrateNetApi.Model.SpRuntime.EnumMultiAddress> maybe_check_delegate)
         {
@@ -335,24 +149,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: force_asset_status
-        /// Alter the attributes of a given asset.
-        /// 
-        /// Origin must be `ForceOrigin`.
-        /// 
-        /// - `class`: The identifier of the asset.
-        /// - `owner`: The new Owner of this asset.
-        /// - `issuer`: The new Issuer of this asset.
-        /// - `admin`: The new Admin of this asset.
-        /// - `freezer`: The new Freezer of this asset.
-        /// - `free_holding`: Whether a deposit is taken for holding an instance of this asset
-        ///   class.
-        /// - `is_frozen`: Whether this asset class is frozen except for permissioned/admin
-        /// instructions.
-        /// 
-        /// Emits `AssetStatusChanged` with the identity of the asset.
-        /// 
-        /// Weight: `O(1)`
+        /// >> force_asset_status
         /// </summary>
         public GenericExtrinsicCall ForceAssetStatus(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress issuer, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress admin, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress freezer, SubstrateNetApi.Model.Types.Primitive.Bool free_holding, SubstrateNetApi.Model.Types.Primitive.Bool is_frozen)
         {
@@ -360,24 +157,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: set_attribute
-        /// Set an attribute for an asset class or instance.
-        /// 
-        /// Origin must be either `ForceOrigin` or Signed and the sender should be the Owner of the
-        /// asset `class`.
-        /// 
-        /// If the origin is Signed, then funds of signer are reserved according to the formula:
-        /// `MetadataDepositBase + DepositPerByte * (key.len + value.len)` taking into
-        /// account any already reserved funds.
-        /// 
-        /// - `class`: The identifier of the asset class whose instance's metadata to set.
-        /// - `maybe_instance`: The identifier of the asset instance whose metadata to set.
-        /// - `key`: The key of the attribute.
-        /// - `value`: The value to which to set the attribute.
-        /// 
-        /// Emits `AttributeSet`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> set_attribute
         /// </summary>
         public GenericExtrinsicCall SetAttribute(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32> maybe_instance, SubstrateNetApi.Model.FrameSupport.BoundedVec key, SubstrateNetApi.Model.FrameSupport.BoundedVec value)
         {
@@ -385,24 +165,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: clear_attribute
-        /// Set an attribute for an asset class or instance.
-        /// 
-        /// Origin must be either `ForceOrigin` or Signed and the sender should be the Owner of the
-        /// asset `class`.
-        /// 
-        /// If the origin is Signed, then funds of signer are reserved according to the formula:
-        /// `MetadataDepositBase + DepositPerByte * (key.len + value.len)` taking into
-        /// account any already reserved funds.
-        /// 
-        /// - `class`: The identifier of the asset class whose instance's metadata to set.
-        /// - `instance`: The identifier of the asset instance whose metadata to set.
-        /// - `key`: The key of the attribute.
-        /// - `value`: The value to which to set the attribute.
-        /// 
-        /// Emits `AttributeSet`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> clear_attribute
         /// </summary>
         public GenericExtrinsicCall ClearAttribute(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32> maybe_instance, SubstrateNetApi.Model.FrameSupport.BoundedVec key)
         {
@@ -410,24 +173,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: set_metadata
-        /// Set the metadata for an asset instance.
-        /// 
-        /// Origin must be either `ForceOrigin` or Signed and the sender should be the Owner of the
-        /// asset `class`.
-        /// 
-        /// If the origin is Signed, then funds of signer are reserved according to the formula:
-        /// `MetadataDepositBase + DepositPerByte * data.len` taking into
-        /// account any already reserved funds.
-        /// 
-        /// - `class`: The identifier of the asset class whose instance's metadata to set.
-        /// - `instance`: The identifier of the asset instance whose metadata to set.
-        /// - `data`: The general information of this asset. Limited in length by `StringLimit`.
-        /// - `is_frozen`: Whether the metadata should be frozen against further changes.
-        /// 
-        /// Emits `MetadataSet`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> set_metadata
         /// </summary>
         public GenericExtrinsicCall SetMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.FrameSupport.BoundedVec data, SubstrateNetApi.Model.Types.Primitive.Bool is_frozen)
         {
@@ -435,20 +181,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: clear_metadata
-        /// Clear the metadata for an asset instance.
-        /// 
-        /// Origin must be either `ForceOrigin` or Signed and the sender should be the Owner of the
-        /// asset `instance`.
-        /// 
-        /// Any deposit is freed for the asset class owner.
-        /// 
-        /// - `class`: The identifier of the asset class whose instance's metadata to clear.
-        /// - `instance`: The identifier of the asset instance whose metadata to clear.
-        /// 
-        /// Emits `MetadataCleared`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> clear_metadata
         /// </summary>
         public GenericExtrinsicCall ClearMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance)
         {
@@ -456,23 +189,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: set_class_metadata
-        /// Set the metadata for an asset class.
-        /// 
-        /// Origin must be either `ForceOrigin` or `Signed` and the sender should be the Owner of
-        /// the asset `class`.
-        /// 
-        /// If the origin is `Signed`, then funds of signer are reserved according to the formula:
-        /// `MetadataDepositBase + DepositPerByte * data.len` taking into
-        /// account any already reserved funds.
-        /// 
-        /// - `class`: The identifier of the asset whose metadata to update.
-        /// - `data`: The general information of this asset. Limited in length by `StringLimit`.
-        /// - `is_frozen`: Whether the metadata should be frozen against further changes.
-        /// 
-        /// Emits `ClassMetadataSet`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> set_class_metadata
         /// </summary>
         public GenericExtrinsicCall SetClassMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.FrameSupport.BoundedVec data, SubstrateNetApi.Model.Types.Primitive.Bool is_frozen)
         {
@@ -480,19 +197,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         }
         
         /// <summary>
-        /// >> Extrinsic: clear_class_metadata
-        /// Clear the metadata for an asset class.
-        /// 
-        /// Origin must be either `ForceOrigin` or `Signed` and the sender should be the Owner of
-        /// the asset `class`.
-        /// 
-        /// Any deposit is freed for the asset class owner.
-        /// 
-        /// - `class`: The identifier of the asset class whose metadata to clear.
-        /// 
-        /// Emits `ClassMetadataCleared`.
-        /// 
-        /// Weight: `O(1)`
+        /// >> clear_class_metadata
         /// </summary>
         public GenericExtrinsicCall ClearClassMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class)
         {

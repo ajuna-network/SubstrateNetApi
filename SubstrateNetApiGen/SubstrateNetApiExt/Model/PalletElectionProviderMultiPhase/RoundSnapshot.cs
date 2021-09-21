@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> Path: pallet_election_provider_multi_phase.RoundSnapshot
+    /// >> 335 - Composite[pallet_election_provider_multi_phase.RoundSnapshot]
     /// </summary>
     public sealed class RoundSnapshot : BaseType
     {
         
+        /// <summary>
+        /// >> voters
+        /// </summary>
         private BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U64,BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>> _voters;
         
+        /// <summary>
+        /// >> targets
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _targets;
         
         public BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U64,BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>> Voters

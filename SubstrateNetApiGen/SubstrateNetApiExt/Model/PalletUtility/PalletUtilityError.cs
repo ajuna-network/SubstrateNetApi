@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletUtility
     
     
     /// <summary>
-    /// >> Path: pallet_utility.pallet.Error
+    /// >> 307 - Variant[pallet_utility.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,8 +27,7 @@ namespace SubstrateNetApi.Model.PalletUtility
     {
         
         /// <summary>
-        /// >> Event: TooManyCalls
-        /// Too many calls batched.
+        /// >> TooManyCalls
         /// </summary>
         TooManyCalls,
     }

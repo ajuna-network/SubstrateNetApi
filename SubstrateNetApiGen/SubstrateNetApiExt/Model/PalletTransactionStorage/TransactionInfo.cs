@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     
     /// <summary>
-    /// >> Path: pallet_transaction_storage.TransactionInfo
+    /// >> 496 - Composite[pallet_transaction_storage.TransactionInfo]
     /// </summary>
     public sealed class TransactionInfo : BaseType
     {
         
+        /// <summary>
+        /// >> chunk_root
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _chunkRoot;
         
+        /// <summary>
+        /// >> content_hash
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _contentHash;
         
+        /// <summary>
+        /// >> size
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _size;
         
+        /// <summary>
+        /// >> block_chunks
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _blockChunks;
         
         public SubstrateNetApi.Model.PrimitiveTypes.H256 ChunkRoot

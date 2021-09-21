@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSystem;
+using SubstrateNetApi.Model.NodeRuntime;
+using SubstrateNetApi.Model.PrimitiveTypes;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,15 +20,24 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.EventRecord
+    /// >> 19 - Composite[frame_system.EventRecord]
     /// </summary>
     public sealed class EventRecord : BaseType
     {
         
+        /// <summary>
+        /// >> phase
+        /// </summary>
         private SubstrateNetApi.Model.FrameSystem.EnumPhase _phase;
         
+        /// <summary>
+        /// >> event
+        /// </summary>
         private SubstrateNetApi.Model.NodeRuntime.EnumNodeEvent _event;
         
+        /// <summary>
+        /// >> topics
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256> _topics;
         
         public SubstrateNetApi.Model.FrameSystem.EnumPhase Phase

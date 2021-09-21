@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> Path: pallet_recovery.pallet.Error
+    /// >> 439 - Variant[pallet_recovery.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,98 +27,82 @@ namespace SubstrateNetApi.Model.PalletRecovery
     {
         
         /// <summary>
-        /// >> Event: NotAllowed
-        /// User is not allowed to make a call on behalf of this account
+        /// >> NotAllowed
         /// </summary>
         NotAllowed,
         
         /// <summary>
-        /// >> Event: ZeroThreshold
-        /// Threshold must be greater than zero
+        /// >> ZeroThreshold
         /// </summary>
         ZeroThreshold,
         
         /// <summary>
-        /// >> Event: NotEnoughFriends
-        /// Friends list must be greater than zero and threshold
+        /// >> NotEnoughFriends
         /// </summary>
         NotEnoughFriends,
         
         /// <summary>
-        /// >> Event: MaxFriends
-        /// Friends list must be less than max friends
+        /// >> MaxFriends
         /// </summary>
         MaxFriends,
         
         /// <summary>
-        /// >> Event: NotSorted
-        /// Friends list must be sorted and free of duplicates
+        /// >> NotSorted
         /// </summary>
         NotSorted,
         
         /// <summary>
-        /// >> Event: NotRecoverable
-        /// This account is not set up for recovery
+        /// >> NotRecoverable
         /// </summary>
         NotRecoverable,
         
         /// <summary>
-        /// >> Event: AlreadyRecoverable
-        /// This account is already set up for recovery
+        /// >> AlreadyRecoverable
         /// </summary>
         AlreadyRecoverable,
         
         /// <summary>
-        /// >> Event: AlreadyStarted
-        /// A recovery process has already started for this account
+        /// >> AlreadyStarted
         /// </summary>
         AlreadyStarted,
         
         /// <summary>
-        /// >> Event: NotStarted
-        /// A recovery process has not started for this rescuer
+        /// >> NotStarted
         /// </summary>
         NotStarted,
         
         /// <summary>
-        /// >> Event: NotFriend
-        /// This account is not a friend who can vouch
+        /// >> NotFriend
         /// </summary>
         NotFriend,
         
         /// <summary>
-        /// >> Event: DelayPeriod
-        /// The friend must wait until the delay period to vouch for this recovery
+        /// >> DelayPeriod
         /// </summary>
         DelayPeriod,
         
         /// <summary>
-        /// >> Event: AlreadyVouched
-        /// This user has already vouched for this recovery
+        /// >> AlreadyVouched
         /// </summary>
         AlreadyVouched,
         
         /// <summary>
-        /// >> Event: Threshold
-        /// The threshold for recovering this account has not been met
+        /// >> Threshold
         /// </summary>
         Threshold,
         
         /// <summary>
-        /// >> Event: StillActive
-        /// There are still active recovery attempts that need to be closed
+        /// >> StillActive
         /// </summary>
         StillActive,
         
         /// <summary>
-        /// >> Event: AlreadyProxy
-        /// This account is already set up for recovery
+        /// >> AlreadyProxy
         /// </summary>
         AlreadyProxy,
         
         /// <summary>
-        /// >> Event: BadState
-        /// Some internal state is broken.
+        /// >> BadState
         /// </summary>
         BadState,
     }

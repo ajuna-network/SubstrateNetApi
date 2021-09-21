@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletIndices
     
     
     /// <summary>
-    /// >> Path: pallet_indices.pallet.Error
+    /// >> 318 - Variant[pallet_indices.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,32 +27,27 @@ namespace SubstrateNetApi.Model.PalletIndices
     {
         
         /// <summary>
-        /// >> Event: NotAssigned
-        /// The index was not already assigned.
+        /// >> NotAssigned
         /// </summary>
         NotAssigned,
         
         /// <summary>
-        /// >> Event: NotOwner
-        /// The index is assigned to another account.
+        /// >> NotOwner
         /// </summary>
         NotOwner,
         
         /// <summary>
-        /// >> Event: InUse
-        /// The index was not available.
+        /// >> InUse
         /// </summary>
         InUse,
         
         /// <summary>
-        /// >> Event: NotTransfer
-        /// The source and destination accounts are identical.
+        /// >> NotTransfer
         /// </summary>
         NotTransfer,
         
         /// <summary>
-        /// >> Event: Permanent
-        /// The index is permanent and may not be freed/changed.
+        /// >> Permanent
         /// </summary>
         Permanent,
     }

@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> Path: pallet_gilt.pallet.Error
+    /// >> 486 - Variant[pallet_gilt.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,51 +27,42 @@ namespace SubstrateNetApi.Model.PalletGilt
     {
         
         /// <summary>
-        /// >> Event: DurationTooSmall
-        /// The duration of the bid is less than one.
+        /// >> DurationTooSmall
         /// </summary>
         DurationTooSmall,
         
         /// <summary>
-        /// >> Event: DurationTooBig
-        /// The duration is the bid is greater than the number of queues.
+        /// >> DurationTooBig
         /// </summary>
         DurationTooBig,
         
         /// <summary>
-        /// >> Event: AmountTooSmall
-        /// The amount of the bid is less than the minimum allowed.
+        /// >> AmountTooSmall
         /// </summary>
         AmountTooSmall,
         
         /// <summary>
-        /// >> Event: BidTooLow
-        /// The queue for the bid's duration is full and the amount bid is too low to get in
-        /// through replacing an existing bid.
+        /// >> BidTooLow
         /// </summary>
         BidTooLow,
         
         /// <summary>
-        /// >> Event: Unknown
-        /// Gilt index is unknown.
+        /// >> Unknown
         /// </summary>
         Unknown,
         
         /// <summary>
-        /// >> Event: NotOwner
-        /// Not the owner of the gilt.
+        /// >> NotOwner
         /// </summary>
         NotOwner,
         
         /// <summary>
-        /// >> Event: NotExpired
-        /// Gilt not yet at expiry date.
+        /// >> NotExpired
         /// </summary>
         NotExpired,
         
         /// <summary>
-        /// >> Event: NotFound
-        /// The given bid for retraction is not found.
+        /// >> NotFound
         /// </summary>
         NotFound,
     }

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,31 +18,28 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> Path: pallet_scheduler.pallet.Event
+    /// >> 73 - Variant[pallet_scheduler.pallet.Event]
     /// Events type.
     /// </summary>
     public sealed class PalletSchedulerEvent
     {
         
         /// <summary>
-        /// >> Event: Scheduled
-        /// Scheduled some task. \[when, index\]
+        /// >> Scheduled
         /// </summary>
         public sealed class Scheduled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Canceled
-        /// Canceled some task. \[when, index\]
+        /// >> Canceled
         /// </summary>
         public sealed class Canceled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Dispatched
-        /// Dispatched some task. \[task, id, result\]
+        /// >> Dispatched
         /// </summary>
         public sealed class Dispatched : BaseTuple<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>, BaseOpt<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {

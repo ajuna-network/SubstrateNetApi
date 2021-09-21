@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     
     
     /// <summary>
-    /// >> Path: pallet_elections_phragmen.pallet.Error
+    /// >> 391 - Variant[pallet_elections_phragmen.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,104 +27,87 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     {
         
         /// <summary>
-        /// >> Event: UnableToVote
-        /// Cannot vote when no candidates or members exist.
+        /// >> UnableToVote
         /// </summary>
         UnableToVote,
         
         /// <summary>
-        /// >> Event: NoVotes
-        /// Must vote for at least one candidate.
+        /// >> NoVotes
         /// </summary>
         NoVotes,
         
         /// <summary>
-        /// >> Event: TooManyVotes
-        /// Cannot vote more than candidates.
+        /// >> TooManyVotes
         /// </summary>
         TooManyVotes,
         
         /// <summary>
-        /// >> Event: MaximumVotesExceeded
-        /// Cannot vote more than maximum allowed.
+        /// >> MaximumVotesExceeded
         /// </summary>
         MaximumVotesExceeded,
         
         /// <summary>
-        /// >> Event: LowBalance
-        /// Cannot vote with stake less than minimum balance.
+        /// >> LowBalance
         /// </summary>
         LowBalance,
         
         /// <summary>
-        /// >> Event: UnableToPayBond
-        /// Voter can not pay voting bond.
+        /// >> UnableToPayBond
         /// </summary>
         UnableToPayBond,
         
         /// <summary>
-        /// >> Event: MustBeVoter
-        /// Must be a voter.
+        /// >> MustBeVoter
         /// </summary>
         MustBeVoter,
         
         /// <summary>
-        /// >> Event: ReportSelf
-        /// Cannot report self.
+        /// >> ReportSelf
         /// </summary>
         ReportSelf,
         
         /// <summary>
-        /// >> Event: DuplicatedCandidate
-        /// Duplicated candidate submission.
+        /// >> DuplicatedCandidate
         /// </summary>
         DuplicatedCandidate,
         
         /// <summary>
-        /// >> Event: MemberSubmit
-        /// Member cannot re-submit candidacy.
+        /// >> MemberSubmit
         /// </summary>
         MemberSubmit,
         
         /// <summary>
-        /// >> Event: RunnerUpSubmit
-        /// Runner cannot re-submit candidacy.
+        /// >> RunnerUpSubmit
         /// </summary>
         RunnerUpSubmit,
         
         /// <summary>
-        /// >> Event: InsufficientCandidateFunds
-        /// Candidate does not have enough funds.
+        /// >> InsufficientCandidateFunds
         /// </summary>
         InsufficientCandidateFunds,
         
         /// <summary>
-        /// >> Event: NotMember
-        /// Not a member.
+        /// >> NotMember
         /// </summary>
         NotMember,
         
         /// <summary>
-        /// >> Event: InvalidWitnessData
-        /// The provided count of number of candidates is incorrect.
+        /// >> InvalidWitnessData
         /// </summary>
         InvalidWitnessData,
         
         /// <summary>
-        /// >> Event: InvalidVoteCount
-        /// The provided count of number of votes is incorrect.
+        /// >> InvalidVoteCount
         /// </summary>
         InvalidVoteCount,
         
         /// <summary>
-        /// >> Event: InvalidRenouncing
-        /// The renouncing origin presented a wrong `Renouncing` parameter.
+        /// >> InvalidRenouncing
         /// </summary>
         InvalidRenouncing,
         
         /// <summary>
-        /// >> Event: InvalidReplacement
-        /// Prediction regarding replacement after member removal is wrong.
+        /// >> InvalidReplacement
         /// </summary>
         InvalidReplacement,
     }

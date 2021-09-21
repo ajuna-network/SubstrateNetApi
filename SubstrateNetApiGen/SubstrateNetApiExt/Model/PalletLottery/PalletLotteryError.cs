@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     
     /// <summary>
-    /// >> Path: pallet_lottery.pallet.Error
+    /// >> 481 - Variant[pallet_lottery.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,44 +27,37 @@ namespace SubstrateNetApi.Model.PalletLottery
     {
         
         /// <summary>
-        /// >> Event: NotConfigured
-        /// A lottery has not been configured.
+        /// >> NotConfigured
         /// </summary>
         NotConfigured,
         
         /// <summary>
-        /// >> Event: InProgress
-        /// A lottery is already in progress.
+        /// >> InProgress
         /// </summary>
         InProgress,
         
         /// <summary>
-        /// >> Event: AlreadyEnded
-        /// A lottery has already ended.
+        /// >> AlreadyEnded
         /// </summary>
         AlreadyEnded,
         
         /// <summary>
-        /// >> Event: InvalidCall
-        /// The call is not valid for an open lottery.
+        /// >> InvalidCall
         /// </summary>
         InvalidCall,
         
         /// <summary>
-        /// >> Event: AlreadyParticipating
-        /// You are already participating in the lottery with this call.
+        /// >> AlreadyParticipating
         /// </summary>
         AlreadyParticipating,
         
         /// <summary>
-        /// >> Event: TooManyCalls
-        /// Too many calls for a single lottery.
+        /// >> TooManyCalls
         /// </summary>
         TooManyCalls,
         
         /// <summary>
-        /// >> Event: EncodingFailed
-        /// Failed to encode calls
+        /// >> EncodingFailed
         /// </summary>
         EncodingFailed,
     }

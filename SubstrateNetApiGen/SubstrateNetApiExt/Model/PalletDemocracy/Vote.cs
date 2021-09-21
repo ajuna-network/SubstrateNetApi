@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> Path: pallet_democracy.vote.Vote
+    /// >> 211 - Composite[pallet_democracy.vote.Vote]
     /// </summary>
     public sealed class Vote : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U8 _value;
         
         public SubstrateNetApi.Model.Types.Primitive.U8 Value

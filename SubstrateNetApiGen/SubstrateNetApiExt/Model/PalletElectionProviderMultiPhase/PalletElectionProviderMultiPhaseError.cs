@@ -17,75 +17,64 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> Path: pallet_election_provider_multi_phase.pallet.Error
+    /// >> 343 - Variant[pallet_election_provider_multi_phase.pallet.Error]
     /// Error of the pallet that can be returned in response to dispatches.
     /// </summary>
     public enum PalletElectionProviderMultiPhaseError
     {
         
         /// <summary>
-        /// >> Event: PreDispatchEarlySubmission
-        /// Submission was too early.
+        /// >> PreDispatchEarlySubmission
         /// </summary>
         PreDispatchEarlySubmission,
         
         /// <summary>
-        /// >> Event: PreDispatchWrongWinnerCount
-        /// Wrong number of winners presented.
+        /// >> PreDispatchWrongWinnerCount
         /// </summary>
         PreDispatchWrongWinnerCount,
         
         /// <summary>
-        /// >> Event: PreDispatchWeakSubmission
-        /// Submission was too weak, score-wise.
+        /// >> PreDispatchWeakSubmission
         /// </summary>
         PreDispatchWeakSubmission,
         
         /// <summary>
-        /// >> Event: SignedQueueFull
-        /// The queue was full, and the solution was not better than any of the existing ones.
+        /// >> SignedQueueFull
         /// </summary>
         SignedQueueFull,
         
         /// <summary>
-        /// >> Event: SignedCannotPayDeposit
-        /// The origin failed to pay the deposit.
+        /// >> SignedCannotPayDeposit
         /// </summary>
         SignedCannotPayDeposit,
         
         /// <summary>
-        /// >> Event: SignedInvalidWitness
-        /// Witness data to dispatchable is invalid.
+        /// >> SignedInvalidWitness
         /// </summary>
         SignedInvalidWitness,
         
         /// <summary>
-        /// >> Event: SignedTooMuchWeight
-        /// The signed submission consumes too much weight
+        /// >> SignedTooMuchWeight
         /// </summary>
         SignedTooMuchWeight,
         
         /// <summary>
-        /// >> Event: OcwCallWrongEra
-        /// OCW submitted solution for wrong round
+        /// >> OcwCallWrongEra
         /// </summary>
         OcwCallWrongEra,
         
         /// <summary>
-        /// >> Event: MissingSnapshotMetadata
-        /// Snapshot metadata should exist but didn't.
+        /// >> MissingSnapshotMetadata
         /// </summary>
         MissingSnapshotMetadata,
         
         /// <summary>
-        /// >> Event: InvalidSubmissionIndex
-        /// `Self::insert_submission` returned an invalid index.
+        /// >> InvalidSubmissionIndex
         /// </summary>
         InvalidSubmissionIndex,
         
         /// <summary>
-        /// >> Event: CallNotAllowed
-        /// The call is not allowed at this point.
+        /// >> CallNotAllowed
         /// </summary>
         CallNotAllowed,
     }

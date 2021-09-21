@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.IndividualExposure
+    /// >> 65 - Composite[pallet_staking.IndividualExposure]
     /// </summary>
     public sealed class IndividualExposure : BaseType
     {
         
+        /// <summary>
+        /// >> who
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _who;
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> _value;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Who

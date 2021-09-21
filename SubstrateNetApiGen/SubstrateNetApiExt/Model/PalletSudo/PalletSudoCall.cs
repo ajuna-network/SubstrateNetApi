@@ -8,7 +8,10 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.NodeRuntime;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,24 +21,14 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     
     /// <summary>
-    /// >> Path: pallet_sudo.pallet.Call
+    /// >> 233 - Variant[pallet_sudo.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletSudoCall
     {
         
         /// <summary>
-        /// >> Extrinsic: sudo
-        /// Authenticates the sudo key and dispatches a function call with `Root` origin.
-        /// 
-        /// The dispatch origin for this call must be _Signed_.
-        /// 
-        /// # <weight>
-        /// - O(1).
-        /// - Limited storage reads.
-        /// - One DB write (event).
-        /// - Weight of derivative `call` execution + 10,000.
-        /// # </weight>
+        /// >> sudo
         /// </summary>
         public GenericExtrinsicCall Sudo(SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -43,17 +36,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         }
         
         /// <summary>
-        /// >> Extrinsic: sudo_unchecked_weight
-        /// Authenticates the sudo key and dispatches a function call with `Root` origin.
-        /// This function does not check the weight of the call, and instead allows the
-        /// Sudo user to specify the weight of the call.
-        /// 
-        /// The dispatch origin for this call must be _Signed_.
-        /// 
-        /// # <weight>
-        /// - O(1).
-        /// - The weight of this call is defined by the caller.
-        /// # </weight>
+        /// >> sudo_unchecked_weight
         /// </summary>
         public GenericExtrinsicCall SudoUncheckedWeight(SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call, SubstrateNetApi.Model.Types.Primitive.U64 weight)
         {
@@ -61,17 +44,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         }
         
         /// <summary>
-        /// >> Extrinsic: set_key
-        /// Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo
-        /// key.
-        /// 
-        /// The dispatch origin for this call must be _Signed_.
-        /// 
-        /// # <weight>
-        /// - O(1).
-        /// - Limited storage reads.
-        /// - One DB change.
-        /// # </weight>
+        /// >> set_key
         /// </summary>
         public GenericExtrinsicCall SetKey(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress @new)
         {
@@ -79,18 +52,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         }
         
         /// <summary>
-        /// >> Extrinsic: sudo_as
-        /// Authenticates the sudo key and dispatches a function call with `Signed` origin from
-        /// a given account.
-        /// 
-        /// The dispatch origin for this call must be _Signed_.
-        /// 
-        /// # <weight>
-        /// - O(1).
-        /// - Limited storage reads.
-        /// - One DB write (event).
-        /// - Weight of derivative `call` execution + 10,000.
-        /// # </weight>
+        /// >> sudo_as
         /// </summary>
         public GenericExtrinsicCall SudoAs(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress who, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {

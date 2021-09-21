@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.NodeRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +19,34 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> Path: pallet_scheduler.ScheduledV2
+    /// >> 446 - Composite[pallet_scheduler.ScheduledV2]
     /// </summary>
     public sealed class ScheduledV2 : BaseType
     {
         
+        /// <summary>
+        /// >> maybe_id
+        /// </summary>
         private BaseOpt<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> _maybeId;
         
+        /// <summary>
+        /// >> priority
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U8 _priority;
         
+        /// <summary>
+        /// >> call
+        /// </summary>
         private SubstrateNetApi.Model.NodeRuntime.EnumNodeCall _call;
         
+        /// <summary>
+        /// >> maybe_periodic
+        /// </summary>
         private BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> _maybePeriodic;
         
+        /// <summary>
+        /// >> origin
+        /// </summary>
         private SubstrateNetApi.Model.NodeRuntime.EnumOriginCaller _origin;
         
         public BaseOpt<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> MaybeId

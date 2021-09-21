@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.NodeRuntime;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +20,24 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> Path: pallet_proxy.ProxyDefinition
+    /// >> 456 - Composite[pallet_proxy.ProxyDefinition]
     /// </summary>
     public sealed class ProxyDefinition : BaseType
     {
         
+        /// <summary>
+        /// >> delegate
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _delegate;
         
+        /// <summary>
+        /// >> proxy_type
+        /// </summary>
         private SubstrateNetApi.Model.NodeRuntime.EnumProxyType _proxyType;
         
+        /// <summary>
+        /// >> delay
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _delay;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Delegate

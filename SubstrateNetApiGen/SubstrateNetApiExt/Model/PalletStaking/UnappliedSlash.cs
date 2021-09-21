@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +19,34 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.UnappliedSlash
+    /// >> 356 - Composite[pallet_staking.UnappliedSlash]
     /// </summary>
     public sealed class UnappliedSlash : BaseType
     {
         
+        /// <summary>
+        /// >> validator
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _validator;
         
+        /// <summary>
+        /// >> own
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _own;
         
+        /// <summary>
+        /// >> others
+        /// </summary>
         private BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>> _others;
         
+        /// <summary>
+        /// >> reporters
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _reporters;
         
+        /// <summary>
+        /// >> payout
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _payout;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Validator

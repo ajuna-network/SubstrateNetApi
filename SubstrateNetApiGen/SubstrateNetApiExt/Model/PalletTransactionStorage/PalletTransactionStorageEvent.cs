@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     
     /// <summary>
-    /// >> Path: pallet_transaction_storage.pallet.Event
+    /// >> 93 - Variant[pallet_transaction_storage.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,24 +28,21 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     {
         
         /// <summary>
-        /// >> Event: Stored
-        /// Stored data under specified index.
+        /// >> Stored
         /// </summary>
         public sealed class Stored : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Renewed
-        /// Renewed data under specified index.
+        /// >> Renewed
         /// </summary>
         public sealed class Renewed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: ProofChecked
-        /// Storage proof was successfully checked.
+        /// >> ProofChecked
         /// </summary>
         public sealed class ProofChecked : BaseTuple
         {

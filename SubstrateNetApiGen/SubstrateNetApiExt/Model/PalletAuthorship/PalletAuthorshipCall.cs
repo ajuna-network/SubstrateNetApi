@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,14 @@ namespace SubstrateNetApi.Model.PalletAuthorship
     
     
     /// <summary>
-    /// >> Path: pallet_authorship.pallet.Call
+    /// >> 134 - Variant[pallet_authorship.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletAuthorshipCall
     {
         
         /// <summary>
-        /// >> Extrinsic: set_uncles
-        /// Provide a set of uncles.
+        /// >> set_uncles
         /// </summary>
         public GenericExtrinsicCall SetUncles(BaseVec<SubstrateNetApi.Model.SpRuntime.Header> new_uncles)
         {

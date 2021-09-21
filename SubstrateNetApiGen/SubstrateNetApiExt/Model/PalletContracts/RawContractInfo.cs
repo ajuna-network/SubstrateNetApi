@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +19,24 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.storage.RawContractInfo
+    /// >> 403 - Composite[pallet_contracts.storage.RawContractInfo]
     /// </summary>
     public sealed class RawContractInfo : BaseType
     {
         
+        /// <summary>
+        /// >> trie_id
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> _trieId;
         
+        /// <summary>
+        /// >> code_hash
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _codeHash;
         
+        /// <summary>
+        /// >> _reserved
+        /// </summary>
         private BaseOpt<BaseTuple> _reserved;
         
         public BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> TrieId

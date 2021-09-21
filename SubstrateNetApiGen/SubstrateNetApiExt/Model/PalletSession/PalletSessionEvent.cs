@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletSession
     
     
     /// <summary>
-    /// >> Path: pallet_session.Event
+    /// >> 37 - Variant[pallet_session.Event]
     /// Events for this module.
     /// 
     /// </summary>
@@ -25,9 +26,7 @@ namespace SubstrateNetApi.Model.PalletSession
     {
         
         /// <summary>
-        /// >> Event: NewSession
-        /// New session has happened. Note that the argument is the \[session_index\], not the
-        /// block number as the type might suggest.
+        /// >> NewSession
         /// </summary>
         public sealed class NewSession : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {

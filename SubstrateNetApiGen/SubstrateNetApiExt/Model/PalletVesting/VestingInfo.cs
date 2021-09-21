@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +18,24 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     
     /// <summary>
-    /// >> Path: pallet_vesting.vesting_info.VestingInfo
+    /// >> 286 - Composite[pallet_vesting.vesting_info.VestingInfo]
     /// </summary>
     public sealed class VestingInfo : BaseType
     {
         
+        /// <summary>
+        /// >> locked
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _locked;
         
+        /// <summary>
+        /// >> per_block
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _perBlock;
         
+        /// <summary>
+        /// >> starting_block
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _startingBlock;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Locked

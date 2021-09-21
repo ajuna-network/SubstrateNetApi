@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +20,24 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> Path: pallet_proxy.Announcement
+    /// >> 460 - Composite[pallet_proxy.Announcement]
     /// </summary>
     public sealed class Announcement : BaseType
     {
         
+        /// <summary>
+        /// >> real
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _real;
         
+        /// <summary>
+        /// >> call_hash
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _callHash;
         
+        /// <summary>
+        /// >> height
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _height;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Real

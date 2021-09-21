@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.slashing.SpanRecord
+    /// >> 359 - Composite[pallet_staking.slashing.SpanRecord]
     /// </summary>
     public sealed class SpanRecord : BaseType
     {
         
+        /// <summary>
+        /// >> slashed
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _slashed;
         
+        /// <summary>
+        /// >> paid_out
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _paidOut;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Slashed

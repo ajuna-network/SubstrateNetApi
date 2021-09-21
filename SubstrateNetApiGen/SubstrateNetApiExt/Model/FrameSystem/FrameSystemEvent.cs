@@ -7,6 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,55 +21,49 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.pallet.Event
+    /// >> 21 - Variant[frame_system.pallet.Event]
     /// Event for the System pallet.
     /// </summary>
     public sealed class FrameSystemEvent
     {
         
         /// <summary>
-        /// >> Event: ExtrinsicSuccess
-        /// An extrinsic completed successfully. \[info\]
+        /// >> ExtrinsicSuccess
         /// </summary>
         public sealed class ExtrinsicSuccess : BaseTuple<SubstrateNetApi.Model.FrameSupport.DispatchInfo>
         {
         }
         
         /// <summary>
-        /// >> Event: ExtrinsicFailed
-        /// An extrinsic failed. \[error, info\]
+        /// >> ExtrinsicFailed
         /// </summary>
         public sealed class ExtrinsicFailed : BaseTuple<SubstrateNetApi.Model.SpRuntime.EnumDispatchError, SubstrateNetApi.Model.FrameSupport.DispatchInfo>
         {
         }
         
         /// <summary>
-        /// >> Event: CodeUpdated
-        /// `:code` was updated.
+        /// >> CodeUpdated
         /// </summary>
         public sealed class CodeUpdated : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: NewAccount
-        /// A new \[account\] was created.
+        /// >> NewAccount
         /// </summary>
         public sealed class NewAccount : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: KilledAccount
-        /// An \[account\] was reaped.
+        /// >> KilledAccount
         /// </summary>
         public sealed class KilledAccount : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Remarked
-        /// On on-chain remark happened. \[origin, remark_hash\]
+        /// >> Remarked
         /// </summary>
         public sealed class Remarked : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PrimitiveTypes.H256>
         {

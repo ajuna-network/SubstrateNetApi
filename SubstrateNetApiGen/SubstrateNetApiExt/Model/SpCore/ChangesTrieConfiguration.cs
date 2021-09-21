@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> Path: sp_core.changes_trie.ChangesTrieConfiguration
+    /// >> 17 - Composite[sp_core.changes_trie.ChangesTrieConfiguration]
     /// </summary>
     public sealed class ChangesTrieConfiguration : BaseType
     {
         
+        /// <summary>
+        /// >> digest_interval
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _digestInterval;
         
+        /// <summary>
+        /// >> digest_levels
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _digestLevels;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 DigestInterval

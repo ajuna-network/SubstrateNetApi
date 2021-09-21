@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> Path: pallet_democracy.pallet.Error
+    /// >> 382 - Variant[pallet_democracy.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,171 +27,142 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     {
         
         /// <summary>
-        /// >> Event: ValueLow
-        /// Value too low
+        /// >> ValueLow
         /// </summary>
         ValueLow,
         
         /// <summary>
-        /// >> Event: ProposalMissing
-        /// Proposal does not exist
+        /// >> ProposalMissing
         /// </summary>
         ProposalMissing,
         
         /// <summary>
-        /// >> Event: AlreadyCanceled
-        /// Cannot cancel the same proposal twice
+        /// >> AlreadyCanceled
         /// </summary>
         AlreadyCanceled,
         
         /// <summary>
-        /// >> Event: DuplicateProposal
-        /// Proposal already made
+        /// >> DuplicateProposal
         /// </summary>
         DuplicateProposal,
         
         /// <summary>
-        /// >> Event: ProposalBlacklisted
-        /// Proposal still blacklisted
+        /// >> ProposalBlacklisted
         /// </summary>
         ProposalBlacklisted,
         
         /// <summary>
-        /// >> Event: NotSimpleMajority
-        /// Next external proposal not simple majority
+        /// >> NotSimpleMajority
         /// </summary>
         NotSimpleMajority,
         
         /// <summary>
-        /// >> Event: InvalidHash
-        /// Invalid hash
+        /// >> InvalidHash
         /// </summary>
         InvalidHash,
         
         /// <summary>
-        /// >> Event: NoProposal
-        /// No external proposal
+        /// >> NoProposal
         /// </summary>
         NoProposal,
         
         /// <summary>
-        /// >> Event: AlreadyVetoed
-        /// Identity may not veto a proposal twice
+        /// >> AlreadyVetoed
         /// </summary>
         AlreadyVetoed,
         
         /// <summary>
-        /// >> Event: DuplicatePreimage
-        /// Preimage already noted
+        /// >> DuplicatePreimage
         /// </summary>
         DuplicatePreimage,
         
         /// <summary>
-        /// >> Event: NotImminent
-        /// Not imminent
+        /// >> NotImminent
         /// </summary>
         NotImminent,
         
         /// <summary>
-        /// >> Event: TooEarly
-        /// Too early
+        /// >> TooEarly
         /// </summary>
         TooEarly,
         
         /// <summary>
-        /// >> Event: Imminent
-        /// Imminent
+        /// >> Imminent
         /// </summary>
         Imminent,
         
         /// <summary>
-        /// >> Event: PreimageMissing
-        /// Preimage not found
+        /// >> PreimageMissing
         /// </summary>
         PreimageMissing,
         
         /// <summary>
-        /// >> Event: ReferendumInvalid
-        /// Vote given for invalid referendum
+        /// >> ReferendumInvalid
         /// </summary>
         ReferendumInvalid,
         
         /// <summary>
-        /// >> Event: PreimageInvalid
-        /// Invalid preimage
+        /// >> PreimageInvalid
         /// </summary>
         PreimageInvalid,
         
         /// <summary>
-        /// >> Event: NoneWaiting
-        /// No proposals waiting
+        /// >> NoneWaiting
         /// </summary>
         NoneWaiting,
         
         /// <summary>
-        /// >> Event: NotVoter
-        /// The given account did not vote on the referendum.
+        /// >> NotVoter
         /// </summary>
         NotVoter,
         
         /// <summary>
-        /// >> Event: NoPermission
-        /// The actor has no permission to conduct the action.
+        /// >> NoPermission
         /// </summary>
         NoPermission,
         
         /// <summary>
-        /// >> Event: AlreadyDelegating
-        /// The account is already delegating.
+        /// >> AlreadyDelegating
         /// </summary>
         AlreadyDelegating,
         
         /// <summary>
-        /// >> Event: InsufficientFunds
-        /// Too high a balance was provided that the account cannot afford.
+        /// >> InsufficientFunds
         /// </summary>
         InsufficientFunds,
         
         /// <summary>
-        /// >> Event: NotDelegating
-        /// The account is not currently delegating.
+        /// >> NotDelegating
         /// </summary>
         NotDelegating,
         
         /// <summary>
-        /// >> Event: VotesExist
-        /// The account currently has votes attached to it and the operation cannot succeed until
-        /// these are removed, either through `unvote` or `reap_vote`.
+        /// >> VotesExist
         /// </summary>
         VotesExist,
         
         /// <summary>
-        /// >> Event: InstantNotAllowed
-        /// The instant referendum origin is currently disallowed.
+        /// >> InstantNotAllowed
         /// </summary>
         InstantNotAllowed,
         
         /// <summary>
-        /// >> Event: Nonsense
-        /// Delegation to oneself makes no sense.
+        /// >> Nonsense
         /// </summary>
         Nonsense,
         
         /// <summary>
-        /// >> Event: WrongUpperBound
-        /// Invalid upper bound.
+        /// >> WrongUpperBound
         /// </summary>
         WrongUpperBound,
         
         /// <summary>
-        /// >> Event: MaxVotesReached
-        /// Maximum number of votes reached.
+        /// >> MaxVotesReached
         /// </summary>
         MaxVotesReached,
         
         /// <summary>
-        /// >> Event: TooManyProposals
-        /// Maximum number of proposals reached.
+        /// >> TooManyProposals
         /// </summary>
         TooManyProposals,
     }

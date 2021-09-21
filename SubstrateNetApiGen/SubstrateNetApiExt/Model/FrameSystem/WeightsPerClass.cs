@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +18,29 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.limits.WeightsPerClass
+    /// >> 108 - Composite[frame_system.limits.WeightsPerClass]
     /// </summary>
     public sealed class WeightsPerClass : BaseType
     {
         
+        /// <summary>
+        /// >> base_extrinsic
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _baseExtrinsic;
         
+        /// <summary>
+        /// >> max_extrinsic
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.Types.Primitive.U64> _maxExtrinsic;
         
+        /// <summary>
+        /// >> max_total
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.Types.Primitive.U64> _maxTotal;
         
+        /// <summary>
+        /// >> reserved
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.Types.Primitive.U64> _reserved;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 BaseExtrinsic

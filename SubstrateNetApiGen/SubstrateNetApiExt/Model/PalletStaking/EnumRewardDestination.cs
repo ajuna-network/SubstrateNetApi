@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 200 - Variant[pallet_staking.RewardDestination]
     /// </summary>
     public sealed class EnumRewardDestination : BaseEnumExt<RewardDestination, BaseVoid, BaseVoid, BaseVoid, SubstrateNetApi.Model.SpCore.AccountId32, BaseVoid>
     {

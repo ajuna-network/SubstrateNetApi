@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -31,9 +34,9 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 138 - Variant[sp_runtime.multiaddress.MultiAddress]
     /// </summary>
-    public sealed class EnumMultiAddress : BaseEnumExt<MultiAddress, SubstrateNetApi.Model.SpCore.AccountId32, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, SubstrateNetApi.Model.Base.Arr32Special1, SubstrateNetApi.Model.Base.Arr20Special9>
+    public sealed class EnumMultiAddress : BaseEnumExt<MultiAddress, SubstrateNetApi.Model.SpCore.AccountId32, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr20U8>
     {
     }
 }

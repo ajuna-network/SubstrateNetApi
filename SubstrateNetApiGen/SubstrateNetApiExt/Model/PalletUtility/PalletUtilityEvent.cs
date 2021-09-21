@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletUtility
     
     
     /// <summary>
-    /// >> Path: pallet_utility.pallet.Event
+    /// >> 28 - Variant[pallet_utility.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,25 +29,21 @@ namespace SubstrateNetApi.Model.PalletUtility
     {
         
         /// <summary>
-        /// >> Event: BatchInterrupted
-        /// Batch of dispatches did not complete fully. Index of first failing dispatch given, as
-        /// well as the error. \[index, error\]
+        /// >> BatchInterrupted
         /// </summary>
         public sealed class BatchInterrupted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpRuntime.EnumDispatchError>
         {
         }
         
         /// <summary>
-        /// >> Event: BatchCompleted
-        /// Batch of dispatches completed fully with no error.
+        /// >> BatchCompleted
         /// </summary>
         public sealed class BatchCompleted : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: ItemCompleted
-        /// A single item within a Batch of dispatches has completed with no error.
+        /// >> ItemCompleted
         /// </summary>
         public sealed class ItemCompleted : BaseTuple
         {

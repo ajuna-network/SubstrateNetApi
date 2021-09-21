@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +19,24 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> Path: pallet_recovery.ActiveRecovery
+    /// >> 438 - Composite[pallet_recovery.ActiveRecovery]
     /// </summary>
     public sealed class ActiveRecovery : BaseType
     {
         
+        /// <summary>
+        /// >> created
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _created;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> friends
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _friends;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Created

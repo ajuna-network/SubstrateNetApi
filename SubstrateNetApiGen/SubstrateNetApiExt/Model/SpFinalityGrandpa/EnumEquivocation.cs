@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FinalityGrandpa;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace SubstrateNetApi.Model.SpFinalityGrandpa
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 221 - Variant[sp_finality_grandpa.Equivocation]
     /// </summary>
     public sealed class EnumEquivocation : BaseEnumExt<Equivocation, SubstrateNetApi.Model.FinalityGrandpa.Equivocation, SubstrateNetApi.Model.FinalityGrandpa.Equivocation>
     {

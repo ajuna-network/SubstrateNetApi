@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletIdentity;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +20,24 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> Path: pallet_identity.types.RegistrarInfo
+    /// >> 424 - Composite[pallet_identity.types.RegistrarInfo]
     /// </summary>
     public sealed class RegistrarInfo : BaseType
     {
         
+        /// <summary>
+        /// >> account
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _account;
         
+        /// <summary>
+        /// >> fee
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _fee;
         
+        /// <summary>
+        /// >> fields
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.BitFlags _fields;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Account

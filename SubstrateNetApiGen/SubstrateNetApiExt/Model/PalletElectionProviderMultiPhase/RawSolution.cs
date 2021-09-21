@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.NodeRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +20,24 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> Path: pallet_election_provider_multi_phase.RawSolution
+    /// >> 141 - Composite[pallet_election_provider_multi_phase.RawSolution]
     /// </summary>
     public sealed class RawSolution : BaseType
     {
         
+        /// <summary>
+        /// >> solution
+        /// </summary>
         private SubstrateNetApi.Model.NodeRuntime.NposSolution16 _solution;
         
-        private SubstrateNetApi.Model.Base.Arr3Special11 _score;
+        /// <summary>
+        /// >> score
+        /// </summary>
+        private SubstrateNetApi.Model.Base.Arr3U128 _score;
         
+        /// <summary>
+        /// >> round
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _round;
         
         public SubstrateNetApi.Model.NodeRuntime.NposSolution16 Solution
@@ -40,7 +52,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             }
         }
         
-        public SubstrateNetApi.Model.Base.Arr3Special11 Score
+        public SubstrateNetApi.Model.Base.Arr3U128 Score
         {
             get
             {
@@ -83,7 +95,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             var start = p;
             Solution = new SubstrateNetApi.Model.NodeRuntime.NposSolution16();
             Solution.Decode(byteArray, ref p);
-            Score = new SubstrateNetApi.Model.Base.Arr3Special11();
+            Score = new SubstrateNetApi.Model.Base.Arr3U128();
             Score.Decode(byteArray, ref p);
             Round = new SubstrateNetApi.Model.Types.Primitive.U32();
             Round.Decode(byteArray, ref p);

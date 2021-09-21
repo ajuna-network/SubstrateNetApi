@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.PalletImOnline;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -18,23 +19,14 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> Path: pallet_im_online.pallet.Call
+    /// >> 234 - Variant[pallet_im_online.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletImOnlineCall
     {
         
         /// <summary>
-        /// >> Extrinsic: heartbeat
-        /// # <weight>
-        /// - Complexity: `O(K + E)` where K is length of `Keys` (heartbeat.validators_len) and E is
-        ///   length of `heartbeat.network_state.external_address`
-        ///   - `O(K)`: decoding of length `K`
-        ///   - `O(E)`: decoding/encoding of length `E`
-        /// - DbReads: pallet_session `Validators`, pallet_session `CurrentIndex`, `Keys`,
-        ///   `ReceivedHeartbeats`
-        /// - DbWrites: `ReceivedHeartbeats`
-        /// # </weight>
+        /// >> heartbeat
         /// </summary>
         public GenericExtrinsicCall Heartbeat(SubstrateNetApi.Model.PalletImOnline.Heartbeat heartbeat, SubstrateNetApi.Model.PalletImOnline.Signature signature)
         {

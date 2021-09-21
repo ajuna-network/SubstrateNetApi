@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletBounties;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,21 +20,39 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> Path: pallet_bounties.Bounty
+    /// >> 467 - Composite[pallet_bounties.Bounty]
     /// </summary>
     public sealed class Bounty : BaseType
     {
         
+        /// <summary>
+        /// >> proposer
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _proposer;
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _value;
         
+        /// <summary>
+        /// >> fee
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _fee;
         
+        /// <summary>
+        /// >> curator_deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _curatorDeposit;
         
+        /// <summary>
+        /// >> bond
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _bond;
         
+        /// <summary>
+        /// >> status
+        /// </summary>
         private SubstrateNetApi.Model.PalletBounties.EnumBountyStatus _status;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Proposer

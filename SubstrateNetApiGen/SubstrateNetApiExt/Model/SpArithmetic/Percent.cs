@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> Path: sp_arithmetic.per_things.Percent
+    /// >> 204 - Composite[sp_arithmetic.per_things.Percent]
     /// </summary>
     public sealed class Percent : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U8 _value;
         
         public SubstrateNetApi.Model.Types.Primitive.U8 Value

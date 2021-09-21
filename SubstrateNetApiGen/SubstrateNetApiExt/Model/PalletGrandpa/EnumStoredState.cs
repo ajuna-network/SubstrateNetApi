@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +30,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 393 - Variant[pallet_grandpa.StoredState]
     /// </summary>
     public sealed class EnumStoredState : BaseEnumExt<StoredState, BaseVoid, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>, BaseVoid, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>>
     {

@@ -7,7 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletDemocracy;
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> Path: pallet_democracy.pallet.Event
+    /// >> 38 - Variant[pallet_democracy.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,141 +31,119 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     {
         
         /// <summary>
-        /// >> Event: Proposed
-        /// A motion has been proposed by a public account. \[proposal_index, deposit\]
+        /// >> Proposed
         /// </summary>
         public sealed class Proposed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Tabled
-        /// A public proposal has been tabled for referendum vote. \[proposal_index, deposit,
-        /// depositors\]
+        /// >> Tabled
         /// </summary>
         public sealed class Tabled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>
         {
         }
         
         /// <summary>
-        /// >> Event: ExternalTabled
-        /// An external proposal has been tabled.
+        /// >> ExternalTabled
         /// </summary>
         public sealed class ExternalTabled : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: Started
-        /// A referendum has begun. \[ref_index, threshold\]
+        /// >> Started
         /// </summary>
         public sealed class Started : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.PalletDemocracy.EnumVoteThreshold>
         {
         }
         
         /// <summary>
-        /// >> Event: Passed
-        /// A proposal has been approved by referendum. \[ref_index\]
+        /// >> Passed
         /// </summary>
         public sealed class Passed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: NotPassed
-        /// A proposal has been rejected by referendum. \[ref_index\]
+        /// >> NotPassed
         /// </summary>
         public sealed class NotPassed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Cancelled
-        /// A referendum has been cancelled. \[ref_index\]
+        /// >> Cancelled
         /// </summary>
         public sealed class Cancelled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Executed
-        /// A proposal has been enacted. \[ref_index, result\]
+        /// >> Executed
         /// </summary>
         public sealed class Executed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
         {
         }
         
         /// <summary>
-        /// >> Event: Delegated
-        /// An account has delegated their vote to another account. \[who, target\]
+        /// >> Delegated
         /// </summary>
         public sealed class Delegated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Undelegated
-        /// An \[account\] has cancelled a previous delegation operation.
+        /// >> Undelegated
         /// </summary>
         public sealed class Undelegated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Vetoed
-        /// An external proposal has been vetoed. \[who, proposal_hash, until\]
+        /// >> Vetoed
         /// </summary>
         public sealed class Vetoed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: PreimageNoted
-        /// A proposal's preimage was noted, and the deposit taken. \[proposal_hash, who, deposit\]
+        /// >> PreimageNoted
         /// </summary>
         public sealed class PreimageNoted : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: PreimageUsed
-        /// A proposal preimage was removed and used (the deposit was returned).
-        /// \[proposal_hash, provider, deposit\]
+        /// >> PreimageUsed
         /// </summary>
         public sealed class PreimageUsed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: PreimageInvalid
-        /// A proposal could not be executed because its preimage was invalid.
-        /// \[proposal_hash, ref_index\]
+        /// >> PreimageInvalid
         /// </summary>
         public sealed class PreimageInvalid : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: PreimageMissing
-        /// A proposal could not be executed because its preimage was missing.
-        /// \[proposal_hash, ref_index\]
+        /// >> PreimageMissing
         /// </summary>
         public sealed class PreimageMissing : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: PreimageReaped
-        /// A registered preimage was removed and the deposit collected by the reaper.
-        /// \[proposal_hash, provider, deposit, reaper\]
+        /// >> PreimageReaped
         /// </summary>
         public sealed class PreimageReaped : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Blacklisted
-        /// A proposal \[hash\] has been blacklisted permanently.
+        /// >> Blacklisted
         /// </summary>
         public sealed class Blacklisted : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
         {

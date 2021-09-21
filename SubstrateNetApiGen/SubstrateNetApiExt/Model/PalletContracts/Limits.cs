@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,31 +18,64 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.schedule.Limits
+    /// >> 407 - Composite[pallet_contracts.schedule.Limits]
     /// </summary>
     public sealed class Limits : BaseType
     {
         
+        /// <summary>
+        /// >> event_topics
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _eventTopics;
         
+        /// <summary>
+        /// >> stack_height
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _stackHeight;
         
+        /// <summary>
+        /// >> globals
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _globals;
         
+        /// <summary>
+        /// >> parameters
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _parameters;
         
+        /// <summary>
+        /// >> memory_pages
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _memoryPages;
         
+        /// <summary>
+        /// >> table_size
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _tableSize;
         
+        /// <summary>
+        /// >> br_table_size
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _brTableSize;
         
+        /// <summary>
+        /// >> subject_len
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _subjectLen;
         
+        /// <summary>
+        /// >> call_depth
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _callDepth;
         
+        /// <summary>
+        /// >> payload_len
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _payloadLen;
         
+        /// <summary>
+        /// >> code_len
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _codeLen;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 EventTopics

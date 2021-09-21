@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.extensions.check_weight.CheckWeight
+    /// >> 512 - Composite[frame_system.extensions.check_weight.CheckWeight]
     /// </summary>
     public sealed class CheckWeight : BaseType
     {

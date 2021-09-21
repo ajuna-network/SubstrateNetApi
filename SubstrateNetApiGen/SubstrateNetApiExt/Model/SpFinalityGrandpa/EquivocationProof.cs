@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpFinalityGrandpa;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.SpFinalityGrandpa
     
     
     /// <summary>
-    /// >> Path: sp_finality_grandpa.EquivocationProof
+    /// >> 220 - Composite[sp_finality_grandpa.EquivocationProof]
     /// </summary>
     public sealed class EquivocationProof : BaseType
     {
         
+        /// <summary>
+        /// >> set_id
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _setId;
         
+        /// <summary>
+        /// >> equivocation
+        /// </summary>
         private SubstrateNetApi.Model.SpFinalityGrandpa.EnumEquivocation _equivocation;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 SetId

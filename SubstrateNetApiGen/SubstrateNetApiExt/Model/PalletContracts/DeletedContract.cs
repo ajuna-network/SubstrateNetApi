@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.storage.DeletedContract
+    /// >> 405 - Composite[pallet_contracts.storage.DeletedContract]
     /// </summary>
     public sealed class DeletedContract : BaseType
     {
         
+        /// <summary>
+        /// >> trie_id
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> _trieId;
         
         public BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> TrieId

@@ -25,7 +25,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 31 - Variant[frame_support.traits.tokens.misc.BalanceStatus]
     /// </summary>
     public sealed class EnumBalanceStatus : BaseEnum<BalanceStatus>
     {

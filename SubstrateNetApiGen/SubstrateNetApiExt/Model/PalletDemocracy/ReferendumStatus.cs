@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletDemocracy;
+using SubstrateNetApi.Model.PrimitiveTypes;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +20,34 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> Path: pallet_democracy.types.ReferendumStatus
+    /// >> 372 - Composite[pallet_democracy.types.ReferendumStatus]
     /// </summary>
     public sealed class ReferendumStatus : BaseType
     {
         
+        /// <summary>
+        /// >> end
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _end;
         
+        /// <summary>
+        /// >> proposal_hash
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _proposalHash;
         
+        /// <summary>
+        /// >> threshold
+        /// </summary>
         private SubstrateNetApi.Model.PalletDemocracy.EnumVoteThreshold _threshold;
         
+        /// <summary>
+        /// >> delay
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _delay;
         
+        /// <summary>
+        /// >> tally
+        /// </summary>
         private SubstrateNetApi.Model.PalletDemocracy.Tally _tally;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 End

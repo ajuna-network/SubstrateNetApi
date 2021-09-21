@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletBalances;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.storage.weak_bounded_vec.WeakBoundedVec
+    /// >> 319 - Composite[frame_support.storage.weak_bounded_vec.WeakBoundedVec]
     /// </summary>
     public sealed class WeakBoundedVec : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.PalletBalances.BalanceLock> _value;
         
         public BaseVec<SubstrateNetApi.Model.PalletBalances.BalanceLock> Value

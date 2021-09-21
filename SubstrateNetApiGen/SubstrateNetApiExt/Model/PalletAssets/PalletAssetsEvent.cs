@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> Path: pallet_assets.pallet.Event
+    /// >> 83 - Variant[pallet_assets.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,149 +29,126 @@ namespace SubstrateNetApi.Model.PalletAssets
     {
         
         /// <summary>
-        /// >> Event: Created
-        /// Some asset class was created. \[asset_id, creator, owner\]
+        /// >> Created
         /// </summary>
         public sealed class Created : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Issued
-        /// Some assets were issued. \[asset_id, owner, total_supply\]
+        /// >> Issued
         /// </summary>
         public sealed class Issued : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U64>
         {
         }
         
         /// <summary>
-        /// >> Event: Transferred
-        /// Some assets were transferred. \[asset_id, from, to, amount\]
+        /// >> Transferred
         /// </summary>
         public sealed class Transferred : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U64>
         {
         }
         
         /// <summary>
-        /// >> Event: Burned
-        /// Some assets were destroyed. \[asset_id, owner, balance\]
+        /// >> Burned
         /// </summary>
         public sealed class Burned : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U64>
         {
         }
         
         /// <summary>
-        /// >> Event: TeamChanged
-        /// The management team changed \[asset_id, issuer, admin, freezer\]
+        /// >> TeamChanged
         /// </summary>
         public sealed class TeamChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: OwnerChanged
-        /// The owner changed \[asset_id, owner\]
+        /// >> OwnerChanged
         /// </summary>
         public sealed class OwnerChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Frozen
-        /// Some account `who` was frozen. \[asset_id, who\]
+        /// >> Frozen
         /// </summary>
         public sealed class Frozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Thawed
-        /// Some account `who` was thawed. \[asset_id, who\]
+        /// >> Thawed
         /// </summary>
         public sealed class Thawed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: AssetFrozen
-        /// Some asset `asset_id` was frozen. \[asset_id\]
+        /// >> AssetFrozen
         /// </summary>
         public sealed class AssetFrozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: AssetThawed
-        /// Some asset `asset_id` was thawed. \[asset_id\]
+        /// >> AssetThawed
         /// </summary>
         public sealed class AssetThawed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Destroyed
-        /// An asset class was destroyed.
+        /// >> Destroyed
         /// </summary>
         public sealed class Destroyed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: ForceCreated
-        /// Some asset class was force-created. \[asset_id, owner\]
+        /// >> ForceCreated
         /// </summary>
         public sealed class ForceCreated : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: MetadataSet
-        /// New metadata has been set for an asset. \[asset_id, name, symbol, decimals, is_frozen\]
+        /// >> MetadataSet
         /// </summary>
         public sealed class MetadataSet : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, SubstrateNetApi.Model.Types.Primitive.U8, SubstrateNetApi.Model.Types.Primitive.Bool>
         {
         }
         
         /// <summary>
-        /// >> Event: MetadataCleared
-        /// Metadata has been cleared for an asset. \[asset_id\]
+        /// >> MetadataCleared
         /// </summary>
         public sealed class MetadataCleared : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: ApprovedTransfer
-        /// (Additional) funds have been approved for transfer to a destination account.
-        /// \[asset_id, source, delegate, amount\]
+        /// >> ApprovedTransfer
         /// </summary>
         public sealed class ApprovedTransfer : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U64>
         {
         }
         
         /// <summary>
-        /// >> Event: ApprovalCancelled
-        /// An approval for account `delegate` was cancelled by `owner`.
-        /// \[id, owner, delegate\]
+        /// >> ApprovalCancelled
         /// </summary>
         public sealed class ApprovalCancelled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: TransferredApproved
-        /// An `amount` was transferred in its entirety from `owner` to `destination` by
-        /// the approved `delegate`.
-        /// \[id, owner, delegate, destination\]
+        /// >> TransferredApproved
         /// </summary>
         public sealed class TransferredApproved : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U64>
         {
         }
         
         /// <summary>
-        /// >> Event: AssetStatusChanged
-        /// An asset has had its attributes changed by the `Force` origin.
-        /// \[id\]
+        /// >> AssetStatusChanged
         /// </summary>
         public sealed class AssetStatusChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {

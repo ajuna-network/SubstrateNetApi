@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpFinalityGrandpa;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     
     /// <summary>
-    /// >> Path: pallet_grandpa.pallet.Event
+    /// >> 49 - Variant[pallet_grandpa.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,24 +29,21 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     {
         
         /// <summary>
-        /// >> Event: NewAuthorities
-        /// New authority set has been applied. \[authority_set\]
+        /// >> NewAuthorities
         /// </summary>
         public sealed class NewAuthorities : BaseTuple<BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>>>
         {
         }
         
         /// <summary>
-        /// >> Event: Paused
-        /// Current authority set has been paused.
+        /// >> Paused
         /// </summary>
         public sealed class Paused : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: Resumed
-        /// Current authority set has been resumed.
+        /// >> Resumed
         /// </summary>
         public sealed class Resumed : BaseTuple
         {

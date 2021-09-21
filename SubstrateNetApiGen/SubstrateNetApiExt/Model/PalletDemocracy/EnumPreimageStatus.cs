@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +27,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 370 - Variant[pallet_democracy.PreimageStatus]
     /// </summary>
     public sealed class EnumPreimageStatus : BaseEnumExt<PreimageStatus, SubstrateNetApi.Model.Types.Primitive.U32, BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U32, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>>>
     {

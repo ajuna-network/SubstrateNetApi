@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> Path: pallet_identity.pallet.Error
+    /// >> 426 - Variant[pallet_identity.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,98 +27,82 @@ namespace SubstrateNetApi.Model.PalletIdentity
     {
         
         /// <summary>
-        /// >> Event: TooManySubAccounts
-        /// Too many subs-accounts.
+        /// >> TooManySubAccounts
         /// </summary>
         TooManySubAccounts,
         
         /// <summary>
-        /// >> Event: NotFound
-        /// Account isn't found.
+        /// >> NotFound
         /// </summary>
         NotFound,
         
         /// <summary>
-        /// >> Event: NotNamed
-        /// Account isn't named.
+        /// >> NotNamed
         /// </summary>
         NotNamed,
         
         /// <summary>
-        /// >> Event: EmptyIndex
-        /// Empty index.
+        /// >> EmptyIndex
         /// </summary>
         EmptyIndex,
         
         /// <summary>
-        /// >> Event: FeeChanged
-        /// Fee is changed.
+        /// >> FeeChanged
         /// </summary>
         FeeChanged,
         
         /// <summary>
-        /// >> Event: NoIdentity
-        /// No identity found.
+        /// >> NoIdentity
         /// </summary>
         NoIdentity,
         
         /// <summary>
-        /// >> Event: StickyJudgement
-        /// Sticky judgement.
+        /// >> StickyJudgement
         /// </summary>
         StickyJudgement,
         
         /// <summary>
-        /// >> Event: JudgementGiven
-        /// Judgement given.
+        /// >> JudgementGiven
         /// </summary>
         JudgementGiven,
         
         /// <summary>
-        /// >> Event: InvalidJudgement
-        /// Invalid judgement.
+        /// >> InvalidJudgement
         /// </summary>
         InvalidJudgement,
         
         /// <summary>
-        /// >> Event: InvalidIndex
-        /// The index is invalid.
+        /// >> InvalidIndex
         /// </summary>
         InvalidIndex,
         
         /// <summary>
-        /// >> Event: InvalidTarget
-        /// The target is invalid.
+        /// >> InvalidTarget
         /// </summary>
         InvalidTarget,
         
         /// <summary>
-        /// >> Event: TooManyFields
-        /// Too many additional fields.
+        /// >> TooManyFields
         /// </summary>
         TooManyFields,
         
         /// <summary>
-        /// >> Event: TooManyRegistrars
-        /// Maximum amount of registrars reached. Cannot add any more.
+        /// >> TooManyRegistrars
         /// </summary>
         TooManyRegistrars,
         
         /// <summary>
-        /// >> Event: AlreadyClaimed
-        /// Account ID is already named.
+        /// >> AlreadyClaimed
         /// </summary>
         AlreadyClaimed,
         
         /// <summary>
-        /// >> Event: NotSub
-        /// Sender is not a sub-account.
+        /// >> NotSub
         /// </summary>
         NotSub,
         
         /// <summary>
-        /// >> Event: NotOwned
-        /// Sub-account isn't owned by sender.
+        /// >> NotOwned
         /// </summary>
         NotOwned,
     }

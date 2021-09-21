@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> Path: pallet_society.RawEvent
+    /// >> 69 - Variant[pallet_society.RawEvent]
     /// Events for this module.
     /// 
     /// Events for this module.
@@ -26,131 +28,112 @@ namespace SubstrateNetApi.Model.PalletSociety
     {
         
         /// <summary>
-        /// >> Event: Founded
-        /// The society is founded by the given identity. \[founder\]
+        /// >> Founded
         /// </summary>
         public sealed class Founded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Bid
-        /// A membership bid just happened. The given account is the candidate's ID and their offer
-        /// is the second. \[candidate_id, offer\]
+        /// >> Bid
         /// </summary>
         public sealed class Bid : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Vouch
-        /// A membership bid just happened by vouching. The given account is the candidate's ID and
-        /// their offer is the second. The vouching party is the third. \[candidate_id, offer, vouching\]
+        /// >> Vouch
         /// </summary>
         public sealed class Vouch : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: AutoUnbid
-        /// A \[candidate\] was dropped (due to an excess of bids in the system).
+        /// >> AutoUnbid
         /// </summary>
         public sealed class AutoUnbid : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Unbid
-        /// A \[candidate\] was dropped (by their request).
+        /// >> Unbid
         /// </summary>
         public sealed class Unbid : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Unvouch
-        /// A \[candidate\] was dropped (by request of who vouched for them).
+        /// >> Unvouch
         /// </summary>
         public sealed class Unvouch : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Inducted
-        /// A group of candidates have been inducted. The batch's primary is the first value, the
-        /// batch in full is the second. \[primary, candidates\]
+        /// >> Inducted
         /// </summary>
         public sealed class Inducted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>
         {
         }
         
         /// <summary>
-        /// >> Event: SuspendedMemberJudgement
-        /// A suspended member has been judged. \[who, judged\]
+        /// >> SuspendedMemberJudgement
         /// </summary>
         public sealed class SuspendedMemberJudgement : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.Bool>
         {
         }
         
         /// <summary>
-        /// >> Event: CandidateSuspended
-        /// A \[candidate\] has been suspended
+        /// >> CandidateSuspended
         /// </summary>
         public sealed class CandidateSuspended : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: MemberSuspended
-        /// A \[member\] has been suspended
+        /// >> MemberSuspended
         /// </summary>
         public sealed class MemberSuspended : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Challenged
-        /// A \[member\] has been challenged
+        /// >> Challenged
         /// </summary>
         public sealed class Challenged : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Vote
-        /// A vote has been placed \[candidate, voter, vote\]
+        /// >> Vote
         /// </summary>
         public sealed class Vote : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.Bool>
         {
         }
         
         /// <summary>
-        /// >> Event: DefenderVote
-        /// A vote has been placed for a defending member \[voter, vote\]
+        /// >> DefenderVote
         /// </summary>
         public sealed class DefenderVote : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.Bool>
         {
         }
         
         /// <summary>
-        /// >> Event: NewMaxMembers
-        /// A new \[max\] member count has been set
+        /// >> NewMaxMembers
         /// </summary>
         public sealed class NewMaxMembers : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Unfounded
-        /// Society is unfounded. \[founder\]
+        /// >> Unfounded
         /// </summary>
         public sealed class Unfounded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Deposit
-        /// Some funds were deposited into the society account. \[value\]
+        /// >> Deposit
         /// </summary>
         public sealed class Deposit : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
         {

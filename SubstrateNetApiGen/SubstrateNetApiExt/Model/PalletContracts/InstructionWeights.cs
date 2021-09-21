@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,113 +18,269 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> Path: pallet_contracts.schedule.InstructionWeights
+    /// >> 408 - Composite[pallet_contracts.schedule.InstructionWeights]
     /// </summary>
     public sealed class InstructionWeights : BaseType
     {
         
+        /// <summary>
+        /// >> version
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _version;
         
+        /// <summary>
+        /// >> i64const
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64const;
         
+        /// <summary>
+        /// >> i64load
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64load;
         
+        /// <summary>
+        /// >> i64store
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64store;
         
+        /// <summary>
+        /// >> select
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _select;
         
+        /// <summary>
+        /// >> r#if
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _rHif;
         
+        /// <summary>
+        /// >> br
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _br;
         
+        /// <summary>
+        /// >> br_if
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _brIf;
         
+        /// <summary>
+        /// >> br_table
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _brTable;
         
+        /// <summary>
+        /// >> br_table_per_entry
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _brTablePerEntry;
         
+        /// <summary>
+        /// >> call
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _call;
         
+        /// <summary>
+        /// >> call_indirect
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _callIndirect;
         
+        /// <summary>
+        /// >> call_indirect_per_param
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _callIndirectPerParam;
         
+        /// <summary>
+        /// >> local_get
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _localGet;
         
+        /// <summary>
+        /// >> local_set
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _localSet;
         
+        /// <summary>
+        /// >> local_tee
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _localTee;
         
+        /// <summary>
+        /// >> global_get
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _globalGet;
         
+        /// <summary>
+        /// >> global_set
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _globalSet;
         
+        /// <summary>
+        /// >> memory_current
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _memoryCurrent;
         
+        /// <summary>
+        /// >> memory_grow
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _memoryGrow;
         
+        /// <summary>
+        /// >> i64clz
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64clz;
         
+        /// <summary>
+        /// >> i64ctz
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64ctz;
         
+        /// <summary>
+        /// >> i64popcnt
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64popcnt;
         
+        /// <summary>
+        /// >> i64eqz
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64eqz;
         
+        /// <summary>
+        /// >> i64extendsi32
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64extendsi32;
         
+        /// <summary>
+        /// >> i64extendui32
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64extendui32;
         
+        /// <summary>
+        /// >> i32wrapi64
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i32wrapi64;
         
+        /// <summary>
+        /// >> i64eq
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64eq;
         
+        /// <summary>
+        /// >> i64ne
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64ne;
         
+        /// <summary>
+        /// >> i64lts
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64lts;
         
+        /// <summary>
+        /// >> i64ltu
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64ltu;
         
+        /// <summary>
+        /// >> i64gts
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64gts;
         
+        /// <summary>
+        /// >> i64gtu
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64gtu;
         
+        /// <summary>
+        /// >> i64les
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64les;
         
+        /// <summary>
+        /// >> i64leu
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64leu;
         
+        /// <summary>
+        /// >> i64ges
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64ges;
         
+        /// <summary>
+        /// >> i64geu
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64geu;
         
+        /// <summary>
+        /// >> i64add
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64add;
         
+        /// <summary>
+        /// >> i64sub
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64sub;
         
+        /// <summary>
+        /// >> i64mul
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64mul;
         
+        /// <summary>
+        /// >> i64divs
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64divs;
         
+        /// <summary>
+        /// >> i64divu
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64divu;
         
+        /// <summary>
+        /// >> i64rems
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64rems;
         
+        /// <summary>
+        /// >> i64remu
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64remu;
         
+        /// <summary>
+        /// >> i64and
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64and;
         
+        /// <summary>
+        /// >> i64or
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64or;
         
+        /// <summary>
+        /// >> i64xor
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64xor;
         
+        /// <summary>
+        /// >> i64shl
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64shl;
         
+        /// <summary>
+        /// >> i64shrs
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64shrs;
         
+        /// <summary>
+        /// >> i64shru
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64shru;
         
+        /// <summary>
+        /// >> i64rotl
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64rotl;
         
+        /// <summary>
+        /// >> i64rotr
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _i64rotr;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Version

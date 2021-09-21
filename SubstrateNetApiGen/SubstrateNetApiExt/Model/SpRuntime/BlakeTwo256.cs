@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     
     
     /// <summary>
-    /// >> Path: sp_runtime.traits.BlakeTwo256
+    /// >> 125 - Composite[sp_runtime.traits.BlakeTwo256]
     /// </summary>
     public sealed class BlakeTwo256 : BaseType
     {

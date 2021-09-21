@@ -8,7 +8,10 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.SpArithmetic;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,15 +21,14 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.pallet.Call
+    /// >> 101 - Variant[frame_system.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class FrameSystemCall
     {
         
         /// <summary>
-        /// >> Extrinsic: fill_block
-        /// A dispatch that will fill the block weight up to the given ratio.
+        /// >> fill_block
         /// </summary>
         public GenericExtrinsicCall FillBlock(SubstrateNetApi.Model.SpArithmetic.Perbill ratio)
         {
@@ -34,12 +36,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: remark
-        /// Make some on-chain remark.
-        /// 
-        /// # <weight>
-        /// - `O(1)`
-        /// # </weight>
+        /// >> remark
         /// </summary>
         public GenericExtrinsicCall Remark(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> remark)
         {
@@ -47,16 +44,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: set_heap_pages
-        /// Set the number of pages in the WebAssembly environment's heap.
-        /// 
-        /// # <weight>
-        /// - `O(1)`
-        /// - 1 storage write.
-        /// - Base Weight: 1.405 ��s
-        /// - 1 write to HEAP_PAGES
-        /// - 1 digest item
-        /// # </weight>
+        /// >> set_heap_pages
         /// </summary>
         public GenericExtrinsicCall SetHeapPages(SubstrateNetApi.Model.Types.Primitive.U64 pages)
         {
@@ -64,19 +52,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: set_code
-        /// Set the new runtime code.
-        /// 
-        /// # <weight>
-        /// - `O(C + S)` where `C` length of `code` and `S` complexity of `can_set_code`
-        /// - 1 call to `can_set_code`: `O(S)` (calls `sp_io::misc::runtime_version` which is
-        ///   expensive).
-        /// - 1 storage write (codec `O(C)`).
-        /// - 1 digest item.
-        /// - 1 event.
-        /// The weight of this function is dependent on the runtime, but generally this is very
-        /// expensive. We will treat this as a full block.
-        /// # </weight>
+        /// >> set_code
         /// </summary>
         public GenericExtrinsicCall SetCode(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> code)
         {
@@ -84,16 +60,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: set_code_without_checks
-        /// Set the new runtime code without doing any checks of the given `code`.
-        /// 
-        /// # <weight>
-        /// - `O(C)` where `C` length of `code`
-        /// - 1 storage write (codec `O(C)`).
-        /// - 1 digest item.
-        /// - 1 event.
-        /// The weight of this function is dependent on the runtime. We will treat this as a full
-        /// block. # </weight>
+        /// >> set_code_without_checks
         /// </summary>
         public GenericExtrinsicCall SetCodeWithoutChecks(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> code)
         {
@@ -101,17 +68,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: set_changes_trie_config
-        /// Set the new changes trie configuration.
-        /// 
-        /// # <weight>
-        /// - `O(1)`
-        /// - 1 storage write or delete (codec `O(1)`).
-        /// - 1 call to `deposit_log`: Uses `append` API, so O(1)
-        /// - Base Weight: 7.218 ��s
-        /// - DB Weight:
-        ///     - Writes: Changes Trie, System Digest
-        /// # </weight>
+        /// >> set_changes_trie_config
         /// </summary>
         public GenericExtrinsicCall SetChangesTrieConfig(BaseOpt<SubstrateNetApi.Model.SpCore.ChangesTrieConfiguration> changes_trie_config)
         {
@@ -119,15 +76,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: set_storage
-        /// Set some items of storage.
-        /// 
-        /// # <weight>
-        /// - `O(I)` where `I` length of `items`
-        /// - `I` storage writes (`O(1)`).
-        /// - Base Weight: 0.568 * i ��s
-        /// - Writes: Number of items
-        /// # </weight>
+        /// >> set_storage
         /// </summary>
         public GenericExtrinsicCall SetStorage(BaseVec<BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>> items)
         {
@@ -135,15 +84,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: kill_storage
-        /// Kill some items from storage.
-        /// 
-        /// # <weight>
-        /// - `O(IK)` where `I` length of `keys` and `K` length of one key
-        /// - `I` storage deletions.
-        /// - Base Weight: .378 * i ��s
-        /// - Writes: Number of items
-        /// # </weight>
+        /// >> kill_storage
         /// </summary>
         public GenericExtrinsicCall KillStorage(BaseVec<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> keys)
         {
@@ -151,18 +92,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: kill_prefix
-        /// Kill all storage items with a key that starts with the given prefix.
-        /// 
-        /// **NOTE:** We rely on the Root origin to provide us the number of subkeys under
-        /// the prefix we are removing to accurately calculate the weight of this function.
-        /// 
-        /// # <weight>
-        /// - `O(P)` where `P` amount of keys with prefix `prefix`
-        /// - `P` storage deletions.
-        /// - Base Weight: 0.834 * P ��s
-        /// - Writes: Number of subkeys + 1
-        /// # </weight>
+        /// >> kill_prefix
         /// </summary>
         public GenericExtrinsicCall KillPrefix(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> prefix, SubstrateNetApi.Model.Types.Primitive.U32 subkeys)
         {
@@ -170,13 +100,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         }
         
         /// <summary>
-        /// >> Extrinsic: remark_with_event
-        /// Make some on-chain remark and emit event.
-        /// 
-        /// # <weight>
-        /// - `O(b)` where b is the length of the remark.
-        /// - 1 event.
-        /// # </weight>
+        /// >> remark_with_event
         /// </summary>
         public GenericExtrinsicCall RemarkWithEvent(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> remark)
         {

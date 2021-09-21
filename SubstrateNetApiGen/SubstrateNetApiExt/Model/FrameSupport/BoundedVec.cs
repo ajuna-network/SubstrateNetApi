@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletProxy;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.storage.bounded_vec.BoundedVec
+    /// >> 455 - Composite[frame_support.storage.bounded_vec.BoundedVec]
     /// </summary>
     public sealed class BoundedVec : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.PalletProxy.ProxyDefinition> _value;
         
         public BaseVec<SubstrateNetApi.Model.PalletProxy.ProxyDefinition> Value

@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,59 +18,49 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> Path: pallet_recovery.pallet.Event
+    /// >> 71 - Variant[pallet_recovery.pallet.Event]
     /// Events type.
     /// </summary>
     public sealed class PalletRecoveryEvent
     {
         
         /// <summary>
-        /// >> Event: RecoveryCreated
-        /// A recovery process has been set up for an \[account\].
+        /// >> RecoveryCreated
         /// </summary>
         public sealed class RecoveryCreated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: RecoveryInitiated
-        /// A recovery process has been initiated for lost account by rescuer account.
-        /// \[lost, rescuer\]
+        /// >> RecoveryInitiated
         /// </summary>
         public sealed class RecoveryInitiated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: RecoveryVouched
-        /// A recovery process for lost account by rescuer account has been vouched for by sender.
-        /// \[lost, rescuer, sender\]
+        /// >> RecoveryVouched
         /// </summary>
         public sealed class RecoveryVouched : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: RecoveryClosed
-        /// A recovery process for lost account by rescuer account has been closed.
-        /// \[lost, rescuer\]
+        /// >> RecoveryClosed
         /// </summary>
         public sealed class RecoveryClosed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: AccountRecovered
-        /// Lost account has been successfully recovered by rescuer account.
-        /// \[lost, rescuer\]
+        /// >> AccountRecovered
         /// </summary>
         public sealed class AccountRecovered : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: RecoveryRemoved
-        /// A recovery process has been removed for an \[account\].
+        /// >> RecoveryRemoved
         /// </summary>
         public sealed class RecoveryRemoved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {

@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> Path: pallet_im_online.sr25519.app_sr25519.Signature
+    /// >> 240 - Composite[pallet_im_online.sr25519.app_sr25519.Signature]
     /// </summary>
     public sealed class Signature : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.Signature _value;
         
         public SubstrateNetApi.Model.SpCore.Signature Value

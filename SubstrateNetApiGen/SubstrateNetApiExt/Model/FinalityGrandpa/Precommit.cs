@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.FinalityGrandpa
     
     
     /// <summary>
-    /// >> Path: finality_grandpa.Precommit
+    /// >> 229 - Composite[finality_grandpa.Precommit]
     /// </summary>
     public sealed class Precommit : BaseType
     {
         
+        /// <summary>
+        /// >> target_hash
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _targetHash;
         
+        /// <summary>
+        /// >> target_number
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _targetNumber;
         
         public SubstrateNetApi.Model.PrimitiveTypes.H256 TargetHash

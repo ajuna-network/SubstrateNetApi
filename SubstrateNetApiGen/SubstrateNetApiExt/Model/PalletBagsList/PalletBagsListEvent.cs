@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
     
     
     /// <summary>
-    /// >> Path: pallet_bags_list.pallet.Event
+    /// >> 94 - Variant[pallet_bags_list.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,8 +29,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
     {
         
         /// <summary>
-        /// >> Event: Rebagged
-        /// Moved an account from one bag to another. \[who, from, to\].
+        /// >> Rebagged
         /// </summary>
         public sealed class Rebagged : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U64, SubstrateNetApi.Model.Types.Primitive.U64>
         {

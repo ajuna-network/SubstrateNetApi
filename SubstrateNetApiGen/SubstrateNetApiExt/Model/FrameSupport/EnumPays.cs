@@ -25,7 +25,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 24 - Variant[frame_support.weights.Pays]
     /// </summary>
     public sealed class EnumPays : BaseEnum<Pays>
     {

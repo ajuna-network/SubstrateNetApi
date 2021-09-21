@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     
     /// <summary>
-    /// >> Path: pallet_treasury.pallet.Event
+    /// >> 54 - Variant[pallet_treasury.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,57 +29,49 @@ namespace SubstrateNetApi.Model.PalletTreasury
     {
         
         /// <summary>
-        /// >> Event: Proposed
-        /// New proposal. \[proposal_index\]
+        /// >> Proposed
         /// </summary>
         public sealed class Proposed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Spending
-        /// We have ended a spend period and will now allocate funds. \[budget_remaining\]
+        /// >> Spending
         /// </summary>
         public sealed class Spending : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Awarded
-        /// Some funds have been allocated. \[proposal_index, award, beneficiary\]
+        /// >> Awarded
         /// </summary>
         public sealed class Awarded : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Rejected
-        /// A proposal was rejected; funds were slashed. \[proposal_index, slashed\]
+        /// >> Rejected
         /// </summary>
         public sealed class Rejected : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Burnt
-        /// Some of our funds have been burnt. \[burn\]
+        /// >> Burnt
         /// </summary>
         public sealed class Burnt : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Rollover
-        /// Spending has finished; this is the amount that rolls over until next spend.
-        /// \[budget_remaining\]
+        /// >> Rollover
         /// </summary>
         public sealed class Rollover : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Deposit
-        /// Some funds have been deposited. \[deposit\]
+        /// >> Deposit
         /// </summary>
         public sealed class Deposit : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
         {

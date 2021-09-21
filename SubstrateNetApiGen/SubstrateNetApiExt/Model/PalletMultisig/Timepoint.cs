@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> Path: pallet_multisig.Timepoint
+    /// >> 80 - Composite[pallet_multisig.Timepoint]
     /// </summary>
     public sealed class Timepoint : BaseType
     {
         
+        /// <summary>
+        /// >> height
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _height;
         
+        /// <summary>
+        /// >> index
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _index;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Height

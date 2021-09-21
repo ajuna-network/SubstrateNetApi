@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.SpConsensusBabe;
+using SubstrateNetApi.Model.SpConsensusSlots;
+using SubstrateNetApi.Model.SpSession;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -18,18 +21,14 @@ namespace SubstrateNetApi.Model.PalletBabe
     
     
     /// <summary>
-    /// >> Path: pallet_babe.pallet.Call
+    /// >> 122 - Variant[pallet_babe.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletBabeCall
     {
         
         /// <summary>
-        /// >> Extrinsic: report_equivocation
-        /// Report authority equivocation/misbehavior. This method will verify
-        /// the equivocation proof and validate the given key ownership proof
-        /// against the extracted offender. If both are valid, the offence will
-        /// be reported.
+        /// >> report_equivocation
         /// </summary>
         public GenericExtrinsicCall ReportEquivocation(SubstrateNetApi.Model.SpConsensusSlots.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -37,15 +36,7 @@ namespace SubstrateNetApi.Model.PalletBabe
         }
         
         /// <summary>
-        /// >> Extrinsic: report_equivocation_unsigned
-        /// Report authority equivocation/misbehavior. This method will verify
-        /// the equivocation proof and validate the given key ownership proof
-        /// against the extracted offender. If both are valid, the offence will
-        /// be reported.
-        /// This extrinsic must be called unsigned and it is expected that only
-        /// block authors will call it (validated in `ValidateUnsigned`), as such
-        /// if the block author is defined it will be defined as the equivocation
-        /// reporter.
+        /// >> report_equivocation_unsigned
         /// </summary>
         public GenericExtrinsicCall ReportEquivocationUnsigned(SubstrateNetApi.Model.SpConsensusSlots.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -53,11 +44,7 @@ namespace SubstrateNetApi.Model.PalletBabe
         }
         
         /// <summary>
-        /// >> Extrinsic: plan_config_change
-        /// Plan an epoch config change. The epoch config change is recorded and will be enacted on
-        /// the next call to `enact_epoch_change`. The config will be activated one epoch after.
-        /// Multiple calls to this method will replace any existing planned config change that had
-        /// not been enacted yet.
+        /// >> plan_config_change
         /// </summary>
         public GenericExtrinsicCall PlanConfigChange(SubstrateNetApi.Model.SpConsensusBabe.EnumNextConfigDescriptor config)
         {

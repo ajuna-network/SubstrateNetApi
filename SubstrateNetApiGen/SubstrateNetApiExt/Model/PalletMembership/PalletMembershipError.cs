@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletMembership
     
     
     /// <summary>
-    /// >> Path: pallet_membership.pallet.Error
+    /// >> 392 - Variant[pallet_membership.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,14 +27,12 @@ namespace SubstrateNetApi.Model.PalletMembership
     {
         
         /// <summary>
-        /// >> Event: AlreadyMember
-        /// Already a member.
+        /// >> AlreadyMember
         /// </summary>
         AlreadyMember,
         
         /// <summary>
-        /// >> Event: NotMember
-        /// Not a member.
+        /// >> NotMember
         /// </summary>
         NotMember,
     }

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> Path: pallet_democracy.vote.PriorLock
+    /// >> 378 - Composite[pallet_democracy.vote.PriorLock]
     /// </summary>
     public sealed class PriorLock : BaseType
     {
         
+        /// <summary>
+        /// >> BlockNumber
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _blockNumber;
         
+        /// <summary>
+        /// >> Balance
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _balance;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 BlockNumber

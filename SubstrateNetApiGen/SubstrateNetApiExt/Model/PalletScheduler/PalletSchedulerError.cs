@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> Path: pallet_scheduler.pallet.Error
+    /// >> 453 - Variant[pallet_scheduler.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,26 +27,22 @@ namespace SubstrateNetApi.Model.PalletScheduler
     {
         
         /// <summary>
-        /// >> Event: FailedToSchedule
-        /// Failed to schedule a call
+        /// >> FailedToSchedule
         /// </summary>
         FailedToSchedule,
         
         /// <summary>
-        /// >> Event: NotFound
-        /// Cannot find the scheduled call.
+        /// >> NotFound
         /// </summary>
         NotFound,
         
         /// <summary>
-        /// >> Event: TargetBlockNumberInPast
-        /// Given target block number is in the past.
+        /// >> TargetBlockNumberInPast
         /// </summary>
         TargetBlockNumberInPast,
         
         /// <summary>
-        /// >> Event: RescheduleNoChange
-        /// Reschedule failed because it does not change scheduled time.
+        /// >> RescheduleNoChange
         /// </summary>
         RescheduleNoChange,
     }

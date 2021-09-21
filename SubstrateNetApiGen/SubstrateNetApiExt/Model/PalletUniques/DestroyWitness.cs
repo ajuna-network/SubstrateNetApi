@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +18,24 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> Path: pallet_uniques.types.DestroyWitness
+    /// >> 302 - Composite[pallet_uniques.types.DestroyWitness]
     /// </summary>
     public sealed class DestroyWitness : BaseType
     {
         
+        /// <summary>
+        /// >> instances
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _instances;
         
+        /// <summary>
+        /// >> instance_metadatas
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _instanceMetadatas;
         
+        /// <summary>
+        /// >> attributes
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _attributes;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> Instances

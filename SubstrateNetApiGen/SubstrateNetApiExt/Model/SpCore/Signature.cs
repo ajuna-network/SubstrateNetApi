@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,17 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> Path: sp_core.ecdsa.Signature
+    /// >> 503 - Composite[sp_core.ecdsa.Signature]
     /// </summary>
     public sealed class Signature : BaseType
     {
         
-        private SubstrateNetApi.Model.Base.Arr65Special71 _value;
+        /// <summary>
+        /// >> value
+        /// </summary>
+        private SubstrateNetApi.Model.Base.Arr65U8 _value;
         
-        public SubstrateNetApi.Model.Base.Arr65Special71 Value
+        public SubstrateNetApi.Model.Base.Arr65U8 Value
         {
             get
             {
@@ -51,7 +55,7 @@ namespace SubstrateNetApi.Model.SpCore
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Value = new SubstrateNetApi.Model.Base.Arr65Special71();
+            Value = new SubstrateNetApi.Model.Base.Arr65U8();
             Value.Decode(byteArray, ref p);
             TypeSize = p - start;
         }

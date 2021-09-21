@@ -8,7 +8,9 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.SpTransactionStorageProof;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,20 +20,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     
     /// <summary>
-    /// >> Path: pallet_transaction_storage.pallet.Call
+    /// >> 304 - Variant[pallet_transaction_storage.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletTransactionStorageCall
     {
         
         /// <summary>
-        /// >> Extrinsic: store
-        /// Index and store data on chain. Minimum data size is 1 bytes, maximum is
-        /// `MaxTransactionSize`. Data will be removed after `STORAGE_PERIOD` blocks, unless `renew`
-        /// is called. # <weight>
-        /// - n*log(n) of data size, as all data is pushed to an in-memory trie.
-        /// Additionally contains a DB write.
-        /// # </weight>
+        /// >> store
         /// </summary>
         public GenericExtrinsicCall Store(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> data)
         {
@@ -39,14 +35,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         }
         
         /// <summary>
-        /// >> Extrinsic: renew
-        /// Renew previously stored data. Parameters are the block number that contains
-        /// previous `store` or `renew` call and transaction index within that block.
-        /// Transaction index is emitted in the `Stored` or `Renewed` event.
-        /// Applies same fees as `store`.
-        /// # <weight>
-        /// - Constant.
-        /// # </weight>
+        /// >> renew
         /// </summary>
         public GenericExtrinsicCall Renew(SubstrateNetApi.Model.Types.Primitive.U32 block, SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -54,15 +43,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         }
         
         /// <summary>
-        /// >> Extrinsic: check_proof
-        /// Check storage proof for block number `block_number() - StoragePeriod`.
-        /// If such block does not exist the proof is expected to be `None`.
-        /// # <weight>
-        /// - Linear w.r.t the number of indexed transactions in the proved block for random
-        ///   probing.
-        /// There's a DB read for each transaction.
-        /// Here we assume a maximum of 100 probed transactions.
-        /// # </weight>
+        /// >> check_proof
         /// </summary>
         public GenericExtrinsicCall CheckProof(SubstrateNetApi.Model.SpTransactionStorageProof.TransactionStorageProof proof)
         {

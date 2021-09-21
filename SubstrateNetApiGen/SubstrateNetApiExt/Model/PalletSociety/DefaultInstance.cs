@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> Path: pallet_society.DefaultInstance
+    /// >> 70 - Composite[pallet_society.DefaultInstance]
     /// </summary>
     public sealed class DefaultInstance : BaseType
     {

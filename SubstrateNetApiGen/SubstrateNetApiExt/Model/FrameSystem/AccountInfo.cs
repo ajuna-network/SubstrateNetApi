@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletBalances;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +19,34 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.AccountInfo
+    /// >> 3 - Composite[frame_system.AccountInfo]
     /// </summary>
     public sealed class AccountInfo : BaseType
     {
         
+        /// <summary>
+        /// >> nonce
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _nonce;
         
+        /// <summary>
+        /// >> consumers
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _consumers;
         
+        /// <summary>
+        /// >> providers
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _providers;
         
+        /// <summary>
+        /// >> sufficients
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _sufficients;
         
+        /// <summary>
+        /// >> data
+        /// </summary>
         private SubstrateNetApi.Model.PalletBalances.AccountData _data;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Nonce

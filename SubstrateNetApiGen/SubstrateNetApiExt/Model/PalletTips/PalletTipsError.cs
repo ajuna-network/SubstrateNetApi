@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     
     /// <summary>
-    /// >> Path: pallet_tips.pallet.Error
+    /// >> 471 - Variant[pallet_tips.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,38 +27,32 @@ namespace SubstrateNetApi.Model.PalletTips
     {
         
         /// <summary>
-        /// >> Event: ReasonTooBig
-        /// The reason given is just too big.
+        /// >> ReasonTooBig
         /// </summary>
         ReasonTooBig,
         
         /// <summary>
-        /// >> Event: AlreadyKnown
-        /// The tip was already found/started.
+        /// >> AlreadyKnown
         /// </summary>
         AlreadyKnown,
         
         /// <summary>
-        /// >> Event: UnknownTip
-        /// The tip hash is unknown.
+        /// >> UnknownTip
         /// </summary>
         UnknownTip,
         
         /// <summary>
-        /// >> Event: NotFinder
-        /// The account attempting to retract the tip is not the finder of the tip.
+        /// >> NotFinder
         /// </summary>
         NotFinder,
         
         /// <summary>
-        /// >> Event: StillOpen
-        /// The tip cannot be claimed/closed because there are not enough tippers yet.
+        /// >> StillOpen
         /// </summary>
         StillOpen,
         
         /// <summary>
-        /// >> Event: Premature
-        /// The tip cannot be claimed/closed because it's still in the countdown period.
+        /// >> Premature
         /// </summary>
         Premature,
     }

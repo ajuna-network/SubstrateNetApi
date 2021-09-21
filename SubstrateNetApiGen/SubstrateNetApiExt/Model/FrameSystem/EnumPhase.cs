@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -27,7 +28,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 95 - Variant[frame_system.Phase]
     /// </summary>
     public sealed class EnumPhase : BaseEnumExt<Phase, SubstrateNetApi.Model.Types.Primitive.U32, BaseVoid, BaseVoid>
     {

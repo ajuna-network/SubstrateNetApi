@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +19,24 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.limits.BlockWeights
+    /// >> 106 - Composite[frame_system.limits.BlockWeights]
     /// </summary>
     public sealed class BlockWeights : BaseType
     {
         
+        /// <summary>
+        /// >> base_block
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _baseBlock;
         
+        /// <summary>
+        /// >> max_block
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _maxBlock;
         
+        /// <summary>
+        /// >> per_class
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.PerDispatchClass _perClass;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 BaseBlock

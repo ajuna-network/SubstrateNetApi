@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 502 - Variant[sp_runtime.MultiSignature]
     /// </summary>
     public sealed class EnumMultiSignature : BaseEnumExt<MultiSignature, SubstrateNetApi.Model.SpCore.Signature, SubstrateNetApi.Model.SpCore.Signature, SubstrateNetApi.Model.SpCore.Signature>
     {

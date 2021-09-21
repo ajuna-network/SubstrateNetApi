@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> Path: pallet_identity.pallet.Event
+    /// >> 68 - Variant[pallet_identity.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,82 +29,70 @@ namespace SubstrateNetApi.Model.PalletIdentity
     {
         
         /// <summary>
-        /// >> Event: IdentitySet
-        /// A name was set or reset (which will remove all judgements). \[who\]
+        /// >> IdentitySet
         /// </summary>
         public sealed class IdentitySet : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: IdentityCleared
-        /// A name was cleared, and the given balance returned. \[who, deposit\]
+        /// >> IdentityCleared
         /// </summary>
         public sealed class IdentityCleared : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: IdentityKilled
-        /// A name was removed and the given balance slashed. \[who, deposit\]
+        /// >> IdentityKilled
         /// </summary>
         public sealed class IdentityKilled : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: JudgementRequested
-        /// A judgement was asked from a registrar. \[who, registrar_index\]
+        /// >> JudgementRequested
         /// </summary>
         public sealed class JudgementRequested : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: JudgementUnrequested
-        /// A judgement request was retracted. \[who, registrar_index\]
+        /// >> JudgementUnrequested
         /// </summary>
         public sealed class JudgementUnrequested : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: JudgementGiven
-        /// A judgement was given by a registrar. \[target, registrar_index\]
+        /// >> JudgementGiven
         /// </summary>
         public sealed class JudgementGiven : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: RegistrarAdded
-        /// A registrar was added. \[registrar_index\]
+        /// >> RegistrarAdded
         /// </summary>
         public sealed class RegistrarAdded : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: SubIdentityAdded
-        /// A sub-identity was added to an identity and the deposit paid. \[sub, main, deposit\]
+        /// >> SubIdentityAdded
         /// </summary>
         public sealed class SubIdentityAdded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: SubIdentityRemoved
-        /// A sub-identity was removed from an identity and the deposit freed.
-        /// \[sub, main, deposit\]
+        /// >> SubIdentityRemoved
         /// </summary>
         public sealed class SubIdentityRemoved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: SubIdentityRevoked
-        /// A sub-identity was cleared, and the given deposit repatriated from the
-        /// main identity account to the sub-identity account. \[sub, main, deposit\]
+        /// >> SubIdentityRevoked
         /// </summary>
         public sealed class SubIdentityRevoked : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {

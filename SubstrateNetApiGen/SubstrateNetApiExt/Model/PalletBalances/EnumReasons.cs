@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 321 - Variant[pallet_balances.Reasons]
     /// </summary>
     public sealed class EnumReasons : BaseEnum<Reasons>
     {

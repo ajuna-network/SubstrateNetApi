@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     
     /// <summary>
-    /// >> Path: pallet_lottery.pallet.Event
+    /// >> 84 - Variant[pallet_lottery.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,32 +29,28 @@ namespace SubstrateNetApi.Model.PalletLottery
     {
         
         /// <summary>
-        /// >> Event: LotteryStarted
-        /// A lottery has been started!
+        /// >> LotteryStarted
         /// </summary>
         public sealed class LotteryStarted : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: CallsUpdated
-        /// A new set of calls have been set!
+        /// >> CallsUpdated
         /// </summary>
         public sealed class CallsUpdated : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: Winner
-        /// A winner has been chosen!
+        /// >> Winner
         /// </summary>
         public sealed class Winner : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: TicketBought
-        /// A ticket has been bought!
+        /// >> TicketBought
         /// </summary>
         public sealed class TicketBought : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>
         {

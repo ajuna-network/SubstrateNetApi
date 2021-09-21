@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> Path: pallet_balances.pallet.Error
+    /// >> 327 - Variant[pallet_balances.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,50 +27,42 @@ namespace SubstrateNetApi.Model.PalletBalances
     {
         
         /// <summary>
-        /// >> Event: VestingBalance
-        /// Vesting balance too high to send value
+        /// >> VestingBalance
         /// </summary>
         VestingBalance,
         
         /// <summary>
-        /// >> Event: LiquidityRestrictions
-        /// Account liquidity restrictions prevent withdrawal
+        /// >> LiquidityRestrictions
         /// </summary>
         LiquidityRestrictions,
         
         /// <summary>
-        /// >> Event: InsufficientBalance
-        /// Balance too low to send value
+        /// >> InsufficientBalance
         /// </summary>
         InsufficientBalance,
         
         /// <summary>
-        /// >> Event: ExistentialDeposit
-        /// Value too low to create account due to existential deposit
+        /// >> ExistentialDeposit
         /// </summary>
         ExistentialDeposit,
         
         /// <summary>
-        /// >> Event: KeepAlive
-        /// Transfer/payment would kill account
+        /// >> KeepAlive
         /// </summary>
         KeepAlive,
         
         /// <summary>
-        /// >> Event: ExistingVestingSchedule
-        /// A vesting schedule already exists for this account
+        /// >> ExistingVestingSchedule
         /// </summary>
         ExistingVestingSchedule,
         
         /// <summary>
-        /// >> Event: DeadAccount
-        /// Beneficiary account must pre-exist
+        /// >> DeadAccount
         /// </summary>
         DeadAccount,
         
         /// <summary>
-        /// >> Event: TooManyReserves
-        /// Number of named reserves exceed MaxReserves
+        /// >> TooManyReserves
         /// </summary>
         TooManyReserves,
     }

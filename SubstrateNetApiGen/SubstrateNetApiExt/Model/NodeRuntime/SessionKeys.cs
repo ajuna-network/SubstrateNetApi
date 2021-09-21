@@ -7,6 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletImOnline;
+using SubstrateNetApi.Model.SpAuthorityDiscovery;
+using SubstrateNetApi.Model.SpConsensusBabe;
+using SubstrateNetApi.Model.SpFinalityGrandpa;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,17 +21,29 @@ namespace SubstrateNetApi.Model.NodeRuntime
     
     
     /// <summary>
-    /// >> Path: node_runtime.SessionKeys
+    /// >> 207 - Composite[node_runtime.SessionKeys]
     /// </summary>
     public sealed class SessionKeys : BaseType
     {
         
+        /// <summary>
+        /// >> grandpa
+        /// </summary>
         private SubstrateNetApi.Model.SpFinalityGrandpa.Public _grandpa;
         
+        /// <summary>
+        /// >> babe
+        /// </summary>
         private SubstrateNetApi.Model.SpConsensusBabe.Public _babe;
         
+        /// <summary>
+        /// >> im_online
+        /// </summary>
         private SubstrateNetApi.Model.PalletImOnline.Public _imOnline;
         
+        /// <summary>
+        /// >> authority_discovery
+        /// </summary>
         private SubstrateNetApi.Model.SpAuthorityDiscovery.Public _authorityDiscovery;
         
         public SubstrateNetApi.Model.SpFinalityGrandpa.Public Grandpa

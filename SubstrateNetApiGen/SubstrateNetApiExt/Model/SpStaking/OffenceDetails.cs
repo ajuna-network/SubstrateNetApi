@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletStaking;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.SpStaking
     
     
     /// <summary>
-    /// >> Path: sp_staking.offence.OffenceDetails
+    /// >> 414 - Composite[sp_staking.offence.OffenceDetails]
     /// </summary>
     public sealed class OffenceDetails : BaseType
     {
         
+        /// <summary>
+        /// >> offender
+        /// </summary>
         private BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletStaking.Exposure> _offender;
         
+        /// <summary>
+        /// >> reporters
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _reporters;
         
         public BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletStaking.Exposure> Offender

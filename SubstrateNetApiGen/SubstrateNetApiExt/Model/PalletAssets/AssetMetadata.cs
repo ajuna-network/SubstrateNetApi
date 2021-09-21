@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +19,34 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> Path: pallet_assets.types.AssetMetadata
+    /// >> 476 - Composite[pallet_assets.types.AssetMetadata]
     /// </summary>
     public sealed class AssetMetadata : BaseType
     {
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> name
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.BoundedVec _name;
         
+        /// <summary>
+        /// >> symbol
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.BoundedVec _symbol;
         
+        /// <summary>
+        /// >> decimals
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U8 _decimals;
         
+        /// <summary>
+        /// >> is_frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _isFrozen;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Deposit

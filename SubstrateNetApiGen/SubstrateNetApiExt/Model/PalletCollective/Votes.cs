@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +19,34 @@ namespace SubstrateNetApi.Model.PalletCollective
     
     
     /// <summary>
-    /// >> Path: pallet_collective.Votes
+    /// >> 384 - Composite[pallet_collective.Votes]
     /// </summary>
     public sealed class Votes : BaseType
     {
         
+        /// <summary>
+        /// >> index
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _index;
         
+        /// <summary>
+        /// >> threshold
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _threshold;
         
+        /// <summary>
+        /// >> ayes
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _ayes;
         
+        /// <summary>
+        /// >> nays
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _nays;
         
+        /// <summary>
+        /// >> end
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _end;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Index

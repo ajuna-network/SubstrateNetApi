@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +19,24 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.weights.DispatchInfo
+    /// >> 22 - Composite[frame_support.weights.DispatchInfo]
     /// </summary>
     public sealed class DispatchInfo : BaseType
     {
         
+        /// <summary>
+        /// >> weight
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _weight;
         
+        /// <summary>
+        /// >> class
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.EnumDispatchClass _class;
         
+        /// <summary>
+        /// >> pays_fee
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.EnumPays _paysFee;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 Weight

@@ -17,15 +17,14 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     
     /// <summary>
-    /// >> Path: pallet_sudo.pallet.Error
+    /// >> 411 - Variant[pallet_sudo.pallet.Error]
     /// Error for the Sudo pallet
     /// </summary>
     public enum PalletSudoError
     {
         
         /// <summary>
-        /// >> Event: RequireSudo
-        /// Sender must be the Sudo account
+        /// >> RequireSudo
         /// </summary>
         RequireSudo,
     }

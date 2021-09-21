@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletMembership
     
     
     /// <summary>
-    /// >> Path: pallet_membership.pallet.Event
+    /// >> 48 - Variant[pallet_membership.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,48 +27,42 @@ namespace SubstrateNetApi.Model.PalletMembership
     {
         
         /// <summary>
-        /// >> Event: MemberAdded
-        /// The given member was added; see the transaction for who.
+        /// >> MemberAdded
         /// </summary>
         public sealed class MemberAdded : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: MemberRemoved
-        /// The given member was removed; see the transaction for who.
+        /// >> MemberRemoved
         /// </summary>
         public sealed class MemberRemoved : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: MembersSwapped
-        /// Two members were swapped; see the transaction for who.
+        /// >> MembersSwapped
         /// </summary>
         public sealed class MembersSwapped : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: MembersReset
-        /// The membership was reset; see the transaction for who the new set is.
+        /// >> MembersReset
         /// </summary>
         public sealed class MembersReset : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: KeyChanged
-        /// One of the members' keys changed.
+        /// >> KeyChanged
         /// </summary>
         public sealed class KeyChanged : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: Dummy
-        /// Phantom member, never used.
+        /// >> Dummy
         /// </summary>
         public sealed class Dummy : BaseTuple
         {

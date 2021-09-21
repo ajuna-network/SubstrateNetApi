@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> Path: pallet_multisig.pallet.Error
+    /// >> 466 - Variant[pallet_multisig.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,86 +27,72 @@ namespace SubstrateNetApi.Model.PalletMultisig
     {
         
         /// <summary>
-        /// >> Event: MinimumThreshold
-        /// Threshold must be 2 or greater.
+        /// >> MinimumThreshold
         /// </summary>
         MinimumThreshold,
         
         /// <summary>
-        /// >> Event: AlreadyApproved
-        /// Call is already approved by this signatory.
+        /// >> AlreadyApproved
         /// </summary>
         AlreadyApproved,
         
         /// <summary>
-        /// >> Event: NoApprovalsNeeded
-        /// Call doesn't need any (more) approvals.
+        /// >> NoApprovalsNeeded
         /// </summary>
         NoApprovalsNeeded,
         
         /// <summary>
-        /// >> Event: TooFewSignatories
-        /// There are too few signatories in the list.
+        /// >> TooFewSignatories
         /// </summary>
         TooFewSignatories,
         
         /// <summary>
-        /// >> Event: TooManySignatories
-        /// There are too many signatories in the list.
+        /// >> TooManySignatories
         /// </summary>
         TooManySignatories,
         
         /// <summary>
-        /// >> Event: SignatoriesOutOfOrder
-        /// The signatories were provided out of order; they should be ordered.
+        /// >> SignatoriesOutOfOrder
         /// </summary>
         SignatoriesOutOfOrder,
         
         /// <summary>
-        /// >> Event: SenderInSignatories
-        /// The sender was contained in the other signatories; it shouldn't be.
+        /// >> SenderInSignatories
         /// </summary>
         SenderInSignatories,
         
         /// <summary>
-        /// >> Event: NotFound
-        /// Multisig operation not found when attempting to cancel.
+        /// >> NotFound
         /// </summary>
         NotFound,
         
         /// <summary>
-        /// >> Event: NotOwner
-        /// Only the account that originally created the multisig is able to cancel it.
+        /// >> NotOwner
         /// </summary>
         NotOwner,
         
         /// <summary>
-        /// >> Event: NoTimepoint
-        /// No timepoint was given, yet the multisig operation is already underway.
+        /// >> NoTimepoint
         /// </summary>
         NoTimepoint,
         
         /// <summary>
-        /// >> Event: WrongTimepoint
-        /// A different timepoint was given to the multisig operation that is underway.
+        /// >> WrongTimepoint
         /// </summary>
         WrongTimepoint,
         
         /// <summary>
-        /// >> Event: UnexpectedTimepoint
-        /// A timepoint was given, yet no multisig operation is underway.
+        /// >> UnexpectedTimepoint
         /// </summary>
         UnexpectedTimepoint,
         
         /// <summary>
-        /// >> Event: MaxWeightTooLow
-        /// The maximum weight information provided was too low.
+        /// >> MaxWeightTooLow
         /// </summary>
         MaxWeightTooLow,
         
         /// <summary>
-        /// >> Event: AlreadyStored
-        /// The data to be stored is already stored.
+        /// >> AlreadyStored
         /// </summary>
         AlreadyStored,
     }

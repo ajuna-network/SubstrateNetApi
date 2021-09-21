@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,17 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> Path: sp_core.crypto.AccountId32
+    /// >> 0 - Composite[sp_core.crypto.AccountId32]
     /// </summary>
     public sealed class AccountId32 : BaseType
     {
         
-        private SubstrateNetApi.Model.Base.Arr32Special1 _value;
+        /// <summary>
+        /// >> value
+        /// </summary>
+        private SubstrateNetApi.Model.Base.Arr32U8 _value;
         
-        public SubstrateNetApi.Model.Base.Arr32Special1 Value
+        public SubstrateNetApi.Model.Base.Arr32U8 Value
         {
             get
             {
@@ -51,7 +55,7 @@ namespace SubstrateNetApi.Model.SpCore
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Value = new SubstrateNetApi.Model.Base.Arr32Special1();
+            Value = new SubstrateNetApi.Model.Base.Arr32U8();
             Value.Decode(byteArray, ref p);
             TypeSize = p - start;
         }

@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpArithmetic;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.weights.WeightToFeeCoefficient
+    /// >> 331 - Composite[frame_support.weights.WeightToFeeCoefficient]
     /// </summary>
     public sealed class WeightToFeeCoefficient : BaseType
     {
         
+        /// <summary>
+        /// >> coeff_integer
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _coeffInteger;
         
+        /// <summary>
+        /// >> coeff_frac
+        /// </summary>
         private SubstrateNetApi.Model.SpArithmetic.Perbill _coeffFrac;
         
+        /// <summary>
+        /// >> negative
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _negative;
         
+        /// <summary>
+        /// >> degree
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U8 _degree;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 CoeffInteger

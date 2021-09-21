@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -35,7 +36,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 281 - Variant[pallet_identity.types.Judgement]
     /// </summary>
     public sealed class EnumJudgement : BaseEnumExt<Judgement, BaseVoid, SubstrateNetApi.Model.Types.Primitive.U128, BaseVoid, BaseVoid, BaseVoid, BaseVoid, BaseVoid>
     {

@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpConsensusBabe;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +25,7 @@ namespace SubstrateNetApi.Model.SpConsensusBabe
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 129 - Variant[sp_consensus_babe.digests.NextConfigDescriptor]
     /// </summary>
     public sealed class EnumNextConfigDescriptor : BaseEnumExt<NextConfigDescriptor, BaseTuple<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U64,SubstrateNetApi.Model.Types.Primitive.U64>, SubstrateNetApi.Model.SpConsensusBabe.EnumAllowedSlots>>
     {

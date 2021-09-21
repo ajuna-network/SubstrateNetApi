@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> Path: pallet_balances.pallet.Event
+    /// >> 30 - Variant[pallet_balances.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,67 +30,56 @@ namespace SubstrateNetApi.Model.PalletBalances
     {
         
         /// <summary>
-        /// >> Event: Endowed
-        /// An account was created with some free balance. \[account, free_balance\]
+        /// >> Endowed
         /// </summary>
         public sealed class Endowed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: DustLost
-        /// An account was removed whose balance was non-zero but below ExistentialDeposit,
-        /// resulting in an outright loss. \[account, balance\]
+        /// >> DustLost
         /// </summary>
         public sealed class DustLost : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Transfer
-        /// Transfer succeeded. \[from, to, value\]
+        /// >> Transfer
         /// </summary>
         public sealed class Transfer : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: BalanceSet
-        /// A balance was set by root. \[who, free, reserved\]
+        /// >> BalanceSet
         /// </summary>
         public sealed class BalanceSet : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Deposit
-        /// Some amount was deposited (e.g. for transaction fees). \[who, deposit\]
+        /// >> Deposit
         /// </summary>
         public sealed class Deposit : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Reserved
-        /// Some balance was reserved (moved from free to reserved). \[who, value\]
+        /// >> Reserved
         /// </summary>
         public sealed class Reserved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: Unreserved
-        /// Some balance was unreserved (moved from reserved to free). \[who, value\]
+        /// >> Unreserved
         /// </summary>
         public sealed class Unreserved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: ReserveRepatriated
-        /// Some balance was moved from the reserve of the first account to the second account.
-        /// Final argument indicates the destination balance type.
-        /// \[from, to, balance, destination_status\]
+        /// >> ReserveRepatriated
         /// </summary>
         public sealed class ReserveRepatriated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.FrameSupport.EnumBalanceStatus>
         {

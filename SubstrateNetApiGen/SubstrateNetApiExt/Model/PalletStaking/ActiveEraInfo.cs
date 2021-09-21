@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.ActiveEraInfo
+    /// >> 348 - Composite[pallet_staking.ActiveEraInfo]
     /// </summary>
     public sealed class ActiveEraInfo : BaseType
     {
         
+        /// <summary>
+        /// >> index
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _index;
         
+        /// <summary>
+        /// >> start
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.Types.Primitive.U64> _start;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Index

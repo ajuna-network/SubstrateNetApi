@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> Path: frame_support.weights.RuntimeDbWeight
+    /// >> 112 - Composite[frame_support.weights.RuntimeDbWeight]
     /// </summary>
     public sealed class RuntimeDbWeight : BaseType
     {
         
+        /// <summary>
+        /// >> read
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _read;
         
+        /// <summary>
+        /// >> write
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _write;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 Read

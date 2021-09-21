@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpAuthorityDiscovery
     
     
     /// <summary>
-    /// >> Path: sp_authority_discovery.app.Public
+    /// >> 208 - Composite[sp_authority_discovery.app.Public]
     /// </summary>
     public sealed class Public : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.Public _value;
         
         public SubstrateNetApi.Model.SpCore.Public Value

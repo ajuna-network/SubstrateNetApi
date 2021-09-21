@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +18,29 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.slashing.SlashingSpans
+    /// >> 358 - Composite[pallet_staking.slashing.SlashingSpans]
     /// </summary>
     public sealed class SlashingSpans : BaseType
     {
         
+        /// <summary>
+        /// >> span_index
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _spanIndex;
         
+        /// <summary>
+        /// >> last_start
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _lastStart;
         
+        /// <summary>
+        /// >> last_nonzero_slash
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _lastNonzeroSlash;
         
+        /// <summary>
+        /// >> prior
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U32> _prior;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 SpanIndex

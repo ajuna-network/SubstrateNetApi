@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +18,24 @@ namespace SubstrateNetApi.Model.SpSession
     
     
     /// <summary>
-    /// >> Path: sp_session.MembershipProof
+    /// >> 128 - Composite[sp_session.MembershipProof]
     /// </summary>
     public sealed class MembershipProof : BaseType
     {
         
+        /// <summary>
+        /// >> session
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _session;
         
+        /// <summary>
+        /// >> trie_nodes
+        /// </summary>
         private BaseVec<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> _trieNodes;
         
+        /// <summary>
+        /// >> validator_count
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _validatorCount;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Session

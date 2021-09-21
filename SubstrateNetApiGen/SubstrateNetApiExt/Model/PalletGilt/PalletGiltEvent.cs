@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> Path: pallet_gilt.pallet.Event
+    /// >> 86 - Variant[pallet_gilt.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,36 +29,28 @@ namespace SubstrateNetApi.Model.PalletGilt
     {
         
         /// <summary>
-        /// >> Event: BidPlaced
-        /// A bid was successfully placed.
-        /// \[ who, amount, duration \]
+        /// >> BidPlaced
         /// </summary>
         public sealed class BidPlaced : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: BidRetracted
-        /// A bid was successfully removed (before being accepted as a gilt).
-        /// \[ who, amount, duration \]
+        /// >> BidRetracted
         /// </summary>
         public sealed class BidRetracted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: GiltIssued
-        /// A bid was accepted as a gilt. The balance may not be released until expiry.
-        /// \[ index, expiry, who, amount \]
+        /// >> GiltIssued
         /// </summary>
         public sealed class GiltIssued : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
         {
         }
         
         /// <summary>
-        /// >> Event: GiltThawed
-        /// An expired gilt has been thawed.
-        /// \[ index, who, original_amount, additional_amount \]
+        /// >> GiltThawed
         /// </summary>
         public sealed class GiltThawed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U128>
         {

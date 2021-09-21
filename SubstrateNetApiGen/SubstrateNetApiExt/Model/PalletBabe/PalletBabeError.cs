@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletBabe
     
     
     /// <summary>
-    /// >> Path: pallet_babe.pallet.Error
+    /// >> 313 - Variant[pallet_babe.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,20 +27,17 @@ namespace SubstrateNetApi.Model.PalletBabe
     {
         
         /// <summary>
-        /// >> Event: InvalidEquivocationProof
-        /// An equivocation proof provided as part of an equivocation report is invalid.
+        /// >> InvalidEquivocationProof
         /// </summary>
         InvalidEquivocationProof,
         
         /// <summary>
-        /// >> Event: InvalidKeyOwnershipProof
-        /// A key ownership proof provided as part of an equivocation report is invalid.
+        /// >> InvalidKeyOwnershipProof
         /// </summary>
         InvalidKeyOwnershipProof,
         
         /// <summary>
-        /// >> Event: DuplicateOffenceReport
-        /// A given equivocation report is valid but already previously reported.
+        /// >> DuplicateOffenceReport
         /// </summary>
         DuplicateOffenceReport,
     }

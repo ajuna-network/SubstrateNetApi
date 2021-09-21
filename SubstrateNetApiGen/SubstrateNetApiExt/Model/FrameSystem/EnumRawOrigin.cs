@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 448 - Variant[frame_system.RawOrigin]
     /// </summary>
     public sealed class EnumRawOrigin : BaseEnumExt<RawOrigin, BaseVoid, SubstrateNetApi.Model.SpCore.AccountId32, BaseVoid>
     {

@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletImOnline;
+using SubstrateNetApi.Model.PalletStaking;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> Path: pallet_im_online.pallet.Event
+    /// >> 57 - Variant[pallet_im_online.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,24 +30,21 @@ namespace SubstrateNetApi.Model.PalletImOnline
     {
         
         /// <summary>
-        /// >> Event: HeartbeatReceived
-        /// A new heartbeat was received from `AuthorityId` \[authority_id\]
+        /// >> HeartbeatReceived
         /// </summary>
         public sealed class HeartbeatReceived : BaseTuple<SubstrateNetApi.Model.PalletImOnline.Public>
         {
         }
         
         /// <summary>
-        /// >> Event: AllGood
-        /// At the end of the session, no offence was committed.
+        /// >> AllGood
         /// </summary>
         public sealed class AllGood : BaseTuple
         {
         }
         
         /// <summary>
-        /// >> Event: SomeOffline
-        /// At the end of the session, at least one validator was found to be \[offline\].
+        /// >> SomeOffline
         /// </summary>
         public sealed class SomeOffline : BaseTuple<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletStaking.Exposure>>>
         {

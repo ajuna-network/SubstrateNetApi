@@ -17,39 +17,34 @@ namespace SubstrateNetApi.Model.PalletSession
     
     
     /// <summary>
-    /// >> Path: pallet_session.Error
+    /// >> 366 - Variant[pallet_session.Error]
     /// Error for the session module.
     /// </summary>
     public enum PalletSessionError
     {
         
         /// <summary>
-        /// >> Event: InvalidProof
-        /// Invalid ownership proof.
+        /// >> InvalidProof
         /// </summary>
         InvalidProof,
         
         /// <summary>
-        /// >> Event: NoAssociatedValidatorId
-        /// No associated validator ID for account.
+        /// >> NoAssociatedValidatorId
         /// </summary>
         NoAssociatedValidatorId,
         
         /// <summary>
-        /// >> Event: DuplicatedKey
-        /// Registered duplicate key.
+        /// >> DuplicatedKey
         /// </summary>
         DuplicatedKey,
         
         /// <summary>
-        /// >> Event: NoKeys
-        /// No keys are associated with this account.
+        /// >> NoKeys
         /// </summary>
         NoKeys,
         
         /// <summary>
-        /// >> Event: NoAccount
-        /// Key setting account is not live, so it's impossible to associate keys.
+        /// >> NoAccount
         /// </summary>
         NoAccount,
     }

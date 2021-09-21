@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> Path: pallet_assets.types.Approval
+    /// >> 475 - Composite[pallet_assets.types.Approval]
     /// </summary>
     public sealed class Approval : BaseType
     {
         
+        /// <summary>
+        /// >> amount
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _amount;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 Amount

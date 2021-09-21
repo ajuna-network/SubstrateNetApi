@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> Path: pallet_assets.pallet.Error
+    /// >> 477 - Variant[pallet_assets.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,75 +27,62 @@ namespace SubstrateNetApi.Model.PalletAssets
     {
         
         /// <summary>
-        /// >> Event: BalanceLow
-        /// Account balance must be greater than or equal to the transfer amount.
+        /// >> BalanceLow
         /// </summary>
         BalanceLow,
         
         /// <summary>
-        /// >> Event: BalanceZero
-        /// Balance should be non-zero.
+        /// >> BalanceZero
         /// </summary>
         BalanceZero,
         
         /// <summary>
-        /// >> Event: NoPermission
-        /// The signing account has no permission to do the operation.
+        /// >> NoPermission
         /// </summary>
         NoPermission,
         
         /// <summary>
-        /// >> Event: Unknown
-        /// The given asset ID is unknown.
+        /// >> Unknown
         /// </summary>
         Unknown,
         
         /// <summary>
-        /// >> Event: Frozen
-        /// The origin account is frozen.
+        /// >> Frozen
         /// </summary>
         Frozen,
         
         /// <summary>
-        /// >> Event: InUse
-        /// The asset ID is already taken.
+        /// >> InUse
         /// </summary>
         InUse,
         
         /// <summary>
-        /// >> Event: BadWitness
-        /// Invalid witness data given.
+        /// >> BadWitness
         /// </summary>
         BadWitness,
         
         /// <summary>
-        /// >> Event: MinBalanceZero
-        /// Minimum balance should be non-zero.
+        /// >> MinBalanceZero
         /// </summary>
         MinBalanceZero,
         
         /// <summary>
-        /// >> Event: NoProvider
-        /// No provider reference exists to allow a non-zero balance of a non-self-sufficient
-        /// asset.
+        /// >> NoProvider
         /// </summary>
         NoProvider,
         
         /// <summary>
-        /// >> Event: BadMetadata
-        /// Invalid metadata given.
+        /// >> BadMetadata
         /// </summary>
         BadMetadata,
         
         /// <summary>
-        /// >> Event: Unapproved
-        /// No approval exists that would allow the transfer.
+        /// >> Unapproved
         /// </summary>
         Unapproved,
         
         /// <summary>
-        /// >> Event: WouldDie
-        /// The source account would not survive the transfer and it needs to stay alive.
+        /// >> WouldDie
         /// </summary>
         WouldDie,
     }

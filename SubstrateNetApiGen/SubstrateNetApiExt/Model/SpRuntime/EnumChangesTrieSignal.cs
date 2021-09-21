@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 15 - Variant[sp_runtime.generic.digest.ChangesTrieSignal]
     /// </summary>
     public sealed class EnumChangesTrieSignal : BaseEnumExt<ChangesTrieSignal, BaseOpt<SubstrateNetApi.Model.SpCore.ChangesTrieConfiguration>>
     {

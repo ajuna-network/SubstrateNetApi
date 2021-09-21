@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,33 +19,69 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> Path: pallet_assets.types.AssetDetails
+    /// >> 472 - Composite[pallet_assets.types.AssetDetails]
     /// </summary>
     public sealed class AssetDetails : BaseType
     {
         
+        /// <summary>
+        /// >> owner
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _owner;
         
+        /// <summary>
+        /// >> issuer
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _issuer;
         
+        /// <summary>
+        /// >> admin
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _admin;
         
+        /// <summary>
+        /// >> freezer
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _freezer;
         
+        /// <summary>
+        /// >> supply
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _supply;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> min_balance
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _minBalance;
         
+        /// <summary>
+        /// >> is_sufficient
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _isSufficient;
         
+        /// <summary>
+        /// >> accounts
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _accounts;
         
+        /// <summary>
+        /// >> sufficients
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _sufficients;
         
+        /// <summary>
+        /// >> approvals
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _approvals;
         
+        /// <summary>
+        /// >> is_frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _isFrozen;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Owner

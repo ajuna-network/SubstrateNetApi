@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +19,24 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.Nominations
+    /// >> 347 - Composite[pallet_staking.Nominations]
     /// </summary>
     public sealed class Nominations : BaseType
     {
         
+        /// <summary>
+        /// >> targets
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _targets;
         
+        /// <summary>
+        /// >> submitted_in
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _submittedIn;
         
+        /// <summary>
+        /// >> suppressed
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _suppressed;
         
         public BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> Targets

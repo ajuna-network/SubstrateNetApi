@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -27,7 +28,7 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 217 - Variant[pallet_elections_phragmen.Renouncing]
     /// </summary>
     public sealed class EnumRenouncing : BaseEnumExt<Renouncing, BaseVoid, BaseVoid, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>>
     {

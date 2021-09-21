@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpArithmetic;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.ValidatorPrefs
+    /// >> 201 - Composite[pallet_staking.ValidatorPrefs]
     /// </summary>
     public sealed class ValidatorPrefs : BaseType
     {
         
+        /// <summary>
+        /// >> commission
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.SpArithmetic.Perbill> _commission;
         
+        /// <summary>
+        /// >> blocked
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _blocked;
         
         public BaseCom<SubstrateNetApi.Model.SpArithmetic.Perbill> Commission

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.UnlockChunk
+    /// >> 346 - Composite[pallet_staking.UnlockChunk]
     /// </summary>
     public sealed class UnlockChunk : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> _value;
         
+        /// <summary>
+        /// >> era
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _era;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> Value

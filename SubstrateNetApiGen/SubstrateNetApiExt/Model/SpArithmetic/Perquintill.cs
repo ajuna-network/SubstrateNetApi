@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> Path: sp_arithmetic.per_things.Perquintill
+    /// >> 300 - Composite[sp_arithmetic.per_things.Perquintill]
     /// </summary>
     public sealed class Perquintill : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _value;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 Value

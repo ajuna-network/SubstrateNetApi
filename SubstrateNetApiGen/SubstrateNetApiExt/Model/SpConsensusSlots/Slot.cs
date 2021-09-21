@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpConsensusSlots
     
     
     /// <summary>
-    /// >> Path: sp_consensus_slots.Slot
+    /// >> 127 - Composite[sp_consensus_slots.Slot]
     /// </summary>
     public sealed class Slot : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _value;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 Value

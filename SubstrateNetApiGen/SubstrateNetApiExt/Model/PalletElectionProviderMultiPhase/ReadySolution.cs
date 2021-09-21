@@ -7,6 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.PalletElectionProviderMultiPhase;
+using SubstrateNetApi.Model.SpCore;
+using SubstrateNetApi.Model.SpNposElections;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,15 +21,24 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> Path: pallet_election_provider_multi_phase.ReadySolution
+    /// >> 334 - Composite[pallet_election_provider_multi_phase.ReadySolution]
     /// </summary>
     public sealed class ReadySolution : BaseType
     {
         
+        /// <summary>
+        /// >> supports
+        /// </summary>
         private BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpNposElections.Support>> _supports;
         
-        private SubstrateNetApi.Model.Base.Arr3Special11 _score;
+        /// <summary>
+        /// >> score
+        /// </summary>
+        private SubstrateNetApi.Model.Base.Arr3U128 _score;
         
+        /// <summary>
+        /// >> compute
+        /// </summary>
         private SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumElectionCompute _compute;
         
         public BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpNposElections.Support>> Supports
@@ -40,7 +53,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             }
         }
         
-        public SubstrateNetApi.Model.Base.Arr3Special11 Score
+        public SubstrateNetApi.Model.Base.Arr3U128 Score
         {
             get
             {
@@ -83,7 +96,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             var start = p;
             Supports = new BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpNposElections.Support>>();
             Supports.Decode(byteArray, ref p);
-            Score = new SubstrateNetApi.Model.Base.Arr3Special11();
+            Score = new SubstrateNetApi.Model.Base.Arr3U128();
             Score.Decode(byteArray, ref p);
             Compute = new SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumElectionCompute();
             Compute.Decode(byteArray, ref p);

@@ -37,7 +37,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 360 - Variant[pallet_staking.Releases]
     /// </summary>
     public sealed class EnumReleases : BaseEnum<Releases>
     {

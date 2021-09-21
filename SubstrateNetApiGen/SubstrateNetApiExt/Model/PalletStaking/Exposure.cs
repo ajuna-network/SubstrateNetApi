@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletStaking;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +19,24 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.Exposure
+    /// >> 62 - Composite[pallet_staking.Exposure]
     /// </summary>
     public sealed class Exposure : BaseType
     {
         
+        /// <summary>
+        /// >> total
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> _total;
         
+        /// <summary>
+        /// >> own
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> _own;
         
+        /// <summary>
+        /// >> others
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.PalletStaking.IndividualExposure> _others;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> Total

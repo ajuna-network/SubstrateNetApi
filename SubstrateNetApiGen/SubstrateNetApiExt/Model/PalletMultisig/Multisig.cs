@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletMultisig;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +20,29 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> Path: pallet_multisig.Multisig
+    /// >> 464 - Composite[pallet_multisig.Multisig]
     /// </summary>
     public sealed class Multisig : BaseType
     {
         
+        /// <summary>
+        /// >> when
+        /// </summary>
         private SubstrateNetApi.Model.PalletMultisig.Timepoint _when;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> depositor
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _depositor;
         
+        /// <summary>
+        /// >> approvals
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _approvals;
         
         public SubstrateNetApi.Model.PalletMultisig.Timepoint When

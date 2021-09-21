@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> Path: sp_arithmetic.per_things.PerU16
+    /// >> 150 - Composite[sp_arithmetic.per_things.PerU16]
     /// </summary>
     public sealed class PerU16 : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U16 _value;
         
         public SubstrateNetApi.Model.Types.Primitive.U16 Value

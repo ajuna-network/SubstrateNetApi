@@ -25,7 +25,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 452 - Variant[pallet_scheduler.Releases]
     /// </summary>
     public sealed class EnumReleases : BaseEnum<Releases>
     {

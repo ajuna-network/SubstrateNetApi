@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +30,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 332 - Variant[pallet_election_provider_multi_phase.Phase]
     /// </summary>
     public sealed class EnumPhase : BaseEnumExt<Phase, BaseVoid, BaseVoid, BaseTuple<SubstrateNetApi.Model.Types.Primitive.Bool,SubstrateNetApi.Model.Types.Primitive.U32>, BaseVoid>
     {

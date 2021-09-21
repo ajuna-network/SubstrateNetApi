@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +19,19 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> Path: pallet_staking.EraRewardPoints
+    /// >> 350 - Composite[pallet_staking.EraRewardPoints]
     /// </summary>
     public sealed class EraRewardPoints : BaseType
     {
         
+        /// <summary>
+        /// >> total
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _total;
         
+        /// <summary>
+        /// >> individual
+        /// </summary>
         private SubstrateNetApi.Model.Base.BTreeMap _individual;
         
         public SubstrateNetApi.Model.Types.Primitive.U32 Total

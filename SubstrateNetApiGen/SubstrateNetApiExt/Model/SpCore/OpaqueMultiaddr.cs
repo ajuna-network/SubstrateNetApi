@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +18,14 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> Path: sp_core.offchain.OpaqueMultiaddr
+    /// >> 239 - Composite[sp_core.offchain.OpaqueMultiaddr]
     /// </summary>
     public sealed class OpaqueMultiaddr : BaseType
     {
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> _value;
         
         public BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> Value

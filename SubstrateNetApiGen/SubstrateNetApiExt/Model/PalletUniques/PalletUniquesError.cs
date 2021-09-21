@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> Path: pallet_uniques.pallet.Error
+    /// >> 494 - Variant[pallet_uniques.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,62 +27,52 @@ namespace SubstrateNetApi.Model.PalletUniques
     {
         
         /// <summary>
-        /// >> Event: NoPermission
-        /// The signing account has no permission to do the operation.
+        /// >> NoPermission
         /// </summary>
         NoPermission,
         
         /// <summary>
-        /// >> Event: Unknown
-        /// The given asset ID is unknown.
+        /// >> Unknown
         /// </summary>
         Unknown,
         
         /// <summary>
-        /// >> Event: AlreadyExists
-        /// The asset instance ID has already been used for an asset.
+        /// >> AlreadyExists
         /// </summary>
         AlreadyExists,
         
         /// <summary>
-        /// >> Event: WrongOwner
-        /// The owner turned out to be different to what was expected.
+        /// >> WrongOwner
         /// </summary>
         WrongOwner,
         
         /// <summary>
-        /// >> Event: BadWitness
-        /// Invalid witness data given.
+        /// >> BadWitness
         /// </summary>
         BadWitness,
         
         /// <summary>
-        /// >> Event: InUse
-        /// The asset ID is already taken.
+        /// >> InUse
         /// </summary>
         InUse,
         
         /// <summary>
-        /// >> Event: Frozen
-        /// The asset instance or class is frozen.
+        /// >> Frozen
         /// </summary>
         Frozen,
         
         /// <summary>
-        /// >> Event: WrongDelegate
-        /// The delegate turned out to be different to what was expected.
+        /// >> WrongDelegate
         /// </summary>
         WrongDelegate,
         
         /// <summary>
-        /// >> Event: NoDelegate
-        /// There is no delegate approved.
+        /// >> NoDelegate
         /// </summary>
         NoDelegate,
         
         /// <summary>
-        /// >> Event: Unapproved
-        /// No approval exists that would allow the transfer.
+        /// >> Unapproved
         /// </summary>
         Unapproved,
     }

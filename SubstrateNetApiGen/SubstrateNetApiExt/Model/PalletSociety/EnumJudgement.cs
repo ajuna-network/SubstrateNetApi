@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 283 - Variant[pallet_society.Judgement]
     /// </summary>
     public sealed class EnumJudgement : BaseEnum<Judgement>
     {

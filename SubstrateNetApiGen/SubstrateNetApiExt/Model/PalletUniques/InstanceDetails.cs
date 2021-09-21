@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +19,29 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> Path: pallet_uniques.types.InstanceDetails
+    /// >> 489 - Composite[pallet_uniques.types.InstanceDetails]
     /// </summary>
     public sealed class InstanceDetails : BaseType
     {
         
+        /// <summary>
+        /// >> owner
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _owner;
         
+        /// <summary>
+        /// >> approved
+        /// </summary>
         private BaseOpt<SubstrateNetApi.Model.SpCore.AccountId32> _approved;
         
+        /// <summary>
+        /// >> is_frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _isFrozen;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Owner

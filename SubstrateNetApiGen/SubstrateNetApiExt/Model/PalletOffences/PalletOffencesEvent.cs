@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +19,16 @@ namespace SubstrateNetApi.Model.PalletOffences
     
     
     /// <summary>
-    /// >> Path: pallet_offences.pallet.Event
+    /// >> 66 - Variant[pallet_offences.pallet.Event]
     /// Events type.
     /// </summary>
     public sealed class PalletOffencesEvent
     {
         
         /// <summary>
-        /// >> Event: Offence
-        /// There is an offence reported of the given `kind` happened at the `session_index` and
-        /// (kind-specific) time slot. This event is not deposited for duplicate slashes.
-        /// \[kind, timeslot\].
+        /// >> Offence
         /// </summary>
-        public sealed class Offence : BaseTuple<SubstrateNetApi.Model.Base.Arr16Special5, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>
+        public sealed class Offence : BaseTuple<SubstrateNetApi.Model.Base.Arr16U8, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>
         {
         }
     }

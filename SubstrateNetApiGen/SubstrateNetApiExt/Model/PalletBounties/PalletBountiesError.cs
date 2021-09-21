@@ -17,64 +17,54 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> Path: pallet_bounties.Error
+    /// >> 469 - Variant[pallet_bounties.Error]
     /// Error for the treasury module.
     /// </summary>
     public enum PalletBountiesError
     {
         
         /// <summary>
-        /// >> Event: InsufficientProposersBalance
-        /// Proposer's balance is too low.
+        /// >> InsufficientProposersBalance
         /// </summary>
         InsufficientProposersBalance,
         
         /// <summary>
-        /// >> Event: InvalidIndex
-        /// No proposal or bounty at that index.
+        /// >> InvalidIndex
         /// </summary>
         InvalidIndex,
         
         /// <summary>
-        /// >> Event: ReasonTooBig
-        /// The reason given is just too big.
+        /// >> ReasonTooBig
         /// </summary>
         ReasonTooBig,
         
         /// <summary>
-        /// >> Event: UnexpectedStatus
-        /// The bounty status is unexpected.
+        /// >> UnexpectedStatus
         /// </summary>
         UnexpectedStatus,
         
         /// <summary>
-        /// >> Event: RequireCurator
-        /// Require bounty curator.
+        /// >> RequireCurator
         /// </summary>
         RequireCurator,
         
         /// <summary>
-        /// >> Event: InvalidValue
-        /// Invalid bounty value.
+        /// >> InvalidValue
         /// </summary>
         InvalidValue,
         
         /// <summary>
-        /// >> Event: InvalidFee
-        /// Invalid bounty fee.
+        /// >> InvalidFee
         /// </summary>
         InvalidFee,
         
         /// <summary>
-        /// >> Event: PendingPayout
-        /// A bounty payout is pending.
-        /// To cancel the bounty, you must unassign and slash the curator.
+        /// >> PendingPayout
         /// </summary>
         PendingPayout,
         
         /// <summary>
-        /// >> Event: Premature
-        /// The bounties cannot be claimed/closed because it's still in the countdown period.
+        /// >> Premature
         /// </summary>
         Premature,
     }

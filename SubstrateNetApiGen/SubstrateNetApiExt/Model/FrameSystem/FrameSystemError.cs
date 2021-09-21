@@ -17,43 +17,34 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> Path: frame_system.pallet.Error
+    /// >> 118 - Variant[frame_system.pallet.Error]
     /// Error for the System pallet
     /// </summary>
     public enum FrameSystemError
     {
         
         /// <summary>
-        /// >> Event: InvalidSpecName
-        /// The name of specification does not match between the current runtime
-        /// and the new runtime.
+        /// >> InvalidSpecName
         /// </summary>
         InvalidSpecName,
         
         /// <summary>
-        /// >> Event: SpecVersionNeedsToIncrease
-        /// The specification version is not allowed to decrease between the current runtime
-        /// and the new runtime.
+        /// >> SpecVersionNeedsToIncrease
         /// </summary>
         SpecVersionNeedsToIncrease,
         
         /// <summary>
-        /// >> Event: FailedToExtractRuntimeVersion
-        /// Failed to extract the runtime version from the new runtime.
-        /// 
-        /// Either calling `Core_version` or decoding `RuntimeVersion` failed.
+        /// >> FailedToExtractRuntimeVersion
         /// </summary>
         FailedToExtractRuntimeVersion,
         
         /// <summary>
-        /// >> Event: NonDefaultComposite
-        /// Suicide called when the account has non-default composite data.
+        /// >> NonDefaultComposite
         /// </summary>
         NonDefaultComposite,
         
         /// <summary>
-        /// >> Event: NonZeroRefCount
-        /// There is a non-zero reference count preventing the account from being purged.
+        /// >> NonZeroRefCount
         /// </summary>
         NonZeroRefCount,
     }

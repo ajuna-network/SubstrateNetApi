@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +18,29 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> Path: pallet_assets.types.AssetBalance
+    /// >> 473 - Composite[pallet_assets.types.AssetBalance]
     /// </summary>
     public sealed class AssetBalance : BaseType
     {
         
+        /// <summary>
+        /// >> balance
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U64 _balance;
         
+        /// <summary>
+        /// >> is_frozen
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _isFrozen;
         
+        /// <summary>
+        /// >> sufficient
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _sufficient;
         
+        /// <summary>
+        /// >> extra
+        /// </summary>
         private BaseTuple _extra;
         
         public SubstrateNetApi.Model.Types.Primitive.U64 Balance

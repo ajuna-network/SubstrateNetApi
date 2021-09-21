@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletElectionProviderMultiPhase;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,17 +20,29 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> Path: pallet_election_provider_multi_phase.signed.SignedSubmission
+    /// >> 342 - Composite[pallet_election_provider_multi_phase.signed.SignedSubmission]
     /// </summary>
     public sealed class SignedSubmission : BaseType
     {
         
+        /// <summary>
+        /// >> who
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _who;
         
+        /// <summary>
+        /// >> deposit
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
         
+        /// <summary>
+        /// >> raw_solution
+        /// </summary>
         private SubstrateNetApi.Model.PalletElectionProviderMultiPhase.RawSolution _rawSolution;
         
+        /// <summary>
+        /// >> reward
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _reward;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Who

@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PrimitiveTypes;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +20,34 @@ namespace SubstrateNetApi.Model.SpRuntime
     
     
     /// <summary>
-    /// >> Path: sp_runtime.generic.header.Header
+    /// >> 124 - Composite[sp_runtime.generic.header.Header]
     /// </summary>
     public sealed class Header : BaseType
     {
         
+        /// <summary>
+        /// >> parent_hash
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _parentHash;
         
+        /// <summary>
+        /// >> number
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _number;
         
+        /// <summary>
+        /// >> state_root
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _stateRoot;
         
+        /// <summary>
+        /// >> extrinsics_root
+        /// </summary>
         private SubstrateNetApi.Model.PrimitiveTypes.H256 _extrinsicsRoot;
         
+        /// <summary>
+        /// >> digest
+        /// </summary>
         private SubstrateNetApi.Model.SpRuntime.Digest _digest;
         
         public SubstrateNetApi.Model.PrimitiveTypes.H256 ParentHash

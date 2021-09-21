@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.FrameSupport;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> Path: pallet_uniques.pallet.Event
+    /// >> 87 - Variant[pallet_uniques.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.
@@ -27,184 +30,154 @@ namespace SubstrateNetApi.Model.PalletUniques
     {
         
         /// <summary>
-        /// >> Event: Created
-        /// An asset class was created. \[ class, creator, owner \]
+        /// >> Created
         /// </summary>
         public sealed class Created : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: ForceCreated
-        /// An asset class was force-created. \[ class, owner \]
+        /// >> ForceCreated
         /// </summary>
         public sealed class ForceCreated : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Destroyed
-        /// An asset `class` was destroyed. \[ class \]
+        /// >> Destroyed
         /// </summary>
         public sealed class Destroyed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Issued
-        /// An asset `instance` was issued. \[ class, instance, owner \]
+        /// >> Issued
         /// </summary>
         public sealed class Issued : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Transferred
-        /// An asset `instance` was transferred. \[ class, instance, from, to \]
+        /// >> Transferred
         /// </summary>
         public sealed class Transferred : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Burned
-        /// An asset `instance` was destroyed. \[ class, instance, owner \]
+        /// >> Burned
         /// </summary>
         public sealed class Burned : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: Frozen
-        /// Some asset `instance` was frozen. \[ class, instance \]
+        /// >> Frozen
         /// </summary>
         public sealed class Frozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Thawed
-        /// Some asset `instance` was thawed. \[ class, instance \]
+        /// >> Thawed
         /// </summary>
         public sealed class Thawed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: ClassFrozen
-        /// Some asset `class` was frozen. \[ class \]
+        /// >> ClassFrozen
         /// </summary>
         public sealed class ClassFrozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: ClassThawed
-        /// Some asset `class` was thawed. \[ class \]
+        /// >> ClassThawed
         /// </summary>
         public sealed class ClassThawed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: OwnerChanged
-        /// The owner changed \[ class, new_owner \]
+        /// >> OwnerChanged
         /// </summary>
         public sealed class OwnerChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: TeamChanged
-        /// The management team changed \[ class, issuer, admin, freezer \]
+        /// >> TeamChanged
         /// </summary>
         public sealed class TeamChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: ApprovedTransfer
-        /// An `instance` of an asset `class` has been approved by the `owner` for transfer by a
-        /// `delegate`.
-        /// \[ class, instance, owner, delegate \]
+        /// >> ApprovedTransfer
         /// </summary>
         public sealed class ApprovedTransfer : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: ApprovalCancelled
-        /// An approval for a `delegate` account to transfer the `instance` of an asset `class` was
-        /// cancelled by its `owner`.
-        /// \[ class, instance, owner, delegate \]
+        /// >> ApprovalCancelled
         /// </summary>
         public sealed class ApprovalCancelled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
         {
         }
         
         /// <summary>
-        /// >> Event: AssetStatusChanged
-        /// An asset `class` has had its attributes changed by the `Force` origin.
-        /// \[ class \]
+        /// >> AssetStatusChanged
         /// </summary>
         public sealed class AssetStatusChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: ClassMetadataSet
-        /// New metadata has been set for an asset class. \[ class, data, is_frozen \]
+        /// >> ClassMetadataSet
         /// </summary>
         public sealed class ClassMetadataSet : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.FrameSupport.BoundedVec, SubstrateNetApi.Model.Types.Primitive.Bool>
         {
         }
         
         /// <summary>
-        /// >> Event: ClassMetadataCleared
-        /// Metadata has been cleared for an asset class. \[ class \]
+        /// >> ClassMetadataCleared
         /// </summary>
         public sealed class ClassMetadataCleared : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: MetadataSet
-        /// New metadata has been set for an asset instance.
-        /// \[ class, instance, data, is_frozen \]
+        /// >> MetadataSet
         /// </summary>
         public sealed class MetadataSet : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.FrameSupport.BoundedVec, SubstrateNetApi.Model.Types.Primitive.Bool>
         {
         }
         
         /// <summary>
-        /// >> Event: MetadataCleared
-        /// Metadata has been cleared for an asset instance. \[ class, instance \]
+        /// >> MetadataCleared
         /// </summary>
         public sealed class MetadataCleared : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
         {
         }
         
         /// <summary>
-        /// >> Event: Redeposited
-        /// Metadata has been cleared for an asset instance. \[ class, successful_instances \]
+        /// >> Redeposited
         /// </summary>
         public sealed class Redeposited : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>>
         {
         }
         
         /// <summary>
-        /// >> Event: AttributeSet
-        /// New attribute metadata has been set for an asset class or instance.
-        /// \[ class, maybe_instance, key, value \]
+        /// >> AttributeSet
         /// </summary>
         public sealed class AttributeSet : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>, SubstrateNetApi.Model.FrameSupport.BoundedVec, SubstrateNetApi.Model.FrameSupport.BoundedVec>
         {
         }
         
         /// <summary>
-        /// >> Event: AttributeCleared
-        /// Attribute metadata has been cleared for an asset class or instance.
-        /// \[ class, maybe_instance, key, maybe_value \]
+        /// >> AttributeCleared
         /// </summary>
         public sealed class AttributeCleared : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>, SubstrateNetApi.Model.FrameSupport.BoundedVec>
         {

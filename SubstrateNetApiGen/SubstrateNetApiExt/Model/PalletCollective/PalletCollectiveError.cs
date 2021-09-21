@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletCollective
     
     
     /// <summary>
-    /// >> Path: pallet_collective.pallet.Error
+    /// >> 387 - Variant[pallet_collective.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,62 +27,52 @@ namespace SubstrateNetApi.Model.PalletCollective
     {
         
         /// <summary>
-        /// >> Event: NotMember
-        /// Account is not a member
+        /// >> NotMember
         /// </summary>
         NotMember,
         
         /// <summary>
-        /// >> Event: DuplicateProposal
-        /// Duplicate proposals not allowed
+        /// >> DuplicateProposal
         /// </summary>
         DuplicateProposal,
         
         /// <summary>
-        /// >> Event: ProposalMissing
-        /// Proposal must exist
+        /// >> ProposalMissing
         /// </summary>
         ProposalMissing,
         
         /// <summary>
-        /// >> Event: WrongIndex
-        /// Mismatched index
+        /// >> WrongIndex
         /// </summary>
         WrongIndex,
         
         /// <summary>
-        /// >> Event: DuplicateVote
-        /// Duplicate vote ignored
+        /// >> DuplicateVote
         /// </summary>
         DuplicateVote,
         
         /// <summary>
-        /// >> Event: AlreadyInitialized
-        /// Members are already initialized!
+        /// >> AlreadyInitialized
         /// </summary>
         AlreadyInitialized,
         
         /// <summary>
-        /// >> Event: TooEarly
-        /// The close call was made too early, before the end of the voting.
+        /// >> TooEarly
         /// </summary>
         TooEarly,
         
         /// <summary>
-        /// >> Event: TooManyProposals
-        /// There can only be a maximum of `MaxProposals` active proposals.
+        /// >> TooManyProposals
         /// </summary>
         TooManyProposals,
         
         /// <summary>
-        /// >> Event: WrongProposalWeight
-        /// The given weight bound for the proposal was too low.
+        /// >> WrongProposalWeight
         /// </summary>
         WrongProposalWeight,
         
         /// <summary>
-        /// >> Event: WrongProposalLength
-        /// The given length bound for the proposal was too low.
+        /// >> WrongProposalLength
         /// </summary>
         WrongProposalLength,
     }

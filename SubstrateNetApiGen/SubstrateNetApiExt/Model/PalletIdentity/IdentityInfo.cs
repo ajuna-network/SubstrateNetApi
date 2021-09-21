@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.FrameSupport;
+using SubstrateNetApi.Model.PalletIdentity;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -17,27 +20,54 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> Path: pallet_identity.types.IdentityInfo
+    /// >> 243 - Composite[pallet_identity.types.IdentityInfo]
     /// </summary>
     public sealed class IdentityInfo : BaseType
     {
         
+        /// <summary>
+        /// >> additional
+        /// </summary>
         private SubstrateNetApi.Model.FrameSupport.BoundedVec _additional;
         
+        /// <summary>
+        /// >> display
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.EnumData _display;
         
+        /// <summary>
+        /// >> legal
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.EnumData _legal;
         
+        /// <summary>
+        /// >> web
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.EnumData _web;
         
+        /// <summary>
+        /// >> riot
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.EnumData _riot;
         
+        /// <summary>
+        /// >> email
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.EnumData _email;
         
-        private BaseOpt<SubstrateNetApi.Model.Base.Arr20Special9> _pgpFingerprint;
+        /// <summary>
+        /// >> pgp_fingerprint
+        /// </summary>
+        private BaseOpt<SubstrateNetApi.Model.Base.Arr20U8> _pgpFingerprint;
         
+        /// <summary>
+        /// >> image
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.EnumData _image;
         
+        /// <summary>
+        /// >> twitter
+        /// </summary>
         private SubstrateNetApi.Model.PalletIdentity.EnumData _twitter;
         
         public SubstrateNetApi.Model.FrameSupport.BoundedVec Additional
@@ -112,7 +142,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
             }
         }
         
-        public BaseOpt<SubstrateNetApi.Model.Base.Arr20Special9> PgpFingerprint
+        public BaseOpt<SubstrateNetApi.Model.Base.Arr20U8> PgpFingerprint
         {
             get
             {
@@ -183,7 +213,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
             Riot.Decode(byteArray, ref p);
             Email = new SubstrateNetApi.Model.PalletIdentity.EnumData();
             Email.Decode(byteArray, ref p);
-            PgpFingerprint = new BaseOpt<SubstrateNetApi.Model.Base.Arr20Special9>();
+            PgpFingerprint = new BaseOpt<SubstrateNetApi.Model.Base.Arr20U8>();
             PgpFingerprint.Decode(byteArray, ref p);
             Image = new SubstrateNetApi.Model.PalletIdentity.EnumData();
             Image.Decode(byteArray, ref p);

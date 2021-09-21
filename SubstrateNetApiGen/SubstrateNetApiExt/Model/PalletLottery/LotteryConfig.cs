@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,19 +18,34 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     
     /// <summary>
-    /// >> Path: pallet_lottery.LotteryConfig
+    /// >> 478 - Composite[pallet_lottery.LotteryConfig]
     /// </summary>
     public sealed class LotteryConfig : BaseType
     {
         
+        /// <summary>
+        /// >> price
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _price;
         
+        /// <summary>
+        /// >> start
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _start;
         
+        /// <summary>
+        /// >> length
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _length;
         
+        /// <summary>
+        /// >> delay
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U32 _delay;
         
+        /// <summary>
+        /// >> repeat
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.Bool _repeat;
         
         public SubstrateNetApi.Model.Types.Primitive.U128 Price

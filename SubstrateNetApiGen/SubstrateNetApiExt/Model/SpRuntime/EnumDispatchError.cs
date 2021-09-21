@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -37,7 +39,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> Enum
+    /// >> 25 - Variant[sp_runtime.DispatchError]
     /// </summary>
     public sealed class EnumDispatchError : BaseEnumExt<DispatchError, BaseVoid, BaseVoid, BaseVoid, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8, SubstrateNetApi.Model.Types.Primitive.U8>, BaseVoid, BaseVoid, SubstrateNetApi.Model.SpRuntime.EnumTokenError, SubstrateNetApi.Model.SpRuntime.EnumArithmeticError>
     {

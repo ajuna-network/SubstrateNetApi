@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> Path: pallet_proxy.pallet.Error
+    /// >> 462 - Variant[pallet_proxy.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
@@ -27,50 +27,42 @@ namespace SubstrateNetApi.Model.PalletProxy
     {
         
         /// <summary>
-        /// >> Event: TooMany
-        /// There are too many proxies registered or too many announcements pending.
+        /// >> TooMany
         /// </summary>
         TooMany,
         
         /// <summary>
-        /// >> Event: NotFound
-        /// Proxy registration not found.
+        /// >> NotFound
         /// </summary>
         NotFound,
         
         /// <summary>
-        /// >> Event: NotProxy
-        /// Sender is not a proxy of the account to be proxied.
+        /// >> NotProxy
         /// </summary>
         NotProxy,
         
         /// <summary>
-        /// >> Event: Unproxyable
-        /// A call which is incompatible with the proxy type's filter was attempted.
+        /// >> Unproxyable
         /// </summary>
         Unproxyable,
         
         /// <summary>
-        /// >> Event: Duplicate
-        /// Account is already a proxy.
+        /// >> Duplicate
         /// </summary>
         Duplicate,
         
         /// <summary>
-        /// >> Event: NoPermission
-        /// Call may not be made by proxy because it may escalate its privileges.
+        /// >> NoPermission
         /// </summary>
         NoPermission,
         
         /// <summary>
-        /// >> Event: Unannounced
-        /// Announcement, if made at all, was made too recently.
+        /// >> Unannounced
         /// </summary>
         Unannounced,
         
         /// <summary>
-        /// >> Event: NoSelfProxy
-        /// Cannot add self as proxy.
+        /// >> NoSelfProxy
         /// </summary>
         NoSelfProxy,
     }

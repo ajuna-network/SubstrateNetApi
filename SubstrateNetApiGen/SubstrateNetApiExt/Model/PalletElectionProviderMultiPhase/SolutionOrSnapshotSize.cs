@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +18,19 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> Path: pallet_election_provider_multi_phase.SolutionOrSnapshotSize
+    /// >> 194 - Composite[pallet_election_provider_multi_phase.SolutionOrSnapshotSize]
     /// </summary>
     public sealed class SolutionOrSnapshotSize : BaseType
     {
         
+        /// <summary>
+        /// >> voters
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _voters;
         
+        /// <summary>
+        /// >> targets
+        /// </summary>
         private BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> _targets;
         
         public BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> Voters

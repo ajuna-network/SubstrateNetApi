@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.PalletBalances;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,18 +20,27 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> Path: pallet_balances.BalanceLock
+    /// >> 320 - Composite[pallet_balances.BalanceLock]
     /// </summary>
     public sealed class BalanceLock : BaseType
     {
         
-        private SubstrateNetApi.Model.Base.Arr8Special7 _id;
+        /// <summary>
+        /// >> id
+        /// </summary>
+        private SubstrateNetApi.Model.Base.Arr8U8 _id;
         
+        /// <summary>
+        /// >> amount
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _amount;
         
+        /// <summary>
+        /// >> reasons
+        /// </summary>
         private SubstrateNetApi.Model.PalletBalances.EnumReasons _reasons;
         
-        public SubstrateNetApi.Model.Base.Arr8Special7 Id
+        public SubstrateNetApi.Model.Base.Arr8U8 Id
         {
             get
             {
@@ -81,7 +93,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Id = new SubstrateNetApi.Model.Base.Arr8Special7();
+            Id = new SubstrateNetApi.Model.Base.Arr8U8();
             Id.Decode(byteArray, ref p);
             Amount = new SubstrateNetApi.Model.Types.Primitive.U128();
             Amount.Decode(byteArray, ref p);

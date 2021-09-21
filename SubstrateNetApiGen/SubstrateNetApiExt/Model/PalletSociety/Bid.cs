@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.PalletSociety;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -17,15 +20,24 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> Path: pallet_society.Bid
+    /// >> 428 - Composite[pallet_society.Bid]
     /// </summary>
     public sealed class Bid : BaseType
     {
         
+        /// <summary>
+        /// >> who
+        /// </summary>
         private SubstrateNetApi.Model.SpCore.AccountId32 _who;
         
+        /// <summary>
+        /// >> kind
+        /// </summary>
         private SubstrateNetApi.Model.PalletSociety.EnumBidKind _kind;
         
+        /// <summary>
+        /// >> value
+        /// </summary>
         private SubstrateNetApi.Model.Types.Primitive.U128 _value;
         
         public SubstrateNetApi.Model.SpCore.AccountId32 Who
