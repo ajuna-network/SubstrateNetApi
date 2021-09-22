@@ -7,11 +7,35 @@ using System.Linq;
 
 namespace RuntimeMetadata
 {
+    public abstract class TypeBuilder : BaseBuilder
+    {
+        internal NodeType TypeDef { get; }
+
+        internal TypeBuilder(uint id, NodeType typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+            : base(id, typeDict)
+        {
+            TypeDef = typeDef;
+            NameSpace = typeDef.Path != null && typeDef.Path[0].Contains("_") ?
+                "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod()
+                : "SubstrateNetApi.Model." + "Base";
+        }
+    }
+
+    public abstract class StorageBuilder : BaseBuilder
+    {
+        internal PalletStorage Storage { get; }
+
+        internal StorageBuilder(uint id, PalletStorage storage, Dictionary<uint, (string, List<string>)> typeDict)
+            : base(id, typeDict)
+        {
+            Storage = storage;
+            NameSpace = "SubstrateNetApi.Model." + storage.Prefix.MakeMethod();
+        }
+    }
+
     public abstract class BaseBuilder
     {
         internal uint Id { get; }
-
-        internal NodeType TypeDef { get; }
 
         internal Dictionary<uint, (string, List<string>)> TypeDict { get; }
 
@@ -23,12 +47,17 @@ namespace RuntimeMetadata
 
         internal string ReferenzName { get; set; }
 
-        internal CodeNamespace ImportsNamespace { get; }
+        internal CodeNamespace ImportsNamespace { get; set; }
 
-        internal BaseBuilder(uint id, NodeType typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        internal CodeCompileUnit TargetUnit { get; set; }
+
+        internal CodeTypeDeclaration TargetClass { get; set; }
+
+        public abstract BaseBuilder Create();
+
+        internal  BaseBuilder(uint id, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Id = id;
-            TypeDef = typeDef;
             TypeDict = typeDict;
             ImportsNamespace = new()
             {
@@ -39,15 +68,10 @@ namespace RuntimeMetadata
                 }
             };
 
-
             TargetUnit = new CodeCompileUnit();
             TargetUnit.Namespaces.Add(ImportsNamespace);
 
             Success = true;
-
-            NameSpace = typeDef.Path != null && typeDef.Path[0].Contains("_") ?
-                "SubstrateNetApi.Model." + typeDef.Path[0].MakeMethod()
-                : "SubstrateNetApi.Model." + "Base";
         }
 
         internal (string, List<string>) GetFullItemPath(uint typeId)
@@ -92,13 +116,7 @@ namespace RuntimeMetadata
             return comments;
         }
 
-        internal CodeCompileUnit TargetUnit { get; set; }
-
-        internal CodeTypeDeclaration TargetClass { get; set; }
-
-        public  abstract BaseBuilder Create();
-
-        public CodeMemberMethod SimpleMethod(string name, string returnType = null, object returnExpression = null)
+        internal CodeMemberMethod SimpleMethod(string name, string returnType = null, object returnExpression = null)
         {
             CodeMemberMethod nameMethod = new()
             {

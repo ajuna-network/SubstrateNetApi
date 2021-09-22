@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RuntimeMetadata
 {
-    public class ArrayGenBuilder : BaseBuilder
+    public class ArrayGenBuilder : TypeBuilder
     {
         public static int Counter = 0;
         private ArrayGenBuilder(uint id, NodeTypeArray typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
@@ -70,7 +70,7 @@ namespace RuntimeMetadata
             return new ArrayGenBuilder(id, nodeType, typeDict);
         }
 
-        public override BaseBuilder Create()
+        public override TypeBuilder Create()
         {
             var typeDef = TypeDef as NodeTypeArray;
 

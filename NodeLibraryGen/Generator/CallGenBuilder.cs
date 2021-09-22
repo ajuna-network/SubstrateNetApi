@@ -11,19 +11,19 @@ using System.Text;
 
 namespace RuntimeMetadata
 {
-    public class CallGenBuilder : BaseBuilder
+    public class CallGenBuilder : TypeBuilder
     {
         private CallGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
             : base(id, typeDef, typeDict)
         {
         }
 
-        public static CallGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        public static CallGenBuilder Init(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new CallGenBuilder(id, typeDef, typeDict);
         }
 
-        public override BaseBuilder Create()
+        public override TypeBuilder Create()
         {
             var typeDef = TypeDef as NodeTypeVariant;
 

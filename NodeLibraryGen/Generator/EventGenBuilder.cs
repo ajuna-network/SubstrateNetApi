@@ -10,19 +10,19 @@ using System.Text;
 
 namespace RuntimeMetadata
 {
-    public class EventGenBuilder : BaseBuilder
+    public class EventGenBuilder : TypeBuilder
     {
         private EventGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
             : base(id, typeDef, typeDict)
         {
         }
 
-        public static EventGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        public static EventGenBuilder Init(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new EventGenBuilder(id, typeDef, typeDict);
         }
 
-        public override BaseBuilder Create()
+        public override TypeBuilder Create()
         {
             var typeDef = TypeDef as NodeTypeVariant;
 

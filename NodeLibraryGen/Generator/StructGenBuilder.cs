@@ -10,7 +10,7 @@ using System.Text;
 
 namespace RuntimeMetadata
 {
-    public class StructGenBuilder : BaseBuilder
+    public class StructGenBuilder : TypeBuilder
     {
         private StructGenBuilder(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
             : base(id, typeDef, typeDict)
@@ -116,12 +116,12 @@ namespace RuntimeMetadata
             return encodeMethod;
         }
 
-        public static BaseBuilder Create(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        public static BaseBuilder Init(uint id, NodeTypeComposite typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new StructGenBuilder(id, typeDef, typeDict);
         }
 
-        public override BaseBuilder Create()
+        public override TypeBuilder Create()
         {
             var typeDef = TypeDef as NodeTypeComposite;
 

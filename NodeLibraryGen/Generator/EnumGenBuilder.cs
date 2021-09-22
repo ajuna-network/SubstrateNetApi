@@ -10,19 +10,19 @@ using System.Text;
 
 namespace RuntimeMetadata
 {
-    public class EnumGenBuilder : BaseBuilder
+    public class EnumGenBuilder : TypeBuilder
     {
         private EnumGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
             : base(id, typeDef, typeDict)
         {
         }
 
-        public static EnumGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        public static EnumGenBuilder Init(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new EnumGenBuilder(id, typeDef, typeDict);
         }
 
-        public override BaseBuilder Create()
+        public override TypeBuilder Create()
         {
             var typeDef = TypeDef as NodeTypeVariant;
 

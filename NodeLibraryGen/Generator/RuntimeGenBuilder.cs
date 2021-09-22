@@ -10,19 +10,19 @@ using System.Text;
 
 namespace RuntimeMetadata
 {
-    public class RuntimeGenBuilder : BaseBuilder
+    public class RuntimeGenBuilder : TypeBuilder
     {
         private RuntimeGenBuilder(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
             : base(id, typeDef, typeDict)
         {
         }
 
-        public static RuntimeGenBuilder Create(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
+        public static RuntimeGenBuilder Init(uint id, NodeTypeVariant typeDef, Dictionary<uint, (string, List<string>)> typeDict)
         {
             return new RuntimeGenBuilder(id, typeDef, typeDict);
         }
 
-        public override BaseBuilder Create()
+        public override TypeBuilder Create()
         {
             var typeDef = TypeDef as NodeTypeVariant;
 
