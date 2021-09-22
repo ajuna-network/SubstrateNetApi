@@ -322,6 +322,21 @@ namespace SubstrateNetApi
         }
 
         /// <summary>
+        /// Gets the storage asynchronous for generated code.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="parameters"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task<T> GetStorageAsync<T>(string parameters, CancellationToken token) where T : IType, new()
+        {
+            var str = await InvokeAsync<string>("state_getStorage", new object[] { parameters }, token);
+            T t = new T();
+            t.Create(str);
+            return t;
+        }
+
+        /// <summary>
         /// Subscribe Storage Key Async
         /// </summary>
         /// <param name="moduleName"></param>

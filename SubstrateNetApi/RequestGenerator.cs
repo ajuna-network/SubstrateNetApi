@@ -67,6 +67,39 @@ namespace SubstrateNetApi
         }
 
         /// <summary>
+        /// Create a request for a storage call, for generated code.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="hashers"></param>
+        /// <param name="module"></param>
+        /// <param name="item"></param>
+        /// <param name="key1Param"></param>
+        /// <param name="key2Param"></param>
+        /// <returns></returns>
+        public static string GetStorage(string module, string item, Storage.Type type, Storage.Hasher[] hashers = null, IType[] keys = null)
+        {
+            var keybytes = GetStorageKeyBytesHash(module, item);
+
+            switch (type)
+            {
+                case Storage.Type.Plain:
+                    return Utils.Bytes2HexString(keybytes);
+
+                case Storage.Type.Map:
+                    for (int i = 0; i < hashers.Length; i++)
+                    {
+                        keybytes = keybytes.Concat(HashExtension.Hash(hashers[i], keys[i].Encode())).ToArray();
+                    }
+                    return Utils.Bytes2HexString(keybytes);
+
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+
+
+        /// <summary>
         /// Gets the parameter bytes.
         /// </summary>
         /// <param name="key">The key.</param>

@@ -15,8 +15,7 @@ using System.Threading.Tasks;
 
 namespace RuntimeMetadata
 {
-
-    class Program
+    partial class Program
     {
         private const string Websocketurl = "ws://127.0.0.1:9944";
 
@@ -71,29 +70,7 @@ namespace RuntimeMetadata
         {
             foreach (var module in modules.Values) 
             {
-                StorageGenBuilder.Init(module.Storage, typeDict).Create().Build(out bool successs);
-            }
-        }
-
-        public class StorageGenBuilder : StorageBuilder
-        {
-            private StorageGenBuilder(PalletStorage storage, Dictionary<uint, (string, List<string>)> typeDict):
-                base(0, storage, typeDict)
-            {
-            }
-
-            public static StorageGenBuilder Init(PalletStorage storage, Dictionary<uint, (string, List<string>)> typeDict)
-            {
-                return new StorageGenBuilder(storage, typeDict);
-            }
-
-            public override StorageGenBuilder Create()
-            {
-                #region CREATE
-
-                #endregion
-
-                return this;
+                ModuleGenBuilder.Init(module.Index, module, typeDict).Create().Build(out bool successs);
             }
         }
 

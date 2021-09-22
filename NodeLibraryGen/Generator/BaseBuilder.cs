@@ -21,15 +21,18 @@ namespace RuntimeMetadata
         }
     }
 
-    public abstract class StorageBuilder : BaseBuilder
+    public abstract class ModuleBuilder : BaseBuilder
     {
-        internal PalletStorage Storage { get; }
+        internal PalletModule Module { get; }
 
-        internal StorageBuilder(uint id, PalletStorage storage, Dictionary<uint, (string, List<string>)> typeDict)
+        internal string PrefixName { get; }
+
+        internal ModuleBuilder(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict)
             : base(id, typeDict)
         {
-            Storage = storage;
-            NameSpace = "SubstrateNetApi.Model." + storage.Prefix.MakeMethod();
+            Module = module;
+            PrefixName = module.Name == "System" ? "Frame" : "Pallet";
+            NameSpace = "SubstrateNetApi.Model." + PrefixName + module.Name.MakeMethod();
         }
     }
 
