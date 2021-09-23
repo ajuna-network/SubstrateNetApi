@@ -34,6 +34,8 @@ namespace RuntimeMetadata
 
                 ClassName = PrefixName + Module.Name + "Storage";
 
+                ReferenzName = NameSpace + "." + ClassName;
+
                 var storage = Module.Storage;
 
                 CodeNamespace typeNamespace = new(NameSpace);
@@ -46,7 +48,7 @@ namespace RuntimeMetadata
                 };
                 typeNamespace.Types.Add(TargetClass);
 
-                // Declare the widthValue field.
+                // Declare the client field.
                 CodeMemberField clientField = new CodeMemberField
                 {
                     Attributes = MemberAttributes.Private,

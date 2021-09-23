@@ -36,6 +36,18 @@ namespace RuntimeMetadata
         }
     }
 
+    public abstract class ClientBuilder : BaseBuilder
+    {
+        internal List<(string, List<string>)> ModuleNames { get; }
+
+        internal ClientBuilder(uint id, List<(string, List<string>)> moduleNames, Dictionary<uint, (string, List<string>)> typeDict)
+            : base(id, typeDict)
+        {
+            ModuleNames = moduleNames;
+            NameSpace = "SubstrateNetApi";
+        }
+    }
+
     public abstract class BaseBuilder
     {
         internal uint Id { get; }
@@ -150,7 +162,7 @@ namespace RuntimeMetadata
                     BracingStyle = "C"
                 };
                 var space = NameSpace.Split('.').ToList();
-                space.RemoveAt(0);
+                //space.RemoveAt(0);
                 space.Add(ClassName + ".cs");
                 var path = Path.Combine(space.ToArray());
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -159,6 +171,7 @@ namespace RuntimeMetadata
                     provider.GenerateCodeFromCompileUnit(
                         TargetUnit, sourceWriter, options);
                 }
+
             }
             return (ReferenzName, new List<string>() { NameSpace });
         }
