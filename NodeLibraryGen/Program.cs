@@ -45,7 +45,10 @@ namespace RuntimeMetadata
                 TypeId = (uint)mdv14.RuntimeMetadataData.TypeId.Value
             };
 
+            // generate types
             var typeDict = GenerateTypes(metadata.Types);
+            
+            // generate modules
             GenerateModules(metadata.Modules, typeDict);
 
             Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
@@ -68,10 +71,15 @@ namespace RuntimeMetadata
 
         private static void GenerateModules(Dictionary<uint, PalletModule> modules, Dictionary<uint, (string, List<string>)> typeDict)
         {
+            List<(string, List<string>)> moduleNames = new();
             foreach (var module in modules.Values) 
             {
-                ModuleGenBuilder.Init(module.Index, module, typeDict).Create().Build(out bool successs);
+                var moduleNameTuple = ModuleGenBuilder.Init(module.Index, module, typeDict).Create().Build(out bool _);
+                moduleNames.Add(moduleNameTuple);
+                Console.WriteLine(JsonConvert.SerializeObject(moduleNameTuple));
             }
+
+            ClientGenBuilder.Init(0, moduleNames, typeDict).Create().Build(out bool _);
         }
 
         private static ExtrinsicMetadata CreateExtrinsic(ExtrinsicMetadataStruct extrinsic)
