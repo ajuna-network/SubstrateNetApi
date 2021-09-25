@@ -90,17 +90,17 @@ namespace RuntimeMetadata
 
             ReferenzName = $"{NameSpace}.{ClassName}";
 
-            TargetClass = new CodeTypeDeclaration(ClassName)
+            var targetClass = new CodeTypeDeclaration(ClassName)
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-            TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
+            targetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
 
             // add comment to class if exists
-            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+            targetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
-            typeNamespace.Types.Add(TargetClass);
+            typeNamespace.Types.Add(targetClass);
 
             // Declaring a name method
             CodeMemberMethod nameMethod = new()
@@ -123,7 +123,7 @@ namespace RuntimeMetadata
                         methodRef1, methodRef2)
                 };
             nameMethod.Statements.Add(returnStatement);
-            TargetClass.Members.Add(nameMethod);
+            targetClass.Members.Add(nameMethod);
 
             CodeMemberProperty sizeProperty = new()
             {
@@ -132,14 +132,14 @@ namespace RuntimeMetadata
                 Type = new CodeTypeReference(typeof(System.Int32))
             };
             sizeProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodePrimitiveExpression((int)typeDef.Length)));
-            TargetClass.Members.Add(sizeProperty);
+            targetClass.Members.Add(sizeProperty);
 
 
             CodeMemberMethod encodeMethod = GetEncode();
-            TargetClass.Members.Add(encodeMethod);
+            targetClass.Members.Add(encodeMethod);
 
             CodeMemberMethod decodeMethod = GetDecode(fullItem.Item1);
-            TargetClass.Members.Add(decodeMethod);
+            targetClass.Members.Add(decodeMethod);
 
 
             CodeMemberField valueField = new()
@@ -148,7 +148,7 @@ namespace RuntimeMetadata
                 Name = "_value",
                 Type = new CodeTypeReference($"{fullItem.Item1}[]")
             };
-            TargetClass.Members.Add(valueField);
+            targetClass.Members.Add(valueField);
             CodeMemberProperty valueProperty = new()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
@@ -178,9 +178,9 @@ namespace RuntimeMetadata
             });
             createMethod.Statements.Add(new CodeSnippetExpression("Value = array"));
             createMethod.Statements.Add(new CodeSnippetExpression("Bytes = Encode()"));
-            TargetClass.Members.Add(createMethod);
+            targetClass.Members.Add(createMethod);
 
-            TargetClass.Members.Add(valueProperty);
+            targetClass.Members.Add(valueProperty);
             #endregion
 
             return this;

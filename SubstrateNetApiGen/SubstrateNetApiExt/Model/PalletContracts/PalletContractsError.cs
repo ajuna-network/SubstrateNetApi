@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 410 - Variant[pallet_contracts.pallet.Error]
+    /// >> 412 - Variant[pallet_contracts.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

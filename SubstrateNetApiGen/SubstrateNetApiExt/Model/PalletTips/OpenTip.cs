@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     
     /// <summary>
-    /// >> 476 - Composite[pallet_tips.OpenTip]
+    /// >> 478 - Composite[pallet_tips.OpenTip]
     /// </summary>
     public sealed class OpenTip : BaseType
     {

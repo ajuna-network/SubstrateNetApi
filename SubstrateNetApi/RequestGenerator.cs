@@ -88,7 +88,9 @@ namespace SubstrateNetApi
                 case Storage.Type.Map:
                     for (int i = 0; i < hashers.Length; i++)
                     {
-                        keybytes = keybytes.Concat(HashExtension.Hash(hashers[i], keys[i].Encode())).ToArray();
+                        var key = keys[i].Encode();
+                        var hasher = hashers[i];
+                        keybytes = keybytes.Concat(HashExtension.Hash(hasher, key)).ToArray();
                     }
                     return Utils.Bytes2HexString(keybytes);
 

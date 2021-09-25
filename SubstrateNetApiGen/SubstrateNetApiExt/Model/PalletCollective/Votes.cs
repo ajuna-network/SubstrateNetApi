@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletCollective
     
     
     /// <summary>
-    /// >> 384 - Composite[pallet_collective.Votes]
+    /// >> 385 - Composite[pallet_collective.Votes]
     /// </summary>
     public sealed class Votes : BaseType
     {

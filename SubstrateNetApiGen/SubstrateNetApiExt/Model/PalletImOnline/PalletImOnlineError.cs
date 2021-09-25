@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> 419 - Variant[pallet_im_online.pallet.Error]
+    /// >> 421 - Variant[pallet_im_online.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

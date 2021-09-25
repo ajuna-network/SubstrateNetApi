@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> 240 - Composite[pallet_im_online.sr25519.app_sr25519.Signature]
+    /// >> 239 - Composite[pallet_im_online.sr25519.app_sr25519.Signature]
     /// </summary>
     public sealed class Signature : BaseType
     {

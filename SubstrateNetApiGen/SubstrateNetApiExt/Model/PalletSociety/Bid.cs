@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> 434 - Composite[pallet_society.Bid]
+    /// >> 436 - Composite[pallet_society.Bid]
     /// </summary>
     public sealed class Bid : BaseType
     {

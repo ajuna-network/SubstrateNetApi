@@ -41,16 +41,16 @@ namespace RuntimeMetadata
                 .Replace("frame_", "")
                 .MakeMethod();
 
-            TargetClass = new CodeTypeDeclaration(ClassName)
+            var targetClass = new CodeTypeDeclaration(ClassName)
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
 
             // add comment to class if exists
-            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+            targetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
-            typeNamespace.Types.Add(TargetClass);
+            typeNamespace.Types.Add(targetClass);
 
             if (typeDef.Variants != null)
             {
@@ -76,7 +76,7 @@ namespace RuntimeMetadata
                     }
                     eventClass.BaseTypes.Add(codeTypeRef);
 
-                    TargetClass.Members.Add(eventClass);
+                    targetClass.Members.Add(eventClass);
                 }
             }
 

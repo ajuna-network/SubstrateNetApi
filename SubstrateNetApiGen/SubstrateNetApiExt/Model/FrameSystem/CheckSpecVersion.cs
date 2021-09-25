@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 512 - Composite[frame_system.extensions.check_spec_version.CheckSpecVersion]
+    /// >> 514 - Composite[frame_system.extensions.check_spec_version.CheckSpecVersion]
     /// </summary>
     public sealed class CheckSpecVersion : BaseType
     {

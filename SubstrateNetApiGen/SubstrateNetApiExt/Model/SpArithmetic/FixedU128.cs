@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> 328 - Composite[sp_arithmetic.fixed_point.FixedU128]
+    /// >> 329 - Composite[sp_arithmetic.fixed_point.FixedU128]
     /// </summary>
     public sealed class FixedU128 : BaseType
     {

@@ -22,10 +22,8 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> 282 - Variant[pallet_society.Call]
-    /// Dispatchable calls.
-    /// 
-    /// Each variant of this enum maps to a dispatchable function from the associated module.
+    /// >> 281 - Variant[pallet_society.pallet.Call]
+    /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletSocietyCall
     {

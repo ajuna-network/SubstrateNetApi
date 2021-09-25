@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> 150 - Composite[sp_arithmetic.per_things.PerU16]
+    /// >> 149 - Composite[sp_arithmetic.per_things.PerU16]
     /// </summary>
     public sealed class PerU16 : BaseType
     {

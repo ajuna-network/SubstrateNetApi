@@ -51,17 +51,17 @@ namespace RuntimeMetadata
 
             if (typeDef.Variants != null)
             {
-                TargetClass = new CodeTypeDeclaration(ClassName)
+                var targetClass = new CodeTypeDeclaration(ClassName)
                 {
                     IsClass = true,
                     TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
                 };
-                TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+                targetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
                 if (typeDef.Variants.All(p => p.TypeFields == null))
                 {
-                    TargetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
-                    typeNamespace.Types.Add(TargetClass);
+                    targetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
+                    typeNamespace.Types.Add(targetClass);
                 }
                 else
                 {
@@ -93,8 +93,8 @@ namespace RuntimeMetadata
                             }
                         }
                     }
-                    TargetClass.BaseTypes.Add(codeTypeRef);
-                    typeNamespace.Types.Add(TargetClass);
+                    targetClass.BaseTypes.Add(codeTypeRef);
+                    typeNamespace.Types.Add(targetClass);
                 }
             }
             #endregion

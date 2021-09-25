@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> 211 - Composite[pallet_democracy.vote.Vote]
+    /// >> 210 - Composite[pallet_democracy.vote.Vote]
     /// </summary>
     public sealed class Vote : BaseType
     {

@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PalletIdentity\**" />
+    <Compile Remove="SpRuntime\**" />
+    <EmbeddedResource Remove="PalletIdentity\**" />
+    <EmbeddedResource Remove="SpRuntime\**" />
+    <None Remove="PalletIdentity\**" />
+    <None Remove="SpRuntime\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
   </ItemGroup>
 
@@ -24,6 +33,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="metadata_20210921.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="metadata_20210923.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

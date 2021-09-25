@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 106 - Composite[frame_system.limits.BlockWeights]
+    /// >> 105 - Composite[frame_system.limits.BlockWeights]
     /// </summary>
     public sealed class BlockWeights : BaseType
     {

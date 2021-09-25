@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> 443 - Composite[pallet_recovery.RecoveryConfig]
+    /// >> 445 - Composite[pallet_recovery.RecoveryConfig]
     /// </summary>
     public sealed class RecoveryConfig : BaseType
     {

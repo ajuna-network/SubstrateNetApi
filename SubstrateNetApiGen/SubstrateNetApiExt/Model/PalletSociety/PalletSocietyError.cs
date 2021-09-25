@@ -17,8 +17,11 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> 442 - Variant[pallet_society.Error]
-    /// Errors for this module.
+    /// >> 444 - Variant[pallet_society.pallet.Error]
+    /// 
+    ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
+    ///			of this pallet.
+    ///			
     /// </summary>
     public enum PalletSocietyError
     {

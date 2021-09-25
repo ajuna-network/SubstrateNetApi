@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 407 - Composite[pallet_contracts.schedule.Limits]
+    /// >> 409 - Composite[pallet_contracts.schedule.Limits]
     /// </summary>
     public sealed class Limits : BaseType
     {

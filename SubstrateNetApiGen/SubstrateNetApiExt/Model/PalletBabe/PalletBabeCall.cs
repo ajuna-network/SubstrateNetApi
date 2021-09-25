@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletBabe
     
     
     /// <summary>
-    /// >> 122 - Variant[pallet_babe.pallet.Call]
+    /// >> 121 - Variant[pallet_babe.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletBabeCall

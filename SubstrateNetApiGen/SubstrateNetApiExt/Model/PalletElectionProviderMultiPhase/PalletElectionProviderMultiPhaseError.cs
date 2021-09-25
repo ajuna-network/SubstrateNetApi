@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> 343 - Variant[pallet_election_provider_multi_phase.pallet.Error]
+    /// >> 344 - Variant[pallet_election_provider_multi_phase.pallet.Error]
     /// Error of the pallet that can be returned in response to dispatches.
     /// </summary>
     public enum PalletElectionProviderMultiPhaseError

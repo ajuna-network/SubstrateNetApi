@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 359 - Composite[pallet_staking.slashing.SpanRecord]
+    /// >> 360 - Composite[pallet_staking.slashing.SpanRecord]
     /// </summary>
     public sealed class SpanRecord : BaseType
     {

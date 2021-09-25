@@ -1,4 +1,6 @@
-﻿using SubstrateNetApi;
+﻿using Newtonsoft.Json;
+using SubstrateNetApi;
+using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Meta;
 using System;
 using System.CodeDom;
@@ -13,14 +15,14 @@ namespace RuntimeMetadata
     {
         public class ModuleGenBuilder : ModuleBuilder
         {
-            private ModuleGenBuilder(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict) :
-                base(id, module, typeDict)
+            private ModuleGenBuilder(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict, Dictionary<uint, NodeType> nodeTypes) :
+                base(id, module, typeDict, nodeTypes)
             {
             }
 
-            public static ModuleGenBuilder Init(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict)
+            public static ModuleGenBuilder Init(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict, Dictionary<uint, NodeType> nodeTypes)
             {
-                return new ModuleGenBuilder(id, module, typeDict);
+                return new ModuleGenBuilder(id, module, typeDict, nodeTypes);
             }
 
             public override ModuleGenBuilder Create()
@@ -32,21 +34,40 @@ namespace RuntimeMetadata
                 ImportsNamespace.Imports.Add(new CodeNamespaceImport("System.Threading"));
                 ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Types"));
 
-                ClassName = PrefixName + Module.Name + "Storage";
+                FileName = Module.Name;
 
-                ReferenzName = NameSpace + "." + ClassName;
+                Console.WriteLine(Module.Name);
 
-                var storage = Module.Storage;
+                ReferenzName = "SubstrateNetApi.Model." + Module.Name;
 
                 CodeNamespace typeNamespace = new(NameSpace);
                 TargetUnit.Namespaces.Add(typeNamespace);
 
-                TargetClass = new CodeTypeDeclaration(ClassName)
+                CreateStorage(typeNamespace);
+
+                CreateCalls(typeNamespace);
+
+                CreateEvents(typeNamespace);
+
+                CreateErrors(typeNamespace);
+
+                #endregion
+
+                return this;
+            }
+
+            private void CreateStorage(CodeNamespace typeNamespace)
+            {
+                ClassName = Module.Name + "Storage";
+
+                var storage = Module.Storage;
+
+                var targetClass = new CodeTypeDeclaration(ClassName)
                 {
                     IsClass = true,
                     TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
                 };
-                typeNamespace.Types.Add(TargetClass);
+                typeNamespace.Types.Add(targetClass);
 
                 // Declare the client field.
                 CodeMemberField clientField = new CodeMemberField
@@ -57,7 +78,7 @@ namespace RuntimeMetadata
                 };
                 clientField.Comments.Add(new CodeCommentStatement(
                     "Substrate client for the storage calls."));
-                TargetClass.Members.Add(clientField);
+                targetClass.Members.Add(clientField);
 
                 CodeConstructor constructor = new CodeConstructor
                 {
@@ -74,7 +95,7 @@ namespace RuntimeMetadata
                 constructor.Statements.Add(new CodeAssignStatement(fieldReference,
                     new CodeArgumentReferenceExpression("client")));
 
-                TargetClass.Members.Add(constructor);
+                targetClass.Members.Add(constructor);
 
                 if (storage?.Entries != null)
                 {
@@ -89,7 +110,7 @@ namespace RuntimeMetadata
                         // add comment to class if exists
                         storageMethod.Comments.AddRange(GetComments(entry.Docs, null, entry.Name));
 
-                        TargetClass.Members.Add(storageMethod);
+                        targetClass.Members.Add(storageMethod);
 
                         if (entry.StorageType == SubstrateNetApi.Model.Meta.Storage.Type.Plain)
                         {
@@ -119,7 +140,7 @@ namespace RuntimeMetadata
                             string getStorageString = GetStorageString(storage.Prefix, entry.Name, entry.StorageType, hashers);
                             storageMethod.Statements.Add(new CodeSnippetExpression(getStorageString));
                             storageMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression(GetInvoceString(value.Item1))));
-                        } 
+                        }
                         else
                         {
                             throw new NotImplementedException();
@@ -127,11 +148,179 @@ namespace RuntimeMetadata
 
                     }
                 }
-
-                #endregion
-
-                return this;
             }
+
+            private void CreateCalls(CodeNamespace typeNamespace)
+            {
+                ClassName = Module.Name + "Calls";
+
+                var calls = Module.Calls;
+
+                var targetClass = new CodeTypeDeclaration(ClassName)
+                {
+                    IsClass = true,
+                    TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
+                };
+                typeNamespace.Types.Add(targetClass);
+
+                // Declare the client field.
+                CodeMemberField clientField = new CodeMemberField
+                {
+                    Attributes = MemberAttributes.Private,
+                    Name = "_client",
+                    Type = new CodeTypeReference(typeof(SubstrateClient))
+                };
+                clientField.Comments.Add(new CodeCommentStatement(
+                    "Substrate client for the storage calls."));
+                targetClass.Members.Add(clientField);
+
+                CodeConstructor constructor = new CodeConstructor
+                {
+                    Attributes =
+                    MemberAttributes.Public | MemberAttributes.Final
+                };
+
+                // Add parameters.
+                constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+                    typeof(SubstrateClient), "client"));
+                CodeFieldReferenceExpression fieldReference =
+                    new CodeFieldReferenceExpression(
+                    new CodeThisReferenceExpression(), "_client");
+                constructor.Statements.Add(new CodeAssignStatement(fieldReference,
+                    new CodeArgumentReferenceExpression("client")));
+
+                targetClass.Members.Add(constructor);
+                if (calls != null)
+                {
+                    if (NodeTypes.TryGetValue(calls.TypeId, out NodeType nodeType))
+                    {
+                        var typeDef = nodeType as NodeTypeVariant;
+
+                        if (typeDef.Variants != null)
+                        {
+                            foreach (var variant in typeDef.Variants)
+                            {
+                                CodeMemberMethod callMethod = new()
+                                {
+                                    Attributes = MemberAttributes.Public | MemberAttributes.Final,
+                                    Name = variant.Name.MakeMethod(),
+                                    ReturnType = new CodeTypeReference(typeof(GenericExtrinsicCall).Name)
+                                };
+
+                                // add comment to class if exists
+                                callMethod.Comments.AddRange(GetComments(typeDef.Docs, null, variant.Name));
+
+                                var create = new CodeObjectCreateExpression(typeof(GenericExtrinsicCall).Name, Array.Empty<CodeExpression>());
+                                create.Parameters.Add(new CodePrimitiveExpression((int)Module.Index));
+                                create.Parameters.Add(new CodePrimitiveExpression(Module.Name));
+                                create.Parameters.Add(new CodePrimitiveExpression(variant.Index));
+                                create.Parameters.Add(new CodePrimitiveExpression(variant.Name));
+
+                                if (variant.TypeFields != null)
+                                {
+                                    foreach (var field in variant.TypeFields)
+                                    {
+                                        var fullItem = GetFullItemPath(field.TypeId);
+
+                                        CodeParameterDeclarationExpression param = new()
+                                        {
+                                            Type = new CodeTypeReference(fullItem.Item1),
+                                            Name = field.Name
+                                        };
+                                        callMethod.Parameters.Add(param);
+
+                                        create.Parameters.Add(new CodeVariableReferenceExpression(field.Name));
+                                    }
+                                }
+
+                                CodeMethodReturnStatement returnStatement = new()
+                                {
+                                    Expression = create
+                                };
+
+                                callMethod.Statements.Add(returnStatement);
+                                targetClass.Members.Add(callMethod);
+                            }
+                        }
+                    }
+                }
+            }
+
+            private void CreateEvents(CodeNamespace typeNamespace)
+            {
+                ClassName = Module.Name + "Events";
+
+                var events = Module.Events;
+
+
+                if (events != null)
+                {
+                    if (NodeTypes.TryGetValue(events.TypeId, out NodeType nodeType))
+                    {
+                        var typeDef = nodeType as NodeTypeVariant;
+
+                        foreach (var variant in typeDef.Variants)
+                        {
+                            var eventClass = new CodeTypeDeclaration("Event" + variant.Name.MakeMethod())
+                            {
+                                IsClass = true,
+                                TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
+                            };
+
+                            // add comment to variant if exists
+                            eventClass.Comments.AddRange(GetComments(variant.Docs, null, variant.Name));
+
+                            var codeTypeRef = new CodeTypeReference("BaseTuple");
+                            if (variant.TypeFields != null)
+                            {
+                                foreach (var field in variant.TypeFields)
+                                {
+                                    var fullItem = GetFullItemPath(field.TypeId);
+                                    codeTypeRef.TypeArguments.Add(new CodeTypeReference(fullItem.Item1));
+                                }
+                            }
+                            eventClass.BaseTypes.Add(codeTypeRef);
+
+                            typeNamespace.Types.Add(eventClass);
+                        }
+                    }
+                }
+            }
+
+            private void CreateErrors(CodeNamespace typeNamespace)
+            {
+                ClassName = Module.Name + "Errors";
+
+                var errors = Module.Errors;
+
+                if (errors != null)
+                {
+                    if (NodeTypes.TryGetValue(errors.TypeId, out NodeType nodeType))
+                    {
+                        var typeDef = nodeType as NodeTypeVariant;
+
+                        var targetClass = new CodeTypeDeclaration(ClassName)
+                        {
+                            IsEnum = true,
+                            TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
+                        };
+
+
+                        foreach (var variant in typeDef.Variants)
+                        {
+                            var enumField = new CodeMemberField(ClassName, variant.Name);
+
+                            // add comment to field if exists
+                            enumField.Comments.AddRange(GetComments(variant.Docs, null, variant.Name));
+
+                            targetClass.Members.Add(enumField);
+                        }
+
+                        typeNamespace.Types.Add(targetClass);
+                    }
+                }
+            }
+
 
             private string GetInvoceString(string returnType)
             {
@@ -143,7 +332,7 @@ namespace RuntimeMetadata
                 string map = string.Empty;
                 if (hashers != null && hashers.Length > 0)
                 {
-                    map = ", new[] {" + 
+                    map = ", new[] {" +
                         string.Join(",", hashers.Select(p => "Storage.Hasher." + p).ToArray()) + "}, keyParams";
                 }
                 return $"var parameters = RequestGenerator.GetStorage(\"{module}\", \"{item}\", Storage.Type.{type}{map})";

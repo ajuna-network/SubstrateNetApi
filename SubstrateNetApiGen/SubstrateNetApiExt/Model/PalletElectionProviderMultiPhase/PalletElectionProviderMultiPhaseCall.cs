@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> 140 - Variant[pallet_election_provider_multi_phase.pallet.Call]
+    /// >> 139 - Variant[pallet_election_provider_multi_phase.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletElectionProviderMultiPhaseCall

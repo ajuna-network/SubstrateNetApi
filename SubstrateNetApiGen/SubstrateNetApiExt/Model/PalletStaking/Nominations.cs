@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 347 - Composite[pallet_staking.Nominations]
+    /// >> 348 - Composite[pallet_staking.Nominations]
     /// </summary>
     public sealed class Nominations : BaseType
     {

@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 356 - Composite[pallet_staking.UnappliedSlash]
+    /// >> 357 - Composite[pallet_staking.UnappliedSlash]
     /// </summary>
     public sealed class UnappliedSlash : BaseType
     {

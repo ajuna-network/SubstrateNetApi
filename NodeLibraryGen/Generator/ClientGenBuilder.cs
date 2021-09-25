@@ -33,13 +33,13 @@ namespace RuntimeMetadata
                 CodeNamespace typeNamespace = new(NameSpace);
                 TargetUnit.Namespaces.Add(typeNamespace);
 
-                TargetClass = new CodeTypeDeclaration(ClassName)
+                var targetClass = new CodeTypeDeclaration(ClassName)
                 {
                     IsClass = true,
                     TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
                 };
-                TargetClass.BaseTypes.Add(new CodeTypeReference(typeof(SubstrateClient)));
-                typeNamespace.Types.Add(TargetClass);
+                targetClass.BaseTypes.Add(new CodeTypeReference(typeof(SubstrateClient)));
+                typeNamespace.Types.Add(targetClass);
 
                 CodeConstructor constructor = new()
                 {
@@ -51,30 +51,33 @@ namespace RuntimeMetadata
                     typeof(Uri), "uri"));
                 constructor.BaseConstructorArgs.Add(new CodeVariableReferenceExpression("uri"));
 
-                TargetClass.Members.Add(constructor);
+                targetClass.Members.Add(constructor);
 
                 foreach(var tuple in ModuleNames)
                 {
-                    var name = tuple.Item1.Split('.').Last();
-                    //ImportsNamespace.Imports.Add(new CodeNamespaceImport(tuple.Item2[0]));
+                    var pallets = new string[] { "Storage", "Call"};
 
-                    CodeMemberField clientField = new()
+                    foreach (var pallet in pallets)
                     {
-                        Attributes = MemberAttributes.Public,
-                        Name = name,
-                        Type = new CodeTypeReference(tuple.Item1)
-                    };
-                    clientField.Comments.Add(new CodeCommentStatement($"{name} storage calls."));
-                    TargetClass.Members.Add(clientField);
+                        var name = tuple.Item1.Split('.').Last() + pallet;
+                        var referenceName = tuple.Item1 + pallet;
 
-                    CodeFieldReferenceExpression fieldReference =
-                        new(new CodeThisReferenceExpression(), name);
+                        CodeMemberField clientField = new()
+                        {
+                            Attributes = MemberAttributes.Public,
+                            Name = name,
+                            Type = new CodeTypeReference(referenceName)
+                        };
+                        clientField.Comments.Add(new CodeCommentStatement($"{name} storage calls."));
+                        targetClass.Members.Add(clientField);
 
-                    var createPallet = new CodeObjectCreateExpression(tuple.Item1);
-                    createPallet.Parameters.Add(new CodeThisReferenceExpression());
+                        CodeFieldReferenceExpression fieldReference =
+                            new(new CodeThisReferenceExpression(), name);
 
-                    constructor.Statements.Add(new CodeAssignStatement(fieldReference,
-                        createPallet));
+                        var createPallet = new CodeObjectCreateExpression(referenceName);
+                        createPallet.Parameters.Add(new CodeThisReferenceExpression());
+                        constructor.Statements.Add(new CodeAssignStatement(fieldReference, createPallet));
+                    }
                 }
 
 

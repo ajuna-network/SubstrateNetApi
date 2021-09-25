@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 350 - Composite[pallet_staking.EraRewardPoints]
+    /// >> 351 - Composite[pallet_staking.EraRewardPoints]
     /// </summary>
     public sealed class EraRewardPoints : BaseType
     {

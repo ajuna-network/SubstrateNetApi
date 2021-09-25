@@ -34,7 +34,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     }
     
     /// <summary>
-    /// >> 138 - Variant[sp_runtime.multiaddress.MultiAddress]
+    /// >> 137 - Variant[sp_runtime.multiaddress.MultiAddress]
     /// </summary>
     public sealed class EnumMultiAddress : BaseEnumExt<MultiAddress, SubstrateNetApi.Model.SpCore.AccountId32, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr20U8>
     {

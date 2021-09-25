@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 199 - Variant[pallet_staking.pallet.pallet.Call]
+    /// >> 198 - Variant[pallet_staking.pallet.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletStakingCall

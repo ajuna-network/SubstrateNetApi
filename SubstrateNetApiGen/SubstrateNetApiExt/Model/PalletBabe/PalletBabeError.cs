@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletBabe
     
     
     /// <summary>
-    /// >> 313 - Variant[pallet_babe.pallet.Error]
+    /// >> 314 - Variant[pallet_babe.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

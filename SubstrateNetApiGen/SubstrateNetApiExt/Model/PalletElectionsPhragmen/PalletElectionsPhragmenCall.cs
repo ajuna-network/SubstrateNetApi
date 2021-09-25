@@ -22,7 +22,7 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     
     
     /// <summary>
-    /// >> 216 - Variant[pallet_elections_phragmen.pallet.Call]
+    /// >> 215 - Variant[pallet_elections_phragmen.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletElectionsPhragmenCall

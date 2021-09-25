@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletSession
     
     
     /// <summary>
-    /// >> 366 - Variant[pallet_session.Error]
+    /// >> 367 - Variant[pallet_session.Error]
     /// Error for the session module.
     /// </summary>
     public enum PalletSessionError

@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     
     /// <summary>
-    /// >> 93 - Variant[pallet_transaction_storage.pallet.Event]
+    /// >> 92 - Variant[pallet_transaction_storage.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

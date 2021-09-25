@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 401 - Composite[pallet_contracts.wasm.PrefabWasmModule]
+    /// >> 403 - Composite[pallet_contracts.wasm.PrefabWasmModule]
     /// </summary>
     public sealed class PrefabWasmModule : BaseType
     {

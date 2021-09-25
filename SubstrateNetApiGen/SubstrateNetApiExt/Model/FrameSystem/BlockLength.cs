@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 110 - Composite[frame_system.limits.BlockLength]
+    /// >> 109 - Composite[frame_system.limits.BlockLength]
     /// </summary>
     public sealed class BlockLength : BaseType
     {

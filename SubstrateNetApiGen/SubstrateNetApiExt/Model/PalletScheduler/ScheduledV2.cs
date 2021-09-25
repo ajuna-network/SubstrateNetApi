@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> 452 - Composite[pallet_scheduler.ScheduledV2]
+    /// >> 454 - Composite[pallet_scheduler.ScheduledV2]
     /// </summary>
     public sealed class ScheduledV2 : BaseType
     {

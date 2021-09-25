@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     }
     
     /// <summary>
-    /// >> 381 - Variant[pallet_democracy.Releases]
+    /// >> 382 - Variant[pallet_democracy.Releases]
     /// </summary>
     public sealed class EnumReleases : BaseEnum<Releases>
     {

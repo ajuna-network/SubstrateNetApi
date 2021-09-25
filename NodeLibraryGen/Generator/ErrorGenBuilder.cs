@@ -33,16 +33,16 @@ namespace RuntimeMetadata
             CodeNamespace typeNamespace = new(NameSpace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
-            TargetClass = new CodeTypeDeclaration(ClassName)
+            var targetClass = new CodeTypeDeclaration(ClassName)
             {
                 IsEnum = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
 
             // add comment to class if exists
-            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+            targetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
-            typeNamespace.Types.Add(TargetClass);
+            typeNamespace.Types.Add(targetClass);
 
             if (typeDef.Variants != null)
             {
@@ -53,7 +53,7 @@ namespace RuntimeMetadata
                     // add comment to field if exists
                     enumField.Comments.AddRange(GetComments(variant.Docs, null, variant.Name));
 
-                    TargetClass.Members.Add(enumField);
+                    targetClass.Members.Add(enumField);
                 }
             }
             #endregion

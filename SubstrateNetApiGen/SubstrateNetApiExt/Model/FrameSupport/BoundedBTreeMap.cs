@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 338 - Composite[frame_support.storage.bounded_btree_map.BoundedBTreeMap]
+    /// >> 339 - Composite[frame_support.storage.bounded_btree_map.BoundedBTreeMap]
     /// </summary>
     public sealed class BoundedBTreeMap : BaseType
     {

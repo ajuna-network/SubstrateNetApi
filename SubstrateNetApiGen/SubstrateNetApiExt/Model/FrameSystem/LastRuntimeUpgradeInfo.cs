@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 98 - Composite[frame_system.LastRuntimeUpgradeInfo]
+    /// >> 97 - Composite[frame_system.LastRuntimeUpgradeInfo]
     /// </summary>
     public sealed class LastRuntimeUpgradeInfo : BaseType
     {

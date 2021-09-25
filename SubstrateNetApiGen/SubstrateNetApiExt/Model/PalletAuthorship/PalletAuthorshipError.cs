@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletAuthorship
     
     
     /// <summary>
-    /// >> 316 - Variant[pallet_authorship.pallet.Error]
+    /// >> 317 - Variant[pallet_authorship.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

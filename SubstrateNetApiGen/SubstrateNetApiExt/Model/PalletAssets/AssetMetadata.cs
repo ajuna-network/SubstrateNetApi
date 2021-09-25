@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> 482 - Composite[pallet_assets.types.AssetMetadata]
+    /// >> 484 - Composite[pallet_assets.types.AssetMetadata]
     /// </summary>
     public sealed class AssetMetadata : BaseType
     {

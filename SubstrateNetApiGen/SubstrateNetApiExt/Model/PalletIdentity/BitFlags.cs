@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> 279 - Composite[pallet_identity.types.BitFlags]
+    /// >> 278 - Composite[pallet_identity.types.BitFlags]
     /// </summary>
     public sealed class BitFlags : BaseType
     {

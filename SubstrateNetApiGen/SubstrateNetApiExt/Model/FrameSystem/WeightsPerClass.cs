@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 108 - Composite[frame_system.limits.WeightsPerClass]
+    /// >> 107 - Composite[frame_system.limits.WeightsPerClass]
     /// </summary>
     public sealed class WeightsPerClass : BaseType
     {

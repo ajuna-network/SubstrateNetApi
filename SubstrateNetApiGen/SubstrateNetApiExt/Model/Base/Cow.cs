@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.Base
     
     
     /// <summary>
-    /// >> 114 - Composite[Cow]
+    /// >> 113 - Composite[Cow]
     /// </summary>
     public sealed class Cow : BaseType
     {

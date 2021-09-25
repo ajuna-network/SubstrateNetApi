@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.SpNposElections
     
     
     /// <summary>
-    /// >> 198 - Composite[sp_npos_elections.Support]
+    /// >> 197 - Composite[sp_npos_elections.Support]
     /// </summary>
     public sealed class Support : BaseType
     {

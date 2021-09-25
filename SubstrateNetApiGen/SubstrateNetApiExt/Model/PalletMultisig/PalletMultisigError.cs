@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> 472 - Variant[pallet_multisig.pallet.Error]
+    /// >> 474 - Variant[pallet_multisig.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 118 - Variant[frame_system.pallet.Error]
+    /// >> 117 - Variant[frame_system.pallet.Error]
     /// Error for the System pallet
     /// </summary>
     public enum FrameSystemError

@@ -134,20 +134,20 @@ namespace RuntimeMetadata
             CodeNamespace typeNamespace = new(NameSpace);
             TargetUnit.Namespaces.Add(typeNamespace);
 
-            TargetClass = new CodeTypeDeclaration(ClassName)
+            var targetClass = new CodeTypeDeclaration(ClassName)
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-            TargetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
+            targetClass.BaseTypes.Add(new CodeTypeReference("BaseType"));
 
             // add comment to class if exists
-            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+            targetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
-            typeNamespace.Types.Add(TargetClass);
+            typeNamespace.Types.Add(targetClass);
 
             var nameMethod = SimpleMethod("TypeName", "System.String", ClassName);
-            TargetClass.Members.Add(nameMethod);
+            targetClass.Members.Add(nameMethod);
 
             if (typeDef.TypeFields != null)
             {
@@ -168,16 +168,16 @@ namespace RuntimeMetadata
                     // add comment to field if exists
                     field.Comments.AddRange(GetComments(typeField.Docs, null, fieldName));
 
-                    TargetClass.Members.Add(field);
-                    TargetClass.Members.Add(GetProperty(fieldName, field));
+                    targetClass.Members.Add(field);
+                    targetClass.Members.Add(GetProperty(fieldName, field));
                 }
             }
 
             CodeMemberMethod encodeMethod = GetEncode(typeDef.TypeFields);
-            TargetClass.Members.Add(encodeMethod);
+            targetClass.Members.Add(encodeMethod);
 
             CodeMemberMethod decodeMethod = GetDecode(typeDef.TypeFields);
-            TargetClass.Members.Add(decodeMethod);
+            targetClass.Members.Add(decodeMethod);
 
             #endregion
 

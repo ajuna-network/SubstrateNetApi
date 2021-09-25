@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> 509 - Composite[sp_core.ecdsa.Signature]
+    /// >> 511 - Composite[sp_core.ecdsa.Signature]
     /// </summary>
     public sealed class Signature : BaseType
     {

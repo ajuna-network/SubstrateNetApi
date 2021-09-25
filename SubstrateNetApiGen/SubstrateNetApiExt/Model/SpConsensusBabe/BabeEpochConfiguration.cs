@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.SpConsensusBabe
     
     
     /// <summary>
-    /// >> 312 - Composite[sp_consensus_babe.BabeEpochConfiguration]
+    /// >> 313 - Composite[sp_consensus_babe.BabeEpochConfiguration]
     /// </summary>
     public sealed class BabeEpochConfiguration : BaseType
     {

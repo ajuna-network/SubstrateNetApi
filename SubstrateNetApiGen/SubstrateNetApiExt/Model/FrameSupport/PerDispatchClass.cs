@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 107 - Composite[frame_support.weights.PerDispatchClass]
+    /// >> 106 - Composite[frame_support.weights.PerDispatchClass]
     /// </summary>
     public sealed class PerDispatchClass : BaseType
     {

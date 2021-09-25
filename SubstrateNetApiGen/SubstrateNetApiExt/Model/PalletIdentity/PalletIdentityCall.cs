@@ -22,7 +22,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> 242 - Variant[pallet_identity.pallet.Call]
+    /// >> 241 - Variant[pallet_identity.pallet.Call]
     /// Identity pallet declaration.
     /// </summary>
     public sealed class PalletIdentityCall

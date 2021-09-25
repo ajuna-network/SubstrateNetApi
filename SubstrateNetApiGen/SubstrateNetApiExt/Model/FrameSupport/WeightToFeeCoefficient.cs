@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 331 - Composite[frame_support.weights.WeightToFeeCoefficient]
+    /// >> 332 - Composite[frame_support.weights.WeightToFeeCoefficient]
     /// </summary>
     public sealed class WeightToFeeCoefficient : BaseType
     {

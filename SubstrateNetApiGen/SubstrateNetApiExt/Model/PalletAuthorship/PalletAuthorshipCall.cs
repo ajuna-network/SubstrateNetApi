@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletAuthorship
     
     
     /// <summary>
-    /// >> 134 - Variant[pallet_authorship.pallet.Call]
+    /// >> 133 - Variant[pallet_authorship.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletAuthorshipCall

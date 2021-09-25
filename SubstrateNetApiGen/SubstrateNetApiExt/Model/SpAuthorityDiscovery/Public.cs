@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpAuthorityDiscovery
     
     
     /// <summary>
-    /// >> 208 - Composite[sp_authority_discovery.app.Public]
+    /// >> 207 - Composite[sp_authority_discovery.app.Public]
     /// </summary>
     public sealed class Public : BaseType
     {

@@ -22,7 +22,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> 209 - Variant[pallet_democracy.pallet.Call]
+    /// >> 208 - Variant[pallet_democracy.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletDemocracyCall

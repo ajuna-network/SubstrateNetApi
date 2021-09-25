@@ -25,7 +25,7 @@ namespace SubstrateNetApi.Model.PalletVesting
     }
     
     /// <summary>
-    /// >> 448 - Variant[pallet_vesting.Releases]
+    /// >> 450 - Variant[pallet_vesting.Releases]
     /// </summary>
     public sealed class EnumReleases : BaseEnum<Releases>
     {

@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     
     /// <summary>
-    /// >> 396 - Composite[pallet_treasury.Proposal]
+    /// >> 398 - Composite[pallet_treasury.Proposal]
     /// </summary>
     public sealed class Proposal : BaseType
     {

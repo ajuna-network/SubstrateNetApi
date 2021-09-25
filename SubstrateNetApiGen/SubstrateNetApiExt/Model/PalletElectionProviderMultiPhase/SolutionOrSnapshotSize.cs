@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> 194 - Composite[pallet_election_provider_multi_phase.SolutionOrSnapshotSize]
+    /// >> 193 - Composite[pallet_election_provider_multi_phase.SolutionOrSnapshotSize]
     /// </summary>
     public sealed class SolutionOrSnapshotSize : BaseType
     {

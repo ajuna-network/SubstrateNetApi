@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> 373 - Composite[pallet_democracy.types.Tally]
+    /// >> 374 - Composite[pallet_democracy.types.Tally]
     /// </summary>
     public sealed class Tally : BaseType
     {

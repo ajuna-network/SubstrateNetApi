@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> 489 - Composite[pallet_gilt.pallet.GiltBid]
+    /// >> 491 - Composite[pallet_gilt.pallet.GiltBid]
     /// </summary>
     public sealed class GiltBid : BaseType
     {

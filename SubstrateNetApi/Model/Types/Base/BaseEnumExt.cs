@@ -54,9 +54,9 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -115,9 +115,9 @@ namespace SubstrateNetApi.Model.Types.Base
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -185,9 +185,9 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -262,9 +262,9 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -346,9 +346,9 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -437,9 +437,9 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -535,9 +535,9 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -640,9 +640,9 @@ namespace SubstrateNetApi.Model.Types.Base
         public override string ToString() => JsonConvert.SerializeObject(Value);
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 
@@ -750,9 +750,9 @@ namespace SubstrateNetApi.Model.Types.Base
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public T0 Value { get; internal set; }
+        public T0 Value { get; set; }
 
-        public IType Value2 { get; internal set; }
+        public IType Value2 { get; set; }
 
     }
 }

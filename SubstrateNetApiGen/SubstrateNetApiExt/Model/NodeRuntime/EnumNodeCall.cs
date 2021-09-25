@@ -91,7 +91,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
     }
     
     /// <summary>
-    /// >> 121 - Variant[node_runtime.Call]
+    /// >> 120 - Variant[node_runtime.Call]
     /// </summary>
     public sealed class EnumNodeCall : BaseEnum<NodeCall>
     {

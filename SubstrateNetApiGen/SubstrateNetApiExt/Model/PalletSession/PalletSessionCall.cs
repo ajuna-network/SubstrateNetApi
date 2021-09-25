@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletSession
     
     
     /// <summary>
-    /// >> 206 - Variant[pallet_session.Call]
+    /// >> 205 - Variant[pallet_session.Call]
     /// Dispatchable calls.
     /// 
     /// Each variant of this enum maps to a dispatchable function from the associated module.

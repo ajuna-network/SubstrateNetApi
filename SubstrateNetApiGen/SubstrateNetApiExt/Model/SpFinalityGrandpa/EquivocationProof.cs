@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.SpFinalityGrandpa
     
     
     /// <summary>
-    /// >> 220 - Composite[sp_finality_grandpa.EquivocationProof]
+    /// >> 219 - Composite[sp_finality_grandpa.EquivocationProof]
     /// </summary>
     public sealed class EquivocationProof : BaseType
     {

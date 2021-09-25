@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.SpVersion
     
     
     /// <summary>
-    /// >> 113 - Composite[sp_version.RuntimeVersion]
+    /// >> 112 - Composite[sp_version.RuntimeVersion]
     /// </summary>
     public sealed class RuntimeVersion : BaseType
     {

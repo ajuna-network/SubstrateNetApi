@@ -22,7 +22,7 @@ namespace SubstrateNetApi.Model.PalletCollective
     
     
     /// <summary>
-    /// >> 213 - Variant[pallet_collective.pallet.Call]
+    /// >> 212 - Variant[pallet_collective.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletCollectiveCall

@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> 324 - Composite[pallet_balances.ReserveData]
+    /// >> 325 - Composite[pallet_balances.ReserveData]
     /// </summary>
     public sealed class ReserveData : BaseType
     {

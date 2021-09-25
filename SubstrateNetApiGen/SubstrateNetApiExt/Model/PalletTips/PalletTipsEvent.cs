@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     
     /// <summary>
-    /// >> 82 - Variant[pallet_tips.pallet.Event]
+    /// >> 81 - Variant[pallet_tips.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 428 - Composite[frame_support.storage.bounded_vec.BoundedVec]
+    /// >> 430 - Composite[frame_support.storage.bounded_vec.BoundedVec]
     /// </summary>
     public sealed class BoundedVec : BaseType
     {

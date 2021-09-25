@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> 495 - Composite[pallet_uniques.types.InstanceDetails]
+    /// >> 497 - Composite[pallet_uniques.types.InstanceDetails]
     /// </summary>
     public sealed class InstanceDetails : BaseType
     {

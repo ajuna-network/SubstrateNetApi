@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> 398 - Composite[sp_arithmetic.per_things.Permill]
+    /// >> 400 - Composite[sp_arithmetic.per_things.Permill]
     /// </summary>
     public sealed class Permill : BaseType
     {

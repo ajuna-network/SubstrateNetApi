@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> 302 - Composite[pallet_uniques.types.DestroyWitness]
+    /// >> 301 - Composite[pallet_uniques.types.DestroyWitness]
     /// </summary>
     public sealed class DestroyWitness : BaseType
     {

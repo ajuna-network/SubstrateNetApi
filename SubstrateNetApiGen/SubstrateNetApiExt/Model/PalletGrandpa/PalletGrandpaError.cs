@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     
     /// <summary>
-    /// >> 395 - Variant[pallet_grandpa.pallet.Error]
+    /// >> 397 - Variant[pallet_grandpa.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

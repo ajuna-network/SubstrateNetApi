@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> 137 - Variant[pallet_balances.pallet.Call]
+    /// >> 136 - Variant[pallet_balances.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletBalancesCall

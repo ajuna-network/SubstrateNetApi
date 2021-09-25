@@ -50,17 +50,17 @@ namespace RuntimeMetadata
             }
             typeNamespace.Types.Add(TargetType);
 
-            TargetClass = new CodeTypeDeclaration(ClassName)
+            var targetClass = new CodeTypeDeclaration(ClassName)
             {
                 IsClass = true,
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
             };
-            TargetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
+            targetClass.BaseTypes.Add(new CodeTypeReference($"BaseEnum<{enumName}>"));
 
             // add comment to class if exists
-            TargetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
+            targetClass.Comments.AddRange(GetComments(typeDef.Docs, typeDef));
 
-            typeNamespace.Types.Add(TargetClass);
+            typeNamespace.Types.Add(targetClass);
 
             #endregion
 

@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> 73 - Variant[pallet_scheduler.pallet.Event]
+    /// >> 72 - Variant[pallet_scheduler.pallet.Event]
     /// Events type.
     /// </summary>
     public sealed class PalletSchedulerEvent

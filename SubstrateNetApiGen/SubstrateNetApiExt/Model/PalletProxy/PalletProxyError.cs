@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> 468 - Variant[pallet_proxy.pallet.Error]
+    /// >> 470 - Variant[pallet_proxy.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

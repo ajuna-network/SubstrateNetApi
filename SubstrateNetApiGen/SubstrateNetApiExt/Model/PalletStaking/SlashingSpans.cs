@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 358 - Composite[pallet_staking.slashing.SlashingSpans]
+    /// >> 359 - Composite[pallet_staking.slashing.SlashingSpans]
     /// </summary>
     public sealed class SlashingSpans : BaseType
     {

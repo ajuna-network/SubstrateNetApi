@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     
     /// <summary>
-    /// >> 297 - Variant[pallet_lottery.pallet.Call]
+    /// >> 296 - Variant[pallet_lottery.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletLotteryCall

@@ -7,119 +7,199 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.Meta;
+using SubstrateNetApi.Model.NodeRuntime;
 using SubstrateNetApi.Model.PalletMultisig;
 using SubstrateNetApi.Model.SpCore;
+using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace SubstrateNetApi.Model.PalletMultisig
 {
     
     
+    public sealed class MultisigStorage
+    {
+        
+        // Substrate client for the storage calls.
+        private SubstrateNetApi.SubstrateClient _client;
+        
+        public MultisigStorage(SubstrateNetApi.SubstrateClient client)
+        {
+            this._client = client;
+        }
+        
+        /// <summary>
+        /// >> Multisigs
+        /// </summary>
+        public async Task<SubstrateNetApi.Model.PalletMultisig.Multisig> Multisigs(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8> key, CancellationToken token)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Multisig", "Multisigs", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletMultisig.Multisig>(parameters, token);
+        }
+        
+        /// <summary>
+        /// >> Calls
+        /// </summary>
+        public async Task<BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>> Calls(SubstrateNetApi.Model.Base.Arr32U8 key, CancellationToken token)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Multisig", "Calls", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return await _client.GetStorageAsync<BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
+        }
+    }
+    
+    public sealed class MultisigCalls
+    {
+        
+        // Substrate client for the storage calls.
+        private SubstrateNetApi.SubstrateClient _client;
+        
+        public MultisigCalls(SubstrateNetApi.SubstrateClient client)
+        {
+            this._client = client;
+        }
+        
+        /// <summary>
+        /// >> as_multi_threshold_1
+        /// </summary>
+        public GenericExtrinsicCall AsMultiThreshold1(BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
+        {
+            return new GenericExtrinsicCall(31, "Multisig", 0, "as_multi_threshold_1", other_signatories, call);
+        }
+        
+        /// <summary>
+        /// >> as_multi
+        /// </summary>
+        public GenericExtrinsicCall AsMulti(SubstrateNetApi.Model.Types.Primitive.U16 threshold, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, BaseOpt<SubstrateNetApi.Model.PalletMultisig.Timepoint> maybe_timepoint, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> call, SubstrateNetApi.Model.Types.Primitive.Bool store_call, SubstrateNetApi.Model.Types.Primitive.U64 max_weight)
+        {
+            return new GenericExtrinsicCall(31, "Multisig", 1, "as_multi", threshold, other_signatories, maybe_timepoint, call, store_call, max_weight);
+        }
+        
+        /// <summary>
+        /// >> approve_as_multi
+        /// </summary>
+        public GenericExtrinsicCall ApproveAsMulti(SubstrateNetApi.Model.Types.Primitive.U16 threshold, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, BaseOpt<SubstrateNetApi.Model.PalletMultisig.Timepoint> maybe_timepoint, SubstrateNetApi.Model.Base.Arr32U8 call_hash, SubstrateNetApi.Model.Types.Primitive.U64 max_weight)
+        {
+            return new GenericExtrinsicCall(31, "Multisig", 2, "approve_as_multi", threshold, other_signatories, maybe_timepoint, call_hash, max_weight);
+        }
+        
+        /// <summary>
+        /// >> cancel_as_multi
+        /// </summary>
+        public GenericExtrinsicCall CancelAsMulti(SubstrateNetApi.Model.Types.Primitive.U16 threshold, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, SubstrateNetApi.Model.PalletMultisig.Timepoint timepoint, SubstrateNetApi.Model.Base.Arr32U8 call_hash)
+        {
+            return new GenericExtrinsicCall(31, "Multisig", 3, "cancel_as_multi", threshold, other_signatories, timepoint, call_hash);
+        }
+    }
+    
     /// <summary>
-    /// >> 470 - Composite[pallet_multisig.Multisig]
+    /// >> NewMultisig
     /// </summary>
-    public sealed class Multisig : BaseType
+    public sealed class EventNewMultisig : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
+    {
+    }
+    
+    /// <summary>
+    /// >> MultisigApproval
+    /// </summary>
+    public sealed class EventMultisigApproval : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
+    {
+    }
+    
+    /// <summary>
+    /// >> MultisigExecuted
+    /// </summary>
+    public sealed class EventMultisigExecuted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
+    {
+    }
+    
+    /// <summary>
+    /// >> MultisigCancelled
+    /// </summary>
+    public sealed class EventMultisigCancelled : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
+    {
+    }
+    
+    public enum MultisigErrors
     {
         
         /// <summary>
-        /// >> when
+        /// >> MinimumThreshold
         /// </summary>
-        private SubstrateNetApi.Model.PalletMultisig.Timepoint _when;
+        MinimumThreshold,
         
         /// <summary>
-        /// >> deposit
+        /// >> AlreadyApproved
         /// </summary>
-        private SubstrateNetApi.Model.Types.Primitive.U128 _deposit;
+        AlreadyApproved,
         
         /// <summary>
-        /// >> depositor
+        /// >> NoApprovalsNeeded
         /// </summary>
-        private SubstrateNetApi.Model.SpCore.AccountId32 _depositor;
+        NoApprovalsNeeded,
         
         /// <summary>
-        /// >> approvals
+        /// >> TooFewSignatories
         /// </summary>
-        private BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> _approvals;
+        TooFewSignatories,
         
-        public SubstrateNetApi.Model.PalletMultisig.Timepoint When
-        {
-            get
-            {
-                return this._when;
-            }
-            set
-            {
-                this._when = value;
-            }
-        }
+        /// <summary>
+        /// >> TooManySignatories
+        /// </summary>
+        TooManySignatories,
         
-        public SubstrateNetApi.Model.Types.Primitive.U128 Deposit
-        {
-            get
-            {
-                return this._deposit;
-            }
-            set
-            {
-                this._deposit = value;
-            }
-        }
+        /// <summary>
+        /// >> SignatoriesOutOfOrder
+        /// </summary>
+        SignatoriesOutOfOrder,
         
-        public SubstrateNetApi.Model.SpCore.AccountId32 Depositor
-        {
-            get
-            {
-                return this._depositor;
-            }
-            set
-            {
-                this._depositor = value;
-            }
-        }
+        /// <summary>
+        /// >> SenderInSignatories
+        /// </summary>
+        SenderInSignatories,
         
-        public BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> Approvals
-        {
-            get
-            {
-                return this._approvals;
-            }
-            set
-            {
-                this._approvals = value;
-            }
-        }
+        /// <summary>
+        /// >> NotFound
+        /// </summary>
+        NotFound,
         
-        public override string TypeName()
-        {
-            return "Multisig";
-        }
+        /// <summary>
+        /// >> NotOwner
+        /// </summary>
+        NotOwner,
         
-        public override byte[] Encode()
-        {
-            var result = new List<byte>();
-            result.AddRange(When.Encode());
-            result.AddRange(Deposit.Encode());
-            result.AddRange(Depositor.Encode());
-            result.AddRange(Approvals.Encode());
-            return result.ToArray();
-        }
+        /// <summary>
+        /// >> NoTimepoint
+        /// </summary>
+        NoTimepoint,
         
-        public override void Decode(byte[] byteArray, ref int p)
-        {
-            var start = p;
-            When = new SubstrateNetApi.Model.PalletMultisig.Timepoint();
-            When.Decode(byteArray, ref p);
-            Deposit = new SubstrateNetApi.Model.Types.Primitive.U128();
-            Deposit.Decode(byteArray, ref p);
-            Depositor = new SubstrateNetApi.Model.SpCore.AccountId32();
-            Depositor.Decode(byteArray, ref p);
-            Approvals = new BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>();
-            Approvals.Decode(byteArray, ref p);
-            TypeSize = p - start;
-        }
+        /// <summary>
+        /// >> WrongTimepoint
+        /// </summary>
+        WrongTimepoint,
+        
+        /// <summary>
+        /// >> UnexpectedTimepoint
+        /// </summary>
+        UnexpectedTimepoint,
+        
+        /// <summary>
+        /// >> MaxWeightTooLow
+        /// </summary>
+        MaxWeightTooLow,
+        
+        /// <summary>
+        /// >> AlreadyStored
+        /// </summary>
+        AlreadyStored,
     }
 }

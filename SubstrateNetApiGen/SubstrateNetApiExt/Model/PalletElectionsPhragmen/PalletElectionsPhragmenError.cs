@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     
     
     /// <summary>
-    /// >> 391 - Variant[pallet_elections_phragmen.pallet.Error]
+    /// >> 392 - Variant[pallet_elections_phragmen.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

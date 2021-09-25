@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     
     /// <summary>
-    /// >> 287 - Variant[pallet_scheduler.pallet.Call]
+    /// >> 286 - Variant[pallet_scheduler.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletSchedulerCall

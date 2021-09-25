@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     
     /// <summary>
-    /// >> 286 - Composite[pallet_vesting.vesting_info.VestingInfo]
+    /// >> 285 - Composite[pallet_vesting.vesting_info.VestingInfo]
     /// </summary>
     public sealed class VestingInfo : BaseType
     {

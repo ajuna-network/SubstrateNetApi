@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpConsensusSlots
     
     
     /// <summary>
-    /// >> 127 - Composite[sp_consensus_slots.Slot]
+    /// >> 126 - Composite[sp_consensus_slots.Slot]
     /// </summary>
     public sealed class Slot : BaseType
     {

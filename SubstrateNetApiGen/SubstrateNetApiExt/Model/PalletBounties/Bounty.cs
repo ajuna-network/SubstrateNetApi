@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> 473 - Composite[pallet_bounties.Bounty]
+    /// >> 475 - Composite[pallet_bounties.Bounty]
     /// </summary>
     public sealed class Bounty : BaseType
     {

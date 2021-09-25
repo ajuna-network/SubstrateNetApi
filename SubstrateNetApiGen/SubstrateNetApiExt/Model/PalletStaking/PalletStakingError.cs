@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 361 - Variant[pallet_staking.pallet.pallet.Error]
+    /// >> 362 - Variant[pallet_staking.pallet.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

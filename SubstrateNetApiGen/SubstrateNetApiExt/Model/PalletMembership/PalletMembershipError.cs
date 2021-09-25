@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletMembership
     
     
     /// <summary>
-    /// >> 392 - Variant[pallet_membership.pallet.Error]
+    /// >> 393 - Variant[pallet_membership.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

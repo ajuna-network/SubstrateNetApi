@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> 239 - Composite[sp_core.offchain.OpaqueMultiaddr]
+    /// >> 238 - Composite[sp_core.offchain.OpaqueMultiaddr]
     /// </summary>
     public sealed class OpaqueMultiaddr : BaseType
     {

@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.FinalityGrandpa
     
     
     /// <summary>
-    /// >> 223 - Composite[finality_grandpa.Prevote]
+    /// >> 222 - Composite[finality_grandpa.Prevote]
     /// </summary>
     public sealed class Prevote : BaseType
     {

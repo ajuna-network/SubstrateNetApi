@@ -25,7 +25,7 @@ namespace SubstrateNetApi.Model.SpConsensusBabe
     }
     
     /// <summary>
-    /// >> 129 - Variant[sp_consensus_babe.digests.NextConfigDescriptor]
+    /// >> 128 - Variant[sp_consensus_babe.digests.NextConfigDescriptor]
     /// </summary>
     public sealed class EnumNextConfigDescriptor : BaseEnumExt<NextConfigDescriptor, BaseTuple<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U64,SubstrateNetApi.Model.Types.Primitive.U64>, SubstrateNetApi.Model.SpConsensusBabe.EnumAllowedSlots>>
     {

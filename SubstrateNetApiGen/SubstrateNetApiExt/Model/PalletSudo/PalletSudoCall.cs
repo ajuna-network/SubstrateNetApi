@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     
     /// <summary>
-    /// >> 233 - Variant[pallet_sudo.pallet.Call]
+    /// >> 232 - Variant[pallet_sudo.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletSudoCall

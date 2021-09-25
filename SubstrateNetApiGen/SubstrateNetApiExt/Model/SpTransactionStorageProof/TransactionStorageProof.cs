@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpTransactionStorageProof
     
     
     /// <summary>
-    /// >> 305 - Composite[sp_transaction_storage_proof.TransactionStorageProof]
+    /// >> 304 - Composite[sp_transaction_storage_proof.TransactionStorageProof]
     /// </summary>
     public sealed class TransactionStorageProof : BaseType
     {

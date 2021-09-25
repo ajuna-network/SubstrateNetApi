@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     
     /// <summary>
-    /// >> 243 - Composite[pallet_identity.types.IdentityInfo]
+    /// >> 242 - Composite[pallet_identity.types.IdentityInfo]
     /// </summary>
     public sealed class IdentityInfo : BaseType
     {

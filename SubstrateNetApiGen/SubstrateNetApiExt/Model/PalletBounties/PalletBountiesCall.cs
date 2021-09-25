@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> 293 - Variant[pallet_bounties.pallet.Call]
+    /// >> 292 - Variant[pallet_bounties.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletBountiesCall

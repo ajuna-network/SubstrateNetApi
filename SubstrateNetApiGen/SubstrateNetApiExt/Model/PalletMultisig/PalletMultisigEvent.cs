@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> 79 - Variant[pallet_multisig.pallet.Event]
+    /// >> 78 - Variant[pallet_multisig.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

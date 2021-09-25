@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 406 - Composite[pallet_contracts.schedule.Schedule]
+    /// >> 408 - Composite[pallet_contracts.schedule.Schedule]
     /// </summary>
     public sealed class Schedule : BaseType
     {

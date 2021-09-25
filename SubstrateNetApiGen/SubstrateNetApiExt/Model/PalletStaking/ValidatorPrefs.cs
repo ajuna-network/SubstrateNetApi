@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 201 - Composite[pallet_staking.ValidatorPrefs]
+    /// >> 200 - Composite[pallet_staking.ValidatorPrefs]
     /// </summary>
     public sealed class ValidatorPrefs : BaseType
     {

@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 403 - Composite[pallet_contracts.storage.RawContractInfo]
+    /// >> 405 - Composite[pallet_contracts.storage.RawContractInfo]
     /// </summary>
     public sealed class RawContractInfo : BaseType
     {

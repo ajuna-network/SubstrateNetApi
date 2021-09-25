@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletUtility
     
     
     /// <summary>
-    /// >> 119 - Variant[pallet_utility.pallet.Call]
+    /// >> 118 - Variant[pallet_utility.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletUtilityCall

@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     
     
     /// <summary>
-    /// >> 389 - Composite[pallet_elections_phragmen.SeatHolder]
+    /// >> 390 - Composite[pallet_elections_phragmen.SeatHolder]
     /// </summary>
     public sealed class SeatHolder : BaseType
     {

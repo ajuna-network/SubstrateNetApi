@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.SpConsensusBabe
     }
     
     /// <summary>
-    /// >> 131 - Variant[sp_consensus_babe.AllowedSlots]
+    /// >> 130 - Variant[sp_consensus_babe.AllowedSlots]
     /// </summary>
     public sealed class EnumAllowedSlots : BaseEnum<AllowedSlots>
     {

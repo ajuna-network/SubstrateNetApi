@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 405 - Composite[pallet_contracts.storage.DeletedContract]
+    /// >> 407 - Composite[pallet_contracts.storage.DeletedContract]
     /// </summary>
     public sealed class DeletedContract : BaseType
     {

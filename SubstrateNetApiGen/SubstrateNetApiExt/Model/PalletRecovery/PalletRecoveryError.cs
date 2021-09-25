@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> 445 - Variant[pallet_recovery.pallet.Error]
+    /// >> 447 - Variant[pallet_recovery.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

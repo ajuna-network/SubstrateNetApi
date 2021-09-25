@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> 76 - Variant[pallet_proxy.pallet.Event]
+    /// >> 75 - Variant[pallet_proxy.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

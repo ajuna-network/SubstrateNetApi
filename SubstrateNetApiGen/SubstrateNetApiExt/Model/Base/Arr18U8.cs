@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.Base
     
     
     /// <summary>
-    /// >> 262 - Array
+    /// >> 261 - Array
     /// </summary>
     public sealed class Arr18U8 : BaseType
     {

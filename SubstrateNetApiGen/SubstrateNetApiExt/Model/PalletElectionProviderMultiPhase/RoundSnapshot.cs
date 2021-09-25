@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> 335 - Composite[pallet_election_provider_multi_phase.RoundSnapshot]
+    /// >> 336 - Composite[pallet_election_provider_multi_phase.RoundSnapshot]
     /// </summary>
     public sealed class RoundSnapshot : BaseType
     {

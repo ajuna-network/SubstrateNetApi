@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 232 - Variant[pallet_contracts.pallet.Call]
+    /// >> 231 - Variant[pallet_contracts.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletContractsCall

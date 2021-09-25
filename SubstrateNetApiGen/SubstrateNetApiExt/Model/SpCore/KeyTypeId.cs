@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> 365 - Composite[sp_core.crypto.KeyTypeId]
+    /// >> 366 - Composite[sp_core.crypto.KeyTypeId]
     /// </summary>
     public sealed class KeyTypeId : BaseType
     {

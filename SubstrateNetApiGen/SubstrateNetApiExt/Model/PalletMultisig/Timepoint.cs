@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> 80 - Composite[pallet_multisig.Timepoint]
+    /// >> 79 - Composite[pallet_multisig.Timepoint]
     /// </summary>
     public sealed class Timepoint : BaseType
     {

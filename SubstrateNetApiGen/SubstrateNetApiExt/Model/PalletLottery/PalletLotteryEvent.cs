@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     
     /// <summary>
-    /// >> 84 - Variant[pallet_lottery.pallet.Event]
+    /// >> 83 - Variant[pallet_lottery.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.SpRuntime
     
     
     /// <summary>
-    /// >> 124 - Composite[sp_runtime.generic.header.Header]
+    /// >> 123 - Composite[sp_runtime.generic.header.Header]
     /// </summary>
     public sealed class Header : BaseType
     {

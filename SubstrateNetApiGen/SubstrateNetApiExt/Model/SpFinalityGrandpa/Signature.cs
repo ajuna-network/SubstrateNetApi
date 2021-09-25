@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpFinalityGrandpa
     
     
     /// <summary>
-    /// >> 224 - Composite[sp_finality_grandpa.app.Signature]
+    /// >> 223 - Composite[sp_finality_grandpa.app.Signature]
     /// </summary>
     public sealed class Signature : BaseType
     {

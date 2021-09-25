@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 515 - Composite[frame_system.extensions.check_mortality.CheckMortality]
+    /// >> 517 - Composite[frame_system.extensions.check_mortality.CheckMortality]
     /// </summary>
     public sealed class CheckMortality : BaseType
     {

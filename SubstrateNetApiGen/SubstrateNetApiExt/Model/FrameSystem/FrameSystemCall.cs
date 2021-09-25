@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 101 - Variant[frame_system.pallet.Call]
+    /// >> 100 - Variant[frame_system.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class FrameSystemCall

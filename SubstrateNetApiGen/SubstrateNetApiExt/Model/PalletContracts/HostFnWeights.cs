@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 409 - Composite[pallet_contracts.schedule.HostFnWeights]
+    /// >> 411 - Composite[pallet_contracts.schedule.HostFnWeights]
     /// </summary>
     public sealed class HostFnWeights : BaseType
     {

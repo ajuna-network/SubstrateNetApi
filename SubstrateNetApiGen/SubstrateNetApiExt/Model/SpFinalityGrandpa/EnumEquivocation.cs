@@ -26,7 +26,7 @@ namespace SubstrateNetApi.Model.SpFinalityGrandpa
     }
     
     /// <summary>
-    /// >> 221 - Variant[sp_finality_grandpa.Equivocation]
+    /// >> 220 - Variant[sp_finality_grandpa.Equivocation]
     /// </summary>
     public sealed class EnumEquivocation : BaseEnumExt<Equivocation, SubstrateNetApi.Model.FinalityGrandpa.Equivocation, SubstrateNetApi.Model.FinalityGrandpa.Equivocation>
     {

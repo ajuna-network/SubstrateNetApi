@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> 334 - Composite[pallet_election_provider_multi_phase.ReadySolution]
+    /// >> 335 - Composite[pallet_election_provider_multi_phase.ReadySolution]
     /// </summary>
     public sealed class ReadySolution : BaseType
     {

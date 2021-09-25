@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> 234 - Variant[pallet_im_online.pallet.Call]
+    /// >> 233 - Variant[pallet_im_online.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletImOnlineCall

@@ -32,7 +32,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     }
     
     /// <summary>
-    /// >> 200 - Variant[pallet_staking.RewardDestination]
+    /// >> 199 - Variant[pallet_staking.RewardDestination]
     /// </summary>
     public sealed class EnumRewardDestination : BaseEnumExt<RewardDestination, BaseVoid, BaseVoid, BaseVoid, SubstrateNetApi.Model.SpCore.AccountId32, BaseVoid>
     {

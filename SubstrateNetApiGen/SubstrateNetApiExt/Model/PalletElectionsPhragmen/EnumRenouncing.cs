@@ -28,7 +28,7 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     }
     
     /// <summary>
-    /// >> 217 - Variant[pallet_elections_phragmen.Renouncing]
+    /// >> 216 - Variant[pallet_elections_phragmen.Renouncing]
     /// </summary>
     public sealed class EnumRenouncing : BaseEnumExt<Renouncing, BaseVoid, BaseVoid, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32>>
     {

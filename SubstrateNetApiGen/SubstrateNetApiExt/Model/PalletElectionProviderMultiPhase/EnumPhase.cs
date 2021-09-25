@@ -30,7 +30,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     }
     
     /// <summary>
-    /// >> 332 - Variant[pallet_election_provider_multi_phase.Phase]
+    /// >> 333 - Variant[pallet_election_provider_multi_phase.Phase]
     /// </summary>
     public sealed class EnumPhase : BaseEnumExt<Phase, BaseVoid, BaseVoid, BaseTuple<SubstrateNetApi.Model.Types.Primitive.Bool,SubstrateNetApi.Model.Types.Primitive.U32>, BaseVoid>
     {

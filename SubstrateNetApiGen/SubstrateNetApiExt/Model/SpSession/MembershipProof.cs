@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpSession
     
     
     /// <summary>
-    /// >> 128 - Composite[sp_session.MembershipProof]
+    /// >> 127 - Composite[sp_session.MembershipProof]
     /// </summary>
     public sealed class MembershipProof : BaseType
     {

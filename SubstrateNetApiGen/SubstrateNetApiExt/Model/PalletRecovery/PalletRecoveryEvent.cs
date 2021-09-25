@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> 71 - Variant[pallet_recovery.pallet.Event]
+    /// >> 70 - Variant[pallet_recovery.pallet.Event]
     /// Events type.
     /// </summary>
     public sealed class PalletRecoveryEvent

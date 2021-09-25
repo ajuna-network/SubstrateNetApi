@@ -23,13 +23,16 @@ namespace RuntimeMetadata
 
     public abstract class ModuleBuilder : BaseBuilder
     {
+        internal Dictionary<uint, NodeType> NodeTypes { get; }
+
         internal PalletModule Module { get; }
 
         internal string PrefixName { get; }
 
-        internal ModuleBuilder(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict)
+        internal ModuleBuilder(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict, Dictionary<uint, NodeType> nodeTypes)
             : base(id, typeDict)
         {
+            NodeTypes = nodeTypes;
             Module = module;
             PrefixName = module.Name == "System" ? "Frame" : "Pallet";
             NameSpace = "SubstrateNetApi.Model." + PrefixName + module.Name.MakeMethod();
@@ -58,6 +61,9 @@ namespace RuntimeMetadata
 
         public string NameSpace { get; set; }
 
+        internal string FileName { get; set; }
+
+
         internal string ClassName { get; set; }
 
         internal string ReferenzName { get; set; }
@@ -66,7 +72,7 @@ namespace RuntimeMetadata
 
         internal CodeCompileUnit TargetUnit { get; set; }
 
-        internal CodeTypeDeclaration TargetClass { get; set; }
+        //internal CodeTypeDeclaration TargetClass { get; set; }
 
         public abstract BaseBuilder Create();
 
@@ -151,10 +157,10 @@ namespace RuntimeMetadata
             return nameMethod;
         }
 
-        public virtual (string, List<string>) Build(out bool success)
+        public virtual (string, List<string>) Build(bool write, out bool success)
         {
             success = Success;
-            if (Success)
+            if (write && Success)
             {
                 CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
                 CodeGeneratorOptions options = new()
@@ -163,7 +169,7 @@ namespace RuntimeMetadata
                 };
                 var space = NameSpace.Split('.').ToList();
                 //space.RemoveAt(0);
-                space.Add(ClassName + ".cs");
+                space.Add((FileName is null ? ClassName : FileName) + ".cs");
                 var path = Path.Combine(space.ToArray());
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 using (StreamWriter sourceWriter = new(path))

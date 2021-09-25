@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     
     /// <summary>
-    /// >> 477 - Variant[pallet_tips.pallet.Error]
+    /// >> 479 - Variant[pallet_tips.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

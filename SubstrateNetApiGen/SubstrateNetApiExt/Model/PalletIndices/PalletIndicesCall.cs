@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletIndices
     
     
     /// <summary>
-    /// >> 136 - Variant[pallet_indices.pallet.Call]
+    /// >> 135 - Variant[pallet_indices.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletIndicesCall

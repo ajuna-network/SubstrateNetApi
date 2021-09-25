@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 344 - Composite[pallet_staking.StakingLedger]
+    /// >> 345 - Composite[pallet_staking.StakingLedger]
     /// </summary>
     public sealed class StakingLedger : BaseType
     {

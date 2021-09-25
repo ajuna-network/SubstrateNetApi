@@ -5,13 +5,17 @@ using NUnit.Framework;
 using Schnorrkel.Keys;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.PalletBalances;
 using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.SpCore;
+using SubstrateNetApi.Model.SpRuntime;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.TypeConverters;
 using System;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +25,7 @@ namespace ExentsionTest
     {
         private const string WebSocketUrl = "ws://127.0.0.1:9944";
 
-        private SubstrateClient _substrateClient;
+        private SubstrateClientExt _substrateClient;
 
 
         // Secret Key URI `//Alice` is account:
@@ -55,7 +59,7 @@ namespace ExentsionTest
             // Apply config           
             LogManager.Configuration = config;
 
-            _substrateClient = new SubstrateClient(new Uri(WebSocketUrl));
+            _substrateClient = new SubstrateClientExt(new Uri(WebSocketUrl));
             
             // add your generic type converters here
             //_substrateClient.RegisterTypeConverter(new GenericTypeConverter<EnumType<BoardState>>());
@@ -71,10 +75,52 @@ namespace ExentsionTest
         [Test]
         public async Task GetMethodChainNameTestAsync()
         {
-            await _substrateClient.ConnectAsync();
+            await _substrateClient.ConnectLightAsync(CancellationToken.None);
 
             var result = await _substrateClient.GetMethodAsync<string>("system_chain");
             Assert.AreEqual("Development", result);
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task GetAccountNextIndexTestAsync()
+        {
+
+            var accountId32 = new AccountId32();
+            accountId32.Create("0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d");
+            var address = Utils.GetAddressFrom(accountId32.Bytes);
+
+
+            await _substrateClient.ConnectLightAsync(CancellationToken.None);
+
+            var result = await _substrateClient.System.AccountNextIndexAsync(address, CancellationToken.None);
+            Assert.AreEqual(0, result);
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task GetTotalIssuanceStorageTestAsync()
+        {
+            await _substrateClient.ConnectLightAsync(CancellationToken.None);
+
+            var result = await _substrateClient.PalletBalancesStorage.TotalIssuance(CancellationToken.None);
+            Assert.AreEqual("12000000100000000000000", result.Value.ToString());
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task GetAccountStorageTestAsync()
+        {
+            await _substrateClient.ConnectLightAsync(CancellationToken.None);
+
+            var accountId32 = new AccountId32();
+            accountId32.Create("0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d");
+
+            var result = await _substrateClient.FrameSystemStorage.Account(accountId32, CancellationToken.None);
+            Assert.AreEqual("1000000000000000000000", result.Data.Free.Value.ToString());
 
             await _substrateClient.CloseAsync();
         }
@@ -112,15 +158,29 @@ namespace ExentsionTest
         {
             var extrinsic_wait = 5000;
 
-            Assert.AreEqual("0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011", Utils.Bytes2HexString(Alice.PrivateKey));
-            Assert.AreEqual("5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty", Bob.Value);
-
             var cts = new CancellationTokenSource();
-            await _substrateClient.ConnectAsync(cts.Token);
+            await _substrateClient.ConnectLightAsync(cts.Token);
+
+            var bobAccountId32 = new AccountId32();
+            bobAccountId32.Create("0x8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48");
+
+            var result = await _substrateClient.FrameSystemStorage.Account(bobAccountId32, CancellationToken.None);
+            Assert.AreEqual("1000000000000000000000", result.Data.Free.Value.ToString());
+
+            var enumMultiAddress = new EnumMultiAddress();
+            enumMultiAddress.Create(MultiAddress.Id, bobAccountId32);
+
+            var amount = new BaseCom<U128>();
+            amount.Create(new CompactInteger(new BigInteger(100000000000)));
+
+            var extrinsicCall = new PalletBalancesCall().Transfer(enumMultiAddress, amount);
 
             // Alice sends bob some coins ...
-            _ = await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, ExtrinsicCall.BalanceTransfer(Bob.Value, 100000000000), Alice, 0, 64, cts.Token);
+            _ = await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, extrinsicCall, Alice, 0, 64, cts.Token);
             Thread.Sleep(extrinsic_wait);
+
+            var freeAfter = await _substrateClient.FrameSystemStorage.Account(bobAccountId32, CancellationToken.None);
+            Assert.AreEqual("1000000000000000000000", freeAfter.Data.Free.Value.ToString());
         }
 
     }

@@ -19,10 +19,11 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     
     /// <summary>
-    /// >> 69 - Variant[pallet_society.RawEvent]
-    /// Events for this module.
+    /// >> 69 - Variant[pallet_society.pallet.Event]
     /// 
-    /// Events for this module.
+    ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
+    ///			by this pallet.
+    ///			
     /// </summary>
     public sealed class PalletSocietyEvent
     {

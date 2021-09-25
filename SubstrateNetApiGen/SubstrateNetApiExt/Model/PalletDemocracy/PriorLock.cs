@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> 378 - Composite[pallet_democracy.vote.PriorLock]
+    /// >> 379 - Composite[pallet_democracy.vote.PriorLock]
     /// </summary>
     public sealed class PriorLock : BaseType
     {

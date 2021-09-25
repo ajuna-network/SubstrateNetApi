@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 346 - Composite[pallet_staking.UnlockChunk]
+    /// >> 347 - Composite[pallet_staking.UnlockChunk]
     /// </summary>
     public sealed class UnlockChunk : BaseType
     {

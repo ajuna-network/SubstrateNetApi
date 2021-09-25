@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 414 - Composite[frame_support.traits.misc.WrapperOpaque]
+    /// >> 416 - Composite[frame_support.traits.misc.WrapperOpaque]
     /// </summary>
     public sealed class WrapperOpaque : BaseType
     {

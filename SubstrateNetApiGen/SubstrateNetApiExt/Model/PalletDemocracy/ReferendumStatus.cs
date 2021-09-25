@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> 372 - Composite[pallet_democracy.types.ReferendumStatus]
+    /// >> 373 - Composite[pallet_democracy.types.ReferendumStatus]
     /// </summary>
     public sealed class ReferendumStatus : BaseType
     {

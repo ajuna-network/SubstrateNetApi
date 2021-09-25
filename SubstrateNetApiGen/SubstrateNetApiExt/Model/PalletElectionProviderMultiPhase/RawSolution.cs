@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> 141 - Composite[pallet_election_provider_multi_phase.RawSolution]
+    /// >> 140 - Composite[pallet_election_provider_multi_phase.RawSolution]
     /// </summary>
     public sealed class RawSolution : BaseType
     {

@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletAssets
     
     
     /// <summary>
-    /// >> 481 - Composite[pallet_assets.types.Approval]
+    /// >> 483 - Composite[pallet_assets.types.Approval]
     /// </summary>
     public sealed class Approval : BaseType
     {

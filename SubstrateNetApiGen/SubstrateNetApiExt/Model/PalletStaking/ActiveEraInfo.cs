@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletStaking
     
     
     /// <summary>
-    /// >> 348 - Composite[pallet_staking.ActiveEraInfo]
+    /// >> 349 - Composite[pallet_staking.ActiveEraInfo]
     /// </summary>
     public sealed class ActiveEraInfo : BaseType
     {

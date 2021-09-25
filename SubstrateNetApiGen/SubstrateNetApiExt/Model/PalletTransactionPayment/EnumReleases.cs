@@ -25,7 +25,7 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
     }
     
     /// <summary>
-    /// >> 329 - Variant[pallet_transaction_payment.Releases]
+    /// >> 330 - Variant[pallet_transaction_payment.Releases]
     /// </summary>
     public sealed class EnumReleases : BaseEnum<Releases>
     {

@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.SpConsensusSlots
     
     
     /// <summary>
-    /// >> 123 - Composite[sp_consensus_slots.EquivocationProof]
+    /// >> 122 - Composite[sp_consensus_slots.EquivocationProof]
     /// </summary>
     public sealed class EquivocationProof : BaseType
     {

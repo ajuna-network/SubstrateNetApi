@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     
     /// <summary>
-    /// >> 513 - Composite[frame_system.extensions.check_tx_version.CheckTxVersion]
+    /// >> 515 - Composite[frame_system.extensions.check_tx_version.CheckTxVersion]
     /// </summary>
     public sealed class CheckTxVersion : BaseType
     {

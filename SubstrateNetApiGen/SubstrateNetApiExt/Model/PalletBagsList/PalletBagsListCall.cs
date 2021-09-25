@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
     
     
     /// <summary>
-    /// >> 306 - Variant[pallet_bags_list.pallet.Call]
+    /// >> 305 - Variant[pallet_bags_list.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletBagsListCall

@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
     
     
     /// <summary>
-    /// >> 142 - Composite[node_runtime.NposSolution16]
+    /// >> 141 - Composite[node_runtime.NposSolution16]
     /// </summary>
     public sealed class NposSolution16 : BaseType
     {

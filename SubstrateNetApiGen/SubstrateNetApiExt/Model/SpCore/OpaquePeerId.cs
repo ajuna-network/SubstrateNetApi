@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> 237 - Composite[sp_core.OpaquePeerId]
+    /// >> 236 - Composite[sp_core.OpaquePeerId]
     /// </summary>
     public sealed class OpaquePeerId : BaseType
     {

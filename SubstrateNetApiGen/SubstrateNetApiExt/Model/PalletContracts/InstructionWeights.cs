@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletContracts
     
     
     /// <summary>
-    /// >> 408 - Composite[pallet_contracts.schedule.InstructionWeights]
+    /// >> 410 - Composite[pallet_contracts.schedule.InstructionWeights]
     /// </summary>
     public sealed class InstructionWeights : BaseType
     {

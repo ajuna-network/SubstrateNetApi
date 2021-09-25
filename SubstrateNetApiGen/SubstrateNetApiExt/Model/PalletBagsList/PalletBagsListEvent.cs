@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
     
     
     /// <summary>
-    /// >> 94 - Variant[pallet_bags_list.pallet.Event]
+    /// >> 93 - Variant[pallet_bags_list.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

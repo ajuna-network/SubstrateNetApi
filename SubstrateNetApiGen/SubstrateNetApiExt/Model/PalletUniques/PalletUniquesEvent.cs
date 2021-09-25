@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     
     /// <summary>
-    /// >> 87 - Variant[pallet_uniques.pallet.Event]
+    /// >> 86 - Variant[pallet_uniques.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

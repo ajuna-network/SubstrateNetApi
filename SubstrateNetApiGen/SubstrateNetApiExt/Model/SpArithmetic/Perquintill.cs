@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> 300 - Composite[sp_arithmetic.per_things.Perquintill]
+    /// >> 299 - Composite[sp_arithmetic.per_things.Perquintill]
     /// </summary>
     public sealed class Perquintill : BaseType
     {

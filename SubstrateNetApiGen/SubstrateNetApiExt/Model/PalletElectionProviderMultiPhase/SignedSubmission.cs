@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     
     /// <summary>
-    /// >> 342 - Composite[pallet_election_provider_multi_phase.signed.SignedSubmission]
+    /// >> 343 - Composite[pallet_election_provider_multi_phase.signed.SignedSubmission]
     /// </summary>
     public sealed class SignedSubmission : BaseType
     {

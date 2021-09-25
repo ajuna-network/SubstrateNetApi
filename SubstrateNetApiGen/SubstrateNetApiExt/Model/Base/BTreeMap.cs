@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.Base
     
     
     /// <summary>
-    /// >> 351 - Composite[BTreeMap]
+    /// >> 352 - Composite[BTreeMap]
     /// </summary>
     public sealed class BTreeMap : BaseType
     {

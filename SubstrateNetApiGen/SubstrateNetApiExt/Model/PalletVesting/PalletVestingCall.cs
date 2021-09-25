@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     
     /// <summary>
-    /// >> 285 - Variant[pallet_vesting.pallet.Call]
+    /// >> 284 - Variant[pallet_vesting.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletVestingCall

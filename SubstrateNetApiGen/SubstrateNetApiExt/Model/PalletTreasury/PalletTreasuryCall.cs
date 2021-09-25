@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     
     /// <summary>
-    /// >> 231 - Variant[pallet_treasury.pallet.Call]
+    /// >> 230 - Variant[pallet_treasury.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletTreasuryCall

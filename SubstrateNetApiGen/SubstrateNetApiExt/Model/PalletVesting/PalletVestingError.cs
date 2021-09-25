@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     
     /// <summary>
-    /// >> 449 - Variant[pallet_vesting.pallet.Error]
+    /// >> 451 - Variant[pallet_vesting.pallet.Error]
     /// Error for the vesting pallet.
     /// </summary>
     public enum PalletVestingError

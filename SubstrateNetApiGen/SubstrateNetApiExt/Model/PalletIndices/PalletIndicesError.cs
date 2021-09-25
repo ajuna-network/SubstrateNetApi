@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletIndices
     
     
     /// <summary>
-    /// >> 318 - Variant[pallet_indices.pallet.Error]
+    /// >> 319 - Variant[pallet_indices.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> 415 - Composite[pallet_im_online.BoundedOpaqueNetworkState]
+    /// >> 417 - Composite[pallet_im_online.BoundedOpaqueNetworkState]
     /// </summary>
     public sealed class BoundedOpaqueNetworkState : BaseType
     {

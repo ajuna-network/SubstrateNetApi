@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> 475 - Variant[pallet_bounties.pallet.Error]
+    /// >> 477 - Variant[pallet_bounties.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

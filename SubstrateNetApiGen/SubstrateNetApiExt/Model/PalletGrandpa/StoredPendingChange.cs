@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using SubstrateNetApi.Model.SpFinalityGrandpa;
+using SubstrateNetApi.Model.FrameSupport;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Primitive;
 using System;
@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     
     /// <summary>
-    /// >> 394 - Composite[pallet_grandpa.StoredPendingChange]
+    /// >> 395 - Composite[pallet_grandpa.StoredPendingChange]
     /// </summary>
     public sealed class StoredPendingChange : BaseType
     {
@@ -37,7 +37,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         /// <summary>
         /// >> next_authorities
         /// </summary>
-        private BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>> _nextAuthorities;
+        private SubstrateNetApi.Model.FrameSupport.WeakBoundedVec _nextAuthorities;
         
         /// <summary>
         /// >> forced
@@ -68,7 +68,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             }
         }
         
-        public BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>> NextAuthorities
+        public SubstrateNetApi.Model.FrameSupport.WeakBoundedVec NextAuthorities
         {
             get
             {
@@ -114,7 +114,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             ScheduledAt.Decode(byteArray, ref p);
             Delay = new SubstrateNetApi.Model.Types.Primitive.U32();
             Delay.Decode(byteArray, ref p);
-            NextAuthorities = new BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>>();
+            NextAuthorities = new SubstrateNetApi.Model.FrameSupport.WeakBoundedVec();
             NextAuthorities.Decode(byteArray, ref p);
             Forced = new BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>();
             Forced.Decode(byteArray, ref p);

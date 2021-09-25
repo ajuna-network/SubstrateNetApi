@@ -30,7 +30,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     }
     
     /// <summary>
-    /// >> 393 - Variant[pallet_grandpa.StoredState]
+    /// >> 394 - Variant[pallet_grandpa.StoredState]
     /// </summary>
     public sealed class EnumStoredState : BaseEnumExt<StoredState, BaseVoid, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>, BaseVoid, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>>
     {

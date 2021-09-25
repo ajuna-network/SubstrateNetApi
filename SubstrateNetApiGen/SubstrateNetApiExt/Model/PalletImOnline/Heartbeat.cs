@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     
     /// <summary>
-    /// >> 235 - Composite[pallet_im_online.Heartbeat]
+    /// >> 234 - Composite[pallet_im_online.Heartbeat]
     /// </summary>
     public sealed class Heartbeat : BaseType
     {

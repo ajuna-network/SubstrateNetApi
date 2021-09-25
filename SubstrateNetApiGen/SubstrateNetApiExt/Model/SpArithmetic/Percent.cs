@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> 204 - Composite[sp_arithmetic.per_things.Percent]
+    /// >> 203 - Composite[sp_arithmetic.per_things.Percent]
     /// </summary>
     public sealed class Percent : BaseType
     {

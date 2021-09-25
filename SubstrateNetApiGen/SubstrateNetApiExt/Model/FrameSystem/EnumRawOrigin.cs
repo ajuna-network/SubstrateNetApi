@@ -28,7 +28,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     }
     
     /// <summary>
-    /// >> 454 - Variant[frame_system.RawOrigin]
+    /// >> 456 - Variant[frame_system.RawOrigin]
     /// </summary>
     public sealed class EnumRawOrigin : BaseEnumExt<RawOrigin, BaseVoid, SubstrateNetApi.Model.SpCore.AccountId32, BaseVoid>
     {

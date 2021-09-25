@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     
     /// <summary>
-    /// >> 444 - Composite[pallet_recovery.ActiveRecovery]
+    /// >> 446 - Composite[pallet_recovery.ActiveRecovery]
     /// </summary>
     public sealed class ActiveRecovery : BaseType
     {

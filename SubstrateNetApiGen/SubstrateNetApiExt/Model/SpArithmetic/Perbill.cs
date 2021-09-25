@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpArithmetic
     
     
     /// <summary>
-    /// >> 102 - Composite[sp_arithmetic.per_things.Perbill]
+    /// >> 101 - Composite[sp_arithmetic.per_things.Perbill]
     /// </summary>
     public sealed class Perbill : BaseType
     {

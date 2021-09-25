@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletTimestamp
     
     
     /// <summary>
-    /// >> 132 - Variant[pallet_timestamp.pallet.Call]
+    /// >> 131 - Variant[pallet_timestamp.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletTimestampCall

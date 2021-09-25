@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 112 - Composite[frame_support.weights.RuntimeDbWeight]
+    /// >> 111 - Composite[frame_support.weights.RuntimeDbWeight]
     /// </summary>
     public sealed class RuntimeDbWeight : BaseType
     {

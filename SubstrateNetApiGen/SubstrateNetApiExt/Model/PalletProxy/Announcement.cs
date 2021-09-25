@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     
     /// <summary>
-    /// >> 466 - Composite[pallet_proxy.Announcement]
+    /// >> 468 - Composite[pallet_proxy.Announcement]
     /// </summary>
     public sealed class Announcement : BaseType
     {

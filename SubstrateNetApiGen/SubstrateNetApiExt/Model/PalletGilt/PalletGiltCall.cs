@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> 298 - Variant[pallet_gilt.pallet.Call]
+    /// >> 297 - Variant[pallet_gilt.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletGiltCall

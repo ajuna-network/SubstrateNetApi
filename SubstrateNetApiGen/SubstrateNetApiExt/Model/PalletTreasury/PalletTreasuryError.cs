@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     
     /// <summary>
-    /// >> 400 - Variant[pallet_treasury.pallet.Error]
+    /// >> 402 - Variant[pallet_treasury.pallet.Error]
     /// Error for the treasury pallet.
     /// </summary>
     public enum PalletTreasuryError

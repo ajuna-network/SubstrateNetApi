@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 399 - Composite[frame_support.PalletId]
+    /// >> 401 - Composite[frame_support.PalletId]
     /// </summary>
     public sealed class PalletId : BaseType
     {

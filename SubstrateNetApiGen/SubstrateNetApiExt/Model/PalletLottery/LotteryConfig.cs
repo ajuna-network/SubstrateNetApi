@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     
     /// <summary>
-    /// >> 484 - Composite[pallet_lottery.LotteryConfig]
+    /// >> 486 - Composite[pallet_lottery.LotteryConfig]
     /// </summary>
     public sealed class LotteryConfig : BaseType
     {

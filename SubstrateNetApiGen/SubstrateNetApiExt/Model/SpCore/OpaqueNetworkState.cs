@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpCore
     
     
     /// <summary>
-    /// >> 236 - Composite[sp_core.offchain.OpaqueNetworkState]
+    /// >> 235 - Composite[sp_core.offchain.OpaqueNetworkState]
     /// </summary>
     public sealed class OpaqueNetworkState : BaseType
     {

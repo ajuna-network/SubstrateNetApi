@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     }
     
     /// <summary>
-    /// >> 210 - Variant[pallet_democracy.vote.AccountVote]
+    /// >> 209 - Variant[pallet_democracy.vote.AccountVote]
     /// </summary>
     public sealed class EnumAccountVote : BaseEnumExt<AccountVote, BaseTuple<SubstrateNetApi.Model.PalletDemocracy.Vote, SubstrateNetApi.Model.Types.Primitive.U128>, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U128>>
     {

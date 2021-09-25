@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.SpConsensusBabe
     
     
     /// <summary>
-    /// >> 126 - Composite[sp_consensus_babe.app.Public]
+    /// >> 125 - Composite[sp_consensus_babe.app.Public]
     /// </summary>
     public sealed class Public : BaseType
     {

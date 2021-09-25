@@ -28,7 +28,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     }
     
     /// <summary>
-    /// >> 95 - Variant[frame_system.Phase]
+    /// >> 94 - Variant[frame_system.Phase]
     /// </summary>
     public sealed class EnumPhase : BaseEnumExt<Phase, SubstrateNetApi.Model.Types.Primitive.U32, BaseVoid, BaseVoid>
     {

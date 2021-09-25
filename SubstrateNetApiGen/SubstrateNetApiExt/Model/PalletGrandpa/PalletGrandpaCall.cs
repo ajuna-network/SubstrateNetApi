@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     
     /// <summary>
-    /// >> 219 - Variant[pallet_grandpa.pallet.Call]
+    /// >> 218 - Variant[pallet_grandpa.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletGrandpaCall

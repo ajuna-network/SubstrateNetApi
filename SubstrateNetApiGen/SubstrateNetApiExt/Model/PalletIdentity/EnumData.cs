@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using SubstrateNetApi.Model.Base;
+using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
 using System;
 using System.Collections.Generic;
@@ -15,92 +16,144 @@ using System.Collections.Generic;
 
 namespace SubstrateNetApi.Model.PalletIdentity
 {
-    
-    
+
+
     public enum Data
     {
-        
+
         None,
-        
+
         Raw0,
-        
+
         Raw1,
-        
+
         Raw2,
-        
+
         Raw3,
-        
+
         Raw4,
-        
+
         Raw5,
-        
+
         Raw6,
-        
+
         Raw7,
-        
+
         Raw8,
-        
+
         Raw9,
-        
+
         Raw10,
-        
+
         Raw11,
-        
+
         Raw12,
-        
+
         Raw13,
-        
+
         Raw14,
-        
+
         Raw15,
-        
+
         Raw16,
-        
+
         Raw17,
-        
+
         Raw18,
-        
+
         Raw19,
-        
+
         Raw20,
-        
+
         Raw21,
-        
+
         Raw22,
-        
+
         Raw23,
-        
+
         Raw24,
-        
+
         Raw25,
-        
+
         Raw26,
-        
+
         Raw27,
-        
+
         Raw28,
-        
+
         Raw29,
-        
+
         Raw30,
-        
+
         Raw31,
-        
+
         Raw32,
-        
+
         BlakeTwo256,
-        
+
         Sha256,
-        
+
         Keccak256,
-        
+
         ShaThree256,
     }
-    
+
     /// <summary>
     /// >> 246 - Variant[pallet_identity.types.Data]
     /// </summary>
-    public sealed class EnumData : BaseEnumExt<Data, BaseVoid, SubstrateNetApi.Model.Base.Arr0U8, SubstrateNetApi.Model.Base.Arr1U8, SubstrateNetApi.Model.Base.Arr2U8, SubstrateNetApi.Model.Base.Arr3U8, SubstrateNetApi.Model.Base.Arr4U8, SubstrateNetApi.Model.Base.Arr5U8, SubstrateNetApi.Model.Base.Arr6U8, SubstrateNetApi.Model.Base.Arr7U8, SubstrateNetApi.Model.Base.Arr8U8, SubstrateNetApi.Model.Base.Arr9U8, SubstrateNetApi.Model.Base.Arr10U8, SubstrateNetApi.Model.Base.Arr11U8, SubstrateNetApi.Model.Base.Arr12U8, SubstrateNetApi.Model.Base.Arr13U8, SubstrateNetApi.Model.Base.Arr14U8, SubstrateNetApi.Model.Base.Arr15U8, SubstrateNetApi.Model.Base.Arr16U8, SubstrateNetApi.Model.Base.Arr17U8, SubstrateNetApi.Model.Base.Arr18U8, SubstrateNetApi.Model.Base.Arr19U8, SubstrateNetApi.Model.Base.Arr20U8, SubstrateNetApi.Model.Base.Arr21U8, SubstrateNetApi.Model.Base.Arr22U8, SubstrateNetApi.Model.Base.Arr23U8, SubstrateNetApi.Model.Base.Arr24U8, SubstrateNetApi.Model.Base.Arr25U8, SubstrateNetApi.Model.Base.Arr26U8, SubstrateNetApi.Model.Base.Arr27U8, SubstrateNetApi.Model.Base.Arr28U8, SubstrateNetApi.Model.Base.Arr29U8, SubstrateNetApi.Model.Base.Arr30U8, SubstrateNetApi.Model.Base.Arr31U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8>
+    public sealed class EnumData : BaseEnumExt<Data, BaseVoid, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8, SubstrateNetApi.Model.Base.Arr32U8>
     {
+        public override void Decode(byte[] byteArray, ref int p)
+        {
+            var start = p;
+            var enumByte = byteArray[p];
+
+            Value = (Data)System.Enum.Parse(typeof(Data), enumByte.ToString(), true);
+            p += 1;
+
+            Value2 = DecodeOneOf(enumByte, byteArray, ref p);
+
+            TypeSize = p - start;
+        }
+
+        private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
+        {
+            IType result;
+            if (value == 0) { return null; }
+            else if (value == 1) { result = new Arr0U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 2) { result = new Arr1U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 3) { result = new Arr2U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 4) { result = new Arr3U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 5) { result = new Arr4U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 6) { result = new Arr5U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 7) { result = new Arr6U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 8) { result = new Arr7U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 9) { result = new Arr8U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 10) { result = new Arr9U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 11) { result = new Arr10U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 12) { result = new Arr11U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 13) { result = new Arr12U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 14) { result = new Arr13U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 15) { result = new Arr14U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 16) { result = new Arr15U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 17) { result = new Arr16U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 18) { result = new Arr17U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 19) { result = new Arr18U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 20) { result = new Arr19U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 21) { result = new Arr20U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 22) { result = new Arr21U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 23) { result = new Arr22U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 24) { result = new Arr23U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 25) { result = new Arr24U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 26) { result = new Arr25U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 27) { result = new Arr26U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 28) { result = new Arr27U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 29) { result = new Arr28U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 30) { result = new Arr29U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 31) { result = new Arr30U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 32) { result = new Arr31U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 33) { result = new Arr32U8(); result.Decode(byteArray, ref p); return result; }
+            else { result = new Arr32U8(); result.Decode(byteArray, ref p); return result; }
+        }
     }
 }

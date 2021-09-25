@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> 382 - Variant[pallet_democracy.pallet.Error]
+    /// >> 383 - Variant[pallet_democracy.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

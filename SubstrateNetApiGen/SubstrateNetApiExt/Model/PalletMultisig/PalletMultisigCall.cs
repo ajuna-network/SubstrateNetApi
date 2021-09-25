@@ -23,7 +23,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     
     /// <summary>
-    /// >> 291 - Variant[pallet_multisig.pallet.Call]
+    /// >> 290 - Variant[pallet_multisig.pallet.Call]
     /// Contains one variant per dispatchable that can be called by an extrinsic.
     /// </summary>
     public sealed class PalletMultisigCall

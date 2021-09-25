@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     
     /// <summary>
-    /// >> 411 - Variant[pallet_sudo.pallet.Error]
+    /// >> 413 - Variant[pallet_sudo.pallet.Error]
     /// Error for the Sudo pallet
     /// </summary>
     public enum PalletSudoError

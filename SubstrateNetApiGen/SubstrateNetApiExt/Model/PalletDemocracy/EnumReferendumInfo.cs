@@ -27,7 +27,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     }
     
     /// <summary>
-    /// >> 371 - Variant[pallet_democracy.types.ReferendumInfo]
+    /// >> 372 - Variant[pallet_democracy.types.ReferendumInfo]
     /// </summary>
     public sealed class EnumReferendumInfo : BaseEnumExt<ReferendumInfo, SubstrateNetApi.Model.PalletDemocracy.ReferendumStatus, BaseTuple<SubstrateNetApi.Model.Types.Primitive.Bool, SubstrateNetApi.Model.Types.Primitive.U32>>
     {

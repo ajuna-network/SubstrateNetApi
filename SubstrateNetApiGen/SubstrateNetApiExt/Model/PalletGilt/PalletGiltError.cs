@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletGilt
     
     
     /// <summary>
-    /// >> 492 - Variant[pallet_gilt.pallet.Error]
+    /// >> 494 - Variant[pallet_gilt.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.

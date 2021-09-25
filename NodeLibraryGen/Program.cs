@@ -27,10 +27,11 @@ namespace RuntimeMetadata
                 using var client = new SubstrateClient(new Uri(Websocketurl));
                 await client.ConnectLightAsync(CancellationToken.None);
                 result = await client.State.GetMetaDataAsync(CancellationToken.None);
+                File.WriteAllText("metadata_20210923.txt", result);
             }
             else
             {
-                result = File.ReadAllText("metadata_20210921.txt");
+                result = File.ReadAllText("metadata_20210923.txt");
             }
             var mdv14 = new SubstrateNetApi.Model.Types.Struct.RuntimeMetadata();
             mdv14.Create(result);
@@ -49,7 +50,7 @@ namespace RuntimeMetadata
             var typeDict = GenerateTypes(metadata.Types);
             
             // generate modules
-            GenerateModules(metadata.Modules, typeDict);
+            GenerateModules(metadata.Modules, typeDict, metadata.Types);
 
             Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
 
@@ -69,17 +70,17 @@ namespace RuntimeMetadata
 
         }
 
-        private static void GenerateModules(Dictionary<uint, PalletModule> modules, Dictionary<uint, (string, List<string>)> typeDict)
+        private static void GenerateModules(Dictionary<uint, PalletModule> modules, Dictionary<uint, (string, List<string>)> typeDict, Dictionary<uint, NodeType> nodeTypes)
         {
             List<(string, List<string>)> moduleNames = new();
             foreach (var module in modules.Values) 
             {
-                var moduleNameTuple = ModuleGenBuilder.Init(module.Index, module, typeDict).Create().Build(out bool _);
+                var moduleNameTuple = ModuleGenBuilder.Init(module.Index, module, typeDict, nodeTypes).Create().Build(write: true, out bool _);
                 moduleNames.Add(moduleNameTuple);
                 Console.WriteLine(JsonConvert.SerializeObject(moduleNameTuple));
             }
 
-            ClientGenBuilder.Init(0, moduleNames, typeDict).Create().Build(out bool _);
+            ClientGenBuilder.Init(0, moduleNames, typeDict).Create().Build(write: true, out bool _);
         }
 
         private static ExtrinsicMetadata CreateExtrinsic(ExtrinsicMetadataStruct extrinsic)
@@ -101,6 +102,10 @@ namespace RuntimeMetadata
         {
             var typeDict = new Dictionary<uint, (string, List<string>)>();
 
+            Dictionary<string, int> eventIndex = GetRuntimeIndex(nodeTypes, "node_runtime", "Event");
+
+            Dictionary<string, int> callIndex = GetRuntimeIndex(nodeTypes, "node_runtime", "Call");
+
             var iterations = 10;
 
             for (int i = 0; i < iterations; i++)
@@ -119,7 +124,8 @@ namespace RuntimeMetadata
                             {
                                 var type = nodeType as NodeTypeComposite;
                                 var fullItem = StructGenBuilder.Init(type.Id, type, typeDict)
-                                    .Create().Build(out bool success);
+                                    .Create()
+                                    .Build(write: true, out bool success);
                                 if (success)
                                 {
                                     typeDict.Add(type.Id, fullItem);
@@ -129,7 +135,8 @@ namespace RuntimeMetadata
                         case TypeDefEnum.Variant:
                             {
                                 var type = nodeType as NodeTypeVariant;
-                                CallVariant(type, ref typeDict);
+                                var variantType = GetVariantType(String.Join('.', nodeType.Path));
+                                CallVariant(variantType, type, ref typeDict);
                                 break;
                             }
                         case TypeDefEnum.Sequence:
@@ -147,7 +154,7 @@ namespace RuntimeMetadata
                                 var type = nodeType as NodeTypeArray;
                                 var fullItem = ArrayGenBuilder.Create(type.Id, type, typeDict)
                                     .Create()
-                                    .Build(out bool success);
+                                    .Build(write: true, out bool success);
                                 if (success)
                                 {
                                     typeDict.Add(type.Id, fullItem);
@@ -182,7 +189,23 @@ namespace RuntimeMetadata
                     }
                 }
             }
+            
             return typeDict;
+        }
+
+        private static Dictionary<string, int> GetRuntimeIndex(Dictionary<uint, NodeType> nodeTypes, string runtime, string runtimeType)
+        {
+            var nodeType = nodeTypes.Select(p => p.Value).Where(p => p.Path != null && p.Path.Length == 2 && p.Path[0] == runtime && p.Path[1] == runtimeType).FirstOrDefault();
+            if (nodeType is null or not NodeTypeVariant)
+            {
+                throw new Exception($"Node Index changed for {runtime}.{runtimeType} and {nodeType.GetType().Name}");
+            }
+            Dictionary<string, int> result = new();
+            foreach (var variant in (nodeType as NodeTypeVariant).Variants)
+            {
+                result.Add(variant.Name, variant.Index);
+            }
+            return result;
         }
 
         private static void CallPrimitive(NodeTypePrimitive nodeType, ref Dictionary<uint, (string, List<string>)> typeDict)
@@ -282,80 +305,128 @@ namespace RuntimeMetadata
             }
         }
 
-        private static void CallVariant(NodeTypeVariant nodeType, ref Dictionary<uint, (string, List<string>)> typeDict)
+        private static void CallVariant(string variantType, NodeTypeVariant nodeType, ref Dictionary<uint, (string, List<string>)> typeDict)
         {
-            var path = String.Join('.', nodeType.Path);
+            switch (variantType)
+            {
+                case "Option":
+                    {
+                        if (typeDict.TryGetValue(nodeType.Variants[1].TypeFields[0].TypeId, out (string, List<string>) fullItem))
+                        {
+                            typeDict.Add(nodeType.Id, ($"BaseOpt<{fullItem.Item1}>", fullItem.Item2));
+                        }
+                        break;
+                    }
 
+                case "Result":
+                    {
+                        var spaces = new List<string>() { "SubstrateNetApi.Model.Types.Base" };
+                        typeDict.Add(nodeType.Id, ($"BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>", spaces));
+                        break;
+                    }
+
+                case "Call":
+                    {
+                        var fullItem = CallGenBuilder.Init(nodeType.Id, nodeType, typeDict)
+                            .Create()
+                            .Build(write: true, out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(nodeType.Id, fullItem);
+                        }
+                        break;
+                    }
+
+                case "Event":
+                    {
+                        var fullItem = EventGenBuilder.Init(nodeType.Id, nodeType, typeDict)
+                                            .Create()
+                                            .Build(write: true, out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(nodeType.Id, fullItem);
+                        }
+                        break;
+                    }
+
+                case "Error":
+                    {
+                        var fullItem = ErrorGenBuilder.Init(nodeType.Id, nodeType, typeDict)
+                            .Create().Build(write: true, out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(nodeType.Id, fullItem);
+                        }
+                        break;
+                    }
+
+                case "Runtime":
+                    {
+                        var fullItem = RuntimeGenBuilder.Init(nodeType.Id, nodeType, typeDict)
+                            .Create().Build(write: true, out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(nodeType.Id, fullItem);
+                        }
+                        break;
+                    }
+
+                case "Void":
+                    {
+                        var spaces = new List<string>() { "SubstrateNetApi.Model.Types.Base" };
+                        typeDict.Add(nodeType.Id, ("SubstrateNetApi.Model.Types.Base.BaseVoid", spaces));
+                        break;
+                    }
+
+                case "Enum":
+                    {
+                        var fullItem = EnumGenBuilder.Init(nodeType.Id, nodeType, typeDict)
+                            .Create().Build(write: true, out bool success);
+                        if (success)
+                        {
+                            typeDict.Add(nodeType.Id, fullItem);
+                        }
+                        break;
+                    }
+
+                default:
+                        throw new NotImplementedException();
+            }
+        }
+
+        private static string GetVariantType(string path)
+        {
             if (path == "Option")
             {
-                if (typeDict.TryGetValue(nodeType.Variants[1].TypeFields[0].TypeId, out (string, List<string>) fullItem))
-                {
-                    typeDict.Add(nodeType.Id, ($"BaseOpt<{fullItem.Item1}>", fullItem.Item2));
-                }
+                return path;
             }
             else if (path == "Result")
             {
-                var spaces = new List<string>() { "SubstrateNetApi.Model.Types.Base" };
-                typeDict.Add(nodeType.Id, ($"BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>", spaces));
+                return path;
             }
             else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Call"))
             {
-                var fullItem = CallGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                    .Create().Build(out bool success);
-                if (success)
-                {
-                    typeDict.Add(nodeType.Id, fullItem);
-                }
+                return "Call";
             }
             else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && (path.Contains(".Event") || path.Contains(".RawEvent")))
             {
-                var fullItem = EventGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                    .Create().Build(out bool success);
-                if (success)
-                {
-                    typeDict.Add(nodeType.Id, fullItem);
-                }
+                return "Event";
             }
             else if ((path.Contains("pallet_") || path.Contains(".pallet.")) && path.Contains(".Error"))
             {
-                var fullItem = ErrorGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                    .Create().Build(out bool success);
-                if (success)
-                {
-                    typeDict.Add(nodeType.Id, fullItem);
-                }
+                return "Error";
             }
             else if (path.Contains("node_runtime.Event") || path.Contains("node_runtime.Call"))
             {
-                var fullItem = RuntimeGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                    .Create().Build(out bool success);
-                if (success)
-                {
-                    typeDict.Add(nodeType.Id, fullItem);
-                }
-            }
-            else if (path.Contains("pallet_"))
-            {
-                var fullItem = EnumGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                    .Create().Build(out bool success);
-                if (success)
-                {
-                    typeDict.Add(nodeType.Id, fullItem);
-                }
+                return "Runtime";
             }
             else if (path.Contains(".Void"))
             {
-                var spaces = new List<string>() { "SubstrateNetApi.Model.Types.Base" };
-                typeDict.Add(nodeType.Id, ("SubstrateNetApi.Model.Types.Base.BaseVoid", spaces));
+                return "Void";
             }
             else
             {
-                var fullItem = EnumGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                    .Create().Build(out bool success);
-                if (success)
-                {
-                    typeDict.Add(nodeType.Id, fullItem);
-                }
+                return "Enum";
             }
         }
 

@@ -29,7 +29,7 @@ namespace SubstrateNetApi.Model.PalletCollective
     }
     
     /// <summary>
-    /// >> 456 - Variant[pallet_collective.RawOrigin]
+    /// >> 458 - Variant[pallet_collective.RawOrigin]
     /// </summary>
     public sealed class EnumRawOrigin : BaseEnumExt<RawOrigin, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>, SubstrateNetApi.Model.SpCore.AccountId32, BaseVoid>
     {

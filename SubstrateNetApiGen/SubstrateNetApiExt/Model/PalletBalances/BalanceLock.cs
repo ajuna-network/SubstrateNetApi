@@ -20,7 +20,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> 320 - Composite[pallet_balances.BalanceLock]
+    /// >> 321 - Composite[pallet_balances.BalanceLock]
     /// </summary>
     public sealed class BalanceLock : BaseType
     {

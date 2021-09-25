@@ -18,7 +18,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     
     /// <summary>
-    /// >> 377 - Composite[pallet_democracy.types.Delegations]
+    /// >> 378 - Composite[pallet_democracy.types.Delegations]
     /// </summary>
     public sealed class Delegations : BaseType
     {

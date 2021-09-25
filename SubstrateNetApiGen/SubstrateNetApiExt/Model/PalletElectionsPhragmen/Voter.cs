@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletElectionsPhragmen
     
     
     /// <summary>
-    /// >> 390 - Composite[pallet_elections_phragmen.Voter]
+    /// >> 391 - Composite[pallet_elections_phragmen.Voter]
     /// </summary>
     public sealed class Voter : BaseType
     {

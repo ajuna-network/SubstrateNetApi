@@ -7,8 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using SubstrateNetApi.Model.PalletImOnline;
+using SubstrateNetApi.Model.SpFinalityGrandpa;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +19,7 @@ namespace SubstrateNetApi.Model.FrameSupport
     
     
     /// <summary>
-    /// >> 412 - Composite[frame_support.storage.weak_bounded_vec.WeakBoundedVec]
+    /// >> 396 - Composite[frame_support.storage.weak_bounded_vec.WeakBoundedVec]
     /// </summary>
     public sealed class WeakBoundedVec : BaseType
     {
@@ -26,9 +27,9 @@ namespace SubstrateNetApi.Model.FrameSupport
         /// <summary>
         /// >> value
         /// </summary>
-        private BaseVec<SubstrateNetApi.Model.PalletImOnline.Public> _value;
+        private BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>> _value;
         
-        public BaseVec<SubstrateNetApi.Model.PalletImOnline.Public> Value
+        public BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>> Value
         {
             get
             {
@@ -55,7 +56,7 @@ namespace SubstrateNetApi.Model.FrameSupport
         public override void Decode(byte[] byteArray, ref int p)
         {
             var start = p;
-            Value = new BaseVec<SubstrateNetApi.Model.PalletImOnline.Public>();
+            Value = new BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>>();
             Value.Decode(byteArray, ref p);
             TypeSize = p - start;
         }

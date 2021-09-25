@@ -21,7 +21,7 @@ namespace SubstrateNetApi.Model.NodeRuntime
     
     
     /// <summary>
-    /// >> 207 - Composite[node_runtime.SessionKeys]
+    /// >> 206 - Composite[node_runtime.SessionKeys]
     /// </summary>
     public sealed class SessionKeys : BaseType
     {

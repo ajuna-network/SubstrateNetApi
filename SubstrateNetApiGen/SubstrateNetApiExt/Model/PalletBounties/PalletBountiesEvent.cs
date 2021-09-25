@@ -19,7 +19,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     
     /// <summary>
-    /// >> 81 - Variant[pallet_bounties.pallet.Event]
+    /// >> 80 - Variant[pallet_bounties.pallet.Event]
     /// 
     ///			The [event](https://substrate.dev/docs/en/knowledgebase/runtime/events) emitted
     ///			by this pallet.

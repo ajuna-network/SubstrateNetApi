@@ -25,7 +25,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     }
     
     /// <summary>
-    /// >> 437 - Variant[pallet_society.VouchingStatus]
+    /// >> 439 - Variant[pallet_society.VouchingStatus]
     /// </summary>
     public sealed class EnumVouchingStatus : BaseEnum<VouchingStatus>
     {

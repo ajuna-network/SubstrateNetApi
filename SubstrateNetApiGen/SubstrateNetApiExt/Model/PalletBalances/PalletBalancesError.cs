@@ -17,7 +17,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     
     /// <summary>
-    /// >> 327 - Variant[pallet_balances.pallet.Error]
+    /// >> 328 - Variant[pallet_balances.pallet.Error]
     /// 
     ///			Custom [dispatch errors](https://substrate.dev/docs/en/knowledgebase/runtime/errors)
     ///			of this pallet.
