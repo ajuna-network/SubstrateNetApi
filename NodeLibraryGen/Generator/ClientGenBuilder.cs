@@ -55,12 +55,12 @@ namespace RuntimeMetadata
 
                 foreach(var tuple in ModuleNames)
                 {
-                    var pallets = new string[] { "Storage", "Call"};
+                    var pallets = new string[] { "Storage" }; // , "Call"};
 
                     foreach (var pallet in pallets)
                     {
                         var name = tuple.Item1.Split('.').Last() + pallet;
-                        var referenceName = tuple.Item1 + pallet;
+                        var referenceName = tuple.Item2[0] + "." + name;
 
                         CodeMemberField clientField = new()
                         {

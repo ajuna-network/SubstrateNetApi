@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Extrinsics;
 using SubstrateNetApi.Model.Meta;
 using System;
 using System.CodeDom;
@@ -33,10 +34,9 @@ namespace RuntimeMetadata
                 ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Meta"));
                 ImportsNamespace.Imports.Add(new CodeNamespaceImport("System.Threading"));
                 ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Types"));
+                ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Extrinsics"));
 
-                FileName = Module.Name;
-
-                Console.WriteLine(Module.Name);
+                FileName = "Main" + Module.Name;
 
                 ReferenzName = "SubstrateNetApi.Model." + Module.Name;
 
@@ -48,6 +48,8 @@ namespace RuntimeMetadata
                 CreateCalls(typeNamespace);
 
                 CreateEvents(typeNamespace);
+
+                CreateConstants(typeNamespace);
 
                 CreateErrors(typeNamespace);
 
@@ -163,33 +165,33 @@ namespace RuntimeMetadata
                 };
                 typeNamespace.Types.Add(targetClass);
 
-                // Declare the client field.
-                CodeMemberField clientField = new CodeMemberField
-                {
-                    Attributes = MemberAttributes.Private,
-                    Name = "_client",
-                    Type = new CodeTypeReference(typeof(SubstrateClient))
-                };
-                clientField.Comments.Add(new CodeCommentStatement(
-                    "Substrate client for the storage calls."));
-                targetClass.Members.Add(clientField);
+                //// Declare the client field.
+                //CodeMemberField clientField = new CodeMemberField
+                //{
+                //    Attributes = MemberAttributes.Private,
+                //    Name = "_client",
+                //    Type = new CodeTypeReference(typeof(SubstrateClient))
+                //};
+                //clientField.Comments.Add(new CodeCommentStatement(
+                //    "Substrate client for the storage calls."));
+                //targetClass.Members.Add(clientField);
 
-                CodeConstructor constructor = new CodeConstructor
-                {
-                    Attributes =
-                    MemberAttributes.Public | MemberAttributes.Final
-                };
+                //CodeConstructor constructor = new CodeConstructor
+                //{
+                //    Attributes =
+                //    MemberAttributes.Public | MemberAttributes.Final
+                //};
 
-                // Add parameters.
-                constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                    typeof(SubstrateClient), "client"));
-                CodeFieldReferenceExpression fieldReference =
-                    new CodeFieldReferenceExpression(
-                    new CodeThisReferenceExpression(), "_client");
-                constructor.Statements.Add(new CodeAssignStatement(fieldReference,
-                    new CodeArgumentReferenceExpression("client")));
-
-                targetClass.Members.Add(constructor);
+                //// Add parameters.
+                //constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+                //    typeof(SubstrateClient), "client"));
+                //CodeFieldReferenceExpression fieldReference =
+                //    new CodeFieldReferenceExpression(
+                //    new CodeThisReferenceExpression(), "_client");
+                //constructor.Statements.Add(new CodeAssignStatement(fieldReference,
+                //    new CodeArgumentReferenceExpression("client")));
+                //targetClass.Members.Add(constructor);
+                
                 if (calls != null)
                 {
                     if (NodeTypes.TryGetValue(calls.TypeId, out NodeType nodeType))
@@ -202,22 +204,22 @@ namespace RuntimeMetadata
                             {
                                 CodeMemberMethod callMethod = new()
                                 {
-                                    Attributes = MemberAttributes.Public | MemberAttributes.Final,
+                                    Attributes = MemberAttributes.Static | MemberAttributes.Public | MemberAttributes.Final,
                                     Name = variant.Name.MakeMethod(),
-                                    ReturnType = new CodeTypeReference(typeof(GenericExtrinsicCall).Name)
+                                    ReturnType = new CodeTypeReference(typeof(Method).Name)
                                 };
 
                                 // add comment to class if exists
                                 callMethod.Comments.AddRange(GetComments(typeDef.Docs, null, variant.Name));
 
-                                var create = new CodeObjectCreateExpression(typeof(GenericExtrinsicCall).Name, Array.Empty<CodeExpression>());
-                                create.Parameters.Add(new CodePrimitiveExpression((int)Module.Index));
-                                create.Parameters.Add(new CodePrimitiveExpression(Module.Name));
-                                create.Parameters.Add(new CodePrimitiveExpression(variant.Index));
-                                create.Parameters.Add(new CodePrimitiveExpression(variant.Name));
+                                var byteArrayName = "byteArray";
+
+                                callMethod.Statements.Add(new CodeVariableDeclarationStatement(
+                                    typeof(List<byte>), byteArrayName, new CodeObjectCreateExpression("List<byte>", Array.Empty<CodeExpression>())));
 
                                 if (variant.TypeFields != null)
                                 {
+
                                     foreach (var field in variant.TypeFields)
                                     {
                                         var fullItem = GetFullItemPath(field.TypeId);
@@ -229,10 +231,19 @@ namespace RuntimeMetadata
                                         };
                                         callMethod.Parameters.Add(param);
 
-                                        create.Parameters.Add(new CodeVariableReferenceExpression(field.Name));
+                                        callMethod.Statements.Add(new CodeMethodInvokeExpression(
+                                            new CodeVariableReferenceExpression(byteArrayName), "AddRange", new CodeMethodInvokeExpression(
+                                            new CodeVariableReferenceExpression(field.Name), "Encode")));
                                     }
                                 }
 
+                                // return statment
+                                var create = new CodeObjectCreateExpression(typeof(Method).Name, Array.Empty<CodeExpression>());
+                                create.Parameters.Add(new CodePrimitiveExpression((int)Module.Index));
+                                create.Parameters.Add(new CodePrimitiveExpression(Module.Name));
+                                create.Parameters.Add(new CodePrimitiveExpression(variant.Index));
+                                create.Parameters.Add(new CodePrimitiveExpression(variant.Name));
+                                create.Parameters.Add(new CodeMethodInvokeExpression(new CodeVariableReferenceExpression(byteArrayName), "ToArray"));
                                 CodeMethodReturnStatement returnStatement = new()
                                 {
                                     Expression = create
@@ -287,6 +298,11 @@ namespace RuntimeMetadata
                 }
             }
 
+            private void CreateConstants(CodeNamespace typeNamespace)
+            {
+                // TODO
+            }
+
             private void CreateErrors(CodeNamespace typeNamespace)
             {
                 ClassName = Module.Name + "Errors";
@@ -320,7 +336,6 @@ namespace RuntimeMetadata
                     }
                 }
             }
-
 
             private string GetInvoceString(string returnType)
             {

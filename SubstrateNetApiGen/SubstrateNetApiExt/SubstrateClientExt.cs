@@ -20,336 +20,172 @@ namespace SubstrateNetApi
     {
         
         // SystemStorage storage calls.
-        public SubstrateNetApi.Model.SystemStorage SystemStorage;
-        
-        // SystemCall storage calls.
-        public SubstrateNetApi.Model.SystemCall SystemCall;
+        public SubstrateNetApi.Model.FrameSystem.SystemStorage SystemStorage;
         
         // UtilityStorage storage calls.
-        public SubstrateNetApi.Model.UtilityStorage UtilityStorage;
-        
-        // UtilityCall storage calls.
-        public SubstrateNetApi.Model.UtilityCall UtilityCall;
+        public SubstrateNetApi.Model.PalletUtility.UtilityStorage UtilityStorage;
         
         // BabeStorage storage calls.
-        public SubstrateNetApi.Model.BabeStorage BabeStorage;
-        
-        // BabeCall storage calls.
-        public SubstrateNetApi.Model.BabeCall BabeCall;
+        public SubstrateNetApi.Model.PalletBabe.BabeStorage BabeStorage;
         
         // TimestampStorage storage calls.
-        public SubstrateNetApi.Model.TimestampStorage TimestampStorage;
-        
-        // TimestampCall storage calls.
-        public SubstrateNetApi.Model.TimestampCall TimestampCall;
+        public SubstrateNetApi.Model.PalletTimestamp.TimestampStorage TimestampStorage;
         
         // AuthorshipStorage storage calls.
-        public SubstrateNetApi.Model.AuthorshipStorage AuthorshipStorage;
-        
-        // AuthorshipCall storage calls.
-        public SubstrateNetApi.Model.AuthorshipCall AuthorshipCall;
+        public SubstrateNetApi.Model.PalletAuthorship.AuthorshipStorage AuthorshipStorage;
         
         // IndicesStorage storage calls.
-        public SubstrateNetApi.Model.IndicesStorage IndicesStorage;
-        
-        // IndicesCall storage calls.
-        public SubstrateNetApi.Model.IndicesCall IndicesCall;
+        public SubstrateNetApi.Model.PalletIndices.IndicesStorage IndicesStorage;
         
         // BalancesStorage storage calls.
-        public SubstrateNetApi.Model.BalancesStorage BalancesStorage;
-        
-        // BalancesCall storage calls.
-        public SubstrateNetApi.Model.BalancesCall BalancesCall;
+        public SubstrateNetApi.Model.PalletBalances.BalancesStorage BalancesStorage;
         
         // TransactionPaymentStorage storage calls.
-        public SubstrateNetApi.Model.TransactionPaymentStorage TransactionPaymentStorage;
-        
-        // TransactionPaymentCall storage calls.
-        public SubstrateNetApi.Model.TransactionPaymentCall TransactionPaymentCall;
+        public SubstrateNetApi.Model.PalletTransactionPayment.TransactionPaymentStorage TransactionPaymentStorage;
         
         // ElectionProviderMultiPhaseStorage storage calls.
-        public SubstrateNetApi.Model.ElectionProviderMultiPhaseStorage ElectionProviderMultiPhaseStorage;
-        
-        // ElectionProviderMultiPhaseCall storage calls.
-        public SubstrateNetApi.Model.ElectionProviderMultiPhaseCall ElectionProviderMultiPhaseCall;
+        public SubstrateNetApi.Model.PalletElectionProviderMultiPhase.ElectionProviderMultiPhaseStorage ElectionProviderMultiPhaseStorage;
         
         // StakingStorage storage calls.
-        public SubstrateNetApi.Model.StakingStorage StakingStorage;
-        
-        // StakingCall storage calls.
-        public SubstrateNetApi.Model.StakingCall StakingCall;
+        public SubstrateNetApi.Model.PalletStaking.StakingStorage StakingStorage;
         
         // SessionStorage storage calls.
-        public SubstrateNetApi.Model.SessionStorage SessionStorage;
-        
-        // SessionCall storage calls.
-        public SubstrateNetApi.Model.SessionCall SessionCall;
+        public SubstrateNetApi.Model.PalletSession.SessionStorage SessionStorage;
         
         // DemocracyStorage storage calls.
-        public SubstrateNetApi.Model.DemocracyStorage DemocracyStorage;
-        
-        // DemocracyCall storage calls.
-        public SubstrateNetApi.Model.DemocracyCall DemocracyCall;
+        public SubstrateNetApi.Model.PalletDemocracy.DemocracyStorage DemocracyStorage;
         
         // CouncilStorage storage calls.
-        public SubstrateNetApi.Model.CouncilStorage CouncilStorage;
-        
-        // CouncilCall storage calls.
-        public SubstrateNetApi.Model.CouncilCall CouncilCall;
+        public SubstrateNetApi.Model.PalletCouncil.CouncilStorage CouncilStorage;
         
         // TechnicalCommitteeStorage storage calls.
-        public SubstrateNetApi.Model.TechnicalCommitteeStorage TechnicalCommitteeStorage;
-        
-        // TechnicalCommitteeCall storage calls.
-        public SubstrateNetApi.Model.TechnicalCommitteeCall TechnicalCommitteeCall;
+        public SubstrateNetApi.Model.PalletTechnicalCommittee.TechnicalCommitteeStorage TechnicalCommitteeStorage;
         
         // ElectionsStorage storage calls.
-        public SubstrateNetApi.Model.ElectionsStorage ElectionsStorage;
-        
-        // ElectionsCall storage calls.
-        public SubstrateNetApi.Model.ElectionsCall ElectionsCall;
+        public SubstrateNetApi.Model.PalletElections.ElectionsStorage ElectionsStorage;
         
         // TechnicalMembershipStorage storage calls.
-        public SubstrateNetApi.Model.TechnicalMembershipStorage TechnicalMembershipStorage;
-        
-        // TechnicalMembershipCall storage calls.
-        public SubstrateNetApi.Model.TechnicalMembershipCall TechnicalMembershipCall;
+        public SubstrateNetApi.Model.PalletTechnicalMembership.TechnicalMembershipStorage TechnicalMembershipStorage;
         
         // GrandpaStorage storage calls.
-        public SubstrateNetApi.Model.GrandpaStorage GrandpaStorage;
-        
-        // GrandpaCall storage calls.
-        public SubstrateNetApi.Model.GrandpaCall GrandpaCall;
+        public SubstrateNetApi.Model.PalletGrandpa.GrandpaStorage GrandpaStorage;
         
         // TreasuryStorage storage calls.
-        public SubstrateNetApi.Model.TreasuryStorage TreasuryStorage;
-        
-        // TreasuryCall storage calls.
-        public SubstrateNetApi.Model.TreasuryCall TreasuryCall;
+        public SubstrateNetApi.Model.PalletTreasury.TreasuryStorage TreasuryStorage;
         
         // ContractsStorage storage calls.
-        public SubstrateNetApi.Model.ContractsStorage ContractsStorage;
-        
-        // ContractsCall storage calls.
-        public SubstrateNetApi.Model.ContractsCall ContractsCall;
+        public SubstrateNetApi.Model.PalletContracts.ContractsStorage ContractsStorage;
         
         // SudoStorage storage calls.
-        public SubstrateNetApi.Model.SudoStorage SudoStorage;
-        
-        // SudoCall storage calls.
-        public SubstrateNetApi.Model.SudoCall SudoCall;
+        public SubstrateNetApi.Model.PalletSudo.SudoStorage SudoStorage;
         
         // ImOnlineStorage storage calls.
-        public SubstrateNetApi.Model.ImOnlineStorage ImOnlineStorage;
-        
-        // ImOnlineCall storage calls.
-        public SubstrateNetApi.Model.ImOnlineCall ImOnlineCall;
+        public SubstrateNetApi.Model.PalletImOnline.ImOnlineStorage ImOnlineStorage;
         
         // AuthorityDiscoveryStorage storage calls.
-        public SubstrateNetApi.Model.AuthorityDiscoveryStorage AuthorityDiscoveryStorage;
-        
-        // AuthorityDiscoveryCall storage calls.
-        public SubstrateNetApi.Model.AuthorityDiscoveryCall AuthorityDiscoveryCall;
+        public SubstrateNetApi.Model.PalletAuthorityDiscovery.AuthorityDiscoveryStorage AuthorityDiscoveryStorage;
         
         // OffencesStorage storage calls.
-        public SubstrateNetApi.Model.OffencesStorage OffencesStorage;
-        
-        // OffencesCall storage calls.
-        public SubstrateNetApi.Model.OffencesCall OffencesCall;
+        public SubstrateNetApi.Model.PalletOffences.OffencesStorage OffencesStorage;
         
         // HistoricalStorage storage calls.
-        public SubstrateNetApi.Model.HistoricalStorage HistoricalStorage;
-        
-        // HistoricalCall storage calls.
-        public SubstrateNetApi.Model.HistoricalCall HistoricalCall;
+        public SubstrateNetApi.Model.PalletHistorical.HistoricalStorage HistoricalStorage;
         
         // RandomnessCollectiveFlipStorage storage calls.
-        public SubstrateNetApi.Model.RandomnessCollectiveFlipStorage RandomnessCollectiveFlipStorage;
-        
-        // RandomnessCollectiveFlipCall storage calls.
-        public SubstrateNetApi.Model.RandomnessCollectiveFlipCall RandomnessCollectiveFlipCall;
+        public SubstrateNetApi.Model.PalletRandomnessCollectiveFlip.RandomnessCollectiveFlipStorage RandomnessCollectiveFlipStorage;
         
         // IdentityStorage storage calls.
-        public SubstrateNetApi.Model.IdentityStorage IdentityStorage;
-        
-        // IdentityCall storage calls.
-        public SubstrateNetApi.Model.IdentityCall IdentityCall;
+        public SubstrateNetApi.Model.PalletIdentity.IdentityStorage IdentityStorage;
         
         // SocietyStorage storage calls.
-        public SubstrateNetApi.Model.SocietyStorage SocietyStorage;
-        
-        // SocietyCall storage calls.
-        public SubstrateNetApi.Model.SocietyCall SocietyCall;
+        public SubstrateNetApi.Model.PalletSociety.SocietyStorage SocietyStorage;
         
         // RecoveryStorage storage calls.
-        public SubstrateNetApi.Model.RecoveryStorage RecoveryStorage;
-        
-        // RecoveryCall storage calls.
-        public SubstrateNetApi.Model.RecoveryCall RecoveryCall;
+        public SubstrateNetApi.Model.PalletRecovery.RecoveryStorage RecoveryStorage;
         
         // VestingStorage storage calls.
-        public SubstrateNetApi.Model.VestingStorage VestingStorage;
-        
-        // VestingCall storage calls.
-        public SubstrateNetApi.Model.VestingCall VestingCall;
+        public SubstrateNetApi.Model.PalletVesting.VestingStorage VestingStorage;
         
         // SchedulerStorage storage calls.
-        public SubstrateNetApi.Model.SchedulerStorage SchedulerStorage;
-        
-        // SchedulerCall storage calls.
-        public SubstrateNetApi.Model.SchedulerCall SchedulerCall;
+        public SubstrateNetApi.Model.PalletScheduler.SchedulerStorage SchedulerStorage;
         
         // ProxyStorage storage calls.
-        public SubstrateNetApi.Model.ProxyStorage ProxyStorage;
-        
-        // ProxyCall storage calls.
-        public SubstrateNetApi.Model.ProxyCall ProxyCall;
+        public SubstrateNetApi.Model.PalletProxy.ProxyStorage ProxyStorage;
         
         // MultisigStorage storage calls.
-        public SubstrateNetApi.Model.MultisigStorage MultisigStorage;
-        
-        // MultisigCall storage calls.
-        public SubstrateNetApi.Model.MultisigCall MultisigCall;
+        public SubstrateNetApi.Model.PalletMultisig.MultisigStorage MultisigStorage;
         
         // BountiesStorage storage calls.
-        public SubstrateNetApi.Model.BountiesStorage BountiesStorage;
-        
-        // BountiesCall storage calls.
-        public SubstrateNetApi.Model.BountiesCall BountiesCall;
+        public SubstrateNetApi.Model.PalletBounties.BountiesStorage BountiesStorage;
         
         // TipsStorage storage calls.
-        public SubstrateNetApi.Model.TipsStorage TipsStorage;
-        
-        // TipsCall storage calls.
-        public SubstrateNetApi.Model.TipsCall TipsCall;
+        public SubstrateNetApi.Model.PalletTips.TipsStorage TipsStorage;
         
         // AssetsStorage storage calls.
-        public SubstrateNetApi.Model.AssetsStorage AssetsStorage;
-        
-        // AssetsCall storage calls.
-        public SubstrateNetApi.Model.AssetsCall AssetsCall;
+        public SubstrateNetApi.Model.PalletAssets.AssetsStorage AssetsStorage;
         
         // MmrStorage storage calls.
-        public SubstrateNetApi.Model.MmrStorage MmrStorage;
-        
-        // MmrCall storage calls.
-        public SubstrateNetApi.Model.MmrCall MmrCall;
+        public SubstrateNetApi.Model.PalletMmr.MmrStorage MmrStorage;
         
         // LotteryStorage storage calls.
-        public SubstrateNetApi.Model.LotteryStorage LotteryStorage;
-        
-        // LotteryCall storage calls.
-        public SubstrateNetApi.Model.LotteryCall LotteryCall;
+        public SubstrateNetApi.Model.PalletLottery.LotteryStorage LotteryStorage;
         
         // GiltStorage storage calls.
-        public SubstrateNetApi.Model.GiltStorage GiltStorage;
-        
-        // GiltCall storage calls.
-        public SubstrateNetApi.Model.GiltCall GiltCall;
+        public SubstrateNetApi.Model.PalletGilt.GiltStorage GiltStorage;
         
         // UniquesStorage storage calls.
-        public SubstrateNetApi.Model.UniquesStorage UniquesStorage;
-        
-        // UniquesCall storage calls.
-        public SubstrateNetApi.Model.UniquesCall UniquesCall;
+        public SubstrateNetApi.Model.PalletUniques.UniquesStorage UniquesStorage;
         
         // TransactionStorageStorage storage calls.
-        public SubstrateNetApi.Model.TransactionStorageStorage TransactionStorageStorage;
-        
-        // TransactionStorageCall storage calls.
-        public SubstrateNetApi.Model.TransactionStorageCall TransactionStorageCall;
+        public SubstrateNetApi.Model.PalletTransactionStorage.TransactionStorageStorage TransactionStorageStorage;
         
         // BagsListStorage storage calls.
-        public SubstrateNetApi.Model.BagsListStorage BagsListStorage;
-        
-        // BagsListCall storage calls.
-        public SubstrateNetApi.Model.BagsListCall BagsListCall;
+        public SubstrateNetApi.Model.PalletBagsList.BagsListStorage BagsListStorage;
         
         public SubstrateClientExt(System.Uri uri) : 
                 base(uri)
         {
-            this.SystemStorage = new SubstrateNetApi.Model.SystemStorage(this);
-            this.SystemCall = new SubstrateNetApi.Model.SystemCall(this);
-            this.UtilityStorage = new SubstrateNetApi.Model.UtilityStorage(this);
-            this.UtilityCall = new SubstrateNetApi.Model.UtilityCall(this);
-            this.BabeStorage = new SubstrateNetApi.Model.BabeStorage(this);
-            this.BabeCall = new SubstrateNetApi.Model.BabeCall(this);
-            this.TimestampStorage = new SubstrateNetApi.Model.TimestampStorage(this);
-            this.TimestampCall = new SubstrateNetApi.Model.TimestampCall(this);
-            this.AuthorshipStorage = new SubstrateNetApi.Model.AuthorshipStorage(this);
-            this.AuthorshipCall = new SubstrateNetApi.Model.AuthorshipCall(this);
-            this.IndicesStorage = new SubstrateNetApi.Model.IndicesStorage(this);
-            this.IndicesCall = new SubstrateNetApi.Model.IndicesCall(this);
-            this.BalancesStorage = new SubstrateNetApi.Model.BalancesStorage(this);
-            this.BalancesCall = new SubstrateNetApi.Model.BalancesCall(this);
-            this.TransactionPaymentStorage = new SubstrateNetApi.Model.TransactionPaymentStorage(this);
-            this.TransactionPaymentCall = new SubstrateNetApi.Model.TransactionPaymentCall(this);
-            this.ElectionProviderMultiPhaseStorage = new SubstrateNetApi.Model.ElectionProviderMultiPhaseStorage(this);
-            this.ElectionProviderMultiPhaseCall = new SubstrateNetApi.Model.ElectionProviderMultiPhaseCall(this);
-            this.StakingStorage = new SubstrateNetApi.Model.StakingStorage(this);
-            this.StakingCall = new SubstrateNetApi.Model.StakingCall(this);
-            this.SessionStorage = new SubstrateNetApi.Model.SessionStorage(this);
-            this.SessionCall = new SubstrateNetApi.Model.SessionCall(this);
-            this.DemocracyStorage = new SubstrateNetApi.Model.DemocracyStorage(this);
-            this.DemocracyCall = new SubstrateNetApi.Model.DemocracyCall(this);
-            this.CouncilStorage = new SubstrateNetApi.Model.CouncilStorage(this);
-            this.CouncilCall = new SubstrateNetApi.Model.CouncilCall(this);
-            this.TechnicalCommitteeStorage = new SubstrateNetApi.Model.TechnicalCommitteeStorage(this);
-            this.TechnicalCommitteeCall = new SubstrateNetApi.Model.TechnicalCommitteeCall(this);
-            this.ElectionsStorage = new SubstrateNetApi.Model.ElectionsStorage(this);
-            this.ElectionsCall = new SubstrateNetApi.Model.ElectionsCall(this);
-            this.TechnicalMembershipStorage = new SubstrateNetApi.Model.TechnicalMembershipStorage(this);
-            this.TechnicalMembershipCall = new SubstrateNetApi.Model.TechnicalMembershipCall(this);
-            this.GrandpaStorage = new SubstrateNetApi.Model.GrandpaStorage(this);
-            this.GrandpaCall = new SubstrateNetApi.Model.GrandpaCall(this);
-            this.TreasuryStorage = new SubstrateNetApi.Model.TreasuryStorage(this);
-            this.TreasuryCall = new SubstrateNetApi.Model.TreasuryCall(this);
-            this.ContractsStorage = new SubstrateNetApi.Model.ContractsStorage(this);
-            this.ContractsCall = new SubstrateNetApi.Model.ContractsCall(this);
-            this.SudoStorage = new SubstrateNetApi.Model.SudoStorage(this);
-            this.SudoCall = new SubstrateNetApi.Model.SudoCall(this);
-            this.ImOnlineStorage = new SubstrateNetApi.Model.ImOnlineStorage(this);
-            this.ImOnlineCall = new SubstrateNetApi.Model.ImOnlineCall(this);
-            this.AuthorityDiscoveryStorage = new SubstrateNetApi.Model.AuthorityDiscoveryStorage(this);
-            this.AuthorityDiscoveryCall = new SubstrateNetApi.Model.AuthorityDiscoveryCall(this);
-            this.OffencesStorage = new SubstrateNetApi.Model.OffencesStorage(this);
-            this.OffencesCall = new SubstrateNetApi.Model.OffencesCall(this);
-            this.HistoricalStorage = new SubstrateNetApi.Model.HistoricalStorage(this);
-            this.HistoricalCall = new SubstrateNetApi.Model.HistoricalCall(this);
-            this.RandomnessCollectiveFlipStorage = new SubstrateNetApi.Model.RandomnessCollectiveFlipStorage(this);
-            this.RandomnessCollectiveFlipCall = new SubstrateNetApi.Model.RandomnessCollectiveFlipCall(this);
-            this.IdentityStorage = new SubstrateNetApi.Model.IdentityStorage(this);
-            this.IdentityCall = new SubstrateNetApi.Model.IdentityCall(this);
-            this.SocietyStorage = new SubstrateNetApi.Model.SocietyStorage(this);
-            this.SocietyCall = new SubstrateNetApi.Model.SocietyCall(this);
-            this.RecoveryStorage = new SubstrateNetApi.Model.RecoveryStorage(this);
-            this.RecoveryCall = new SubstrateNetApi.Model.RecoveryCall(this);
-            this.VestingStorage = new SubstrateNetApi.Model.VestingStorage(this);
-            this.VestingCall = new SubstrateNetApi.Model.VestingCall(this);
-            this.SchedulerStorage = new SubstrateNetApi.Model.SchedulerStorage(this);
-            this.SchedulerCall = new SubstrateNetApi.Model.SchedulerCall(this);
-            this.ProxyStorage = new SubstrateNetApi.Model.ProxyStorage(this);
-            this.ProxyCall = new SubstrateNetApi.Model.ProxyCall(this);
-            this.MultisigStorage = new SubstrateNetApi.Model.MultisigStorage(this);
-            this.MultisigCall = new SubstrateNetApi.Model.MultisigCall(this);
-            this.BountiesStorage = new SubstrateNetApi.Model.BountiesStorage(this);
-            this.BountiesCall = new SubstrateNetApi.Model.BountiesCall(this);
-            this.TipsStorage = new SubstrateNetApi.Model.TipsStorage(this);
-            this.TipsCall = new SubstrateNetApi.Model.TipsCall(this);
-            this.AssetsStorage = new SubstrateNetApi.Model.AssetsStorage(this);
-            this.AssetsCall = new SubstrateNetApi.Model.AssetsCall(this);
-            this.MmrStorage = new SubstrateNetApi.Model.MmrStorage(this);
-            this.MmrCall = new SubstrateNetApi.Model.MmrCall(this);
-            this.LotteryStorage = new SubstrateNetApi.Model.LotteryStorage(this);
-            this.LotteryCall = new SubstrateNetApi.Model.LotteryCall(this);
-            this.GiltStorage = new SubstrateNetApi.Model.GiltStorage(this);
-            this.GiltCall = new SubstrateNetApi.Model.GiltCall(this);
-            this.UniquesStorage = new SubstrateNetApi.Model.UniquesStorage(this);
-            this.UniquesCall = new SubstrateNetApi.Model.UniquesCall(this);
-            this.TransactionStorageStorage = new SubstrateNetApi.Model.TransactionStorageStorage(this);
-            this.TransactionStorageCall = new SubstrateNetApi.Model.TransactionStorageCall(this);
-            this.BagsListStorage = new SubstrateNetApi.Model.BagsListStorage(this);
-            this.BagsListCall = new SubstrateNetApi.Model.BagsListCall(this);
+            this.SystemStorage = new SubstrateNetApi.Model.FrameSystem.SystemStorage(this);
+            this.UtilityStorage = new SubstrateNetApi.Model.PalletUtility.UtilityStorage(this);
+            this.BabeStorage = new SubstrateNetApi.Model.PalletBabe.BabeStorage(this);
+            this.TimestampStorage = new SubstrateNetApi.Model.PalletTimestamp.TimestampStorage(this);
+            this.AuthorshipStorage = new SubstrateNetApi.Model.PalletAuthorship.AuthorshipStorage(this);
+            this.IndicesStorage = new SubstrateNetApi.Model.PalletIndices.IndicesStorage(this);
+            this.BalancesStorage = new SubstrateNetApi.Model.PalletBalances.BalancesStorage(this);
+            this.TransactionPaymentStorage = new SubstrateNetApi.Model.PalletTransactionPayment.TransactionPaymentStorage(this);
+            this.ElectionProviderMultiPhaseStorage = new SubstrateNetApi.Model.PalletElectionProviderMultiPhase.ElectionProviderMultiPhaseStorage(this);
+            this.StakingStorage = new SubstrateNetApi.Model.PalletStaking.StakingStorage(this);
+            this.SessionStorage = new SubstrateNetApi.Model.PalletSession.SessionStorage(this);
+            this.DemocracyStorage = new SubstrateNetApi.Model.PalletDemocracy.DemocracyStorage(this);
+            this.CouncilStorage = new SubstrateNetApi.Model.PalletCouncil.CouncilStorage(this);
+            this.TechnicalCommitteeStorage = new SubstrateNetApi.Model.PalletTechnicalCommittee.TechnicalCommitteeStorage(this);
+            this.ElectionsStorage = new SubstrateNetApi.Model.PalletElections.ElectionsStorage(this);
+            this.TechnicalMembershipStorage = new SubstrateNetApi.Model.PalletTechnicalMembership.TechnicalMembershipStorage(this);
+            this.GrandpaStorage = new SubstrateNetApi.Model.PalletGrandpa.GrandpaStorage(this);
+            this.TreasuryStorage = new SubstrateNetApi.Model.PalletTreasury.TreasuryStorage(this);
+            this.ContractsStorage = new SubstrateNetApi.Model.PalletContracts.ContractsStorage(this);
+            this.SudoStorage = new SubstrateNetApi.Model.PalletSudo.SudoStorage(this);
+            this.ImOnlineStorage = new SubstrateNetApi.Model.PalletImOnline.ImOnlineStorage(this);
+            this.AuthorityDiscoveryStorage = new SubstrateNetApi.Model.PalletAuthorityDiscovery.AuthorityDiscoveryStorage(this);
+            this.OffencesStorage = new SubstrateNetApi.Model.PalletOffences.OffencesStorage(this);
+            this.HistoricalStorage = new SubstrateNetApi.Model.PalletHistorical.HistoricalStorage(this);
+            this.RandomnessCollectiveFlipStorage = new SubstrateNetApi.Model.PalletRandomnessCollectiveFlip.RandomnessCollectiveFlipStorage(this);
+            this.IdentityStorage = new SubstrateNetApi.Model.PalletIdentity.IdentityStorage(this);
+            this.SocietyStorage = new SubstrateNetApi.Model.PalletSociety.SocietyStorage(this);
+            this.RecoveryStorage = new SubstrateNetApi.Model.PalletRecovery.RecoveryStorage(this);
+            this.VestingStorage = new SubstrateNetApi.Model.PalletVesting.VestingStorage(this);
+            this.SchedulerStorage = new SubstrateNetApi.Model.PalletScheduler.SchedulerStorage(this);
+            this.ProxyStorage = new SubstrateNetApi.Model.PalletProxy.ProxyStorage(this);
+            this.MultisigStorage = new SubstrateNetApi.Model.PalletMultisig.MultisigStorage(this);
+            this.BountiesStorage = new SubstrateNetApi.Model.PalletBounties.BountiesStorage(this);
+            this.TipsStorage = new SubstrateNetApi.Model.PalletTips.TipsStorage(this);
+            this.AssetsStorage = new SubstrateNetApi.Model.PalletAssets.AssetsStorage(this);
+            this.MmrStorage = new SubstrateNetApi.Model.PalletMmr.MmrStorage(this);
+            this.LotteryStorage = new SubstrateNetApi.Model.PalletLottery.LotteryStorage(this);
+            this.GiltStorage = new SubstrateNetApi.Model.PalletGilt.GiltStorage(this);
+            this.UniquesStorage = new SubstrateNetApi.Model.PalletUniques.UniquesStorage(this);
+            this.TransactionStorageStorage = new SubstrateNetApi.Model.PalletTransactionStorage.TransactionStorageStorage(this);
+            this.BagsListStorage = new SubstrateNetApi.Model.PalletBagsList.BagsListStorage(this);
         }
     }
 }

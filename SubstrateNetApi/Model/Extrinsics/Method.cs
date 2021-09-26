@@ -59,6 +59,21 @@ namespace SubstrateNetApi.Model.Extrinsics
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Method"/> class.
+        /// </summary>
+        /// <param name="module">The module.</param>
+        /// <param name="call">The call.</param>
+        /// <param name="parameters">The parameters.</param>
+        public Method(byte moduleIndex, string moduleName, byte callIndex, string callName, byte[] parameters)
+        {
+            ModuleName = moduleName;
+            ModuleIndex = moduleIndex;
+            CallName = callName;
+            CallIndex = callIndex;
+            Parameters = parameters;
+        }
+
+        /// <summary>
         /// Encodes this instance.
         /// </summary>
         /// <returns></returns>

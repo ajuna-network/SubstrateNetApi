@@ -511,6 +511,38 @@ namespace SubstrateNetApi
             return RequestGenerator.SubmitExtrinsic(signed, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);
         }
 
+        /// <summary>
+        /// Get an unchecked extrinsic.
+        /// </summary>
+        /// <param name="callArguments"></param>
+        /// <param name="account"></param>
+        /// <param name="tip"></param>
+        /// <param name="lifeTime"></param>
+        /// <param name="signed"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task<UnCheckedExtrinsic> GetExtrinsicParametersAsync(Method method, Account account, uint tip, uint lifeTime, bool signed, CancellationToken token)
+        {
+            var nonce = await System.AccountNextIndexAsync(account.Value, token);
+
+            Era era;
+            Hash startEra;
+
+            if (lifeTime == 0)
+            {
+                era = Era.Create(0, 0);
+                startEra = GenesisHash;
+            }
+            else
+            {
+                startEra = await Chain.GetFinalizedHeadAsync(token);
+                var finalizedHeader = await Chain.GetHeaderAsync(startEra, token);
+                era = Era.Create(lifeTime, finalizedHeader.Number.Value);
+            }
+
+            return RequestGenerator.SubmitExtrinsic(signed, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);
+        }
+
         public Method GetMethod(GenericExtrinsicCall callArguments)
         {
             if (!MetaData.TryGetModuleByName(callArguments.ModuleName, out var module) ||

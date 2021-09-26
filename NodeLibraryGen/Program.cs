@@ -77,7 +77,6 @@ namespace RuntimeMetadata
             {
                 var moduleNameTuple = ModuleGenBuilder.Init(module.Index, module, typeDict, nodeTypes).Create().Build(write: true, out bool _);
                 moduleNames.Add(moduleNameTuple);
-                Console.WriteLine(JsonConvert.SerializeObject(moduleNameTuple));
             }
 
             ClientGenBuilder.Init(0, moduleNames, typeDict).Create().Build(write: true, out bool _);
@@ -329,7 +328,8 @@ namespace RuntimeMetadata
                     {
                         var fullItem = CallGenBuilder.Init(nodeType.Id, nodeType, typeDict)
                             .Create()
-                            .Build(write: true, out bool success);
+                            // we don't write here only at the end in the modules ....
+                            .Build(write: false, out bool success);
                         if (success)
                         {
                             typeDict.Add(nodeType.Id, fullItem);
@@ -340,8 +340,9 @@ namespace RuntimeMetadata
                 case "Event":
                     {
                         var fullItem = EventGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                                            .Create()
-                                            .Build(write: true, out bool success);
+                            .Create()
+                            // we don't write here only at the end in the modules ....
+                            .Build(write: false, out bool success);
                         if (success)
                         {
                             typeDict.Add(nodeType.Id, fullItem);
@@ -352,7 +353,9 @@ namespace RuntimeMetadata
                 case "Error":
                     {
                         var fullItem = ErrorGenBuilder.Init(nodeType.Id, nodeType, typeDict)
-                            .Create().Build(write: true, out bool success);
+                            .Create()
+                            // we don't write here only at the end in the modules ....
+                            .Build(write: false, out bool success);
                         if (success)
                         {
                             typeDict.Add(nodeType.Id, fullItem);

@@ -74,6 +74,13 @@ namespace SubstrateNetApi.Modules
             return await SubmitExtrinsicAsync(Utils.Bytes2HexString(extrinsic.Encode()), token);
         }
 
+        public async Task<Hash> SubmitExtrinsicAsync(Method method, Account account, uint tip, uint lifeTime, CancellationToken token)
+        {
+            var extrinsic = await _client.GetExtrinsicParametersAsync(method, account, tip, lifeTime, signed: true, token);
+
+            return await SubmitExtrinsicAsync(Utils.Bytes2HexString(extrinsic.Encode()), token);
+        }
+
         /// <summary>Submits the extrinsic asynchronous.</summary>
         /// <param name="parameters">The parameters.</param>
         /// <returns>
