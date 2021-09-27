@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class BaseEnumExt<T0, T1> : BaseType
+    public abstract class BaseEnumType : BaseType
+    {
+
+    }
+
+    public class BaseEnumExt<T0, T1> : BaseEnumType
                                         where T0 : System.Enum
                                         where T1 : IType, new()
     {
@@ -46,7 +52,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -60,7 +69,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2> : BaseType
+    public class BaseEnumExt<T0, T1, T2> : BaseEnumType
                                             where T0 : System.Enum
                                             where T1 : IType, new()
                                             where T2 : IType, new()
@@ -109,7 +118,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -121,7 +133,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3> : BaseType
+    public class BaseEnumExt<T0, T1, T2, T3> : BaseEnumType
                                                 where T0 : System.Enum
                                                 where T1 : IType, new()
                                                 where T2 : IType, new()
@@ -177,7 +189,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -191,7 +206,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4> : BaseType
+    public class BaseEnumExt<T0, T1, T2, T3, T4> : BaseEnumType
                                                     where T0 : System.Enum
                                                     where T1 : IType, new()
                                                     where T2 : IType, new()
@@ -254,7 +269,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -268,7 +286,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5> : BaseType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5> : BaseEnumType
                                                         where T0 : System.Enum
                                                         where T1 : IType, new()
                                                         where T2 : IType, new()
@@ -338,7 +356,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -352,7 +373,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6> : BaseType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6> : BaseEnumType
                                                             where T0 : System.Enum
                                                             where T1 : IType, new()
                                                             where T2 : IType, new()
@@ -429,7 +450,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -443,7 +467,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7> : BaseType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7> : BaseEnumType
                                                             where T0 : System.Enum
                                                             where T1 : IType, new()
                                                             where T2 : IType, new()
@@ -527,7 +551,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -541,7 +568,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8> : BaseType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8> : BaseEnumType
                                                                 where T0 : System.Enum
                                                                 where T1 : IType, new()
                                                                 where T2 : IType, new()
@@ -632,7 +659,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }
@@ -646,7 +676,7 @@ namespace SubstrateNetApi.Model.Types.Base
 
     }
 
-    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> : BaseType
+    public class BaseEnumExt<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> : BaseEnumType
         where T0 : System.Enum
         where T1 : IType, new()
         where T2 : IType, new()
@@ -744,7 +774,10 @@ namespace SubstrateNetApi.Model.Types.Base
 
         public void Create(T0 t, IType value2)
         {
-            Bytes = BitConverter.GetBytes(Convert.ToInt32(t));
+            List<byte> bytes = new List<byte>();
+            bytes.Add(Convert.ToByte(t));
+            bytes.AddRange(value2.Encode());
+            Bytes = bytes.ToArray();
             Value = t;
             Value2 = value2;
         }

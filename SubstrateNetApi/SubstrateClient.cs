@@ -139,49 +139,19 @@ namespace SubstrateNetApi
             _typeConverters.Add(converter.TypeName, converter);
         }
 
-        public async Task ConnectLightAsync(CancellationToken token)
-        {
-            if (_socket != null && _socket.State == WebSocketState.Open)
-                return;
-
-            if (_socket == null || _socket.State != WebSocketState.None)
-            {
-                _jsonRpc?.Dispose();
-                _socket?.Dispose();
-                _socket = new ClientWebSocket();
-            }
-
-            _connectTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _connectTokenSource.Token);
-            await _socket.ConnectAsync(_uri, linkedTokenSource.Token);
-            linkedTokenSource.Dispose();
-            _connectTokenSource.Dispose();
-            _connectTokenSource = null;
-            Logger.Debug("Connected to Websocket.");
-
-            var formatter = new JsonMessageFormatter();
-
-            _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
-            _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
-            _jsonRpc.TraceSource.Switch.Level = SourceLevels.Warning;
-            _jsonRpc.AddLocalRpcTarget(Listener, new JsonRpcTargetOptions { AllowNonPublicInvocation = false });
-            _jsonRpc.StartListening();
-            Logger.Debug("Listening to websocket.");
-        }
-
         /// <summary> Connects an asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <returns> An asynchronous result. </returns>
         public async Task ConnectAsync()
         {
-            await ConnectAsync(CancellationToken.None);
+            await ConnectAsync(true, CancellationToken.None);
         }
 
         /// <summary> Connects an asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> An asynchronous result. </returns>
-        public async Task ConnectAsync(CancellationToken token)
+        public async Task ConnectAsync(bool useMetaData, CancellationToken token)
         {
             if (_socket != null && _socket.State == WebSocketState.Open)
                 return;
@@ -218,10 +188,13 @@ namespace SubstrateNetApi
             _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
 
-            var result = await State.GetMetaDataAsync(token);
-            var metaDataParser = new MetaDataParser(_uri.OriginalString, result);
-            MetaData = metaDataParser.MetaData;
-            Logger.Debug("MetaData parsed.");
+            if (useMetaData)
+            {
+                var result = await State.GetMetaDataAsync(token);
+                var metaDataParser = new MetaDataParser(_uri.OriginalString, result);
+                MetaData = metaDataParser.MetaData;
+                Logger.Debug("MetaData parsed.");
+            }
 
             var genesis = new BlockNumber();
             genesis.Create(0);
