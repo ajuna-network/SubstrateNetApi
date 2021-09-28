@@ -39,13 +39,15 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         public static string ProxiesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Proxy", "Proxies", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Proxy", "Proxies", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Proxies
+        ///  The set of account proxies. Maps the account which has delegated to the accounts
+        ///  which are being delegated to, together with the amount held on deposit.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>> Proxies(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -55,13 +57,14 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         public static string AnnouncementsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Proxy", "Announcements", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Proxy", "Announcements", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Announcements
+        ///  The announcements made by the proxy (key).
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>> Announcements(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -75,6 +78,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> proxy
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Proxy(SubstrateNetApi.Model.SpCore.AccountId32 real, BaseOpt<SubstrateNetApi.Model.NodeRuntime.EnumProxyType> force_proxy_type, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -87,6 +91,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> add_proxy
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AddProxy(SubstrateNetApi.Model.SpCore.AccountId32 @delegate, SubstrateNetApi.Model.NodeRuntime.EnumProxyType proxy_type, SubstrateNetApi.Model.Types.Primitive.U32 delay)
         {
@@ -99,6 +104,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> remove_proxy
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveProxy(SubstrateNetApi.Model.SpCore.AccountId32 @delegate, SubstrateNetApi.Model.NodeRuntime.EnumProxyType proxy_type, SubstrateNetApi.Model.Types.Primitive.U32 delay)
         {
@@ -111,6 +117,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> remove_proxies
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveProxies()
         {
@@ -120,6 +127,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> anonymous
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Anonymous(SubstrateNetApi.Model.NodeRuntime.EnumProxyType proxy_type, SubstrateNetApi.Model.Types.Primitive.U32 delay, SubstrateNetApi.Model.Types.Primitive.U16 index)
         {
@@ -132,6 +140,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> kill_anonymous
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method KillAnonymous(SubstrateNetApi.Model.SpCore.AccountId32 spawner, SubstrateNetApi.Model.NodeRuntime.EnumProxyType proxy_type, SubstrateNetApi.Model.Types.Primitive.U16 index, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> height, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> ext_index)
         {
@@ -146,6 +155,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> announce
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Announce(SubstrateNetApi.Model.SpCore.AccountId32 real, SubstrateNetApi.Model.PrimitiveTypes.H256 call_hash)
         {
@@ -157,6 +167,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> remove_announcement
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveAnnouncement(SubstrateNetApi.Model.SpCore.AccountId32 real, SubstrateNetApi.Model.PrimitiveTypes.H256 call_hash)
         {
@@ -168,6 +179,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> reject_announcement
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RejectAnnouncement(SubstrateNetApi.Model.SpCore.AccountId32 @delegate, SubstrateNetApi.Model.PrimitiveTypes.H256 call_hash)
         {
@@ -179,6 +191,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> proxy_announced
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ProxyAnnounced(SubstrateNetApi.Model.SpCore.AccountId32 @delegate, SubstrateNetApi.Model.SpCore.AccountId32 real, BaseOpt<SubstrateNetApi.Model.NodeRuntime.EnumProxyType> force_proxy_type, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -193,6 +206,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     /// <summary>
     /// >> ProxyExecuted
+    /// A proxy was executed correctly, with the given \[result\].
     /// </summary>
     public sealed class EventProxyExecuted : BaseTuple<BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
     {
@@ -200,6 +214,9 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     /// <summary>
     /// >> AnonymousCreated
+    /// Anonymous account has been created by new proxy with given
+    /// disambiguation index and proxy type. \[anonymous, who, proxy_type,
+    /// disambiguation_index\]
     /// </summary>
     public sealed class EventAnonymousCreated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.NodeRuntime.EnumProxyType, SubstrateNetApi.Model.Types.Primitive.U16>
     {
@@ -207,6 +224,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     /// <summary>
     /// >> Announced
+    /// An announcement was placed to make a call in the future. \[real, proxy, call_hash\]
     /// </summary>
     public sealed class EventAnnounced : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PrimitiveTypes.H256>
     {
@@ -214,6 +232,7 @@ namespace SubstrateNetApi.Model.PalletProxy
     
     /// <summary>
     /// >> ProxyAdded
+    /// A proxy was added. \[delegator, delegatee, proxy_type, delay\]
     /// </summary>
     public sealed class EventProxyAdded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.NodeRuntime.EnumProxyType, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -224,41 +243,49 @@ namespace SubstrateNetApi.Model.PalletProxy
         
         /// <summary>
         /// >> TooMany
+        /// There are too many proxies registered or too many announcements pending.
         /// </summary>
         TooMany,
         
         /// <summary>
         /// >> NotFound
+        /// Proxy registration not found.
         /// </summary>
         NotFound,
         
         /// <summary>
         /// >> NotProxy
+        /// Sender is not a proxy of the account to be proxied.
         /// </summary>
         NotProxy,
         
         /// <summary>
         /// >> Unproxyable
+        /// A call which is incompatible with the proxy type's filter was attempted.
         /// </summary>
         Unproxyable,
         
         /// <summary>
         /// >> Duplicate
+        /// Account is already a proxy.
         /// </summary>
         Duplicate,
         
         /// <summary>
         /// >> NoPermission
+        /// Call may not be made by proxy because it may escalate its privileges.
         /// </summary>
         NoPermission,
         
         /// <summary>
         /// >> Unannounced
+        /// Announcement, if made at all, was made too recently.
         /// </summary>
         Unannounced,
         
         /// <summary>
         /// >> NoSelfProxy
+        /// Cannot add self as proxy.
         /// </summary>
         NoSelfProxy,
     }

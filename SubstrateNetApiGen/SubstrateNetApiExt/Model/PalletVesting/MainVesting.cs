@@ -39,13 +39,14 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         public static string VestingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Vesting", "Vesting", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Vesting", "Vesting", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Vesting
+        ///  Information regarding the vesting of a given account.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Vesting(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -55,12 +56,14 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         public static string StorageVersionParams()
         {
-            var parameters = RequestGenerator.GetStorage("Vesting", "StorageVersion", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Vesting", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> StorageVersion
+        ///  Storage version of the pallet.
+        /// 
+        ///  New networks start with latest version, as determined by the genesis build.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletVesting.EnumReleases> StorageVersion(CancellationToken token)
         {
@@ -74,6 +77,7 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         /// <summary>
         /// >> vest
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Vest()
         {
@@ -83,6 +87,7 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         /// <summary>
         /// >> vest_other
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method VestOther(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress target)
         {
@@ -93,6 +98,7 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         /// <summary>
         /// >> vested_transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method VestedTransfer(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress target, SubstrateNetApi.Model.PalletVesting.VestingInfo schedule)
         {
@@ -104,6 +110,7 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         /// <summary>
         /// >> force_vested_transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ForceVestedTransfer(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress source, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress target, SubstrateNetApi.Model.PalletVesting.VestingInfo schedule)
         {
@@ -116,6 +123,7 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         /// <summary>
         /// >> merge_schedules
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method MergeSchedules(SubstrateNetApi.Model.Types.Primitive.U32 schedule1_index, SubstrateNetApi.Model.Types.Primitive.U32 schedule2_index)
         {
@@ -128,6 +136,9 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     /// <summary>
     /// >> VestingUpdated
+    /// The amount vested has been updated. This could indicate a change in funds available.
+    /// The balance given is the amount which is left unvested (and thus locked).
+    /// \[account, unvested\]
     /// </summary>
     public sealed class EventVestingUpdated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -135,6 +146,7 @@ namespace SubstrateNetApi.Model.PalletVesting
     
     /// <summary>
     /// >> VestingCompleted
+    /// An \[account\] has become fully vested.
     /// </summary>
     public sealed class EventVestingCompleted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -145,26 +157,32 @@ namespace SubstrateNetApi.Model.PalletVesting
         
         /// <summary>
         /// >> NotVesting
+        /// The account given is not vesting.
         /// </summary>
         NotVesting,
         
         /// <summary>
         /// >> AtMaxVestingSchedules
+        /// The account already has `MaxVestingSchedules` count of schedules and thus
+        /// cannot add another one. Consider merging existing schedules in order to add another.
         /// </summary>
         AtMaxVestingSchedules,
         
         /// <summary>
         /// >> AmountLow
+        /// Amount being transferred is too low to create a vesting schedule.
         /// </summary>
         AmountLow,
         
         /// <summary>
         /// >> ScheduleIndexOutOfBounds
+        /// An index was out of bounds of the vesting schedules.
         /// </summary>
         ScheduleIndexOutOfBounds,
         
         /// <summary>
         /// >> InvalidScheduleParams
+        /// Failed to create a new schedule because some parameter was invalid.
         /// </summary>
         InvalidScheduleParams,
     }

@@ -38,13 +38,16 @@ namespace SubstrateNetApi.Model.PalletTips
         
         public static string TipsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Tips", "Tips", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Tips", "Tips", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Tips
+        ///  TipsMap that are not yet completed. Keyed by the hash of `(reason, who)` from the value.
+        ///  This has the insecure enumerable hash function since the key itself is already
+        ///  guaranteed to be a secure hash.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletTips.OpenTip> Tips(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
@@ -54,13 +57,15 @@ namespace SubstrateNetApi.Model.PalletTips
         
         public static string ReasonsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Tips", "Reasons", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Tips", "Reasons", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Reasons
+        ///  Simple preimage lookup from the reason's hash to the original data. Again, has an
+        ///  insecure enumerable hash since the key is guaranteed to be the result of a secure hash.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> Reasons(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
@@ -74,6 +79,7 @@ namespace SubstrateNetApi.Model.PalletTips
         
         /// <summary>
         /// >> report_awesome
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ReportAwesome(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> reason, SubstrateNetApi.Model.SpCore.AccountId32 who)
         {
@@ -85,6 +91,7 @@ namespace SubstrateNetApi.Model.PalletTips
         
         /// <summary>
         /// >> retract_tip
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RetractTip(SubstrateNetApi.Model.PrimitiveTypes.H256 hash)
         {
@@ -95,6 +102,7 @@ namespace SubstrateNetApi.Model.PalletTips
         
         /// <summary>
         /// >> tip_new
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method TipNew(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> reason, SubstrateNetApi.Model.SpCore.AccountId32 who, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> tip_value)
         {
@@ -107,6 +115,7 @@ namespace SubstrateNetApi.Model.PalletTips
         
         /// <summary>
         /// >> tip
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Tip(SubstrateNetApi.Model.PrimitiveTypes.H256 hash, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> tip_value)
         {
@@ -118,6 +127,7 @@ namespace SubstrateNetApi.Model.PalletTips
         
         /// <summary>
         /// >> close_tip
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CloseTip(SubstrateNetApi.Model.PrimitiveTypes.H256 hash)
         {
@@ -128,6 +138,7 @@ namespace SubstrateNetApi.Model.PalletTips
         
         /// <summary>
         /// >> slash_tip
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SlashTip(SubstrateNetApi.Model.PrimitiveTypes.H256 hash)
         {
@@ -139,6 +150,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     /// <summary>
     /// >> NewTip
+    /// A new tip suggestion has been opened. \[tip_hash\]
     /// </summary>
     public sealed class EventNewTip : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
     {
@@ -146,6 +158,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     /// <summary>
     /// >> TipClosing
+    /// A tip suggestion has reached threshold and is closing. \[tip_hash\]
     /// </summary>
     public sealed class EventTipClosing : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
     {
@@ -153,6 +166,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     /// <summary>
     /// >> TipClosed
+    /// A tip suggestion has been closed. \[tip_hash, who, payout\]
     /// </summary>
     public sealed class EventTipClosed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -160,6 +174,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     /// <summary>
     /// >> TipRetracted
+    /// A tip suggestion has been retracted. \[tip_hash\]
     /// </summary>
     public sealed class EventTipRetracted : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
     {
@@ -167,6 +182,7 @@ namespace SubstrateNetApi.Model.PalletTips
     
     /// <summary>
     /// >> TipSlashed
+    /// A tip suggestion has been slashed. \[tip_hash, finder, deposit\]
     /// </summary>
     public sealed class EventTipSlashed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -177,31 +193,37 @@ namespace SubstrateNetApi.Model.PalletTips
         
         /// <summary>
         /// >> ReasonTooBig
+        /// The reason given is just too big.
         /// </summary>
         ReasonTooBig,
         
         /// <summary>
         /// >> AlreadyKnown
+        /// The tip was already found/started.
         /// </summary>
         AlreadyKnown,
         
         /// <summary>
         /// >> UnknownTip
+        /// The tip hash is unknown.
         /// </summary>
         UnknownTip,
         
         /// <summary>
         /// >> NotFinder
+        /// The account attempting to retract the tip is not the finder of the tip.
         /// </summary>
         NotFinder,
         
         /// <summary>
         /// >> StillOpen
+        /// The tip cannot be claimed/closed because there are not enough tippers yet.
         /// </summary>
         StillOpen,
         
         /// <summary>
         /// >> Premature
+        /// The tip cannot be claimed/closed because it's still in the countdown period.
         /// </summary>
         Premature,
     }

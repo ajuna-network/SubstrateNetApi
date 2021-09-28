@@ -38,12 +38,12 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         public static string BountyCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("Bounties", "BountyCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Bounties", "BountyCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> BountyCount
+        ///  Number of bounty proposals that have been made.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> BountyCount(CancellationToken token)
         {
@@ -53,13 +53,14 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         public static string BountiesParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Bounties", "Bounties", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Bounties", "Bounties", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Bounties
+        ///  Bounties that have been made.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBounties.Bounty> Bounties(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -69,13 +70,14 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         public static string BountyDescriptionsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Bounties", "BountyDescriptions", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Bounties", "BountyDescriptions", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> BountyDescriptions
+        ///  The description of each bounty.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> BountyDescriptions(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -85,12 +87,12 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         public static string BountyApprovalsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Bounties", "BountyApprovals", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Bounties", "BountyApprovals", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> BountyApprovals
+        ///  Bounty indices that have been approved but not yet funded.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>> BountyApprovals(CancellationToken token)
         {
@@ -104,6 +106,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> propose_bounty
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ProposeBounty(BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> description)
         {
@@ -115,6 +118,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> approve_bounty
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ApproveBounty(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id)
         {
@@ -125,6 +129,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> propose_curator
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ProposeCurator(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress curator, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> fee)
         {
@@ -137,6 +142,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> unassign_curator
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method UnassignCurator(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id)
         {
@@ -147,6 +153,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> accept_curator
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AcceptCurator(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id)
         {
@@ -157,6 +164,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> award_bounty
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AwardBounty(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress beneficiary)
         {
@@ -168,6 +176,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> claim_bounty
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ClaimBounty(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id)
         {
@@ -178,6 +187,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> close_bounty
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CloseBounty(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id)
         {
@@ -188,6 +198,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> extend_bounty_expiry
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ExtendBountyExpiry(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> bounty_id, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> remark)
         {
@@ -200,6 +211,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     /// <summary>
     /// >> BountyProposed
+    /// New bounty proposal. \[index\]
     /// </summary>
     public sealed class EventBountyProposed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -207,6 +219,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     /// <summary>
     /// >> BountyRejected
+    /// A bounty proposal was rejected; funds were slashed. \[index, bond\]
     /// </summary>
     public sealed class EventBountyRejected : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -214,6 +227,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     /// <summary>
     /// >> BountyBecameActive
+    /// A bounty proposal is funded and became active. \[index\]
     /// </summary>
     public sealed class EventBountyBecameActive : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -221,6 +235,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     /// <summary>
     /// >> BountyAwarded
+    /// A bounty is awarded to a beneficiary. \[index, beneficiary\]
     /// </summary>
     public sealed class EventBountyAwarded : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -228,6 +243,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     /// <summary>
     /// >> BountyClaimed
+    /// A bounty is claimed by beneficiary. \[index, payout, beneficiary\]
     /// </summary>
     public sealed class EventBountyClaimed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -235,6 +251,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     /// <summary>
     /// >> BountyCanceled
+    /// A bounty is cancelled. \[index\]
     /// </summary>
     public sealed class EventBountyCanceled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -242,6 +259,7 @@ namespace SubstrateNetApi.Model.PalletBounties
     
     /// <summary>
     /// >> BountyExtended
+    /// A bounty expiry is extended. \[index\]
     /// </summary>
     public sealed class EventBountyExtended : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -252,46 +270,56 @@ namespace SubstrateNetApi.Model.PalletBounties
         
         /// <summary>
         /// >> InsufficientProposersBalance
+        /// Proposer's balance is too low.
         /// </summary>
         InsufficientProposersBalance,
         
         /// <summary>
         /// >> InvalidIndex
+        /// No proposal or bounty at that index.
         /// </summary>
         InvalidIndex,
         
         /// <summary>
         /// >> ReasonTooBig
+        /// The reason given is just too big.
         /// </summary>
         ReasonTooBig,
         
         /// <summary>
         /// >> UnexpectedStatus
+        /// The bounty status is unexpected.
         /// </summary>
         UnexpectedStatus,
         
         /// <summary>
         /// >> RequireCurator
+        /// Require bounty curator.
         /// </summary>
         RequireCurator,
         
         /// <summary>
         /// >> InvalidValue
+        /// Invalid bounty value.
         /// </summary>
         InvalidValue,
         
         /// <summary>
         /// >> InvalidFee
+        /// Invalid bounty fee.
         /// </summary>
         InvalidFee,
         
         /// <summary>
         /// >> PendingPayout
+        /// A bounty payout is pending.
+        /// To cancel the bounty, you must unassign and slash the curator.
         /// </summary>
         PendingPayout,
         
         /// <summary>
         /// >> Premature
+        /// The bounties cannot be claimed/closed because it's still in the countdown period.
         /// </summary>
         Premature,
     }

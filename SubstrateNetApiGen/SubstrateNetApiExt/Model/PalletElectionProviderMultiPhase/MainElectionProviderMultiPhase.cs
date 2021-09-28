@@ -40,12 +40,17 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string RoundParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Round", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Round", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Round
+        ///  Internal counter for the number of rounds.
+        /// 
+        ///  This is useful for de-duplication of transactions submitted to the pool, and general
+        ///  diagnostics of the pallet.
+        /// 
+        ///  This is merely incremented once per every time that an upstream `elect` is called.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Round(CancellationToken token)
         {
@@ -55,12 +60,12 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string CurrentPhaseParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "CurrentPhase", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "CurrentPhase", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> CurrentPhase
+        ///  Current phase.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumPhase> CurrentPhase(CancellationToken token)
         {
@@ -70,12 +75,12 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string QueuedSolutionParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "QueuedSolution", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "QueuedSolution", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> QueuedSolution
+        ///  Current best solution, signed or unsigned, queued to be returned upon `elect`.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.ReadySolution> QueuedSolution(CancellationToken token)
         {
@@ -85,12 +90,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string SnapshotParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Snapshot", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Snapshot", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Snapshot
+        ///  Snapshot data of the round.
+        /// 
+        ///  This is created at the beginning of the signed phase and cleared upon calling `elect`.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.RoundSnapshot> Snapshot(CancellationToken token)
         {
@@ -100,12 +107,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string DesiredTargetsParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "DesiredTargets", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "DesiredTargets", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> DesiredTargets
+        ///  Desired number of targets to elect for this round.
+        /// 
+        ///  Only exists when [`Snapshot`] is present.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> DesiredTargets(CancellationToken token)
         {
@@ -115,12 +124,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string SnapshotMetadataParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SnapshotMetadata", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SnapshotMetadata", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> SnapshotMetadata
+        ///  The metadata of the [`RoundSnapshot`]
+        /// 
+        ///  Only exists when [`Snapshot`] is present.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SolutionOrSnapshotSize> SnapshotMetadata(CancellationToken token)
         {
@@ -130,12 +141,20 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string SignedSubmissionNextIndexParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionNextIndex", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionNextIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> SignedSubmissionNextIndex
+        ///  The next index to be assigned to an incoming signed submission.
+        /// 
+        ///  Every accepted submission is assigned a unique index; that index is bound to that particular
+        ///  submission for the duration of the election. On election finalization, the next index is
+        ///  reset to 0.
+        /// 
+        ///  We can't just use `SignedSubmissionIndices.len()`, because that's a bounded set; past its
+        ///  capacity, it will simply saturate. We can't just iterate over `SignedSubmissionsMap`,
+        ///  because iteration is slow. Instead, we store the value here.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> SignedSubmissionNextIndex(CancellationToken token)
         {
@@ -145,12 +164,17 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string SignedSubmissionIndicesParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionIndices", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionIndices", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> SignedSubmissionIndices
+        ///  A sorted, bounded set of `(score, index)`, where each `index` points to a value in
+        ///  `SignedSubmissions`.
+        /// 
+        ///  We never need to process more than a single signed submission at a time. Signed submissions
+        ///  can be quite large, so we're willing to pay the cost of multiple database accesses to access
+        ///  them one at a time instead of reading and decoding all of them at once.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedBTreeMap> SignedSubmissionIndices(CancellationToken token)
         {
@@ -160,13 +184,20 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string SignedSubmissionsMapParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionsMap", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionsMap", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> SignedSubmissionsMap
+        ///  Unchecked, signed solutions.
+        /// 
+        ///  Together with `SubmissionIndices`, this stores a bounded set of `SignedSubmissions` while
+        ///  allowing us to keep only a single one in memory at a time.
+        /// 
+        ///  Twox note: the key of the map is an auto-incrementing index which users cannot inspect or
+        ///  affect; we shouldn't need a cryptographically secure hasher.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SignedSubmission> SignedSubmissionsMap(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -176,12 +207,15 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         public static string MinimumUntrustedScoreParams()
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "MinimumUntrustedScore", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "MinimumUntrustedScore", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> MinimumUntrustedScore
+        ///  The minimum score that each 'untrusted' solution must attain in order to be considered
+        ///  feasible.
+        /// 
+        ///  Can be set via `set_minimum_untrusted_score`.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Base.Arr3U128> MinimumUntrustedScore(CancellationToken token)
         {
@@ -195,6 +229,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         /// <summary>
         /// >> submit_unsigned
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SubmitUnsigned(SubstrateNetApi.Model.PalletElectionProviderMultiPhase.RawSolution raw_solution, SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SolutionOrSnapshotSize witness)
         {
@@ -206,6 +241,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         /// <summary>
         /// >> set_minimum_untrusted_score
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetMinimumUntrustedScore(BaseOpt<SubstrateNetApi.Model.Base.Arr3U128> maybe_next_score)
         {
@@ -216,6 +252,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         /// <summary>
         /// >> set_emergency_election_result
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetEmergencyElectionResult(BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpNposElections.Support>> supports)
         {
@@ -226,6 +263,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         /// <summary>
         /// >> submit
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Submit(SubstrateNetApi.Model.PalletElectionProviderMultiPhase.RawSolution raw_solution, SubstrateNetApi.Model.Types.Primitive.U32 num_signed_submissions)
         {
@@ -238,6 +276,12 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     /// <summary>
     /// >> SolutionStored
+    /// A solution was stored with the given compute.
+    /// 
+    /// If the solution is signed, this means that it hasn't yet been processed. If the
+    /// solution is unsigned, this means that it has also been processed.
+    /// 
+    /// The `bool` is `true` when a previous solution was ejected to make room for this one.
     /// </summary>
     public sealed class EventSolutionStored : BaseTuple<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumElectionCompute, SubstrateNetApi.Model.Types.Primitive.Bool>
     {
@@ -245,6 +289,8 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     /// <summary>
     /// >> ElectionFinalized
+    /// The election has been finalized, with `Some` of the given computation, or else if the
+    /// election failed, `None`.
     /// </summary>
     public sealed class EventElectionFinalized : BaseTuple<BaseOpt<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumElectionCompute>>
     {
@@ -252,6 +298,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     /// <summary>
     /// >> Rewarded
+    /// An account has been rewarded for their signed submission being finalized.
     /// </summary>
     public sealed class EventRewarded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -259,6 +306,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     /// <summary>
     /// >> Slashed
+    /// An account has been slashed for submitting an invalid signed submission.
     /// </summary>
     public sealed class EventSlashed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -266,6 +314,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     /// <summary>
     /// >> SignedPhaseStarted
+    /// The signed phase of the given round has started.
     /// </summary>
     public sealed class EventSignedPhaseStarted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -273,6 +322,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
     
     /// <summary>
     /// >> UnsignedPhaseStarted
+    /// The unsigned phase of the given round has started.
     /// </summary>
     public sealed class EventUnsignedPhaseStarted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -283,56 +333,67 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         
         /// <summary>
         /// >> PreDispatchEarlySubmission
+        /// Submission was too early.
         /// </summary>
         PreDispatchEarlySubmission,
         
         /// <summary>
         /// >> PreDispatchWrongWinnerCount
+        /// Wrong number of winners presented.
         /// </summary>
         PreDispatchWrongWinnerCount,
         
         /// <summary>
         /// >> PreDispatchWeakSubmission
+        /// Submission was too weak, score-wise.
         /// </summary>
         PreDispatchWeakSubmission,
         
         /// <summary>
         /// >> SignedQueueFull
+        /// The queue was full, and the solution was not better than any of the existing ones.
         /// </summary>
         SignedQueueFull,
         
         /// <summary>
         /// >> SignedCannotPayDeposit
+        /// The origin failed to pay the deposit.
         /// </summary>
         SignedCannotPayDeposit,
         
         /// <summary>
         /// >> SignedInvalidWitness
+        /// Witness data to dispatchable is invalid.
         /// </summary>
         SignedInvalidWitness,
         
         /// <summary>
         /// >> SignedTooMuchWeight
+        /// The signed submission consumes too much weight
         /// </summary>
         SignedTooMuchWeight,
         
         /// <summary>
         /// >> OcwCallWrongEra
+        /// OCW submitted solution for wrong round
         /// </summary>
         OcwCallWrongEra,
         
         /// <summary>
         /// >> MissingSnapshotMetadata
+        /// Snapshot metadata should exist but didn't.
         /// </summary>
         MissingSnapshotMetadata,
         
         /// <summary>
         /// >> InvalidSubmissionIndex
+        /// `Self::insert_submission` returned an invalid index.
         /// </summary>
         InvalidSubmissionIndex,
         
         /// <summary>
         /// >> CallNotAllowed
+        /// The call is not allowed at this point.
         /// </summary>
         CallNotAllowed,
     }

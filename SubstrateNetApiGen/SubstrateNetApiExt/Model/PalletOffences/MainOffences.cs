@@ -38,13 +38,14 @@ namespace SubstrateNetApi.Model.PalletOffences
         
         public static string ReportsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Offences", "Reports", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Offences", "Reports", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Reports
+        ///  The primary structure that holds all offence records keyed by report identifiers.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpStaking.OffenceDetails> Reports(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
@@ -54,13 +55,15 @@ namespace SubstrateNetApi.Model.PalletOffences
         
         public static string ConcurrentReportsIndexParams(BaseTuple<SubstrateNetApi.Model.Base.Arr16U8,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Offences", "ConcurrentReportsIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Offences", "ConcurrentReportsIndex", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ConcurrentReportsIndex
+        ///  A vector of reports of the same kind that happened at the same time slot.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>> ConcurrentReportsIndex(BaseTuple<SubstrateNetApi.Model.Base.Arr16U8,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key, CancellationToken token)
         {
@@ -70,13 +73,19 @@ namespace SubstrateNetApi.Model.PalletOffences
         
         public static string ReportsByKindIndexParams(SubstrateNetApi.Model.Base.Arr16U8 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Offences", "ReportsByKindIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Offences", "ReportsByKindIndex", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ReportsByKindIndex
+        ///  Enumerates all reports of a kind along with the time they happened.
+        /// 
+        ///  All reports are sorted by the time of offence.
+        /// 
+        ///  Note that the actual type of this mapping is `Vec<u8>`, this is because values of
+        ///  different types are not supported at the moment so we are doing the manual serialization.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> ReportsByKindIndex(SubstrateNetApi.Model.Base.Arr16U8 key, CancellationToken token)
         {
@@ -91,6 +100,9 @@ namespace SubstrateNetApi.Model.PalletOffences
     
     /// <summary>
     /// >> Offence
+    /// There is an offence reported of the given `kind` happened at the `session_index` and
+    /// (kind-specific) time slot. This event is not deposited for duplicate slashes.
+    /// \[kind, timeslot\].
     /// </summary>
     public sealed class EventOffence : BaseTuple<SubstrateNetApi.Model.Base.Arr16U8, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>
     {

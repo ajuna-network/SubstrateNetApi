@@ -37,12 +37,12 @@ namespace SubstrateNetApi.Model.PalletSession
         
         public static string ValidatorsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Session", "Validators", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Session", "Validators", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Validators
+        ///  The current set of validators.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Validators(CancellationToken token)
         {
@@ -52,12 +52,12 @@ namespace SubstrateNetApi.Model.PalletSession
         
         public static string CurrentIndexParams()
         {
-            var parameters = RequestGenerator.GetStorage("Session", "CurrentIndex", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Session", "CurrentIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> CurrentIndex
+        ///  Current index of the session.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CurrentIndex(CancellationToken token)
         {
@@ -67,12 +67,13 @@ namespace SubstrateNetApi.Model.PalletSession
         
         public static string QueuedChangedParams()
         {
-            var parameters = RequestGenerator.GetStorage("Session", "QueuedChanged", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Session", "QueuedChanged", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> QueuedChanged
+        ///  True if the underlying economic identities or weighting behind the validators
+        ///  has changed in the queued validator set.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> QueuedChanged(CancellationToken token)
         {
@@ -82,12 +83,13 @@ namespace SubstrateNetApi.Model.PalletSession
         
         public static string QueuedKeysParams()
         {
-            var parameters = RequestGenerator.GetStorage("Session", "QueuedKeys", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Session", "QueuedKeys", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> QueuedKeys
+        ///  The queued keys for the next session. When the next session begins, these keys
+        ///  will be used to determine the validator's session keys.
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.NodeRuntime.SessionKeys>>> QueuedKeys(CancellationToken token)
         {
@@ -97,12 +99,14 @@ namespace SubstrateNetApi.Model.PalletSession
         
         public static string DisabledValidatorsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Session", "DisabledValidators", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Session", "DisabledValidators", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> DisabledValidators
+        ///  Indices of disabled validators.
+        /// 
+        ///  The set is cleared when `on_session_ending` returns a new set of identities.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>> DisabledValidators(CancellationToken token)
         {
@@ -112,13 +116,14 @@ namespace SubstrateNetApi.Model.PalletSession
         
         public static string NextKeysParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Session", "NextKeys", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Session", "NextKeys", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> NextKeys
+        ///  The next session keys for a validator.
         /// </summary>
         public async Task<SubstrateNetApi.Model.NodeRuntime.SessionKeys> NextKeys(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -128,13 +133,14 @@ namespace SubstrateNetApi.Model.PalletSession
         
         public static string KeyOwnerParams(BaseTuple<SubstrateNetApi.Model.SpCore.KeyTypeId,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Session", "KeyOwner", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Session", "KeyOwner", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> KeyOwner
+        ///  The owner of a key. The key is the `KeyTypeId` + the encoded key.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> KeyOwner(BaseTuple<SubstrateNetApi.Model.SpCore.KeyTypeId,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key, CancellationToken token)
         {
@@ -148,6 +154,9 @@ namespace SubstrateNetApi.Model.PalletSession
         
         /// <summary>
         /// >> set_keys
+        /// Dispatchable calls.
+        /// 
+        /// Each variant of this enum maps to a dispatchable function from the associated module.
         /// </summary>
         public static Method SetKeys(SubstrateNetApi.Model.NodeRuntime.SessionKeys keys, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> proof)
         {
@@ -159,6 +168,9 @@ namespace SubstrateNetApi.Model.PalletSession
         
         /// <summary>
         /// >> purge_keys
+        /// Dispatchable calls.
+        /// 
+        /// Each variant of this enum maps to a dispatchable function from the associated module.
         /// </summary>
         public static Method PurgeKeys()
         {
@@ -169,6 +181,8 @@ namespace SubstrateNetApi.Model.PalletSession
     
     /// <summary>
     /// >> NewSession
+    /// New session has happened. Note that the argument is the \[session_index\], not the
+    /// block number as the type might suggest.
     /// </summary>
     public sealed class EventNewSession : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -179,26 +193,31 @@ namespace SubstrateNetApi.Model.PalletSession
         
         /// <summary>
         /// >> InvalidProof
+        /// Invalid ownership proof.
         /// </summary>
         InvalidProof,
         
         /// <summary>
         /// >> NoAssociatedValidatorId
+        /// No associated validator ID for account.
         /// </summary>
         NoAssociatedValidatorId,
         
         /// <summary>
         /// >> DuplicatedKey
+        /// Registered duplicate key.
         /// </summary>
         DuplicatedKey,
         
         /// <summary>
         /// >> NoKeys
+        /// No keys are associated with this account.
         /// </summary>
         NoKeys,
         
         /// <summary>
         /// >> NoAccount
+        /// Key setting account is not live, so it's impossible to associate keys.
         /// </summary>
         NoAccount,
     }

@@ -38,13 +38,14 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         public static string RecoverableParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Recovery", "Recoverable", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Recovery", "Recoverable", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Recoverable
+        ///  The set of recoverable accounts and their recovery configuration.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletRecovery.RecoveryConfig> Recoverable(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -54,13 +55,18 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         public static string ActiveRecoveriesParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Recovery", "ActiveRecoveries", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Recovery", "ActiveRecoveries", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ActiveRecoveries
+        ///  Active recovery attempts.
+        /// 
+        ///  First account is the account to be recovered, and the second account
+        ///  is the user trying to recover the account.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletRecovery.ActiveRecovery> ActiveRecoveries(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
@@ -70,13 +76,16 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         public static string ProxyParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Recovery", "Proxy", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Recovery", "Proxy", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Proxy
+        ///  The list of allowed proxy accounts.
+        /// 
+        ///  Map from the user who can access it to the recovered account.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Proxy(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -90,6 +99,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> as_recovered
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AsRecovered(SubstrateNetApi.Model.SpCore.AccountId32 account, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -101,6 +111,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> set_recovered
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetRecovered(SubstrateNetApi.Model.SpCore.AccountId32 lost, SubstrateNetApi.Model.SpCore.AccountId32 rescuer)
         {
@@ -112,6 +123,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> create_recovery
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CreateRecovery(BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> friends, SubstrateNetApi.Model.Types.Primitive.U16 threshold, SubstrateNetApi.Model.Types.Primitive.U32 delay_period)
         {
@@ -124,6 +136,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> initiate_recovery
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method InitiateRecovery(SubstrateNetApi.Model.SpCore.AccountId32 account)
         {
@@ -134,6 +147,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> vouch_recovery
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method VouchRecovery(SubstrateNetApi.Model.SpCore.AccountId32 lost, SubstrateNetApi.Model.SpCore.AccountId32 rescuer)
         {
@@ -145,6 +159,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> claim_recovery
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ClaimRecovery(SubstrateNetApi.Model.SpCore.AccountId32 account)
         {
@@ -155,6 +170,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> close_recovery
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CloseRecovery(SubstrateNetApi.Model.SpCore.AccountId32 rescuer)
         {
@@ -165,6 +181,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> remove_recovery
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveRecovery()
         {
@@ -174,6 +191,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> cancel_recovered
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CancelRecovered(SubstrateNetApi.Model.SpCore.AccountId32 account)
         {
@@ -185,6 +203,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     /// <summary>
     /// >> RecoveryCreated
+    /// A recovery process has been set up for an \[account\].
     /// </summary>
     public sealed class EventRecoveryCreated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -192,6 +211,8 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     /// <summary>
     /// >> RecoveryInitiated
+    /// A recovery process has been initiated for lost account by rescuer account.
+    /// \[lost, rescuer\]
     /// </summary>
     public sealed class EventRecoveryInitiated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -199,6 +220,8 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     /// <summary>
     /// >> RecoveryVouched
+    /// A recovery process for lost account by rescuer account has been vouched for by sender.
+    /// \[lost, rescuer, sender\]
     /// </summary>
     public sealed class EventRecoveryVouched : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -206,6 +229,8 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     /// <summary>
     /// >> RecoveryClosed
+    /// A recovery process for lost account by rescuer account has been closed.
+    /// \[lost, rescuer\]
     /// </summary>
     public sealed class EventRecoveryClosed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -213,6 +238,8 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     /// <summary>
     /// >> AccountRecovered
+    /// Lost account has been successfully recovered by rescuer account.
+    /// \[lost, rescuer\]
     /// </summary>
     public sealed class EventAccountRecovered : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -220,6 +247,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
     
     /// <summary>
     /// >> RecoveryRemoved
+    /// A recovery process has been removed for an \[account\].
     /// </summary>
     public sealed class EventRecoveryRemoved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -230,81 +258,97 @@ namespace SubstrateNetApi.Model.PalletRecovery
         
         /// <summary>
         /// >> NotAllowed
+        /// User is not allowed to make a call on behalf of this account
         /// </summary>
         NotAllowed,
         
         /// <summary>
         /// >> ZeroThreshold
+        /// Threshold must be greater than zero
         /// </summary>
         ZeroThreshold,
         
         /// <summary>
         /// >> NotEnoughFriends
+        /// Friends list must be greater than zero and threshold
         /// </summary>
         NotEnoughFriends,
         
         /// <summary>
         /// >> MaxFriends
+        /// Friends list must be less than max friends
         /// </summary>
         MaxFriends,
         
         /// <summary>
         /// >> NotSorted
+        /// Friends list must be sorted and free of duplicates
         /// </summary>
         NotSorted,
         
         /// <summary>
         /// >> NotRecoverable
+        /// This account is not set up for recovery
         /// </summary>
         NotRecoverable,
         
         /// <summary>
         /// >> AlreadyRecoverable
+        /// This account is already set up for recovery
         /// </summary>
         AlreadyRecoverable,
         
         /// <summary>
         /// >> AlreadyStarted
+        /// A recovery process has already started for this account
         /// </summary>
         AlreadyStarted,
         
         /// <summary>
         /// >> NotStarted
+        /// A recovery process has not started for this rescuer
         /// </summary>
         NotStarted,
         
         /// <summary>
         /// >> NotFriend
+        /// This account is not a friend who can vouch
         /// </summary>
         NotFriend,
         
         /// <summary>
         /// >> DelayPeriod
+        /// The friend must wait until the delay period to vouch for this recovery
         /// </summary>
         DelayPeriod,
         
         /// <summary>
         /// >> AlreadyVouched
+        /// This user has already vouched for this recovery
         /// </summary>
         AlreadyVouched,
         
         /// <summary>
         /// >> Threshold
+        /// The threshold for recovering this account has not been met
         /// </summary>
         Threshold,
         
         /// <summary>
         /// >> StillActive
+        /// There are still active recovery attempts that need to be closed
         /// </summary>
         StillActive,
         
         /// <summary>
         /// >> AlreadyProxy
+        /// This account is already set up for recovery
         /// </summary>
         AlreadyProxy,
         
         /// <summary>
         /// >> BadState
+        /// Some internal state is broken.
         /// </summary>
         BadState,
     }

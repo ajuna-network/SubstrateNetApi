@@ -38,12 +38,12 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         public static string StateParams()
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "State", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Grandpa", "State", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> State
+        ///  State of the current authority set.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletGrandpa.EnumStoredState> State(CancellationToken token)
         {
@@ -53,12 +53,12 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         public static string PendingChangeParams()
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "PendingChange", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Grandpa", "PendingChange", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> PendingChange
+        ///  Pending change: (signaled at, scheduled change).
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletGrandpa.StoredPendingChange> PendingChange(CancellationToken token)
         {
@@ -68,12 +68,12 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         public static string NextForcedParams()
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "NextForced", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Grandpa", "NextForced", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> NextForced
+        ///  next block number where we can force a change.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> NextForced(CancellationToken token)
         {
@@ -83,12 +83,12 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         public static string StalledParams()
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "Stalled", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Grandpa", "Stalled", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Stalled
+        ///  `true` if we are currently stalled.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> Stalled(CancellationToken token)
         {
@@ -98,12 +98,13 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         public static string CurrentSetIdParams()
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "CurrentSetId", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Grandpa", "CurrentSetId", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> CurrentSetId
+        ///  The number of changes (both in terms of keys and underlying economic responsibilities)
+        ///  in the "set" of Grandpa validators from genesis.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> CurrentSetId(CancellationToken token)
         {
@@ -113,13 +114,17 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         public static string SetIdSessionParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Grandpa", "SetIdSession", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Grandpa", "SetIdSession", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> SetIdSession
+        ///  A mapping from grandpa set ID to the index of the *most recent* session for which its
+        ///  members were responsible.
+        /// 
+        ///  TWOX-NOTE: `SetId` is not under user control.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> SetIdSession(SubstrateNetApi.Model.Types.Primitive.U64 key, CancellationToken token)
         {
@@ -133,6 +138,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         /// <summary>
         /// >> report_equivocation
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ReportEquivocation(SubstrateNetApi.Model.SpFinalityGrandpa.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -144,6 +150,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         /// <summary>
         /// >> report_equivocation_unsigned
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ReportEquivocationUnsigned(SubstrateNetApi.Model.SpFinalityGrandpa.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -155,6 +162,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         /// <summary>
         /// >> note_stalled
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method NoteStalled(SubstrateNetApi.Model.Types.Primitive.U32 delay, SubstrateNetApi.Model.Types.Primitive.U32 best_finalized_block_number)
         {
@@ -167,6 +175,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     /// <summary>
     /// >> NewAuthorities
+    /// New authority set has been applied. \[authority_set\]
     /// </summary>
     public sealed class EventNewAuthorities : BaseTuple<BaseVec<BaseTuple<SubstrateNetApi.Model.SpFinalityGrandpa.Public,SubstrateNetApi.Model.Types.Primitive.U64>>>
     {
@@ -174,6 +183,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     /// <summary>
     /// >> Paused
+    /// Current authority set has been paused.
     /// </summary>
     public sealed class EventPaused : BaseTuple
     {
@@ -181,6 +191,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
     
     /// <summary>
     /// >> Resumed
+    /// Current authority set has been resumed.
     /// </summary>
     public sealed class EventResumed : BaseTuple
     {
@@ -191,36 +202,45 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         
         /// <summary>
         /// >> PauseFailed
+        /// Attempt to signal GRANDPA pause when the authority set isn't live
+        /// (either paused or already pending pause).
         /// </summary>
         PauseFailed,
         
         /// <summary>
         /// >> ResumeFailed
+        /// Attempt to signal GRANDPA resume when the authority set isn't paused
+        /// (either live or already pending resume).
         /// </summary>
         ResumeFailed,
         
         /// <summary>
         /// >> ChangePending
+        /// Attempt to signal GRANDPA change with one already pending.
         /// </summary>
         ChangePending,
         
         /// <summary>
         /// >> TooSoon
+        /// Cannot signal forced change so soon after last.
         /// </summary>
         TooSoon,
         
         /// <summary>
         /// >> InvalidKeyOwnershipProof
+        /// A key ownership proof provided as part of an equivocation report is invalid.
         /// </summary>
         InvalidKeyOwnershipProof,
         
         /// <summary>
         /// >> InvalidEquivocationProof
+        /// An equivocation proof provided as part of an equivocation report is invalid.
         /// </summary>
         InvalidEquivocationProof,
         
         /// <summary>
         /// >> DuplicateOffenceReport
+        /// A given equivocation report is valid but already previously reported.
         /// </summary>
         DuplicateOffenceReport,
     }

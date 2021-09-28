@@ -38,12 +38,14 @@ namespace SubstrateNetApi.Model.PalletElections
         
         public static string MembersParams()
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "Members", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Elections", "Members", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Members
+        ///  The current elected members.
+        /// 
+        ///  Invariant: Always sorted based on account id.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>> Members(CancellationToken token)
         {
@@ -53,12 +55,15 @@ namespace SubstrateNetApi.Model.PalletElections
         
         public static string RunnersUpParams()
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "RunnersUp", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Elections", "RunnersUp", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> RunnersUp
+        ///  The current reserved runners-up.
+        /// 
+        ///  Invariant: Always sorted based on rank (worse to best). Upon removal of a member, the
+        ///  last (i.e. _best_) runner-up will be replaced.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>> RunnersUp(CancellationToken token)
         {
@@ -68,12 +73,17 @@ namespace SubstrateNetApi.Model.PalletElections
         
         public static string CandidatesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "Candidates", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Elections", "Candidates", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Candidates
+        ///  The present candidate list. A current member or runner-up can never enter this vector
+        ///  and is always implicitly assumed to be a candidate.
+        /// 
+        ///  Second element is the deposit.
+        /// 
+        ///  Invariant: Always sorted based on account id.
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>>> Candidates(CancellationToken token)
         {
@@ -83,12 +93,12 @@ namespace SubstrateNetApi.Model.PalletElections
         
         public static string ElectionRoundsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "ElectionRounds", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Elections", "ElectionRounds", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ElectionRounds
+        ///  The total number of vote rounds that have happened, excluding the upcoming one.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ElectionRounds(CancellationToken token)
         {
@@ -98,13 +108,16 @@ namespace SubstrateNetApi.Model.PalletElections
         
         public static string VotingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Elections", "Voting", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Elections", "Voting", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Voting
+        ///  Votes and locked stake of a particular voter.
+        /// 
+        ///  TWOX-NOTE: SAFE as `AccountId` is a crypto hash.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionsPhragmen.Voter> Voting(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -118,6 +131,7 @@ namespace SubstrateNetApi.Model.PalletElections
         
         /// <summary>
         /// >> vote
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Vote(BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> votes, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value)
         {
@@ -129,6 +143,7 @@ namespace SubstrateNetApi.Model.PalletElections
         
         /// <summary>
         /// >> remove_voter
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveVoter()
         {
@@ -138,6 +153,7 @@ namespace SubstrateNetApi.Model.PalletElections
         
         /// <summary>
         /// >> submit_candidacy
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SubmitCandidacy(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> candidate_count)
         {
@@ -148,6 +164,7 @@ namespace SubstrateNetApi.Model.PalletElections
         
         /// <summary>
         /// >> renounce_candidacy
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RenounceCandidacy(SubstrateNetApi.Model.PalletElectionsPhragmen.EnumRenouncing renouncing)
         {
@@ -158,6 +175,7 @@ namespace SubstrateNetApi.Model.PalletElections
         
         /// <summary>
         /// >> remove_member
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveMember(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress who, SubstrateNetApi.Model.Types.Primitive.Bool has_replacement)
         {
@@ -169,6 +187,7 @@ namespace SubstrateNetApi.Model.PalletElections
         
         /// <summary>
         /// >> clean_defunct_voters
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CleanDefunctVoters(SubstrateNetApi.Model.Types.Primitive.U32 num_voters, SubstrateNetApi.Model.Types.Primitive.U32 num_defunct)
         {
@@ -181,6 +200,11 @@ namespace SubstrateNetApi.Model.PalletElections
     
     /// <summary>
     /// >> NewTerm
+    /// A new term with \[new_members\]. This indicates that enough candidates existed to run
+    /// the election, not that enough have has been elected. The inner value must be examined
+    /// for this purpose. A `NewTerm(\[\])` indicates that some candidates got their bond
+    /// slashed and none were elected, whilst `EmptyTerm` means that no candidates existed to
+    /// begin with.
     /// </summary>
     public sealed class EventNewTerm : BaseTuple<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>>>
     {
@@ -188,6 +212,8 @@ namespace SubstrateNetApi.Model.PalletElections
     
     /// <summary>
     /// >> EmptyTerm
+    /// No (or not enough) candidates existed for this round. This is different from
+    /// `NewTerm(\[\])`. See the description of `NewTerm`.
     /// </summary>
     public sealed class EventEmptyTerm : BaseTuple
     {
@@ -195,6 +221,7 @@ namespace SubstrateNetApi.Model.PalletElections
     
     /// <summary>
     /// >> ElectionError
+    /// Internal error happened while trying to perform election.
     /// </summary>
     public sealed class EventElectionError : BaseTuple
     {
@@ -202,6 +229,8 @@ namespace SubstrateNetApi.Model.PalletElections
     
     /// <summary>
     /// >> MemberKicked
+    /// A \[member\] has been removed. This should always be followed by either `NewTerm` or
+    /// `EmptyTerm`.
     /// </summary>
     public sealed class EventMemberKicked : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -209,6 +238,7 @@ namespace SubstrateNetApi.Model.PalletElections
     
     /// <summary>
     /// >> Renounced
+    /// Someone has renounced their candidacy.
     /// </summary>
     public sealed class EventRenounced : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -216,6 +246,10 @@ namespace SubstrateNetApi.Model.PalletElections
     
     /// <summary>
     /// >> CandidateSlashed
+    /// A \[candidate\] was slashed by \[amount\] due to failing to obtain a seat as member or
+    /// runner-up.
+    /// 
+    /// Note that old members and runners-up are also candidates.
     /// </summary>
     public sealed class EventCandidateSlashed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -223,6 +257,7 @@ namespace SubstrateNetApi.Model.PalletElections
     
     /// <summary>
     /// >> SeatHolderSlashed
+    /// A \[seat holder\] was slashed by \[amount\] by being forcefully removed from the set.
     /// </summary>
     public sealed class EventSeatHolderSlashed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -233,86 +268,103 @@ namespace SubstrateNetApi.Model.PalletElections
         
         /// <summary>
         /// >> UnableToVote
+        /// Cannot vote when no candidates or members exist.
         /// </summary>
         UnableToVote,
         
         /// <summary>
         /// >> NoVotes
+        /// Must vote for at least one candidate.
         /// </summary>
         NoVotes,
         
         /// <summary>
         /// >> TooManyVotes
+        /// Cannot vote more than candidates.
         /// </summary>
         TooManyVotes,
         
         /// <summary>
         /// >> MaximumVotesExceeded
+        /// Cannot vote more than maximum allowed.
         /// </summary>
         MaximumVotesExceeded,
         
         /// <summary>
         /// >> LowBalance
+        /// Cannot vote with stake less than minimum balance.
         /// </summary>
         LowBalance,
         
         /// <summary>
         /// >> UnableToPayBond
+        /// Voter can not pay voting bond.
         /// </summary>
         UnableToPayBond,
         
         /// <summary>
         /// >> MustBeVoter
+        /// Must be a voter.
         /// </summary>
         MustBeVoter,
         
         /// <summary>
         /// >> ReportSelf
+        /// Cannot report self.
         /// </summary>
         ReportSelf,
         
         /// <summary>
         /// >> DuplicatedCandidate
+        /// Duplicated candidate submission.
         /// </summary>
         DuplicatedCandidate,
         
         /// <summary>
         /// >> MemberSubmit
+        /// Member cannot re-submit candidacy.
         /// </summary>
         MemberSubmit,
         
         /// <summary>
         /// >> RunnerUpSubmit
+        /// Runner cannot re-submit candidacy.
         /// </summary>
         RunnerUpSubmit,
         
         /// <summary>
         /// >> InsufficientCandidateFunds
+        /// Candidate does not have enough funds.
         /// </summary>
         InsufficientCandidateFunds,
         
         /// <summary>
         /// >> NotMember
+        /// Not a member.
         /// </summary>
         NotMember,
         
         /// <summary>
         /// >> InvalidWitnessData
+        /// The provided count of number of candidates is incorrect.
         /// </summary>
         InvalidWitnessData,
         
         /// <summary>
         /// >> InvalidVoteCount
+        /// The provided count of number of votes is incorrect.
         /// </summary>
         InvalidVoteCount,
         
         /// <summary>
         /// >> InvalidRenouncing
+        /// The renouncing origin presented a wrong `Renouncing` parameter.
         /// </summary>
         InvalidRenouncing,
         
         /// <summary>
         /// >> InvalidReplacement
+        /// Prediction regarding replacement after member removal is wrong.
         /// </summary>
         InvalidReplacement,
     }

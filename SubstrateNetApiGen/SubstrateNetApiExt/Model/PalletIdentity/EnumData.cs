@@ -119,44 +119,41 @@ namespace SubstrateNetApi.Model.PalletIdentity
         private IType DecodeOneOf(byte value, byte[] byteArray, ref int p)
         {
             IType result;
-            switch (value)
-            {
-                case 0: return null;
-                case 1: result = new Arr0U8(); result.Decode(byteArray, ref p); return result;
-                case 2: result = new Arr1U8(); result.Decode(byteArray, ref p); return result;
-                case 3: result = new Arr2U8(); result.Decode(byteArray, ref p); return result;
-                case 4: result = new Arr3U8(); result.Decode(byteArray, ref p); return result;
-                case 5: result = new Arr4U8(); result.Decode(byteArray, ref p); return result;
-                case 6: result = new Arr5U8(); result.Decode(byteArray, ref p); return result;
-                case 7: result = new Arr6U8(); result.Decode(byteArray, ref p); return result;
-                case 8: result = new Arr7U8(); result.Decode(byteArray, ref p); return result;
-                case 9: result = new Arr8U8(); result.Decode(byteArray, ref p); return result;
-                case 10: result = new Arr9U8(); result.Decode(byteArray, ref p); return result;
-                case 11: result = new Arr10U8(); result.Decode(byteArray, ref p); return result;
-                case 12: result = new Arr11U8(); result.Decode(byteArray, ref p); return result;
-                case 13: result = new Arr12U8(); result.Decode(byteArray, ref p); return result;
-                case 14: result = new Arr13U8(); result.Decode(byteArray, ref p); return result;
-                case 15: result = new Arr14U8(); result.Decode(byteArray, ref p); return result;
-                case 16: result = new Arr15U8(); result.Decode(byteArray, ref p); return result;
-                case 17: result = new Arr16U8(); result.Decode(byteArray, ref p); return result;
-                case 18: result = new Arr17U8(); result.Decode(byteArray, ref p); return result;
-                case 19: result = new Arr18U8(); result.Decode(byteArray, ref p); return result;
-                case 20: result = new Arr19U8(); result.Decode(byteArray, ref p); return result;
-                case 21: result = new Arr20U8(); result.Decode(byteArray, ref p); return result;
-                case 22: result = new Arr21U8(); result.Decode(byteArray, ref p); return result;
-                case 23: result = new Arr22U8(); result.Decode(byteArray, ref p); return result;
-                case 24: result = new Arr23U8(); result.Decode(byteArray, ref p); return result;
-                case 25: result = new Arr24U8(); result.Decode(byteArray, ref p); return result;
-                case 26: result = new Arr25U8(); result.Decode(byteArray, ref p); return result;
-                case 27: result = new Arr26U8(); result.Decode(byteArray, ref p); return result;
-                case 28: result = new Arr27U8(); result.Decode(byteArray, ref p); return result;
-                case 29: result = new Arr28U8(); result.Decode(byteArray, ref p); return result;
-                case 30: result = new Arr29U8(); result.Decode(byteArray, ref p); return result;
-                case 31: result = new Arr30U8(); result.Decode(byteArray, ref p); return result;
-                case 32: result = new Arr31U8(); result.Decode(byteArray, ref p); return result;
-                case 33: result = new Arr32U8(); result.Decode(byteArray, ref p); return result;
-                default: result = new Arr32U8(); result.Decode(byteArray, ref p); return result;
-            }
+            if (value == 0) { return null; }
+            else if (value == 1) { result = new Arr0U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 2) { result = new Arr1U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 3) { result = new Arr2U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 4) { result = new Arr3U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 5) { result = new Arr4U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 6) { result = new Arr5U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 7) { result = new Arr6U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 8) { result = new Arr7U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 9) { result = new Arr8U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 10) { result = new Arr9U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 11) { result = new Arr10U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 12) { result = new Arr11U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 13) { result = new Arr12U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 14) { result = new Arr13U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 15) { result = new Arr14U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 16) { result = new Arr15U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 17) { result = new Arr16U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 18) { result = new Arr17U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 19) { result = new Arr18U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 20) { result = new Arr19U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 21) { result = new Arr20U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 22) { result = new Arr21U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 23) { result = new Arr22U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 24) { result = new Arr23U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 25) { result = new Arr24U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 26) { result = new Arr25U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 27) { result = new Arr26U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 28) { result = new Arr27U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 29) { result = new Arr28U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 30) { result = new Arr29U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 31) { result = new Arr30U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 32) { result = new Arr31U8(); result.Decode(byteArray, ref p); return result; }
+            else if (value == 33) { result = new Arr32U8(); result.Decode(byteArray, ref p); return result; }
+            else { result = new Arr32U8(); result.Decode(byteArray, ref p); return result; }
         }
     }
 }

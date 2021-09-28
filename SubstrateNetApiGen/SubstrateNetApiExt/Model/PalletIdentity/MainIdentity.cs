@@ -39,13 +39,16 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         public static string IdentityOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Identity", "IdentityOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Identity", "IdentityOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> IdentityOf
+        ///  Information that is pertinent to identify the entity behind an account.
+        /// 
+        ///  TWOX-NOTE: OK ��� `AccountId` is a secure hash.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletIdentity.Registration> IdentityOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -55,13 +58,15 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         public static string SuperOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Identity", "SuperOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Identity", "SuperOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> SuperOf
+        ///  The super-identity of an alternative "sub" identity together with its name, within that
+        ///  context. If the account is not some other account's sub-identity, then just `None`.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletIdentity.EnumData>> SuperOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -71,13 +76,18 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         public static string SubsOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Identity", "SubsOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Identity", "SubsOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> SubsOf
+        ///  Alternative "sub" identities of this account.
+        /// 
+        ///  The first item is the deposit, the second is a vector of the accounts.
+        /// 
+        ///  TWOX-NOTE: OK ��� `AccountId` is a secure hash.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.FrameSupport.BoundedVec>> SubsOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -87,12 +97,15 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         public static string RegistrarsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Identity", "Registrars", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Identity", "Registrars", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Registrars
+        ///  The set of registrars. Not expected to get very big as can only be added through a
+        ///  special origin (likely a council motion).
+        /// 
+        ///  The index into this can be cast to `RegistrarIndex` to get a valid value.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Registrars(CancellationToken token)
         {
@@ -106,6 +119,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> add_registrar
+        /// Identity pallet declaration.
         /// </summary>
         public static Method AddRegistrar(SubstrateNetApi.Model.SpCore.AccountId32 account)
         {
@@ -116,6 +130,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> set_identity
+        /// Identity pallet declaration.
         /// </summary>
         public static Method SetIdentity(SubstrateNetApi.Model.PalletIdentity.IdentityInfo info)
         {
@@ -126,6 +141,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> set_subs
+        /// Identity pallet declaration.
         /// </summary>
         public static Method SetSubs(BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletIdentity.EnumData>> subs)
         {
@@ -136,6 +152,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> clear_identity
+        /// Identity pallet declaration.
         /// </summary>
         public static Method ClearIdentity()
         {
@@ -145,6 +162,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> request_judgement
+        /// Identity pallet declaration.
         /// </summary>
         public static Method RequestJudgement(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> reg_index, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> max_fee)
         {
@@ -156,6 +174,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> cancel_request
+        /// Identity pallet declaration.
         /// </summary>
         public static Method CancelRequest(SubstrateNetApi.Model.Types.Primitive.U32 reg_index)
         {
@@ -166,6 +185,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> set_fee
+        /// Identity pallet declaration.
         /// </summary>
         public static Method SetFee(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> index, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> fee)
         {
@@ -177,6 +197,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> set_account_id
+        /// Identity pallet declaration.
         /// </summary>
         public static Method SetAccountId(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> index, SubstrateNetApi.Model.SpCore.AccountId32 @new)
         {
@@ -188,6 +209,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> set_fields
+        /// Identity pallet declaration.
         /// </summary>
         public static Method SetFields(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> index, SubstrateNetApi.Model.PalletIdentity.BitFlags fields)
         {
@@ -199,6 +221,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> provide_judgement
+        /// Identity pallet declaration.
         /// </summary>
         public static Method ProvideJudgement(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> reg_index, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress target, SubstrateNetApi.Model.PalletIdentity.EnumJudgement judgement)
         {
@@ -211,6 +234,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> kill_identity
+        /// Identity pallet declaration.
         /// </summary>
         public static Method KillIdentity(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress target)
         {
@@ -221,6 +245,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> add_sub
+        /// Identity pallet declaration.
         /// </summary>
         public static Method AddSub(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress sub, SubstrateNetApi.Model.PalletIdentity.EnumData data)
         {
@@ -232,6 +257,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> rename_sub
+        /// Identity pallet declaration.
         /// </summary>
         public static Method RenameSub(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress sub, SubstrateNetApi.Model.PalletIdentity.EnumData data)
         {
@@ -243,6 +269,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> remove_sub
+        /// Identity pallet declaration.
         /// </summary>
         public static Method RemoveSub(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress sub)
         {
@@ -253,6 +280,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> quit_sub
+        /// Identity pallet declaration.
         /// </summary>
         public static Method QuitSub()
         {
@@ -263,6 +291,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> IdentitySet
+    /// A name was set or reset (which will remove all judgements). \[who\]
     /// </summary>
     public sealed class EventIdentitySet : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -270,6 +299,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> IdentityCleared
+    /// A name was cleared, and the given balance returned. \[who, deposit\]
     /// </summary>
     public sealed class EventIdentityCleared : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -277,6 +307,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> IdentityKilled
+    /// A name was removed and the given balance slashed. \[who, deposit\]
     /// </summary>
     public sealed class EventIdentityKilled : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -284,6 +315,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> JudgementRequested
+    /// A judgement was asked from a registrar. \[who, registrar_index\]
     /// </summary>
     public sealed class EventJudgementRequested : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -291,6 +323,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> JudgementUnrequested
+    /// A judgement request was retracted. \[who, registrar_index\]
     /// </summary>
     public sealed class EventJudgementUnrequested : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -298,6 +331,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> JudgementGiven
+    /// A judgement was given by a registrar. \[target, registrar_index\]
     /// </summary>
     public sealed class EventJudgementGiven : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -305,6 +339,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> RegistrarAdded
+    /// A registrar was added. \[registrar_index\]
     /// </summary>
     public sealed class EventRegistrarAdded : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -312,6 +347,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> SubIdentityAdded
+    /// A sub-identity was added to an identity and the deposit paid. \[sub, main, deposit\]
     /// </summary>
     public sealed class EventSubIdentityAdded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -319,6 +355,8 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> SubIdentityRemoved
+    /// A sub-identity was removed from an identity and the deposit freed.
+    /// \[sub, main, deposit\]
     /// </summary>
     public sealed class EventSubIdentityRemoved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -326,6 +364,8 @@ namespace SubstrateNetApi.Model.PalletIdentity
     
     /// <summary>
     /// >> SubIdentityRevoked
+    /// A sub-identity was cleared, and the given deposit repatriated from the
+    /// main identity account to the sub-identity account. \[sub, main, deposit\]
     /// </summary>
     public sealed class EventSubIdentityRevoked : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -336,81 +376,97 @@ namespace SubstrateNetApi.Model.PalletIdentity
         
         /// <summary>
         /// >> TooManySubAccounts
+        /// Too many subs-accounts.
         /// </summary>
         TooManySubAccounts,
         
         /// <summary>
         /// >> NotFound
+        /// Account isn't found.
         /// </summary>
         NotFound,
         
         /// <summary>
         /// >> NotNamed
+        /// Account isn't named.
         /// </summary>
         NotNamed,
         
         /// <summary>
         /// >> EmptyIndex
+        /// Empty index.
         /// </summary>
         EmptyIndex,
         
         /// <summary>
         /// >> FeeChanged
+        /// Fee is changed.
         /// </summary>
         FeeChanged,
         
         /// <summary>
         /// >> NoIdentity
+        /// No identity found.
         /// </summary>
         NoIdentity,
         
         /// <summary>
         /// >> StickyJudgement
+        /// Sticky judgement.
         /// </summary>
         StickyJudgement,
         
         /// <summary>
         /// >> JudgementGiven
+        /// Judgement given.
         /// </summary>
         JudgementGiven,
         
         /// <summary>
         /// >> InvalidJudgement
+        /// Invalid judgement.
         /// </summary>
         InvalidJudgement,
         
         /// <summary>
         /// >> InvalidIndex
+        /// The index is invalid.
         /// </summary>
         InvalidIndex,
         
         /// <summary>
         /// >> InvalidTarget
+        /// The target is invalid.
         /// </summary>
         InvalidTarget,
         
         /// <summary>
         /// >> TooManyFields
+        /// Too many additional fields.
         /// </summary>
         TooManyFields,
         
         /// <summary>
         /// >> TooManyRegistrars
+        /// Maximum amount of registrars reached. Cannot add any more.
         /// </summary>
         TooManyRegistrars,
         
         /// <summary>
         /// >> AlreadyClaimed
+        /// Account ID is already named.
         /// </summary>
         AlreadyClaimed,
         
         /// <summary>
         /// >> NotSub
+        /// Sender is not a sub-account.
         /// </summary>
         NotSub,
         
         /// <summary>
         /// >> NotOwned
+        /// Sub-account isn't owned by sender.
         /// </summary>
         NotOwned,
     }

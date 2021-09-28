@@ -35,12 +35,14 @@ namespace SubstrateNetApi.Model.PalletRandomnessCollectiveFlip
         
         public static string RandomMaterialParams()
         {
-            var parameters = RequestGenerator.GetStorage("RandomnessCollectiveFlip", "RandomMaterial", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("RandomnessCollectiveFlip", "RandomMaterial", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> RandomMaterial
+        ///  Series of block headers from the last 81 blocks that acts as random seed material. This
+        ///  is arranged as a ring buffer with `block_number % 81` being the index into the `Vec` of
+        ///  the oldest hash.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>> RandomMaterial(CancellationToken token)
         {

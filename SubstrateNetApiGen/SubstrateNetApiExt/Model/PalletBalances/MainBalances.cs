@@ -39,12 +39,12 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         public static string TotalIssuanceParams()
         {
-            var parameters = RequestGenerator.GetStorage("Balances", "TotalIssuance", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Balances", "TotalIssuance", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> TotalIssuance
+        ///  The total units issued in the system.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> TotalIssuance(CancellationToken token)
         {
@@ -54,13 +54,16 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         public static string AccountParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Balances", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Balances", "Account", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Account
+        ///  The balance of an account.
+        /// 
+        ///  NOTE: This is only used in the case that this pallet is used to store balances.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBalances.AccountData> Account(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -70,13 +73,15 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         public static string LocksParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Balances", "Locks", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Balances", "Locks", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Locks
+        ///  Any liquidity locks on some account balances.
+        ///  NOTE: Should only be accessed when setting, changing and freeing a lock.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> Locks(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -86,13 +91,14 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         public static string ReservesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Balances", "Reserves", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Balances", "Reserves", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Reserves
+        ///  Named reserves on some account balances.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Reserves(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -102,12 +108,14 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         public static string StorageVersionParams()
         {
-            var parameters = RequestGenerator.GetStorage("Balances", "StorageVersion", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Balances", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> StorageVersion
+        ///  Storage version of the pallet.
+        /// 
+        ///  This is set to v2.0.0 for new networks.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBalances.EnumReleases> StorageVersion(CancellationToken token)
         {
@@ -121,6 +129,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         /// <summary>
         /// >> transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Transfer(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress dest, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value)
         {
@@ -132,6 +141,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         /// <summary>
         /// >> set_balance
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetBalance(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress who, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> new_free, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> new_reserved)
         {
@@ -144,6 +154,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         /// <summary>
         /// >> force_transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ForceTransfer(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress source, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress dest, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value)
         {
@@ -156,6 +167,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         /// <summary>
         /// >> transfer_keep_alive
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method TransferKeepAlive(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress dest, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value)
         {
@@ -167,6 +179,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         /// <summary>
         /// >> transfer_all
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method TransferAll(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress dest, SubstrateNetApi.Model.Types.Primitive.Bool keep_alive)
         {
@@ -178,6 +191,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         /// <summary>
         /// >> force_unreserve
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ForceUnreserve(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress who, SubstrateNetApi.Model.Types.Primitive.U128 amount)
         {
@@ -190,6 +204,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> Endowed
+    /// An account was created with some free balance. \[account, free_balance\]
     /// </summary>
     public sealed class EventEndowed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -197,6 +212,8 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> DustLost
+    /// An account was removed whose balance was non-zero but below ExistentialDeposit,
+    /// resulting in an outright loss. \[account, balance\]
     /// </summary>
     public sealed class EventDustLost : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -204,6 +221,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> Transfer
+    /// Transfer succeeded. \[from, to, value\]
     /// </summary>
     public sealed class EventTransfer : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -211,6 +229,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> BalanceSet
+    /// A balance was set by root. \[who, free, reserved\]
     /// </summary>
     public sealed class EventBalanceSet : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -218,6 +237,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> Deposit
+    /// Some amount was deposited (e.g. for transaction fees). \[who, deposit\]
     /// </summary>
     public sealed class EventDeposit : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -225,6 +245,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> Reserved
+    /// Some balance was reserved (moved from free to reserved). \[who, value\]
     /// </summary>
     public sealed class EventReserved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -232,6 +253,7 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> Unreserved
+    /// Some balance was unreserved (moved from reserved to free). \[who, value\]
     /// </summary>
     public sealed class EventUnreserved : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -239,6 +261,9 @@ namespace SubstrateNetApi.Model.PalletBalances
     
     /// <summary>
     /// >> ReserveRepatriated
+    /// Some balance was moved from the reserve of the first account to the second account.
+    /// Final argument indicates the destination balance type.
+    /// \[from, to, balance, destination_status\]
     /// </summary>
     public sealed class EventReserveRepatriated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.FrameSupport.EnumBalanceStatus>
     {
@@ -249,41 +274,49 @@ namespace SubstrateNetApi.Model.PalletBalances
         
         /// <summary>
         /// >> VestingBalance
+        /// Vesting balance too high to send value
         /// </summary>
         VestingBalance,
         
         /// <summary>
         /// >> LiquidityRestrictions
+        /// Account liquidity restrictions prevent withdrawal
         /// </summary>
         LiquidityRestrictions,
         
         /// <summary>
         /// >> InsufficientBalance
+        /// Balance too low to send value
         /// </summary>
         InsufficientBalance,
         
         /// <summary>
         /// >> ExistentialDeposit
+        /// Value too low to create account due to existential deposit
         /// </summary>
         ExistentialDeposit,
         
         /// <summary>
         /// >> KeepAlive
+        /// Transfer/payment would kill account
         /// </summary>
         KeepAlive,
         
         /// <summary>
         /// >> ExistingVestingSchedule
+        /// A vesting schedule already exists for this account
         /// </summary>
         ExistingVestingSchedule,
         
         /// <summary>
         /// >> DeadAccount
+        /// Beneficiary account must pre-exist
         /// </summary>
         DeadAccount,
         
         /// <summary>
         /// >> TooManyReserves
+        /// Number of named reserves exceed MaxReserves
         /// </summary>
         TooManyReserves,
     }

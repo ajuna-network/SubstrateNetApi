@@ -40,12 +40,12 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string EpochIndexParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "EpochIndex", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "EpochIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> EpochIndex
+        ///  Current epoch index.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> EpochIndex(CancellationToken token)
         {
@@ -55,12 +55,12 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string AuthoritiesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Authorities", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "Authorities", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Authorities
+        ///  Current epoch authorities.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> Authorities(CancellationToken token)
         {
@@ -70,12 +70,13 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string GenesisSlotParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "GenesisSlot", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "GenesisSlot", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> GenesisSlot
+        ///  The slot at which the first epoch actually started. This is 0
+        ///  until the first block of the chain.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusSlots.Slot> GenesisSlot(CancellationToken token)
         {
@@ -85,12 +86,12 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string CurrentSlotParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "CurrentSlot", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "CurrentSlot", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> CurrentSlot
+        ///  Current slot number.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusSlots.Slot> CurrentSlot(CancellationToken token)
         {
@@ -100,12 +101,21 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string RandomnessParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Randomness", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "Randomness", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Randomness
+        ///  The epoch randomness for the *current* epoch.
+        /// 
+        ///  # Security
+        /// 
+        ///  This MUST NOT be used for gambling, as it can be influenced by a
+        ///  malicious validator in the short term. It MAY be used in many
+        ///  cryptographic protocols, however, so long as one remembers that this
+        ///  (like everything else on-chain) it is public. For example, it can be
+        ///  used where a number is needed that cannot have been chosen by an
+        ///  adversary, for purposes such as public-coin zero-knowledge proofs.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Base.Arr32U8> Randomness(CancellationToken token)
         {
@@ -115,12 +125,12 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string PendingEpochConfigChangeParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "PendingEpochConfigChange", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "PendingEpochConfigChange", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> PendingEpochConfigChange
+        ///  Pending epoch configuration change that will be applied when the next epoch is enacted.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusBabe.EnumNextConfigDescriptor> PendingEpochConfigChange(CancellationToken token)
         {
@@ -130,12 +140,12 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string NextRandomnessParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "NextRandomness", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "NextRandomness", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> NextRandomness
+        ///  Next epoch randomness.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Base.Arr32U8> NextRandomness(CancellationToken token)
         {
@@ -145,12 +155,12 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string NextAuthoritiesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "NextAuthorities", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "NextAuthorities", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> NextAuthorities
+        ///  Next epoch authorities.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> NextAuthorities(CancellationToken token)
         {
@@ -160,12 +170,20 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string SegmentIndexParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "SegmentIndex", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "SegmentIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> SegmentIndex
+        ///  Randomness under construction.
+        /// 
+        ///  We make a tradeoff between storage accesses and list length.
+        ///  We store the under-construction randomness in segments of up to
+        ///  `UNDER_CONSTRUCTION_SEGMENT_LENGTH`.
+        /// 
+        ///  Once a segment reaches this length, we begin the next one.
+        ///  We reset all segments and return to `0` at the beginning of every
+        ///  epoch.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> SegmentIndex(CancellationToken token)
         {
@@ -175,13 +193,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string UnderConstructionParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Babe", "UnderConstruction", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "UnderConstruction", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> UnderConstruction
+        ///  TWOX-NOTE: `SegmentIndex` is an increasing integer, so this is okay.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> UnderConstruction(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -191,12 +210,13 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string InitializedParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Initialized", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "Initialized", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Initialized
+        ///  Temporary value (cleared at block finalization) which is `Some`
+        ///  if per-block initialization has already been called for current block.
         /// </summary>
         public async Task<BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>> Initialized(CancellationToken token)
         {
@@ -206,12 +226,15 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string AuthorVrfRandomnessParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "AuthorVrfRandomness", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "AuthorVrfRandomness", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> AuthorVrfRandomness
+        ///  This field should always be populated during block processing unless
+        ///  secondary plain slots are enabled (which don't contain a VRF output).
+        /// 
+        ///  It is set in `on_initialize`, before it will contain the value from the last block.
         /// </summary>
         public async Task<BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>> AuthorVrfRandomness(CancellationToken token)
         {
@@ -221,12 +244,16 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string EpochStartParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "EpochStart", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "EpochStart", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> EpochStart
+        ///  The block numbers when the last and current epoch have started, respectively `N-1` and
+        ///  `N`.
+        ///  NOTE: We track this is in order to annotate the block number when a given pool of
+        ///  entropy was fixed (i.e. it was known to chain observers). Since epochs are defined in
+        ///  slots, which may be skipped, the block numbers may not line up with the slot numbers.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> EpochStart(CancellationToken token)
         {
@@ -236,12 +263,16 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string LatenessParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Lateness", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "Lateness", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Lateness
+        ///  How late the current block is compared to its parent.
+        /// 
+        ///  This entry is populated as part of block execution and is cleaned up
+        ///  on block finalization. Querying this storage entry outside of block
+        ///  execution context should always yield zero.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Lateness(CancellationToken token)
         {
@@ -251,12 +282,13 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string EpochConfigParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "EpochConfig", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "EpochConfig", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> EpochConfig
+        ///  The configuration for the current epoch. Should never be `None` as it is initialized in
+        ///  genesis.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration> EpochConfig(CancellationToken token)
         {
@@ -266,12 +298,13 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         public static string NextEpochConfigParams()
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "NextEpochConfig", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Babe", "NextEpochConfig", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> NextEpochConfig
+        ///  The configuration for the next epoch, `None` if the config will not change
+        ///  (you can fallback to `EpochConfig` instead in that case).
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration> NextEpochConfig(CancellationToken token)
         {
@@ -285,6 +318,7 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         /// <summary>
         /// >> report_equivocation
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ReportEquivocation(SubstrateNetApi.Model.SpConsensusSlots.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -296,6 +330,7 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         /// <summary>
         /// >> report_equivocation_unsigned
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ReportEquivocationUnsigned(SubstrateNetApi.Model.SpConsensusSlots.EquivocationProof equivocation_proof, SubstrateNetApi.Model.SpSession.MembershipProof key_owner_proof)
         {
@@ -307,6 +342,7 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         /// <summary>
         /// >> plan_config_change
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method PlanConfigChange(SubstrateNetApi.Model.SpConsensusBabe.EnumNextConfigDescriptor config)
         {
@@ -321,16 +357,19 @@ namespace SubstrateNetApi.Model.PalletBabe
         
         /// <summary>
         /// >> InvalidEquivocationProof
+        /// An equivocation proof provided as part of an equivocation report is invalid.
         /// </summary>
         InvalidEquivocationProof,
         
         /// <summary>
         /// >> InvalidKeyOwnershipProof
+        /// A key ownership proof provided as part of an equivocation report is invalid.
         /// </summary>
         InvalidKeyOwnershipProof,
         
         /// <summary>
         /// >> DuplicateOffenceReport
+        /// A given equivocation report is valid but already previously reported.
         /// </summary>
         DuplicateOffenceReport,
     }

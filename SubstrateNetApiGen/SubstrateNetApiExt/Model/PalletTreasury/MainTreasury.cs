@@ -39,12 +39,12 @@ namespace SubstrateNetApi.Model.PalletTreasury
         
         public static string ProposalCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("Treasury", "ProposalCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Treasury", "ProposalCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ProposalCount
+        ///  Number of proposals that have been made.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ProposalCount(CancellationToken token)
         {
@@ -54,13 +54,14 @@ namespace SubstrateNetApi.Model.PalletTreasury
         
         public static string ProposalsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Treasury", "Proposals", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Treasury", "Proposals", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Proposals
+        ///  Proposals that have been made.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletTreasury.Proposal> Proposals(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -70,12 +71,12 @@ namespace SubstrateNetApi.Model.PalletTreasury
         
         public static string ApprovalsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Treasury", "Approvals", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Treasury", "Approvals", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Approvals
+        ///  Proposal indices that have been approved but not yet awarded.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Approvals(CancellationToken token)
         {
@@ -89,6 +90,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
         
         /// <summary>
         /// >> propose_spend
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ProposeSpend(BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress beneficiary)
         {
@@ -100,6 +102,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
         
         /// <summary>
         /// >> reject_proposal
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RejectProposal(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> proposal_id)
         {
@@ -110,6 +113,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
         
         /// <summary>
         /// >> approve_proposal
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ApproveProposal(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> proposal_id)
         {
@@ -121,6 +125,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     /// <summary>
     /// >> Proposed
+    /// New proposal. \[proposal_index\]
     /// </summary>
     public sealed class EventProposed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -128,6 +133,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     /// <summary>
     /// >> Spending
+    /// We have ended a spend period and will now allocate funds. \[budget_remaining\]
     /// </summary>
     public sealed class EventSpending : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -135,6 +141,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     /// <summary>
     /// >> Awarded
+    /// Some funds have been allocated. \[proposal_index, award, beneficiary\]
     /// </summary>
     public sealed class EventAwarded : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -142,6 +149,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     /// <summary>
     /// >> Rejected
+    /// A proposal was rejected; funds were slashed. \[proposal_index, slashed\]
     /// </summary>
     public sealed class EventRejected : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -149,6 +157,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     /// <summary>
     /// >> Burnt
+    /// Some of our funds have been burnt. \[burn\]
     /// </summary>
     public sealed class EventBurnt : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -156,6 +165,8 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     /// <summary>
     /// >> Rollover
+    /// Spending has finished; this is the amount that rolls over until next spend.
+    /// \[budget_remaining\]
     /// </summary>
     public sealed class EventRollover : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -163,6 +174,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
     
     /// <summary>
     /// >> Deposit
+    /// Some funds have been deposited. \[deposit\]
     /// </summary>
     public sealed class EventDeposit : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -173,16 +185,19 @@ namespace SubstrateNetApi.Model.PalletTreasury
         
         /// <summary>
         /// >> InsufficientProposersBalance
+        /// Proposer's balance is too low.
         /// </summary>
         InsufficientProposersBalance,
         
         /// <summary>
         /// >> InvalidIndex
+        /// No proposal or bounty at that index.
         /// </summary>
         InvalidIndex,
         
         /// <summary>
         /// >> TooManyApprovals
+        /// Too many approvals in the queue.
         /// </summary>
         TooManyApprovals,
     }

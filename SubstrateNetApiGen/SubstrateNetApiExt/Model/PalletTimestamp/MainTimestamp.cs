@@ -35,12 +35,12 @@ namespace SubstrateNetApi.Model.PalletTimestamp
         
         public static string NowParams()
         {
-            var parameters = RequestGenerator.GetStorage("Timestamp", "Now", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Timestamp", "Now", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Now
+        ///  Current time for the current block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> Now(CancellationToken token)
         {
@@ -50,12 +50,12 @@ namespace SubstrateNetApi.Model.PalletTimestamp
         
         public static string DidUpdateParams()
         {
-            var parameters = RequestGenerator.GetStorage("Timestamp", "DidUpdate", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Timestamp", "DidUpdate", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> DidUpdate
+        ///  Did the timestamp get updated in this block?
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> DidUpdate(CancellationToken token)
         {
@@ -69,6 +69,7 @@ namespace SubstrateNetApi.Model.PalletTimestamp
         
         /// <summary>
         /// >> set
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Set(BaseCom<SubstrateNetApi.Model.Types.Primitive.U64> now)
         {

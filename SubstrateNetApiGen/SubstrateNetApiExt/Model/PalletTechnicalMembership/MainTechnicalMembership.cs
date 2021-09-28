@@ -35,12 +35,12 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         public static string MembersParams()
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalMembership", "Members", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TechnicalMembership", "Members", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Members
+        ///  The current membership, stored as an ordered Vec.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Members(CancellationToken token)
         {
@@ -50,12 +50,12 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         public static string PrimeParams()
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalMembership", "Prime", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TechnicalMembership", "Prime", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Prime
+        ///  The current prime member, if one exists.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Prime(CancellationToken token)
         {
@@ -69,6 +69,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> add_member
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AddMember(SubstrateNetApi.Model.SpCore.AccountId32 who)
         {
@@ -79,6 +80,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> remove_member
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveMember(SubstrateNetApi.Model.SpCore.AccountId32 who)
         {
@@ -89,6 +91,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> swap_member
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SwapMember(SubstrateNetApi.Model.SpCore.AccountId32 remove, SubstrateNetApi.Model.SpCore.AccountId32 add)
         {
@@ -100,6 +103,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> reset_members
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ResetMembers(BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> members)
         {
@@ -110,6 +114,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> change_key
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ChangeKey(SubstrateNetApi.Model.SpCore.AccountId32 @new)
         {
@@ -120,6 +125,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> set_prime
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetPrime(SubstrateNetApi.Model.SpCore.AccountId32 who)
         {
@@ -130,6 +136,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> clear_prime
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ClearPrime()
         {
@@ -140,6 +147,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
     
     /// <summary>
     /// >> MemberAdded
+    /// The given member was added; see the transaction for who.
     /// </summary>
     public sealed class EventMemberAdded : BaseTuple
     {
@@ -147,6 +155,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
     
     /// <summary>
     /// >> MemberRemoved
+    /// The given member was removed; see the transaction for who.
     /// </summary>
     public sealed class EventMemberRemoved : BaseTuple
     {
@@ -154,6 +163,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
     
     /// <summary>
     /// >> MembersSwapped
+    /// Two members were swapped; see the transaction for who.
     /// </summary>
     public sealed class EventMembersSwapped : BaseTuple
     {
@@ -161,6 +171,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
     
     /// <summary>
     /// >> MembersReset
+    /// The membership was reset; see the transaction for who the new set is.
     /// </summary>
     public sealed class EventMembersReset : BaseTuple
     {
@@ -168,6 +179,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
     
     /// <summary>
     /// >> KeyChanged
+    /// One of the members' keys changed.
     /// </summary>
     public sealed class EventKeyChanged : BaseTuple
     {
@@ -175,6 +187,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
     
     /// <summary>
     /// >> Dummy
+    /// Phantom member, never used.
     /// </summary>
     public sealed class EventDummy : BaseTuple
     {
@@ -185,11 +198,13 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         
         /// <summary>
         /// >> AlreadyMember
+        /// Already a member.
         /// </summary>
         AlreadyMember,
         
         /// <summary>
         /// >> NotMember
+        /// Not a member.
         /// </summary>
         NotMember,
     }

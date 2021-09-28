@@ -126,9 +126,9 @@ namespace RuntimeMetadata
                 comments.Add(new CodeCommentStatement($">> {typeName}", true));
             }
 
-            if (typeDef?.Docs != null)
+            if (docs != null)
             {
-                foreach (var doc in typeDef.Docs)
+                foreach (var doc in docs)
                 {
                     comments.Add(new CodeCommentStatement(doc, true));
                 }

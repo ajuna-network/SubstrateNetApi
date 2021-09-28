@@ -37,13 +37,14 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         public static string AgendaParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Scheduler", "Agenda", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Scheduler", "Agenda", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Agenda
+        ///  Items to be executed, indexed by the block number that they should be executed on.
         /// </summary>
         public async Task<BaseVec<BaseOpt<SubstrateNetApi.Model.PalletScheduler.ScheduledV2>>> Agenda(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -53,13 +54,14 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         public static string LookupParams(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Scheduler", "Lookup", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Scheduler", "Lookup", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Lookup
+        ///  Lookup from identity to the block number and index of the task.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> Lookup(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> key, CancellationToken token)
         {
@@ -69,12 +71,14 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         public static string StorageVersionParams()
         {
-            var parameters = RequestGenerator.GetStorage("Scheduler", "StorageVersion", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Scheduler", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> StorageVersion
+        ///  Storage version of the pallet.
+        /// 
+        ///  New networks start with last version.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletScheduler.EnumReleases> StorageVersion(CancellationToken token)
         {
@@ -88,6 +92,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         /// <summary>
         /// >> schedule
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Schedule(SubstrateNetApi.Model.Types.Primitive.U32 when, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -101,6 +106,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         /// <summary>
         /// >> cancel
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Cancel(SubstrateNetApi.Model.Types.Primitive.U32 when, SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -112,6 +118,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         /// <summary>
         /// >> schedule_named
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ScheduleNamed(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> id, SubstrateNetApi.Model.Types.Primitive.U32 when, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -126,6 +133,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         /// <summary>
         /// >> cancel_named
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CancelNamed(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> id)
         {
@@ -136,6 +144,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         /// <summary>
         /// >> schedule_after
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ScheduleAfter(SubstrateNetApi.Model.Types.Primitive.U32 after, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -149,6 +158,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         /// <summary>
         /// >> schedule_named_after
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ScheduleNamedAfter(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> id, SubstrateNetApi.Model.Types.Primitive.U32 after, BaseOpt<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> maybe_periodic, SubstrateNetApi.Model.Types.Primitive.U8 priority, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -164,6 +174,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     /// <summary>
     /// >> Scheduled
+    /// Scheduled some task. \[when, index\]
     /// </summary>
     public sealed class EventScheduled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -171,6 +182,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     /// <summary>
     /// >> Canceled
+    /// Canceled some task. \[when, index\]
     /// </summary>
     public sealed class EventCanceled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -178,6 +190,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
     
     /// <summary>
     /// >> Dispatched
+    /// Dispatched some task. \[task, id, result\]
     /// </summary>
     public sealed class EventDispatched : BaseTuple<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>, BaseOpt<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
     {
@@ -188,21 +201,25 @@ namespace SubstrateNetApi.Model.PalletScheduler
         
         /// <summary>
         /// >> FailedToSchedule
+        /// Failed to schedule a call
         /// </summary>
         FailedToSchedule,
         
         /// <summary>
         /// >> NotFound
+        /// Cannot find the scheduled call.
         /// </summary>
         NotFound,
         
         /// <summary>
         /// >> TargetBlockNumberInPast
+        /// Given target block number is in the past.
         /// </summary>
         TargetBlockNumberInPast,
         
         /// <summary>
         /// >> RescheduleNoChange
+        /// Reschedule failed because it does not change scheduled time.
         /// </summary>
         RescheduleNoChange,
     }

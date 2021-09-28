@@ -37,13 +37,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string TransactionsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "Transactions", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "Transactions", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Transactions
+        ///  Collection of transaction metadata by block number.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletTransactionStorage.TransactionInfo>> Transactions(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -53,13 +54,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string ChunkCountParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ChunkCount", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "ChunkCount", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ChunkCount
+        ///  Count indexed chunks for each block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ChunkCount(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -69,12 +71,12 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string ByteFeeParams()
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ByteFee", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "ByteFee", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ByteFee
+        ///  Storage fee per byte.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> ByteFee(CancellationToken token)
         {
@@ -84,12 +86,12 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string EntryFeeParams()
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "EntryFee", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "EntryFee", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> EntryFee
+        ///  Storage fee per transaction.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> EntryFee(CancellationToken token)
         {
@@ -99,12 +101,12 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string MaxTransactionSizeParams()
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "MaxTransactionSize", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "MaxTransactionSize", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> MaxTransactionSize
+        ///  Maximum data set in a single transaction in bytes.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxTransactionSize(CancellationToken token)
         {
@@ -114,12 +116,12 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string MaxBlockTransactionsParams()
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "MaxBlockTransactions", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "MaxBlockTransactions", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> MaxBlockTransactions
+        ///  Maximum number of indexed transactions in the block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxBlockTransactions(CancellationToken token)
         {
@@ -129,12 +131,13 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string StoragePeriodParams()
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "StoragePeriod", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "StoragePeriod", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> StoragePeriod
+        ///  Storage period for data in blocks. Should match `sp_storage_proof::DEFAULT_STORAGE_PERIOD`
+        ///  for block authoring.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> StoragePeriod(CancellationToken token)
         {
@@ -144,8 +147,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string BlockTransactionsParams()
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "BlockTransactions", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "BlockTransactions", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
@@ -159,12 +161,12 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         public static string ProofCheckedParams()
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ProofChecked", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("TransactionStorage", "ProofChecked", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ProofChecked
+        ///  Was the proof checked in this block?
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> ProofChecked(CancellationToken token)
         {
@@ -178,6 +180,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         /// <summary>
         /// >> store
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Store(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> data)
         {
@@ -188,6 +191,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         /// <summary>
         /// >> renew
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Renew(SubstrateNetApi.Model.Types.Primitive.U32 block, SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -199,6 +203,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         /// <summary>
         /// >> check_proof
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CheckProof(SubstrateNetApi.Model.SpTransactionStorageProof.TransactionStorageProof proof)
         {
@@ -210,6 +215,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     /// <summary>
     /// >> Stored
+    /// Stored data under specified index.
     /// </summary>
     public sealed class EventStored : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -217,6 +223,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     /// <summary>
     /// >> Renewed
+    /// Renewed data under specified index.
     /// </summary>
     public sealed class EventRenewed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -224,6 +231,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
     
     /// <summary>
     /// >> ProofChecked
+    /// Storage proof was successfully checked.
     /// </summary>
     public sealed class EventProofChecked : BaseTuple
     {
@@ -234,66 +242,79 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         
         /// <summary>
         /// >> InsufficientFunds
+        /// Insufficient account balance.
         /// </summary>
         InsufficientFunds,
         
         /// <summary>
         /// >> NotConfigured
+        /// Invalid configuration.
         /// </summary>
         NotConfigured,
         
         /// <summary>
         /// >> RenewedNotFound
+        /// Renewed extrinsic is not found.
         /// </summary>
         RenewedNotFound,
         
         /// <summary>
         /// >> EmptyTransaction
+        /// Attempting to store empty transaction
         /// </summary>
         EmptyTransaction,
         
         /// <summary>
         /// >> UnexpectedProof
+        /// Proof was not expected in this block.
         /// </summary>
         UnexpectedProof,
         
         /// <summary>
         /// >> InvalidProof
+        /// Proof failed verification.
         /// </summary>
         InvalidProof,
         
         /// <summary>
         /// >> MissingProof
+        /// Missing storage proof.
         /// </summary>
         MissingProof,
         
         /// <summary>
         /// >> MissingStateData
+        /// Unable to verify proof becasue state data is missing.
         /// </summary>
         MissingStateData,
         
         /// <summary>
         /// >> DoubleCheck
+        /// Double proof check in the block.
         /// </summary>
         DoubleCheck,
         
         /// <summary>
         /// >> ProofNotChecked
+        /// Storage proof was not checked in the block.
         /// </summary>
         ProofNotChecked,
         
         /// <summary>
         /// >> TransactionTooLarge
+        /// Transaction is too large.
         /// </summary>
         TransactionTooLarge,
         
         /// <summary>
         /// >> TooManyTransactions
+        /// Too many transactions in the block.
         /// </summary>
         TooManyTransactions,
         
         /// <summary>
         /// >> BadContext
+        /// Attempted to call `store` outside of block execution.
         /// </summary>
         BadContext,
     }

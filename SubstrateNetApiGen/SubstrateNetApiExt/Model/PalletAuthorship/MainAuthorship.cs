@@ -38,12 +38,12 @@ namespace SubstrateNetApi.Model.PalletAuthorship
         
         public static string UnclesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Authorship", "Uncles", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Authorship", "Uncles", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Uncles
+        ///  Uncles
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletAuthorship.EnumUncleEntryItem>> Uncles(CancellationToken token)
         {
@@ -53,12 +53,12 @@ namespace SubstrateNetApi.Model.PalletAuthorship
         
         public static string AuthorParams()
         {
-            var parameters = RequestGenerator.GetStorage("Authorship", "Author", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Authorship", "Author", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Author
+        ///  Author of current block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Author(CancellationToken token)
         {
@@ -68,12 +68,12 @@ namespace SubstrateNetApi.Model.PalletAuthorship
         
         public static string DidSetUnclesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Authorship", "DidSetUncles", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Authorship", "DidSetUncles", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> DidSetUncles
+        ///  Whether uncles were already set in this block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> DidSetUncles(CancellationToken token)
         {
@@ -87,6 +87,7 @@ namespace SubstrateNetApi.Model.PalletAuthorship
         
         /// <summary>
         /// >> set_uncles
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetUncles(BaseVec<SubstrateNetApi.Model.SpRuntime.Header> new_uncles)
         {
@@ -101,36 +102,43 @@ namespace SubstrateNetApi.Model.PalletAuthorship
         
         /// <summary>
         /// >> InvalidUncleParent
+        /// The uncle parent not in the chain.
         /// </summary>
         InvalidUncleParent,
         
         /// <summary>
         /// >> UnclesAlreadySet
+        /// Uncles already set in the block.
         /// </summary>
         UnclesAlreadySet,
         
         /// <summary>
         /// >> TooManyUncles
+        /// Too many uncles.
         /// </summary>
         TooManyUncles,
         
         /// <summary>
         /// >> GenesisUncle
+        /// The uncle is genesis.
         /// </summary>
         GenesisUncle,
         
         /// <summary>
         /// >> TooHighUncle
+        /// The uncle is too high in chain.
         /// </summary>
         TooHighUncle,
         
         /// <summary>
         /// >> UncleAlreadyIncluded
+        /// The uncle is already included.
         /// </summary>
         UncleAlreadyIncluded,
         
         /// <summary>
         /// >> OldUncle
+        /// The uncle isn't recent enough to be included.
         /// </summary>
         OldUncle,
     }

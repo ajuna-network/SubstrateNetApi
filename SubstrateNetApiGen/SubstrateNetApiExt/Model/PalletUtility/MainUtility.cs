@@ -41,6 +41,7 @@ namespace SubstrateNetApi.Model.PalletUtility
         
         /// <summary>
         /// >> batch
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Batch(BaseVec<SubstrateNetApi.Model.NodeRuntime.EnumNodeCall> calls)
         {
@@ -51,6 +52,7 @@ namespace SubstrateNetApi.Model.PalletUtility
         
         /// <summary>
         /// >> as_derivative
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AsDerivative(SubstrateNetApi.Model.Types.Primitive.U16 index, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -62,6 +64,7 @@ namespace SubstrateNetApi.Model.PalletUtility
         
         /// <summary>
         /// >> batch_all
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method BatchAll(BaseVec<SubstrateNetApi.Model.NodeRuntime.EnumNodeCall> calls)
         {
@@ -73,6 +76,8 @@ namespace SubstrateNetApi.Model.PalletUtility
     
     /// <summary>
     /// >> BatchInterrupted
+    /// Batch of dispatches did not complete fully. Index of first failing dispatch given, as
+    /// well as the error. \[index, error\]
     /// </summary>
     public sealed class EventBatchInterrupted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpRuntime.EnumDispatchError>
     {
@@ -80,6 +85,7 @@ namespace SubstrateNetApi.Model.PalletUtility
     
     /// <summary>
     /// >> BatchCompleted
+    /// Batch of dispatches completed fully with no error.
     /// </summary>
     public sealed class EventBatchCompleted : BaseTuple
     {
@@ -87,6 +93,7 @@ namespace SubstrateNetApi.Model.PalletUtility
     
     /// <summary>
     /// >> ItemCompleted
+    /// A single item within a Batch of dispatches has completed with no error.
     /// </summary>
     public sealed class EventItemCompleted : BaseTuple
     {
@@ -97,6 +104,7 @@ namespace SubstrateNetApi.Model.PalletUtility
         
         /// <summary>
         /// >> TooManyCalls
+        /// Too many calls batched.
         /// </summary>
         TooManyCalls,
     }

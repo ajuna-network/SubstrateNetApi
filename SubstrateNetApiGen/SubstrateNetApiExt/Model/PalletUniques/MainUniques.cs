@@ -39,13 +39,14 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         public static string ClassParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Uniques", "Class", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Uniques", "Class", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Class
+        ///  Details of an asset class.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.ClassDetails> Class(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -55,13 +56,17 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         public static string AccountParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Uniques", "Account", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Account
+        ///  The assets held by any given account; set out this way so that assets owned by a single
+        ///  account can be enumerated.
         /// </summary>
         public async Task<BaseTuple> Account(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
@@ -71,13 +76,15 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         public static string AssetParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "Asset", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Uniques", "Asset", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Asset
+        ///  The assets in existence and their ownership details.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.InstanceDetails> Asset(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
@@ -87,13 +94,14 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         public static string ClassMetadataOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Uniques", "ClassMetadataOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Uniques", "ClassMetadataOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ClassMetadataOf
+        ///  Metadata of an asset class.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.ClassMetadata> ClassMetadataOf(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -103,13 +111,15 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         public static string InstanceMetadataOfParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "InstanceMetadataOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Uniques", "InstanceMetadataOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> InstanceMetadataOf
+        ///  Metadata of an asset instance.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.InstanceMetadata> InstanceMetadataOf(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
@@ -119,13 +129,16 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         public static string AttributeParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.FrameSupport.BoundedVec> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "Attribute", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Uniques", "Attribute", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Attribute
+        ///  Metadata of an asset class.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>> Attribute(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.FrameSupport.BoundedVec> key, CancellationToken token)
         {
@@ -139,6 +152,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> create
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Create(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress admin)
         {
@@ -150,6 +164,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> force_create
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ForceCreate(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner, SubstrateNetApi.Model.Types.Primitive.Bool free_holding)
         {
@@ -162,6 +177,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> destroy
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Destroy(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.PalletUniques.DestroyWitness witness)
         {
@@ -173,6 +189,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> mint
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Mint(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner)
         {
@@ -185,6 +202,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> burn
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Burn(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, BaseOpt<SubstrateNetApi.Model.SpRuntime.EnumMultiAddress> check_owner)
         {
@@ -197,6 +215,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Transfer(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress dest)
         {
@@ -209,6 +228,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> redeposit
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Redeposit(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseVec<SubstrateNetApi.Model.Types.Primitive.U32> instances)
         {
@@ -220,6 +240,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> freeze
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Freeze(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance)
         {
@@ -231,6 +252,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> thaw
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Thaw(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance)
         {
@@ -242,6 +264,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> freeze_class
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method FreezeClass(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class)
         {
@@ -252,6 +275,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> thaw_class
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ThawClass(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class)
         {
@@ -262,6 +286,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> transfer_ownership
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method TransferOwnership(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner)
         {
@@ -273,6 +298,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> set_team
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetTeam(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress issuer, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress admin, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress freezer)
         {
@@ -286,6 +312,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> approve_transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ApproveTransfer(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress @delegate)
         {
@@ -298,6 +325,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> cancel_approval
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CancelApproval(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, BaseOpt<SubstrateNetApi.Model.SpRuntime.EnumMultiAddress> maybe_check_delegate)
         {
@@ -310,6 +338,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> force_asset_status
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ForceAssetStatus(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress owner, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress issuer, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress admin, SubstrateNetApi.Model.SpRuntime.EnumMultiAddress freezer, SubstrateNetApi.Model.Types.Primitive.Bool free_holding, SubstrateNetApi.Model.Types.Primitive.Bool is_frozen)
         {
@@ -326,6 +355,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> set_attribute
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetAttribute(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32> maybe_instance, SubstrateNetApi.Model.FrameSupport.BoundedVec key, SubstrateNetApi.Model.FrameSupport.BoundedVec value)
         {
@@ -339,6 +369,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> clear_attribute
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ClearAttribute(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32> maybe_instance, SubstrateNetApi.Model.FrameSupport.BoundedVec key)
         {
@@ -351,6 +382,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> set_metadata
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance, SubstrateNetApi.Model.FrameSupport.BoundedVec data, SubstrateNetApi.Model.Types.Primitive.Bool is_frozen)
         {
@@ -364,6 +396,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> clear_metadata
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ClearMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> instance)
         {
@@ -375,6 +408,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> set_class_metadata
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetClassMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class, SubstrateNetApi.Model.FrameSupport.BoundedVec data, SubstrateNetApi.Model.Types.Primitive.Bool is_frozen)
         {
@@ -387,6 +421,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> clear_class_metadata
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ClearClassMetadata(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> @class)
         {
@@ -398,6 +433,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Created
+    /// An asset class was created. \[ class, creator, owner \]
     /// </summary>
     public sealed class EventCreated : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -405,6 +441,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> ForceCreated
+    /// An asset class was force-created. \[ class, owner \]
     /// </summary>
     public sealed class EventForceCreated : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -412,6 +449,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Destroyed
+    /// An asset `class` was destroyed. \[ class \]
     /// </summary>
     public sealed class EventDestroyed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -419,6 +457,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Issued
+    /// An asset `instance` was issued. \[ class, instance, owner \]
     /// </summary>
     public sealed class EventIssued : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -426,6 +465,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Transferred
+    /// An asset `instance` was transferred. \[ class, instance, from, to \]
     /// </summary>
     public sealed class EventTransferred : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -433,6 +473,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Burned
+    /// An asset `instance` was destroyed. \[ class, instance, owner \]
     /// </summary>
     public sealed class EventBurned : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -440,6 +481,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Frozen
+    /// Some asset `instance` was frozen. \[ class, instance \]
     /// </summary>
     public sealed class EventFrozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -447,6 +489,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Thawed
+    /// Some asset `instance` was thawed. \[ class, instance \]
     /// </summary>
     public sealed class EventThawed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -454,6 +497,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> ClassFrozen
+    /// Some asset `class` was frozen. \[ class \]
     /// </summary>
     public sealed class EventClassFrozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -461,6 +505,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> ClassThawed
+    /// Some asset `class` was thawed. \[ class \]
     /// </summary>
     public sealed class EventClassThawed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -468,6 +513,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> OwnerChanged
+    /// The owner changed \[ class, new_owner \]
     /// </summary>
     public sealed class EventOwnerChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -475,6 +521,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> TeamChanged
+    /// The management team changed \[ class, issuer, admin, freezer \]
     /// </summary>
     public sealed class EventTeamChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -482,6 +529,9 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> ApprovedTransfer
+    /// An `instance` of an asset `class` has been approved by the `owner` for transfer by a
+    /// `delegate`.
+    /// \[ class, instance, owner, delegate \]
     /// </summary>
     public sealed class EventApprovedTransfer : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -489,6 +539,9 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> ApprovalCancelled
+    /// An approval for a `delegate` account to transfer the `instance` of an asset `class` was
+    /// cancelled by its `owner`.
+    /// \[ class, instance, owner, delegate \]
     /// </summary>
     public sealed class EventApprovalCancelled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -496,6 +549,8 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> AssetStatusChanged
+    /// An asset `class` has had its attributes changed by the `Force` origin.
+    /// \[ class \]
     /// </summary>
     public sealed class EventAssetStatusChanged : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -503,6 +558,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> ClassMetadataSet
+    /// New metadata has been set for an asset class. \[ class, data, is_frozen \]
     /// </summary>
     public sealed class EventClassMetadataSet : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.FrameSupport.BoundedVec, SubstrateNetApi.Model.Types.Primitive.Bool>
     {
@@ -510,6 +566,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> ClassMetadataCleared
+    /// Metadata has been cleared for an asset class. \[ class \]
     /// </summary>
     public sealed class EventClassMetadataCleared : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -517,6 +574,8 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> MetadataSet
+    /// New metadata has been set for an asset instance.
+    /// \[ class, instance, data, is_frozen \]
     /// </summary>
     public sealed class EventMetadataSet : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.FrameSupport.BoundedVec, SubstrateNetApi.Model.Types.Primitive.Bool>
     {
@@ -524,6 +583,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> MetadataCleared
+    /// Metadata has been cleared for an asset instance. \[ class, instance \]
     /// </summary>
     public sealed class EventMetadataCleared : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -531,6 +591,7 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> Redeposited
+    /// Metadata has been cleared for an asset instance. \[ class, successful_instances \]
     /// </summary>
     public sealed class EventRedeposited : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>>
     {
@@ -538,6 +599,8 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> AttributeSet
+    /// New attribute metadata has been set for an asset class or instance.
+    /// \[ class, maybe_instance, key, value \]
     /// </summary>
     public sealed class EventAttributeSet : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>, SubstrateNetApi.Model.FrameSupport.BoundedVec, SubstrateNetApi.Model.FrameSupport.BoundedVec>
     {
@@ -545,6 +608,8 @@ namespace SubstrateNetApi.Model.PalletUniques
     
     /// <summary>
     /// >> AttributeCleared
+    /// Attribute metadata has been cleared for an asset class or instance.
+    /// \[ class, maybe_instance, key, maybe_value \]
     /// </summary>
     public sealed class EventAttributeCleared : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>, SubstrateNetApi.Model.FrameSupport.BoundedVec>
     {
@@ -555,51 +620,61 @@ namespace SubstrateNetApi.Model.PalletUniques
         
         /// <summary>
         /// >> NoPermission
+        /// The signing account has no permission to do the operation.
         /// </summary>
         NoPermission,
         
         /// <summary>
         /// >> Unknown
+        /// The given asset ID is unknown.
         /// </summary>
         Unknown,
         
         /// <summary>
         /// >> AlreadyExists
+        /// The asset instance ID has already been used for an asset.
         /// </summary>
         AlreadyExists,
         
         /// <summary>
         /// >> WrongOwner
+        /// The owner turned out to be different to what was expected.
         /// </summary>
         WrongOwner,
         
         /// <summary>
         /// >> BadWitness
+        /// Invalid witness data given.
         /// </summary>
         BadWitness,
         
         /// <summary>
         /// >> InUse
+        /// The asset ID is already taken.
         /// </summary>
         InUse,
         
         /// <summary>
         /// >> Frozen
+        /// The asset instance or class is frozen.
         /// </summary>
         Frozen,
         
         /// <summary>
         /// >> WrongDelegate
+        /// The delegate turned out to be different to what was expected.
         /// </summary>
         WrongDelegate,
         
         /// <summary>
         /// >> NoDelegate
+        /// There is no delegate approved.
         /// </summary>
         NoDelegate,
         
         /// <summary>
         /// >> Unapproved
+        /// No approval exists that would allow the transfer.
         /// </summary>
         Unapproved,
     }

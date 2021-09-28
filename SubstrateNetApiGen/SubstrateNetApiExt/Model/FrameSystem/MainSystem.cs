@@ -41,13 +41,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string AccountParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "Account", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Account
+        ///  The full account information for a particular account ID.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSystem.AccountInfo> Account(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -57,12 +58,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string ExtrinsicCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "ExtrinsicCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "ExtrinsicCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ExtrinsicCount
+        ///  Total extrinsics count for the current block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ExtrinsicCount(CancellationToken token)
         {
@@ -72,12 +73,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string BlockWeightParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "BlockWeight", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "BlockWeight", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> BlockWeight
+        ///  The current weight for the block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.PerDispatchClass> BlockWeight(CancellationToken token)
         {
@@ -87,12 +88,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string AllExtrinsicsLenParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "AllExtrinsicsLen", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "AllExtrinsicsLen", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> AllExtrinsicsLen
+        ///  Total length (in bytes) for all extrinsics put together, for the current block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> AllExtrinsicsLen(CancellationToken token)
         {
@@ -102,13 +103,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string BlockHashParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "BlockHash", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "BlockHash", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> BlockHash
+        ///  Map of block numbers to block hashes.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> BlockHash(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -118,13 +120,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string ExtrinsicDataParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "ExtrinsicData", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "ExtrinsicData", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ExtrinsicData
+        ///  Extrinsics data for the current block (maps an extrinsic's index to its data).
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> ExtrinsicData(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -134,12 +137,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string NumberParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "Number", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "Number", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Number
+        ///  The current block number being processed. Set by `execute_block`.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Number(CancellationToken token)
         {
@@ -149,12 +152,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string ParentHashParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "ParentHash", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "ParentHash", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ParentHash
+        ///  Hash of the previous block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> ParentHash(CancellationToken token)
         {
@@ -164,12 +167,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string DigestParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "Digest", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "Digest", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Digest
+        ///  Digest of the current block, also part of the block header.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpRuntime.Digest> Digest(CancellationToken token)
         {
@@ -179,12 +182,15 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string EventsParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "Events", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "Events", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Events
+        ///  Events deposited for the current block.
+        /// 
+        ///  NOTE: This storage item is explicitly unbounded since it is never intended to be read
+        ///  from within the runtime.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.FrameSystem.EventRecord>> Events(CancellationToken token)
         {
@@ -194,12 +200,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string EventCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "EventCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "EventCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> EventCount
+        ///  The number of events in the `Events<T>` list.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> EventCount(CancellationToken token)
         {
@@ -209,13 +215,23 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string EventTopicsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "EventTopics", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "EventTopics", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> EventTopics
+        ///  Mapping between a topic (represented by T::Hash) and a vector of indexes
+        ///  of events in the `<Events<T>>` list.
+        /// 
+        ///  All topic vectors have deterministic storage locations depending on the topic. This
+        ///  allows light-clients to leverage the changes trie storage tracking mechanism and
+        ///  in case of changes fetch the list of events of interest.
+        /// 
+        ///  The value has the type `(T::BlockNumber, EventIndex)` because if we used only just
+        ///  the `EventIndex` then in case if the topic has the same contents on the next block
+        ///  no notification will be triggered thus the event might be lost.
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>> EventTopics(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
@@ -225,12 +241,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string LastRuntimeUpgradeParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "LastRuntimeUpgrade", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "LastRuntimeUpgrade", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> LastRuntimeUpgrade
+        ///  Stores the `spec_version` and `spec_name` of when the last runtime upgrade happened.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSystem.LastRuntimeUpgradeInfo> LastRuntimeUpgrade(CancellationToken token)
         {
@@ -240,12 +256,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string UpgradedToU32RefCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "UpgradedToU32RefCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "UpgradedToU32RefCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> UpgradedToU32RefCount
+        ///  True if we have upgraded so that `type RefCount` is `u32`. False (default) if not.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> UpgradedToU32RefCount(CancellationToken token)
         {
@@ -255,12 +271,13 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string UpgradedToTripleRefCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "UpgradedToTripleRefCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "UpgradedToTripleRefCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> UpgradedToTripleRefCount
+        ///  True if we have upgraded so that AccountInfo contains three types of `RefCount`. False
+        ///  (default) if not.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> UpgradedToTripleRefCount(CancellationToken token)
         {
@@ -270,12 +287,12 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         public static string ExecutionPhaseParams()
         {
-            var parameters = RequestGenerator.GetStorage("System", "ExecutionPhase", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("System", "ExecutionPhase", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ExecutionPhase
+        ///  The execution phase of the block.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSystem.EnumPhase> ExecutionPhase(CancellationToken token)
         {
@@ -289,6 +306,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> fill_block
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method FillBlock(SubstrateNetApi.Model.SpArithmetic.Perbill ratio)
         {
@@ -299,6 +317,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> remark
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Remark(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> remark)
         {
@@ -309,6 +328,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> set_heap_pages
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetHeapPages(SubstrateNetApi.Model.Types.Primitive.U64 pages)
         {
@@ -319,6 +339,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> set_code
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetCode(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> code)
         {
@@ -329,6 +350,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> set_code_without_checks
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetCodeWithoutChecks(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> code)
         {
@@ -339,6 +361,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> set_changes_trie_config
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetChangesTrieConfig(BaseOpt<SubstrateNetApi.Model.SpCore.ChangesTrieConfiguration> changes_trie_config)
         {
@@ -349,6 +372,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> set_storage
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetStorage(BaseVec<BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>> items)
         {
@@ -359,6 +383,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> kill_storage
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method KillStorage(BaseVec<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> keys)
         {
@@ -369,6 +394,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> kill_prefix
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method KillPrefix(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> prefix, SubstrateNetApi.Model.Types.Primitive.U32 subkeys)
         {
@@ -380,6 +406,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> remark_with_event
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemarkWithEvent(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> remark)
         {
@@ -391,6 +418,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     /// <summary>
     /// >> ExtrinsicSuccess
+    /// An extrinsic completed successfully. \[info\]
     /// </summary>
     public sealed class EventExtrinsicSuccess : BaseTuple<SubstrateNetApi.Model.FrameSupport.DispatchInfo>
     {
@@ -398,6 +426,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     /// <summary>
     /// >> ExtrinsicFailed
+    /// An extrinsic failed. \[error, info\]
     /// </summary>
     public sealed class EventExtrinsicFailed : BaseTuple<SubstrateNetApi.Model.SpRuntime.EnumDispatchError, SubstrateNetApi.Model.FrameSupport.DispatchInfo>
     {
@@ -405,6 +434,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     /// <summary>
     /// >> CodeUpdated
+    /// `:code` was updated.
     /// </summary>
     public sealed class EventCodeUpdated : BaseTuple
     {
@@ -412,6 +442,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     /// <summary>
     /// >> NewAccount
+    /// A new \[account\] was created.
     /// </summary>
     public sealed class EventNewAccount : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -419,6 +450,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     /// <summary>
     /// >> KilledAccount
+    /// An \[account\] was reaped.
     /// </summary>
     public sealed class EventKilledAccount : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -426,6 +458,7 @@ namespace SubstrateNetApi.Model.FrameSystem
     
     /// <summary>
     /// >> Remarked
+    /// On on-chain remark happened. \[origin, remark_hash\]
     /// </summary>
     public sealed class EventRemarked : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PrimitiveTypes.H256>
     {
@@ -436,26 +469,35 @@ namespace SubstrateNetApi.Model.FrameSystem
         
         /// <summary>
         /// >> InvalidSpecName
+        /// The name of specification does not match between the current runtime
+        /// and the new runtime.
         /// </summary>
         InvalidSpecName,
         
         /// <summary>
         /// >> SpecVersionNeedsToIncrease
+        /// The specification version is not allowed to decrease between the current runtime
+        /// and the new runtime.
         /// </summary>
         SpecVersionNeedsToIncrease,
         
         /// <summary>
         /// >> FailedToExtractRuntimeVersion
+        /// Failed to extract the runtime version from the new runtime.
+        /// 
+        /// Either calling `Core_version` or decoding `RuntimeVersion` failed.
         /// </summary>
         FailedToExtractRuntimeVersion,
         
         /// <summary>
         /// >> NonDefaultComposite
+        /// Suicide called when the account has non-default composite data.
         /// </summary>
         NonDefaultComposite,
         
         /// <summary>
         /// >> NonZeroRefCount
+        /// There is a non-zero reference count preventing the account from being purged.
         /// </summary>
         NonZeroRefCount,
     }

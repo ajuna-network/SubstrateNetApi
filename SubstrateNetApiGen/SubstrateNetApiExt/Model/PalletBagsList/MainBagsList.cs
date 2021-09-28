@@ -37,12 +37,12 @@ namespace SubstrateNetApi.Model.PalletBagsList
         
         public static string CounterForListNodesParams()
         {
-            var parameters = RequestGenerator.GetStorage("BagsList", "CounterForListNodes", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("BagsList", "CounterForListNodes", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> CounterForListNodes
+        ///  How many ids are registered.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CounterForListNodes(CancellationToken token)
         {
@@ -52,13 +52,16 @@ namespace SubstrateNetApi.Model.PalletBagsList
         
         public static string ListNodesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("BagsList", "ListNodes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("BagsList", "ListNodes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ListNodes
+        ///  A single node, within some bag.
+        /// 
+        ///  Nodes store links forward and back within their respective bags.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBagsList.Node> ListNodes(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -68,13 +71,16 @@ namespace SubstrateNetApi.Model.PalletBagsList
         
         public static string ListBagsParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("BagsList", "ListBags", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("BagsList", "ListBags", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ListBags
+        ///  A bag stored in storage.
+        /// 
+        ///  Stores a `Bag` struct, which stores head and tail pointers to itself.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBagsList.Bag> ListBags(SubstrateNetApi.Model.Types.Primitive.U64 key, CancellationToken token)
         {
@@ -88,6 +94,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
         
         /// <summary>
         /// >> rebag
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Rebag(SubstrateNetApi.Model.SpCore.AccountId32 dislocated)
         {
@@ -99,6 +106,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
     
     /// <summary>
     /// >> Rebagged
+    /// Moved an account from one bag to another. \[who, from, to\].
     /// </summary>
     public sealed class EventRebagged : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U64, SubstrateNetApi.Model.Types.Primitive.U64>
     {

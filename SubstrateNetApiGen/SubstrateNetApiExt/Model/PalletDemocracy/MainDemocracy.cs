@@ -38,12 +38,12 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string PublicPropCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "PublicPropCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "PublicPropCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> PublicPropCount
+        ///  The number of (public) proposals that have been made so far.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> PublicPropCount(CancellationToken token)
         {
@@ -53,12 +53,12 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string PublicPropsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "PublicProps", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "PublicProps", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> PublicProps
+        ///  The public proposals. Unsorted. The second item is the proposal's hash.
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.SpCore.AccountId32>>> PublicProps(CancellationToken token)
         {
@@ -68,13 +68,16 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string DepositOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "DepositOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "DepositOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> DepositOf
+        ///  Those who have locked a deposit.
+        /// 
+        ///  TWOX-NOTE: Safe, as increasing integer keys are safe.
         /// </summary>
         public async Task<BaseTuple<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>,SubstrateNetApi.Model.Types.Primitive.U128>> DepositOf(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -84,13 +87,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string PreimagesParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Preimages", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "Preimages", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Preimages
+        ///  Map of hashes to the proposal preimage, along with who registered it and their deposit.
+        ///  The block number is the block at which it was deposited.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumPreimageStatus> Preimages(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
@@ -100,12 +105,12 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string ReferendumCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "ReferendumCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "ReferendumCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> ReferendumCount
+        ///  The next free referendum index, aka the number of referenda started so far.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ReferendumCount(CancellationToken token)
         {
@@ -115,12 +120,13 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string LowestUnbakedParams()
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "LowestUnbaked", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "LowestUnbaked", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> LowestUnbaked
+        ///  The lowest referendum index representing an unbaked referendum. Equal to
+        ///  `ReferendumCount` if there isn't a unbaked referendum.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> LowestUnbaked(CancellationToken token)
         {
@@ -130,13 +136,16 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string ReferendumInfoOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "ReferendumInfoOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "ReferendumInfoOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ReferendumInfoOf
+        ///  Information concerning any given referendum.
+        /// 
+        ///  TWOX-NOTE: SAFE as indexes are not under an attacker���s control.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumReferendumInfo> ReferendumInfoOf(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -146,13 +155,17 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string VotingOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "VotingOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "VotingOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> VotingOf
+        ///  All votes for a particular voter. We store the balance for the number of votes that we
+        ///  have recorded. The second item is the total amount of delegations, that will be added.
+        /// 
+        ///  TWOX-NOTE: SAFE as `AccountId`s are crypto hashes anyway.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumVoting> VotingOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -162,13 +175,17 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string LocksParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Locks", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "Locks", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Locks
+        ///  Accounts for which there are locks in action which may be removed at some point in the
+        ///  future. The value is the block number at which the lock expires and may be removed.
+        /// 
+        ///  TWOX-NOTE: OK ��� `AccountId` is a secure hash.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Locks(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -178,12 +195,13 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string LastTabledWasExternalParams()
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "LastTabledWasExternal", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "LastTabledWasExternal", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> LastTabledWasExternal
+        ///  True if the last referendum tabled was submitted externally. False if it was a public
+        ///  proposal.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> LastTabledWasExternal(CancellationToken token)
         {
@@ -193,12 +211,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string NextExternalParams()
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "NextExternal", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "NextExternal", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> NextExternal
+        ///  The referendum to be tabled whenever it would be valid to table an external proposal.
+        ///  This happens when a referendum needs to be tabled and one of two conditions are met:
+        ///  - `LastTabledWasExternal` is `false`; or
+        ///  - `PublicProps` is empty.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.PalletDemocracy.EnumVoteThreshold>> NextExternal(CancellationToken token)
         {
@@ -208,13 +229,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string BlacklistParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Blacklist", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "Blacklist", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Blacklist
+        ///  A record of who vetoed what. Maps proposal hash to a possible existent block number
+        ///  (until when it may not be resubmitted) and who vetoed it.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>> Blacklist(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
@@ -224,13 +247,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string CancellationsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Cancellations", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "Cancellations", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Cancellations
+        ///  Record of all proposals that have been subject to emergency cancellation.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> Cancellations(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
@@ -240,12 +264,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         public static string StorageVersionParams()
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "StorageVersion", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Democracy", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> StorageVersion
+        ///  Storage version of the pallet.
+        /// 
+        ///  New networks start with last version.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumReleases> StorageVersion(CancellationToken token)
         {
@@ -259,6 +285,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> propose
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Propose(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash, BaseCom<SubstrateNetApi.Model.Types.Primitive.U128> value)
         {
@@ -270,6 +297,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> second
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Second(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> proposal, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> seconds_upper_bound)
         {
@@ -281,6 +309,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> vote
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Vote(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> ref_index, SubstrateNetApi.Model.PalletDemocracy.EnumAccountVote vote)
         {
@@ -292,6 +321,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> emergency_cancel
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method EmergencyCancel(SubstrateNetApi.Model.Types.Primitive.U32 ref_index)
         {
@@ -302,6 +332,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> external_propose
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ExternalPropose(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash)
         {
@@ -312,6 +343,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> external_propose_majority
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ExternalProposeMajority(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash)
         {
@@ -322,6 +354,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> external_propose_default
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ExternalProposeDefault(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash)
         {
@@ -332,6 +365,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> fast_track
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method FastTrack(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash, SubstrateNetApi.Model.Types.Primitive.U32 voting_period, SubstrateNetApi.Model.Types.Primitive.U32 delay)
         {
@@ -344,6 +378,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> veto_external
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method VetoExternal(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash)
         {
@@ -354,6 +389,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> cancel_referendum
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CancelReferendum(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> ref_index)
         {
@@ -364,6 +400,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> cancel_queued
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CancelQueued(SubstrateNetApi.Model.Types.Primitive.U32 which)
         {
@@ -374,6 +411,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> delegate
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Delegate(SubstrateNetApi.Model.SpCore.AccountId32 to, SubstrateNetApi.Model.PalletDemocracy.EnumConviction conviction, SubstrateNetApi.Model.Types.Primitive.U128 balance)
         {
@@ -386,6 +424,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> undelegate
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Undelegate()
         {
@@ -395,6 +434,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> clear_public_proposals
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ClearPublicProposals()
         {
@@ -404,6 +444,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> note_preimage
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method NotePreimage(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> encoded_proposal)
         {
@@ -414,6 +455,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> note_preimage_operational
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method NotePreimageOperational(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> encoded_proposal)
         {
@@ -424,6 +466,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> note_imminent_preimage
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method NoteImminentPreimage(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> encoded_proposal)
         {
@@ -434,6 +477,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> note_imminent_preimage_operational
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method NoteImminentPreimageOperational(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> encoded_proposal)
         {
@@ -444,6 +488,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> reap_preimage
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ReapPreimage(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash, BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> proposal_len_upper_bound)
         {
@@ -455,6 +500,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> unlock
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Unlock(SubstrateNetApi.Model.SpCore.AccountId32 target)
         {
@@ -465,6 +511,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> remove_vote
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveVote(SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -475,6 +522,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> remove_other_vote
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method RemoveOtherVote(SubstrateNetApi.Model.SpCore.AccountId32 target, SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -486,6 +534,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> enact_proposal
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method EnactProposal(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash, SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -497,6 +546,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> blacklist
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Blacklist(SubstrateNetApi.Model.PrimitiveTypes.H256 proposal_hash, BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32> maybe_ref_index)
         {
@@ -508,6 +558,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> cancel_proposal
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CancelProposal(BaseCom<SubstrateNetApi.Model.Types.Primitive.U32> prop_index)
         {
@@ -519,6 +570,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Proposed
+    /// A motion has been proposed by a public account. \[proposal_index, deposit\]
     /// </summary>
     public sealed class EventProposed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -526,6 +578,8 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Tabled
+    /// A public proposal has been tabled for referendum vote. \[proposal_index, deposit,
+    /// depositors\]
     /// </summary>
     public sealed class EventTabled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.Types.Primitive.U128, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>
     {
@@ -533,6 +587,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> ExternalTabled
+    /// An external proposal has been tabled.
     /// </summary>
     public sealed class EventExternalTabled : BaseTuple
     {
@@ -540,6 +595,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Started
+    /// A referendum has begun. \[ref_index, threshold\]
     /// </summary>
     public sealed class EventStarted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.PalletDemocracy.EnumVoteThreshold>
     {
@@ -547,6 +603,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Passed
+    /// A proposal has been approved by referendum. \[ref_index\]
     /// </summary>
     public sealed class EventPassed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -554,6 +611,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> NotPassed
+    /// A proposal has been rejected by referendum. \[ref_index\]
     /// </summary>
     public sealed class EventNotPassed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -561,6 +619,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Cancelled
+    /// A referendum has been cancelled. \[ref_index\]
     /// </summary>
     public sealed class EventCancelled : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -568,6 +627,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Executed
+    /// A proposal has been enacted. \[ref_index, result\]
     /// </summary>
     public sealed class EventExecuted : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
     {
@@ -575,6 +635,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Delegated
+    /// An account has delegated their vote to another account. \[who, target\]
     /// </summary>
     public sealed class EventDelegated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -582,6 +643,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Undelegated
+    /// An \[account\] has cancelled a previous delegation operation.
     /// </summary>
     public sealed class EventUndelegated : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -589,6 +651,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Vetoed
+    /// An external proposal has been vetoed. \[who, proposal_hash, until\]
     /// </summary>
     public sealed class EventVetoed : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -596,6 +659,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> PreimageNoted
+    /// A proposal's preimage was noted, and the deposit taken. \[proposal_hash, who, deposit\]
     /// </summary>
     public sealed class EventPreimageNoted : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -603,6 +667,8 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> PreimageUsed
+    /// A proposal preimage was removed and used (the deposit was returned).
+    /// \[proposal_hash, provider, deposit\]
     /// </summary>
     public sealed class EventPreimageUsed : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -610,6 +676,8 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> PreimageInvalid
+    /// A proposal could not be executed because its preimage was invalid.
+    /// \[proposal_hash, ref_index\]
     /// </summary>
     public sealed class EventPreimageInvalid : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -617,6 +685,8 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> PreimageMissing
+    /// A proposal could not be executed because its preimage was missing.
+    /// \[proposal_hash, ref_index\]
     /// </summary>
     public sealed class EventPreimageMissing : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -624,6 +694,8 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> PreimageReaped
+    /// A registered preimage was removed and the deposit collected by the reaper.
+    /// \[proposal_hash, provider, deposit, reaper\]
     /// </summary>
     public sealed class EventPreimageReaped : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -631,6 +703,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
     
     /// <summary>
     /// >> Blacklisted
+    /// A proposal \[hash\] has been blacklisted permanently.
     /// </summary>
     public sealed class EventBlacklisted : BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256>
     {
@@ -641,141 +714,170 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         
         /// <summary>
         /// >> ValueLow
+        /// Value too low
         /// </summary>
         ValueLow,
         
         /// <summary>
         /// >> ProposalMissing
+        /// Proposal does not exist
         /// </summary>
         ProposalMissing,
         
         /// <summary>
         /// >> AlreadyCanceled
+        /// Cannot cancel the same proposal twice
         /// </summary>
         AlreadyCanceled,
         
         /// <summary>
         /// >> DuplicateProposal
+        /// Proposal already made
         /// </summary>
         DuplicateProposal,
         
         /// <summary>
         /// >> ProposalBlacklisted
+        /// Proposal still blacklisted
         /// </summary>
         ProposalBlacklisted,
         
         /// <summary>
         /// >> NotSimpleMajority
+        /// Next external proposal not simple majority
         /// </summary>
         NotSimpleMajority,
         
         /// <summary>
         /// >> InvalidHash
+        /// Invalid hash
         /// </summary>
         InvalidHash,
         
         /// <summary>
         /// >> NoProposal
+        /// No external proposal
         /// </summary>
         NoProposal,
         
         /// <summary>
         /// >> AlreadyVetoed
+        /// Identity may not veto a proposal twice
         /// </summary>
         AlreadyVetoed,
         
         /// <summary>
         /// >> DuplicatePreimage
+        /// Preimage already noted
         /// </summary>
         DuplicatePreimage,
         
         /// <summary>
         /// >> NotImminent
+        /// Not imminent
         /// </summary>
         NotImminent,
         
         /// <summary>
         /// >> TooEarly
+        /// Too early
         /// </summary>
         TooEarly,
         
         /// <summary>
         /// >> Imminent
+        /// Imminent
         /// </summary>
         Imminent,
         
         /// <summary>
         /// >> PreimageMissing
+        /// Preimage not found
         /// </summary>
         PreimageMissing,
         
         /// <summary>
         /// >> ReferendumInvalid
+        /// Vote given for invalid referendum
         /// </summary>
         ReferendumInvalid,
         
         /// <summary>
         /// >> PreimageInvalid
+        /// Invalid preimage
         /// </summary>
         PreimageInvalid,
         
         /// <summary>
         /// >> NoneWaiting
+        /// No proposals waiting
         /// </summary>
         NoneWaiting,
         
         /// <summary>
         /// >> NotVoter
+        /// The given account did not vote on the referendum.
         /// </summary>
         NotVoter,
         
         /// <summary>
         /// >> NoPermission
+        /// The actor has no permission to conduct the action.
         /// </summary>
         NoPermission,
         
         /// <summary>
         /// >> AlreadyDelegating
+        /// The account is already delegating.
         /// </summary>
         AlreadyDelegating,
         
         /// <summary>
         /// >> InsufficientFunds
+        /// Too high a balance was provided that the account cannot afford.
         /// </summary>
         InsufficientFunds,
         
         /// <summary>
         /// >> NotDelegating
+        /// The account is not currently delegating.
         /// </summary>
         NotDelegating,
         
         /// <summary>
         /// >> VotesExist
+        /// The account currently has votes attached to it and the operation cannot succeed until
+        /// these are removed, either through `unvote` or `reap_vote`.
         /// </summary>
         VotesExist,
         
         /// <summary>
         /// >> InstantNotAllowed
+        /// The instant referendum origin is currently disallowed.
         /// </summary>
         InstantNotAllowed,
         
         /// <summary>
         /// >> Nonsense
+        /// Delegation to oneself makes no sense.
         /// </summary>
         Nonsense,
         
         /// <summary>
         /// >> WrongUpperBound
+        /// Invalid upper bound.
         /// </summary>
         WrongUpperBound,
         
         /// <summary>
         /// >> MaxVotesReached
+        /// Maximum number of votes reached.
         /// </summary>
         MaxVotesReached,
         
         /// <summary>
         /// >> TooManyProposals
+        /// Maximum number of proposals reached.
         /// </summary>
         TooManyProposals,
     }

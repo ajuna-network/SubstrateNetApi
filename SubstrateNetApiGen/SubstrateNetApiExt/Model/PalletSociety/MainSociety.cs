@@ -39,12 +39,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string FounderParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Founder", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Founder", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Founder
+        ///  The first member.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Founder(CancellationToken token)
         {
@@ -54,12 +54,13 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string RulesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Rules", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Rules", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Rules
+        ///  A hash of the rules of this society concerning membership. Can only be set once and
+        ///  only by the founder.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> Rules(CancellationToken token)
         {
@@ -69,12 +70,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string CandidatesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Candidates", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Candidates", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Candidates
+        ///  The current set of candidates; bidders that are attempting to become members.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>> Candidates(CancellationToken token)
         {
@@ -84,13 +85,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string SuspendedCandidatesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "SuspendedCandidates", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "SuspendedCandidates", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> SuspendedCandidates
+        ///  The set of suspended candidates.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.PalletSociety.EnumBidKind>> SuspendedCandidates(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -100,12 +102,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string PotParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Pot", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Pot", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Pot
+        ///  Amount of our account balance that is specifically for the next round's bid(s).
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> Pot(CancellationToken token)
         {
@@ -115,12 +117,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string HeadParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Head", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Head", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Head
+        ///  The most primary from the most recently approved members.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Head(CancellationToken token)
         {
@@ -130,12 +132,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string MembersParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Members", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Members", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Members
+        ///  The current set of members, ordered.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Members(CancellationToken token)
         {
@@ -145,13 +147,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string SuspendedMembersParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "SuspendedMembers", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "SuspendedMembers", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> SuspendedMembers
+        ///  The set of suspended members.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> SuspendedMembers(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -161,12 +164,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string BidsParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Bids", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Bids", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Bids
+        ///  The current bids, stored ordered by the value of the bid.
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>> Bids(CancellationToken token)
         {
@@ -176,13 +179,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string VouchingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "Vouching", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Vouching", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Vouching
+        ///  Members currently vouching or banned from vouching again
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletSociety.EnumVouchingStatus> Vouching(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -192,13 +196,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string PayoutsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "Payouts", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Payouts", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Payouts
+        ///  Pending payouts; ordered by block number, with the amount that should be paid out.
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U128>>> Payouts(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -208,13 +213,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string StrikesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "Strikes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Strikes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Strikes
+        ///  The ongoing number of losing votes cast by the member.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Strikes(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -224,13 +230,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string VotesParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Society", "Votes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Votes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Votes
+        ///  Double map from Candidate -> Voter -> (Maybe) Vote.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletSociety.EnumVote> Votes(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
@@ -240,12 +248,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string DefenderParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Defender", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "Defender", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Defender
+        ///  The defending member currently being challenged.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Defender(CancellationToken token)
         {
@@ -255,13 +263,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string DefenderVotesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "DefenderVotes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "DefenderVotes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> DefenderVotes
+        ///  Votes for the defender.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletSociety.EnumVote> DefenderVotes(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -271,12 +280,12 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         public static string MaxMembersParams()
         {
-            var parameters = RequestGenerator.GetStorage("Society", "MaxMembers", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Society", "MaxMembers", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> MaxMembers
+        ///  The max number of members for the society at one time.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxMembers(CancellationToken token)
         {
@@ -290,6 +299,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> bid
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Bid(SubstrateNetApi.Model.Types.Primitive.U128 value)
         {
@@ -300,6 +310,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> unbid
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Unbid(SubstrateNetApi.Model.Types.Primitive.U32 pos)
         {
@@ -310,6 +321,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> vouch
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Vouch(SubstrateNetApi.Model.SpCore.AccountId32 who, SubstrateNetApi.Model.Types.Primitive.U128 value, SubstrateNetApi.Model.Types.Primitive.U128 tip)
         {
@@ -322,6 +334,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> unvouch
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Unvouch(SubstrateNetApi.Model.Types.Primitive.U32 pos)
         {
@@ -332,6 +345,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> vote
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Vote(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress candidate, SubstrateNetApi.Model.Types.Primitive.Bool approve)
         {
@@ -343,6 +357,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> defender_vote
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method DefenderVote(SubstrateNetApi.Model.Types.Primitive.Bool approve)
         {
@@ -353,6 +368,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> payout
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Payout()
         {
@@ -362,6 +378,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> found
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Found(SubstrateNetApi.Model.SpCore.AccountId32 founder, SubstrateNetApi.Model.Types.Primitive.U32 max_members, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> rules)
         {
@@ -374,6 +391,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> unfound
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Unfound()
         {
@@ -383,6 +401,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> judge_suspended_member
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method JudgeSuspendedMember(SubstrateNetApi.Model.SpCore.AccountId32 who, SubstrateNetApi.Model.Types.Primitive.Bool forgive)
         {
@@ -394,6 +413,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> judge_suspended_candidate
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method JudgeSuspendedCandidate(SubstrateNetApi.Model.SpCore.AccountId32 who, SubstrateNetApi.Model.PalletSociety.EnumJudgement judgement)
         {
@@ -405,6 +425,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> set_max_members
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetMaxMembers(SubstrateNetApi.Model.Types.Primitive.U32 max)
         {
@@ -416,6 +437,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Founded
+    /// The society is founded by the given identity. \[founder\]
     /// </summary>
     public sealed class EventFounded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -423,6 +445,8 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Bid
+    /// A membership bid just happened. The given account is the candidate's ID and their offer
+    /// is the second. \[candidate_id, offer\]
     /// </summary>
     public sealed class EventBid : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -430,6 +454,9 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Vouch
+    /// A membership bid just happened by vouching. The given account is the candidate's ID and
+    /// their offer is the second. The vouching party is the third. \[candidate_id, offer,
+    /// vouching\]
     /// </summary>
     public sealed class EventVouch : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -437,6 +464,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> AutoUnbid
+    /// A \[candidate\] was dropped (due to an excess of bids in the system).
     /// </summary>
     public sealed class EventAutoUnbid : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -444,6 +472,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Unbid
+    /// A \[candidate\] was dropped (by their request).
     /// </summary>
     public sealed class EventUnbid : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -451,6 +480,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Unvouch
+    /// A \[candidate\] was dropped (by request of who vouched for them).
     /// </summary>
     public sealed class EventUnvouch : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -458,6 +488,8 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Inducted
+    /// A group of candidates have been inducted. The batch's primary is the first value, the
+    /// batch in full is the second. \[primary, candidates\]
     /// </summary>
     public sealed class EventInducted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>
     {
@@ -465,6 +497,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> SuspendedMemberJudgement
+    /// A suspended member has been judged. \[who, judged\]
     /// </summary>
     public sealed class EventSuspendedMemberJudgement : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.Bool>
     {
@@ -472,6 +505,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> CandidateSuspended
+    /// A \[candidate\] has been suspended
     /// </summary>
     public sealed class EventCandidateSuspended : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -479,6 +513,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> MemberSuspended
+    /// A \[member\] has been suspended
     /// </summary>
     public sealed class EventMemberSuspended : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -486,6 +521,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Challenged
+    /// A \[member\] has been challenged
     /// </summary>
     public sealed class EventChallenged : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -493,6 +529,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Vote
+    /// A vote has been placed \[candidate, voter, vote\]
     /// </summary>
     public sealed class EventVote : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.Bool>
     {
@@ -500,6 +537,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> DefenderVote
+    /// A vote has been placed for a defending member \[voter, vote\]
     /// </summary>
     public sealed class EventDefenderVote : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.Bool>
     {
@@ -507,6 +545,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> NewMaxMembers
+    /// A new \[max\] member count has been set
     /// </summary>
     public sealed class EventNewMaxMembers : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -514,6 +553,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Unfounded
+    /// Society is unfounded. \[founder\]
     /// </summary>
     public sealed class EventUnfounded : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -521,6 +561,7 @@ namespace SubstrateNetApi.Model.PalletSociety
     
     /// <summary>
     /// >> Deposit
+    /// Some funds were deposited into the society account. \[value\]
     /// </summary>
     public sealed class EventDeposit : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -531,91 +572,109 @@ namespace SubstrateNetApi.Model.PalletSociety
         
         /// <summary>
         /// >> BadPosition
+        /// An incorrect position was provided.
         /// </summary>
         BadPosition,
         
         /// <summary>
         /// >> NotMember
+        /// User is not a member.
         /// </summary>
         NotMember,
         
         /// <summary>
         /// >> AlreadyMember
+        /// User is already a member.
         /// </summary>
         AlreadyMember,
         
         /// <summary>
         /// >> Suspended
+        /// User is suspended.
         /// </summary>
         Suspended,
         
         /// <summary>
         /// >> NotSuspended
+        /// User is not suspended.
         /// </summary>
         NotSuspended,
         
         /// <summary>
         /// >> NoPayout
+        /// Nothing to payout.
         /// </summary>
         NoPayout,
         
         /// <summary>
         /// >> AlreadyFounded
+        /// Society already founded.
         /// </summary>
         AlreadyFounded,
         
         /// <summary>
         /// >> InsufficientPot
+        /// Not enough in pot to accept candidate.
         /// </summary>
         InsufficientPot,
         
         /// <summary>
         /// >> AlreadyVouching
+        /// Member is already vouching or banned from vouching again.
         /// </summary>
         AlreadyVouching,
         
         /// <summary>
         /// >> NotVouching
+        /// Member is not vouching.
         /// </summary>
         NotVouching,
         
         /// <summary>
         /// >> Head
+        /// Cannot remove the head of the chain.
         /// </summary>
         Head,
         
         /// <summary>
         /// >> Founder
+        /// Cannot remove the founder.
         /// </summary>
         Founder,
         
         /// <summary>
         /// >> AlreadyBid
+        /// User has already made a bid.
         /// </summary>
         AlreadyBid,
         
         /// <summary>
         /// >> AlreadyCandidate
+        /// User is already a candidate.
         /// </summary>
         AlreadyCandidate,
         
         /// <summary>
         /// >> NotCandidate
+        /// User is not a candidate.
         /// </summary>
         NotCandidate,
         
         /// <summary>
         /// >> MaxMembers
+        /// Too many members in the society.
         /// </summary>
         MaxMembers,
         
         /// <summary>
         /// >> NotFounder
+        /// The caller is not the founder.
         /// </summary>
         NotFounder,
         
         /// <summary>
         /// >> NotHead
+        /// The caller is not the head.
         /// </summary>
         NotHead,
     }

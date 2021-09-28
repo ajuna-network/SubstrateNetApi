@@ -38,8 +38,7 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         public static string LotteryIndexParams()
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "LotteryIndex", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Lottery", "LotteryIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
@@ -53,12 +52,12 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         public static string LotteryParams()
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "Lottery", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Lottery", "Lottery", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Lottery
+        ///  The configuration for the current lottery.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletLottery.LotteryConfig> Lottery(CancellationToken token)
         {
@@ -68,13 +67,14 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         public static string ParticipantsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Lottery", "Participants", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Lottery", "Participants", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Participants
+        ///  Users who have purchased a ticket. (Lottery Index, Tickets Purchased)
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>>> Participants(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
@@ -84,12 +84,12 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         public static string TicketsCountParams()
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "TicketsCount", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Lottery", "TicketsCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> TicketsCount
+        ///  Total number of tickets sold.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> TicketsCount(CancellationToken token)
         {
@@ -99,13 +99,17 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         public static string TicketsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Lottery", "Tickets", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Lottery", "Tickets", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Tickets
+        ///  Each ticket's owner.
+        /// 
+        ///  May have residual storage from previous lotteries. Use `TicketsCount` to see which ones
+        ///  are actually valid ticket mappings.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Tickets(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -115,12 +119,13 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         public static string CallIndicesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "CallIndices", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Lottery", "CallIndices", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> CallIndices
+        ///  The calls stored in this pallet to be used in an active lottery if configured
+        ///  by `Config::ValidateCall`.
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>> CallIndices(CancellationToken token)
         {
@@ -134,6 +139,7 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         /// <summary>
         /// >> buy_ticket
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method BuyTicket(SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -144,6 +150,7 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         /// <summary>
         /// >> set_calls
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetCalls(BaseVec<SubstrateNetApi.Model.NodeRuntime.EnumNodeCall> calls)
         {
@@ -154,6 +161,7 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         /// <summary>
         /// >> start_lottery
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method StartLottery(SubstrateNetApi.Model.Types.Primitive.U128 price, SubstrateNetApi.Model.Types.Primitive.U32 length, SubstrateNetApi.Model.Types.Primitive.U32 delay, SubstrateNetApi.Model.Types.Primitive.Bool repeat)
         {
@@ -167,6 +175,7 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         /// <summary>
         /// >> stop_repeat
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method StopRepeat()
         {
@@ -177,6 +186,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     /// <summary>
     /// >> LotteryStarted
+    /// A lottery has been started!
     /// </summary>
     public sealed class EventLotteryStarted : BaseTuple
     {
@@ -184,6 +194,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     /// <summary>
     /// >> CallsUpdated
+    /// A new set of calls have been set!
     /// </summary>
     public sealed class EventCallsUpdated : BaseTuple
     {
@@ -191,6 +202,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     /// <summary>
     /// >> Winner
+    /// A winner has been chosen!
     /// </summary>
     public sealed class EventWinner : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U128>
     {
@@ -198,6 +210,7 @@ namespace SubstrateNetApi.Model.PalletLottery
     
     /// <summary>
     /// >> TicketBought
+    /// A ticket has been bought!
     /// </summary>
     public sealed class EventTicketBought : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>
     {
@@ -208,36 +221,43 @@ namespace SubstrateNetApi.Model.PalletLottery
         
         /// <summary>
         /// >> NotConfigured
+        /// A lottery has not been configured.
         /// </summary>
         NotConfigured,
         
         /// <summary>
         /// >> InProgress
+        /// A lottery is already in progress.
         /// </summary>
         InProgress,
         
         /// <summary>
         /// >> AlreadyEnded
+        /// A lottery has already ended.
         /// </summary>
         AlreadyEnded,
         
         /// <summary>
         /// >> InvalidCall
+        /// The call is not valid for an open lottery.
         /// </summary>
         InvalidCall,
         
         /// <summary>
         /// >> AlreadyParticipating
+        /// You are already participating in the lottery with this call.
         /// </summary>
         AlreadyParticipating,
         
         /// <summary>
         /// >> TooManyCalls
+        /// Too many calls for a single lottery.
         /// </summary>
         TooManyCalls,
         
         /// <summary>
         /// >> EncodingFailed
+        /// Failed to encode calls
         /// </summary>
         EncodingFailed,
     }

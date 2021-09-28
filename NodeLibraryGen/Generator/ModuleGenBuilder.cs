@@ -3,6 +3,7 @@ using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
 using SubstrateNetApi.Model.Extrinsics;
 using SubstrateNetApi.Model.Meta;
+using SubstrateNetApi.Model.Types;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -127,16 +128,15 @@ namespace RuntimeMetadata
                         {
                             var fullItem = GetFullItemPath(entry.TypeMap.Item1);
 
-                            string getStorageString = GetStorageString(storage.Prefix, entry.Name, entry.StorageType);
-                            parameterMethod.Statements.Add(new CodeSnippetExpression(getStorageString));
-                            parameterMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression("parameters")));
+                            parameterMethod.Statements.Add(new CodeMethodReturnStatement(
+                                GetStorageString(storage.Prefix, entry.Name, entry.StorageType)));
 
                             storageMethod.ReturnType = new CodeTypeReference($"async Task<{fullItem.Item1}>");
 
                             storageMethod.Parameters.Add(new CodeParameterDeclarationExpression("CancellationToken", "token"));
 
                             CodeMethodInvokeExpression methodInvoke = new(new CodeTypeReferenceExpression(targetClass.Name), parameterMethod.Name,Array.Empty<CodeExpression>());
-                            CodeVariableDeclarationStatement variableDeclaration = new(typeof(string),"parameters",methodInvoke);
+                            CodeVariableDeclarationStatement variableDeclaration = new(typeof(string), "parameters", methodInvoke);
                             storageMethod.Statements.Add(variableDeclaration);
 
                             storageMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression(GetInvoceString(fullItem.Item1))));
@@ -149,12 +149,9 @@ namespace RuntimeMetadata
                             var key = GetFullItemPath(typeMap.Key);
                             var value = GetFullItemPath(typeMap.Value);
 
-                            var keyParamsString = hashers.Length == 1 ? "var keyParams = new IType[] { key }" : "var keyParams = key.Value";
-                            parameterMethod.Statements.Add(new CodeSnippetExpression(keyParamsString));
                             parameterMethod.Parameters.Add(new CodeParameterDeclarationExpression(key.Item1, "key"));
-                            string getStorageString = GetStorageString(storage.Prefix, entry.Name, entry.StorageType, hashers);
-                            parameterMethod.Statements.Add(new CodeSnippetExpression(getStorageString));
-                            parameterMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression("parameters")));
+                            parameterMethod.Statements.Add(new CodeMethodReturnStatement(
+                                GetStorageString(storage.Prefix, entry.Name, entry.StorageType, hashers)));
 
                             storageMethod.ReturnType = new CodeTypeReference($"async Task<{value.Item1}>");
                             storageMethod.Parameters.Add(new CodeParameterDeclarationExpression(key.Item1, "key"));
@@ -162,7 +159,7 @@ namespace RuntimeMetadata
                            
                             CodeMethodInvokeExpression methodInvoke = new(new CodeTypeReferenceExpression(targetClass.Name), parameterMethod.Name,
                                 new CodeExpression[] { new CodeArgumentReferenceExpression("key") });
-                            CodeVariableDeclarationStatement variableDeclaration = new(typeof(string),"parameters",methodInvoke);
+                            CodeVariableDeclarationStatement variableDeclaration = new(typeof(string), "parameters", methodInvoke);
                             storageMethod.Statements.Add(variableDeclaration);
 
                             storageMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression(GetInvoceString(value.Item1))));
@@ -339,15 +336,32 @@ namespace RuntimeMetadata
                 return "await _client.GetStorageAsync<" + returnType + ">(parameters, token)";
             }
 
-            private string GetStorageString(string module, string item, Storage.Type type, Storage.Hasher[] hashers = null)
+            private CodeMethodInvokeExpression GetStorageString(string module, string item, Storage.Type type, Storage.Hasher[] hashers = null)
             {
-                string map = string.Empty;
+
+                CodeExpression[] codeExpressions = 
+                    new CodeExpression[] {
+                        new CodePrimitiveExpression(module),
+                        new CodePrimitiveExpression(item),
+                        new CodePropertyReferenceExpression(new CodeTypeReferenceExpression(typeof(Storage.Type)), type.ToString())
+                 };
+
+                // if it is a map fill hashers and key
                 if (hashers != null && hashers.Length > 0)
                 {
-                    map = ", new[] {" +
-                        string.Join(",", hashers.Select(p => "Storage.Hasher." + p).ToArray()) + "}, keyParams";
+
+                    codeExpressions = new CodeExpression[] {
+                        new CodePrimitiveExpression(module),
+                        new CodePrimitiveExpression(item),
+                        new CodePropertyReferenceExpression(new CodeTypeReferenceExpression(typeof(Storage.Type)), type.ToString()),
+                        new CodeArrayCreateExpression(new CodeTypeReference(typeof(Storage.Hasher)),
+                                hashers.Select(p => new CodePropertyReferenceExpression(new CodeTypeReferenceExpression(typeof(Storage.Hasher)), p.ToString())).ToArray()),
+                        new CodeArrayCreateExpression(new CodeTypeReference(typeof(IType)),
+                            new CodeArgumentReferenceExpression[] { new CodeArgumentReferenceExpression("key") })
+                    };
                 }
-                return $"var parameters = RequestGenerator.GetStorage(\"{module}\", \"{item}\", Storage.Type.{type}{map})";
+
+                return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression("RequestGenerator"), "GetStorage", codeExpressions);
             }
         }
 

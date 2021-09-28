@@ -36,12 +36,12 @@ namespace SubstrateNetApi.Model.PalletMmr
         
         public static string RootHashParams()
         {
-            var parameters = RequestGenerator.GetStorage("Mmr", "RootHash", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Mmr", "RootHash", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> RootHash
+        ///  Latest MMR Root hash.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> RootHash(CancellationToken token)
         {
@@ -51,12 +51,12 @@ namespace SubstrateNetApi.Model.PalletMmr
         
         public static string NumberOfLeavesParams()
         {
-            var parameters = RequestGenerator.GetStorage("Mmr", "NumberOfLeaves", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Mmr", "NumberOfLeaves", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> NumberOfLeaves
+        ///  Current size of the MMR (number of leaves).
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> NumberOfLeaves(CancellationToken token)
         {
@@ -66,13 +66,17 @@ namespace SubstrateNetApi.Model.PalletMmr
         
         public static string NodesParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Mmr", "Nodes", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Mmr", "Nodes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Nodes
+        ///  Hashes of the nodes in the MMR.
+        /// 
+        ///  Note this collection only contains MMR peaks, the inner nodes (and leaves)
+        ///  are pruned and only stored in the Offchain DB.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> Nodes(SubstrateNetApi.Model.Types.Primitive.U64 key, CancellationToken token)
         {

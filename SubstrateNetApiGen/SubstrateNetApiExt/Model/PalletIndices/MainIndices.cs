@@ -36,13 +36,14 @@ namespace SubstrateNetApi.Model.PalletIndices
         
         public static string AccountsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Indices", "Accounts", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Indices", "Accounts", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Accounts
+        ///  The lookup from index to account.
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.Types.Primitive.Bool>> Accounts(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
@@ -56,6 +57,7 @@ namespace SubstrateNetApi.Model.PalletIndices
         
         /// <summary>
         /// >> claim
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Claim(SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -66,6 +68,7 @@ namespace SubstrateNetApi.Model.PalletIndices
         
         /// <summary>
         /// >> transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Transfer(SubstrateNetApi.Model.SpCore.AccountId32 @new, SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -77,6 +80,7 @@ namespace SubstrateNetApi.Model.PalletIndices
         
         /// <summary>
         /// >> free
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Free(SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -87,6 +91,7 @@ namespace SubstrateNetApi.Model.PalletIndices
         
         /// <summary>
         /// >> force_transfer
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ForceTransfer(SubstrateNetApi.Model.SpCore.AccountId32 @new, SubstrateNetApi.Model.Types.Primitive.U32 index, SubstrateNetApi.Model.Types.Primitive.Bool freeze)
         {
@@ -99,6 +104,7 @@ namespace SubstrateNetApi.Model.PalletIndices
         
         /// <summary>
         /// >> freeze
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Freeze(SubstrateNetApi.Model.Types.Primitive.U32 index)
         {
@@ -110,6 +116,7 @@ namespace SubstrateNetApi.Model.PalletIndices
     
     /// <summary>
     /// >> IndexAssigned
+    /// A account index was assigned. \[index, who\]
     /// </summary>
     public sealed class EventIndexAssigned : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -117,6 +124,7 @@ namespace SubstrateNetApi.Model.PalletIndices
     
     /// <summary>
     /// >> IndexFreed
+    /// A account index has been freed up (unassigned). \[index\]
     /// </summary>
     public sealed class EventIndexFreed : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32>
     {
@@ -124,6 +132,7 @@ namespace SubstrateNetApi.Model.PalletIndices
     
     /// <summary>
     /// >> IndexFrozen
+    /// A account index has been frozen to its current account ID. \[index, who\]
     /// </summary>
     public sealed class EventIndexFrozen : BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32, SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -134,26 +143,31 @@ namespace SubstrateNetApi.Model.PalletIndices
         
         /// <summary>
         /// >> NotAssigned
+        /// The index was not already assigned.
         /// </summary>
         NotAssigned,
         
         /// <summary>
         /// >> NotOwner
+        /// The index is assigned to another account.
         /// </summary>
         NotOwner,
         
         /// <summary>
         /// >> InUse
+        /// The index was not available.
         /// </summary>
         InUse,
         
         /// <summary>
         /// >> NotTransfer
+        /// The source and destination accounts are identical.
         /// </summary>
         NotTransfer,
         
         /// <summary>
         /// >> Permanent
+        /// The index is permanent and may not be freed/changed.
         /// </summary>
         Permanent,
     }

@@ -39,13 +39,15 @@ namespace SubstrateNetApi.Model.PalletMultisig
         
         public static string MultisigsParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Multisig", "Multisigs", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Multisig", "Multisigs", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> Multisigs
+        ///  The set of open multisig operations.
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletMultisig.Multisig> Multisigs(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8> key, CancellationToken token)
         {
@@ -55,9 +57,9 @@ namespace SubstrateNetApi.Model.PalletMultisig
         
         public static string CallsParams(SubstrateNetApi.Model.Base.Arr32U8 key)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Multisig", "Calls", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("Multisig", "Calls", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
@@ -75,6 +77,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
         
         /// <summary>
         /// >> as_multi_threshold_1
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AsMultiThreshold1(BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -86,6 +89,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
         
         /// <summary>
         /// >> as_multi
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method AsMulti(SubstrateNetApi.Model.Types.Primitive.U16 threshold, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, BaseOpt<SubstrateNetApi.Model.PalletMultisig.Timepoint> maybe_timepoint, BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> call, SubstrateNetApi.Model.Types.Primitive.Bool store_call, SubstrateNetApi.Model.Types.Primitive.U64 max_weight)
         {
@@ -101,6 +105,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
         
         /// <summary>
         /// >> approve_as_multi
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method ApproveAsMulti(SubstrateNetApi.Model.Types.Primitive.U16 threshold, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, BaseOpt<SubstrateNetApi.Model.PalletMultisig.Timepoint> maybe_timepoint, SubstrateNetApi.Model.Base.Arr32U8 call_hash, SubstrateNetApi.Model.Types.Primitive.U64 max_weight)
         {
@@ -115,6 +120,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
         
         /// <summary>
         /// >> cancel_as_multi
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method CancelAsMulti(SubstrateNetApi.Model.Types.Primitive.U16 threshold, BaseVec<SubstrateNetApi.Model.SpCore.AccountId32> other_signatories, SubstrateNetApi.Model.PalletMultisig.Timepoint timepoint, SubstrateNetApi.Model.Base.Arr32U8 call_hash)
         {
@@ -129,6 +135,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     /// <summary>
     /// >> NewMultisig
+    /// A new multisig operation has begun. \[approving, multisig, call_hash\]
     /// </summary>
     public sealed class EventNewMultisig : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
     {
@@ -136,6 +143,8 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     /// <summary>
     /// >> MultisigApproval
+    /// A multisig operation has been approved by someone.
+    /// \[approving, timepoint, multisig, call_hash\]
     /// </summary>
     public sealed class EventMultisigApproval : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
     {
@@ -143,6 +152,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     /// <summary>
     /// >> MultisigExecuted
+    /// A multisig operation has been executed. \[approving, timepoint, multisig, call_hash\]
     /// </summary>
     public sealed class EventMultisigExecuted : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8, BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
     {
@@ -150,6 +160,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
     
     /// <summary>
     /// >> MultisigCancelled
+    /// A multisig operation has been cancelled. \[cancelling, timepoint, multisig, call_hash\]
     /// </summary>
     public sealed class EventMultisigCancelled : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.PalletMultisig.Timepoint, SubstrateNetApi.Model.SpCore.AccountId32, SubstrateNetApi.Model.Base.Arr32U8>
     {
@@ -160,71 +171,85 @@ namespace SubstrateNetApi.Model.PalletMultisig
         
         /// <summary>
         /// >> MinimumThreshold
+        /// Threshold must be 2 or greater.
         /// </summary>
         MinimumThreshold,
         
         /// <summary>
         /// >> AlreadyApproved
+        /// Call is already approved by this signatory.
         /// </summary>
         AlreadyApproved,
         
         /// <summary>
         /// >> NoApprovalsNeeded
+        /// Call doesn't need any (more) approvals.
         /// </summary>
         NoApprovalsNeeded,
         
         /// <summary>
         /// >> TooFewSignatories
+        /// There are too few signatories in the list.
         /// </summary>
         TooFewSignatories,
         
         /// <summary>
         /// >> TooManySignatories
+        /// There are too many signatories in the list.
         /// </summary>
         TooManySignatories,
         
         /// <summary>
         /// >> SignatoriesOutOfOrder
+        /// The signatories were provided out of order; they should be ordered.
         /// </summary>
         SignatoriesOutOfOrder,
         
         /// <summary>
         /// >> SenderInSignatories
+        /// The sender was contained in the other signatories; it shouldn't be.
         /// </summary>
         SenderInSignatories,
         
         /// <summary>
         /// >> NotFound
+        /// Multisig operation not found when attempting to cancel.
         /// </summary>
         NotFound,
         
         /// <summary>
         /// >> NotOwner
+        /// Only the account that originally created the multisig is able to cancel it.
         /// </summary>
         NotOwner,
         
         /// <summary>
         /// >> NoTimepoint
+        /// No timepoint was given, yet the multisig operation is already underway.
         /// </summary>
         NoTimepoint,
         
         /// <summary>
         /// >> WrongTimepoint
+        /// A different timepoint was given to the multisig operation that is underway.
         /// </summary>
         WrongTimepoint,
         
         /// <summary>
         /// >> UnexpectedTimepoint
+        /// A timepoint was given, yet no multisig operation is underway.
         /// </summary>
         UnexpectedTimepoint,
         
         /// <summary>
         /// >> MaxWeightTooLow
+        /// The maximum weight information provided was too low.
         /// </summary>
         MaxWeightTooLow,
         
         /// <summary>
         /// >> AlreadyStored
+        /// The data to be stored is already stored.
         /// </summary>
         AlreadyStored,
     }

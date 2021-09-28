@@ -38,12 +38,12 @@ namespace SubstrateNetApi.Model.PalletSudo
         
         public static string KeyParams()
         {
-            var parameters = RequestGenerator.GetStorage("Sudo", "Key", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("Sudo", "Key", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Key
+        ///  The `AccountId` of the sudo key.
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Key(CancellationToken token)
         {
@@ -57,6 +57,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         
         /// <summary>
         /// >> sudo
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Sudo(SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -67,6 +68,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         
         /// <summary>
         /// >> sudo_unchecked_weight
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SudoUncheckedWeight(SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call, SubstrateNetApi.Model.Types.Primitive.U64 weight)
         {
@@ -78,6 +80,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         
         /// <summary>
         /// >> set_key
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SetKey(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress @new)
         {
@@ -88,6 +91,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         
         /// <summary>
         /// >> sudo_as
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method SudoAs(SubstrateNetApi.Model.SpRuntime.EnumMultiAddress who, SubstrateNetApi.Model.NodeRuntime.EnumNodeCall call)
         {
@@ -100,6 +104,7 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     /// <summary>
     /// >> Sudid
+    /// A sudo just took place. \[result\]
     /// </summary>
     public sealed class EventSudid : BaseTuple<BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
     {
@@ -107,6 +112,7 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     /// <summary>
     /// >> KeyChanged
+    /// The \[sudoer\] just switched identity; the old key is supplied.
     /// </summary>
     public sealed class EventKeyChanged : BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32>
     {
@@ -114,6 +120,7 @@ namespace SubstrateNetApi.Model.PalletSudo
     
     /// <summary>
     /// >> SudoAsDone
+    /// A sudo just took place. \[result\]
     /// </summary>
     public sealed class EventSudoAsDone : BaseTuple<BaseTuple<BaseTuple,  SubstrateNetApi.Model.SpRuntime.EnumDispatchError>>
     {
@@ -124,6 +131,7 @@ namespace SubstrateNetApi.Model.PalletSudo
         
         /// <summary>
         /// >> RequireSudo
+        /// Sender must be the Sudo account
         /// </summary>
         RequireSudo,
     }

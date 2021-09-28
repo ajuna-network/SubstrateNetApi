@@ -39,12 +39,22 @@ namespace SubstrateNetApi.Model.PalletImOnline
         
         public static string HeartbeatAfterParams()
         {
-            var parameters = RequestGenerator.GetStorage("ImOnline", "HeartbeatAfter", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ImOnline", "HeartbeatAfter", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> HeartbeatAfter
+        ///  The block number after which it's ok to send heartbeats in the current
+        ///  session.
+        /// 
+        ///  At the beginning of each session we set this to a value that should fall
+        ///  roughly in the middle of the session duration. The idea is to first wait for
+        ///  the validators to produce a block in the current session, so that the
+        ///  heartbeat later on will not be necessary.
+        /// 
+        ///  This value will only be used as a fallback if we fail to get a proper session
+        ///  progress estimate from `NextSessionRotation`, as those estimates should be
+        ///  more accurate then the value we calculate for `HeartbeatAfter`.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> HeartbeatAfter(CancellationToken token)
         {
@@ -54,12 +64,12 @@ namespace SubstrateNetApi.Model.PalletImOnline
         
         public static string KeysParams()
         {
-            var parameters = RequestGenerator.GetStorage("ImOnline", "Keys", Storage.Type.Plain);
-            return parameters;
+            return RequestGenerator.GetStorage("ImOnline", "Keys", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
         }
         
         /// <summary>
         /// >> Keys
+        ///  The current set of keys that may issue a heartbeat.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> Keys(CancellationToken token)
         {
@@ -69,13 +79,16 @@ namespace SubstrateNetApi.Model.PalletImOnline
         
         public static string ReceivedHeartbeatsParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("ImOnline", "ReceivedHeartbeats", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("ImOnline", "ReceivedHeartbeats", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> ReceivedHeartbeats
+        ///  For each session index, we keep a mapping of 'SessionIndex` and `AuthIndex` to
+        ///  `WrapperOpaque<BoundedOpaqueNetworkState>`.
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WrapperOpaque> ReceivedHeartbeats(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
@@ -85,13 +98,16 @@ namespace SubstrateNetApi.Model.PalletImOnline
         
         public static string AuthoredBlocksParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("ImOnline", "AuthoredBlocks", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
-            return parameters;
+            return RequestGenerator.GetStorage("ImOnline", "AuthoredBlocks", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
+                        SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, new SubstrateNetApi.Model.Types.IType[] {
+                        key});
         }
         
         /// <summary>
         /// >> AuthoredBlocks
+        ///  For each session index, we keep a mapping of `ValidatorId<T>` to the
+        ///  number of blocks authored by the given authority.
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> AuthoredBlocks(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
@@ -105,6 +121,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
         
         /// <summary>
         /// >> heartbeat
+        /// Contains one variant per dispatchable that can be called by an extrinsic.
         /// </summary>
         public static Method Heartbeat(SubstrateNetApi.Model.PalletImOnline.Heartbeat heartbeat, SubstrateNetApi.Model.PalletImOnline.Signature signature)
         {
@@ -117,6 +134,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     /// <summary>
     /// >> HeartbeatReceived
+    /// A new heartbeat was received from `AuthorityId` \[authority_id\]
     /// </summary>
     public sealed class EventHeartbeatReceived : BaseTuple<SubstrateNetApi.Model.PalletImOnline.Public>
     {
@@ -124,6 +142,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     /// <summary>
     /// >> AllGood
+    /// At the end of the session, no offence was committed.
     /// </summary>
     public sealed class EventAllGood : BaseTuple
     {
@@ -131,6 +150,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
     
     /// <summary>
     /// >> SomeOffline
+    /// At the end of the session, at least one validator was found to be \[offline\].
     /// </summary>
     public sealed class EventSomeOffline : BaseTuple<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletStaking.Exposure>>>
     {
@@ -141,11 +161,13 @@ namespace SubstrateNetApi.Model.PalletImOnline
         
         /// <summary>
         /// >> InvalidKey
+        /// Non existent public key.
         /// </summary>
         InvalidKey,
         
         /// <summary>
         /// >> DuplicatedHeartbeat
+        /// Duplicated heartbeat.
         /// </summary>
         DuplicatedHeartbeat,
     }
