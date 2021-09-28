@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletSudo
             this._client = client;
         }
         
+        /// <summary>
+        /// >> KeyParams
+        ///  The `AccountId` of the sudo key.
+        /// </summary>
         public static string KeyParams()
         {
             return RequestGenerator.GetStorage("Sudo", "Key", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

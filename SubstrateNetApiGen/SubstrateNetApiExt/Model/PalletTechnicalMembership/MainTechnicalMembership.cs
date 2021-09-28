@@ -33,6 +33,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
             this._client = client;
         }
         
+        /// <summary>
+        /// >> MembersParams
+        ///  The current membership, stored as an ordered Vec.
+        /// </summary>
         public static string MembersParams()
         {
             return RequestGenerator.GetStorage("TechnicalMembership", "Members", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -48,6 +52,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PrimeParams
+        ///  The current prime member, if one exists.
+        /// </summary>
         public static string PrimeParams()
         {
             return RequestGenerator.GetStorage("TechnicalMembership", "Prime", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

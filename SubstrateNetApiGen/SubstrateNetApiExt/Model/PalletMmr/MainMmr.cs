@@ -34,6 +34,10 @@ namespace SubstrateNetApi.Model.PalletMmr
             this._client = client;
         }
         
+        /// <summary>
+        /// >> RootHashParams
+        ///  Latest MMR Root hash.
+        /// </summary>
         public static string RootHashParams()
         {
             return RequestGenerator.GetStorage("Mmr", "RootHash", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -49,6 +53,10 @@ namespace SubstrateNetApi.Model.PalletMmr
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NumberOfLeavesParams
+        ///  Current size of the MMR (number of leaves).
+        /// </summary>
         public static string NumberOfLeavesParams()
         {
             return RequestGenerator.GetStorage("Mmr", "NumberOfLeaves", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -64,6 +72,13 @@ namespace SubstrateNetApi.Model.PalletMmr
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NodesParams
+        ///  Hashes of the nodes in the MMR.
+        /// 
+        ///  Note this collection only contains MMR peaks, the inner nodes (and leaves)
+        ///  are pruned and only stored in the Offchain DB.
+        /// </summary>
         public static string NodesParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
         {
             return RequestGenerator.GetStorage("Mmr", "Nodes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

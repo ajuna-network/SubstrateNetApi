@@ -37,6 +37,16 @@ namespace SubstrateNetApi.Model.PalletStaking
             this._client = client;
         }
         
+        /// <summary>
+        /// >> HistoryDepthParams
+        ///  Number of eras to keep in history.
+        /// 
+        ///  Information is kept for eras in `[current_era - history_depth; current_era]`.
+        /// 
+        ///  Must be more than the number of eras delayed by session otherwise. I.e. active era must
+        ///  always be in history. I.e. `active_era > current_era - history_depth` must be
+        ///  guaranteed.
+        /// </summary>
         public static string HistoryDepthParams()
         {
             return RequestGenerator.GetStorage("Staking", "HistoryDepth", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -58,6 +68,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ValidatorCountParams
+        ///  The ideal number of staking participants.
+        /// </summary>
         public static string ValidatorCountParams()
         {
             return RequestGenerator.GetStorage("Staking", "ValidatorCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -73,6 +87,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MinimumValidatorCountParams
+        ///  Minimum number of staking participants before emergency conditions are imposed.
+        /// </summary>
         public static string MinimumValidatorCountParams()
         {
             return RequestGenerator.GetStorage("Staking", "MinimumValidatorCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -88,6 +106,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> InvulnerablesParams
+        ///  Any validators that may never be slashed or forcibly kicked. It's a Vec since they're
+        ///  easy to initialize and the performance hit is minimal (we expect no more than four
+        ///  invulnerables) and restricted to testnets.
+        /// </summary>
         public static string InvulnerablesParams()
         {
             return RequestGenerator.GetStorage("Staking", "Invulnerables", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -105,6 +129,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BondedParams
+        ///  Map from all locked "stash" accounts to the controller account.
+        /// </summary>
         public static string BondedParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Staking", "Bonded", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -122,6 +150,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MinNominatorBondParams
+        ///  The minimum active bond to become and maintain the role of a nominator.
+        /// </summary>
         public static string MinNominatorBondParams()
         {
             return RequestGenerator.GetStorage("Staking", "MinNominatorBond", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -137,6 +169,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MinValidatorBondParams
+        ///  The minimum active bond to become and maintain the role of a validator.
+        /// </summary>
         public static string MinValidatorBondParams()
         {
             return RequestGenerator.GetStorage("Staking", "MinValidatorBond", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -152,6 +188,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LedgerParams
+        ///  Map from all (unlocked) "controller" accounts to the info regarding the staking.
+        /// </summary>
         public static string LedgerParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Staking", "Ledger", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -169,6 +209,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.StakingLedger>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PayeeParams
+        ///  Where the reward payment should be made. Keyed by stash.
+        /// </summary>
         public static string PayeeParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Staking", "Payee", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -186,6 +230,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EnumRewardDestination>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ValidatorsParams
+        ///  The map from (wannabe) validator stash key to the preferences of that validator.
+        /// 
+        ///  When updating this storage item, you must also update the `CounterForValidators`.
+        /// </summary>
         public static string ValidatorsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Staking", "Validators", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -205,6 +255,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.ValidatorPrefs>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CounterForValidatorsParams
+        ///  A tracker to keep count of the number of items in the `Validators` map.
+        /// </summary>
         public static string CounterForValidatorsParams()
         {
             return RequestGenerator.GetStorage("Staking", "CounterForValidators", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -220,6 +274,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MaxValidatorsCountParams
+        ///  The maximum validator count before we stop allowing new validators to join.
+        /// 
+        ///  When this value is not set, no limits are enforced.
+        /// </summary>
         public static string MaxValidatorsCountParams()
         {
             return RequestGenerator.GetStorage("Staking", "MaxValidatorsCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -237,6 +297,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NominatorsParams
+        ///  The map from nominator stash key to the set of stash keys of all validators to nominate.
+        /// 
+        ///  When updating this storage item, you must also update the `CounterForNominators`.
+        /// </summary>
         public static string NominatorsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Staking", "Nominators", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -256,6 +322,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.Nominations>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CounterForNominatorsParams
+        ///  A tracker to keep count of the number of items in the `Nominators` map.
+        /// </summary>
         public static string CounterForNominatorsParams()
         {
             return RequestGenerator.GetStorage("Staking", "CounterForNominators", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -271,6 +341,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MaxNominatorsCountParams
+        ///  The maximum nominator count before we stop allowing new validators to join.
+        /// 
+        ///  When this value is not set, no limits are enforced.
+        /// </summary>
         public static string MaxNominatorsCountParams()
         {
             return RequestGenerator.GetStorage("Staking", "MaxNominatorsCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -288,6 +364,13 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CurrentEraParams
+        ///  The current era index.
+        /// 
+        ///  This is the latest planned era, depending on how the Session pallet queues the validator
+        ///  set, it might be active or not.
+        /// </summary>
         public static string CurrentEraParams()
         {
             return RequestGenerator.GetStorage("Staking", "CurrentEra", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -306,6 +389,13 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ActiveEraParams
+        ///  The active era information, it holds index and start.
+        /// 
+        ///  The active era is the era being currently rewarded. Validator set of this era must be
+        ///  equal to [`SessionInterface::validators`].
+        /// </summary>
         public static string ActiveEraParams()
         {
             return RequestGenerator.GetStorage("Staking", "ActiveEra", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -324,6 +414,13 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.ActiveEraInfo>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ErasStartSessionIndexParams
+        ///  The session index at which the era start for the last `HISTORY_DEPTH` eras.
+        /// 
+        ///  Note: This tracks the starting session (i.e. session index when era start being active)
+        ///  for the eras in `[CurrentEra - HISTORY_DEPTH, CurrentEra]`.
+        /// </summary>
         public static string ErasStartSessionIndexParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Staking", "ErasStartSessionIndex", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -344,6 +441,15 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ErasStakersParams
+        ///  Exposure of validator at era.
+        /// 
+        ///  This is keyed first by the era index to allow bulk deletion and then the stash account.
+        /// 
+        ///  Is it removed after `HISTORY_DEPTH` eras.
+        ///  If stakers hasn't been set or has been removed then empty exposure is returned.
+        /// </summary>
         public static string ErasStakersParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Staking", "ErasStakers", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -367,6 +473,20 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.Exposure>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ErasStakersClippedParams
+        ///  Clipped Exposure of validator at era.
+        /// 
+        ///  This is similar to [`ErasStakers`] but number of nominators exposed is reduced to the
+        ///  `T::MaxNominatorRewardedPerValidator` biggest stakers.
+        ///  (Note: the field `total` and `own` of the exposure remains unchanged).
+        ///  This is used to limit the i/o cost for the nominator payout.
+        /// 
+        ///  This is keyed fist by the era index to allow bulk deletion and then the stash account.
+        /// 
+        ///  Is it removed after `HISTORY_DEPTH` eras.
+        ///  If stakers hasn't been set or has been removed then empty exposure is returned.
+        /// </summary>
         public static string ErasStakersClippedParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Staking", "ErasStakersClipped", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -395,6 +515,14 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.Exposure>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ErasValidatorPrefsParams
+        ///  Similar to `ErasStakers`, this holds the preferences of validators.
+        /// 
+        ///  This is keyed first by the era index to allow bulk deletion and then the stash account.
+        /// 
+        ///  Is it removed after `HISTORY_DEPTH` eras.
+        /// </summary>
         public static string ErasValidatorPrefsParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Staking", "ErasValidatorPrefs", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -417,6 +545,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.ValidatorPrefs>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ErasValidatorRewardParams
+        ///  The total validator era payout for the last `HISTORY_DEPTH` eras.
+        /// 
+        ///  Eras that haven't finished yet or has been removed doesn't have reward.
+        /// </summary>
         public static string ErasValidatorRewardParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Staking", "ErasValidatorReward", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -436,6 +570,11 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ErasRewardPointsParams
+        ///  Rewards for the last `HISTORY_DEPTH` eras.
+        ///  If reward hasn't been set or has been removed then 0 reward is returned.
+        /// </summary>
         public static string ErasRewardPointsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Staking", "ErasRewardPoints", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -454,6 +593,11 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EraRewardPoints>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ErasTotalStakeParams
+        ///  The total amount staked for the last `HISTORY_DEPTH` eras.
+        ///  If total hasn't been set or has been removed then 0 stake is returned.
+        /// </summary>
         public static string ErasTotalStakeParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Staking", "ErasTotalStake", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -472,6 +616,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ForceEraParams
+        ///  Mode of era forcing.
+        /// </summary>
         public static string ForceEraParams()
         {
             return RequestGenerator.GetStorage("Staking", "ForceEra", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -487,6 +635,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EnumForcing>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SlashRewardFractionParams
+        ///  The percentage of the slash that is distributed to reporters.
+        /// 
+        ///  The rest of the slashed value is handled by the `Slash`.
+        /// </summary>
         public static string SlashRewardFractionParams()
         {
             return RequestGenerator.GetStorage("Staking", "SlashRewardFraction", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -504,6 +658,11 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpArithmetic.Perbill>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CanceledSlashPayoutParams
+        ///  The amount of currency given to reporters of a slash event which was
+        ///  canceled by extraordinary circumstances (e.g. governance).
+        /// </summary>
         public static string CanceledSlashPayoutParams()
         {
             return RequestGenerator.GetStorage("Staking", "CanceledSlashPayout", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -520,6 +679,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> UnappliedSlashesParams
+        ///  All unapplied slashes that are queued for later.
+        /// </summary>
         public static string UnappliedSlashesParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Staking", "UnappliedSlashes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -537,6 +700,13 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletStaking.UnappliedSlash>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BondedErasParams
+        ///  A mapping from still-bonded eras to the first session index of that era.
+        /// 
+        ///  Must contains information for eras for the range:
+        ///  `[active_era - bounding_duration; active_era]`
+        /// </summary>
         public static string BondedErasParams()
         {
             return RequestGenerator.GetStorage("Staking", "BondedEras", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -555,6 +725,11 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ValidatorSlashInEraParams
+        ///  All slashing events on validators, mapped by era to the highest slash proportion
+        ///  and slash value of the era.
+        /// </summary>
         public static string ValidatorSlashInEraParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Staking", "ValidatorSlashInEra", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -574,6 +749,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.SpArithmetic.Perbill,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NominatorSlashInEraParams
+        ///  All slashing events on nominators, mapped by era to the highest slash value of the era.
+        /// </summary>
         public static string NominatorSlashInEraParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Staking", "NominatorSlashInEra", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -592,6 +771,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SlashingSpansParams
+        ///  Slashing spans for stash accounts.
+        /// </summary>
         public static string SlashingSpansParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Staking", "SlashingSpans", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -609,6 +792,11 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.SlashingSpans>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SpanSlashParams
+        ///  Records information about the maximum slash of a stash within a slashing span,
+        ///  as well as how much reward has been paid out.
+        /// </summary>
         public static string SpanSlashParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
             return RequestGenerator.GetStorage("Staking", "SpanSlash", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -627,6 +815,10 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.SpanRecord>(parameters, token);
         }
         
+        /// <summary>
+        /// >> EarliestUnappliedSlashParams
+        ///  The earliest era for which we have a pending, unapplied slash.
+        /// </summary>
         public static string EarliestUnappliedSlashParams()
         {
             return RequestGenerator.GetStorage("Staking", "EarliestUnappliedSlash", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -642,6 +834,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CurrentPlannedSessionParams
+        ///  The last planned session scheduled by the session pallet.
+        /// 
+        ///  This is basically in sync with the call to [`pallet_session::SessionManager::new_session`].
+        /// </summary>
         public static string CurrentPlannedSessionParams()
         {
             return RequestGenerator.GetStorage("Staking", "CurrentPlannedSession", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -659,6 +857,13 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StorageVersionParams
+        ///  True if network has been upgraded to this version.
+        ///  Storage version of the pallet.
+        /// 
+        ///  This is set to v7.0.0 for new networks.
+        /// </summary>
         public static string StorageVersionParams()
         {
             return RequestGenerator.GetStorage("Staking", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -677,6 +882,12 @@ namespace SubstrateNetApi.Model.PalletStaking
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EnumReleases>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ChillThresholdParams
+        ///  The threshold for when users can start calling `chill_other` for other validators /
+        ///  nominators. The threshold is compared to the actual number of validators / nominators
+        ///  (`CountFor*`) in the system compared to the configured max (`Max*Count`).
+        /// </summary>
         public static string ChillThresholdParams()
         {
             return RequestGenerator.GetStorage("Staking", "ChillThreshold", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

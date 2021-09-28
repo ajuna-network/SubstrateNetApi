@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             this._client = client;
         }
         
+        /// <summary>
+        /// >> PublicPropCountParams
+        ///  The number of (public) proposals that have been made so far.
+        /// </summary>
         public static string PublicPropCountParams()
         {
             return RequestGenerator.GetStorage("Democracy", "PublicPropCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -51,6 +55,10 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PublicPropsParams
+        ///  The public proposals. Unsorted. The second item is the proposal's hash.
+        /// </summary>
         public static string PublicPropsParams()
         {
             return RequestGenerator.GetStorage("Democracy", "PublicProps", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -66,6 +74,12 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.SpCore.AccountId32>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DepositOfParams
+        ///  Those who have locked a deposit.
+        /// 
+        ///  TWOX-NOTE: Safe, as increasing integer keys are safe.
+        /// </summary>
         public static string DepositOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Democracy", "DepositOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -85,6 +99,11 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<BaseTuple<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PreimagesParams
+        ///  Map of hashes to the proposal preimage, along with who registered it and their deposit.
+        ///  The block number is the block at which it was deposited.
+        /// </summary>
         public static string PreimagesParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Democracy", "Preimages", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -103,6 +122,10 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletDemocracy.EnumPreimageStatus>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ReferendumCountParams
+        ///  The next free referendum index, aka the number of referenda started so far.
+        /// </summary>
         public static string ReferendumCountParams()
         {
             return RequestGenerator.GetStorage("Democracy", "ReferendumCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -118,6 +141,11 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LowestUnbakedParams
+        ///  The lowest referendum index representing an unbaked referendum. Equal to
+        ///  `ReferendumCount` if there isn't a unbaked referendum.
+        /// </summary>
         public static string LowestUnbakedParams()
         {
             return RequestGenerator.GetStorage("Democracy", "LowestUnbaked", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -134,6 +162,12 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ReferendumInfoOfParams
+        ///  Information concerning any given referendum.
+        /// 
+        ///  TWOX-NOTE: SAFE as indexes are not under an attacker���s control.
+        /// </summary>
         public static string ReferendumInfoOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Democracy", "ReferendumInfoOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -153,6 +187,13 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletDemocracy.EnumReferendumInfo>(parameters, token);
         }
         
+        /// <summary>
+        /// >> VotingOfParams
+        ///  All votes for a particular voter. We store the balance for the number of votes that we
+        ///  have recorded. The second item is the total amount of delegations, that will be added.
+        /// 
+        ///  TWOX-NOTE: SAFE as `AccountId`s are crypto hashes anyway.
+        /// </summary>
         public static string VotingOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Democracy", "VotingOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -173,6 +214,13 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletDemocracy.EnumVoting>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LocksParams
+        ///  Accounts for which there are locks in action which may be removed at some point in the
+        ///  future. The value is the block number at which the lock expires and may be removed.
+        /// 
+        ///  TWOX-NOTE: OK ��� `AccountId` is a secure hash.
+        /// </summary>
         public static string LocksParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Democracy", "Locks", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -193,6 +241,11 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LastTabledWasExternalParams
+        ///  True if the last referendum tabled was submitted externally. False if it was a public
+        ///  proposal.
+        /// </summary>
         public static string LastTabledWasExternalParams()
         {
             return RequestGenerator.GetStorage("Democracy", "LastTabledWasExternal", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -209,6 +262,13 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NextExternalParams
+        ///  The referendum to be tabled whenever it would be valid to table an external proposal.
+        ///  This happens when a referendum needs to be tabled and one of two conditions are met:
+        ///  - `LastTabledWasExternal` is `false`; or
+        ///  - `PublicProps` is empty.
+        /// </summary>
         public static string NextExternalParams()
         {
             return RequestGenerator.GetStorage("Democracy", "NextExternal", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -227,6 +287,11 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.PalletDemocracy.EnumVoteThreshold>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BlacklistParams
+        ///  A record of who vetoed what. Maps proposal hash to a possible existent block number
+        ///  (until when it may not be resubmitted) and who vetoed it.
+        /// </summary>
         public static string BlacklistParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Democracy", "Blacklist", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -245,6 +310,10 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CancellationsParams
+        ///  Record of all proposals that have been subject to emergency cancellation.
+        /// </summary>
         public static string CancellationsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Democracy", "Cancellations", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -262,6 +331,12 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StorageVersionParams
+        ///  Storage version of the pallet.
+        /// 
+        ///  New networks start with last version.
+        /// </summary>
         public static string StorageVersionParams()
         {
             return RequestGenerator.GetStorage("Democracy", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

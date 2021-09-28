@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletAuthorship
             this._client = client;
         }
         
+        /// <summary>
+        /// >> UnclesParams
+        ///  Uncles
+        /// </summary>
         public static string UnclesParams()
         {
             return RequestGenerator.GetStorage("Authorship", "Uncles", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -51,6 +55,10 @@ namespace SubstrateNetApi.Model.PalletAuthorship
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletAuthorship.EnumUncleEntryItem>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AuthorParams
+        ///  Author of current block.
+        /// </summary>
         public static string AuthorParams()
         {
             return RequestGenerator.GetStorage("Authorship", "Author", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -66,6 +74,10 @@ namespace SubstrateNetApi.Model.PalletAuthorship
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DidSetUnclesParams
+        ///  Whether uncles were already set in this block.
+        /// </summary>
         public static string DidSetUnclesParams()
         {
             return RequestGenerator.GetStorage("Authorship", "DidSetUncles", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

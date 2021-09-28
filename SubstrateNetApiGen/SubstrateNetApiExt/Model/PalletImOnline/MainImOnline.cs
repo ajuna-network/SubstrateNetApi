@@ -37,6 +37,20 @@ namespace SubstrateNetApi.Model.PalletImOnline
             this._client = client;
         }
         
+        /// <summary>
+        /// >> HeartbeatAfterParams
+        ///  The block number after which it's ok to send heartbeats in the current
+        ///  session.
+        /// 
+        ///  At the beginning of each session we set this to a value that should fall
+        ///  roughly in the middle of the session duration. The idea is to first wait for
+        ///  the validators to produce a block in the current session, so that the
+        ///  heartbeat later on will not be necessary.
+        /// 
+        ///  This value will only be used as a fallback if we fail to get a proper session
+        ///  progress estimate from `NextSessionRotation`, as those estimates should be
+        ///  more accurate then the value we calculate for `HeartbeatAfter`.
+        /// </summary>
         public static string HeartbeatAfterParams()
         {
             return RequestGenerator.GetStorage("ImOnline", "HeartbeatAfter", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -62,6 +76,10 @@ namespace SubstrateNetApi.Model.PalletImOnline
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> KeysParams
+        ///  The current set of keys that may issue a heartbeat.
+        /// </summary>
         public static string KeysParams()
         {
             return RequestGenerator.GetStorage("ImOnline", "Keys", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -77,6 +95,11 @@ namespace SubstrateNetApi.Model.PalletImOnline
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ReceivedHeartbeatsParams
+        ///  For each session index, we keep a mapping of 'SessionIndex` and `AuthIndex` to
+        ///  `WrapperOpaque<BoundedOpaqueNetworkState>`.
+        /// </summary>
         public static string ReceivedHeartbeatsParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
             return RequestGenerator.GetStorage("ImOnline", "ReceivedHeartbeats", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -96,6 +119,11 @@ namespace SubstrateNetApi.Model.PalletImOnline
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WrapperOpaque>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AuthoredBlocksParams
+        ///  For each session index, we keep a mapping of `ValidatorId<T>` to the
+        ///  number of blocks authored by the given authority.
+        /// </summary>
         public static string AuthoredBlocksParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("ImOnline", "AuthoredBlocks", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

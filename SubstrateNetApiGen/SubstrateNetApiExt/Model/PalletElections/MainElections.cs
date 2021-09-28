@@ -36,6 +36,12 @@ namespace SubstrateNetApi.Model.PalletElections
             this._client = client;
         }
         
+        /// <summary>
+        /// >> MembersParams
+        ///  The current elected members.
+        /// 
+        ///  Invariant: Always sorted based on account id.
+        /// </summary>
         public static string MembersParams()
         {
             return RequestGenerator.GetStorage("Elections", "Members", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -53,6 +59,13 @@ namespace SubstrateNetApi.Model.PalletElections
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> RunnersUpParams
+        ///  The current reserved runners-up.
+        /// 
+        ///  Invariant: Always sorted based on rank (worse to best). Upon removal of a member, the
+        ///  last (i.e. _best_) runner-up will be replaced.
+        /// </summary>
         public static string RunnersUpParams()
         {
             return RequestGenerator.GetStorage("Elections", "RunnersUp", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -71,6 +84,15 @@ namespace SubstrateNetApi.Model.PalletElections
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CandidatesParams
+        ///  The present candidate list. A current member or runner-up can never enter this vector
+        ///  and is always implicitly assumed to be a candidate.
+        /// 
+        ///  Second element is the deposit.
+        /// 
+        ///  Invariant: Always sorted based on account id.
+        /// </summary>
         public static string CandidatesParams()
         {
             return RequestGenerator.GetStorage("Elections", "Candidates", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -91,6 +113,10 @@ namespace SubstrateNetApi.Model.PalletElections
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ElectionRoundsParams
+        ///  The total number of vote rounds that have happened, excluding the upcoming one.
+        /// </summary>
         public static string ElectionRoundsParams()
         {
             return RequestGenerator.GetStorage("Elections", "ElectionRounds", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -106,6 +132,12 @@ namespace SubstrateNetApi.Model.PalletElections
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> VotingParams
+        ///  Votes and locked stake of a particular voter.
+        /// 
+        ///  TWOX-NOTE: SAFE as `AccountId` is a crypto hash.
+        /// </summary>
         public static string VotingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Elections", "Voting", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

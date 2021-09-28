@@ -37,6 +37,10 @@ namespace SubstrateNetApi.Model.PalletMultisig
             this._client = client;
         }
         
+        /// <summary>
+        /// >> MultisigsParams
+        ///  The set of open multisig operations.
+        /// </summary>
         public static string MultisigsParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8> key)
         {
             return RequestGenerator.GetStorage("Multisig", "Multisigs", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -55,6 +59,9 @@ namespace SubstrateNetApi.Model.PalletMultisig
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletMultisig.Multisig>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CallsParams
+        /// </summary>
         public static string CallsParams(SubstrateNetApi.Model.Base.Arr32U8 key)
         {
             return RequestGenerator.GetStorage("Multisig", "Calls", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

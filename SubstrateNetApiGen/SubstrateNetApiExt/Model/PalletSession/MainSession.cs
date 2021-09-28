@@ -35,6 +35,10 @@ namespace SubstrateNetApi.Model.PalletSession
             this._client = client;
         }
         
+        /// <summary>
+        /// >> ValidatorsParams
+        ///  The current set of validators.
+        /// </summary>
         public static string ValidatorsParams()
         {
             return RequestGenerator.GetStorage("Session", "Validators", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -50,6 +54,10 @@ namespace SubstrateNetApi.Model.PalletSession
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CurrentIndexParams
+        ///  Current index of the session.
+        /// </summary>
         public static string CurrentIndexParams()
         {
             return RequestGenerator.GetStorage("Session", "CurrentIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -65,6 +73,11 @@ namespace SubstrateNetApi.Model.PalletSession
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> QueuedChangedParams
+        ///  True if the underlying economic identities or weighting behind the validators
+        ///  has changed in the queued validator set.
+        /// </summary>
         public static string QueuedChangedParams()
         {
             return RequestGenerator.GetStorage("Session", "QueuedChanged", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -81,6 +94,11 @@ namespace SubstrateNetApi.Model.PalletSession
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
         
+        /// <summary>
+        /// >> QueuedKeysParams
+        ///  The queued keys for the next session. When the next session begins, these keys
+        ///  will be used to determine the validator's session keys.
+        /// </summary>
         public static string QueuedKeysParams()
         {
             return RequestGenerator.GetStorage("Session", "QueuedKeys", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -97,6 +115,12 @@ namespace SubstrateNetApi.Model.PalletSession
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.NodeRuntime.SessionKeys>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DisabledValidatorsParams
+        ///  Indices of disabled validators.
+        /// 
+        ///  The set is cleared when `on_session_ending` returns a new set of identities.
+        /// </summary>
         public static string DisabledValidatorsParams()
         {
             return RequestGenerator.GetStorage("Session", "DisabledValidators", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -114,6 +138,10 @@ namespace SubstrateNetApi.Model.PalletSession
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NextKeysParams
+        ///  The next session keys for a validator.
+        /// </summary>
         public static string NextKeysParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Session", "NextKeys", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -131,6 +159,10 @@ namespace SubstrateNetApi.Model.PalletSession
             return await _client.GetStorageAsync<SubstrateNetApi.Model.NodeRuntime.SessionKeys>(parameters, token);
         }
         
+        /// <summary>
+        /// >> KeyOwnerParams
+        ///  The owner of a key. The key is the `KeyTypeId` + the encoded key.
+        /// </summary>
         public static string KeyOwnerParams(BaseTuple<SubstrateNetApi.Model.SpCore.KeyTypeId,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key)
         {
             return RequestGenerator.GetStorage("Session", "KeyOwner", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

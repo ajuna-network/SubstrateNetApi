@@ -37,6 +37,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             this._client = client;
         }
         
+        /// <summary>
+        /// >> FounderParams
+        ///  The first member.
+        /// </summary>
         public static string FounderParams()
         {
             return RequestGenerator.GetStorage("Society", "Founder", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -52,6 +56,11 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> RulesParams
+        ///  A hash of the rules of this society concerning membership. Can only be set once and
+        ///  only by the founder.
+        /// </summary>
         public static string RulesParams()
         {
             return RequestGenerator.GetStorage("Society", "Rules", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -68,6 +77,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CandidatesParams
+        ///  The current set of candidates; bidders that are attempting to become members.
+        /// </summary>
         public static string CandidatesParams()
         {
             return RequestGenerator.GetStorage("Society", "Candidates", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -83,6 +96,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SuspendedCandidatesParams
+        ///  The set of suspended candidates.
+        /// </summary>
         public static string SuspendedCandidatesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Society", "SuspendedCandidates", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -100,6 +117,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.PalletSociety.EnumBidKind>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PotParams
+        ///  Amount of our account balance that is specifically for the next round's bid(s).
+        /// </summary>
         public static string PotParams()
         {
             return RequestGenerator.GetStorage("Society", "Pot", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -115,6 +136,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> HeadParams
+        ///  The most primary from the most recently approved members.
+        /// </summary>
         public static string HeadParams()
         {
             return RequestGenerator.GetStorage("Society", "Head", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -130,6 +155,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MembersParams
+        ///  The current set of members, ordered.
+        /// </summary>
         public static string MembersParams()
         {
             return RequestGenerator.GetStorage("Society", "Members", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -145,6 +174,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SuspendedMembersParams
+        ///  The set of suspended members.
+        /// </summary>
         public static string SuspendedMembersParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Society", "SuspendedMembers", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -162,6 +195,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BidsParams
+        ///  The current bids, stored ordered by the value of the bid.
+        /// </summary>
         public static string BidsParams()
         {
             return RequestGenerator.GetStorage("Society", "Bids", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -177,6 +214,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> VouchingParams
+        ///  Members currently vouching or banned from vouching again
+        /// </summary>
         public static string VouchingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Society", "Vouching", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -194,6 +235,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletSociety.EnumVouchingStatus>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PayoutsParams
+        ///  Pending payouts; ordered by block number, with the amount that should be paid out.
+        /// </summary>
         public static string PayoutsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Society", "Payouts", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -211,6 +256,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U128>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StrikesParams
+        ///  The ongoing number of losing votes cast by the member.
+        /// </summary>
         public static string StrikesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Society", "Strikes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -228,6 +277,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> VotesParams
+        ///  Double map from Candidate -> Voter -> (Maybe) Vote.
+        /// </summary>
         public static string VotesParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Society", "Votes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -246,6 +299,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletSociety.EnumVote>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DefenderParams
+        ///  The defending member currently being challenged.
+        /// </summary>
         public static string DefenderParams()
         {
             return RequestGenerator.GetStorage("Society", "Defender", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -261,6 +318,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DefenderVotesParams
+        ///  Votes for the defender.
+        /// </summary>
         public static string DefenderVotesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Society", "DefenderVotes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -278,6 +339,10 @@ namespace SubstrateNetApi.Model.PalletSociety
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletSociety.EnumVote>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MaxMembersParams
+        ///  The max number of members for the society at one time.
+        /// </summary>
         public static string MaxMembersParams()
         {
             return RequestGenerator.GetStorage("Society", "MaxMembers", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

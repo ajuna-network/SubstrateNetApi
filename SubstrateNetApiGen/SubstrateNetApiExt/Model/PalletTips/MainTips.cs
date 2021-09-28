@@ -36,6 +36,12 @@ namespace SubstrateNetApi.Model.PalletTips
             this._client = client;
         }
         
+        /// <summary>
+        /// >> TipsParams
+        ///  TipsMap that are not yet completed. Keyed by the hash of `(reason, who)` from the value.
+        ///  This has the insecure enumerable hash function since the key itself is already
+        ///  guaranteed to be a secure hash.
+        /// </summary>
         public static string TipsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Tips", "Tips", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -55,6 +61,11 @@ namespace SubstrateNetApi.Model.PalletTips
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletTips.OpenTip>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ReasonsParams
+        ///  Simple preimage lookup from the reason's hash to the original data. Again, has an
+        ///  insecure enumerable hash since the key is guaranteed to be the result of a secure hash.
+        /// </summary>
         public static string ReasonsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Tips", "Reasons", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

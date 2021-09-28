@@ -37,6 +37,12 @@ namespace SubstrateNetApi.Model.PalletIdentity
             this._client = client;
         }
         
+        /// <summary>
+        /// >> IdentityOfParams
+        ///  Information that is pertinent to identify the entity behind an account.
+        /// 
+        ///  TWOX-NOTE: OK ��� `AccountId` is a secure hash.
+        /// </summary>
         public static string IdentityOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Identity", "IdentityOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -56,6 +62,11 @@ namespace SubstrateNetApi.Model.PalletIdentity
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletIdentity.Registration>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SuperOfParams
+        ///  The super-identity of an alternative "sub" identity together with its name, within that
+        ///  context. If the account is not some other account's sub-identity, then just `None`.
+        /// </summary>
         public static string SuperOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Identity", "SuperOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -74,6 +85,14 @@ namespace SubstrateNetApi.Model.PalletIdentity
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletIdentity.EnumData>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SubsOfParams
+        ///  Alternative "sub" identities of this account.
+        /// 
+        ///  The first item is the deposit, the second is a vector of the accounts.
+        /// 
+        ///  TWOX-NOTE: OK ��� `AccountId` is a secure hash.
+        /// </summary>
         public static string SubsOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Identity", "SubsOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -95,6 +114,13 @@ namespace SubstrateNetApi.Model.PalletIdentity
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.FrameSupport.BoundedVec>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> RegistrarsParams
+        ///  The set of registrars. Not expected to get very big as can only be added through a
+        ///  special origin (likely a council motion).
+        /// 
+        ///  The index into this can be cast to `RegistrarIndex` to get a valid value.
+        /// </summary>
         public static string RegistrarsParams()
         {
             return RequestGenerator.GetStorage("Identity", "Registrars", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

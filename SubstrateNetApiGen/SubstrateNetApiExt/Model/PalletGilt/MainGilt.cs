@@ -36,6 +36,14 @@ namespace SubstrateNetApi.Model.PalletGilt
             this._client = client;
         }
         
+        /// <summary>
+        /// >> QueueTotalsParams
+        ///  The totals of items and balances within each queue. Saves a lot of storage reads in the
+        ///  case of sparsely packed queues.
+        /// 
+        ///  The vector is indexed by duration in `Period`s, offset by one, so information on the queue
+        ///  whose duration is one `Period` would be storage `0`.
+        /// </summary>
         public static string QueueTotalsParams()
         {
             return RequestGenerator.GetStorage("Gilt", "QueueTotals", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -55,6 +63,10 @@ namespace SubstrateNetApi.Model.PalletGilt
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U128>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> QueuesParams
+        ///  The queues of bids ready to become gilts. Indexed by duration (in `Period`s).
+        /// </summary>
         public static string QueuesParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Gilt", "Queues", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -72,6 +84,10 @@ namespace SubstrateNetApi.Model.PalletGilt
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletGilt.GiltBid>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ActiveTotalParams
+        ///  Information relating to the gilts currently active.
+        /// </summary>
         public static string ActiveTotalParams()
         {
             return RequestGenerator.GetStorage("Gilt", "ActiveTotal", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -87,6 +103,10 @@ namespace SubstrateNetApi.Model.PalletGilt
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletGilt.ActiveGiltsTotal>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ActiveParams
+        ///  The currently active gilts, indexed according to the order of creation.
+        /// </summary>
         public static string ActiveParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Gilt", "Active", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             this._client = client;
         }
         
+        /// <summary>
+        /// >> StateParams
+        ///  State of the current authority set.
+        /// </summary>
         public static string StateParams()
         {
             return RequestGenerator.GetStorage("Grandpa", "State", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -51,6 +55,10 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletGrandpa.EnumStoredState>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PendingChangeParams
+        ///  Pending change: (signaled at, scheduled change).
+        /// </summary>
         public static string PendingChangeParams()
         {
             return RequestGenerator.GetStorage("Grandpa", "PendingChange", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -66,6 +74,10 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletGrandpa.StoredPendingChange>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NextForcedParams
+        ///  next block number where we can force a change.
+        /// </summary>
         public static string NextForcedParams()
         {
             return RequestGenerator.GetStorage("Grandpa", "NextForced", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -81,6 +93,10 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StalledParams
+        ///  `true` if we are currently stalled.
+        /// </summary>
         public static string StalledParams()
         {
             return RequestGenerator.GetStorage("Grandpa", "Stalled", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -96,6 +112,11 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CurrentSetIdParams
+        ///  The number of changes (both in terms of keys and underlying economic responsibilities)
+        ///  in the "set" of Grandpa validators from genesis.
+        /// </summary>
         public static string CurrentSetIdParams()
         {
             return RequestGenerator.GetStorage("Grandpa", "CurrentSetId", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -112,6 +133,13 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SetIdSessionParams
+        ///  A mapping from grandpa set ID to the index of the *most recent* session for which its
+        ///  members were responsible.
+        /// 
+        ///  TWOX-NOTE: `SetId` is not under user control.
+        /// </summary>
         public static string SetIdSessionParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
         {
             return RequestGenerator.GetStorage("Grandpa", "SetIdSession", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

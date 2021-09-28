@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletBounties
             this._client = client;
         }
         
+        /// <summary>
+        /// >> BountyCountParams
+        ///  Number of bounty proposals that have been made.
+        /// </summary>
         public static string BountyCountParams()
         {
             return RequestGenerator.GetStorage("Bounties", "BountyCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -51,6 +55,10 @@ namespace SubstrateNetApi.Model.PalletBounties
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BountiesParams
+        ///  Bounties that have been made.
+        /// </summary>
         public static string BountiesParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Bounties", "Bounties", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -68,6 +76,10 @@ namespace SubstrateNetApi.Model.PalletBounties
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBounties.Bounty>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BountyDescriptionsParams
+        ///  The description of each bounty.
+        /// </summary>
         public static string BountyDescriptionsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Bounties", "BountyDescriptions", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -85,6 +97,10 @@ namespace SubstrateNetApi.Model.PalletBounties
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BountyApprovalsParams
+        ///  Bounty indices that have been approved but not yet funded.
+        /// </summary>
         public static string BountyApprovalsParams()
         {
             return RequestGenerator.GetStorage("Bounties", "BountyApprovals", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

@@ -37,6 +37,10 @@ namespace SubstrateNetApi.Model.PalletUniques
             this._client = client;
         }
         
+        /// <summary>
+        /// >> ClassParams
+        ///  Details of an asset class.
+        /// </summary>
         public static string ClassParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Uniques", "Class", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -54,6 +58,11 @@ namespace SubstrateNetApi.Model.PalletUniques
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.ClassDetails>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AccountParams
+        ///  The assets held by any given account; set out this way so that assets owned by a single
+        ///  account can be enumerated.
+        /// </summary>
         public static string AccountParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
             return RequestGenerator.GetStorage("Uniques", "Account", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -74,6 +83,10 @@ namespace SubstrateNetApi.Model.PalletUniques
             return await _client.GetStorageAsync<BaseTuple>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AssetParams
+        ///  The assets in existence and their ownership details.
+        /// </summary>
         public static string AssetParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
             return RequestGenerator.GetStorage("Uniques", "Asset", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -92,6 +105,10 @@ namespace SubstrateNetApi.Model.PalletUniques
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.InstanceDetails>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ClassMetadataOfParams
+        ///  Metadata of an asset class.
+        /// </summary>
         public static string ClassMetadataOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Uniques", "ClassMetadataOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -109,6 +126,10 @@ namespace SubstrateNetApi.Model.PalletUniques
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.ClassMetadata>(parameters, token);
         }
         
+        /// <summary>
+        /// >> InstanceMetadataOfParams
+        ///  Metadata of an asset instance.
+        /// </summary>
         public static string InstanceMetadataOfParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
         {
             return RequestGenerator.GetStorage("Uniques", "InstanceMetadataOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -127,6 +148,10 @@ namespace SubstrateNetApi.Model.PalletUniques
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.InstanceMetadata>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AttributeParams
+        ///  Metadata of an asset class.
+        /// </summary>
         public static string AttributeParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.FrameSupport.BoundedVec> key)
         {
             return RequestGenerator.GetStorage("Uniques", "Attribute", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

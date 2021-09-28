@@ -37,6 +37,10 @@ namespace SubstrateNetApi.Model.PalletBalances
             this._client = client;
         }
         
+        /// <summary>
+        /// >> TotalIssuanceParams
+        ///  The total units issued in the system.
+        /// </summary>
         public static string TotalIssuanceParams()
         {
             return RequestGenerator.GetStorage("Balances", "TotalIssuance", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -52,6 +56,12 @@ namespace SubstrateNetApi.Model.PalletBalances
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AccountParams
+        ///  The balance of an account.
+        /// 
+        ///  NOTE: This is only used in the case that this pallet is used to store balances.
+        /// </summary>
         public static string AccountParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Balances", "Account", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -71,6 +81,11 @@ namespace SubstrateNetApi.Model.PalletBalances
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBalances.AccountData>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LocksParams
+        ///  Any liquidity locks on some account balances.
+        ///  NOTE: Should only be accessed when setting, changing and freeing a lock.
+        /// </summary>
         public static string LocksParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Balances", "Locks", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -89,6 +104,10 @@ namespace SubstrateNetApi.Model.PalletBalances
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ReservesParams
+        ///  Named reserves on some account balances.
+        /// </summary>
         public static string ReservesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Balances", "Reserves", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -106,6 +125,12 @@ namespace SubstrateNetApi.Model.PalletBalances
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StorageVersionParams
+        ///  Storage version of the pallet.
+        /// 
+        ///  This is set to v2.0.0 for new networks.
+        /// </summary>
         public static string StorageVersionParams()
         {
             return RequestGenerator.GetStorage("Balances", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

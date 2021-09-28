@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletRecovery
             this._client = client;
         }
         
+        /// <summary>
+        /// >> RecoverableParams
+        ///  The set of recoverable accounts and their recovery configuration.
+        /// </summary>
         public static string RecoverableParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Recovery", "Recoverable", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -53,6 +57,13 @@ namespace SubstrateNetApi.Model.PalletRecovery
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletRecovery.RecoveryConfig>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ActiveRecoveriesParams
+        ///  Active recovery attempts.
+        /// 
+        ///  First account is the account to be recovered, and the second account
+        ///  is the user trying to recover the account.
+        /// </summary>
         public static string ActiveRecoveriesParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Recovery", "ActiveRecoveries", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -74,6 +85,12 @@ namespace SubstrateNetApi.Model.PalletRecovery
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletRecovery.ActiveRecovery>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ProxyParams
+        ///  The list of allowed proxy accounts.
+        /// 
+        ///  Map from the user who can access it to the recovered account.
+        /// </summary>
         public static string ProxyParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Recovery", "Proxy", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

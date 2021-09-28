@@ -39,6 +39,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             this._client = client;
         }
         
+        /// <summary>
+        /// >> AccountParams
+        ///  The full account information for a particular account ID.
+        /// </summary>
         public static string AccountParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("System", "Account", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -56,6 +60,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSystem.AccountInfo>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ExtrinsicCountParams
+        ///  Total extrinsics count for the current block.
+        /// </summary>
         public static string ExtrinsicCountParams()
         {
             return RequestGenerator.GetStorage("System", "ExtrinsicCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -71,6 +79,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BlockWeightParams
+        ///  The current weight for the block.
+        /// </summary>
         public static string BlockWeightParams()
         {
             return RequestGenerator.GetStorage("System", "BlockWeight", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -86,6 +98,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.PerDispatchClass>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AllExtrinsicsLenParams
+        ///  Total length (in bytes) for all extrinsics put together, for the current block.
+        /// </summary>
         public static string AllExtrinsicsLenParams()
         {
             return RequestGenerator.GetStorage("System", "AllExtrinsicsLen", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -101,6 +117,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BlockHashParams
+        ///  Map of block numbers to block hashes.
+        /// </summary>
         public static string BlockHashParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("System", "BlockHash", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -118,6 +138,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ExtrinsicDataParams
+        ///  Extrinsics data for the current block (maps an extrinsic's index to its data).
+        /// </summary>
         public static string ExtrinsicDataParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("System", "ExtrinsicData", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -135,6 +159,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> NumberParams
+        ///  The current block number being processed. Set by `execute_block`.
+        /// </summary>
         public static string NumberParams()
         {
             return RequestGenerator.GetStorage("System", "Number", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -150,6 +178,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ParentHashParams
+        ///  Hash of the previous block.
+        /// </summary>
         public static string ParentHashParams()
         {
             return RequestGenerator.GetStorage("System", "ParentHash", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -165,6 +197,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DigestParams
+        ///  Digest of the current block, also part of the block header.
+        /// </summary>
         public static string DigestParams()
         {
             return RequestGenerator.GetStorage("System", "Digest", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -180,6 +216,13 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpRuntime.Digest>(parameters, token);
         }
         
+        /// <summary>
+        /// >> EventsParams
+        ///  Events deposited for the current block.
+        /// 
+        ///  NOTE: This storage item is explicitly unbounded since it is never intended to be read
+        ///  from within the runtime.
+        /// </summary>
         public static string EventsParams()
         {
             return RequestGenerator.GetStorage("System", "Events", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -198,6 +241,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.FrameSystem.EventRecord>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> EventCountParams
+        ///  The number of events in the `Events<T>` list.
+        /// </summary>
         public static string EventCountParams()
         {
             return RequestGenerator.GetStorage("System", "EventCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -213,6 +260,19 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> EventTopicsParams
+        ///  Mapping between a topic (represented by T::Hash) and a vector of indexes
+        ///  of events in the `<Events<T>>` list.
+        /// 
+        ///  All topic vectors have deterministic storage locations depending on the topic. This
+        ///  allows light-clients to leverage the changes trie storage tracking mechanism and
+        ///  in case of changes fetch the list of events of interest.
+        /// 
+        ///  The value has the type `(T::BlockNumber, EventIndex)` because if we used only just
+        ///  the `EventIndex` then in case if the topic has the same contents on the next block
+        ///  no notification will be triggered thus the event might be lost.
+        /// </summary>
         public static string EventTopicsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("System", "EventTopics", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -239,6 +299,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LastRuntimeUpgradeParams
+        ///  Stores the `spec_version` and `spec_name` of when the last runtime upgrade happened.
+        /// </summary>
         public static string LastRuntimeUpgradeParams()
         {
             return RequestGenerator.GetStorage("System", "LastRuntimeUpgrade", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -254,6 +318,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSystem.LastRuntimeUpgradeInfo>(parameters, token);
         }
         
+        /// <summary>
+        /// >> UpgradedToU32RefCountParams
+        ///  True if we have upgraded so that `type RefCount` is `u32`. False (default) if not.
+        /// </summary>
         public static string UpgradedToU32RefCountParams()
         {
             return RequestGenerator.GetStorage("System", "UpgradedToU32RefCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -269,6 +337,11 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
         
+        /// <summary>
+        /// >> UpgradedToTripleRefCountParams
+        ///  True if we have upgraded so that AccountInfo contains three types of `RefCount`. False
+        ///  (default) if not.
+        /// </summary>
         public static string UpgradedToTripleRefCountParams()
         {
             return RequestGenerator.GetStorage("System", "UpgradedToTripleRefCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -285,6 +358,10 @@ namespace SubstrateNetApi.Model.FrameSystem
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ExecutionPhaseParams
+        ///  The execution phase of the block.
+        /// </summary>
         public static string ExecutionPhaseParams()
         {
             return RequestGenerator.GetStorage("System", "ExecutionPhase", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

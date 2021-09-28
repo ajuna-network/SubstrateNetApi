@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletAssets
             this._client = client;
         }
         
+        /// <summary>
+        /// >> AssetParams
+        ///  Details of an asset.
+        /// </summary>
         public static string AssetParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Assets", "Asset", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -53,6 +57,10 @@ namespace SubstrateNetApi.Model.PalletAssets
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletAssets.AssetDetails>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AccountParams
+        ///  The number of units of assets held by any given account.
+        /// </summary>
         public static string AccountParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Assets", "Account", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -71,6 +79,12 @@ namespace SubstrateNetApi.Model.PalletAssets
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletAssets.AssetBalance>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ApprovalsParams
+        ///  Approved balance transfers. First balance is the amount approved for transfer. Second
+        ///  is the amount of `T::Currency` reserved for storing this.
+        ///  First key is the asset ID, second key is the owner and third key is the delegate.
+        /// </summary>
         public static string ApprovalsParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
         {
             return RequestGenerator.GetStorage("Assets", "Approvals", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -92,6 +106,10 @@ namespace SubstrateNetApi.Model.PalletAssets
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletAssets.Approval>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MetadataParams
+        ///  Metadata of an asset.
+        /// </summary>
         public static string MetadataParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Assets", "Metadata", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

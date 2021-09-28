@@ -34,6 +34,10 @@ namespace SubstrateNetApi.Model.PalletIndices
             this._client = client;
         }
         
+        /// <summary>
+        /// >> AccountsParams
+        ///  The lookup from index to account.
+        /// </summary>
         public static string AccountsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Indices", "Accounts", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

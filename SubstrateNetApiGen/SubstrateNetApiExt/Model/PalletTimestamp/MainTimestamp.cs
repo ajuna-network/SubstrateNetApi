@@ -33,6 +33,10 @@ namespace SubstrateNetApi.Model.PalletTimestamp
             this._client = client;
         }
         
+        /// <summary>
+        /// >> NowParams
+        ///  Current time for the current block.
+        /// </summary>
         public static string NowParams()
         {
             return RequestGenerator.GetStorage("Timestamp", "Now", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -48,6 +52,10 @@ namespace SubstrateNetApi.Model.PalletTimestamp
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DidUpdateParams
+        ///  Did the timestamp get updated in this block?
+        /// </summary>
         public static string DidUpdateParams()
         {
             return RequestGenerator.GetStorage("Timestamp", "DidUpdate", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

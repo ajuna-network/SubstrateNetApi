@@ -34,6 +34,9 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
             this._client = client;
         }
         
+        /// <summary>
+        /// >> NextFeeMultiplierParams
+        /// </summary>
         public static string NextFeeMultiplierParams()
         {
             return RequestGenerator.GetStorage("TransactionPayment", "NextFeeMultiplier", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -48,6 +51,9 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpArithmetic.FixedU128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StorageVersionParams
+        /// </summary>
         public static string StorageVersionParams()
         {
             return RequestGenerator.GetStorage("TransactionPayment", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

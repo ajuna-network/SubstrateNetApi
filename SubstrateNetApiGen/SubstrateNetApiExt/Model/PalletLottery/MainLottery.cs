@@ -36,6 +36,9 @@ namespace SubstrateNetApi.Model.PalletLottery
             this._client = client;
         }
         
+        /// <summary>
+        /// >> LotteryIndexParams
+        /// </summary>
         public static string LotteryIndexParams()
         {
             return RequestGenerator.GetStorage("Lottery", "LotteryIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -50,6 +53,10 @@ namespace SubstrateNetApi.Model.PalletLottery
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LotteryParams
+        ///  The configuration for the current lottery.
+        /// </summary>
         public static string LotteryParams()
         {
             return RequestGenerator.GetStorage("Lottery", "Lottery", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -65,6 +72,10 @@ namespace SubstrateNetApi.Model.PalletLottery
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletLottery.LotteryConfig>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ParticipantsParams
+        ///  Users who have purchased a ticket. (Lottery Index, Tickets Purchased)
+        /// </summary>
         public static string ParticipantsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Lottery", "Participants", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -82,6 +93,10 @@ namespace SubstrateNetApi.Model.PalletLottery
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> TicketsCountParams
+        ///  Total number of tickets sold.
+        /// </summary>
         public static string TicketsCountParams()
         {
             return RequestGenerator.GetStorage("Lottery", "TicketsCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -97,6 +112,13 @@ namespace SubstrateNetApi.Model.PalletLottery
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> TicketsParams
+        ///  Each ticket's owner.
+        /// 
+        ///  May have residual storage from previous lotteries. Use `TicketsCount` to see which ones
+        ///  are actually valid ticket mappings.
+        /// </summary>
         public static string TicketsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Lottery", "Tickets", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -117,6 +139,11 @@ namespace SubstrateNetApi.Model.PalletLottery
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CallIndicesParams
+        ///  The calls stored in this pallet to be used in an active lottery if configured
+        ///  by `Config::ValidateCall`.
+        /// </summary>
         public static string CallIndicesParams()
         {
             return RequestGenerator.GetStorage("Lottery", "CallIndices", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

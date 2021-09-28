@@ -35,6 +35,10 @@ namespace SubstrateNetApi.Model.PalletScheduler
             this._client = client;
         }
         
+        /// <summary>
+        /// >> AgendaParams
+        ///  Items to be executed, indexed by the block number that they should be executed on.
+        /// </summary>
         public static string AgendaParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Scheduler", "Agenda", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -52,6 +56,10 @@ namespace SubstrateNetApi.Model.PalletScheduler
             return await _client.GetStorageAsync<BaseVec<BaseOpt<SubstrateNetApi.Model.PalletScheduler.ScheduledV2>>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> LookupParams
+        ///  Lookup from identity to the block number and index of the task.
+        /// </summary>
         public static string LookupParams(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> key)
         {
             return RequestGenerator.GetStorage("Scheduler", "Lookup", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -69,6 +77,12 @@ namespace SubstrateNetApi.Model.PalletScheduler
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StorageVersionParams
+        ///  Storage version of the pallet.
+        /// 
+        ///  New networks start with last version.
+        /// </summary>
         public static string StorageVersionParams()
         {
             return RequestGenerator.GetStorage("Scheduler", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

@@ -36,6 +36,10 @@ namespace SubstrateNetApi.Model.PalletOffences
             this._client = client;
         }
         
+        /// <summary>
+        /// >> ReportsParams
+        ///  The primary structure that holds all offence records keyed by report identifiers.
+        /// </summary>
         public static string ReportsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Offences", "Reports", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -53,6 +57,10 @@ namespace SubstrateNetApi.Model.PalletOffences
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpStaking.OffenceDetails>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ConcurrentReportsIndexParams
+        ///  A vector of reports of the same kind that happened at the same time slot.
+        /// </summary>
         public static string ConcurrentReportsIndexParams(BaseTuple<SubstrateNetApi.Model.Base.Arr16U8,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key)
         {
             return RequestGenerator.GetStorage("Offences", "ConcurrentReportsIndex", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -71,6 +79,15 @@ namespace SubstrateNetApi.Model.PalletOffences
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ReportsByKindIndexParams
+        ///  Enumerates all reports of a kind along with the time they happened.
+        /// 
+        ///  All reports are sorted by the time of offence.
+        /// 
+        ///  Note that the actual type of this mapping is `Vec<u8>`, this is because values of
+        ///  different types are not supported at the moment so we are doing the manual serialization.
+        /// </summary>
         public static string ReportsByKindIndexParams(SubstrateNetApi.Model.Base.Arr16U8 key)
         {
             return RequestGenerator.GetStorage("Offences", "ReportsByKindIndex", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

@@ -37,6 +37,10 @@ namespace SubstrateNetApi.Model.PalletTreasury
             this._client = client;
         }
         
+        /// <summary>
+        /// >> ProposalCountParams
+        ///  Number of proposals that have been made.
+        /// </summary>
         public static string ProposalCountParams()
         {
             return RequestGenerator.GetStorage("Treasury", "ProposalCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -52,6 +56,10 @@ namespace SubstrateNetApi.Model.PalletTreasury
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ProposalsParams
+        ///  Proposals that have been made.
+        /// </summary>
         public static string ProposalsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("Treasury", "Proposals", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -69,6 +77,10 @@ namespace SubstrateNetApi.Model.PalletTreasury
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletTreasury.Proposal>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ApprovalsParams
+        ///  Proposal indices that have been approved but not yet awarded.
+        /// </summary>
         public static string ApprovalsParams()
         {
             return RequestGenerator.GetStorage("Treasury", "Approvals", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

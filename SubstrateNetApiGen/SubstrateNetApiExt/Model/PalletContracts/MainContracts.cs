@@ -37,6 +37,10 @@ namespace SubstrateNetApi.Model.PalletContracts
             this._client = client;
         }
         
+        /// <summary>
+        /// >> PristineCodeParams
+        ///  A mapping from an original code hash to the original code, untouched by instrumentation.
+        /// </summary>
         public static string PristineCodeParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Contracts", "PristineCode", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -54,6 +58,10 @@ namespace SubstrateNetApi.Model.PalletContracts
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CodeStorageParams
+        ///  A mapping between an original code hash and instrumented wasm code, ready for execution.
+        /// </summary>
         public static string CodeStorageParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("Contracts", "CodeStorage", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -71,6 +79,10 @@ namespace SubstrateNetApi.Model.PalletContracts
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletContracts.PrefabWasmModule>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AccountCounterParams
+        ///  The subtrie counter.
+        /// </summary>
         public static string AccountCounterParams()
         {
             return RequestGenerator.GetStorage("Contracts", "AccountCounter", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -86,6 +98,12 @@ namespace SubstrateNetApi.Model.PalletContracts
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ContractInfoOfParams
+        ///  The code associated with a given account.
+        /// 
+        ///  TWOX-NOTE: SAFE since `AccountId` is a secure hash.
+        /// </summary>
         public static string ContractInfoOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Contracts", "ContractInfoOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -105,6 +123,13 @@ namespace SubstrateNetApi.Model.PalletContracts
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletContracts.RawContractInfo>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DeletionQueueParams
+        ///  Evicted contracts that await child trie deletion.
+        /// 
+        ///  Child trie deletion is a heavy operation depending on the amount of storage items
+        ///  stored in said trie. Therefore this operation is performed lazily in `on_initialize`.
+        /// </summary>
         public static string DeletionQueueParams()
         {
             return RequestGenerator.GetStorage("Contracts", "DeletionQueue", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

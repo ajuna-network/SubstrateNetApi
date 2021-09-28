@@ -35,6 +35,10 @@ namespace SubstrateNetApi.Model.PalletBagsList
             this._client = client;
         }
         
+        /// <summary>
+        /// >> CounterForListNodesParams
+        ///  How many ids are registered.
+        /// </summary>
         public static string CounterForListNodesParams()
         {
             return RequestGenerator.GetStorage("BagsList", "CounterForListNodes", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -50,6 +54,12 @@ namespace SubstrateNetApi.Model.PalletBagsList
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ListNodesParams
+        ///  A single node, within some bag.
+        /// 
+        ///  Nodes store links forward and back within their respective bags.
+        /// </summary>
         public static string ListNodesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("BagsList", "ListNodes", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -69,6 +79,12 @@ namespace SubstrateNetApi.Model.PalletBagsList
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBagsList.Node>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ListBagsParams
+        ///  A bag stored in storage.
+        /// 
+        ///  Stores a `Bag` struct, which stores head and tail pointers to itself.
+        /// </summary>
         public static string ListBagsParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
         {
             return RequestGenerator.GetStorage("BagsList", "ListBags", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {

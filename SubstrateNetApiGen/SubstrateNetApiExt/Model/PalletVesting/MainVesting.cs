@@ -37,6 +37,10 @@ namespace SubstrateNetApi.Model.PalletVesting
             this._client = client;
         }
         
+        /// <summary>
+        /// >> VestingParams
+        ///  Information regarding the vesting of a given account.
+        /// </summary>
         public static string VestingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Vesting", "Vesting", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -54,6 +58,12 @@ namespace SubstrateNetApi.Model.PalletVesting
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StorageVersionParams
+        ///  Storage version of the pallet.
+        /// 
+        ///  New networks start with latest version, as determined by the genesis build.
+        /// </summary>
         public static string StorageVersionParams()
         {
             return RequestGenerator.GetStorage("Vesting", "StorageVersion", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

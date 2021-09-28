@@ -38,6 +38,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
             this._client = client;
         }
         
+        /// <summary>
+        /// >> ProposalsParams
+        ///  The hashes of the active proposals.
+        /// </summary>
         public static string ProposalsParams()
         {
             return RequestGenerator.GetStorage("TechnicalCommittee", "Proposals", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -53,6 +57,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ProposalOfParams
+        ///  Actual proposal for a given hash, if it's current.
+        /// </summary>
         public static string ProposalOfParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("TechnicalCommittee", "ProposalOf", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -70,6 +78,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
             return await _client.GetStorageAsync<SubstrateNetApi.Model.NodeRuntime.EnumNodeCall>(parameters, token);
         }
         
+        /// <summary>
+        /// >> VotingParams
+        ///  Votes on a given proposal, if it is ongoing.
+        /// </summary>
         public static string VotingParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
         {
             return RequestGenerator.GetStorage("TechnicalCommittee", "Voting", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -87,6 +99,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletCollective.Votes>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ProposalCountParams
+        ///  Proposals so far.
+        /// </summary>
         public static string ProposalCountParams()
         {
             return RequestGenerator.GetStorage("TechnicalCommittee", "ProposalCount", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -102,6 +118,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MembersParams
+        ///  The current members of the collective. This is stored sorted (just by value).
+        /// </summary>
         public static string MembersParams()
         {
             return RequestGenerator.GetStorage("TechnicalCommittee", "Members", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -117,6 +137,10 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> PrimeParams
+        ///  The prime member that helps determine the default vote behavior in case of absentations.
+        /// </summary>
         public static string PrimeParams()
         {
             return RequestGenerator.GetStorage("TechnicalCommittee", "Prime", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

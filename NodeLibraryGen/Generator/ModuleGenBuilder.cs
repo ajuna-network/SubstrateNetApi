@@ -111,6 +111,8 @@ namespace RuntimeMetadata
                             Name = storageParams,
                             ReturnType = new CodeTypeReference(typeof(string))
                         };
+                        // add comment to class if exists
+                        parameterMethod.Comments.AddRange(GetComments(entry.Docs, null, storageParams));
                         targetClass.Members.Add(parameterMethod);
 
                         // async Task<object>

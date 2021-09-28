@@ -35,6 +35,10 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             this._client = client;
         }
         
+        /// <summary>
+        /// >> TransactionsParams
+        ///  Collection of transaction metadata by block number.
+        /// </summary>
         public static string TransactionsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("TransactionStorage", "Transactions", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -52,6 +56,10 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletTransactionStorage.TransactionInfo>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ChunkCountParams
+        ///  Count indexed chunks for each block.
+        /// </summary>
         public static string ChunkCountParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("TransactionStorage", "ChunkCount", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -69,6 +77,10 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ByteFeeParams
+        ///  Storage fee per byte.
+        /// </summary>
         public static string ByteFeeParams()
         {
             return RequestGenerator.GetStorage("TransactionStorage", "ByteFee", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -84,6 +96,10 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> EntryFeeParams
+        ///  Storage fee per transaction.
+        /// </summary>
         public static string EntryFeeParams()
         {
             return RequestGenerator.GetStorage("TransactionStorage", "EntryFee", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -99,6 +115,10 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MaxTransactionSizeParams
+        ///  Maximum data set in a single transaction in bytes.
+        /// </summary>
         public static string MaxTransactionSizeParams()
         {
             return RequestGenerator.GetStorage("TransactionStorage", "MaxTransactionSize", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -114,6 +134,10 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MaxBlockTransactionsParams
+        ///  Maximum number of indexed transactions in the block.
+        /// </summary>
         public static string MaxBlockTransactionsParams()
         {
             return RequestGenerator.GetStorage("TransactionStorage", "MaxBlockTransactions", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -129,6 +153,11 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> StoragePeriodParams
+        ///  Storage period for data in blocks. Should match `sp_storage_proof::DEFAULT_STORAGE_PERIOD`
+        ///  for block authoring.
+        /// </summary>
         public static string StoragePeriodParams()
         {
             return RequestGenerator.GetStorage("TransactionStorage", "StoragePeriod", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -145,6 +174,9 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> BlockTransactionsParams
+        /// </summary>
         public static string BlockTransactionsParams()
         {
             return RequestGenerator.GetStorage("TransactionStorage", "BlockTransactions", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -159,6 +191,10 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletTransactionStorage.TransactionInfo>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> ProofCheckedParams
+        ///  Was the proof checked in this block?
+        /// </summary>
         public static string ProofCheckedParams()
         {
             return RequestGenerator.GetStorage("TransactionStorage", "ProofChecked", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

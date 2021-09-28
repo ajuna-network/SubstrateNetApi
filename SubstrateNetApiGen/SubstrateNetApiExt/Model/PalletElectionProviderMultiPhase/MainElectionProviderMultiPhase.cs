@@ -38,6 +38,15 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             this._client = client;
         }
         
+        /// <summary>
+        /// >> RoundParams
+        ///  Internal counter for the number of rounds.
+        /// 
+        ///  This is useful for de-duplication of transactions submitted to the pool, and general
+        ///  diagnostics of the pallet.
+        /// 
+        ///  This is merely incremented once per every time that an upstream `elect` is called.
+        /// </summary>
         public static string RoundParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Round", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -58,6 +67,10 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> CurrentPhaseParams
+        ///  Current phase.
+        /// </summary>
         public static string CurrentPhaseParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "CurrentPhase", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -73,6 +86,10 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumPhase>(parameters, token);
         }
         
+        /// <summary>
+        /// >> QueuedSolutionParams
+        ///  Current best solution, signed or unsigned, queued to be returned upon `elect`.
+        /// </summary>
         public static string QueuedSolutionParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "QueuedSolution", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -88,6 +105,12 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.ReadySolution>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SnapshotParams
+        ///  Snapshot data of the round.
+        /// 
+        ///  This is created at the beginning of the signed phase and cleared upon calling `elect`.
+        /// </summary>
         public static string SnapshotParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Snapshot", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -105,6 +128,12 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.RoundSnapshot>(parameters, token);
         }
         
+        /// <summary>
+        /// >> DesiredTargetsParams
+        ///  Desired number of targets to elect for this round.
+        /// 
+        ///  Only exists when [`Snapshot`] is present.
+        /// </summary>
         public static string DesiredTargetsParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "DesiredTargets", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -122,6 +151,12 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SnapshotMetadataParams
+        ///  The metadata of the [`RoundSnapshot`]
+        /// 
+        ///  Only exists when [`Snapshot`] is present.
+        /// </summary>
         public static string SnapshotMetadataParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SnapshotMetadata", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -139,6 +174,18 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SolutionOrSnapshotSize>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SignedSubmissionNextIndexParams
+        ///  The next index to be assigned to an incoming signed submission.
+        /// 
+        ///  Every accepted submission is assigned a unique index; that index is bound to that particular
+        ///  submission for the duration of the election. On election finalization, the next index is
+        ///  reset to 0.
+        /// 
+        ///  We can't just use `SignedSubmissionIndices.len()`, because that's a bounded set; past its
+        ///  capacity, it will simply saturate. We can't just iterate over `SignedSubmissionsMap`,
+        ///  because iteration is slow. Instead, we store the value here.
+        /// </summary>
         public static string SignedSubmissionNextIndexParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionNextIndex", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -162,6 +209,15 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SignedSubmissionIndicesParams
+        ///  A sorted, bounded set of `(score, index)`, where each `index` points to a value in
+        ///  `SignedSubmissions`.
+        /// 
+        ///  We never need to process more than a single signed submission at a time. Signed submissions
+        ///  can be quite large, so we're willing to pay the cost of multiple database accesses to access
+        ///  them one at a time instead of reading and decoding all of them at once.
+        /// </summary>
         public static string SignedSubmissionIndicesParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionIndices", SubstrateNetApi.Model.Meta.Storage.Type.Plain);
@@ -182,6 +238,16 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedBTreeMap>(parameters, token);
         }
         
+        /// <summary>
+        /// >> SignedSubmissionsMapParams
+        ///  Unchecked, signed solutions.
+        /// 
+        ///  Together with `SubmissionIndices`, this stores a bounded set of `SignedSubmissions` while
+        ///  allowing us to keep only a single one in memory at a time.
+        /// 
+        ///  Twox note: the key of the map is an auto-incrementing index which users cannot inspect or
+        ///  affect; we shouldn't need a cryptographically secure hasher.
+        /// </summary>
         public static string SignedSubmissionsMapParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionsMap", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -205,6 +271,13 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SignedSubmission>(parameters, token);
         }
         
+        /// <summary>
+        /// >> MinimumUntrustedScoreParams
+        ///  The minimum score that each 'untrusted' solution must attain in order to be considered
+        ///  feasible.
+        /// 
+        ///  Can be set via `set_minimum_untrusted_score`.
+        /// </summary>
         public static string MinimumUntrustedScoreParams()
         {
             return RequestGenerator.GetStorage("ElectionProviderMultiPhase", "MinimumUntrustedScore", SubstrateNetApi.Model.Meta.Storage.Type.Plain);

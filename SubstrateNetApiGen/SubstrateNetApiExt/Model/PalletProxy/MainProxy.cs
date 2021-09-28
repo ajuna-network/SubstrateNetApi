@@ -37,6 +37,11 @@ namespace SubstrateNetApi.Model.PalletProxy
             this._client = client;
         }
         
+        /// <summary>
+        /// >> ProxiesParams
+        ///  The set of account proxies. Maps the account which has delegated to the accounts
+        ///  which are being delegated to, together with the amount held on deposit.
+        /// </summary>
         public static string ProxiesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Proxy", "Proxies", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
@@ -55,6 +60,10 @@ namespace SubstrateNetApi.Model.PalletProxy
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
         }
         
+        /// <summary>
+        /// >> AnnouncementsParams
+        ///  The announcements made by the proxy (key).
+        /// </summary>
         public static string AnnouncementsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
         {
             return RequestGenerator.GetStorage("Proxy", "Announcements", SubstrateNetApi.Model.Meta.Storage.Type.Map, new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
