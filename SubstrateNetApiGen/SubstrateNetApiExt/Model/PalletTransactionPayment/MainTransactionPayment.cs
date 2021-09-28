@@ -34,13 +34,25 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
             this._client = client;
         }
         
+        public static string NextFeeMultiplierParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionPayment", "NextFeeMultiplier", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> NextFeeMultiplier
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpArithmetic.FixedU128> NextFeeMultiplier(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionPayment", "NextFeeMultiplier", Storage.Type.Plain);
+            string parameters = TransactionPaymentStorage.NextFeeMultiplierParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpArithmetic.FixedU128>(parameters, token);
+        }
+        
+        public static string StorageVersionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionPayment", "StorageVersion", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -48,7 +60,7 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletTransactionPayment.EnumReleases> StorageVersion(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionPayment", "StorageVersion", Storage.Type.Plain);
+            string parameters = TransactionPaymentStorage.StorageVersionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletTransactionPayment.EnumReleases>(parameters, token);
         }
     }

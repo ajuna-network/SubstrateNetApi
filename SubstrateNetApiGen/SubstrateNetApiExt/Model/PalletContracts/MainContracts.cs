@@ -37,14 +37,27 @@ namespace SubstrateNetApi.Model.PalletContracts
             this._client = client;
         }
         
+        public static string PristineCodeParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Contracts", "PristineCode", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> PristineCode
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> PristineCode(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Contracts", "PristineCode", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = ContractsStorage.PristineCodeParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
+        }
+        
+        public static string CodeStorageParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Contracts", "CodeStorage", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -52,9 +65,14 @@ namespace SubstrateNetApi.Model.PalletContracts
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletContracts.PrefabWasmModule> CodeStorage(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Contracts", "CodeStorage", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = ContractsStorage.CodeStorageParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletContracts.PrefabWasmModule>(parameters, token);
+        }
+        
+        public static string AccountCounterParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Contracts", "AccountCounter", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -62,8 +80,15 @@ namespace SubstrateNetApi.Model.PalletContracts
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> AccountCounter(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Contracts", "AccountCounter", Storage.Type.Plain);
+            string parameters = ContractsStorage.AccountCounterParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
+        }
+        
+        public static string ContractInfoOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Contracts", "ContractInfoOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -71,9 +96,14 @@ namespace SubstrateNetApi.Model.PalletContracts
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletContracts.RawContractInfo> ContractInfoOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Contracts", "ContractInfoOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = ContractsStorage.ContractInfoOfParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletContracts.RawContractInfo>(parameters, token);
+        }
+        
+        public static string DeletionQueueParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Contracts", "DeletionQueue", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -81,7 +111,7 @@ namespace SubstrateNetApi.Model.PalletContracts
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletContracts.DeletedContract>> DeletionQueue(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Contracts", "DeletionQueue", Storage.Type.Plain);
+            string parameters = ContractsStorage.DeletionQueueParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletContracts.DeletedContract>>(parameters, token);
         }
     }

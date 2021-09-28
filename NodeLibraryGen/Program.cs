@@ -25,7 +25,7 @@ namespace RuntimeMetadata
             if (false)
             {
                 using var client = new SubstrateClient(new Uri(Websocketurl));
-                await client.ConnectLightAsync(CancellationToken.None);
+                await client.ConnectAsync(false, CancellationToken.None);
                 result = await client.State.GetMetaDataAsync(CancellationToken.None);
                 File.WriteAllText("metadata_20210923.txt", result);
             }

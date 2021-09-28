@@ -36,13 +36,25 @@ namespace SubstrateNetApi.Model.PalletDemocracy
             this._client = client;
         }
         
+        public static string PublicPropCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Democracy", "PublicPropCount", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> PublicPropCount
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> PublicPropCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "PublicPropCount", Storage.Type.Plain);
+            string parameters = DemocracyStorage.PublicPropCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string PublicPropsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Democracy", "PublicProps", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -50,8 +62,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.SpCore.AccountId32>>> PublicProps(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "PublicProps", Storage.Type.Plain);
+            string parameters = DemocracyStorage.PublicPropsParams();
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.SpCore.AccountId32>>>(parameters, token);
+        }
+        
+        public static string DepositOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Democracy", "DepositOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -59,9 +78,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<BaseTuple<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>,SubstrateNetApi.Model.Types.Primitive.U128>> DepositOf(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "DepositOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = DemocracyStorage.DepositOfParams(key);
             return await _client.GetStorageAsync<BaseTuple<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
+        }
+        
+        public static string PreimagesParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Democracy", "Preimages", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -69,9 +94,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumPreimageStatus> Preimages(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Preimages", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = DemocracyStorage.PreimagesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletDemocracy.EnumPreimageStatus>(parameters, token);
+        }
+        
+        public static string ReferendumCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Democracy", "ReferendumCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -79,8 +109,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ReferendumCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "ReferendumCount", Storage.Type.Plain);
+            string parameters = DemocracyStorage.ReferendumCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string LowestUnbakedParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Democracy", "LowestUnbaked", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -88,8 +124,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> LowestUnbaked(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "LowestUnbaked", Storage.Type.Plain);
+            string parameters = DemocracyStorage.LowestUnbakedParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ReferendumInfoOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Democracy", "ReferendumInfoOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -97,9 +140,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumReferendumInfo> ReferendumInfoOf(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "ReferendumInfoOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = DemocracyStorage.ReferendumInfoOfParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletDemocracy.EnumReferendumInfo>(parameters, token);
+        }
+        
+        public static string VotingOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Democracy", "VotingOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -107,9 +156,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumVoting> VotingOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "VotingOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = DemocracyStorage.VotingOfParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletDemocracy.EnumVoting>(parameters, token);
+        }
+        
+        public static string LocksParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Democracy", "Locks", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -117,9 +172,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Locks(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Locks", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = DemocracyStorage.LocksParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string LastTabledWasExternalParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Democracy", "LastTabledWasExternal", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -127,8 +187,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> LastTabledWasExternal(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "LastTabledWasExternal", Storage.Type.Plain);
+            string parameters = DemocracyStorage.LastTabledWasExternalParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
+        }
+        
+        public static string NextExternalParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Democracy", "NextExternal", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -136,8 +202,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.PalletDemocracy.EnumVoteThreshold>> NextExternal(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "NextExternal", Storage.Type.Plain);
+            string parameters = DemocracyStorage.NextExternalParams();
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.PrimitiveTypes.H256,SubstrateNetApi.Model.PalletDemocracy.EnumVoteThreshold>>(parameters, token);
+        }
+        
+        public static string BlacklistParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Democracy", "Blacklist", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -145,9 +218,15 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>> Blacklist(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Blacklist", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = DemocracyStorage.BlacklistParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>>(parameters, token);
+        }
+        
+        public static string CancellationsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Democracy", "Cancellations", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -155,9 +234,14 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> Cancellations(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Democracy", "Cancellations", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = DemocracyStorage.CancellationsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
+        }
+        
+        public static string StorageVersionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Democracy", "StorageVersion", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -165,7 +249,7 @@ namespace SubstrateNetApi.Model.PalletDemocracy
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletDemocracy.EnumReleases> StorageVersion(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Democracy", "StorageVersion", Storage.Type.Plain);
+            string parameters = DemocracyStorage.StorageVersionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletDemocracy.EnumReleases>(parameters, token);
         }
     }

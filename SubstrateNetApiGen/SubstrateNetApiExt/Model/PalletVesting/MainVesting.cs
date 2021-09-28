@@ -37,14 +37,26 @@ namespace SubstrateNetApi.Model.PalletVesting
             this._client = client;
         }
         
+        public static string VestingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Vesting", "Vesting", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Vesting
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Vesting(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Vesting", "Vesting", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = VestingStorage.VestingParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
+        }
+        
+        public static string StorageVersionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Vesting", "StorageVersion", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -52,7 +64,7 @@ namespace SubstrateNetApi.Model.PalletVesting
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletVesting.EnumReleases> StorageVersion(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Vesting", "StorageVersion", Storage.Type.Plain);
+            string parameters = VestingStorage.StorageVersionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletVesting.EnumReleases>(parameters, token);
         }
     }

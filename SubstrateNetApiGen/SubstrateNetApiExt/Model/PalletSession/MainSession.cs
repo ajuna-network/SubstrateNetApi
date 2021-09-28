@@ -35,13 +35,25 @@ namespace SubstrateNetApi.Model.PalletSession
             this._client = client;
         }
         
+        public static string ValidatorsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Session", "Validators", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Validators
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Validators(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Session", "Validators", Storage.Type.Plain);
+            string parameters = SessionStorage.ValidatorsParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
+        }
+        
+        public static string CurrentIndexParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Session", "CurrentIndex", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -49,8 +61,14 @@ namespace SubstrateNetApi.Model.PalletSession
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CurrentIndex(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Session", "CurrentIndex", Storage.Type.Plain);
+            string parameters = SessionStorage.CurrentIndexParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string QueuedChangedParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Session", "QueuedChanged", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -58,8 +76,14 @@ namespace SubstrateNetApi.Model.PalletSession
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> QueuedChanged(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Session", "QueuedChanged", Storage.Type.Plain);
+            string parameters = SessionStorage.QueuedChangedParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
+        }
+        
+        public static string QueuedKeysParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Session", "QueuedKeys", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -67,8 +91,14 @@ namespace SubstrateNetApi.Model.PalletSession
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.NodeRuntime.SessionKeys>>> QueuedKeys(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Session", "QueuedKeys", Storage.Type.Plain);
+            string parameters = SessionStorage.QueuedKeysParams();
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.NodeRuntime.SessionKeys>>>(parameters, token);
+        }
+        
+        public static string DisabledValidatorsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Session", "DisabledValidators", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -76,8 +106,15 @@ namespace SubstrateNetApi.Model.PalletSession
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>> DisabledValidators(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Session", "DisabledValidators", Storage.Type.Plain);
+            string parameters = SessionStorage.DisabledValidatorsParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
+        }
+        
+        public static string NextKeysParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Session", "NextKeys", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -85,9 +122,15 @@ namespace SubstrateNetApi.Model.PalletSession
         /// </summary>
         public async Task<SubstrateNetApi.Model.NodeRuntime.SessionKeys> NextKeys(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Session", "NextKeys", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SessionStorage.NextKeysParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.NodeRuntime.SessionKeys>(parameters, token);
+        }
+        
+        public static string KeyOwnerParams(BaseTuple<SubstrateNetApi.Model.SpCore.KeyTypeId,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Session", "KeyOwner", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -95,8 +138,7 @@ namespace SubstrateNetApi.Model.PalletSession
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> KeyOwner(BaseTuple<SubstrateNetApi.Model.SpCore.KeyTypeId,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Session", "KeyOwner", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SessionStorage.KeyOwnerParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
     }

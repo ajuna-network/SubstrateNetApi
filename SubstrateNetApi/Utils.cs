@@ -240,10 +240,6 @@ namespace SubstrateNetApi
                 case "Vec<u8>":
                     var vecU8 =  Utils.SizePrefixedByteArray(Utils.HexToByteArray(parameter).ToList());
                     return vecU8;
-                case "T::AssetId":
-                    var assetId = new AssetId();
-                    assetId.Create(uint.Parse(parameter));
-                    return assetId.Bytes;
                 default:
                     throw new Exception($"Unimplemented item function key 'item.Function.Key1' = {keyType}!");
             }

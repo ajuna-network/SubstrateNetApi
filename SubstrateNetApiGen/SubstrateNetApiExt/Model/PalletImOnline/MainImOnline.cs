@@ -37,13 +37,25 @@ namespace SubstrateNetApi.Model.PalletImOnline
             this._client = client;
         }
         
+        public static string HeartbeatAfterParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ImOnline", "HeartbeatAfter", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> HeartbeatAfter
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> HeartbeatAfter(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ImOnline", "HeartbeatAfter", Storage.Type.Plain);
+            string parameters = ImOnlineStorage.HeartbeatAfterParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string KeysParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ImOnline", "Keys", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -51,8 +63,15 @@ namespace SubstrateNetApi.Model.PalletImOnline
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> Keys(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ImOnline", "Keys", Storage.Type.Plain);
+            string parameters = ImOnlineStorage.KeysParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec>(parameters, token);
+        }
+        
+        public static string ReceivedHeartbeatsParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("ImOnline", "ReceivedHeartbeats", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -60,9 +79,15 @@ namespace SubstrateNetApi.Model.PalletImOnline
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WrapperOpaque> ReceivedHeartbeats(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("ImOnline", "ReceivedHeartbeats", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = ImOnlineStorage.ReceivedHeartbeatsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WrapperOpaque>(parameters, token);
+        }
+        
+        public static string AuthoredBlocksParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("ImOnline", "AuthoredBlocks", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -70,8 +95,7 @@ namespace SubstrateNetApi.Model.PalletImOnline
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> AuthoredBlocks(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("ImOnline", "AuthoredBlocks", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = ImOnlineStorage.AuthoredBlocksParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
     }

@@ -36,12 +36,18 @@ namespace SubstrateNetApi.Model.PalletSudo
             this._client = client;
         }
         
+        public static string KeyParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Sudo", "Key", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Key
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Key(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Sudo", "Key", Storage.Type.Plain);
+            string parameters = SudoStorage.KeyParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
     }

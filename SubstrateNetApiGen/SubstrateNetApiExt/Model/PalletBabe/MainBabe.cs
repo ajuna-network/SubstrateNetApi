@@ -38,13 +38,25 @@ namespace SubstrateNetApi.Model.PalletBabe
             this._client = client;
         }
         
+        public static string EpochIndexParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "EpochIndex", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> EpochIndex
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> EpochIndex(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "EpochIndex", Storage.Type.Plain);
+            string parameters = BabeStorage.EpochIndexParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
+        }
+        
+        public static string AuthoritiesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "Authorities", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -52,8 +64,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> Authorities(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Authorities", Storage.Type.Plain);
+            string parameters = BabeStorage.AuthoritiesParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec>(parameters, token);
+        }
+        
+        public static string GenesisSlotParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "GenesisSlot", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -61,8 +79,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusSlots.Slot> GenesisSlot(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "GenesisSlot", Storage.Type.Plain);
+            string parameters = BabeStorage.GenesisSlotParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpConsensusSlots.Slot>(parameters, token);
+        }
+        
+        public static string CurrentSlotParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "CurrentSlot", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -70,8 +94,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusSlots.Slot> CurrentSlot(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "CurrentSlot", Storage.Type.Plain);
+            string parameters = BabeStorage.CurrentSlotParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpConsensusSlots.Slot>(parameters, token);
+        }
+        
+        public static string RandomnessParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "Randomness", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -79,8 +109,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.Base.Arr32U8> Randomness(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Randomness", Storage.Type.Plain);
+            string parameters = BabeStorage.RandomnessParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Base.Arr32U8>(parameters, token);
+        }
+        
+        public static string PendingEpochConfigChangeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "PendingEpochConfigChange", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -88,8 +124,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusBabe.EnumNextConfigDescriptor> PendingEpochConfigChange(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "PendingEpochConfigChange", Storage.Type.Plain);
+            string parameters = BabeStorage.PendingEpochConfigChangeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpConsensusBabe.EnumNextConfigDescriptor>(parameters, token);
+        }
+        
+        public static string NextRandomnessParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "NextRandomness", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -97,8 +139,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.Base.Arr32U8> NextRandomness(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "NextRandomness", Storage.Type.Plain);
+            string parameters = BabeStorage.NextRandomnessParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Base.Arr32U8>(parameters, token);
+        }
+        
+        public static string NextAuthoritiesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "NextAuthorities", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -106,8 +154,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> NextAuthorities(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "NextAuthorities", Storage.Type.Plain);
+            string parameters = BabeStorage.NextAuthoritiesParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec>(parameters, token);
+        }
+        
+        public static string SegmentIndexParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "SegmentIndex", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -115,8 +169,15 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> SegmentIndex(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "SegmentIndex", Storage.Type.Plain);
+            string parameters = BabeStorage.SegmentIndexParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string UnderConstructionParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Babe", "UnderConstruction", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -124,9 +185,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> UnderConstruction(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Babe", "UnderConstruction", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = BabeStorage.UnderConstructionParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
+        }
+        
+        public static string InitializedParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "Initialized", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -134,8 +200,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>> Initialized(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Initialized", Storage.Type.Plain);
+            string parameters = BabeStorage.InitializedParams();
             return await _client.GetStorageAsync<BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>>(parameters, token);
+        }
+        
+        public static string AuthorVrfRandomnessParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "AuthorVrfRandomness", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -143,8 +215,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>> AuthorVrfRandomness(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "AuthorVrfRandomness", Storage.Type.Plain);
+            string parameters = BabeStorage.AuthorVrfRandomnessParams();
             return await _client.GetStorageAsync<BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>>(parameters, token);
+        }
+        
+        public static string EpochStartParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "EpochStart", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -152,8 +230,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> EpochStart(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "EpochStart", Storage.Type.Plain);
+            string parameters = BabeStorage.EpochStartParams();
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
+        }
+        
+        public static string LatenessParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "Lateness", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -161,8 +245,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Lateness(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "Lateness", Storage.Type.Plain);
+            string parameters = BabeStorage.LatenessParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string EpochConfigParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "EpochConfig", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -170,8 +260,14 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration> EpochConfig(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "EpochConfig", Storage.Type.Plain);
+            string parameters = BabeStorage.EpochConfigParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration>(parameters, token);
+        }
+        
+        public static string NextEpochConfigParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Babe", "NextEpochConfig", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -179,7 +275,7 @@ namespace SubstrateNetApi.Model.PalletBabe
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration> NextEpochConfig(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Babe", "NextEpochConfig", Storage.Type.Plain);
+            string parameters = BabeStorage.NextEpochConfigParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration>(parameters, token);
         }
     }

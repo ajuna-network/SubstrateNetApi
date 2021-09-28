@@ -136,6 +136,12 @@ namespace SubstrateNetApi.Modules
             return await _client.InvokeAsync<Hash>("chain_getFinalizedHead", null, token);
         }
 
+        /// Get hash of the last finalized block in the canon chain.
+        public async Task<string> GetFinalizedTestHeadAsync(CancellationToken token)
+        {
+            return await _client.InvokeAsync<string>("chain_getFinalizedHead", null, token);
+        }
+
         /// <summary>Subscribes all heads asynchronous.</summary>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>

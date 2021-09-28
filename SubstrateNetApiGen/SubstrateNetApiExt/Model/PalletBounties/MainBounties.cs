@@ -36,13 +36,26 @@ namespace SubstrateNetApi.Model.PalletBounties
             this._client = client;
         }
         
+        public static string BountyCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Bounties", "BountyCount", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> BountyCount
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> BountyCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Bounties", "BountyCount", Storage.Type.Plain);
+            string parameters = BountiesStorage.BountyCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string BountiesParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Bounties", "Bounties", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -50,9 +63,15 @@ namespace SubstrateNetApi.Model.PalletBounties
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBounties.Bounty> Bounties(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Bounties", "Bounties", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = BountiesStorage.BountiesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBounties.Bounty>(parameters, token);
+        }
+        
+        public static string BountyDescriptionsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Bounties", "BountyDescriptions", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -60,9 +79,14 @@ namespace SubstrateNetApi.Model.PalletBounties
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> BountyDescriptions(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Bounties", "BountyDescriptions", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = BountiesStorage.BountyDescriptionsParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
+        }
+        
+        public static string BountyApprovalsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Bounties", "BountyApprovals", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -70,7 +94,7 @@ namespace SubstrateNetApi.Model.PalletBounties
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>> BountyApprovals(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Bounties", "BountyApprovals", Storage.Type.Plain);
+            string parameters = BountiesStorage.BountyApprovalsParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
         }
     }

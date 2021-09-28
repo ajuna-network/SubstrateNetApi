@@ -33,13 +33,25 @@ namespace SubstrateNetApi.Model.PalletTimestamp
             this._client = client;
         }
         
+        public static string NowParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Timestamp", "Now", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Now
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> Now(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Timestamp", "Now", Storage.Type.Plain);
+            string parameters = TimestampStorage.NowParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
+        }
+        
+        public static string DidUpdateParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Timestamp", "DidUpdate", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -47,7 +59,7 @@ namespace SubstrateNetApi.Model.PalletTimestamp
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> DidUpdate(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Timestamp", "DidUpdate", Storage.Type.Plain);
+            string parameters = TimestampStorage.DidUpdateParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
     }

@@ -35,13 +35,26 @@ namespace SubstrateNetApi.Model.PalletBagsList
             this._client = client;
         }
         
+        public static string CounterForListNodesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("BagsList", "CounterForListNodes", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> CounterForListNodes
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CounterForListNodes(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("BagsList", "CounterForListNodes", Storage.Type.Plain);
+            string parameters = BagsListStorage.CounterForListNodesParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ListNodesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("BagsList", "ListNodes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -49,9 +62,15 @@ namespace SubstrateNetApi.Model.PalletBagsList
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBagsList.Node> ListNodes(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("BagsList", "ListNodes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = BagsListStorage.ListNodesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBagsList.Node>(parameters, token);
+        }
+        
+        public static string ListBagsParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("BagsList", "ListBags", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -59,8 +78,7 @@ namespace SubstrateNetApi.Model.PalletBagsList
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBagsList.Bag> ListBags(SubstrateNetApi.Model.Types.Primitive.U64 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("BagsList", "ListBags", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = BagsListStorage.ListBagsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBagsList.Bag>(parameters, token);
         }
     }

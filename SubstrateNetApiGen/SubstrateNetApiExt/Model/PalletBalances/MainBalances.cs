@@ -37,13 +37,26 @@ namespace SubstrateNetApi.Model.PalletBalances
             this._client = client;
         }
         
+        public static string TotalIssuanceParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Balances", "TotalIssuance", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> TotalIssuance
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> TotalIssuance(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Balances", "TotalIssuance", Storage.Type.Plain);
+            string parameters = BalancesStorage.TotalIssuanceParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string AccountParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Balances", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -51,9 +64,15 @@ namespace SubstrateNetApi.Model.PalletBalances
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBalances.AccountData> Account(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Balances", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = BalancesStorage.AccountParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBalances.AccountData>(parameters, token);
+        }
+        
+        public static string LocksParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Balances", "Locks", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -61,9 +80,15 @@ namespace SubstrateNetApi.Model.PalletBalances
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec> Locks(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Balances", "Locks", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = BalancesStorage.LocksParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.WeakBoundedVec>(parameters, token);
+        }
+        
+        public static string ReservesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Balances", "Reserves", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -71,9 +96,14 @@ namespace SubstrateNetApi.Model.PalletBalances
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Reserves(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Balances", "Reserves", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = BalancesStorage.ReservesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
+        }
+        
+        public static string StorageVersionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Balances", "StorageVersion", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -81,7 +111,7 @@ namespace SubstrateNetApi.Model.PalletBalances
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletBalances.EnumReleases> StorageVersion(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Balances", "StorageVersion", Storage.Type.Plain);
+            string parameters = BalancesStorage.StorageVersionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletBalances.EnumReleases>(parameters, token);
         }
     }

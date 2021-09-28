@@ -36,13 +36,25 @@ namespace SubstrateNetApi.Model.PalletElections
             this._client = client;
         }
         
+        public static string MembersParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Elections", "Members", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Members
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>> Members(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "Members", Storage.Type.Plain);
+            string parameters = ElectionsStorage.MembersParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>>(parameters, token);
+        }
+        
+        public static string RunnersUpParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Elections", "RunnersUp", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -50,8 +62,14 @@ namespace SubstrateNetApi.Model.PalletElections
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>> RunnersUp(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "RunnersUp", Storage.Type.Plain);
+            string parameters = ElectionsStorage.RunnersUpParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletElectionsPhragmen.SeatHolder>>(parameters, token);
+        }
+        
+        public static string CandidatesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Elections", "Candidates", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -59,8 +77,14 @@ namespace SubstrateNetApi.Model.PalletElections
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>>> Candidates(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "Candidates", Storage.Type.Plain);
+            string parameters = ElectionsStorage.CandidatesParams();
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>>>(parameters, token);
+        }
+        
+        public static string ElectionRoundsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Elections", "ElectionRounds", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -68,8 +92,15 @@ namespace SubstrateNetApi.Model.PalletElections
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ElectionRounds(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Elections", "ElectionRounds", Storage.Type.Plain);
+            string parameters = ElectionsStorage.ElectionRoundsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string VotingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Elections", "Voting", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -77,8 +108,7 @@ namespace SubstrateNetApi.Model.PalletElections
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionsPhragmen.Voter> Voting(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Elections", "Voting", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = ElectionsStorage.VotingParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionsPhragmen.Voter>(parameters, token);
         }
     }

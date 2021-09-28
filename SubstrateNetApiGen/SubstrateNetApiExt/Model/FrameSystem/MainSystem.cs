@@ -39,14 +39,26 @@ namespace SubstrateNetApi.Model.FrameSystem
             this._client = client;
         }
         
+        public static string AccountParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("System", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Account
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSystem.AccountInfo> Account(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = SystemStorage.AccountParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSystem.AccountInfo>(parameters, token);
+        }
+        
+        public static string ExtrinsicCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "ExtrinsicCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -54,8 +66,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ExtrinsicCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "ExtrinsicCount", Storage.Type.Plain);
+            string parameters = SystemStorage.ExtrinsicCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string BlockWeightParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "BlockWeight", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -63,8 +81,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.PerDispatchClass> BlockWeight(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "BlockWeight", Storage.Type.Plain);
+            string parameters = SystemStorage.BlockWeightParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.PerDispatchClass>(parameters, token);
+        }
+        
+        public static string AllExtrinsicsLenParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "AllExtrinsicsLen", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -72,8 +96,15 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> AllExtrinsicsLen(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "AllExtrinsicsLen", Storage.Type.Plain);
+            string parameters = SystemStorage.AllExtrinsicsLenParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string BlockHashParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("System", "BlockHash", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -81,9 +112,15 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> BlockHash(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "BlockHash", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SystemStorage.BlockHashParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
+        }
+        
+        public static string ExtrinsicDataParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("System", "ExtrinsicData", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -91,9 +128,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> ExtrinsicData(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "ExtrinsicData", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SystemStorage.ExtrinsicDataParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
+        }
+        
+        public static string NumberParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "Number", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -101,8 +143,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Number(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "Number", Storage.Type.Plain);
+            string parameters = SystemStorage.NumberParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ParentHashParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "ParentHash", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -110,8 +158,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> ParentHash(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "ParentHash", Storage.Type.Plain);
+            string parameters = SystemStorage.ParentHashParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
+        }
+        
+        public static string DigestParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "Digest", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -119,8 +173,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpRuntime.Digest> Digest(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "Digest", Storage.Type.Plain);
+            string parameters = SystemStorage.DigestParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpRuntime.Digest>(parameters, token);
+        }
+        
+        public static string EventsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "Events", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -128,8 +188,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.FrameSystem.EventRecord>> Events(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "Events", Storage.Type.Plain);
+            string parameters = SystemStorage.EventsParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.FrameSystem.EventRecord>>(parameters, token);
+        }
+        
+        public static string EventCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "EventCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -137,8 +203,15 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> EventCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "EventCount", Storage.Type.Plain);
+            string parameters = SystemStorage.EventCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string EventTopicsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("System", "EventTopics", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -146,9 +219,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>> EventTopics(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("System", "EventTopics", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = SystemStorage.EventTopicsParams(key);
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>>(parameters, token);
+        }
+        
+        public static string LastRuntimeUpgradeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "LastRuntimeUpgrade", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -156,8 +234,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSystem.LastRuntimeUpgradeInfo> LastRuntimeUpgrade(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "LastRuntimeUpgrade", Storage.Type.Plain);
+            string parameters = SystemStorage.LastRuntimeUpgradeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSystem.LastRuntimeUpgradeInfo>(parameters, token);
+        }
+        
+        public static string UpgradedToU32RefCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "UpgradedToU32RefCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -165,8 +249,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> UpgradedToU32RefCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "UpgradedToU32RefCount", Storage.Type.Plain);
+            string parameters = SystemStorage.UpgradedToU32RefCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
+        }
+        
+        public static string UpgradedToTripleRefCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "UpgradedToTripleRefCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -174,8 +264,14 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> UpgradedToTripleRefCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "UpgradedToTripleRefCount", Storage.Type.Plain);
+            string parameters = SystemStorage.UpgradedToTripleRefCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
+        }
+        
+        public static string ExecutionPhaseParams()
+        {
+            var parameters = RequestGenerator.GetStorage("System", "ExecutionPhase", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -183,7 +279,7 @@ namespace SubstrateNetApi.Model.FrameSystem
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSystem.EnumPhase> ExecutionPhase(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("System", "ExecutionPhase", Storage.Type.Plain);
+            string parameters = SystemStorage.ExecutionPhaseParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSystem.EnumPhase>(parameters, token);
         }
     }

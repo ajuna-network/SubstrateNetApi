@@ -38,13 +38,26 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
             this._client = client;
         }
         
+        public static string ProposalsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Proposals", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Proposals
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Proposals(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Proposals", Storage.Type.Plain);
+            string parameters = TechnicalCommitteeStorage.ProposalsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
+        }
+        
+        public static string ProposalOfParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "ProposalOf", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -52,9 +65,15 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
         /// </summary>
         public async Task<SubstrateNetApi.Model.NodeRuntime.EnumNodeCall> ProposalOf(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "ProposalOf", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = TechnicalCommitteeStorage.ProposalOfParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.NodeRuntime.EnumNodeCall>(parameters, token);
+        }
+        
+        public static string VotingParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Voting", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -62,9 +81,14 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletCollective.Votes> Voting(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Voting", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = TechnicalCommitteeStorage.VotingParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletCollective.Votes>(parameters, token);
+        }
+        
+        public static string ProposalCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "ProposalCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -72,8 +96,14 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ProposalCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "ProposalCount", Storage.Type.Plain);
+            string parameters = TechnicalCommitteeStorage.ProposalCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string MembersParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Members", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -81,8 +111,14 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Members(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Members", Storage.Type.Plain);
+            string parameters = TechnicalCommitteeStorage.MembersParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
+        }
+        
+        public static string PrimeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Prime", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -90,7 +126,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalCommittee
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Prime(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalCommittee", "Prime", Storage.Type.Plain);
+            string parameters = TechnicalCommitteeStorage.PrimeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
     }

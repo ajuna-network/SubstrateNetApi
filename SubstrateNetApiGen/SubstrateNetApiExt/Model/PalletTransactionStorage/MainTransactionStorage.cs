@@ -35,14 +35,27 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
             this._client = client;
         }
         
+        public static string TransactionsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "Transactions", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Transactions
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletTransactionStorage.TransactionInfo>> Transactions(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "Transactions", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = TransactionStorageStorage.TransactionsParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletTransactionStorage.TransactionInfo>>(parameters, token);
+        }
+        
+        public static string ChunkCountParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ChunkCount", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -50,9 +63,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ChunkCount(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ChunkCount", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = TransactionStorageStorage.ChunkCountParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ByteFeeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ByteFee", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -60,8 +78,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> ByteFee(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ByteFee", Storage.Type.Plain);
+            string parameters = TransactionStorageStorage.ByteFeeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string EntryFeeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "EntryFee", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -69,8 +93,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> EntryFee(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "EntryFee", Storage.Type.Plain);
+            string parameters = TransactionStorageStorage.EntryFeeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string MaxTransactionSizeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "MaxTransactionSize", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -78,8 +108,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxTransactionSize(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "MaxTransactionSize", Storage.Type.Plain);
+            string parameters = TransactionStorageStorage.MaxTransactionSizeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string MaxBlockTransactionsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "MaxBlockTransactions", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -87,8 +123,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxBlockTransactions(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "MaxBlockTransactions", Storage.Type.Plain);
+            string parameters = TransactionStorageStorage.MaxBlockTransactionsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string StoragePeriodParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "StoragePeriod", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -96,8 +138,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> StoragePeriod(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "StoragePeriod", Storage.Type.Plain);
+            string parameters = TransactionStorageStorage.StoragePeriodParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string BlockTransactionsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "BlockTransactions", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -105,8 +153,14 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletTransactionStorage.TransactionInfo>> BlockTransactions(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "BlockTransactions", Storage.Type.Plain);
+            string parameters = TransactionStorageStorage.BlockTransactionsParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletTransactionStorage.TransactionInfo>>(parameters, token);
+        }
+        
+        public static string ProofCheckedParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ProofChecked", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -114,7 +168,7 @@ namespace SubstrateNetApi.Model.PalletTransactionStorage
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> ProofChecked(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TransactionStorage", "ProofChecked", Storage.Type.Plain);
+            string parameters = TransactionStorageStorage.ProofCheckedParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
     }

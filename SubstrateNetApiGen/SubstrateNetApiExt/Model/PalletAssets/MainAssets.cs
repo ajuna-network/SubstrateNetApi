@@ -36,14 +36,27 @@ namespace SubstrateNetApi.Model.PalletAssets
             this._client = client;
         }
         
+        public static string AssetParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Assets", "Asset", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Asset
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletAssets.AssetDetails> Asset(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Assets", "Asset", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = AssetsStorage.AssetParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletAssets.AssetDetails>(parameters, token);
+        }
+        
+        public static string AccountParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Assets", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -51,9 +64,15 @@ namespace SubstrateNetApi.Model.PalletAssets
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletAssets.AssetBalance> Account(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Assets", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = AssetsStorage.AccountParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletAssets.AssetBalance>(parameters, token);
+        }
+        
+        public static string ApprovalsParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Assets", "Approvals", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -61,9 +80,15 @@ namespace SubstrateNetApi.Model.PalletAssets
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletAssets.Approval> Approvals(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Assets", "Approvals", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = AssetsStorage.ApprovalsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletAssets.Approval>(parameters, token);
+        }
+        
+        public static string MetadataParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Assets", "Metadata", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -71,8 +96,7 @@ namespace SubstrateNetApi.Model.PalletAssets
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletAssets.AssetMetadata> Metadata(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Assets", "Metadata", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = AssetsStorage.MetadataParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletAssets.AssetMetadata>(parameters, token);
         }
     }

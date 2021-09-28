@@ -37,14 +37,27 @@ namespace SubstrateNetApi.Model.PalletProxy
             this._client = client;
         }
         
+        public static string ProxiesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Proxy", "Proxies", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Proxies
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>> Proxies(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Proxy", "Proxies", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = ProxyStorage.ProxiesParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
+        }
+        
+        public static string AnnouncementsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Proxy", "Announcements", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -52,8 +65,7 @@ namespace SubstrateNetApi.Model.PalletProxy
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>> Announcements(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Proxy", "Announcements", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = ProxyStorage.AnnouncementsParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
         }
     }

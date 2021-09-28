@@ -37,14 +37,27 @@ namespace SubstrateNetApi.Model.PalletIdentity
             this._client = client;
         }
         
+        public static string IdentityOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Identity", "IdentityOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> IdentityOf
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletIdentity.Registration> IdentityOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Identity", "IdentityOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = IdentityStorage.IdentityOfParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletIdentity.Registration>(parameters, token);
+        }
+        
+        public static string SuperOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Identity", "SuperOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -52,9 +65,15 @@ namespace SubstrateNetApi.Model.PalletIdentity
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletIdentity.EnumData>> SuperOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Identity", "SuperOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = IdentityStorage.SuperOfParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletIdentity.EnumData>>(parameters, token);
+        }
+        
+        public static string SubsOfParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Identity", "SubsOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -62,9 +81,14 @@ namespace SubstrateNetApi.Model.PalletIdentity
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.FrameSupport.BoundedVec>> SubsOf(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Identity", "SubsOf", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = IdentityStorage.SubsOfParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.FrameSupport.BoundedVec>>(parameters, token);
+        }
+        
+        public static string RegistrarsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Identity", "Registrars", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -72,7 +96,7 @@ namespace SubstrateNetApi.Model.PalletIdentity
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Registrars(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Identity", "Registrars", Storage.Type.Plain);
+            string parameters = IdentityStorage.RegistrarsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
         }
     }

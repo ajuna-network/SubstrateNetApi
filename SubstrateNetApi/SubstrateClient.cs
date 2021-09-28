@@ -149,6 +149,14 @@ namespace SubstrateNetApi
 
         /// <summary> Connects an asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
+        /// <returns> An asynchronous result. </returns>
+        public async Task ConnectAsync(CancellationToken token)
+        {
+            await ConnectAsync(true, token);
+        }
+
+        /// <summary> Connects an asynchronous. </summary>
+        /// <remarks> 19.09.2020. </remarks>
         /// <param name="token"> A token that allows processing to be cancelled. </param>
         /// <returns> An asynchronous result. </returns>
         public async Task ConnectAsync(bool useMetaData, CancellationToken token)

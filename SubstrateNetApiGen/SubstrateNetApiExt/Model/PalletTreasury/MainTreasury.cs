@@ -37,13 +37,26 @@ namespace SubstrateNetApi.Model.PalletTreasury
             this._client = client;
         }
         
+        public static string ProposalCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Treasury", "ProposalCount", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> ProposalCount
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ProposalCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Treasury", "ProposalCount", Storage.Type.Plain);
+            string parameters = TreasuryStorage.ProposalCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ProposalsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Treasury", "Proposals", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -51,9 +64,14 @@ namespace SubstrateNetApi.Model.PalletTreasury
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletTreasury.Proposal> Proposals(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Treasury", "Proposals", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = TreasuryStorage.ProposalsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletTreasury.Proposal>(parameters, token);
+        }
+        
+        public static string ApprovalsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Treasury", "Approvals", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -61,7 +79,7 @@ namespace SubstrateNetApi.Model.PalletTreasury
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedVec> Approvals(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Treasury", "Approvals", Storage.Type.Plain);
+            string parameters = TreasuryStorage.ApprovalsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedVec>(parameters, token);
         }
     }

@@ -37,14 +37,27 @@ namespace SubstrateNetApi.Model.PalletUniques
             this._client = client;
         }
         
+        public static string ClassParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Uniques", "Class", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Class
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.ClassDetails> Class(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Uniques", "Class", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = UniquesStorage.ClassParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.ClassDetails>(parameters, token);
+        }
+        
+        public static string AccountParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Uniques", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -52,9 +65,15 @@ namespace SubstrateNetApi.Model.PalletUniques
         /// </summary>
         public async Task<BaseTuple> Account(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "Account", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = UniquesStorage.AccountParams(key);
             return await _client.GetStorageAsync<BaseTuple>(parameters, token);
+        }
+        
+        public static string AssetParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Uniques", "Asset", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -62,9 +81,15 @@ namespace SubstrateNetApi.Model.PalletUniques
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.InstanceDetails> Asset(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "Asset", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = UniquesStorage.AssetParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.InstanceDetails>(parameters, token);
+        }
+        
+        public static string ClassMetadataOfParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Uniques", "ClassMetadataOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -72,9 +97,15 @@ namespace SubstrateNetApi.Model.PalletUniques
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.ClassMetadata> ClassMetadataOf(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Uniques", "ClassMetadataOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = UniquesStorage.ClassMetadataOfParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.ClassMetadata>(parameters, token);
+        }
+        
+        public static string InstanceMetadataOfParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Uniques", "InstanceMetadataOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -82,9 +113,15 @@ namespace SubstrateNetApi.Model.PalletUniques
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletUniques.InstanceMetadata> InstanceMetadataOf(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "InstanceMetadataOf", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = UniquesStorage.InstanceMetadataOfParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletUniques.InstanceMetadata>(parameters, token);
+        }
+        
+        public static string AttributeParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.FrameSupport.BoundedVec> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Uniques", "Attribute", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -92,8 +129,7 @@ namespace SubstrateNetApi.Model.PalletUniques
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>> Attribute(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseOpt<SubstrateNetApi.Model.Types.Primitive.U32>,SubstrateNetApi.Model.FrameSupport.BoundedVec> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Uniques", "Attribute", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = UniquesStorage.AttributeParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.FrameSupport.BoundedVec,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
         }
     }

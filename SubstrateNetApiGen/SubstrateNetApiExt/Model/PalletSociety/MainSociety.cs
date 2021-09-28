@@ -37,13 +37,25 @@ namespace SubstrateNetApi.Model.PalletSociety
             this._client = client;
         }
         
+        public static string FounderParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Founder", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Founder
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Founder(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Founder", Storage.Type.Plain);
+            string parameters = SocietyStorage.FounderParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
+        }
+        
+        public static string RulesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Rules", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -51,8 +63,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> Rules(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Rules", Storage.Type.Plain);
+            string parameters = SocietyStorage.RulesParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
+        }
+        
+        public static string CandidatesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Candidates", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -60,8 +78,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>> Candidates(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Candidates", Storage.Type.Plain);
+            string parameters = SocietyStorage.CandidatesParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>>(parameters, token);
+        }
+        
+        public static string SuspendedCandidatesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Society", "SuspendedCandidates", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -69,9 +94,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.PalletSociety.EnumBidKind>> SuspendedCandidates(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "SuspendedCandidates", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SocietyStorage.SuspendedCandidatesParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.PalletSociety.EnumBidKind>>(parameters, token);
+        }
+        
+        public static string PotParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Pot", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -79,8 +109,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> Pot(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Pot", Storage.Type.Plain);
+            string parameters = SocietyStorage.PotParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string HeadParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Head", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -88,8 +124,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Head(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Head", Storage.Type.Plain);
+            string parameters = SocietyStorage.HeadParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
+        }
+        
+        public static string MembersParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Members", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -97,8 +139,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Members(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Members", Storage.Type.Plain);
+            string parameters = SocietyStorage.MembersParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
+        }
+        
+        public static string SuspendedMembersParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Society", "SuspendedMembers", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -106,9 +155,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> SuspendedMembers(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "SuspendedMembers", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SocietyStorage.SuspendedMembersParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
+        }
+        
+        public static string BidsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Bids", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -116,8 +170,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>> Bids(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Bids", Storage.Type.Plain);
+            string parameters = SocietyStorage.BidsParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletSociety.Bid>>(parameters, token);
+        }
+        
+        public static string VouchingParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Society", "Vouching", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -125,9 +186,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletSociety.EnumVouchingStatus> Vouching(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "Vouching", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SocietyStorage.VouchingParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletSociety.EnumVouchingStatus>(parameters, token);
+        }
+        
+        public static string PayoutsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Society", "Payouts", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -135,9 +202,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U128>>> Payouts(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "Payouts", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SocietyStorage.PayoutsParams(key);
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U128>>>(parameters, token);
+        }
+        
+        public static string StrikesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Society", "Strikes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -145,9 +218,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Strikes(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "Strikes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SocietyStorage.StrikesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string VotesParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Society", "Votes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -155,9 +234,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletSociety.EnumVote> Votes(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Society", "Votes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SocietyStorage.VotesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletSociety.EnumVote>(parameters, token);
+        }
+        
+        public static string DefenderParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "Defender", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -165,8 +249,15 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Defender(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "Defender", Storage.Type.Plain);
+            string parameters = SocietyStorage.DefenderParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
+        }
+        
+        public static string DefenderVotesParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Society", "DefenderVotes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -174,9 +265,14 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletSociety.EnumVote> DefenderVotes(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Society", "DefenderVotes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SocietyStorage.DefenderVotesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletSociety.EnumVote>(parameters, token);
+        }
+        
+        public static string MaxMembersParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Society", "MaxMembers", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -184,7 +280,7 @@ namespace SubstrateNetApi.Model.PalletSociety
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxMembers(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Society", "MaxMembers", Storage.Type.Plain);
+            string parameters = SocietyStorage.MaxMembersParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
     }

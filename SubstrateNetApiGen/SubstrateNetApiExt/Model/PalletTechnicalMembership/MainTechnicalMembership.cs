@@ -33,13 +33,25 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
             this._client = client;
         }
         
+        public static string MembersParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TechnicalMembership", "Members", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Members
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Members(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalMembership", "Members", Storage.Type.Plain);
+            string parameters = TechnicalMembershipStorage.MembersParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
+        }
+        
+        public static string PrimeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("TechnicalMembership", "Prime", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -47,7 +59,7 @@ namespace SubstrateNetApi.Model.PalletTechnicalMembership
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Prime(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("TechnicalMembership", "Prime", Storage.Type.Plain);
+            string parameters = TechnicalMembershipStorage.PrimeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
     }

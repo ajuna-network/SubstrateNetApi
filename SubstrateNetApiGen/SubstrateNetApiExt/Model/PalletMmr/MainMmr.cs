@@ -34,13 +34,25 @@ namespace SubstrateNetApi.Model.PalletMmr
             this._client = client;
         }
         
+        public static string RootHashParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Mmr", "RootHash", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> RootHash
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> RootHash(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Mmr", "RootHash", Storage.Type.Plain);
+            string parameters = MmrStorage.RootHashParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
+        }
+        
+        public static string NumberOfLeavesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Mmr", "NumberOfLeaves", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -48,8 +60,15 @@ namespace SubstrateNetApi.Model.PalletMmr
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> NumberOfLeaves(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Mmr", "NumberOfLeaves", Storage.Type.Plain);
+            string parameters = MmrStorage.NumberOfLeavesParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
+        }
+        
+        public static string NodesParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Mmr", "Nodes", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -57,8 +76,7 @@ namespace SubstrateNetApi.Model.PalletMmr
         /// </summary>
         public async Task<SubstrateNetApi.Model.PrimitiveTypes.H256> Nodes(SubstrateNetApi.Model.Types.Primitive.U64 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Mmr", "Nodes", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = MmrStorage.NodesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PrimitiveTypes.H256>(parameters, token);
         }
     }

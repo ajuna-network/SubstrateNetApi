@@ -37,13 +37,25 @@ namespace SubstrateNetApi.Model.PalletStaking
             this._client = client;
         }
         
+        public static string HistoryDepthParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "HistoryDepth", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> HistoryDepth
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> HistoryDepth(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "HistoryDepth", Storage.Type.Plain);
+            string parameters = StakingStorage.HistoryDepthParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ValidatorCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "ValidatorCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -51,8 +63,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ValidatorCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "ValidatorCount", Storage.Type.Plain);
+            string parameters = StakingStorage.ValidatorCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string MinimumValidatorCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "MinimumValidatorCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -60,8 +78,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MinimumValidatorCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "MinimumValidatorCount", Storage.Type.Plain);
+            string parameters = StakingStorage.MinimumValidatorCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string InvulnerablesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "Invulnerables", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -69,8 +93,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>> Invulnerables(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "Invulnerables", Storage.Type.Plain);
+            string parameters = StakingStorage.InvulnerablesParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>>(parameters, token);
+        }
+        
+        public static string BondedParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "Bonded", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -78,9 +109,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Bonded(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "Bonded", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.BondedParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
+        }
+        
+        public static string MinNominatorBondParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "MinNominatorBond", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -88,8 +124,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> MinNominatorBond(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "MinNominatorBond", Storage.Type.Plain);
+            string parameters = StakingStorage.MinNominatorBondParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string MinValidatorBondParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "MinValidatorBond", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -97,8 +139,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> MinValidatorBond(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "MinValidatorBond", Storage.Type.Plain);
+            string parameters = StakingStorage.MinValidatorBondParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string LedgerParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "Ledger", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -106,9 +155,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.StakingLedger> Ledger(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "Ledger", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = StakingStorage.LedgerParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.StakingLedger>(parameters, token);
+        }
+        
+        public static string PayeeParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "Payee", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -116,9 +171,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.EnumRewardDestination> Payee(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "Payee", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.PayeeParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EnumRewardDestination>(parameters, token);
+        }
+        
+        public static string ValidatorsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "Validators", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -126,9 +187,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.ValidatorPrefs> Validators(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "Validators", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ValidatorsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.ValidatorPrefs>(parameters, token);
+        }
+        
+        public static string CounterForValidatorsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "CounterForValidators", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -136,8 +202,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CounterForValidators(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "CounterForValidators", Storage.Type.Plain);
+            string parameters = StakingStorage.CounterForValidatorsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string MaxValidatorsCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "MaxValidatorsCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -145,8 +217,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxValidatorsCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "MaxValidatorsCount", Storage.Type.Plain);
+            string parameters = StakingStorage.MaxValidatorsCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string NominatorsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "Nominators", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -154,9 +233,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.Nominations> Nominators(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "Nominators", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.NominatorsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.Nominations>(parameters, token);
+        }
+        
+        public static string CounterForNominatorsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "CounterForNominators", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -164,8 +248,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CounterForNominators(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "CounterForNominators", Storage.Type.Plain);
+            string parameters = StakingStorage.CounterForNominatorsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string MaxNominatorsCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "MaxNominatorsCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -173,8 +263,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> MaxNominatorsCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "MaxNominatorsCount", Storage.Type.Plain);
+            string parameters = StakingStorage.MaxNominatorsCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string CurrentEraParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "CurrentEra", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -182,8 +278,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CurrentEra(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "CurrentEra", Storage.Type.Plain);
+            string parameters = StakingStorage.CurrentEraParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ActiveEraParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "ActiveEra", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -191,8 +293,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.ActiveEraInfo> ActiveEra(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "ActiveEra", Storage.Type.Plain);
+            string parameters = StakingStorage.ActiveEraParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.ActiveEraInfo>(parameters, token);
+        }
+        
+        public static string ErasStartSessionIndexParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "ErasStartSessionIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -200,9 +309,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> ErasStartSessionIndex(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "ErasStartSessionIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ErasStartSessionIndexParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string ErasStakersParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Staking", "ErasStakers", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -210,9 +325,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.Exposure> ErasStakers(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Staking", "ErasStakers", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ErasStakersParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.Exposure>(parameters, token);
+        }
+        
+        public static string ErasStakersClippedParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Staking", "ErasStakersClipped", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -220,9 +341,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.Exposure> ErasStakersClipped(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Staking", "ErasStakersClipped", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ErasStakersClippedParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.Exposure>(parameters, token);
+        }
+        
+        public static string ErasValidatorPrefsParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Staking", "ErasValidatorPrefs", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -230,9 +357,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.ValidatorPrefs> ErasValidatorPrefs(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Staking", "ErasValidatorPrefs", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ErasValidatorPrefsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.ValidatorPrefs>(parameters, token);
+        }
+        
+        public static string ErasValidatorRewardParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "ErasValidatorReward", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -240,9 +373,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> ErasValidatorReward(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "ErasValidatorReward", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ErasValidatorRewardParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string ErasRewardPointsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "ErasRewardPoints", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -250,9 +389,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.EraRewardPoints> ErasRewardPoints(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "ErasRewardPoints", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ErasRewardPointsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EraRewardPoints>(parameters, token);
+        }
+        
+        public static string ErasTotalStakeParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "ErasTotalStake", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -260,9 +405,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> ErasTotalStake(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "ErasTotalStake", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ErasTotalStakeParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string ForceEraParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "ForceEra", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -270,8 +420,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.EnumForcing> ForceEra(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "ForceEra", Storage.Type.Plain);
+            string parameters = StakingStorage.ForceEraParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EnumForcing>(parameters, token);
+        }
+        
+        public static string SlashRewardFractionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "SlashRewardFraction", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -279,8 +435,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpArithmetic.Perbill> SlashRewardFraction(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "SlashRewardFraction", Storage.Type.Plain);
+            string parameters = StakingStorage.SlashRewardFractionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpArithmetic.Perbill>(parameters, token);
+        }
+        
+        public static string CanceledSlashPayoutParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "CanceledSlashPayout", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -288,8 +450,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> CanceledSlashPayout(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "CanceledSlashPayout", Storage.Type.Plain);
+            string parameters = StakingStorage.CanceledSlashPayoutParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string UnappliedSlashesParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "UnappliedSlashes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -297,9 +466,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletStaking.UnappliedSlash>> UnappliedSlashes(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "UnappliedSlashes", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.UnappliedSlashesParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletStaking.UnappliedSlash>>(parameters, token);
+        }
+        
+        public static string BondedErasParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "BondedEras", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -307,8 +481,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>> BondedEras(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "BondedEras", Storage.Type.Plain);
+            string parameters = StakingStorage.BondedErasParams();
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>>(parameters, token);
+        }
+        
+        public static string ValidatorSlashInEraParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Staking", "ValidatorSlashInEra", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -316,9 +497,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.SpArithmetic.Perbill,SubstrateNetApi.Model.Types.Primitive.U128>> ValidatorSlashInEra(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Staking", "ValidatorSlashInEra", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.ValidatorSlashInEraParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.SpArithmetic.Perbill,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
+        }
+        
+        public static string NominatorSlashInEraParams(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Staking", "NominatorSlashInEra", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -326,9 +513,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U128> NominatorSlashInEra(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Staking", "NominatorSlashInEra", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.NominatorSlashInEraParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U128>(parameters, token);
+        }
+        
+        public static string SlashingSpansParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "SlashingSpans", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -336,9 +529,15 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.SlashingSpans> SlashingSpans(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "SlashingSpans", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.SlashingSpansParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.SlashingSpans>(parameters, token);
+        }
+        
+        public static string SpanSlashParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32> key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Staking", "SpanSlash", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -346,9 +545,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.SpanRecord> SpanSlash(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U32> key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Staking", "SpanSlash", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = StakingStorage.SpanSlashParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.SpanRecord>(parameters, token);
+        }
+        
+        public static string EarliestUnappliedSlashParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "EarliestUnappliedSlash", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -356,8 +560,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> EarliestUnappliedSlash(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "EarliestUnappliedSlash", Storage.Type.Plain);
+            string parameters = StakingStorage.EarliestUnappliedSlashParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string CurrentPlannedSessionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "CurrentPlannedSession", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -365,8 +575,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> CurrentPlannedSession(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "CurrentPlannedSession", Storage.Type.Plain);
+            string parameters = StakingStorage.CurrentPlannedSessionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string StorageVersionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "StorageVersion", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -374,8 +590,14 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletStaking.EnumReleases> StorageVersion(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "StorageVersion", Storage.Type.Plain);
+            string parameters = StakingStorage.StorageVersionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletStaking.EnumReleases>(parameters, token);
+        }
+        
+        public static string ChillThresholdParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Staking", "ChillThreshold", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -383,7 +605,7 @@ namespace SubstrateNetApi.Model.PalletStaking
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpArithmetic.Percent> ChillThreshold(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Staking", "ChillThreshold", Storage.Type.Plain);
+            string parameters = StakingStorage.ChillThresholdParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpArithmetic.Percent>(parameters, token);
         }
     }

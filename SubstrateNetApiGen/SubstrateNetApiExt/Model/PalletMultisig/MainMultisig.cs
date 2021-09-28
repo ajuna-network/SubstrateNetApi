@@ -37,14 +37,27 @@ namespace SubstrateNetApi.Model.PalletMultisig
             this._client = client;
         }
         
+        public static string MultisigsParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Multisig", "Multisigs", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Multisigs
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletMultisig.Multisig> Multisigs(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Multisig", "Multisigs", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = MultisigStorage.MultisigsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletMultisig.Multisig>(parameters, token);
+        }
+        
+        public static string CallsParams(SubstrateNetApi.Model.Base.Arr32U8 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Multisig", "Calls", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -52,8 +65,7 @@ namespace SubstrateNetApi.Model.PalletMultisig
         /// </summary>
         public async Task<BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>> Calls(SubstrateNetApi.Model.Base.Arr32U8 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Multisig", "Calls", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = MultisigStorage.CallsParams(key);
             return await _client.GetStorageAsync<BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>>(parameters, token);
         }
     }

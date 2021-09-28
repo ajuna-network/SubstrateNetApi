@@ -35,14 +35,27 @@ namespace SubstrateNetApi.Model.PalletScheduler
             this._client = client;
         }
         
+        public static string AgendaParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Scheduler", "Agenda", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Agenda
         /// </summary>
         public async Task<BaseVec<BaseOpt<SubstrateNetApi.Model.PalletScheduler.ScheduledV2>>> Agenda(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Scheduler", "Agenda", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SchedulerStorage.AgendaParams(key);
             return await _client.GetStorageAsync<BaseVec<BaseOpt<SubstrateNetApi.Model.PalletScheduler.ScheduledV2>>>(parameters, token);
+        }
+        
+        public static string LookupParams(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Scheduler", "Lookup", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -50,9 +63,14 @@ namespace SubstrateNetApi.Model.PalletScheduler
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> Lookup(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8> key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Scheduler", "Lookup", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = SchedulerStorage.LookupParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
+        }
+        
+        public static string StorageVersionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Scheduler", "StorageVersion", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -60,7 +78,7 @@ namespace SubstrateNetApi.Model.PalletScheduler
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletScheduler.EnumReleases> StorageVersion(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Scheduler", "StorageVersion", Storage.Type.Plain);
+            string parameters = SchedulerStorage.StorageVersionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletScheduler.EnumReleases>(parameters, token);
         }
     }

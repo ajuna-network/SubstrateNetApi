@@ -36,14 +36,27 @@ namespace SubstrateNetApi.Model.PalletOffences
             this._client = client;
         }
         
+        public static string ReportsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Offences", "Reports", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Reports
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpStaking.OffenceDetails> Reports(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Offences", "Reports", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = OffencesStorage.ReportsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpStaking.OffenceDetails>(parameters, token);
+        }
+        
+        public static string ConcurrentReportsIndexParams(BaseTuple<SubstrateNetApi.Model.Base.Arr16U8,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Offences", "ConcurrentReportsIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -51,9 +64,15 @@ namespace SubstrateNetApi.Model.PalletOffences
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>> ConcurrentReportsIndex(BaseTuple<SubstrateNetApi.Model.Base.Arr16U8,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Offences", "ConcurrentReportsIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = OffencesStorage.ConcurrentReportsIndexParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>>(parameters, token);
+        }
+        
+        public static string ReportsByKindIndexParams(SubstrateNetApi.Model.Base.Arr16U8 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Offences", "ReportsByKindIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -61,8 +80,7 @@ namespace SubstrateNetApi.Model.PalletOffences
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> ReportsByKindIndex(SubstrateNetApi.Model.Base.Arr16U8 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Offences", "ReportsByKindIndex", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = OffencesStorage.ReportsByKindIndexParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
         }
     }

@@ -36,14 +36,27 @@ namespace SubstrateNetApi.Model.PalletTips
             this._client = client;
         }
         
+        public static string TipsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Tips", "Tips", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Tips
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletTips.OpenTip> Tips(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Tips", "Tips", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = TipsStorage.TipsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletTips.OpenTip>(parameters, token);
+        }
+        
+        public static string ReasonsParams(SubstrateNetApi.Model.PrimitiveTypes.H256 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Tips", "Reasons", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -51,8 +64,7 @@ namespace SubstrateNetApi.Model.PalletTips
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>> Reasons(SubstrateNetApi.Model.PrimitiveTypes.H256 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Tips", "Reasons", Storage.Type.Map, new[] {Storage.Hasher.Identity}, keyParams);
+            string parameters = TipsStorage.ReasonsParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>(parameters, token);
         }
     }

@@ -143,10 +143,10 @@ namespace SubstrateNetApi.Modules
         /// <returns>
         ///   <br />
         /// </returns>
-        public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback,
-            Method method, Account account, uint tip, uint lifeTime)
+        public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback, 
+            Method method, Account account, uint tip, uint lifeTime, CancellationToken token)
         {
-            var extrinsic = await _client.GetExtrinsicParametersAsync(method, account, tip, lifeTime, signed: true, CancellationToken.None);
+            var extrinsic = await _client.GetExtrinsicParametersAsync(method, account, tip, lifeTime, signed: true, token);
 
             return await SubmitAndWatchExtrinsicAsync(callback, Utils.Bytes2HexString(extrinsic.Encode()));
         }

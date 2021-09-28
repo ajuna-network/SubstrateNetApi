@@ -103,6 +103,15 @@ namespace RuntimeMetadata
                 {
                     foreach (var entry in storage.Entries)
                     {
+                        var storageParams = entry.Name + "Params";
+                        CodeMemberMethod parameterMethod = new()
+                        {
+                            Attributes = MemberAttributes.Static | MemberAttributes.Public | MemberAttributes.Final,
+                            Name = storageParams,
+                            ReturnType = new CodeTypeReference(typeof(string))
+                        };
+                        targetClass.Members.Add(parameterMethod);
+
                         // async Task<object>
                         CodeMemberMethod storageMethod = new()
                         {
@@ -118,11 +127,18 @@ namespace RuntimeMetadata
                         {
                             var fullItem = GetFullItemPath(entry.TypeMap.Item1);
 
+                            string getStorageString = GetStorageString(storage.Prefix, entry.Name, entry.StorageType);
+                            parameterMethod.Statements.Add(new CodeSnippetExpression(getStorageString));
+                            parameterMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression("parameters")));
+
                             storageMethod.ReturnType = new CodeTypeReference($"async Task<{fullItem.Item1}>");
 
                             storageMethod.Parameters.Add(new CodeParameterDeclarationExpression("CancellationToken", "token"));
-                            string getStorageString = GetStorageString(storage.Prefix, entry.Name, entry.StorageType);
-                            storageMethod.Statements.Add(new CodeSnippetExpression(getStorageString));
+
+                            CodeMethodInvokeExpression methodInvoke = new(new CodeTypeReferenceExpression(targetClass.Name), parameterMethod.Name,Array.Empty<CodeExpression>());
+                            CodeVariableDeclarationStatement variableDeclaration = new(typeof(string),"parameters",methodInvoke);
+                            storageMethod.Statements.Add(variableDeclaration);
+
                             storageMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression(GetInvoceString(fullItem.Item1))));
 
                         }
@@ -133,14 +149,22 @@ namespace RuntimeMetadata
                             var key = GetFullItemPath(typeMap.Key);
                             var value = GetFullItemPath(typeMap.Value);
 
+                            var keyParamsString = hashers.Length == 1 ? "var keyParams = new IType[] { key }" : "var keyParams = key.Value";
+                            parameterMethod.Statements.Add(new CodeSnippetExpression(keyParamsString));
+                            parameterMethod.Parameters.Add(new CodeParameterDeclarationExpression(key.Item1, "key"));
+                            string getStorageString = GetStorageString(storage.Prefix, entry.Name, entry.StorageType, hashers);
+                            parameterMethod.Statements.Add(new CodeSnippetExpression(getStorageString));
+                            parameterMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression("parameters")));
+
                             storageMethod.ReturnType = new CodeTypeReference($"async Task<{value.Item1}>");
                             storageMethod.Parameters.Add(new CodeParameterDeclarationExpression(key.Item1, "key"));
                             storageMethod.Parameters.Add(new CodeParameterDeclarationExpression("CancellationToken", "token"));
+                           
+                            CodeMethodInvokeExpression methodInvoke = new(new CodeTypeReferenceExpression(targetClass.Name), parameterMethod.Name,
+                                new CodeExpression[] { new CodeArgumentReferenceExpression("key") });
+                            CodeVariableDeclarationStatement variableDeclaration = new(typeof(string),"parameters",methodInvoke);
+                            storageMethod.Statements.Add(variableDeclaration);
 
-                            var keyParamsString = hashers.Length == 1 ? "var keyParams = new IType[] { key }" : "var keyParams = key.Value";
-                            storageMethod.Statements.Add(new CodeSnippetExpression(keyParamsString));
-                            string getStorageString = GetStorageString(storage.Prefix, entry.Name, entry.StorageType, hashers);
-                            storageMethod.Statements.Add(new CodeSnippetExpression(getStorageString));
                             storageMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression(GetInvoceString(value.Item1))));
                         }
                         else
@@ -164,34 +188,7 @@ namespace RuntimeMetadata
                     TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed
                 };
                 typeNamespace.Types.Add(targetClass);
-
-                //// Declare the client field.
-                //CodeMemberField clientField = new CodeMemberField
-                //{
-                //    Attributes = MemberAttributes.Private,
-                //    Name = "_client",
-                //    Type = new CodeTypeReference(typeof(SubstrateClient))
-                //};
-                //clientField.Comments.Add(new CodeCommentStatement(
-                //    "Substrate client for the storage calls."));
-                //targetClass.Members.Add(clientField);
-
-                //CodeConstructor constructor = new CodeConstructor
-                //{
-                //    Attributes =
-                //    MemberAttributes.Public | MemberAttributes.Final
-                //};
-
-                //// Add parameters.
-                //constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                //    typeof(SubstrateClient), "client"));
-                //CodeFieldReferenceExpression fieldReference =
-                //    new CodeFieldReferenceExpression(
-                //    new CodeThisReferenceExpression(), "_client");
-                //constructor.Statements.Add(new CodeAssignStatement(fieldReference,
-                //    new CodeArgumentReferenceExpression("client")));
-                //targetClass.Members.Add(constructor);
-                
+               
                 if (calls != null)
                 {
                     if (NodeTypes.TryGetValue(calls.TypeId, out NodeType nodeType))

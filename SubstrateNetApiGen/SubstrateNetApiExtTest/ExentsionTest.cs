@@ -105,8 +105,11 @@ namespace ExentsionTest
         {
             await _substrateClient.ConnectAsync(false, CancellationToken.None);
 
-            var result = await _substrateClient.Chain.GetFinalizedHeadAsync(CancellationToken.None);
-            Assert.AreEqual("0x", result.Value.Substring(0,2));
+            var result1 = await _substrateClient.Chain.GetFinalizedHeadAsync(CancellationToken.None);
+            Assert.AreEqual("0x", result1.Value.Substring(0,2));
+
+            var result2 = await _substrateClient.Chain.GetFinalizedTestHeadAsync(CancellationToken.None);
+            Assert.AreEqual("0x", result2.Substring(0, 2));
 
             await _substrateClient.CloseAsync();
         }
@@ -130,8 +133,12 @@ namespace ExentsionTest
             var accountId32 = new AccountId32();
             accountId32.Create("0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d");
 
+            var highValue = BigInteger.Parse("1000000000000000000000");
+            var lowValue = BigInteger.Parse("10000000000000000");
+
             var result = await _substrateClient.SystemStorage.Account(accountId32, CancellationToken.None);
-            Assert.AreEqual("1000000000000000000000", result.Data.Free.Value.ToString());
+            Assert.IsTrue(highValue >= result.Data.Free.Value);
+            Assert.IsTrue(lowValue < result.Data.Free.Value);
 
             await _substrateClient.CloseAsync();
         }
@@ -222,7 +229,7 @@ namespace ExentsionTest
             bobAccountId32.Create("0x8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48");
 
             var result = await _substrateClient.SystemStorage.Account(bobAccountId32, CancellationToken.None);
-            Assert.AreEqual("1000000000000000000000", result.Data.Free.Value.ToString());
+            var startValueBob = result.Data.Free.Value;
 
             var enumMultiAddress = new EnumMultiAddress();
             enumMultiAddress.Create(MultiAddress.Id, bobAccountId32);
@@ -236,8 +243,43 @@ namespace ExentsionTest
 
             Thread.Sleep(extrinsic_wait);
 
+            var endValueBob = startValueBob + amount.Value.Value;
+
             var freeAfter = await _substrateClient.SystemStorage.Account(bobAccountId32, CancellationToken.None);
-            Assert.AreEqual("1000000000100000000000", freeAfter.Data.Free.Value.ToString());
+            Assert.AreEqual(endValueBob, freeAfter.Data.Free.Value);
+        }
+
+        [Test]
+        public async Task BalanceTransferSubscribeTestAsync()
+        {
+            var extrinsic_wait = 5000;
+
+            var cts = new CancellationTokenSource();
+            await _substrateClient.ConnectAsync(false, cts.Token);
+
+            var bobAccountId32 = new AccountId32();
+            bobAccountId32.Create("0x8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48");
+
+            var result = await _substrateClient.SystemStorage.Account(bobAccountId32, CancellationToken.None);
+            var startValueBob = result.Data.Free.Value;
+
+            var enumMultiAddress = new EnumMultiAddress();
+            enumMultiAddress.Create(MultiAddress.Id, bobAccountId32);
+
+            var amount = new BaseCom<U128>();
+            amount.Create(new CompactInteger(new BigInteger(100000000000)));
+
+            var extrinsicMethod = SubstrateNetApi.Model.PalletBalances.BalancesCalls.Transfer(enumMultiAddress, amount);
+
+            // Alice sends bob some coins ...
+            var subscription = await _substrateClient.Author.SubmitAndWatchExtrinsicAsync(ActionExtrinsicUpdate, extrinsicMethod, Alice, 0, 64, cts.Token);
+
+            Thread.Sleep(extrinsic_wait);
+            
+            var endValueBob = startValueBob + amount.Value.Value;
+
+            var freeAfter = await _substrateClient.SystemStorage.Account(bobAccountId32, CancellationToken.None);
+            Assert.AreEqual(endValueBob, freeAfter.Data.Free.Value);
         }
 
     }

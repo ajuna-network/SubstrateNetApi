@@ -36,13 +36,25 @@ namespace SubstrateNetApi.Model.PalletLottery
             this._client = client;
         }
         
+        public static string LotteryIndexParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Lottery", "LotteryIndex", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> LotteryIndex
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> LotteryIndex(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "LotteryIndex", Storage.Type.Plain);
+            string parameters = LotteryStorage.LotteryIndexParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string LotteryParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Lottery", "Lottery", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -50,8 +62,15 @@ namespace SubstrateNetApi.Model.PalletLottery
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletLottery.LotteryConfig> Lottery(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "Lottery", Storage.Type.Plain);
+            string parameters = LotteryStorage.LotteryParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletLottery.LotteryConfig>(parameters, token);
+        }
+        
+        public static string ParticipantsParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Lottery", "Participants", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -59,9 +78,14 @@ namespace SubstrateNetApi.Model.PalletLottery
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>>> Participants(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Lottery", "Participants", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = LotteryStorage.ParticipantsParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>>>(parameters, token);
+        }
+        
+        public static string TicketsCountParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Lottery", "TicketsCount", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -69,8 +93,15 @@ namespace SubstrateNetApi.Model.PalletLottery
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> TicketsCount(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "TicketsCount", Storage.Type.Plain);
+            string parameters = LotteryStorage.TicketsCountParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string TicketsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Lottery", "Tickets", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -78,9 +109,14 @@ namespace SubstrateNetApi.Model.PalletLottery
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Tickets(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Lottery", "Tickets", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = LotteryStorage.TicketsParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
+        }
+        
+        public static string CallIndicesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Lottery", "CallIndices", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -88,7 +124,7 @@ namespace SubstrateNetApi.Model.PalletLottery
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>> CallIndices(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Lottery", "CallIndices", Storage.Type.Plain);
+            string parameters = LotteryStorage.CallIndicesParams();
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U8,SubstrateNetApi.Model.Types.Primitive.U8>>>(parameters, token);
         }
     }

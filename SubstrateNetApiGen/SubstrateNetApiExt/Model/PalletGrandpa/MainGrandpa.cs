@@ -36,13 +36,25 @@ namespace SubstrateNetApi.Model.PalletGrandpa
             this._client = client;
         }
         
+        public static string StateParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Grandpa", "State", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> State
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletGrandpa.EnumStoredState> State(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "State", Storage.Type.Plain);
+            string parameters = GrandpaStorage.StateParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletGrandpa.EnumStoredState>(parameters, token);
+        }
+        
+        public static string PendingChangeParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Grandpa", "PendingChange", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -50,8 +62,14 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletGrandpa.StoredPendingChange> PendingChange(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "PendingChange", Storage.Type.Plain);
+            string parameters = GrandpaStorage.PendingChangeParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletGrandpa.StoredPendingChange>(parameters, token);
+        }
+        
+        public static string NextForcedParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Grandpa", "NextForced", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -59,8 +77,14 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> NextForced(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "NextForced", Storage.Type.Plain);
+            string parameters = GrandpaStorage.NextForcedParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string StalledParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Grandpa", "Stalled", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -68,8 +92,14 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>> Stalled(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "Stalled", Storage.Type.Plain);
+            string parameters = GrandpaStorage.StalledParams();
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>>(parameters, token);
+        }
+        
+        public static string CurrentSetIdParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Grandpa", "CurrentSetId", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -77,8 +107,15 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U64> CurrentSetId(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Grandpa", "CurrentSetId", Storage.Type.Plain);
+            string parameters = GrandpaStorage.CurrentSetIdParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U64>(parameters, token);
+        }
+        
+        public static string SetIdSessionParams(SubstrateNetApi.Model.Types.Primitive.U64 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Grandpa", "SetIdSession", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -86,8 +123,7 @@ namespace SubstrateNetApi.Model.PalletGrandpa
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> SetIdSession(SubstrateNetApi.Model.Types.Primitive.U64 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Grandpa", "SetIdSession", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = GrandpaStorage.SetIdSessionParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
         }
     }

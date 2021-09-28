@@ -36,13 +36,25 @@ namespace SubstrateNetApi.Model.PalletAuthorship
             this._client = client;
         }
         
+        public static string UnclesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Authorship", "Uncles", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Uncles
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletAuthorship.EnumUncleEntryItem>> Uncles(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Authorship", "Uncles", Storage.Type.Plain);
+            string parameters = AuthorshipStorage.UnclesParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletAuthorship.EnumUncleEntryItem>>(parameters, token);
+        }
+        
+        public static string AuthorParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Authorship", "Author", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -50,8 +62,14 @@ namespace SubstrateNetApi.Model.PalletAuthorship
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Author(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Authorship", "Author", Storage.Type.Plain);
+            string parameters = AuthorshipStorage.AuthorParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
+        }
+        
+        public static string DidSetUnclesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Authorship", "DidSetUncles", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -59,7 +77,7 @@ namespace SubstrateNetApi.Model.PalletAuthorship
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.Bool> DidSetUncles(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Authorship", "DidSetUncles", Storage.Type.Plain);
+            string parameters = AuthorshipStorage.DidSetUnclesParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.Bool>(parameters, token);
         }
     }

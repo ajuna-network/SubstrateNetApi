@@ -38,13 +38,25 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
             this._client = client;
         }
         
+        public static string RoundParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Round", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Round
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> Round(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Round", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.RoundParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string CurrentPhaseParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "CurrentPhase", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -52,8 +64,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumPhase> CurrentPhase(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "CurrentPhase", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.CurrentPhaseParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.EnumPhase>(parameters, token);
+        }
+        
+        public static string QueuedSolutionParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "QueuedSolution", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -61,8 +79,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.ReadySolution> QueuedSolution(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "QueuedSolution", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.QueuedSolutionParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.ReadySolution>(parameters, token);
+        }
+        
+        public static string SnapshotParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Snapshot", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -70,8 +94,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.RoundSnapshot> Snapshot(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "Snapshot", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.SnapshotParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.RoundSnapshot>(parameters, token);
+        }
+        
+        public static string DesiredTargetsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "DesiredTargets", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -79,8 +109,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> DesiredTargets(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "DesiredTargets", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.DesiredTargetsParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string SnapshotMetadataParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SnapshotMetadata", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -88,8 +124,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SolutionOrSnapshotSize> SnapshotMetadata(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SnapshotMetadata", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.SnapshotMetadataParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SolutionOrSnapshotSize>(parameters, token);
+        }
+        
+        public static string SignedSubmissionNextIndexParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionNextIndex", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -97,8 +139,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.Types.Primitive.U32> SignedSubmissionNextIndex(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionNextIndex", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.SignedSubmissionNextIndexParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Types.Primitive.U32>(parameters, token);
+        }
+        
+        public static string SignedSubmissionIndicesParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionIndices", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -106,8 +154,15 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.FrameSupport.BoundedBTreeMap> SignedSubmissionIndices(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionIndices", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.SignedSubmissionIndicesParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.FrameSupport.BoundedBTreeMap>(parameters, token);
+        }
+        
+        public static string SignedSubmissionsMapParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionsMap", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -115,9 +170,14 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SignedSubmission> SignedSubmissionsMap(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "SignedSubmissionsMap", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = ElectionProviderMultiPhaseStorage.SignedSubmissionsMapParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletElectionProviderMultiPhase.SignedSubmission>(parameters, token);
+        }
+        
+        public static string MinimumUntrustedScoreParams()
+        {
+            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "MinimumUntrustedScore", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -125,7 +185,7 @@ namespace SubstrateNetApi.Model.PalletElectionProviderMultiPhase
         /// </summary>
         public async Task<SubstrateNetApi.Model.Base.Arr3U128> MinimumUntrustedScore(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("ElectionProviderMultiPhase", "MinimumUntrustedScore", Storage.Type.Plain);
+            string parameters = ElectionProviderMultiPhaseStorage.MinimumUntrustedScoreParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.Base.Arr3U128>(parameters, token);
         }
     }

@@ -36,13 +36,26 @@ namespace SubstrateNetApi.Model.PalletGilt
             this._client = client;
         }
         
+        public static string QueueTotalsParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Gilt", "QueueTotals", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> QueueTotals
         /// </summary>
         public async Task<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U128>>> QueueTotals(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Gilt", "QueueTotals", Storage.Type.Plain);
+            string parameters = GiltStorage.QueueTotalsParams();
             return await _client.GetStorageAsync<BaseVec<BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U128>>>(parameters, token);
+        }
+        
+        public static string QueuesParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Gilt", "Queues", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -50,9 +63,14 @@ namespace SubstrateNetApi.Model.PalletGilt
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PalletGilt.GiltBid>> Queues(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Gilt", "Queues", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = GiltStorage.QueuesParams(key);
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PalletGilt.GiltBid>>(parameters, token);
+        }
+        
+        public static string ActiveTotalParams()
+        {
+            var parameters = RequestGenerator.GetStorage("Gilt", "ActiveTotal", Storage.Type.Plain);
+            return parameters;
         }
         
         /// <summary>
@@ -60,8 +78,15 @@ namespace SubstrateNetApi.Model.PalletGilt
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletGilt.ActiveGiltsTotal> ActiveTotal(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("Gilt", "ActiveTotal", Storage.Type.Plain);
+            string parameters = GiltStorage.ActiveTotalParams();
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletGilt.ActiveGiltsTotal>(parameters, token);
+        }
+        
+        public static string ActiveParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Gilt", "Active", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -69,8 +94,7 @@ namespace SubstrateNetApi.Model.PalletGilt
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletGilt.ActiveGilt> Active(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Gilt", "Active", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = GiltStorage.ActiveParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletGilt.ActiveGilt>(parameters, token);
         }
     }

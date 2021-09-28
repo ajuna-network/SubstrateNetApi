@@ -34,13 +34,19 @@ namespace SubstrateNetApi.Model.PalletIndices
             this._client = client;
         }
         
+        public static string AccountsParams(SubstrateNetApi.Model.Types.Primitive.U32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Indices", "Accounts", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Accounts
         /// </summary>
         public async Task<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.Types.Primitive.Bool>> Accounts(SubstrateNetApi.Model.Types.Primitive.U32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Indices", "Accounts", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = IndicesStorage.AccountsParams(key);
             return await _client.GetStorageAsync<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.Types.Primitive.Bool>>(parameters, token);
         }
     }

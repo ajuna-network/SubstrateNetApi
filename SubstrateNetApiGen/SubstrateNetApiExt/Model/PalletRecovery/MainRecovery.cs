@@ -36,14 +36,27 @@ namespace SubstrateNetApi.Model.PalletRecovery
             this._client = client;
         }
         
+        public static string RecoverableParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Recovery", "Recoverable", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> Recoverable
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletRecovery.RecoveryConfig> Recoverable(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Recovery", "Recoverable", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = RecoveryStorage.RecoverableParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletRecovery.RecoveryConfig>(parameters, token);
+        }
+        
+        public static string ActiveRecoveriesParams(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key)
+        {
+            var keyParams = key.Value;
+            var parameters = RequestGenerator.GetStorage("Recovery", "ActiveRecoveries", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -51,9 +64,15 @@ namespace SubstrateNetApi.Model.PalletRecovery
         /// </summary>
         public async Task<SubstrateNetApi.Model.PalletRecovery.ActiveRecovery> ActiveRecoveries(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32> key, CancellationToken token)
         {
-            var keyParams = key.Value;
-            var parameters = RequestGenerator.GetStorage("Recovery", "ActiveRecoveries", Storage.Type.Map, new[] {Storage.Hasher.Twox64Concat,Storage.Hasher.Twox64Concat}, keyParams);
+            string parameters = RecoveryStorage.ActiveRecoveriesParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.PalletRecovery.ActiveRecovery>(parameters, token);
+        }
+        
+        public static string ProxyParams(SubstrateNetApi.Model.SpCore.AccountId32 key)
+        {
+            var keyParams = new IType[] { key };
+            var parameters = RequestGenerator.GetStorage("Recovery", "Proxy", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            return parameters;
         }
         
         /// <summary>
@@ -61,8 +80,7 @@ namespace SubstrateNetApi.Model.PalletRecovery
         /// </summary>
         public async Task<SubstrateNetApi.Model.SpCore.AccountId32> Proxy(SubstrateNetApi.Model.SpCore.AccountId32 key, CancellationToken token)
         {
-            var keyParams = new IType[] { key };
-            var parameters = RequestGenerator.GetStorage("Recovery", "Proxy", Storage.Type.Map, new[] {Storage.Hasher.BlakeTwo128Concat}, keyParams);
+            string parameters = RecoveryStorage.ProxyParams(key);
             return await _client.GetStorageAsync<SubstrateNetApi.Model.SpCore.AccountId32>(parameters, token);
         }
     }

@@ -33,12 +33,18 @@ namespace SubstrateNetApi.Model.PalletRandomnessCollectiveFlip
             this._client = client;
         }
         
+        public static string RandomMaterialParams()
+        {
+            var parameters = RequestGenerator.GetStorage("RandomnessCollectiveFlip", "RandomMaterial", Storage.Type.Plain);
+            return parameters;
+        }
+        
         /// <summary>
         /// >> RandomMaterial
         /// </summary>
         public async Task<BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>> RandomMaterial(CancellationToken token)
         {
-            var parameters = RequestGenerator.GetStorage("RandomnessCollectiveFlip", "RandomMaterial", Storage.Type.Plain);
+            string parameters = RandomnessCollectiveFlipStorage.RandomMaterialParams();
             return await _client.GetStorageAsync<BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>>(parameters, token);
         }
     }
