@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Schnorrkel.Keys;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.FrameSystem;
 using SubstrateNetApi.Model.PalletBalances;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.SpCore;
@@ -128,17 +129,56 @@ namespace ExentsionTest
         [Test]
         public async Task GetAccountStorageTestAsync()
         {
-            await _substrateClient.ConnectAsync(false, CancellationToken.None);
+            var highValue = BigInteger.Parse("1000000000000000000000");
+            var lowValue = BigInteger.Parse("10000000000000000");
 
             var accountId32 = new AccountId32();
             accountId32.Create("0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d");
 
-            var highValue = BigInteger.Parse("1000000000000000000000");
-            var lowValue = BigInteger.Parse("10000000000000000");
+            await _substrateClient.ConnectAsync(false, CancellationToken.None);
 
             var result = await _substrateClient.SystemStorage.Account(accountId32, CancellationToken.None);
             Assert.IsTrue(highValue >= result.Data.Free.Value);
             Assert.IsTrue(lowValue < result.Data.Free.Value);
+
+            await _substrateClient.CloseAsync();
+        }
+
+        [Test]
+        public async Task GetAccountSubscribeStorageTestAsync()
+        {
+            var extrinsic_wait = 5000;
+
+            var highValue = BigInteger.Parse("1000000000000000000000");
+            var lowValue = BigInteger.Parse("10000000000000000");
+
+            var accountId32 = new AccountId32();
+            accountId32.Create("0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d");
+
+            await _substrateClient.ConnectAsync(false, CancellationToken.None);
+
+            AccountInfo accountInfo = null;
+            Action<string, StorageChangeSet> callOwnedMogwaisCount = (subscriptionId, eventObject) =>
+            {
+                if (eventObject.Changes != null)
+                {
+                    var p = 0;
+                    accountInfo = new AccountInfo();
+                    accountInfo.Decode(Utils.HexToByteArray(eventObject.Changes[0][1]), ref p);
+
+                }
+            };
+
+            var subscription = await _substrateClient.SubscribeStorageKeyAsync(SystemStorage.AccountParams(accountId32), callOwnedMogwaisCount, CancellationToken.None);
+
+            Assert.IsTrue(subscription.Length > 0);
+
+            Thread.Sleep(extrinsic_wait);
+
+            Assert.IsNotNull(accountInfo);
+
+            Assert.IsTrue(highValue >= accountInfo.Data.Free.Value);
+            Assert.IsTrue(lowValue < accountInfo.Data.Free.Value);
 
             await _substrateClient.CloseAsync();
         }
@@ -199,7 +239,7 @@ namespace ExentsionTest
         }
 
         [Test]
-        public void MethodTestAsync()
+        public void MethodTest()
         {
             var bobAccountId32 = new AccountId32();
             bobAccountId32.Create("0x8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48");
@@ -214,7 +254,6 @@ namespace ExentsionTest
 
             var extrinsicMethod = SubstrateNetApi.Model.PalletBalances.BalancesCalls.Transfer(enumMultiAddress, amount);
             Assert.AreEqual("0x0600008eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a480700e8764817", Utils.Bytes2HexString(extrinsicMethod.Encode()).ToLower());
-
         }
 
         [Test]
@@ -250,7 +289,7 @@ namespace ExentsionTest
         }
 
         [Test]
-        public async Task BalanceTransferSubscribeTestAsync()
+        public async Task BalanceTransferWatchTestAsync()
         {
             var extrinsic_wait = 5000;
 

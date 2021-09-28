@@ -364,6 +364,28 @@ namespace SubstrateNetApi
         }
 
         /// <summary>
+        /// Subscribe Storage Key Async
+        /// </summary>
+        /// <param name="moduleName"></param>
+        /// <param name="itemName"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task<string> SubscribeStorageKeyAsync(string storageParams, Action<string, StorageChangeSet> callback, CancellationToken token)
+        {
+            if (_socket?.State != WebSocketState.Open)
+                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
+
+            var subscriptionId =
+                await InvokeAsync<string>("state_subscribeStorage", new object[] { new JArray { storageParams } }, token);
+
+            Listener.RegisterCallBackHandler(subscriptionId, callback);
+            
+            return subscriptionId;
+        }
+
+        /// <summary>
         /// Get Storage Keys Async
         /// </summary>
         /// <param name="moduleName"></param>
