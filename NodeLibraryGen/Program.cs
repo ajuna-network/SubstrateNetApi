@@ -22,48 +22,35 @@ namespace RuntimeMetadata
         static async Task Main(string[] args)
         {
             string result;
+
+            MetaData metadata;
             if (false)
             {
                 using var client = new SubstrateClient(new Uri(Websocketurl));
-                await client.ConnectAsync(false, CancellationToken.None);
-                result = await client.State.GetMetaDataAsync(CancellationToken.None);
-                File.WriteAllText("metadata_20210923.txt", result);
+                await client.ConnectAsync(true, CancellationToken.None);
+                //result = await client.State.GetMetaDataAsync(CancellationToken.None);
+                //File.WriteAllText("metadata_20210923.txt", result);
+
+                metadata = client.MetaData;
             }
             else
             {
                 result = File.ReadAllText("metadata_20210923.txt");
+                var mdv14 = new SubstrateNetApi.Model.Types.Struct.RuntimeMetadata();
+                mdv14.Create(result);
+
+                metadata = new MetaData(mdv14, "");
             }
-            var mdv14 = new SubstrateNetApi.Model.Types.Struct.RuntimeMetadata();
-            mdv14.Create(result);
-
-            //Console.WriteLine(mdv14);
-
-            NodeMetadataV14 metadata = new()
-            {
-                Types = CreateNodeTypeDict(mdv14.RuntimeMetadataData.Types.Value),
-                Modules = CreateModuleDict(mdv14.RuntimeMetadataData.Modules.Value),
-                Extrinsic = CreateExtrinsic(mdv14.RuntimeMetadataData.Extrinsic),
-                TypeId = (uint)mdv14.RuntimeMetadataData.TypeId.Value
-            };
 
             // generate types
-            var typeDict = GenerateTypes(metadata.Types);
+            var typeDict = GenerateTypes(metadata.NodeMetadata.Types);
             
             // generate modules
-            GenerateModules(metadata.Modules, typeDict, metadata.Types);
+            GenerateModules(metadata.NodeMetadata.Modules, typeDict, metadata.NodeMetadata.Types);
 
             Console.WriteLine(JsonConvert.SerializeObject(typeDict, Formatting.Indented));
 
-            Console.WriteLine($"Map: {typeDict.Count} vs. Tot: {metadata.Types.Count} {((double)typeDict.Count / metadata.Types.Count).ToString("P")}");
-
-            //for (uint i = 0; i < nodeTypes.Keys.Max(); i++)
-            //{
-            //    if (nodeTypes.ContainsKey(i) && !typeDict.ContainsKey(i))
-            //    {
-            //        Console.WriteLine($"### {i} -------------------------------------------------");
-            //        Console.WriteLine(JsonConvert.SerializeObject(nodeTypes[i], Formatting.Indented));
-            //    }
-            //}
+            Console.WriteLine($"Map: {typeDict.Count} vs. Tot: {metadata.NodeMetadata.Types.Count} {((double)typeDict.Count / metadata.NodeMetadata.Types.Count).ToString("P")}");
 
             WriteJsonFile("metadata.json", metadata);
             //GenerateCode(nodeTypes);
@@ -80,21 +67,6 @@ namespace RuntimeMetadata
             }
 
             ClientGenBuilder.Init(0, moduleNames, typeDict).Create().Build(write: true, out bool _);
-        }
-
-        private static ExtrinsicMetadata CreateExtrinsic(ExtrinsicMetadataStruct extrinsic)
-        {
-            return new ExtrinsicMetadata()
-            {
-                TypeId = (uint)extrinsic.ExtrinsicType.Value,
-                Version = (int)extrinsic.Version.Value,
-                SignedExtensions = extrinsic.SignedExtensions.Value.Select(p => new SignedExtensionMetadata()
-                {
-                    SignedIdentifier = p.SignedIdentifier.Value,
-                    SignedExtType = (uint)p.SignedExtType.Value,
-                    AddSignedExtType = (uint)p.AddSignedExtType.Value,
-                }).ToArray()
-            };
         }
 
         private static Dictionary<uint, (string, List<string>)> GenerateTypes(Dictionary<uint, NodeType> nodeTypes)
@@ -433,7 +405,7 @@ namespace RuntimeMetadata
             }
         }
 
-        private static void WriteJsonFile(string fileName, NodeMetadataV14 runtimeMetadata)
+        private static void WriteJsonFile(string fileName, MetaData runtimeMetadata)
         {
             var jsonFile = JsonConvert.SerializeObject(runtimeMetadata, Formatting.Indented);
             File.WriteAllText(fileName, jsonFile);
@@ -717,6 +689,20 @@ namespace RuntimeMetadata
             return result;
         }
 
+        private static ExtrinsicMetadata CreateExtrinsic(ExtrinsicMetadataStruct extrinsic)
+        {
+            return new ExtrinsicMetadata()
+            {
+                TypeId = (uint)extrinsic.ExtrinsicType.Value,
+                Version = (int)extrinsic.Version.Value,
+                SignedExtensions = extrinsic.SignedExtensions.Value.Select(p => new SignedExtensionMetadata()
+                {
+                    SignedIdentifier = p.SignedIdentifier.Value,
+                    SignedExtType = (uint)p.SignedExtType.Value,
+                    AddSignedExtType = (uint)p.AddSignedExtType.Value,
+                }).ToArray()
+            };
+        }
     }
 
 }

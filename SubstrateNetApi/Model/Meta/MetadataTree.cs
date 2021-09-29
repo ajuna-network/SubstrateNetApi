@@ -4,7 +4,7 @@ using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Metadata.V14;
 using System.Collections.Generic;
 
-namespace RuntimeMetadata
+namespace SubstrateNetApi.Model.Meta
 {
     public class NodeType
     {
@@ -105,85 +105,85 @@ namespace RuntimeMetadata
 
     public class NodeMetadataV14
     {
-        public Dictionary<uint, NodeType> Types { get; internal set; }
-        public Dictionary<uint, PalletModule> Modules { get; internal set; }
-        public ExtrinsicMetadata Extrinsic { get; internal set; }
-        public uint TypeId { get; internal set; }
+        public Dictionary<uint, NodeType> Types { get; set; }
+        public Dictionary<uint, PalletModule> Modules { get; set; }
+        public ExtrinsicMetadata Extrinsic { get; set; }
+        public uint TypeId { get; set; }
     }
 
     public class SignedExtensionMetadata
     {
-        public string SignedIdentifier { get; internal set; }
-        public uint SignedExtType { get; internal set; }
-        public uint AddSignedExtType { get; internal set; }
+        public string SignedIdentifier { get; set; }
+        public uint SignedExtType { get; set; }
+        public uint AddSignedExtType { get; set; }
     }
 
     public class ExtrinsicMetadata
     {
         public uint TypeId { get; set; }
         public int Version { get; set; }
-        public SignedExtensionMetadata[] SignedExtensions { get; internal set; }
+        public SignedExtensionMetadata[] SignedExtensions { get; set; }
     }
 
     public class PalletConstant
     {
-        public string Name { get; internal set; }
+        public string Name { get; set; }
         public uint TypeId { get; set; }
-        public byte[] Value { get; internal set; }
-        public string[] Docs { get; internal set; }
+        public byte[] Value { get; set; }
+        public string[] Docs { get; set; }
     }
 
     public class PalletStorage
     {
-        public string Prefix { get; internal set; }
-        public Entry[] Entries { get; internal set; }
+        public string Prefix { get; set; }
+        public Entry[] Entries { get; set; }
     }
 
     public class Entry
     {
-        public string Name { get; internal set; }
+        public string Name { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
-        public Storage.Modifier Modifier { get; internal set; }
+        public Storage.Modifier Modifier { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
-        public Storage.Type StorageType { get; internal set; }
-        public (uint, TypeMap) TypeMap { get; internal set; }
-        public byte[] Default { get; internal set; }
+        public Storage.Type StorageType { get; set; }
+        public (uint, TypeMap) TypeMap { get; set; }
+        public byte[] Default { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string[] Docs { get; internal set; }
+        public string[] Docs { get; set; }
     }
 
     public class TypeMap
     {
         [JsonProperty("Hashers", ItemConverterType = typeof(StringEnumConverter))]
-        public Storage.Hasher[] Hashers { get; internal set; }
-        public uint Key { get; internal set; }
-        public uint Value { get; internal set; }
+        public Storage.Hasher[] Hashers { get; set; }
+        public uint Key { get; set; }
+        public uint Value { get; set; }
     }
 
     public class PalletModule
     {
-        public string Name { get; internal set; }
+        public string Name { get; set; }
         public PalletStorage Storage { get; set; }
-        public PalletCalls Calls { get; internal set; }
-        public PalletEvents Events { get; internal set; }
+        public PalletCalls Calls { get; set; }
+        public PalletEvents Events { get; set; }
         public PalletConstant[] Constants { get; set; }
-        public PalletErrors Errors { get; internal set; }
-        public uint Index { get; internal set; }
+        public PalletErrors Errors { get; set; }
+        public uint Index { get; set; }
     }
 
     public class PalletCalls
     {
-        public uint TypeId { get; internal set; }
+        public uint TypeId { get; set; }
     }
 
     public class PalletEvents
     {
-        public uint TypeId { get; internal set; }
+        public uint TypeId { get; set; }
     }
 
     public class PalletErrors
     {
-        public uint TypeId { get; internal set; }
+        public uint TypeId { get; set; }
     }
 
 }

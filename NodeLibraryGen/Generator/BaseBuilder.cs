@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubstrateNetApi.Model.Meta;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ namespace RuntimeMetadata
 {
     public abstract class TypeBuilder : BaseBuilder
     {
-        internal NodeType TypeDef { get; }
+        public NodeType TypeDef { get; }
 
-        internal TypeBuilder(uint id, NodeType typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
+        public TypeBuilder(uint id, NodeType typeDef, Dictionary<uint, (string, List<string>)> typeDict) 
             : base(id, typeDict)
         {
             TypeDef = typeDef;
@@ -23,13 +24,13 @@ namespace RuntimeMetadata
 
     public abstract class ModuleBuilder : BaseBuilder
     {
-        internal Dictionary<uint, NodeType> NodeTypes { get; }
+        public Dictionary<uint, NodeType> NodeTypes { get; }
 
-        internal PalletModule Module { get; }
+        public PalletModule Module { get; }
 
-        internal string PrefixName { get; }
+        public string PrefixName { get; }
 
-        internal ModuleBuilder(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict, Dictionary<uint, NodeType> nodeTypes)
+        public ModuleBuilder(uint id, PalletModule module, Dictionary<uint, (string, List<string>)> typeDict, Dictionary<uint, NodeType> nodeTypes)
             : base(id, typeDict)
         {
             NodeTypes = nodeTypes;
@@ -41,9 +42,9 @@ namespace RuntimeMetadata
 
     public abstract class ClientBuilder : BaseBuilder
     {
-        internal List<(string, List<string>)> ModuleNames { get; }
+        public List<(string, List<string>)> ModuleNames { get; }
 
-        internal ClientBuilder(uint id, List<(string, List<string>)> moduleNames, Dictionary<uint, (string, List<string>)> typeDict)
+        public ClientBuilder(uint id, List<(string, List<string>)> moduleNames, Dictionary<uint, (string, List<string>)> typeDict)
             : base(id, typeDict)
         {
             ModuleNames = moduleNames;
@@ -53,30 +54,30 @@ namespace RuntimeMetadata
 
     public abstract class BaseBuilder
     {
-        internal uint Id { get; }
+        public uint Id { get; }
 
-        internal Dictionary<uint, (string, List<string>)> TypeDict { get; }
+        public Dictionary<uint, (string, List<string>)> TypeDict { get; }
 
-        internal bool Success { get; set; }
+        public bool Success { get; set; }
 
         public string NameSpace { get; set; }
 
         internal string FileName { get; set; }
 
 
-        internal string ClassName { get; set; }
+        public string ClassName { get; set; }
 
-        internal string ReferenzName { get; set; }
+        public string ReferenzName { get; set; }
 
-        internal CodeNamespace ImportsNamespace { get; set; }
+        public CodeNamespace ImportsNamespace { get; set; }
 
-        internal CodeCompileUnit TargetUnit { get; set; }
+        public CodeCompileUnit TargetUnit { get; set; }
 
         //internal CodeTypeDeclaration TargetClass { get; set; }
 
         public abstract BaseBuilder Create();
 
-        internal  BaseBuilder(uint id, Dictionary<uint, (string, List<string>)> typeDict)
+        public BaseBuilder(uint id, Dictionary<uint, (string, List<string>)> typeDict)
         {
             Id = id;
             TypeDict = typeDict;
@@ -95,7 +96,7 @@ namespace RuntimeMetadata
             Success = true;
         }
 
-        internal (string, List<string>) GetFullItemPath(uint typeId)
+        public (string, List<string>) GetFullItemPath(uint typeId)
         {
             if (!TypeDict.TryGetValue(typeId, out (string, List<string>) fullItem))
             {
@@ -137,7 +138,7 @@ namespace RuntimeMetadata
             return comments;
         }
 
-        internal CodeMemberMethod SimpleMethod(string name, string returnType = null, object returnExpression = null)
+        public CodeMemberMethod SimpleMethod(string name, string returnType = null, object returnExpression = null)
         {
             CodeMemberMethod nameMethod = new()
             {

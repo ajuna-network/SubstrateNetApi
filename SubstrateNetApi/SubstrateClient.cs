@@ -17,6 +17,7 @@ using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Metadata.V14;
 using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.Modules;
@@ -196,11 +197,14 @@ namespace SubstrateNetApi
             _jsonRpc.StartListening();
             Logger.Debug("Listening to websocket.");
 
+
             if (useMetaData)
             {
                 var result = await State.GetMetaDataAsync(token);
-                var metaDataParser = new MetaDataParser(_uri.OriginalString, result);
-                MetaData = metaDataParser.MetaData;
+
+                var mdv14 = new SubstrateNetApi.Model.Types.Struct.RuntimeMetadata();
+                mdv14.Create(result);
+                MetaData = new MetaData(mdv14, _uri.OriginalString);
                 Logger.Debug("MetaData parsed.");
             }
 

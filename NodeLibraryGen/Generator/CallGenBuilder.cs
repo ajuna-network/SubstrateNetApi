@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Meta;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;

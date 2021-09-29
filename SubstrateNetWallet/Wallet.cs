@@ -32,7 +32,8 @@ namespace SubstrateNetWallet
     /// </summary>
     public class Wallet
     {
-        private const string Websocketurl = "wss://mogiway-01.dotmog.com";
+        //private const string Websocketurl = "wss://mogiway-01.dotmog.com";
+        private const string WebSocketUrl = "ws://127.0.0.1:9944";
 
         private const string FileType = "dat";
 
@@ -460,7 +461,7 @@ namespace SubstrateNetWallet
         /// Starts the asynchronous.
         /// </summary>
         /// <param name="webSocketUrl">The web socket URL.</param>
-        public async Task StartAsync(string webSocketUrl = Websocketurl)
+        public async Task StartAsync(string webSocketUrl = WebSocketUrl)
         {
             // disconnect from node if we are already connected to one.
             if (IsConnected)

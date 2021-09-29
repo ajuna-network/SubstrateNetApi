@@ -27,7 +27,6 @@ namespace SubstrateNetApi.Model.Types.Struct
             TypeSize = p - start;
         }
         public MetaDataInfo MetaDataInfo { get; private set; }
-        public U32 MetaReserved { get; private set; }
         public RuntimeMetadataV14 RuntimeMetadataData { get; private set; }
     }
 
