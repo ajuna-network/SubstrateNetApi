@@ -51,42 +51,11 @@ namespace SubstrateNetApi.Modules
         /// <returns>
         ///   <br />
         /// </returns>
-        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime)
-        {
-            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed:true, CancellationToken.None);
-
-            return await SubmitExtrinsicAsync(Utils.Bytes2HexString(extrinsic.Encode()));
-        }
-
-        /// <summary>Submits the extrinsic asynchronous.</summary>
-        /// <param name="callArguments">The call arguments.</param>
-        /// <param name="account">The account.</param>
-        /// <param name="tip">The tip.</param>
-        /// <param name="lifeTime">The life time.</param>
-        /// <returns>
-        ///   <br />
-        /// </returns>
         public async Task<Hash> SubmitExtrinsicAsync(Method method, Account account, uint tip, uint lifeTime)
         {
             var extrinsic = await _client.GetExtrinsicParametersAsync(method, account, tip, lifeTime, signed: true, CancellationToken.None);
 
             return await SubmitExtrinsicAsync(Utils.Bytes2HexString(extrinsic.Encode()));
-        }
-
-        /// <summary>Submits the extrinsic asynchronous.</summary>
-        /// <param name="callArguments">The call arguments.</param>
-        /// <param name="account">The account.</param>
-        /// <param name="tip">The tip.</param>
-        /// <param name="lifeTime">The life time.</param>
-        /// <param name="token">The token.</param>
-        /// <returns>
-        ///   <br />
-        /// </returns>
-        public async Task<Hash> SubmitExtrinsicAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
-        {
-            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed: true, token);
-            
-            return await SubmitExtrinsicAsync(Utils.Bytes2HexString(extrinsic.Encode()), token);
         }
 
         public async Task<Hash> SubmitExtrinsicAsync(Method method, Account account, uint tip, uint lifeTime, CancellationToken token)
@@ -127,9 +96,9 @@ namespace SubstrateNetApi.Modules
         ///   <br />
         /// </returns>
         public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback,
-            GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime)
+            Method method, Account account, uint tip, uint lifeTime)
         {
-            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed: true, CancellationToken.None);
+            var extrinsic = await _client.GetExtrinsicParametersAsync(method, account, tip, lifeTime, signed: true, CancellationToken.None);
 
             return await SubmitAndWatchExtrinsicAsync(callback, Utils.Bytes2HexString(extrinsic.Encode()));
         }
@@ -149,24 +118,6 @@ namespace SubstrateNetApi.Modules
             var extrinsic = await _client.GetExtrinsicParametersAsync(method, account, tip, lifeTime, signed: true, token);
 
             return await SubmitAndWatchExtrinsicAsync(callback, Utils.Bytes2HexString(extrinsic.Encode()));
-        }
-
-        /// <summary>Submits the and watch extrinsic asynchronous.</summary>
-        /// <param name="callback">The callback.</param>
-        /// <param name="callArguments">The call arguments.</param>
-        /// <param name="account">The account.</param>
-        /// <param name="tip">The tip.</param>
-        /// <param name="lifeTime">The life time.</param>
-        /// <param name="token">The token.</param>
-        /// <returns>
-        ///   <br />
-        /// </returns>
-        public async Task<string> SubmitAndWatchExtrinsicAsync(Action<string, ExtrinsicStatus> callback,
-            GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, CancellationToken token)
-        {
-            var extrinsic = await _client.GetExtrinsicParametersAsync(callArguments, account, tip, lifeTime, signed: true, token);
-
-            return await SubmitAndWatchExtrinsicAsync(callback, Utils.Bytes2HexString(extrinsic.Encode()), token);
         }
 
         /// <summary>Submits the and watch extrinsic asynchronous.</summary>

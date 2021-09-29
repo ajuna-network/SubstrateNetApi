@@ -39,58 +39,5 @@ namespace SubstrateNetApiTests.ClientTests
         {
             _substrateClient.Dispose();
         }
-
-        [Test]
-        public async Task BasicStorageTestNoParameterAsync1()
-        {
-            await _substrateClient.ConnectAsync();
-
-            var reqResult = await _substrateClient.GetStorageAsync("System", "Number");
-            Assert.AreEqual("BlockNumber", reqResult.GetType().Name);
-            Assert.IsTrue(reqResult is BlockNumber);
-
-            await _substrateClient.CloseAsync();
-        }
-
-        [Test]
-        public async Task BasicStorageTestWithParameterAsync1()
-        {
-            await _substrateClient.ConnectAsync();
-            
-            var reqResult = await _substrateClient.GetStorageAsync("System", "Account", new string[] { Utils.Bytes2HexString(Utils.GetPublicKeyFrom("13RDY9nrJpyTDBSUdBw12dGwhk19sGwsrVZ2bxkzYHBSagP2")) });
-            Assert.AreEqual("AccountInfo", reqResult.GetType().Name);
-            Assert.IsTrue(reqResult is AccountInfo);
-
-            await _substrateClient.CloseAsync();
-        }
-
-        [Test]
-        public async Task InvalidStorageNameTestAsync()
-        {
-            await _substrateClient.ConnectAsync();
-
-            Assert.ThrowsAsync<MissingModuleOrItemException>(async () =>
-                await _substrateClient.GetStorageAsync("Invalid", "Name"));
-
-            await _substrateClient.CloseAsync();
-        }
-
-        [Test]
-        public void InvalidConnectionStateTest()
-        {
-            Assert.ThrowsAsync<ClientNotConnectedException>(async () =>
-                await _substrateClient.GetStorageAsync("Invalid", "Name"));
-        }
-
-        [Test]
-        public async Task MissingTypeConverterTestAsync()
-        {
-            await _substrateClient.ConnectAsync();
-
-            Assert.ThrowsAsync<MissingConverterException>(async () =>
-                await _substrateClient.GetStorageAsync("Timestamp", "Now"));
-
-            await _substrateClient.CloseAsync();
-        }
     }
 }

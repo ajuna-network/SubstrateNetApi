@@ -215,93 +215,6 @@ namespace SubstrateNetApi
             _jsonRpc.TraceSource.Switch.Level = SourceLevels.All;
         }
 
-        /// <summary> Gets storage asynchronous. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <param name="moduleName"> Name of the module. </param>
-        /// <param name="itemName">   Name of the item. </param>
-        /// <returns> The storage. </returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName)
-        {
-            return await GetStorageAsync(moduleName, itemName, CancellationToken.None);
-        }
-
-        /// <summary> Gets storage asynchronous. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <param name="moduleName"> Name of the module. </param>
-        /// <param name="itemName">   Name of the item. </param>
-        /// <param name="token">      A token that allows processing to be cancelled. </param>
-        /// <returns> Returns storage object of ITypeConverter result.</returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, CancellationToken token)
-        {
-            return await GetStorageAsync(moduleName, itemName, null, null, token);
-        }
-
-        /// <summary> Gets storage asynchronous. </summary>
-        /// <remarks> 19.09.2020. </remarks>
-        /// <param name="moduleName"> Name of the module. </param>
-        /// <param name="itemName">   Name of the item. </param>
-        /// <param name="key1Param">  The parameter. </param>
-        /// <returns> Returns storage object of ITypeConverter result.</returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] key1Param)
-        {
-            return await GetStorageAsync(moduleName, itemName, key1Param, null, CancellationToken.None);
-        }
-
-        /// <summary>Gets the storage asynchronous.</summary>
-        /// <param name="moduleName">Name of the module.</param>
-        /// <param name="itemName">Name of the item.</param>
-        /// <param name="key1Param">The key1 parameter.</param>
-        /// <param name="key2Param">The key2 parameter.</param>
-        /// <returns> Returns storage object of ITypeConverter result.</returns>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] key1Param, string[] key2Param)
-        {
-            return await GetStorageAsync(moduleName, itemName, key1Param, key2Param, CancellationToken.None);
-        }
-
-        /// <summary>Gets the storage asynchronous.</summary>
-        /// <param name="moduleName">Name of the module.</param>
-        /// <param name="itemName">Name of the item.</param>
-        /// <param name="key1Param">The key1 parameter.</param>
-        /// <param name="key2Param">The key2 parameter.</param>
-        /// <param name="token">The token.</param>
-        /// <returns> Returns storage object of ITypeConverter result.</returns>
-        /// <exception cref="ClientNotConnectedException">WebSocketState is not open! Currently {_socket?.State}!</exception>
-        /// <exception cref="MissingModuleOrItemException">Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!</exception>
-        /// <exception cref="MissingParameterException"></exception>
-        /// <exception cref="MissingConverterException">Unknown type '{returnType}' for result '{resultString}'!</exception>
-        public async Task<object> GetStorageAsync(string moduleName, string itemName, string[] key1Param, string[] key2Param,
-            CancellationToken token)
-        {
-            if (_socket?.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
-
-            if (!MetaData.TryGetModuleByName(moduleName, out var module) ||
-                !module.TryGetStorageItemByName(itemName, out var item))
-                throw new MissingModuleOrItemException(
-                    $"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
-
-            // map
-            if (item.Function?.Key1 != null && (key1Param == null || key1Param.Length == 0))
-                throw new MissingParameterException(
-                    $"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
-
-            // double map
-            if (item.Function?.Key2 != null && (key2Param == null || key2Param.Length == 0))
-                throw new MissingParameterException(
-                    $"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key2}'!");
-
-            var parameters = RequestGenerator.GetStorage(module, item, key1Param, key2Param);
-
-            var resultString = await InvokeAsync<string>("state_getStorage", new object[] {parameters}, token);
-
-            var returnType = item.Function?.Value;
-
-            if (!_typeConverters.ContainsKey(returnType))
-                throw new MissingConverterException($"Unknown type '{returnType}' for result '{resultString}'!");
-
-            return _typeConverters[returnType].Create(resultString);
-        }
-
         /// <summary>
         /// Gets the storage asynchronous for generated code.
         /// </summary>
@@ -315,52 +228,6 @@ namespace SubstrateNetApi
             T t = new T();
             t.Create(str);
             return t;
-        }
-
-        /// <summary>
-        /// Subscribe Storage Key Async
-        /// </summary>
-        /// <param name="moduleName"></param>
-        /// <param name="itemName"></param>
-        /// <param name="parameter"></param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public async Task<string> SubscribeStorageKeyAsync(string moduleName, string itemName, string[] parameter,
-            Action<string, StorageChangeSet> callback)
-        {
-            return await SubscribeStorageKeyAsync(moduleName, itemName, parameter, callback, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Subscribe Storage Key Async
-        /// </summary>
-        /// <param name="moduleName"></param>
-        /// <param name="itemName"></param>
-        /// <param name="parameter"></param>
-        /// <param name="callback"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public async Task<string> SubscribeStorageKeyAsync(string moduleName, string itemName, string[] parameter,
-            Action<string, StorageChangeSet> callback, CancellationToken token)
-        {
-            if (_socket?.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
-
-            if (!MetaData.TryGetModuleByName(moduleName, out var module) ||
-                !module.TryGetStorageItemByName(itemName, out var item))
-                throw new MissingModuleOrItemException(
-                    $"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
-
-            if (item.Function?.Key1 != null && (parameter == null || parameter.Length == 0))
-                throw new MissingParameterException(
-                    $"{moduleName}.{itemName} needs a parameter of type '{item.Function?.Key1}'!");
-
-            var parameters = RequestGenerator.GetStorage(module, item, parameter);
-
-            var subscriptionId =
-                await InvokeAsync<string>("state_subscribeStorage", new object[] {new JArray {parameters}}, token);
-            Listener.RegisterCallBackHandler(subscriptionId, callback);
-            return subscriptionId;
         }
 
         /// <summary>
@@ -384,68 +251,6 @@ namespace SubstrateNetApi
             
             return subscriptionId;
         }
-
-        /// <summary>
-        /// Get Storage Keys Async
-        /// </summary>
-        /// <param name="moduleName"></param>
-        /// <param name="itemName"></param>
-        /// <returns></returns>
-        public async Task<JArray> GetStorageKeysAsync(string moduleName, string itemName)
-        {
-            return await GetStorageKeysAsync(moduleName, itemName, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Get Storage Keys Async
-        /// </summary>
-        /// <param name="moduleName"></param>
-        /// <param name="itemName"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public async Task<JArray> GetStorageKeysAsync(string moduleName, string itemName, CancellationToken token)
-        {
-            if (_socket?.State != WebSocketState.Open)
-                throw new ClientNotConnectedException($"WebSocketState is not open! Currently {_socket?.State}!");
-
-            if (!MetaData.TryGetModuleByName(moduleName, out var module) ||
-                !module.TryGetStorageItemByName(itemName, out var item))
-                throw new MissingModuleOrItemException(
-                    $"Module '{moduleName}' or Item '{itemName}' missing in metadata of '{MetaData.Origin}'!");
-
-            var parameters = Utils.Bytes2HexString(RequestGenerator.GetStorageKeyBytesHash(module, item));
-
-            return await InvokeAsync<JArray>("state_getKeys", new object[] {parameters}, token);
-        }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="key"></param>
-        ///// <param name="parameter"></param>
-        ///// <param name="moduleName"></param>
-        ///// <param name="itemName"></param>
-        ///// <returns></returns>
-        //private byte[] GetParameterBytes(string key, string[] parameter, string moduleName = "", string itemName = "")
-        //{
-        //    // multi keys support
-        //    if (key.StartsWith("("))
-        //    {
-        //        var keysDelimited = key.Replace("(", "").Replace(")", "");
-        //        var keys = keysDelimited.
-        //        (',');
-        //        if (keys.Length != parameter.Length)
-        //            throw new MissingParameterException(
-        //                $"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");
-        //        var byteList = new List<byte>();
-        //        for (var i = 0; i < keys.Length; i++)
-        //            byteList.AddRange(Utils.KeyTypeToBytes(keys[i].Trim(), parameter[i]));
-        //        return byteList.ToArray();
-        //    }
-        //    // single key support
-
-        //    return Utils.KeyTypeToBytes(key, parameter[0]);
-        //}
 
         /// <summary> Gets method asynchronous. </summary>
         /// <remarks> 19.09.2020. </remarks>
@@ -490,40 +295,6 @@ namespace SubstrateNetApi
         /// <param name="signed"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<UnCheckedExtrinsic> GetExtrinsicParametersAsync(GenericExtrinsicCall callArguments, Account account, uint tip, uint lifeTime, bool signed, CancellationToken token)
-        {
-            var method = GetMethod(callArguments);
-
-            var nonce = await System.AccountNextIndexAsync(account.Value, token);
-
-            Era era;
-            Hash startEra;
-
-            if (lifeTime == 0)
-            {
-                era = Era.Create(0, 0);
-                startEra = GenesisHash;
-            }
-            else
-            {
-                startEra = await Chain.GetFinalizedHeadAsync(token);
-                var finalizedHeader = await Chain.GetHeaderAsync(startEra, token);
-                era = Era.Create(lifeTime, finalizedHeader.Number.Value);
-            }
-
-            return RequestGenerator.SubmitExtrinsic(signed, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);
-        }
-
-        /// <summary>
-        /// Get an unchecked extrinsic.
-        /// </summary>
-        /// <param name="callArguments"></param>
-        /// <param name="account"></param>
-        /// <param name="tip"></param>
-        /// <param name="lifeTime"></param>
-        /// <param name="signed"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
         public async Task<UnCheckedExtrinsic> GetExtrinsicParametersAsync(Method method, Account account, uint tip, uint lifeTime, bool signed, CancellationToken token)
         {
             var nonce = await System.AccountNextIndexAsync(account.Value, token);
@@ -544,20 +315,6 @@ namespace SubstrateNetApi
             }
 
             return RequestGenerator.SubmitExtrinsic(signed, account, method, era, nonce, tip, GenesisHash, startEra, RuntimeVersion);
-        }
-
-        public Method GetMethod(GenericExtrinsicCall callArguments)
-        {
-            if (!MetaData.TryGetModuleByName(callArguments.ModuleName, out var module) ||
-                !module.TryGetCallByName(callArguments.CallName, out var call))
-                throw new MissingModuleOrItemException(
-                    $"Module '{callArguments.ModuleName}' or Item '{callArguments.CallName}' missing in metadata of '{MetaData.Origin}'!");
-
-            if (call.Arguments?.Length > 0 && callArguments == null)
-                throw new MissingParameterException(
-                    $"{callArguments.ModuleName}.{callArguments.CallName} needs {call.Arguments.Length} parameter(s)!");
-
-            return new Method(module, call, callArguments?.Encode());
         }
 
         /// <summary>

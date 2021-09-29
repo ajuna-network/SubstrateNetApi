@@ -13,7 +13,9 @@ using Schnorrkel.Keys;
 //using Schnorrkel;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.FrameSystem;
 using SubstrateNetApi.Model.Rpc;
+using SubstrateNetApi.Model.SpCore;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Struct;
@@ -72,11 +74,11 @@ namespace SubstrateNetWallet
 
         public Account Account { get; private set; }
 
-        public AccountInfo AccountInfo { get; private set; }
+        public SubstrateNetApi.Model.Types.Struct.AccountInfo AccountInfo { get; private set; }
 
         public ChainInfo ChainInfo { get; private set; }
 
-        public SubstrateClient Client { get; private set; }
+        public SubstrateClientExt Client { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is connected.
@@ -139,7 +141,7 @@ namespace SubstrateNetWallet
         /// <summary>
         /// Occurs when [account information updated].
         /// </summary>
-        public event EventHandler<AccountInfo> AccountInfoUpdated;
+        public event EventHandler<SubstrateNetApi.Model.Types.Struct.AccountInfo> AccountInfoUpdated;
 
         /// <summary>
         /// Load an existing wallet
@@ -394,22 +396,25 @@ namespace SubstrateNetWallet
         /// <returns></returns>
         public async Task<string> SubscribeAccountInfoAsync()
         {
-            return await Client.SubscribeStorageKeyAsync("System", "Account",
-                new[] {Utils.Bytes2HexString(Utils.GetPublicKeyFrom(Account.Value))},
-                CallBackAccountChange, _connectTokenSource.Token);
+            var accountId32 = new AccountId32();
+            accountId32.Create(Account.Bytes);
+
+            return await Client.SubscribeStorageKeyAsync(
+                SystemStorage.AccountParams(accountId32), 
+                CallBackAccountChange, 
+                CancellationToken.None);
         }
 
-        /// <summary>
-        /// Submits the generic extrinsic asynchronous.
-        /// </summary>
-        /// <param name="genericExtrinsicCall">The generic extrinsic call.</param>
-        /// <returns></returns>
-        public async Task<string> SubmitGenericExtrinsicAsync(GenericExtrinsicCall genericExtrinsicCall)
-        {
-            return await Client.Author
-                .SubmitAndWatchExtrinsicAsync(CallBackExtrinsic, genericExtrinsicCall, Account, 0, 64,
-                    _connectTokenSource.Token);
-        }
+        ///// <summary>
+        ///// Submits the generic extrinsic asynchronous.
+        ///// </summary>
+        ///// <param name="genericExtrinsicCall">The generic extrinsic call.</param>
+        ///// <returns></returns>
+        //public async Task<string> SubmitGenericExtrinsicAsync(GenericExtrinsicCall genericExtrinsicCall)
+        //{
+        //    return await Client.Author.SubmitAndWatchExtrinsicAsync(CallBackExtrinsic, genericExtrinsicCall, Account, 0, 64,
+        //            _connectTokenSource.Token);
+        //}
 
         /// <summary>
         /// Connects the asynchronous.
@@ -419,7 +424,7 @@ namespace SubstrateNetWallet
         {
             Logger.Info($"Connecting to {webSocketUrl}");
 
-            var client = new SubstrateClient(new Uri(webSocketUrl));
+            var client = new SubstrateClientExt(new Uri(webSocketUrl));
 
             await ConnectAsync(client);
         }
@@ -428,7 +433,7 @@ namespace SubstrateNetWallet
         /// Connects the asynchronous.
         /// </summary>
         /// <param name="webSocketUrl">The web socket URL.</param>
-        private async Task ConnectAsync(SubstrateClient client)
+        private async Task ConnectAsync(SubstrateClientExt client)
         {
             Client = client;
 
@@ -478,7 +483,7 @@ namespace SubstrateNetWallet
         /// Starts the asynchronous.
         /// </summary>
         /// <param name="webSocketUrl">The web socket URL.</param>
-        public async Task StartAsync(SubstrateClient client)
+        public async Task StartAsync(SubstrateClientExt client)
         {
             // disconnect from node if we are already connected to one.
             if (IsConnected)
@@ -618,7 +623,7 @@ namespace SubstrateNetWallet
                 return;
             }
 
-            var accountInfo = new AccountInfo();
+            var accountInfo = new SubstrateNetApi.Model.Types.Struct.AccountInfo();
             accountInfo.Create(accountInfoStr);
             AccountInfo = accountInfo;
 

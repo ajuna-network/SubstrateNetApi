@@ -20,53 +20,6 @@ namespace SubstrateNetApi
     public class RequestGenerator
     {
         /// <summary>
-        /// Create a request for a storage call.
-        /// </summary>
-        /// <param name="module">The module, is listed in the metadata of the node.</param>
-        /// <param name="item">The item, is listed in the metadata of the node.</param>
-        /// <param name="parameter">The parameter.</param>
-        /// <returns></returns>
-        public static string GetStorage(Module module, Item item, string[] key1Param = null, string[] key2Param = null)
-        {
-            var keybytes = GetStorageKeyBytesHash(module, item);
-
-            byte[] key1ParamBytes = null;
-            if (item.Function?.Key1 != null)
-            {
-                key1ParamBytes = GetParameterBytes(item.Function.Key1, key1Param);
-            }
-
-            byte[] key2ParamBytes = null;
-            if (item.Function?.Key2 != null)
-            {
-                key2ParamBytes = GetParameterBytes(item.Function.Key2, key2Param);
-            }
-
-            // https://www.shawntabrizi.com/substrate/querying-substrate-storage-via-rpc/
-            byte[] key1Hashed, key2Hashed;
-            switch (item.Type)
-            {
-                // xxhash128("ModuleName") + xxhash128("StorageName")
-                case Storage.Type.Plain:
-                    return Utils.Bytes2HexString(keybytes);
-
-                // xxhash128("ModuleName") + xxhash128("StorageName") + blake256hash("StorageItemKey")
-                case Storage.Type.Map:
-                    key1Hashed = HashExtension.Hash(item.Function.Hasher, key1ParamBytes);
-                    return Utils.Bytes2HexString(keybytes.Concat(key1Hashed).ToArray());
-
-                // xxhash128("ModuleName") + xxhash128("StorageName") + blake256hash("FirstKey") + blake256hash("SecondKey")
-                case Storage.Type.DoubleMap:
-                    key1Hashed = HashExtension.Hash(item.Function.Hasher, key1ParamBytes);
-                    key2Hashed = HashExtension.Hash(item.Function.Key2Hasher, key2ParamBytes);
-                    return Utils.Bytes2HexString(keybytes.Concat(key1Hashed).Concat(key2Hashed).ToArray());
-
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
         /// Create a request for a storage call, for generated code.
         /// </summary>
         /// <param name="type"></param>
@@ -126,17 +79,6 @@ namespace SubstrateNetApi
             // single key support
 
             return Utils.KeyTypeToBytes(key, parameter[0]);
-        }
-
-        /// <summary>
-        /// Gets the storage key bytes hash.
-        /// </summary>
-        /// <param name="module">The module.</param>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static byte[] GetStorageKeyBytesHash(Module module, Item item)
-        {
-            return GetStorageKeyBytesHash(module.Name, item.Name);
         }
 
         /// <summary>

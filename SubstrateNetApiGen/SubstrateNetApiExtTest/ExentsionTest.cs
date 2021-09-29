@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Schnorrkel.Keys;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Calls;
+using SubstrateNetApi.Model.Extrinsics;
 using SubstrateNetApi.Model.FrameSystem;
 using SubstrateNetApi.Model.PalletBalances;
 using SubstrateNetApi.Model.Rpc;
@@ -118,10 +119,12 @@ namespace ExentsionTest
         [Test]
         public async Task GetTotalIssuanceStorageTestAsync()
         {
+            var lowValue = BigInteger.Parse("12000000100000000000000");
+
             await _substrateClient.ConnectAsync(false, CancellationToken.None);
 
             var result = await _substrateClient.BalancesStorage.TotalIssuance(CancellationToken.None);
-            Assert.AreEqual("12000000100000000000000", result.Value.ToString());
+            Assert.IsTrue(lowValue <= result.Value);
 
             await _substrateClient.CloseAsync();
         }
@@ -257,7 +260,7 @@ namespace ExentsionTest
         }
 
         [Test]
-        public async Task BalanceTransferTestAsync()
+        public async Task BalanceTransferWithPendingTestAsync()
         {
             var extrinsic_wait = 5000;
 
@@ -279,6 +282,9 @@ namespace ExentsionTest
             var extrinsicMethod = SubstrateNetApi.Model.PalletBalances.BalancesCalls.Transfer(enumMultiAddress, amount);
 
             var test = await _substrateClient.Author.SubmitExtrinsicAsync(extrinsicMethod, Alice, 0, 64, cts.Token);
+
+            var extrinsics = await _substrateClient.Author.PendingExtrinsicAsync();
+            Assert.AreEqual(1, extrinsics.Length);
 
             Thread.Sleep(extrinsic_wait);
 

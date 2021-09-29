@@ -47,21 +47,6 @@ namespace SubstrateNetApi.Model.Extrinsics
         /// <param name="module">The module.</param>
         /// <param name="call">The call.</param>
         /// <param name="parameters">The parameters.</param>
-        public Method(Module module, Call call, byte[] parameters)
-        {
-            ModuleName = module.Name;
-            ModuleIndex = module.Index;
-            CallName = call.Name;
-            CallIndex = module.IndexOf(call);
-            Parameters = parameters;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Method"/> class.
-        /// </summary>
-        /// <param name="module">The module.</param>
-        /// <param name="call">The call.</param>
-        /// <param name="parameters">The parameters.</param>
         public Method(byte moduleIndex, string moduleName, byte callIndex, string callName, byte[] parameters)
         {
             ModuleName = moduleName;

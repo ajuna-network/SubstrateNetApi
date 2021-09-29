@@ -27,9 +27,5 @@
             Twox64Concat,
             Identity
         }
-
-        public string Prefix { get; set; }
-        public Item[] Items { get; set; }
-
     }
 }
