@@ -81,9 +81,6 @@ namespace SubstrateNetApi.Modules
             var parameter = hash != null ? hash.Value : null;
             var result = await _client.InvokeAsync<BlockData>("chain_getBlock", new object[] {parameter}, token);
 
-            for (var i = 0; i < result.Block.Extrinsics.Length; i++)
-                result.Block.Extrinsics[i] = Extrinsic.GetTypedExtrinsic(result.Block.Extrinsics[i], _client.MetaData);
-
             return result;
         }
 

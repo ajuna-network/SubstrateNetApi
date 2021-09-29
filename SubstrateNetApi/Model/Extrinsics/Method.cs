@@ -14,8 +14,6 @@ namespace SubstrateNetApi.Model.Extrinsics
 
         public byte CallIndex;
 
-        public Argument[] Arguments;
-
         public byte[] Parameters;
 
         /// <summary>
