@@ -27,11 +27,13 @@ namespace SubstrateNetApi.Model.PalletIndices
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public IndicesStorage(SubstrateNetApi.SubstrateClient client)
+        public IndicesStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Indices", "Accounts"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
         }
         
         /// <summary>

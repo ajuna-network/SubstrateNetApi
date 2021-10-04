@@ -27,11 +27,13 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public TransactionPaymentStorage(SubstrateNetApi.SubstrateClient client)
+        public TransactionPaymentStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("TransactionPayment", "NextFeeMultiplier"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("TransactionPayment", "StorageVersion"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

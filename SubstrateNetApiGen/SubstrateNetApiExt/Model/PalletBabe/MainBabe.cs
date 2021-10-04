@@ -31,11 +31,28 @@ namespace SubstrateNetApi.Model.PalletBabe
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public BabeStorage(SubstrateNetApi.SubstrateClient client)
+        public BabeStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "EpochIndex"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Authorities"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "GenesisSlot"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "CurrentSlot"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Randomness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "PendingEpochConfigChange"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "NextRandomness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "NextAuthorities"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "SegmentIndex"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "UnderConstruction"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Initialized"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "AuthorVrfRandomness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "EpochStart"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Lateness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "EpochConfig"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "NextEpochConfig"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

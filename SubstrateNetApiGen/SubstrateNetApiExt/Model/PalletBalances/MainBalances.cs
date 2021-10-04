@@ -30,11 +30,19 @@ namespace SubstrateNetApi.Model.PalletBalances
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public BalancesStorage(SubstrateNetApi.SubstrateClient client)
+        public BalancesStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Balances", "TotalIssuance"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Balances", "Account"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Balances", "Locks"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Balances", "Reserves"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Balances", "StorageVersion"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

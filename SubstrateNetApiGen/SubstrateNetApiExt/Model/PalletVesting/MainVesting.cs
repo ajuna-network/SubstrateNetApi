@@ -30,11 +30,14 @@ namespace SubstrateNetApi.Model.PalletVesting
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public VestingStorage(SubstrateNetApi.SubstrateClient client)
+        public VestingStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Vesting", "Vesting"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Vesting", "StorageVersion"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

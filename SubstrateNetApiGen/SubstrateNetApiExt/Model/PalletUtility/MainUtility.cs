@@ -28,9 +28,9 @@ namespace SubstrateNetApi.Model.PalletUtility
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public UtilityStorage(SubstrateNetApi.SubstrateClient client)
+        public UtilityStorage(SubstrateClientExt client)
         {
             this._client = client;
         }

@@ -26,11 +26,12 @@ namespace SubstrateNetApi.Model.PalletRandomnessCollectiveFlip
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public RandomnessCollectiveFlipStorage(SubstrateNetApi.SubstrateClient client)
+        public RandomnessCollectiveFlipStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("RandomnessCollectiveFlip", "RandomMaterial"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

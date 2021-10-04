@@ -4,7 +4,7 @@ namespace SubstrateNetApi.Model.Types.Base
 {
     public abstract class BaseType : IType
     {
-        public abstract string TypeName();
+        public virtual string TypeName() => GetType().Name;
 
         public virtual int TypeSize { get; set; }
 

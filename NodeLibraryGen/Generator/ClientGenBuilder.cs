@@ -33,6 +33,8 @@ namespace RuntimeMetadata
                 CodeNamespace typeNamespace = new(NameSpace);
                 TargetUnit.Namespaces.Add(typeNamespace);
 
+                ImportsNamespace.Imports.Add(new CodeNamespaceImport("SubstrateNetApi.Model.Meta"));
+
                 var targetClass = new CodeTypeDeclaration(ClassName)
                 {
                     IsClass = true,
@@ -47,13 +49,26 @@ namespace RuntimeMetadata
                 };
 
                 // Add parameters.
-                constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                    typeof(Uri), "uri"));
+                constructor.Parameters.Add(
+                    new CodeParameterDeclarationExpression(typeof(Uri), "uri"));
                 constructor.BaseConstructorArgs.Add(new CodeVariableReferenceExpression("uri"));
-
                 targetClass.Members.Add(constructor);
 
-                foreach(var tuple in ModuleNames)
+                CodeMemberField storageKeyField = new()
+                {
+                    Attributes = MemberAttributes.Public,
+                    Name = "StorageKeyDict",
+                    Type = new CodeTypeReference("Dictionary<System.Tuple<string,string>, System.Tuple<Storage.Hasher[], Type>>"),
+                };
+                storageKeyField.Comments.AddRange(GetComments(new string[] { $"{storageKeyField.Name} for key definition informations." }, null, null));
+                targetClass.Members.Add(storageKeyField);
+
+                constructor.Statements.Add(
+                    new CodeAssignStatement(
+                        new CodeVariableReferenceExpression(storageKeyField.Name), 
+                        new CodeObjectCreateExpression(storageKeyField.Type, new CodeExpression[] { })));
+
+                foreach (var tuple in ModuleNames)
                 {
                     var pallets = new string[] { "Storage" }; // , "Call"};
 
@@ -68,7 +83,7 @@ namespace RuntimeMetadata
                             Name = name,
                             Type = new CodeTypeReference(referenceName)
                         };
-                        clientField.Comments.Add(new CodeCommentStatement($"{name} storage calls."));
+                        clientField.Comments.AddRange(GetComments(new string[] { $"{name} storage calls." }, null, null));
                         targetClass.Members.Add(clientField);
 
                         CodeFieldReferenceExpression fieldReference =

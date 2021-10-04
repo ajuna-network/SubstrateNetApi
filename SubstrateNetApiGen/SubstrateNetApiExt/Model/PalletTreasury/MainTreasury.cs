@@ -30,11 +30,15 @@ namespace SubstrateNetApi.Model.PalletTreasury
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public TreasuryStorage(SubstrateNetApi.SubstrateClient client)
+        public TreasuryStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Treasury", "ProposalCount"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Treasury", "Proposals"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Treasury", "Approvals"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

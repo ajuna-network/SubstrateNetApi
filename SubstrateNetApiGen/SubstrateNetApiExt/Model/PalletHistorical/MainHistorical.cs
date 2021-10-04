@@ -25,9 +25,9 @@ namespace SubstrateNetApi.Model.PalletHistorical
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public HistoricalStorage(SubstrateNetApi.SubstrateClient client)
+        public HistoricalStorage(SubstrateClientExt client)
         {
             this._client = client;
         }

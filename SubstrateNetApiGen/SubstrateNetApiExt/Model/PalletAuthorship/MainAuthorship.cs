@@ -29,11 +29,14 @@ namespace SubstrateNetApi.Model.PalletAuthorship
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public AuthorshipStorage(SubstrateNetApi.SubstrateClient client)
+        public AuthorshipStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Authorship", "Uncles"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Authorship", "Author"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Authorship", "DidSetUncles"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

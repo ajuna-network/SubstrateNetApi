@@ -25,9 +25,9 @@ namespace SubstrateNetApi.Model.PalletAuthorityDiscovery
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public AuthorityDiscoveryStorage(SubstrateNetApi.SubstrateClient client)
+        public AuthorityDiscoveryStorage(SubstrateClientExt client)
         {
             this._client = client;
         }

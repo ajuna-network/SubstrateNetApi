@@ -77,7 +77,7 @@ namespace RuntimeMetadata
                 {
                     Attributes = MemberAttributes.Private,
                     Name = "_client",
-                    Type = new CodeTypeReference(typeof(SubstrateClient))
+                    Type = new CodeTypeReference("SubstrateClientExt")
                 };
                 clientField.Comments.Add(new CodeCommentStatement(
                     "Substrate client for the storage calls."));
@@ -91,12 +91,16 @@ namespace RuntimeMetadata
 
                 // Add parameters.
                 constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                    typeof(SubstrateClient), "client"));
+                    clientField.Type, "client"));
                 CodeFieldReferenceExpression fieldReference =
                     new CodeFieldReferenceExpression(
                     new CodeThisReferenceExpression(), "_client");
                 constructor.Statements.Add(new CodeAssignStatement(fieldReference,
                     new CodeArgumentReferenceExpression("client")));
+
+                CodeMethodInvokeExpression test_method = new(
+                                new CodeTypeReferenceExpression("_client"),
+                                "StorageKeyDict", Array.Empty<CodeExpression>());
 
                 targetClass.Members.Add(constructor);
 
@@ -126,6 +130,7 @@ namespace RuntimeMetadata
 
                         targetClass.Members.Add(storageMethod);
 
+
                         if (entry.StorageType == SubstrateNetApi.Model.Meta.Storage.Type.Plain)
                         {
                             var fullItem = GetFullItemPath(entry.TypeMap.Item1);
@@ -137,11 +142,19 @@ namespace RuntimeMetadata
 
                             storageMethod.Parameters.Add(new CodeParameterDeclarationExpression("CancellationToken", "token"));
 
-                            CodeMethodInvokeExpression methodInvoke = new(new CodeTypeReferenceExpression(targetClass.Name), parameterMethod.Name,Array.Empty<CodeExpression>());
+                            CodeMethodInvokeExpression methodInvoke = new(
+                                new CodeTypeReferenceExpression(targetClass.Name), 
+                                parameterMethod.Name,Array.Empty<CodeExpression>());
+
                             CodeVariableDeclarationStatement variableDeclaration = new(typeof(string), "parameters", methodInvoke);
+
                             storageMethod.Statements.Add(variableDeclaration);
 
                             storageMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression(GetInvoceString(fullItem.Item1))));
+
+                            // add storage key mapping in constructor
+                            constructor.Statements.Add(
+                                AddPropertyValues(GetStorageMapString("", storage.Prefix, entry.Name, entry.StorageType), "_client.StorageKeyDict"));
 
                         }
                         else if (entry.StorageType == SubstrateNetApi.Model.Meta.Storage.Type.Map)
@@ -164,13 +177,18 @@ namespace RuntimeMetadata
                             CodeVariableDeclarationStatement variableDeclaration = new(typeof(string), "parameters", methodInvoke);
                             storageMethod.Statements.Add(variableDeclaration);
 
-                            storageMethod.Statements.Add(new CodeMethodReturnStatement(new CodeArgumentReferenceExpression(GetInvoceString(value.Item1))));
+                            storageMethod.Statements.Add(
+                                new CodeMethodReturnStatement(
+                                    new CodeArgumentReferenceExpression(GetInvoceString(value.Item1))));
+
+                            // add storage key mapping in constructor
+                            constructor.Statements.Add(
+                                AddPropertyValues(GetStorageMapString(key.Item1, storage.Prefix, entry.Name, entry.StorageType, hashers), "_client.StorageKeyDict"));
                         }
                         else
                         {
                             throw new NotImplementedException();
                         }
-
                     }
                 }
             }
@@ -355,15 +373,73 @@ namespace RuntimeMetadata
                     codeExpressions = new CodeExpression[] {
                         new CodePrimitiveExpression(module),
                         new CodePrimitiveExpression(item),
-                        new CodePropertyReferenceExpression(new CodeTypeReferenceExpression(typeof(Storage.Type)), type.ToString()),
-                        new CodeArrayCreateExpression(new CodeTypeReference(typeof(Storage.Hasher)),
-                                hashers.Select(p => new CodePropertyReferenceExpression(new CodeTypeReferenceExpression(typeof(Storage.Hasher)), p.ToString())).ToArray()),
-                        new CodeArrayCreateExpression(new CodeTypeReference(typeof(IType)),
-                            new CodeArgumentReferenceExpression[] { new CodeArgumentReferenceExpression("key") })
+                        new CodePropertyReferenceExpression(
+                            new CodeTypeReferenceExpression(typeof(Storage.Type)), type.ToString()),
+                        new CodeArrayCreateExpression(
+                            new CodeTypeReference(typeof(Storage.Hasher)),
+                                hashers.Select(p => new CodePropertyReferenceExpression(
+                                    new CodeTypeReferenceExpression(typeof(Storage.Hasher)), p.ToString())).ToArray()),
+                        new CodeArrayCreateExpression(
+                            new CodeTypeReference(typeof(IType)),
+                            new CodeArgumentReferenceExpression[] { 
+                                new CodeArgumentReferenceExpression("key") })
                     };
                 }
 
                 return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression("RequestGenerator"), "GetStorage", codeExpressions);
+            }
+
+            private CodeExpression[] GetStorageMapString(string keyType, string module, string item, Storage.Type type, Storage.Hasher[] hashers = null)
+            {
+                CodeExpression[] result = new CodeExpression[] {
+                    new CodeObjectCreateExpression(
+                            new CodeTypeReference("System.Tuple<string,string>"),
+                            new CodeExpression[] {
+                                new CodePrimitiveExpression(module),
+                                new CodePrimitiveExpression(item)
+                            }),
+                    new CodeObjectCreateExpression(
+                        new CodeTypeReference("System.Tuple<Storage.Hasher[],Type>"),
+                        new CodeExpression[] {
+                            new CodePrimitiveExpression(null),
+                            new CodePrimitiveExpression(null) })
+                };
+
+                // if it is a map fill hashers and key
+                if (hashers != null && hashers.Length > 0)
+                {
+                    var arrayExpression = new CodeArrayCreateExpression(
+                                new CodeTypeReference(typeof(Storage.Hasher)),
+                                    hashers.Select(p => new CodePropertyReferenceExpression(
+                                        new CodeTypeReferenceExpression(typeof(Storage.Hasher)), p.ToString())).ToArray());
+                    var typeofType = new CodeTypeOfExpression(keyType);
+
+                    result = new CodeExpression[] {
+                            new CodeObjectCreateExpression(
+                                new CodeTypeReference("System.Tuple<string,string>"),
+                                new CodeExpression[] {
+                                    new CodePrimitiveExpression(module),
+                                    new CodePrimitiveExpression(item)
+                            }),
+                        new CodeObjectCreateExpression(
+                            new CodeTypeReference("System.Tuple<Storage.Hasher[],Type>"),
+                            new CodeExpression[] { 
+                                arrayExpression, 
+                                typeofType
+                            })
+                    };
+                }
+
+                return result;
+            }
+
+            private CodeStatement AddPropertyValues(CodeExpression[] exprs, string variableReference)
+            {
+                return new CodeExpressionStatement(
+                    new CodeMethodInvokeExpression(
+                        new CodeMethodReferenceExpression(
+                            new CodeTypeReferenceExpression(
+                                new CodeTypeReference(variableReference)), "Add"), exprs));
             }
         }
 

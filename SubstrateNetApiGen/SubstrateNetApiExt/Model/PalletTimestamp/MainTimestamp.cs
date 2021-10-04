@@ -26,11 +26,13 @@ namespace SubstrateNetApi.Model.PalletTimestamp
     {
         
         // Substrate client for the storage calls.
-        private SubstrateNetApi.SubstrateClient _client;
+        private SubstrateClientExt _client;
         
-        public TimestampStorage(SubstrateNetApi.SubstrateClient client)
+        public TimestampStorage(SubstrateClientExt client)
         {
             this._client = client;
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Timestamp", "Now"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Timestamp", "DidUpdate"), new System.Tuple<Storage.Hasher[],Type>(null, null));
         }
         
         /// <summary>

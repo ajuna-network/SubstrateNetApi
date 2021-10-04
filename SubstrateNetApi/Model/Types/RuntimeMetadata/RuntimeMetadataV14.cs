@@ -10,8 +10,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class RuntimeMetadataV14 : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -46,8 +44,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class MetaDataInfo : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -72,8 +68,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class PalletMetadata : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -117,8 +111,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class StorageMetadata : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -142,8 +134,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class StorageEntryMetadata : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -179,13 +169,10 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class ByteGetter : BaseVec<U8>
     {
-        public override string TypeName() => "unknown";
     }
 
     public class StorageEntryTypeMap : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -213,8 +200,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class PalletCallMetadata : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -232,70 +217,8 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         public TType CallType { get; private set; }
     }
 
-    //public class CallMetadata : StructType
-    //{
-    //    public override string Name() => "unknown";
-
-    //    private int _size;
-    //    public override int Size() => _size;
-
-    //    public override byte[] Encode()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public override void Decode(byte[] byteArray, ref int p)
-    //    {
-    //        var start = p;
-
-    //        FunctionName = new DecodeDifferentStr();
-    //        FunctionName.Decode(byteArray, ref p);
-
-    //        FunctionArguments = new DecodeDifferent<FunctionArgumentMetadata>();
-    //        FunctionArguments.Decode(byteArray, ref p);
-
-    //        Documentation = new DecodeDifferent<DecodeDifferentStr>();
-    //        Documentation.Decode(byteArray, ref p);
-
-    //        _size = p - start;
-    //    }
-    //    public DecodeDifferentStr FunctionName { get; private set; }
-    //    public DecodeDifferent<FunctionArgumentMetadata> FunctionArguments { get; private set; }
-    //    public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
-    //}
-
-    //public class FunctionArgumentMetadata : StructType
-    //{
-    //    public override string Name() => "unknown";
-
-    //    private int _size;
-    //    public override int Size() => _size;
-
-    //    public override byte[] Encode()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public override void Decode(byte[] byteArray, ref int p)
-    //    {
-    //        var start = p;
-
-    //        FunctionArgumentName = new DecodeDifferentStr();
-    //        FunctionArgumentName.Decode(byteArray, ref p);
-
-    //        FunctionArgumentType = new DecodeDifferentStr();
-    //        FunctionArgumentType.Decode(byteArray, ref p);
-
-    //        _size = p - start;
-    //    }
-    //    public DecodeDifferentStr FunctionArgumentName { get; private set; }
-    //    public DecodeDifferentStr FunctionArgumentType { get; private set; }
-    //}
-
     public class PalletEventMetadata : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -312,43 +235,8 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
         }
         public TType EventType { get; private set; }
     }
-
-    //public class EventMetadata : StructType
-    //{
-    //    public override string Name() => "unknown";
-
-    //    private int _size;
-    //    public override int Size() => _size;
-
-    //    public override byte[] Encode()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public override void Decode(byte[] byteArray, ref int p)
-    //    {
-    //        var start = p;
-
-    //        EventName = new DecodeDifferentStr();
-    //        EventName.Decode(byteArray, ref p);
-
-    //        EventArguments = new DecodeDifferent<DecodeDifferentStr>();
-    //        EventArguments.Decode(byteArray, ref p);
-
-    //        Documentation = new DecodeDifferent<DecodeDifferentStr>();
-    //        Documentation.Decode(byteArray, ref p);
-
-    //        _size = p - start;
-    //    }
-    //    public DecodeDifferentStr EventName { get; private set; }
-    //    public DecodeDifferent<DecodeDifferentStr> EventArguments { get; private set; }
-    //    public DecodeDifferent<DecodeDifferentStr> Documentation { get; private set; }
-    //}
-
     public class PalletConstantMetadata : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -380,8 +268,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class ErrorMetadata : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -402,8 +288,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class ExtrinsicMetadataStruct : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -431,8 +315,6 @@ namespace SubstrateNetApi.Model.Types.Metadata.V14
 
     public class SignedExtensionMetadataStruct : BaseType
     {
-        public override string TypeName() => "unknown";
-
         public override byte[] Encode()
         {
             throw new NotImplementedException();
