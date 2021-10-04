@@ -31,7 +31,7 @@ namespace SubstrateNetApi.Model.PalletRandomnessCollectiveFlip
         public RandomnessCollectiveFlipStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("RandomnessCollectiveFlip", "RandomMaterial"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("RandomnessCollectiveFlip", "RandomMaterial"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>)));
         }
         
         /// <summary>

@@ -33,15 +33,15 @@ namespace SubstrateNetApi.Model.PalletSession
         public SessionStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Session", "Validators"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Session", "CurrentIndex"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Session", "QueuedChanged"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Session", "QueuedKeys"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Session", "DisabledValidators"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Session", "NextKeys"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Session", "KeyOwner"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.SpCore.KeyTypeId,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Session", "Validators"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseVec<SubstrateNetApi.Model.SpCore.AccountId32>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Session", "CurrentIndex"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Session", "QueuedChanged"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Types.Primitive.Bool)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Session", "QueuedKeys"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseVec<BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.NodeRuntime.SessionKeys>>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Session", "DisabledValidators"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseVec<SubstrateNetApi.Model.Types.Primitive.U32>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Session", "NextKeys"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32), typeof(SubstrateNetApi.Model.NodeRuntime.SessionKeys)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Session", "KeyOwner"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.SpCore.KeyTypeId,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>), typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
         }
         
         /// <summary>

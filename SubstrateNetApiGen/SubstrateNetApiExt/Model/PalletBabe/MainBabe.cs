@@ -36,23 +36,23 @@ namespace SubstrateNetApi.Model.PalletBabe
         public BabeStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "EpochIndex"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Authorities"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "GenesisSlot"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "CurrentSlot"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Randomness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "PendingEpochConfigChange"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "NextRandomness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "NextAuthorities"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "SegmentIndex"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "UnderConstruction"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Initialized"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "AuthorVrfRandomness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "EpochStart"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "Lateness"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "EpochConfig"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Babe", "NextEpochConfig"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "EpochIndex"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Types.Primitive.U64)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "Authorities"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.FrameSupport.WeakBoundedVec)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "GenesisSlot"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.SpConsensusSlots.Slot)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "CurrentSlot"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.SpConsensusSlots.Slot)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "Randomness"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Base.Arr32U8)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "PendingEpochConfigChange"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.SpConsensusBabe.EnumNextConfigDescriptor)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "NextRandomness"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Base.Arr32U8)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "NextAuthorities"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.FrameSupport.WeakBoundedVec)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "SegmentIndex"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "UnderConstruction"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Types.Primitive.U32), typeof(SubstrateNetApi.Model.FrameSupport.BoundedVec)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "Initialized"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "AuthorVrfRandomness"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseOpt<SubstrateNetApi.Model.Base.Arr32U8>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "EpochStart"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "Lateness"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "EpochConfig"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Babe", "NextEpochConfig"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.SpConsensusBabe.BabeEpochConfiguration)));
         }
         
         /// <summary>

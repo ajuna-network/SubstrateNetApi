@@ -33,11 +33,11 @@ namespace SubstrateNetApi.Model.PalletScheduler
         public SchedulerStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Scheduler", "Agenda"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Scheduler", "Lookup"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Scheduler", "StorageVersion"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Scheduler", "Agenda"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Types.Primitive.U32), typeof(BaseVec<BaseOpt<SubstrateNetApi.Model.PalletScheduler.ScheduledV2>>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Scheduler", "Lookup"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>), typeof(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Scheduler", "StorageVersion"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.PalletScheduler.EnumReleases)));
         }
         
         /// <summary>

@@ -32,8 +32,8 @@ namespace SubstrateNetApi.Model.PalletTransactionPayment
         public TransactionPaymentStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("TransactionPayment", "NextFeeMultiplier"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("TransactionPayment", "StorageVersion"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("TransactionPayment", "NextFeeMultiplier"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.SpArithmetic.FixedU128)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("TransactionPayment", "StorageVersion"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.PalletTransactionPayment.EnumReleases)));
         }
         
         /// <summary>

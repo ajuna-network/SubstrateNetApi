@@ -35,13 +35,13 @@ namespace SubstrateNetApi.Model.PalletIdentity
         public IdentityStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Identity", "IdentityOf"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Identity", "SuperOf"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Identity", "SubsOf"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Identity", "Registrars"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Identity", "IdentityOf"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32), typeof(SubstrateNetApi.Model.PalletIdentity.Registration)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Identity", "SuperOf"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32), typeof(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.PalletIdentity.EnumData>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Identity", "SubsOf"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32), typeof(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U128,SubstrateNetApi.Model.FrameSupport.BoundedVec>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Identity", "Registrars"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.FrameSupport.BoundedVec)));
         }
         
         /// <summary>

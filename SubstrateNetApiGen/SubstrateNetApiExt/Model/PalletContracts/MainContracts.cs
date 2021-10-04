@@ -35,14 +35,14 @@ namespace SubstrateNetApi.Model.PalletContracts
         public ContractsStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Contracts", "PristineCode"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Contracts", "CodeStorage"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Contracts", "AccountCounter"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Contracts", "ContractInfoOf"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Contracts", "DeletionQueue"), new System.Tuple<Storage.Hasher[],Type>(null, null));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Contracts", "PristineCode"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256), typeof(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Contracts", "CodeStorage"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256), typeof(SubstrateNetApi.Model.PalletContracts.PrefabWasmModule)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Contracts", "AccountCounter"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Types.Primitive.U64)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Contracts", "ContractInfoOf"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32), typeof(SubstrateNetApi.Model.PalletContracts.RawContractInfo)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Contracts", "DeletionQueue"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(BaseVec<SubstrateNetApi.Model.PalletContracts.DeletedContract>)));
         }
         
         /// <summary>

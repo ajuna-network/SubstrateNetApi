@@ -35,11 +35,11 @@ namespace SubstrateNetApi.Model.PalletMultisig
         public MultisigStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Multisig", "Multisigs"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Multisig", "Multisigs"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
                             SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8>)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Multisig", "Calls"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.Base.Arr32U8)));
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Base.Arr32U8>), typeof(SubstrateNetApi.Model.PalletMultisig.Multisig)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Multisig", "Calls"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.Base.Arr32U8), typeof(BaseTuple<BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>,SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.Types.Primitive.U128>)));
         }
         
         /// <summary>

@@ -23,7 +23,7 @@ namespace SubstrateNetApi
         /// <summary>
         /// StorageKeyDict for key definition informations.
         /// </summary>
-        public Dictionary<System.Tuple<string,string>, System.Tuple<Storage.Hasher[], Type>> StorageKeyDict;
+        public System.Collections.Generic.Dictionary<System.Tuple<string, string>, System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>> StorageKeyDict;
         
         /// <summary>
         /// SystemStorage storage calls.
@@ -233,7 +233,7 @@ namespace SubstrateNetApi
         public SubstrateClientExt(System.Uri uri) : 
                 base(uri)
         {
-            StorageKeyDict = new Dictionary<System.Tuple<string,string>, System.Tuple<Storage.Hasher[], Type>>();
+            StorageKeyDict = new System.Collections.Generic.Dictionary<System.Tuple<string, string>, System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>>();
             this.SystemStorage = new SubstrateNetApi.Model.FrameSystem.SystemStorage(this);
             this.UtilityStorage = new SubstrateNetApi.Model.PalletUtility.UtilityStorage(this);
             this.BabeStorage = new SubstrateNetApi.Model.PalletBabe.BabeStorage(this);

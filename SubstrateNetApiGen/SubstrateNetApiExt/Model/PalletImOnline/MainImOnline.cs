@@ -35,14 +35,14 @@ namespace SubstrateNetApi.Model.PalletImOnline
         public ImOnlineStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("ImOnline", "HeartbeatAfter"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("ImOnline", "Keys"), new System.Tuple<Storage.Hasher[],Type>(null, null));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("ImOnline", "ReceivedHeartbeats"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("ImOnline", "HeartbeatAfter"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("ImOnline", "Keys"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(null, null, typeof(SubstrateNetApi.Model.FrameSupport.WeakBoundedVec)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("ImOnline", "ReceivedHeartbeats"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
                             SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("ImOnline", "AuthoredBlocks"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.Types.Primitive.U32>), typeof(SubstrateNetApi.Model.FrameSupport.WrapperOpaque)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("ImOnline", "AuthoredBlocks"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
                             SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32>)));
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.Types.Primitive.U32,SubstrateNetApi.Model.SpCore.AccountId32>), typeof(SubstrateNetApi.Model.Types.Primitive.U32)));
         }
         
         /// <summary>

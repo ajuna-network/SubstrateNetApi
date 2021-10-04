@@ -34,13 +34,13 @@ namespace SubstrateNetApi.Model.PalletRecovery
         public RecoveryStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Recovery", "Recoverable"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Recovery", "ActiveRecoveries"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Recovery", "Recoverable"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32), typeof(SubstrateNetApi.Model.PalletRecovery.RecoveryConfig)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Recovery", "ActiveRecoveries"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
                             SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32>)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Recovery", "Proxy"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.SpCore.AccountId32,SubstrateNetApi.Model.SpCore.AccountId32>), typeof(SubstrateNetApi.Model.PalletRecovery.ActiveRecovery)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Recovery", "Proxy"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.BlakeTwo128Concat}, typeof(SubstrateNetApi.Model.SpCore.AccountId32), typeof(SubstrateNetApi.Model.SpCore.AccountId32)));
         }
         
         /// <summary>

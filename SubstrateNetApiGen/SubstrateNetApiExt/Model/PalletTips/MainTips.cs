@@ -34,10 +34,10 @@ namespace SubstrateNetApi.Model.PalletTips
         public TipsStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Tips", "Tips"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Tips", "Reasons"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Tips", "Tips"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256), typeof(SubstrateNetApi.Model.PalletTips.OpenTip)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Tips", "Reasons"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Identity}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256), typeof(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>)));
         }
         
         /// <summary>

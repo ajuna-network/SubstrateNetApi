@@ -58,7 +58,7 @@ namespace RuntimeMetadata
                 {
                     Attributes = MemberAttributes.Public,
                     Name = "StorageKeyDict",
-                    Type = new CodeTypeReference("Dictionary<System.Tuple<string,string>, System.Tuple<Storage.Hasher[], Type>>"),
+                    Type = new CodeTypeReference(typeof(Dictionary<Tuple<string,string>, Tuple<Storage.Hasher[], Type, Type>>)),
                 };
                 storageKeyField.Comments.AddRange(GetComments(new string[] { $"{storageKeyField.Name} for key definition informations." }, null, null));
                 targetClass.Members.Add(storageKeyField);

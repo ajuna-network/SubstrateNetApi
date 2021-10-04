@@ -154,7 +154,7 @@ namespace RuntimeMetadata
 
                             // add storage key mapping in constructor
                             constructor.Statements.Add(
-                                AddPropertyValues(GetStorageMapString("", storage.Prefix, entry.Name, entry.StorageType), "_client.StorageKeyDict"));
+                                AddPropertyValues(GetStorageMapString("", fullItem.Item1, storage.Prefix, entry.Name, entry.StorageType), "_client.StorageKeyDict"));
 
                         }
                         else if (entry.StorageType == SubstrateNetApi.Model.Meta.Storage.Type.Map)
@@ -183,7 +183,7 @@ namespace RuntimeMetadata
 
                             // add storage key mapping in constructor
                             constructor.Statements.Add(
-                                AddPropertyValues(GetStorageMapString(key.Item1, storage.Prefix, entry.Name, entry.StorageType, hashers), "_client.StorageKeyDict"));
+                                AddPropertyValues(GetStorageMapString(key.Item1, value.Item1, storage.Prefix, entry.Name, entry.StorageType, hashers), "_client.StorageKeyDict"));
                         }
                         else
                         {
@@ -389,20 +389,23 @@ namespace RuntimeMetadata
                 return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression("RequestGenerator"), "GetStorage", codeExpressions);
             }
 
-            private CodeExpression[] GetStorageMapString(string keyType, string module, string item, Storage.Type type, Storage.Hasher[] hashers = null)
+            private CodeExpression[] GetStorageMapString(string keyType, string returnType,  string module, string item, Storage.Type type, Storage.Hasher[] hashers = null)
             {
+                var typeofReturn = new CodeTypeOfExpression(returnType);
+
                 CodeExpression[] result = new CodeExpression[] {
                     new CodeObjectCreateExpression(
-                            new CodeTypeReference("System.Tuple<string,string>"),
+                            new CodeTypeReference(typeof(Tuple<string,string>)),
                             new CodeExpression[] {
                                 new CodePrimitiveExpression(module),
                                 new CodePrimitiveExpression(item)
                             }),
                     new CodeObjectCreateExpression(
-                        new CodeTypeReference("System.Tuple<Storage.Hasher[],Type>"),
+                        new CodeTypeReference(typeof(Tuple<Storage.Hasher[], Type, Type>)),
                         new CodeExpression[] {
                             new CodePrimitiveExpression(null),
-                            new CodePrimitiveExpression(null) })
+                            new CodePrimitiveExpression(null),
+                            typeofReturn})
                 };
 
                 // if it is a map fill hashers and key
@@ -414,18 +417,20 @@ namespace RuntimeMetadata
                                         new CodeTypeReferenceExpression(typeof(Storage.Hasher)), p.ToString())).ToArray());
                     var typeofType = new CodeTypeOfExpression(keyType);
 
+
                     result = new CodeExpression[] {
                             new CodeObjectCreateExpression(
-                                new CodeTypeReference("System.Tuple<string,string>"),
+                                new CodeTypeReference(typeof(Tuple<string,string>)),
                                 new CodeExpression[] {
                                     new CodePrimitiveExpression(module),
                                     new CodePrimitiveExpression(item)
                             }),
                         new CodeObjectCreateExpression(
-                            new CodeTypeReference("System.Tuple<Storage.Hasher[],Type>"),
+                            new CodeTypeReference(typeof(Tuple<Storage.Hasher[], Type, Type>)),
                             new CodeExpression[] { 
                                 arrayExpression, 
-                                typeofType
+                                typeofType,
+                                typeofReturn
                             })
                     };
                 }

@@ -34,13 +34,13 @@ namespace SubstrateNetApi.Model.PalletOffences
         public OffencesStorage(SubstrateClientExt client)
         {
             this._client = client;
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Offences", "Reports"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Offences", "ConcurrentReportsIndex"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Offences", "Reports"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.PrimitiveTypes.H256), typeof(SubstrateNetApi.Model.SpStaking.OffenceDetails)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Offences", "ConcurrentReportsIndex"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
                             SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat,
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.Base.Arr16U8,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>)));
-            _client.StorageKeyDict.Add(new System.Tuple<string,string>("Offences", "ReportsByKindIndex"), new System.Tuple<Storage.Hasher[],Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
-                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Base.Arr16U8)));
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(BaseTuple<SubstrateNetApi.Model.Base.Arr16U8,BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>>), typeof(BaseVec<SubstrateNetApi.Model.PrimitiveTypes.H256>)));
+            _client.StorageKeyDict.Add(new System.Tuple<string, string>("Offences", "ReportsByKindIndex"), new System.Tuple<SubstrateNetApi.Model.Meta.Storage.Hasher[], System.Type, System.Type>(new SubstrateNetApi.Model.Meta.Storage.Hasher[] {
+                            SubstrateNetApi.Model.Meta.Storage.Hasher.Twox64Concat}, typeof(SubstrateNetApi.Model.Base.Arr16U8), typeof(BaseVec<SubstrateNetApi.Model.Types.Primitive.U8>)));
         }
         
         /// <summary>
