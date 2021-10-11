@@ -14,9 +14,9 @@ If you enjoy using SubstrateNetApi consider supporting me at [buymeacoffee.com/d
 
 This project has been started by darkfriend77 as a proove of concept in october'20, the goal was to proove Unity3D compatibility towards substrate. [Substrate](https://substrate.dev/) is a modular framework that enables you to create purpose-built blockchains by composing custom or pre-built components. After succeding every aspect crucial for developing mobile games on unity against substrate, the project decided to work further with the API and apply for a first [open-grant](https://github.com/w3f/Grants-Program/blob/master/applications/dotmog.md) from the Web3 Foundation.
 
-![image](https://user-images.githubusercontent.com/17710198/126900516-d6ebe692-0cf6-47d7-97ff-b2e38190a716.png)
+![ajuna-Header-1080p_with_logo](https://user-images.githubusercontent.com/17710198/136851142-2e4158ff-a6a7-4d26-9ea5-9833d62da3fa.png)
 
-The project behind the SubstrateNetApi, is [Polkadot Play](https://polkadotplay.com/) and the flagship game [DOTMog](dotmog.com), backed by the swiss company BloGa Tech AG.
+The project behind the SubstrateNetApi, is [Ajuna Network](https://ajuna.io/) and the flagship game [DOTMog](dotmog.com), backed by the swiss company BloGa Tech AG.
 
 ## Table of Content
 
