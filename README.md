@@ -1,10 +1,13 @@
 # SubstrateNetApi (NETStandard2.0)
-*Just another Substrate .NET API*  
+*Just another Substrate .NET API* 
 [![Build status](https://ci.appveyor.com/api/projects/status/jsei7yv376en17rr?svg=true)](https://ci.appveyor.com/project/darkfriend77/substratenetapi)
 [![nuget](https://img.shields.io/nuget/v/SubstrateNetApi)](https://ci.appveyor.com/project/darkfriend77/substratenetapi/build/artifacts)
 [![GitHub issues](https://img.shields.io/github/issues/darkfriend77/SubstrateNetApi.svg)](https://github.com/darkfriend77/SubstrateNetApi/issues)
 [![license](https://img.shields.io/github/license/darkfriend77/SubstrateNetApi)](https://github.com/darkfriend77/SubstrateNetApi/blob/origin/LICENSE)
 [![contributors](https://img.shields.io/github/contributors/darkfriend77/SubstrateNetApi)](https://github.com/darkfriend77/SubstrateNetApi/graphs/contributors)
+
+## Substrate Version
+**Important** This API is for the major release [**Substrate v3.0/0.9 – Apollo 14**](https://github.com/paritytech/substrate/releases/tag/v3.0.0), for releases [monthly-2021-10](https://github.com/paritytech/substrate/releases/tag/monthly-2021-10) and newer please refere to the [Ajuna.NetApi](https://github.com/ajuna-network/Ajuna.NetApi)
 
 SubstrateNetApi is written in [NETStandard2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) to provide maximum compatibility for [Unity3D](https://docs.unity3d.com/2020.2/Documentation/Manual/dotnetProfileSupport.html). Feedback, constructive critisme and disscussions are welcome and will help us to improve the API! (Telegram: @darkfriend77, Discord: darkfriend77#3753)
 
