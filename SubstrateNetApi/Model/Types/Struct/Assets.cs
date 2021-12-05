@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SubstrateNetApi.Model.Types.Primitive;
+using System;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
-    public class AssetBalance : StructType
+    public class AssetBalance : BaseType
     {
-        public override string Name() => "AssetBalance<T::Balance>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "AssetBalance<T::Balance>";
 
         public override byte[] Encode()
         {
@@ -32,7 +28,7 @@ namespace SubstrateNetApi.Model.Types.Base
             //Extra = new Extra();
             //Extra.Decode(byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         public U32 Balance { get; private set; }

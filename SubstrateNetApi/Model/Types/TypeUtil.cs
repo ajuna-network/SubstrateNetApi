@@ -1,8 +1,6 @@
-﻿using System;
+﻿using SubstrateNetApi.Model.Types.Base;
+using System;
 using System.Collections.Generic;
-using SubstrateNetApi.Model.Types.Base;
-using SubstrateNetApi.Model.Types.Enum;
-using SubstrateNetApi.Model.Types.Struct;
 
 namespace SubstrateNetApi.Model.Types
 {
@@ -21,6 +19,7 @@ namespace SubstrateNetApi.Model.Types
 
             var typeNamespaces = new List<string>()
             {
+                "SubstrateNetApi.Model.Types.Primitive",
                 "SubstrateNetApi.Model.Types.Base",
                 "SubstrateNetApi.Model.Types.Enum",
                 "SubstrateNetApi.Model.Types.Struct",
@@ -55,7 +54,7 @@ namespace SubstrateNetApi.Model.Types
                 switch(type.BaseType.Name)
                 {
                     case "Enum":
-                        var eType = (IType)Activator.CreateInstance(typeof(EnumType<>).MakeGenericType(type));
+                        var eType = (IType)Activator.CreateInstance(typeof(BaseEnum<>).MakeGenericType(type));
                         eType.Decode(byteArray, ref p);
                         return eType;
                     default:

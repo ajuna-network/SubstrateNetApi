@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using SubstrateNetApi.Model.Meta;
+using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class EventRecords : StructType
+    public class EventRecords : BaseType
     {
-        public override string Name() => $"Vec<EventRecord<T::Event, T::Hash>>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => $"Vec<EventRecord<T::Event, T::Hash>>";
 
         private MetaData _metaData;
 
@@ -49,7 +47,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Bytes = byteArray;
             Value = list;
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         public List<EventRecord> Value { get; internal set; }

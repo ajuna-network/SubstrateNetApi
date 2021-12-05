@@ -1,19 +1,25 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Enum;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class DispatchInfo : StructType
+    public class DispatchInfo : BaseType
     {
-        public override string Name() => "DispatchInfo";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "DispatchInfo";
 
         public override byte[] Encode()
         {
-            throw new NotImplementedException();
+            List<byte> result = new List<byte>();
+
+            result.AddRange(Weight.Encode());
+
+            result.AddRange(DispatchClass.Encode());
+
+            result.AddRange(Pays.Encode());
+
+            return result.ToArray();
         }
 
         public override void Decode(byte[] byteArray, ref int p)
@@ -24,17 +30,17 @@ namespace SubstrateNetApi.Model.Types.Struct
             Weight.Decode(byteArray, ref p);
 
 
-            DispatchClass = new EnumType<DispatchClass>();
+            DispatchClass = new BaseEnum<DispatchClass>();
             DispatchClass.Decode(byteArray, ref p);
 
-            Pays = new EnumType<Pays>();
+            Pays = new BaseEnum<Pays>();
             Pays.Decode(byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         public U64 Weight { get; set; }
-        public EnumType<DispatchClass> DispatchClass { get; set; }
-        public EnumType<Pays> Pays { get; set; }
+        public BaseEnum<DispatchClass> DispatchClass { get; set; }
+        public BaseEnum<Pays> Pays { get; set; }
     }
 }

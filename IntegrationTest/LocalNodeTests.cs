@@ -9,6 +9,7 @@ using SubstrateNetApi.Model.Extrinsics;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using System;
 using System.Threading;

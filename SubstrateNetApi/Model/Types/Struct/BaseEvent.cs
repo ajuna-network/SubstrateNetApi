@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Base;
-using SubstrateNetApi.Model.Types.Enum;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public partial class BaseEvent : StructType
+    public partial class BaseEvent : BaseType
     {
-        public override string Name() => "Event";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "Event";
 
         private readonly MetaData _metaData;
         public BaseEvent() { }

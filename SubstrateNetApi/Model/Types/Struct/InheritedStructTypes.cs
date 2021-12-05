@@ -1,32 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SubstrateNetApi.Model.Types.Base;
+﻿using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class AuthorityList : Vec<RustTuple<AuthorityId, AuthorityWeight>>
+    public class AuthorityList : BaseVec<BaseTuple<AuthorityId, AuthorityWeight>>
     {
-        public override string Name() => "AuthorityList";
+        public override string TypeName() => "AuthorityList";
     }
 
-    public class StorageKey : Vec<U8>
+    public class StorageKey : BaseVec<U8>
     {
-        public override string Name() => "StorageKey";
+        public override string TypeName() => "StorageKey";
     }
 
-    public class StorageData : Vec<U8>
+    public class StorageData : BaseVec<U8>
     {
-        public override string Name() => "StorageData";
+        public override string TypeName() => "StorageData";
     }
 
-    public class OpaqueTimeSlot : Vec<U8>
+    public class OpaqueTimeSlot : BaseVec<U8>
     {
-        public override string Name() => "OpaqueTimeSlot";
+        public override string TypeName() => "OpaqueTimeSlot";
     }
 
-    public class TaskAddress : RustTuple<BlockNumber, U32>
+    public class TaskAddress : BaseTuple<BlockNumber, U32>
     {
-        public override string Name() => "TaskAddress<T::BlockNumber>";
+        public override string TypeName() => "TaskAddress<T::BlockNumber>";
     }
 }

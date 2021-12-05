@@ -7,6 +7,7 @@ using NUnit.Framework;
 using SubstrateNetApi;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetWallet;
 

@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Chaos.NaCl;
-using dotnetstandard_bip39;
 using NLog;
 using Schnorrkel;
 using Schnorrkel.Keys;
@@ -19,6 +18,7 @@ using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
+using static SubstrateNetApi.Mnemonic;
 
 [assembly: InternalsVisibleTo("SubstrateNetWalletTests")]
 
@@ -419,11 +419,18 @@ namespace SubstrateNetWallet
         {
             Logger.Info($"Connecting to {webSocketUrl}");
 
-            Client = new SubstrateClient(new Uri(webSocketUrl));
+            var client = new SubstrateClient(new Uri(webSocketUrl));
 
-            //TODO check if that can be made generic as parameter
-            Client.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
-            Client.RegisterTypeConverter(new GenericTypeConverter<MogwaiBios>());
+            await ConnectAsync(client);
+        }
+
+        /// <summary>
+        /// Connects the asynchronous.
+        /// </summary>
+        /// <param name="webSocketUrl">The web socket URL.</param>
+        private async Task ConnectAsync(SubstrateClient client)
+        {
+            Client = client;
 
             await Client.ConnectAsync(_connectTokenSource.Token);
 
@@ -459,6 +466,29 @@ namespace SubstrateNetWallet
 
             // connect wallet
             await ConnectAsync(webSocketUrl);
+
+            if (IsConnected)
+            {
+                Logger.Warn("Starting subscriptions now.");
+                await RefreshSubscriptionsAsync();
+            }
+        }
+
+        /// <summary>
+        /// Starts the asynchronous.
+        /// </summary>
+        /// <param name="webSocketUrl">The web socket URL.</param>
+        public async Task StartAsync(SubstrateClient client)
+        {
+            // disconnect from node if we are already connected to one.
+            if (IsConnected)
+            {
+                Logger.Warn($"Wallet already connected, disconnecting from {ChainInfo} now");
+                await StopAsync();
+            }
+
+            // connect wallet
+            await ConnectAsync(client);
 
             if (IsConnected)
             {

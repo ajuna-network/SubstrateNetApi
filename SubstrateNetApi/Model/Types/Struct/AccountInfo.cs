@@ -1,14 +1,12 @@
 ﻿using System;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class AccountInfo : StructType
+    public class AccountInfo : BaseType
     {
-        public override string Name() => "AccountInfo<T::Index, T::AccountData>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "AccountInfo<T::Index, T::AccountData>";
 
         public override byte[] Encode()
         {
@@ -31,7 +29,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             AccountData = new AccountData();
             AccountData.Decode(byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         public U32 Nonce { get; private set; }

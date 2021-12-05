@@ -1,10 +1,10 @@
 ﻿namespace SubstrateNetApi.Model.Types.Base
 {
-    public class Hash : BaseType<string>
+    public class Hash : BasePrim<string>
     {
-        public override string Name() => "T::Hash";
+        public override string TypeName() => "T::Hash";
 
-        public override int Size() => 32;
+        public override int TypeSize => 32;
 
         public override byte[] Encode()
         {

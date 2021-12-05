@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Base
 {
     public class AssetId : U32
     {
-        public override string Name() => "AssetId";
+        public override string TypeName() => "AssetId";
     }
 }

@@ -26,8 +26,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --filter SubstrateNetApi\!~IntegrationTest --no-build --verbosity normal
-    - name: Publish SubstrateNetApi
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: SubstrateNetApi/SubstrateNetApi/SubstrateNetApi.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+#    - name: Publish SubstrateNetApi
+#      uses: brandedoutcast/publish-nuget@v2.5.2
+#      with:
+#          PROJECT_FILE_PATH: SubstrateNetApi/SubstrateNetApi/SubstrateNetApi.csproj
+#          NUGET_KEY: ${{secrets.NUGET_API_KEY}}

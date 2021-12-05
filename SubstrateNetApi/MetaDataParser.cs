@@ -24,7 +24,6 @@ namespace SubstrateNetApi
             };
 
             var mlen = CompactInteger.Decode(m, ref p);
-
             MetaData.Modules = new Module[mlen];
             for (var modIndex = 0; modIndex < mlen; modIndex++)
             {
@@ -50,14 +49,10 @@ namespace SubstrateNetApi
 
                         item.Type = (Storage.Type) BitConverter.ToInt16(new byte[] {m[p++], 0x00}, 0);
 
-                        item.Function = new Function
-                        {
-                            Hasher = (Storage.Hasher) (item.Type != Storage.Type.Plain
-                                ? BitConverter.ToInt16(new byte[] {m[p++], 0x00}, 0)
-                                : -1)
-                        };
+                        item.Function = new Function();
 
                         // default
+                        item.Function.Hasher = Storage.Hasher.None;
                         item.Function.Key1 = null;
                         item.Function.Key2 = null;
                         item.Function.IsLinked = null;
@@ -69,17 +64,31 @@ namespace SubstrateNetApi
                                 item.Function.Value = ExtractString(m, ref p);
                                 break;
                             case Storage.Type.Map:
+                                item.Function.Hasher = (Storage.Hasher)(BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0));
                                 item.Function.Key1 = ExtractString(m, ref p);
                                 item.Function.Value = ExtractString(m, ref p);
                                 item.Function.IsLinked = m[p++] != 0;
                                 break;
                             case Storage.Type.DoubleMap:
+                                item.Function.Hasher = (Storage.Hasher)(BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0));
                                 item.Function.Key1 = ExtractString(m, ref p);
                                 item.Function.Key2 = ExtractString(m, ref p);
                                 item.Function.Value = ExtractString(m, ref p);
-                                item.Function.Key2Hasher = (Storage.Hasher)(item.Type != Storage.Type.Plain
-                                ? BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0)
-                                : -1);
+                                item.Function.Key2Hasher = (Storage.Hasher)(BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0));
+                                break;
+                            case Storage.Type.NMap:
+                                // TODO: Implement in a new metadata model
+                                var keysLen = CompactInteger.Decode(m, ref p);
+                                for (var j = 0; j < keysLen; j++)
+                                {
+                                    var key = ExtractString(m, ref p);
+                                }
+                                var hashersLen = CompactInteger.Decode(m, ref p);
+                                for (var j = 0; j < hashersLen; j++)
+                                {
+                                    var hasher = (Storage.Hasher)(BitConverter.ToInt16(new byte[] { m[p++], 0x00 }, 0));
+                                }
+                                item.Function.Value = ExtractString(m, ref p);
                                 break;
                         }
 
@@ -87,7 +96,10 @@ namespace SubstrateNetApi
 
                         var docLen = CompactInteger.Decode(m, ref p);
                         item.Documentations = new string[docLen];
-                        for (var j = 0; j < docLen; j++) item.Documentations[j] = ExtractString(m, ref p);
+                        for (var j = 0; j < docLen; j++)
+                        {
+                            item.Documentations[j] = ExtractString(m, ref p);
+                        }
 
                         module.Storage.Items[i] = item;
                     }
@@ -118,7 +130,10 @@ namespace SubstrateNetApi
 
                         var docLen = CompactInteger.Decode(m, ref p);
                         call.Documentations = new string[docLen];
-                        for (var j = 0; j < docLen; j++) call.Documentations[j] = ExtractString(m, ref p);
+                        for (var j = 0; j < docLen; j++)
+                        {
+                            call.Documentations[j] = ExtractString(m, ref p);
+                        }
 
                         module.Calls[i] = call;
                     }
@@ -139,11 +154,17 @@ namespace SubstrateNetApi
                         var argsLen = CompactInteger.Decode(m, ref p);
                         evnt.EventArgs = new string[argsLen];
 
-                        for (var j = 0; j < argsLen; j++) evnt.EventArgs[j] = ExtractString(m, ref p);
+                        for (var j = 0; j < argsLen; j++)
+                        {
+                            evnt.EventArgs[j] = ExtractString(m, ref p);
+                        }
 
                         var docLen = CompactInteger.Decode(m, ref p);
                         evnt.Documentations = new string[docLen];
-                        for (var j = 0; j < docLen; j++) evnt.Documentations[j] = ExtractString(m, ref p);
+                        for (var j = 0; j < docLen; j++)
+                        {
+                            evnt.Documentations[j] = ExtractString(m, ref p);
+                        }
 
                         module.Events[i] = evnt;
                     }
@@ -162,7 +183,10 @@ namespace SubstrateNetApi
 
                     var docLen = CompactInteger.Decode(m, ref p);
                     cons.Documentations = new string[docLen];
-                    for (var j = 0; j < docLen; j++) cons.Documentations[j] = ExtractString(m, ref p);
+                    for (var j = 0; j < docLen; j++)
+                    {
+                        cons.Documentations[j] = ExtractString(m, ref p);
+                    }
 
                     module.Consts[i] = cons;
                 }
@@ -178,7 +202,10 @@ namespace SubstrateNetApi
 
                     var docLen = CompactInteger.Decode(m, ref p);
                     err.Documentations = new string[docLen];
-                    for (var j = 0; j < docLen; j++) err.Documentations[j] = ExtractString(m, ref p);
+                    for (var j = 0; j < docLen; j++)
+                    {
+                        err.Documentations[j] = ExtractString(m, ref p);
+                    }
 
                     module.Errors[i] = err;
                 }
@@ -188,12 +215,14 @@ namespace SubstrateNetApi
                 MetaData.Modules[modIndex] = module;
             }
 
-            var eLen = CompactInteger.Decode(m, ref p);
-            for (var i = 0; i < eLen; i++)
+
+            MetaData.Extrinsic = new ExtrinsicExtension();
+            MetaData.Extrinsic.Version = m[p++];
+            var itmLen = CompactInteger.Decode(m, ref p);
+            MetaData.Extrinsic.SignedExtensions = new string[itmLen];
+            for (var j = 0; j < itmLen; j++)
             {
-                var itmLen = CompactInteger.Decode(m, ref p);
-                MetaData.ExtrinsicExtensions = new string[itmLen];
-                for (var j = 0; j < itmLen; j++) MetaData.ExtrinsicExtensions[j] = ExtractString(m, ref p);
+                MetaData.Extrinsic.SignedExtensions[j] = ExtractString(m, ref p);
             }
 
             return MetaData;
@@ -203,7 +232,11 @@ namespace SubstrateNetApi
         {
             var value = CompactInteger.Decode(m, ref p);
             var bytes = new byte[value];
-            for (var i = 0; i < value; i++) bytes[i] = m[p++];
+            for (var i = 0; i < value; i++)
+            {
+                bytes[i] = m[p++];
+            }
+
             return bytes;
         }
 
@@ -212,7 +245,11 @@ namespace SubstrateNetApi
             var value = CompactInteger.Decode(m, ref p);
 
             var s = string.Empty;
-            for (var i = 0; i < value; i++) s += (char) m[p++];
+            for (var i = 0; i < value; i++)
+            {
+                s += (char) m[p++];
+            }
+
             return s;
         }
     }

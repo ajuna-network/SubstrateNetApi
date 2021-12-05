@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
 
@@ -35,8 +35,8 @@ namespace SubstrateNetApi.Model.Rpc
         [JsonConverter(typeof(GenericTypeConverter<Hash>))]
         public Hash Block { get; set; }
 
-        [JsonConverter(typeof(GenericTypeConverter<Vec<RustTuple<StorageKey, StorageData>>>))]
-        public Vec<RustTuple<StorageKey, StorageData>> Changes { get; set; }
+        [JsonConverter(typeof(GenericTypeConverter<BaseVec<BaseTuple<StorageKey, StorageData>>>))]
+        public BaseVec<BaseTuple<StorageKey, StorageData>> Changes { get; set; }
 
         public override string ToString()
         {

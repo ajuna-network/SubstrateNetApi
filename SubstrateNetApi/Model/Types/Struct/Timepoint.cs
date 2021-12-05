@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class Timepoint : StructType
+    public class Timepoint : BaseType
     {
-        public override string Name() => "Timepoint<T::BlockNumber>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "Timepoint<T::BlockNumber>";
 
         public override byte[] Encode()
         {
@@ -27,7 +23,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             Index = new U32();
             Index.Decode(byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         public BlockNumber Height { get; private set; }

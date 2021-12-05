@@ -17,6 +17,7 @@ using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Rpc;
 using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.Modules;
 using SubstrateNetApi.TypeConverters;
@@ -79,10 +80,10 @@ namespace SubstrateNetApi
             RegisterTypeConverter(new GenericTypeConverter<AccountInfo>());
             RegisterTypeConverter(new GenericTypeConverter<AccountData>());
             RegisterTypeConverter(new GenericTypeConverter<Hash>());
-            RegisterTypeConverter(new GenericTypeConverter<Vec<U8>>());
-            RegisterTypeConverter(new GenericTypeConverter<Vec<U32>>());
-            RegisterTypeConverter(new GenericTypeConverter<Vec<Hash>>());
-            RegisterTypeConverter(new GenericTypeConverter<Vec<AccountId>>());
+            RegisterTypeConverter(new GenericTypeConverter<BaseVec<U8>>());
+            RegisterTypeConverter(new GenericTypeConverter<BaseVec<U32>>());
+            RegisterTypeConverter(new GenericTypeConverter<BaseVec<Hash>>());
+            RegisterTypeConverter(new GenericTypeConverter<BaseVec<AccountId>>());
 
             //RegisterTypeConverter(new AccountInfoTypeConverter());
 
@@ -136,6 +137,36 @@ namespace SubstrateNetApi
                 throw new ConverterAlreadyRegisteredException("Converter for specified type already registered.");
 
             _typeConverters.Add(converter.TypeName, converter);
+        }
+
+        public async Task ConnectLightAsync(CancellationToken token)
+        {
+            if (_socket != null && _socket.State == WebSocketState.Open)
+                return;
+
+            if (_socket == null || _socket.State != WebSocketState.None)
+            {
+                _jsonRpc?.Dispose();
+                _socket?.Dispose();
+                _socket = new ClientWebSocket();
+            }
+
+            _connectTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _connectTokenSource.Token);
+            await _socket.ConnectAsync(_uri, linkedTokenSource.Token);
+            linkedTokenSource.Dispose();
+            _connectTokenSource.Dispose();
+            _connectTokenSource = null;
+            Logger.Debug("Connected to Websocket.");
+
+            var formatter = new JsonMessageFormatter();
+
+            _jsonRpc = new JsonRpc(new WebSocketMessageHandler(_socket, formatter));
+            _jsonRpc.TraceSource.Listeners.Add(new NLogTraceListener());
+            _jsonRpc.TraceSource.Switch.Level = SourceLevels.Warning;
+            _jsonRpc.AddLocalRpcTarget(Listener, new JsonRpcTargetOptions { AllowNonPublicInvocation = false });
+            _jsonRpc.StartListening();
+            Logger.Debug("Listening to websocket.");
         }
 
         /// <summary> Connects an asynchronous. </summary>
@@ -383,7 +414,8 @@ namespace SubstrateNetApi
         //    if (key.StartsWith("("))
         //    {
         //        var keysDelimited = key.Replace("(", "").Replace(")", "");
-        //        var keys = keysDelimited.Split(',');
+        //        var keys = keysDelimited.
+        //        (',');
         //        if (keys.Length != parameter.Length)
         //            throw new MissingParameterException(
         //                $"{moduleName}.{itemName} needs {keys.Length} keys, but provided where {parameter.Length} keys!");

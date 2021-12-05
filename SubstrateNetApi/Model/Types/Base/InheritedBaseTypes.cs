@@ -1,77 +1,79 @@
-﻿namespace SubstrateNetApi.Model.Types.Base
+﻿using SubstrateNetApi.Model.Types.Primitive;
+
+namespace SubstrateNetApi.Model.Types.Base
 {
     public class AuthorityId : AccountId
     {
-        public override string Name() => "AuthorityId";
+        public override string TypeName() => "AuthorityId";
     }
 
     public class AuthorityWeight : U64
     {
-        public override string Name() => "AuthorityWeight";
+        public override string TypeName() => "AuthorityWeight";
     }
 
     public class Topic : Hash
     {
-        public override string Name() => "Topic";
+        public override string TypeName() => "Topic";
     }
 
     public class EraIndex : U32
     {
-        public override string Name() => "EraIndex";
+        public override string TypeName() => "EraIndex";
     }
 
     public class AccountIndex : U32
     {
-        public override string Name() => "AccountIndex";
+        public override string TypeName() => "AccountIndex";
     }
 
     public class ApplyExtrinsic : U32
     {
-        public override string Name() => "ApplyExtrinsic";
+        public override string TypeName() => "ApplyExtrinsic";
     }
 
     public class BountyIndex : U32
     {
-        public override string Name() => "BountyIndex";
+        public override string TypeName() => "BountyIndex";
     }
 
     public class CallHash : Hash
     {
-        public override string Name() => "CallHash";
+        public override string TypeName() => "CallHash";
     }
 
     public class MemberCount : U32
     {
-        public override string Name() => "MemberCount";
+        public override string TypeName() => "MemberCount";
     }
 
     public class PropIndex : U32
     {
-        public override string Name() => "PropIndex";
+        public override string TypeName() => "PropIndex";
     }
 
     public class SessionIndex : U32
     {
-        public override string Name() => "SessionIndex";
+        public override string TypeName() => "SessionIndex";
     }
 
     public class ProposalIndex : U32
     {
-        public override string Name() => "ProposalIndex";
+        public override string TypeName() => "ProposalIndex";
     }
 
     public class ReferendumIndex : U32
     {
-        public override string Name() => "ReferendumIndex";
+        public override string TypeName() => "ReferendumIndex";
     }
 
     public class RefCount : U32
     {
-        public override string Name() => "RefCount";
+        public override string TypeName() => "RefCount";
     }
 
     public class RegistrarIndex : U32
     {
-        public override string Name() => "RegistrarIndex";
+        public override string TypeName() => "RegistrarIndex";
     }
 }

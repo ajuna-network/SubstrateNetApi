@@ -3,14 +3,10 @@ using SubstrateNetApi.Model.Types.Base;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class AccountData : StructType
+    public class AccountData : BaseType
     { 
-        public override string Name() => "AccountData<T::Balance>";
-        
-        private int _size;
-        public override int Size() => _size;
-
-        
+        public override string TypeName() => "AccountData<T::Balance>";
+                
         public override byte[] Encode()
         {
             throw new NotImplementedException();
@@ -32,7 +28,7 @@ namespace SubstrateNetApi.Model.Types.Struct
             FeeFrozen = new Balance();
             FeeFrozen.Decode(byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         public Balance Free { get; private set; }

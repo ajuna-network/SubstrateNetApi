@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Text;
-using Newtonsoft.Json;
 using SubstrateNetApi.Model.Meta;
 using SubstrateNetApi.Model.Types.Base;
+using SubstrateNetApi.Model.Types.Primitive;
 
 namespace SubstrateNetApi.Model.Types.Struct
 {
-    public class EventRecord : StructType
+    public class EventRecord : BaseType
     {
-        public override string Name() => "EventRecord<T::Event, T::Hash>";
-
-        private int _size;
-        public override int Size() => _size;
+        public override string TypeName() => "EventRecord<T::Event, T::Hash>";
 
         private MetaData _metaData;
 
@@ -44,14 +40,14 @@ namespace SubstrateNetApi.Model.Types.Struct
             BaseEvent = new BaseEvent(_metaData);
             BaseEvent.Decode(byteArray, ref p);
 
-            Topics = new Vec<Topic>();
+            Topics = new BaseVec<Topic>();
             Topics.Decode(byteArray, ref p);
 
-            _size = p - start;
+            TypeSize = p - start;
         }
 
         public Phase Phase;
         public BaseEvent BaseEvent;
-        public Vec<Topic> Topics;
+        public BaseVec<Topic> Topics;
     }
 }

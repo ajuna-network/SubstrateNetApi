@@ -6,6 +6,7 @@ using SubstrateNetApi.Model.Types;
 using SubstrateNetApi.Model.Types.Base;
 using SubstrateNetApi.Model.Types.Custom;
 using SubstrateNetApi.Model.Types.Enum;
+using SubstrateNetApi.Model.Types.Primitive;
 using SubstrateNetApi.Model.Types.Struct;
 using SubstrateNetApi.TypeConverters;
 
@@ -16,8 +17,8 @@ namespace SubstrateNetApiTests
         [Test]
         public void VecU8EncodingTest()
         {
-            var tc = new GenericTypeConverter<Vec<U8>>();
-            var actual = (Vec<U8>)tc.Create("0x200101020304050607");
+            var tc = new GenericTypeConverter<BaseVec<U8>>();
+            var actual = (BaseVec<U8>)tc.Create("0x200101020304050607");
 
             Assert.AreEqual(actual.Bytes, actual.Encode());
 
@@ -30,12 +31,12 @@ namespace SubstrateNetApiTests
             var t7 = new U8(); t7.Create(actual.Value[6].Value);
             var t8 = new U8(); t8.Create(actual.Value[7].Value);
 
-            List <U8> list = new List<U8>()
+            U8[] list = new U8[]
             {
                 t1,t2,t3,t4,t5,t6,t7,t8
             };
 
-            var vecU8 = new Vec<U8>();
+            var vecU8 = new BaseVec<U8>();
             vecU8.Create(list);
 
             Assert.AreEqual("0x200101020304050607", Utils.Bytes2HexString(vecU8.Bytes));
@@ -45,8 +46,8 @@ namespace SubstrateNetApiTests
         [Test]
         public void EnumEncodingTest()
         {
-            var dispatchClass1 = new EnumType<DispatchClass>();
-            var dispatchClass2 = new EnumType<DispatchClass>();
+            var dispatchClass1 = new BaseEnum<DispatchClass>();
+            var dispatchClass2 = new BaseEnum<DispatchClass>();
 
 
             dispatchClass1.Create("0x00");
@@ -72,8 +73,8 @@ namespace SubstrateNetApiTests
         [Test]
         public void OptionEncodingTest()
         {
-            var optionU8Null = new Option<U8>();
-            var optionU8One = new Option<U8>();
+            var optionU8Null = new BaseOpt<U8>();
+            var optionU8One = new BaseOpt<U8>();
 
             optionU8Null.Create("0x00");
             optionU8One.Create("0x0100");
@@ -88,7 +89,7 @@ namespace SubstrateNetApiTests
         [Test]
         public void ExtEnumEncodingTest()
         {
-            var extEnumType = new ExtEnumType<PhaseState, U8, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>();
+            var extEnumType = new BaseEnumExt<PhaseState, U8, Void, Void, Void, Void, Void, Void, Void, Void>();
 
             int p = 0;
             extEnumType.Decode(new byte[] { 0x00, 0x01 }, ref p);

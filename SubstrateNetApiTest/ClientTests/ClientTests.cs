@@ -67,9 +67,8 @@ namespace SubstrateNetApiTests.ClientTests
         [Test]
         public void MultipleConverterTest()
         {
-            _substrateClient.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>());
             Assert.Throws<ConverterAlreadyRegisteredException>(() =>
-                _substrateClient.RegisterTypeConverter(new GenericTypeConverter<MogwaiStruct>()));
+                _substrateClient.RegisterTypeConverter(new GenericTypeConverter<AccountData>()));
         }
 
         [Test]
